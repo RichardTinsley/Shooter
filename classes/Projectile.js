@@ -1,60 +1,27 @@
-//export default class Projectile extends Sprite {
-//     constructor({ position = { x: 0, y: 0 }, enemy }) {
-//         super({ position, imageSrc: 'img/projectile.png' })
-//         this.velocity = {
-//         x: 0,
-//         y: 0
-//         }
-//         this.enemy = enemy
-//         this.radius = 10
-//     }
+import Sprite from './Sprite.js'
 
-//     update() {
-//         this.draw()
-
-//         const angle = Math.atan2(
-//         this.enemy.center.y - this.position.y,
-//         this.enemy.center.x - this.position.x
-//         )
-
-//         const speed = 5
-//         this.velocity.x = Math.cos(angle) * speed
-//         this.velocity.y = Math.sin(angle) * speed
-
-//         this.position.x += this.velocity.x
-//         this.position.y += this.velocity.y
-//     }
-// }
-
-export default class Projectile {
+export default class Projectile extends Sprite {
     constructor({ position = { x: 0, y: 0 }, enemy }) {
-        this.position = position;
+        super({ position, imageSrc: 'img/projectile.png' });
         this.velocity = {
             x: 0,
             y: 0
-        }
-        this.enemy = enemy
-        this.radius = 10
+        };
+        this.enemy = enemy;
+        this.radius = 10;
+        this.speed = 10;
     }
-    draw(ctx) {
-        ctx.beginPath()
-        ctx.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2)
-        ctx.fillStyle = "red"
-        ctx.fill()
-    }
+
     update(ctx) {
-        this.draw(ctx)
-    
+        this.draw(ctx);
         const angle = Math.atan2(
-        this.enemy.center.y - this.position.y,
-        this.enemy.center.x - this.position.x
-    )
+            this.enemy.center.y - this.position.y,
+            this.enemy.center.x - this.position.x
+        );
     
-        const speed = 5
-        this.velocity.x = Math.cos(angle) * speed
-        this.velocity.y = Math.sin(angle) * speed
-    
-        this.position.x += this.velocity.x
-        this.position.y += this.velocity.y
+        this.velocity.x = Math.cos(angle) * this.speed;
+        this.velocity.y = Math.sin(angle) * this.speed;
+        this.position.x += this.velocity.x;
+        this.position.y += this.velocity.y;
     }
 }

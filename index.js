@@ -1,6 +1,7 @@
 import Enemy from './classes/Enemy.js';
 import PlacementTile from './classes/placementTile.js';
 import Building from './classes/Building.js'
+import Sprite from './classes/Sprite.js'
 import { waypoints, placementTilesData } from './classes/mapInfo.js';
 
 const canvas = document.getElementById('canvas');
@@ -13,6 +14,14 @@ image.onload = () => { //COMMENT OUT THIS LATER EXPERIMENT
     animate();
 };
 image.src = 'img/LEVEL1.png';
+
+function drawText(text, x, y, textSize){
+    ctx.fillStyle = 'white';
+    ctx.font = 'bold ' + textSize + 'px Arial';
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(text, x, y);
+}
 
 const placementTilesData2D = [];
 for (let i = 0; i < placementTilesData.length; i+= 40){
@@ -42,21 +51,59 @@ function spawnEnemies(spawnCount) {
         enemies.push(new Enemy({ position: { x: waypoints[0].x - xOffset, y: waypoints[0].y } }))
     }
 }
-let enemyCount = 3;
+let enemyCount = 5;
+let enemyExtras = 2;
+let hearts = 10;
+let coins = 100;
+let waves = 1;
+const explosions = [];
 spawnEnemies(enemyCount);
 
 const buildings = [];
 let activeTile = undefined;
 
 function animate(){
-    requestAnimationFrame(animate);
+    const animationID = requestAnimationFrame(animate);
     ctx.drawImage(image, 0, 0);
-    enemies.forEach((enemy) => {
+    drawText(hearts, 67, 85, 20);
+    drawText(coins, 165, 85, 20);
+    drawText(waves, 67, 112, 20);
+
+    for (let i = enemies.length - 1; i >= 0; i--){
+        const enemy = enemies[i];
         enemy.update(ctx);
-    });
+
+        if (enemy.position.x > canvas.width){
+            hearts -= 1;
+            enemies.splice(i, 1);
+
+            if(hearts === 0){
+                cancelAnimationFrame(animationID);
+                drawText("GAME OVER", canvas.width / 2, canvas.height / 2, 30);
+            }
+        }
+    }
+
+    for (let i = explosions.length - 1; i >= 0; i--) {
+        const explosion = explosions[i];
+        explosion.draw(ctx);
+        explosion.update(ctx);
+    
+        if (explosion.frames.current >= explosion.frames.max - 1) {
+            explosions.splice(i, 1);
+        }
+    }
+    
+    if (enemies.length === 0){
+        waves++;
+        enemyCount += enemyExtras;
+        spawnEnemies(enemyCount);
+    }
+
     placementTiles.forEach((tile) => {
         tile.update(mouse, ctx);
     })
+
     buildings.forEach((building) => {
         building.update(ctx);
         building.target = null;
@@ -68,14 +115,35 @@ function animate(){
         })
 
         building.target = validEnemies[0];
-
         for (let i = building.projectiles.length - 1; i >= 0; i-- ){
             const projectile = building.projectiles[i];
+
             projectile.update(ctx);
+
             const xDifference = projectile.enemy.center.x - projectile.position.x;
             const yDifference = projectile.enemy.center.y - projectile.position.y;
             const distance = Math.hypot(xDifference, yDifference);
+
             if (distance < projectile.enemy.radius + projectile.radius){
+                projectile.enemy.health -= 20;
+
+                if(projectile.enemy.health <= 0){
+                    const enemyIndex = enemies.findIndex((enemy) => {
+                        return projectile.enemy === enemy;
+                    });
+                    if (enemyIndex > -1){
+                        enemies.splice(enemyIndex, 1);
+                        coins += 25;
+                    }
+                }
+                explosions.push(
+                    new Sprite({
+                        position: { x: projectile.position.x, y: projectile.position.y },
+                        imageSrc: './img/explosion.png',
+                        frames: { max: 12 },
+                        offset: { x: - 80, y: -80 }
+                    })
+                )
                 building.projectiles.splice(i, 1);
             }
         }
@@ -88,21 +156,19 @@ const mouse = {
 }
 
 canvas.addEventListener('click', (event) => {
-    // if (activeTile && !activeTile.isOccupied && coins - 50 >= 0) {
-    if (activeTile && !activeTile.isOccupied) {
-        // coins -= 50
-        // document.querySelector('#coins').innerHTML = coins
+    if (activeTile && !activeTile.isOccupied && coins - 25 >= 0) {
+        coins -= 25
         buildings.push(
         new Building({
             position: {
-            x: activeTile.position.x,
-            y: activeTile.position.y
+                x: activeTile.position.x,
+                y: activeTile.position.y
             }
         })
         )
         activeTile.isOccupied = true
         buildings.sort((a, b) => {
-        return a.position.y - b.position.y
+            return a.position.y - b.position.y
         })
     }
 })
@@ -125,3 +191,16 @@ window.addEventListener('mousemove', (event) => {
         }
     }
 })
+
+/* 
+Emerald  	Poison, damage, reduce armour
+Amethyst  	Air Attack only
+Gold 		money generation, weak damage
+Saphire		Freeze / slow
+Diamond		Heavy damage
+Ruby		Splash damage
+Opal		Tower boost auras
+Uranium		Enemy Damage, weakness auras
+*/
+
+
