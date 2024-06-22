@@ -54,7 +54,7 @@ const explosions = [];
 const buildings = [];
 
 let counter = 0;
-let enemyCount = 10;
+let enemyCount = 20;
 let enemyExtras = 3;
 let hearts = 10;
 let coins = 100;
@@ -70,8 +70,8 @@ function spawnEnemies(enemyCount) {
                 y: waypoint.y + Math.round(Math.random() * 50 - 25)
             });
         })
-        // const enemySpeed = Math.random() * 1 + 1;
-        enemies.push(new Enemy({ position: { x: waypoints[0].x, y: waypoints[0].y }}, randomWaypoints, 1, false))
+        const enemySpeed = Math.random() * 1 + .5;
+        enemies.push(new Enemy({ position: { x: waypoints[0].x, y: waypoints[0].y }}, randomWaypoints, enemySpeed, false))
     }
 }
 
@@ -85,19 +85,24 @@ function animate(){
     drawText(waves, 67, 112, 20,'left');
     
     if (animationID % Math.round(Math.random() * 500) == 0 && counter < enemies.length){
-        enemies[counter].activeStatus = true;
+        const enemyIndex = enemies.findIndex((enemy) => {
+            return enemy.activeStatus === false;
+        });
+        enemies[enemyIndex].activeStatus = true;
         counter++;        
     }
+    enemies.sort((a, b) => b.position.y - a.position.y);
+    console.log(enemies.length);
 
     for (let i = enemies.length - 1; i >= 0; i--){
         const enemy = enemies[i];
         if(enemy.activeStatus == true)
             enemy.update(ctx);
-
+        
         if (enemy.position.x > canvas.width){
             hearts -= 1;
             enemies.splice(i, 1);
-
+            
             if(hearts === 0){
                 cancelAnimationFrame(animationID);
                 drawText("GAME OVER", canvas.width / 2, canvas.height / 2, 30, 'center');
