@@ -26,6 +26,8 @@ export default class Sprite {
             width: cropWidth,
             height: this.image.height
         }
+        // ctx.translate(this.position.x + this.offset.x + this.image.src.width, this.position.y + this.offset.y);
+        // ctx.scale(-1,1);
         ctx.drawImage(
             this.image, 
             crop.position.x, 

@@ -53,8 +53,9 @@ const enemies = [];
 const explosions = [];
 const buildings = [];
 
-let enemyCount = 5;
-let enemyExtras = 2;
+let counter = 0;
+let enemyCount = 10;
+let enemyExtras = 3;
 let hearts = 10;
 let coins = 100;
 let waves = 1;
@@ -69,8 +70,8 @@ function spawnEnemies(enemyCount) {
                 y: waypoint.y + Math.round(Math.random() * 50 - 25)
             });
         })
-        const enemySpeed = Math.random() * 1 + 1;
-        enemies.push(new Enemy({ position: { x: waypoints[0].x, y: waypoints[0].y }}, randomWaypoints, enemySpeed, false))
+        // const enemySpeed = Math.random() * 1 + 1;
+        enemies.push(new Enemy({ position: { x: waypoints[0].x, y: waypoints[0].y }}, randomWaypoints, 1, false))
     }
 }
 
@@ -78,22 +79,20 @@ spawnEnemies(enemyCount);
 
 function animate(){
     const animationID = requestAnimationFrame(animate);
-    const enemySpawnTimer = Math.round(Math.random() * 200);
-
     ctx.drawImage(image, 0, 0);
     drawText(hearts, 67, 85, 20,'left');
     drawText(coins, 165, 85, 20,'left');
     drawText(waves, 67, 112, 20,'left');
-
-    // if (animationID % enemySpawnTimer == 0 && enemyCount != 0){
-    //     enemies.push(new Enemy({ position: { x: waypoints[0].x, y: waypoints[0].y } }))
-    //     enemyCount--;
-    //     console.log(enemyCount);
-    // }
+    
+    if (animationID % Math.round(Math.random() * 500) == 0 && counter < enemies.length){
+        enemies[counter].activeStatus = true;
+        counter++;        
+    }
 
     for (let i = enemies.length - 1; i >= 0; i--){
         const enemy = enemies[i];
-        enemy.update(ctx);
+        if(enemy.activeStatus == true)
+            enemy.update(ctx);
 
         if (enemy.position.x > canvas.width){
             hearts -= 1;
@@ -107,6 +106,7 @@ function animate(){
     }
 
     if (enemies.length === 0){
+        counter = 0;
         waves++;
         enemyCount += enemyExtras;
         spawnEnemies(enemyCount);

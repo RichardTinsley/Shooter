@@ -37,30 +37,28 @@ export default class Enemy extends Sprite {
         ctx.fillStyle = 'green';
         ctx.fillRect(this.position.x, this.position.y - 15, this.radius * this.health / 100, 5);
         
-        ctx.beginPath();
-        ctx.arc(this.center.x, this.center.y, this.radius, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(0, 0, 255, 0.2)';
-        ctx.fill();
+        // ctx.beginPath();
+        // ctx.arc(this.center.x, this.center.y, this.radius, 0, Math.PI * 2);
+        // ctx.fillStyle = 'rgba(0, 0, 255, 0.2)';
+        // ctx.fill();
     }
     update(ctx){
-        this.draw(ctx);
         super.update(ctx);
-        console.log(this.activeStatus);
         const waypoint = this.waypoints[this.waypointIndex];
         const yDistance = waypoint.y - this.center.y;
         const xDistance = waypoint.x - this.center.x;
         const angle = Math.atan2(yDistance, xDistance);
-
+        
         this.velocity.x = Math.cos(angle) * this.speed;
         this.velocity.y = Math.sin(angle) * this.speed;
-
+        
         this.position.x += this.velocity.x;
         this.position.y += this.velocity.y;
         this.center = {
             x: this.position.x + this.radius / 2,
             y: this.position.y + this.radius / 2
         };
-
+        
         if( Math.abs(Math.round(this.center.x) - Math.round(waypoint.x)) <
             Math.abs(this.velocity.x) && 
             Math.abs(Math.round(this.center.y) - Math.round(waypoint.y)) <
@@ -69,5 +67,22 @@ export default class Enemy extends Sprite {
         ){
             this.waypointIndex++;
         }
+        // if (xDistance < -1){
+        //     // ctx.translate(this.position.x + this.offset.x + this.image.src.width, this.position.y + this.offset.y);
+        //     ctx.scale(-1,1);
+        //     ctx.drawImage(
+        //         this.image, 
+        //         crop.position.x * -1, 
+        //         crop.position.y, 
+        //         crop.width, 
+        //         crop.height,
+        //         this.position.x + this.offset.x, 
+        //         this.position.y + this.offset.y,
+        //         crop.width,
+        //         crop.height
+        //     );
+        // }
+
+        this.draw(ctx, xDistance);
     }
 }
