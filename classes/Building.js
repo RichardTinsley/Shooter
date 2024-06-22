@@ -47,13 +47,13 @@ export default class Building extends Sprite {
     }
 
     shoot() {
-    this.projectiles.push(
-        new Projectile({
-            position: {
-                x: this.center.x - 15,
-                y: this.center.y - 45
-            },
-            enemy: this.target
+        this.projectiles.push(
+            new Projectile({
+                position: {
+                    x: this.center.x - 15,
+                    y: this.center.y - 45
+                },
+                enemy: this.target
             })
         )
     }

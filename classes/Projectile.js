@@ -14,6 +14,7 @@ export default class Projectile extends Sprite {
 
     update(ctx) {
         this.draw(ctx);
+        
         const angle = Math.atan2(
             this.enemy.center.y - this.position.y,
             this.enemy.center.x - this.position.x

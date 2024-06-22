@@ -37,6 +37,7 @@ export default class Sprite {
             crop.width,
             crop.height
         );
+        
     }
     update(ctx){
         this.frames.elapsed++;

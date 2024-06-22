@@ -9,16 +9,21 @@ const ctx = canvas.getContext('2d');
 canvas.width = 1280;
 canvas.height = 768;
 
+const mouse = {
+    x: undefined,
+    y: undefined
+}
+
 const image = new Image();
-image.onload = () => { //COMMENT OUT THIS LATER EXPERIMENT
+image.onload = () => { 
     animate();
 };
 image.src = 'img/LEVEL1.png';
 
-function drawText(text, x, y, textSize){
+function drawText(text, x, y, textSize, align){
     ctx.fillStyle = 'white';
     ctx.font = 'bold ' + textSize + 'px Arial';
-    ctx.textAlign = 'left';
+    ctx.textAlign = align;
     ctx.textBaseline = 'middle';
     ctx.fillText(text, x, y);
 }
@@ -45,29 +50,46 @@ placementTilesData2D.forEach((row, y) => {
 })
 
 const enemies = [];
-function spawnEnemies(spawnCount) {
-    for (let i = 1; i < spawnCount + 1; i++) {
-        const xOffset = i * 50;
-        enemies.push(new Enemy({ position: { x: waypoints[0].x - xOffset, y: waypoints[0].y } }))
-    }
-}
+const explosions = [];
+const buildings = [];
+
 let enemyCount = 5;
 let enemyExtras = 2;
 let hearts = 10;
 let coins = 100;
 let waves = 1;
-const explosions = [];
-spawnEnemies(enemyCount);
-
-const buildings = [];
 let activeTile = undefined;
+
+function spawnEnemies(enemyCount) {
+    for (let i = 1; i < enemyCount + 1; i++) {
+        const randomWaypoints = [];
+        waypoints.forEach((waypoint) => {
+            randomWaypoints.push({ 
+                x: waypoint.x + Math.round(Math.random() * 50 - 25),
+                y: waypoint.y + Math.round(Math.random() * 50 - 25)
+            });
+        })
+        const enemySpeed = Math.random() * 1 + 1;
+        enemies.push(new Enemy({ position: { x: waypoints[0].x, y: waypoints[0].y }}, randomWaypoints, enemySpeed, false))
+    }
+}
+
+spawnEnemies(enemyCount);
 
 function animate(){
     const animationID = requestAnimationFrame(animate);
+    const enemySpawnTimer = Math.round(Math.random() * 200);
+
     ctx.drawImage(image, 0, 0);
-    drawText(hearts, 67, 85, 20);
-    drawText(coins, 165, 85, 20);
-    drawText(waves, 67, 112, 20);
+    drawText(hearts, 67, 85, 20,'left');
+    drawText(coins, 165, 85, 20,'left');
+    drawText(waves, 67, 112, 20,'left');
+
+    // if (animationID % enemySpawnTimer == 0 && enemyCount != 0){
+    //     enemies.push(new Enemy({ position: { x: waypoints[0].x, y: waypoints[0].y } }))
+    //     enemyCount--;
+    //     console.log(enemyCount);
+    // }
 
     for (let i = enemies.length - 1; i >= 0; i--){
         const enemy = enemies[i];
@@ -79,9 +101,15 @@ function animate(){
 
             if(hearts === 0){
                 cancelAnimationFrame(animationID);
-                drawText("GAME OVER", canvas.width / 2, canvas.height / 2, 30);
+                drawText("GAME OVER", canvas.width / 2, canvas.height / 2, 30, 'center');
             }
         }
+    }
+
+    if (enemies.length === 0){
+        waves++;
+        enemyCount += enemyExtras;
+        spawnEnemies(enemyCount);
     }
 
     for (let i = explosions.length - 1; i >= 0; i--) {
@@ -94,12 +122,6 @@ function animate(){
         }
     }
     
-    if (enemies.length === 0){
-        waves++;
-        enemyCount += enemyExtras;
-        spawnEnemies(enemyCount);
-    }
-
     placementTiles.forEach((tile) => {
         tile.update(mouse, ctx);
     })
@@ -148,11 +170,6 @@ function animate(){
             }
         }
     })
-}
-// animate();
-const mouse = {
-    x: undefined,
-    y: undefined
 }
 
 canvas.addEventListener('click', (event) => {
