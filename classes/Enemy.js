@@ -37,13 +37,10 @@ export default class Enemy extends Sprite {
         ctx.fillStyle = 'green';
         ctx.fillRect(this.position.x, this.position.y - 15, this.radius * this.health / 100, 5);
         
-        // ctx.beginPath();
-        // ctx.arc(this.center.x, this.center.y, this.radius, 0, Math.PI * 2);
-        // ctx.fillStyle = 'rgba(0, 0, 255, 0.2)';
-        // ctx.fill();
     }
     update(ctx){
         super.update(ctx);
+        
         const waypoint = this.waypoints[this.waypointIndex];
         const yDistance = waypoint.y - this.center.y;
         const xDistance = waypoint.x - this.center.x;
@@ -67,22 +64,36 @@ export default class Enemy extends Sprite {
         ){
             this.waypointIndex++;
         }
-        // if (xDistance < -1){
-        //     // ctx.translate(this.position.x + this.offset.x + this.image.src.width, this.position.y + this.offset.y);
-        //     ctx.scale(-1,1);
-        //     ctx.drawImage(
-        //         this.image, 
-        //         crop.position.x * -1, 
-        //         crop.position.y, 
-        //         crop.width, 
-        //         crop.height,
-        //         this.position.x + this.offset.x, 
-        //         this.position.y + this.offset.y,
-        //         crop.width,
-        //         crop.height
-        //     );
-        // }
 
-        this.draw(ctx, xDistance);
+        if(xDistance < 0)
+            this.image.src = 'img/02Knight.png';    
+        else
+            this.image.src = 'img/01Knight.png';
+
+        const cropWidth = this.image.width / this.frames.max;
+        const crop = {
+            position: { 
+                x: cropWidth * this.frames.current, 
+                y: 0 
+            },
+            width: cropWidth,
+            height: this.image.height
+        }
+        ctx.beginPath();
+        ctx.ellipse(this.center.x, this.center.y + 12, 8, 15, Math.PI / 2, 0, 2 * Math.PI);
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
+        ctx.fill();
+
+        ctx.drawImage(
+            this.image, 
+            crop.position.x, 
+            crop.position.y, 
+            crop.width, 
+            crop.height,
+            this.position.x + this.offset.x, 
+            this.position.y + this.offset.y,
+            crop.width,
+            crop.height
+        );
     }
 }
