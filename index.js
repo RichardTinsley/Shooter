@@ -107,10 +107,6 @@ function animate(){
             enemy.position.x = enemy.waypoints[0].x;
             enemy.position.y = enemy.waypoints[0].y;
             enemy.waypointIndex = 0;
-            if(hearts === 0){
-                cancelAnimationFrame(animationID);
-                drawText("GAME OVER", canvas.width / 2, canvas.height / 2, 30, 'center');
-            }
         }
     }
 
@@ -177,6 +173,11 @@ function animate(){
             }
         }
     })
+
+    if(hearts === 0){
+        cancelAnimationFrame(animationID);
+        drawText("GAME OVER", canvas.width / 2, canvas.height / 2, 30, 'center');
+    }
 }
 
 canvas.addEventListener('click', (event) => {
@@ -229,5 +230,3 @@ chain lighting, spreadshot
 fire pit, landmines, net traps /air units to the ground
 
 */
-
-
