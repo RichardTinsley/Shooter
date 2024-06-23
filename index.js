@@ -15,22 +15,15 @@ const mouse = {
 }
 
 const mapIMG = new Image();
-const coinsIMG = new Image();
-const heartIMG = new Image();
-const wavesIMG = new Image();
 
 mapIMG.onload = () => { 
     animate();
 };
 
 mapIMG.src = 'img/LEVEL1.png';
-coinsIMG.src = 'img/coins.png';
-heartIMG.src = 'img/heart.png';
-wavesIMG.src = 'img/skull.png';
 
-function drawText(src, text, x, y, textSize, align){
-    if(src != "")
-        ctx.drawImage(src, x - 32, y - 20);
+function drawText(text, x, y, textSize, align){
+
     ctx.fillStyle = 'white';
     ctx.font = 'bold ' + textSize + 'px Arial';
     ctx.textAlign = align;
@@ -64,9 +57,10 @@ const explosions = [];
 const buildings = [];
 
 let counter = 0;
-let enemyCount = 50;
+let enemyID = 0;
+let enemyCount = 5;
 let enemyExtras = 3;
-let hearts = 100;
+let hearts = 10;
 let coins = 100;
 let waves = 1;
 let activeTile = undefined;
@@ -81,7 +75,7 @@ function spawnEnemies(enemyCount) {
             });
         })
         const enemySpeed = Math.random() * 1 + .5;
-        enemies.push(new Enemy({ position: { x: waypoints[0].x, y: waypoints[0].y }}, randomWaypoints, enemySpeed, false))
+        enemies.push(new Enemy({ position: { x: waypoints[0].x, y: waypoints[0].y } }, 'img/01Knight.png', 'img/02Knight.png', enemyID++, randomWaypoints, enemySpeed, false));
     }
 }
 
@@ -90,16 +84,16 @@ spawnEnemies(enemyCount);
 function animate(){
     const animationID = requestAnimationFrame(animate);
     ctx.drawImage(mapIMG, 0, 0);
-    drawText(heartIMG, hearts, 65, 85, 20,'left');
-    drawText(wavesIMG, waves, 160, 85, 20,'left');
-    drawText(coinsIMG, coins, 65, 115, 20,'left');
+    drawText(hearts, 65, 85, 20,'left');
+    drawText(waves, 160, 85, 20,'left');
+    drawText(coins, 65, 115, 20,'left');
     
     if (animationID % Math.round(Math.random() * 500) == 0 && counter < enemies.length){
         const enemyIndex = enemies.findIndex((enemy) => {
             return enemy.activeStatus === false;
         });
         enemies[enemyIndex].activeStatus = true;
-        counter++;        
+        counter++;      
     }
     enemies.sort((a, b) => b.position.y - a.position.y);
 
@@ -115,7 +109,7 @@ function animate(){
             enemy.waypointIndex = 0;
             if(hearts === 0){
                 cancelAnimationFrame(animationID);
-                drawText("","GAME OVER", canvas.width / 2, canvas.height / 2, 30, 'center');
+                drawText("GAME OVER", canvas.width / 2, canvas.height / 2, 30, 'center');
             }
         }
     }
@@ -188,17 +182,10 @@ function animate(){
 canvas.addEventListener('click', (event) => {
     if (activeTile && !activeTile.isOccupied && coins - 25 >= 0) {
         coins -= 25
-        buildings.push(
-            new Building({
-                position: {
-                    x: activeTile.position.x,
-                    y: activeTile.position.y
-                }
-        })
-        )
-        activeTile.isOccupied = true
+        buildings.push(new Building({ position: { x: activeTile.position.x, y: activeTile.position.y } },'./img/tower/sapphire1.png'));
+        activeTile.isOccupied = true;
         buildings.sort((a, b) => {
-            return a.position.y - b.position.y
+            return a.position.y - b.position.y;
         })
     }
 })

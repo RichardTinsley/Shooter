@@ -1,18 +1,21 @@
-// import { waypoints } from './mapInfo.js';
 import Sprite from './Sprite.js'
 
 export default class Enemy extends Sprite {
-    constructor({ position = { x: 0, y: 0 } }, waypoints, speed, activeStatus){
+    constructor({ position = { x: 0, y: 0 } }, imageSrc, imageSrc2, enemyID, waypoints, speed, activeStatus){
+
         super({
-            position, 
-            imageSrc: 'img/01Knight.png', 
+            position,
+            imageSrc, 
             frames: { max: 8 },
             offset: { 
                 x: -15, 
                 y: -5 
             } 
         })
-
+        this.enemyID = enemyID;
+        this.imageRightSrc = imageSrc;
+        this.imageLeft = new Image();
+        this.imageLeft.src = imageSrc2;
         this.radius = 20;
         this.waypoints = waypoints;
         this.waypointIndex = 0;
@@ -70,8 +73,8 @@ export default class Enemy extends Sprite {
         }
 
         if(xDistance < 0)
-            this.image.src = 'img/02Knight.png';    
+            this.image.src = this.imageLeft.src;
         else
-            this.image.src = 'img/01Knight.png';
+            this.image.src = this.imageRightSrc;    
     }
 }

@@ -8,7 +8,7 @@ export default class Projectile extends Sprite {
             y: 0
         };
         this.enemy = enemy;
-        this.radius = 10;
+        this.radius = 5;
         this.speed = 10;
     }
 
