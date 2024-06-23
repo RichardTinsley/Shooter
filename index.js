@@ -14,18 +14,28 @@ const mouse = {
     y: undefined
 }
 
-const image = new Image();
-image.onload = () => { 
+const mapIMG = new Image();
+const coinsIMG = new Image();
+const heartIMG = new Image();
+const wavesIMG = new Image();
+
+mapIMG.onload = () => { 
     animate();
 };
-image.src = 'img/LEVEL1.png';
 
-function drawText(text, x, y, textSize, align){
+mapIMG.src = 'img/LEVEL1.png';
+coinsIMG.src = 'img/coins.png';
+heartIMG.src = 'img/heart.png';
+wavesIMG.src = 'img/skull.png';
+
+function drawText(src, text, x, y, textSize, align){
+    if(src != "")
+        ctx.drawImage(src, x - 32, y - 20);
     ctx.fillStyle = 'white';
     ctx.font = 'bold ' + textSize + 'px Arial';
     ctx.textAlign = align;
     ctx.textBaseline = 'middle';
-    ctx.fillText(text, x, y);
+    ctx.fillText(text, x + 5, y - 3);
 }
 
 const placementTilesData2D = [];
@@ -54,9 +64,9 @@ const explosions = [];
 const buildings = [];
 
 let counter = 0;
-let enemyCount = 20;
+let enemyCount = 50;
 let enemyExtras = 3;
-let hearts = 10;
+let hearts = 100;
 let coins = 100;
 let waves = 1;
 let activeTile = undefined;
@@ -79,10 +89,10 @@ spawnEnemies(enemyCount);
 
 function animate(){
     const animationID = requestAnimationFrame(animate);
-    ctx.drawImage(image, 0, 0);
-    drawText(hearts, 67, 85, 20,'left');
-    drawText(coins, 165, 85, 20,'left');
-    drawText(waves, 67, 112, 20,'left');
+    ctx.drawImage(mapIMG, 0, 0);
+    drawText(heartIMG, hearts, 65, 85, 20,'left');
+    drawText(wavesIMG, waves, 160, 85, 20,'left');
+    drawText(coinsIMG, coins, 65, 115, 20,'left');
     
     if (animationID % Math.round(Math.random() * 500) == 0 && counter < enemies.length){
         const enemyIndex = enemies.findIndex((enemy) => {
@@ -92,7 +102,6 @@ function animate(){
         counter++;        
     }
     enemies.sort((a, b) => b.position.y - a.position.y);
-    console.log(enemies.length);
 
     for (let i = enemies.length - 1; i >= 0; i--){
         const enemy = enemies[i];
@@ -101,11 +110,12 @@ function animate(){
         
         if (enemy.position.x > canvas.width){
             hearts -= 1;
-            enemies.splice(i, 1);
-            
+            enemy.position.x = enemy.waypoints[0].x;
+            enemy.position.y = enemy.waypoints[0].y;
+            enemy.waypointIndex = 0;
             if(hearts === 0){
                 cancelAnimationFrame(animationID);
-                drawText("GAME OVER", canvas.width / 2, canvas.height / 2, 30, 'center');
+                drawText("","GAME OVER", canvas.width / 2, canvas.height / 2, 30, 'center');
             }
         }
     }
@@ -121,7 +131,6 @@ function animate(){
         const explosion = explosions[i];
         explosion.draw(ctx);
         explosion.update(ctx);
-    
         if (explosion.frames.current >= explosion.frames.max - 1) {
             explosions.splice(i, 1);
         }
@@ -146,7 +155,6 @@ function animate(){
             const projectile = building.projectiles[i];
 
             projectile.update(ctx);
-
             const xDifference = projectile.enemy.center.x - projectile.position.x;
             const yDifference = projectile.enemy.center.y - projectile.position.y;
             const distance = Math.hypot(xDifference, yDifference);
@@ -181,11 +189,11 @@ canvas.addEventListener('click', (event) => {
     if (activeTile && !activeTile.isOccupied && coins - 25 >= 0) {
         coins -= 25
         buildings.push(
-        new Building({
-            position: {
-                x: activeTile.position.x,
-                y: activeTile.position.y
-            }
+            new Building({
+                position: {
+                    x: activeTile.position.x,
+                    y: activeTile.position.y
+                }
         })
         )
         activeTile.isOccupied = true
@@ -215,14 +223,24 @@ window.addEventListener('mousemove', (event) => {
 })
 
 /* 
+FIX NEXT WAVE AFTER ENEMIES KILLED
+FIX TOWER ATTACK PRIORITY
+ADD ID TO EACH ENEMY
+
+Ruby		Splash damage
 Emerald  	Poison, damage, reduce armour
 Amethyst  	Air Attack only
+Sapphire	Freeze / slow group 
+Topaz 		rapid fire
+Diamond		Heavy damage / stun / critical hit 
 Gold 		money generation, weak damage
-Saphire		Freeze / slow
-Diamond		Heavy damage
-Ruby		Splash damage
+Silver		Sniper range
 Opal		Tower boost auras
-Uranium		Enemy Damage, weakness auras
+Uranium		Enemy Damage, weakness auras / remove armour and abilities
+Obsidian	rail gun laser
+chain lighting, spreadshot
+fire pit, landmines, net traps /air units to the ground
+
 */
 
 
