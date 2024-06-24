@@ -26,6 +26,9 @@ const buildings = [];
 const enemies = spawnEnemies(enemyCount);
 const placementTiles = initialiseTiles(353);
 
+var audio = new Audio('./music.mp3');
+audio.play();
+
 function animate(){
     if(!isRunning)
         return
@@ -41,7 +44,6 @@ function animate(){
         const enemy = enemies.find((enemy) => enemy.activeStatus === false);
         enemy.activeStatus = true;
         counter++;
-        console.log(enemy);
     }
     
     for (let i = enemies.length - 1; i >= 0; i--){
@@ -83,10 +85,13 @@ function animate(){
 
 window.onkeydown = (e) => {
     if(e.code === 'KeyP') {
-        if(isRunning)
+        if(isRunning){
             isRunning = false;
+            audio.pause();
+        }
         else {
             isRunning = true;
+            audio.play();
             animate();
         }
     }
