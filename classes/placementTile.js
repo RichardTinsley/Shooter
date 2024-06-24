@@ -1,5 +1,9 @@
 export default class PlacementTile {
-    constructor({ position = { x: 0, y: 0 } }) {
+    constructor({ 
+        position = { 
+            x: 0, 
+            y: 0 
+        } }) {
         this.position = position;
         this.size = 32;
         this.colour = 'rgba(255, 255, 255, 0.15)';

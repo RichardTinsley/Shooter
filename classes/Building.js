@@ -2,7 +2,14 @@ import Projectile from "./Projectile.js";
 import Sprite from "./Sprite.js";
 
 export default class Building extends Sprite {
-    constructor({ position = { x: 0, y: 0 } }, imageSrc) {
+    constructor({ 
+        position = { 
+            x: 0, 
+            y: 0 
+        } }, 
+            imageSrc
+        ) {
+
         super({
             position,
             imageSrc,
@@ -15,12 +22,14 @@ export default class Building extends Sprite {
                 y: - 32 
             } 
         })
+
         this.width = 64;
         this.height = 64;
         this.center = {
             x: this.position.x + this.width / 2,
             y: this.position.y + this.height / 2
         };
+        this.validEnemies = [];
         this.projectiles = [];
         this.radius = 250;
         this.target;
@@ -28,7 +37,6 @@ export default class Building extends Sprite {
     }
     draw(ctx){
         super.draw(ctx);
-
         ctx.beginPath();
         ctx.arc(this.center.x + this.offset.x, this.center.y + this.offset.y, this.radius, 0, Math.PI * 2);
         ctx.fillStyle = 'rgba(200, 0, 0, 0.1)';

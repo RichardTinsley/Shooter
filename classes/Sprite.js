@@ -1,9 +1,17 @@
 export default class Sprite {
     constructor({ 
-        position = { x: 0, y: 0 }, 
+        position = {
+            x: 0, 
+            y: 0
+        }, 
         imageSrc, 
-        frames = { max: 1 }, 
-        offset = { x: 0, y: 0 } 
+        frames = { 
+            max: 1
+        }, 
+        offset = { 
+            x: 0, 
+            y: 0
+        } 
     }) {
         this.position = position;
         this.image = new Image();
