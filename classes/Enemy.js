@@ -42,6 +42,7 @@ export default class Enemy extends Sprite {
         }; 
 
         this.activeStatus = activeStatus;
+        this.priorityDistance;
     }
 
     draw(ctx){
@@ -64,7 +65,8 @@ export default class Enemy extends Sprite {
         const yDistance = waypoint.y - this.center.y;
         const xDistance = waypoint.x - this.center.x;
         const angle = Math.atan2(yDistance, xDistance);
-        
+        this.priorityDistance = Math.round(Math.abs(xDistance) + Math.abs(yDistance));
+
         this.velocity.x = Math.cos(angle) * this.speed;
         this.velocity.y = Math.sin(angle) * this.speed;
         

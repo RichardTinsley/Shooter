@@ -1,5 +1,6 @@
 import { drawText, spawnEnemies, initialiseTiles } from "../classes/utils.js";
 import Building from '../classes/Building.js';
+import Sprite from "../classes/Sprite.js";
 
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
@@ -11,9 +12,10 @@ mapIMG.onload = () => {
     animate();
 };
 mapIMG.src = 'img/LEVEL1.png';
+const audio = new Audio('./music.mp3');
 
 let counter = 0;
-let enemyCount = 50;
+let enemyCount = 10;
 let hearts = 100;
 let coins = 100;
 let experience = 0;
@@ -25,11 +27,8 @@ let activeTile = undefined;
 
 const explosions = [];
 const buildings = [];
-const enemies = spawnEnemies(enemyCount);
+let enemies = spawnEnemies(enemyCount);
 const placementTiles = initialiseTiles(353);
-
-var audio = new Audio('./music.mp3');
-audio.play();
 
 function animate(){
     if(!isRunning)
@@ -53,15 +52,17 @@ function animate(){
     for (let i = enemies.length - 1; i >= 0; i--){
         const enemy = enemies[i];
         if(enemy.activeStatus === true){
-            drawText(ctx, enemy.enemyID, Math.floor(enemy.position.x / 32) * 32, Math.floor(enemy.position.y / 32) * 32, 16, 'right');
             ctx.fillStyle = 'rgba(0, 0, 250, 0.15)';
             ctx.fillRect(Math.floor(enemy.position.x / 32) * 32, Math.floor(enemy.position.y / 32) * 32, 32, 32);
             enemy.update(ctx); 
+            drawText(ctx, enemy.enemyID, Math.floor(enemy.position.x / 32) * 32, Math.floor(enemy.position.y / 32) * 32, 16, 'right');
+            drawText(ctx, enemy.priorityDistance, Math.floor(enemy.position.x / 32) * 32, Math.floor(enemy.position.y / 32) * 32 + 20, 16, 'right');
         }
         if (enemy.position.x > canvas.width){
             hearts -= 1;
             enemy.position.x = enemy.waypoints[0].x;
             enemy.position.y = enemy.waypoints[0].y;
+            enemy.activeStatus = false;
             enemy.waypointIndex = 0;
         }
     }
@@ -77,9 +78,64 @@ function animate(){
                 const xDifference = enemy.center.x - building.center.x;
                 const yDifference = enemy.center.y - building.center.y;
                 const distance = Math.hypot(xDifference, yDifference);
-                return distance < enemy.radius + building.radius
-        })
+                return distance < enemy.radius + building.radius;
+        }).sort((a, b) => {
+            if (a.waypointIndex > b.waypointIndex) return -1;
+            if (a.waypointIndex < b.waypointIndex) return 1;
+            if (a.priorityDistance < b.priorityDistance) return -1;
+            if (a.priorityDistance > b.priorityDistance) return 1;
+            return 0;
+        });
+
+        building.target = validEnemies[0];
+        for (let i = building.projectiles.length - 1; i >= 0; i-- ){
+            const projectile = building.projectiles[i];
+
+            projectile.update(ctx);
+            const xDifference = projectile.enemy.center.x - projectile.position.x;
+            const yDifference = projectile.enemy.center.y - projectile.position.y;
+            const distance = Math.hypot(xDifference, yDifference);
+
+            if (distance < projectile.enemy.radius + projectile.radius){
+                projectile.enemy.health -= 20;
+
+                if(projectile.enemy.health <= 0){
+                    const enemyIndex = enemies.findIndex((enemy) => {
+                        return projectile.enemy === enemy;
+                    });
+                    if (enemyIndex > -1){
+                        enemies.splice(enemyIndex, 1);
+                        coins += 25;
+                    }
+                }
+                explosions.push(
+                    new Sprite({
+                        position: { x: projectile.position.x, y: projectile.position.y },
+                        imageSrc: './img/explosion.png',
+                        frames: { max: 12 },
+                        offset: { x: - 80, y: -80 }
+                    })
+                )
+                building.projectiles.splice(i, 1);
+            }
+        }
     })
+
+    for (let i = explosions.length - 1; i >= 0; i--) {
+        const explosion = explosions[i];
+        explosion.draw(ctx);
+        explosion.update(ctx);
+        if (explosion.frames.current >= explosion.frames.max - 1) {
+            explosions.splice(i, 1);
+        }
+    }
+    if (enemies.length === 0){
+        waves++;
+        console.log(enemies);
+        enemies = spawnEnemies(enemyCount += 3);
+        console.log(enemies);
+
+    }
 
     if(hearts === 0){
         cancelAnimationFrame(animationID);

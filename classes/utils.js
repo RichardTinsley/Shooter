@@ -39,13 +39,16 @@ export function spawnEnemies(enemyCount) {
     return enemies;
 }
 
+function array2D(array){
+    const array2D = [];
+    for (let i = 0; i < array.length; i+= 40)
+        array2D.push(array.slice(i, i + 40));
+    return array2D
+}
+
 export function initialiseTiles(placementSpot) {
-    const placementTilesData2D = [];
+    const placementTilesData2D = array2D(placementTilesData);
     const placementTiles = [];
-
-    for (let i = 0; i < placementTilesData.length; i+= 40)
-        placementTilesData2D.push(placementTilesData.slice(i, i + 40));
-
     placementTilesData2D.forEach((row, y) => {
         row.forEach((symbol, x) => {
             if (symbol == placementSpot) 
