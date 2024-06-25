@@ -17,8 +17,8 @@ export function spawnEnemies(enemyCount) {
         const randomWaypoints = [];
         waypoints.forEach((waypoint) => {
             randomWaypoints.push({ 
-                x: waypoint.x + Math.round(Math.random() * 50),
-                y: waypoint.y + Math.round(Math.random() * 50)
+                x: (waypoint.x - 25) + Math.round(Math.random() * 70),
+                y: (waypoint.y - 25) + Math.round(Math.random() * 70)
             });
         })
         const enemySpeed = Math.random() * 1 + .5;

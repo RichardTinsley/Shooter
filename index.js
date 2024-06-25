@@ -14,10 +14,12 @@ mapIMG.src = 'img/LEVEL1.png';
 
 let counter = 0;
 let enemyCount = 50;
-let enemyExtras = 3;
 let hearts = 100;
 let coins = 100;
+let experience = 0;
 let waves = 1;
+let timer = 0;
+
 let isRunning = true;
 let activeTile = undefined;
 
@@ -34,9 +36,11 @@ function animate(){
         return
     const animationID = requestAnimationFrame(animate);
     ctx.drawImage(mapIMG, 0, 0);
-    drawText(ctx, hearts, 65, 85, 20,'left');
-    drawText(ctx, waves, 160, 85, 20,'left');
-    drawText(ctx, coins, 65, 115, 20,'left');
+    drawText(ctx, hearts, 65, 52, 20,'left');
+    drawText(ctx, coins, 225, 52, 20,'left');
+    drawText(ctx, experience, 515, 52, 20,'left');
+    drawText(ctx, waves, 805, 52, 20,'left');
+    drawText(ctx, timer, 1155, 52, 20,'left');
 
     enemies.sort((a, b) => b.position.y - a.position.y);
 
@@ -139,3 +143,24 @@ window.addEventListener('mousemove', (event) => {
         }
     }
 })
+
+/* 
+FIX NEXT WAVE AFTER ENEMIES KILLED
+FIX TOWER ATTACK PRIORITY
+ADD ID TO EACH ENEMY
+
+Ruby		Splash damage
+Emerald  	Poison, damage, reduce armour
+Amethyst  	Air Attack only
+Sapphire	Freeze / slow group 
+Topaz 		rapid fire
+Diamond		Heavy damage / stun / critical hit 
+Gold 		money generation, weak damage
+Silver		Sniper range
+Opal		Tower boost auras
+Uranium		Enemy Damage, weakness auras / remove armour and abilities
+Obsidian	rail gun laser
+chain lighting, spreadshot
+fire pit, landmines, net traps /air units to the ground
+
+*/
