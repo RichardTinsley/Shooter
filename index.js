@@ -1,4 +1,4 @@
-import { drawText, spawnEnemies, initialiseTiles } from "../classes/utils.js";
+import { drawText, spawnEnemies, initialiseTiles, debugEnemy } from "../classes/utils.js";
 import Building from '../classes/Building.js';
 import Sprite from "../classes/Sprite.js";
 
@@ -33,8 +33,7 @@ let enemies = spawnEnemies(enemyCount);
 const placementTiles = initialiseTiles(353);
 
 function animate(){
-    if(!isRunning)
-        return
+    if(!isRunning) return;
     const animationID = requestAnimationFrame(animate);
     ctx.drawImage(mapIMG, 0, 0);
     drawText(ctx, hearts, 65, 52, 20,'left');
@@ -44,10 +43,10 @@ function animate(){
     drawText(ctx, timer, 1155, 52, 20,'left');
 
     enemies.sort((a, b) => b.position.y - a.position.y);
+    placementTiles.forEach((tile) => tile.update(mouse, ctx))
 
     if (animationID % Math.floor(Math.random() * 250) === 0 && enemies.length > 0 && allEnemiesActive === false){
         const enemy = enemies.find((enemy) => enemy.activeStatus === false);
-        console.log("OMG")
         if(enemy)
             enemy.activeStatus = true;
         else
@@ -58,25 +57,16 @@ function animate(){
         const enemy = enemies[i];
         if(enemy.activeStatus === true){
             enemy.update(ctx); 
-            if(debug){
-                ctx.fillStyle = 'rgba(0, 0, 250, 0.15)';
-                ctx.fillRect(Math.floor(enemy.position.x / 32) * 32, Math.floor(enemy.position.y / 32) * 32, 32, 32);
-                drawText(ctx, enemy.enemyID, Math.floor(enemy.position.x / 32) * 32, Math.floor(enemy.position.y / 32) * 32, 16, 'right');
-                drawText(ctx, enemy.priorityDistance, Math.floor(enemy.position.x / 32) * 32, Math.floor(enemy.position.y / 32) * 32 + 20, 16, 'right');
-            }
+            if(debug) 
+                debugEnemy(ctx, enemy);
         }
         if (enemy.position.x > canvas.width){
             hearts -= 1;
             enemy.position.x = enemy.waypoints[0].x;
             enemy.position.y = enemy.waypoints[0].y;
-            enemy.activeStatus = false;
             enemy.waypointIndex = 0;
         }
     }
-
-    placementTiles.forEach((tile) => {
-        tile.update(mouse, ctx);
-    })
 
     buildings.forEach((building) => {
         building.update(ctx);
@@ -136,6 +126,9 @@ function animate(){
             explosions.splice(i, 1);
         }
     }
+
+    if (animationID % 100 === 0)
+        timer++;
 
     if (enemies.length === 0){
         waves++;
@@ -209,9 +202,7 @@ window.addEventListener('mousemove', (event) => {
 })
 
 /* 
-FIX NEXT WAVE AFTER ENEMIES KILLED
-FIX TOWER ATTACK PRIORITY
-ADD ID TO EACH ENEMY
+PARTCILE EFFECTS
 
 Ruby		Splash damage
 Emerald  	Poison, damage, reduce armour

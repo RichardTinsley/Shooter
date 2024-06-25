@@ -63,3 +63,10 @@ export function initialiseTiles(placementSpot) {
     })
     return placementTiles
 }
+
+export function debugEnemy(ctx, enemy){
+    ctx.fillStyle = 'rgba(0, 0, 250, 0.15)';
+    ctx.fillRect(Math.floor(enemy.position.x / 32) * 32, Math.floor(enemy.position.y / 32) * 32, 32, 32);
+    drawText(ctx, enemy.enemyID, Math.floor(enemy.position.x / 32) * 32, Math.floor(enemy.position.y / 32) * 32, 16, 'right');
+    drawText(ctx, enemy.priorityDistance, Math.floor(enemy.position.x / 32) * 32, Math.floor(enemy.position.y / 32) * 32 + 20, 16, 'right');
+}
