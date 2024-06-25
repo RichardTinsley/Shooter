@@ -14,7 +14,6 @@ mapIMG.onload = () => {
 mapIMG.src = 'img/LEVEL1.png';
 const audio = new Audio('./music.mp3');
 
-let counter = 0;
 let enemyCount = 10;
 let hearts = 100;
 let coins = 100;
@@ -23,7 +22,10 @@ let waves = 1;
 let timer = 0;
 
 let isRunning = true;
+let allEnemiesActive = false;
+let debug = false;
 let activeTile = undefined;
+
 
 const explosions = [];
 const buildings = [];
@@ -43,20 +45,25 @@ function animate(){
 
     enemies.sort((a, b) => b.position.y - a.position.y);
 
-    if (animationID % Math.floor(Math.random() * 250) == 0 && counter < enemies.length){
+    if (animationID % Math.floor(Math.random() * 250) === 0 && enemies.length > 0 && allEnemiesActive === false){
         const enemy = enemies.find((enemy) => enemy.activeStatus === false);
-        enemy.activeStatus = true;
-        counter++;
+        console.log("OMG")
+        if(enemy)
+            enemy.activeStatus = true;
+        else
+            allEnemiesActive = true;
     }
     
     for (let i = enemies.length - 1; i >= 0; i--){
         const enemy = enemies[i];
         if(enemy.activeStatus === true){
-            ctx.fillStyle = 'rgba(0, 0, 250, 0.15)';
-            ctx.fillRect(Math.floor(enemy.position.x / 32) * 32, Math.floor(enemy.position.y / 32) * 32, 32, 32);
             enemy.update(ctx); 
-            drawText(ctx, enemy.enemyID, Math.floor(enemy.position.x / 32) * 32, Math.floor(enemy.position.y / 32) * 32, 16, 'right');
-            drawText(ctx, enemy.priorityDistance, Math.floor(enemy.position.x / 32) * 32, Math.floor(enemy.position.y / 32) * 32 + 20, 16, 'right');
+            if(debug){
+                ctx.fillStyle = 'rgba(0, 0, 250, 0.15)';
+                ctx.fillRect(Math.floor(enemy.position.x / 32) * 32, Math.floor(enemy.position.y / 32) * 32, 32, 32);
+                drawText(ctx, enemy.enemyID, Math.floor(enemy.position.x / 32) * 32, Math.floor(enemy.position.y / 32) * 32, 16, 'right');
+                drawText(ctx, enemy.priorityDistance, Math.floor(enemy.position.x / 32) * 32, Math.floor(enemy.position.y / 32) * 32 + 20, 16, 'right');
+            }
         }
         if (enemy.position.x > canvas.width){
             hearts -= 1;
@@ -129,12 +136,11 @@ function animate(){
             explosions.splice(i, 1);
         }
     }
+
     if (enemies.length === 0){
         waves++;
-        console.log(enemies);
-        enemies = spawnEnemies(enemyCount += 3);
-        console.log(enemies);
-
+        allEnemiesActive = false;
+        enemies = spawnEnemies(enemyCount += 1);
     }
 
     if(hearts === 0){
@@ -155,6 +161,8 @@ window.onkeydown = (e) => {
             animate();
         }
     }
+    if(e.code === 'KeyO')
+        debug = !debug;
 }
 
 const mouse = {

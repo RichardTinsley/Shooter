@@ -29,7 +29,6 @@ export default class Building extends Sprite {
             x: this.position.x + this.width / 2,
             y: this.position.y + this.height / 2
         };
-        this.validEnemies = [];
         this.projectiles = [];
         this.radius = 250;
         this.target;
