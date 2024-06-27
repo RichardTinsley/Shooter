@@ -1,66 +1,56 @@
-import Sprite from './Sprite.js'
+import { TILE_SIZE, HALF_TILE_SIZE } from "../index.js";
 
-export default class Enemy extends Sprite {
-    constructor({ 
-        position = { 
+export class Enemy {
+    constructor({
+        game, 
+        sprite, 
+        position, 
+        scale,
+        waypoints
+    }){
+        this.game = game;
+        this.sprite = sprite ?? { 
+            imageLeft: "",
+            imageRight: "", 
             x: 0, 
-            y: 0 
-        } }, 
-        imageSrc, 
-        imageSrc2, 
-        enemyID, 
-        waypoints, 
-        speed, 
-        activeStatus
-    ){
-
-        super({
-            position,
-            imageSrc, 
-            frames: { max: 8 },
-            offset: { 
-                x: -25, 
-                y: -25 
-            } 
-        })
-        this.enemyID = enemyID;
-        this.imageRightSrc = imageSrc;
-        this.imageLeft = new Image();
-        this.imageLeft.src = imageSrc2;
-        this.radius = 25;
+            y: 0, 
+            width: TILE_SIZE, 
+            height: TILE_SIZE 
+        };
+        this.position = position ?? {
+            x: 0,
+            y: 0
+        }
+        this.scale = scale ?? 1;
         this.waypoints = waypoints;
         this.waypointIndex = 0;
+        
+        this.width = this.sprite.width * this.scale;
+        this.height = this.sprite.height * this.scale;   
+        this.halfWidth = this.width / 2;
+        this.thirdWidth = Math.floor(this.width / 3);
         this.center = {
-            x: this.position.x + this.radius / 2,
-            y: this.position.y + this.radius / 2
+            x: this.position.x + HALF_TILE_SIZE,
+            y: this.position.y + HALF_TILE_SIZE
         };
-        this.health = 100;
-        this.speed = speed;
+        
+        this.priorityDistance = 0; 
+        this.speed = Math.random() * 1 + .5;
         this.velocity = { 
             x: 0, 
             y: 0
         }; 
-
-        this.activeStatus = activeStatus;
-        this.priorityDistance;
-    }
-
-    draw(ctx){
-        super.draw(ctx);
-        ctx.fillStyle = 'red';
-        ctx.fillRect(this.center.x + this.offset.x, this.center.y + this.offset.y - 20, this.radius, 5);
-        ctx.strokeRect(this.center.x + this.offset.x, this.center.y + this.offset.y - 20, this.radius, 5);
-        ctx.fillStyle = 'green';
-        ctx.fillRect(this.center.x + this.offset.x, this.center.y + this.offset.y - 20, this.radius * this.health / 100, 5);
         
-        ctx.beginPath();
-        ctx.ellipse(this.center.x + this.offset.x + 12, this.center.y + this.offset.y + 16, 8, 15, Math.PI / 2, 0, 2 * Math.PI);
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
-        ctx.fill();
+        this.maxFrame = (this.sprite.imageRight.width / this.sprite.width) - 1;
+
+        this.activeStatus = false;
+        this.health = 100;
     }
-    update(ctx){
-        super.update(ctx);
-        this.draw(ctx)
+
+    update(){
+        if (this.game.eventUpdate){
+            this.sprite.x < this.maxFrame ? this.sprite.x++ : this.sprite.x = 0;
+        }
         const waypoint = this.waypoints[this.waypointIndex];
         const yDistance = waypoint.y - this.center.y;
         const xDistance = waypoint.x - this.center.x;
@@ -73,8 +63,8 @@ export default class Enemy extends Sprite {
         this.position.x += this.velocity.x;
         this.position.y += this.velocity.y;
         this.center = {
-            x: this.position.x + this.radius / 2,
-            y: this.position.y + this.radius / 2
+            x: this.position.x + HALF_TILE_SIZE,
+            y: this.position.y + HALF_TILE_SIZE
         };
         
         if( Math.abs(Math.round(this.center.x) - Math.round(waypoint.x)) <
@@ -86,9 +76,58 @@ export default class Enemy extends Sprite {
             this.waypointIndex++;
         }
 
-        if(xDistance < 0)
-            this.image.src = this.imageLeft.src;
-        else
-            this.image.src = this.imageRightSrc;    
+        
+        // if(xDistance < 0)
+        //     this.image.src = this.imageLeft.src;
+        // else
+        //     this.image.src = this.imageRightSrc;    
+    }
+
+
+    draw(ctx){
+        this.drawShadow(ctx);
+        ctx.drawImage(
+            this.sprite.imageRight,
+            this.sprite.x * this.sprite.width,
+            this.sprite.y * this.sprite.height + 1,
+            this.sprite.width,
+            this.sprite.height,
+            this.position.x + HALF_TILE_SIZE - this.halfWidth,
+            this.position.y + TILE_SIZE - this.height,
+            this.width,
+            this.height
+        );
+        if(this.game.debug)
+            this.drawDebug(ctx);
+        this.drawHealthBar(ctx);
+    }
+
+    
+    drawHealthBar(ctx){
+        const healthBarX = this.center.x - this.thirdWidth;
+        const healthBarY = this.center.y - this.scale * 30;
+        const healthBarWidth = this.thirdWidth * 2;
+        const healtBarThickness = 5 * this.scale;
+        ctx.fillStyle = 'red';
+        ctx.fillRect(healthBarX, healthBarY, healthBarWidth, healtBarThickness);
+        ctx.strokeRect(healthBarX, healthBarY, healthBarWidth, healtBarThickness);
+        ctx.fillStyle = 'green';
+        ctx.fillRect(healthBarX, healthBarY, healthBarWidth * (this.health / 100), healtBarThickness);
+    }
+    
+    drawShadow(ctx){
+        ctx.beginPath();
+        ctx.ellipse(this.center.x, this.position.y + TILE_SIZE - (2 * this.scale), this.thirdWidth / 3, this.thirdWidth, Math.PI / 2, 0, 2 * Math.PI);
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
+        ctx.fill();      
+    }
+
+    drawDebug(ctx){
+        ctx.fillStyle = 'rgba(250, 0, 0, 0.3)';
+        ctx.fillRect(this.position.x, this.position.y, TILE_SIZE, TILE_SIZE);
+        ctx.fillStyle = 'rgba(0, 0, 250, 0.3)';
+        ctx.fillRect(Math.floor(this.position.x / TILE_SIZE) * TILE_SIZE, Math.floor(this.position.y / TILE_SIZE) * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+        // this.game.drawText(ctx, this.ID, Math.floor(this.position.x / TILE_SIZE) * TILE_SIZE, Math.floor(this.position.y / TILE_SIZE) * TILE_SIZE, HALF_TILE_SIZE, 'right');
+        this.game.drawText(ctx, this.priorityDistance, Math.floor(this.position.x / TILE_SIZE) * TILE_SIZE, Math.floor(this.position.y / TILE_SIZE) * TILE_SIZE + 20, HALF_TILE_SIZE, 'right');
     }
 }

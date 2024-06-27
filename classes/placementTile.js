@@ -1,4 +1,4 @@
-export default class PlacementTile {
+export class PlacementTile {
     constructor({ 
         position = { 
             x: 0, 

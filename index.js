@@ -1,211 +1,67 @@
-import { drawText, spawnEnemies, initialiseTiles, debugEnemy } from "../classes/utils.js";
-import Building from '../classes/Building.js';
-import Sprite from "../classes/Sprite.js";
+import { Game } from "./classes/Game.js";
+import { Wave } from "./classes/Wave.js";
 
-const canvas = document.getElementById('canvas');
-const ctx = canvas.getContext('2d');
-canvas.width = 1280;
-canvas.height = 768;
+export const TILE_SIZE = 32;
+export const HALF_TILE_SIZE = TILE_SIZE / 2;
+export const ENEMY_SIZE = 48;
+export const TOWER_SIZE = 64;
+export const COLUMNS = 40;
+export const ROWS = 24;
+const GAME_WIDTH = TILE_SIZE * COLUMNS;
+const GAME_HEIGHT = TILE_SIZE * ROWS;
 
-const mapIMG = new Image();
-mapIMG.onload = () => { 
-    animate();
-};
-mapIMG.src = 'img/LEVEL1.png';
-const audio = new Audio('./music.mp3');
-
-let enemyCount = 10;
-let hearts = 100;
-let coins = 100;
-let experience = 0;
-let waves = 1;
-let timer = 0;
-
-let isRunning = true;
-let allEnemiesActive = false;
-let debug = false;
-let activeTile = undefined;
-
-
-const explosions = [];
-const buildings = [];
-let enemies = spawnEnemies(enemyCount);
-const placementTiles = initialiseTiles(353);
-
-function animate(){
-    if(!isRunning) return;
-    const animationID = requestAnimationFrame(animate);
-    ctx.drawImage(mapIMG, 0, 0);
-    drawText(ctx, hearts, 65, 52, 20,'left');
-    drawText(ctx, coins, 225, 52, 20,'left');
-    drawText(ctx, experience, 515, 52, 20,'left');
-    drawText(ctx, waves, 805, 52, 20,'left');
-    drawText(ctx, timer, 1155, 52, 20,'left');
-
-    enemies.sort((a, b) => b.position.y - a.position.y);
-    placementTiles.forEach((tile) => tile.update(mouse, ctx))
-
-    if (animationID % Math.floor(Math.random() * 250) === 0 && enemies.length > 0 && allEnemiesActive === false){
-        const enemy = enemies.find((enemy) => enemy.activeStatus === false);
-        if(enemy)
-            enemy.activeStatus = true;
-        else
-            allEnemiesActive = true;
-    }
+window.addEventListener('load', function(){
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = GAME_WIDTH;
+    canvas.height = GAME_HEIGHT;
+    ctx.imageSmoothingEnabled = false;
     
-    for (let i = enemies.length - 1; i >= 0; i--){
-        const enemy = enemies[i];
-        if(enemy.activeStatus === true){
-            enemy.update(ctx); 
-            if(debug) 
-                debugEnemy(ctx, enemy);
-        }
-        if (enemy.position.x > canvas.width){
-            hearts -= 1;
-            enemy.position.x = enemy.waypoints[0].x;
-            enemy.position.y = enemy.waypoints[0].y;
-            enemy.waypointIndex = 0;
-        }
-    }
+    const game = new Game();
+    const wave = new Wave(game);
+    setInterval(() => { game.timer++ }, 1000);
 
-    buildings.forEach((building) => {
-        building.update(ctx);
-        building.target = null;
-        const validEnemies = enemies.filter(enemy => {
-                const xDifference = enemy.center.x - building.center.x;
-                const yDifference = enemy.center.y - building.center.y;
-                const distance = Math.hypot(xDifference, yDifference);
-                return distance < enemy.radius + building.radius;
-        }).sort((a, b) => {
-            if (a.waypointIndex > b.waypointIndex) return -1;
-            if (a.waypointIndex < b.waypointIndex) return 1;
-            if (a.priorityDistance < b.priorityDistance) return -1;
-            if (a.priorityDistance > b.priorityDistance) return 1;
-            return 0;
-        });
-
-        building.target = validEnemies[0];
-        for (let i = building.projectiles.length - 1; i >= 0; i-- ){
-            const projectile = building.projectiles[i];
-
-            projectile.update(ctx);
-            const xDifference = projectile.enemy.center.x - projectile.position.x;
-            const yDifference = projectile.enemy.center.y - projectile.position.y;
-            const distance = Math.hypot(xDifference, yDifference);
-
-            if (distance < projectile.enemy.radius + projectile.radius){
-                projectile.enemy.health -= 20;
-
-                if(projectile.enemy.health <= 0){
-                    const enemyIndex = enemies.findIndex((enemy) => {
-                        return projectile.enemy === enemy;
-                    });
-                    if (enemyIndex > -1){
-                        enemies.splice(enemyIndex, 1);
-                        coins += 25;
-                    }
-                }
-                explosions.push(
-                    new Sprite({
-                        position: { x: projectile.position.x, y: projectile.position.y },
-                        imageSrc: './img/explosion.png',
-                        frames: { max: 12 },
-                        offset: { x: - 80, y: -80 }
-                    })
-                )
-                building.projectiles.splice(i, 1);
-            }
-        }
-    })
-
-    for (let i = explosions.length - 1; i >= 0; i--) {
-        const explosion = explosions[i];
-        explosion.draw(ctx);
-        explosion.update(ctx);
-        if (explosion.frames.current >= explosion.frames.max - 1) {
-            explosions.splice(i, 1);
+    let lastTime = 0;
+    function animate(timeStamp){
+        const animationID = requestAnimationFrame(animate);
+        const deltaTime = timeStamp - lastTime;
+        lastTime = timeStamp;
+        
+        game.render(ctx, deltaTime);
+        wave.triggerEnemies(animationID);
+        wave.renderEnemies(ctx);
+//     if(!input.isRunning) 
+//         return;
+        wave.startNewWave();
+        if(game.hearts === 0){
+            cancelAnimationFrame(animationID);
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
+            ctx.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+            game.drawText(ctx, "GAME OVER", GAME_WIDTH / 2, GAME_HEIGHT / 2, 30, 'center');
         }
     }
+    requestAnimationFrame(animate);
+});
 
-    if (animationID % 100 === 0)
-        timer++;
-
-    if (enemies.length === 0){
-        waves++;
-        allEnemiesActive = false;
-        enemies = spawnEnemies(enemyCount += 1);
-    }
-
-    if(hearts === 0){
-        cancelAnimationFrame(animationID);
-        drawText(ctx, "GAME OVER", canvas.width / 2, canvas.height / 2, 30, 'center');
-    }
-}
-
-window.onkeydown = (e) => {
-    if(e.code === 'KeyP') {
-        if(isRunning){
-            isRunning = false;
-            audio.pause();
-        }
-        else {
-            isRunning = true;
-            audio.play();
-            animate();
-        }
-    }
-    if(e.code === 'KeyO')
-        debug = !debug;
-}
-
-const mouse = {
-    x: undefined,
-    y: undefined
-}
-
-canvas.addEventListener('click', (event) => {
-    if (activeTile && !activeTile.isOccupied && coins - 25 >= 0) {
-        coins -= 25
-        buildings.push(
-            new Building({ 
-                position: { 
-                    x: activeTile.position.x, 
-                    y: activeTile.position.y } 
-                },
-                './img/tower/sapphire1.png'
-            ));
-
-        activeTile.isOccupied = true;
-        buildings.sort((a, b) => {
-            return a.position.y - b.position.y;
-        })
-    }
-})
-
-window.addEventListener('mousemove', (event) => {
-    mouse.x = event.clientX;
-    mouse.y = event.clientY;
-    activeTile = null;
-
-    for (let i = 0; i < placementTiles.length; i++) {
-        const tile = placementTiles[i];
-        if (
-            mouse.x > tile.position.x &&
-            mouse.x < tile.position.x + tile.size &&
-            mouse.y > tile.position.y &&
-            mouse.y < tile.position.y + tile.size
-        ) {
-            activeTile = tile;
-            break;
-        }
-    }
-})
-
+// const explosions = [];
+// function animate(){
+//     for (let i = explosions.length - 1; i >= 0; i--) {
+//         const explosion = explosions[i];
+//         explosion.draw(ctx);
+//         explosion.update(ctx);
+//         if (explosion.frames.current >= explosion.frames.max - 1) {
+//             explosions.splice(i, 1);
+//         }
+//     }
+// }
 /* 
+PAUSE FUNCTIONALITY
+TOWERS
+DYING ANIMATIONS
+ALL ENEMIES
 PARTCILE EFFECTS
-
 Ruby		Splash damage
-Emerald  	Poison, damage, reduce armour
+*Emerald  	Poison, damage, reduce armour
 Amethyst  	Air Attack only
 Sapphire	Freeze / slow group 
 Topaz 		rapid fire
@@ -213,9 +69,8 @@ Diamond		Heavy damage / stun / critical hit
 Gold 		money generation, weak damage
 Silver		Sniper range
 Opal		Tower boost auras
-Uranium		Enemy Damage, weakness auras / remove armour and abilities
+Citrine     chain lighting, spreadshot
+*Uranium		Enemy Damage, weakness auras / remove armour and abilities
 Obsidian	rail gun laser
-chain lighting, spreadshot
 fire pit, landmines, net traps /air units to the ground
-
 */

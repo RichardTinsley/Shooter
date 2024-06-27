@@ -3,11 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tower Defence</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Death Sorcery</title>
+    <style>
+        body {
+            background: #000000;
+        }
+        #canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            image-rendering: crisp-edges;
+            image-rendering: pixelated;
+        }
+        .assets {
+            display: none;
+        }
+    </style>
 </head>
 <body>
     <canvas id="canvas"></canvas>
+
+    <div class = "assets">
+        <img src="images/LEVEL1.png" id="LEVEL1">
+        <img src="images/enemies/amethystRight.png" id="amethystRight">
+        <img src="images/enemies/citrineRight.png" id="citrineRight">
+        <img src="images/enemies/diamondRight.png" id="diamondRight">
+        <img src="images/enemies/goldRight.png" id="goldRight">
+        <img src="images/enemies/obsidianRight.png" id="obsidianRight">
+        <img src="images/enemies/opalRight.png" id="opalRight">
+        <img src="images/enemies/rubyRight.png" id="rubyRight">
+        <img src="images/enemies/sapphireRight.png" id="sapphireRight">
+        <img src="images/enemies/silverRight.png" id="silverRight">
+        <img src="images/enemies/topazRight.png" id="topazRight">
+    </div>
+
     <script type="module" src="index.js"></script>
 </body>
 </html>
