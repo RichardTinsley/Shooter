@@ -1,6 +1,6 @@
 import Projectile from "./Projectile.js";
 
-export default class Tower {
+export class Tower {
     constructor({
         game, 
         sprite, 
@@ -28,7 +28,6 @@ export default class Tower {
             x: this.position.x + this.width / 2,
             y: this.position.y + this.height / 2
         };
-        this.towers = [];
         this.projectiles = [];
         this.target;
 
@@ -114,3 +113,15 @@ export default class Tower {
 //             }
 //         }
 //     })
+
+// const explosions = [];
+// function animate(){
+//     for (let i = explosions.length - 1; i >= 0; i--) {
+//         const explosion = explosions[i];
+//         explosion.draw(ctx);
+//         explosion.update(ctx);
+//         if (explosion.frames.current >= explosion.frames.max - 1) {
+//             explosions.splice(i, 1);
+//         }
+//     }
+// }

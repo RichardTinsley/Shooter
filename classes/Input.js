@@ -1,5 +1,4 @@
-// import { buildings, placementTiles } from '../index.js';
-// import Building from '../classes/Building.js';
+import { Tower } from "./Tower.js";
 
 const PAUSE = 'PAUSE';
 const DEBUG = 'DEBUG';
@@ -16,11 +15,9 @@ export class Input {
         this.activeTile = undefined;
         
         window.addEventListener('click', e => {
-            if (this.activeTile && !this.activeTile.isOccupied) { //FIX COINS 
-
-            // if (this.activeTile && !this.activeTile.isOccupied && coins - 25 >= 0) {
-                buildings.push(
-                    new Building({ 
+            if (this.activeTile && !this.activeTile.isOccupied && this.game.coins - 25 >= 0) {
+                this.game.towers.push(
+                    new Tower({ 
                         position: { 
                             x: this.activeTile.position.x, 
                             y: this.activeTile.position.y } 
@@ -29,7 +26,7 @@ export class Input {
                     ));
         
                     this.activeTile.isOccupied = true;
-                buildings.sort((a, b) => {
+                this.game.towers.sort((a, b) => {
                     return a.position.y - b.position.y;
                 })
             }

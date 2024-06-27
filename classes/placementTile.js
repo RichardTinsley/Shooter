@@ -1,3 +1,5 @@
+import { TILE_SIZE } from "../index.js";
+
 export class PlacementTile {
     constructor({ 
         position = { 
@@ -5,7 +7,7 @@ export class PlacementTile {
             y: 0 
         } }) {
         this.position = position;
-        this.size = 32;
+        this.size = TILE_SIZE;
         this.colour = 'rgba(255, 255, 255, 0.15)';
         this.occupied = false;
     }
@@ -20,9 +22,10 @@ export class PlacementTile {
             mouse.x < this.position.x + this.size &&
             mouse.y > this.position.y &&
             mouse.y < this.position.y + this.size
-        ) {
-        this.colour = 'rgba(50, 255, 50, 0.15)';
-        } else this.colour = 'rgba(255, 255, 255, 0.15)';
+        )
+            this.colour = 'rgba(50, 255, 50, 0.15)';
+        else  
+            this.colour = 'rgba(255, 255, 255, 0.15)';
     }
 }
 

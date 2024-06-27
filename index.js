@@ -43,18 +43,9 @@ window.addEventListener('load', function(){
     requestAnimationFrame(animate);
 });
 
-// const explosions = [];
-// function animate(){
-//     for (let i = explosions.length - 1; i >= 0; i--) {
-//         const explosion = explosions[i];
-//         explosion.draw(ctx);
-//         explosion.update(ctx);
-//         if (explosion.frames.current >= explosion.frames.max - 1) {
-//             explosions.splice(i, 1);
-//         }
-//     }
-// }
+
 /* 
+CURSOR TO GAUNTLET
 PAUSE FUNCTIONALITY
 TOWERS
 DYING ANIMATIONS

@@ -19,6 +19,8 @@ export class Game {
         this.eventUpdate = false;
         this.eventTimer = 0;
         this.eventInterval = 60;
+
+        this.towers = [];
     }
     
     render(ctx, deltaTime){
@@ -30,8 +32,6 @@ export class Game {
         this.drawText(ctx, this.exp, 515, 52, 20,'left');
         this.drawText(ctx, this.waves, 805, 52, 20,'left');
         this.drawText(ctx, this.timer, 1155, 52, 20,'left');
-
-        setInterval(this.count, 1000);
         
         this.world.placementTiles.forEach((tile) => tile.update(this.input.mouse, ctx));
 

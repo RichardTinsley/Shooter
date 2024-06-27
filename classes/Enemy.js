@@ -75,14 +75,12 @@ export class Enemy {
         ){
             this.waypointIndex++;
         }
-
         
         // if(xDistance < 0)
         //     this.image.src = this.imageLeft.src;
         // else
         //     this.image.src = this.imageRightSrc;    
     }
-
 
     draw(ctx){
         this.drawShadow(ctx);

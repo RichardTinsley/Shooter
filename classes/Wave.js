@@ -1,6 +1,6 @@
+import { waypoints } from "./World.js";
 import { Enemy } from "./Enemy.js";
 import { ENEMY_SIZE } from "../index.js";
-import { waypoints } from "./World.js";
 
 export class Wave{
     constructor(game){
