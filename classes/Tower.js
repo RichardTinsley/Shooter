@@ -60,35 +60,28 @@ export class Tower {
         ctx.fill();
     }
     update() {
-        if (this.game.eventUpdate){
+        if (this.game.eventUpdate)
             this.sprite.x < this.maxFrame ? this.sprite.x++ : this.sprite.x = 0;
-        }
+        if (this.game.eventUpdate && this.target)
+            this.shoot();
+        
         // if (this.target || (!this.target && this.frames.current !== 0)) // pauses tower
+        // if ( this.target && this.frames.current === 1 && this.frames.elapsed % this.frames.hold === 0 )
 
-        // if (
-        //     this.target &&
-        //     this.frames.current === 1 &&
-        //     this.frames.elapsed % this.frames.hold === 0
-        // )
-        // this.shoot();
     }
 
     shoot() {
         this.projectiles.push(
             new Projectile({
                 position: {
-                    x: this.center.x - 15,
-                    y: this.center.y - 45
+                    x: this.center.x,
+                    y: this.center.y
                 },
                 enemy: this.target
             })
         )
     }
-
 }
-
-
-
 
 // const explosions = [];
 // function animate(){

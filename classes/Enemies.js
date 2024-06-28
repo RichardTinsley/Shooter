@@ -6,7 +6,7 @@ export class Enemies{
     constructor(game){
         this.game = game;   
         this.allEnemiesActive = false;
-        this.enemyCount = 100;    
+        this.enemyCount = 3;    
         this.enemies = this.spawnEnemies(this.enemyCount);
     }
 

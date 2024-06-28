@@ -1,23 +1,40 @@
 export class Projectile {
-    constructor({ position = { x: 0, y: 0 }, enemy }) {
-        // super({ position, imageSrc: 'img/projectile.png' });
+    constructor({ 
+        position,
+        enemy
+    }){
+        this.position = position ?? {
+            x: 0,
+            y: 0
+        }
+        // this.scale = scale ?? 1;
+        this.enemy = enemy;
+        
+        this.radius = 10;
+        this.center = {
+            x: this.position.x + this.radius / 2,
+            y: this.position.y + this.radius / 2
+        };
         this.velocity = {
             x: 0,
             y: 0
         };
-        this.enemy = enemy;
-        this.radius = 5;
         this.speed = 10;
+        this.damage = 5;
     }
 
-    update(ctx) {
-        this.draw(ctx);
-        
+    draw(ctx){
+        ctx.beginPath();
+        ctx.arc(this.center.x, this.center.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = 'black';
+        ctx.fill();
+    }
+
+    update() {
         const angle = Math.atan2(
             this.enemy.center.y - this.position.y,
             this.enemy.center.x - this.position.x
         );
-    
         this.velocity.x = Math.cos(angle) * this.speed;
         this.velocity.y = Math.sin(angle) * this.speed;
         this.position.x += this.velocity.x;

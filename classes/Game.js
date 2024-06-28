@@ -4,7 +4,7 @@ export class Game {
         this.debug = false;
         this.audio = new Audio('./sounds/music.mp3');
 
-        this.hearts = 100;
+        this.hearts = 1;
         this.coins = 100;
         this.exp = 0;
         this.waves = 1;
@@ -34,7 +34,7 @@ export class Game {
 
     drawText(ctx, text, x, y, textSize, align){
         ctx.fillStyle = 'white';
-        ctx.font = 'bold ' + textSize + 'px Arial';
+        ctx.font = 'bold ' + textSize + 'px canterbury';
         ctx.textAlign = align;
         ctx.textBaseline = 'middle';
         ctx.fillText(text, x + 5, y - 3);

@@ -46,12 +46,13 @@ export class Enemy {
         this.direction;
         this.activeStatus = false;
         this.health = 100;
+        this.coins = Math.floor(Math.random() * 5 + 1);
     }
 
     update(){
-        if (this.game.eventUpdate){
+        if (this.game.eventUpdate)
             this.sprite.x < this.maxFrame ? this.sprite.x++ : this.sprite.x = 0;
-        }
+        
         const waypoint = this.waypoints[this.waypointIndex];
         const yDistance = waypoint.y - this.center.y;
         const xDistance = waypoint.x - this.center.x;
@@ -76,11 +77,7 @@ export class Enemy {
         ){
             this.waypointIndex++;
         }
-        
-        // if(xDistance < 0)
-        //     this.image.src = this.imageLeft.src;
-        // else
-        //     this.image.src = this.imageRightSrc;    
+
         if(xDistance < 0)
             this.direction = "left";
         else
@@ -89,7 +86,6 @@ export class Enemy {
 
     draw(ctx){
         const direction = this.direction === "left" ? this.sprite.imageLeft : this.sprite.imageRight;
-
         this.drawShadow(ctx);
         if(this.game.debug)
             this.drawDebug(ctx);
@@ -107,7 +103,6 @@ export class Enemy {
         this.drawHealthBar(ctx);
     }
 
-    
     drawHealthBar(ctx){
         const healthBarX = this.center.x - this.thirdWidth;
         const healthBarY = this.center.y - this.scale * 30;

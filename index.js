@@ -23,7 +23,7 @@ window.addEventListener('load', function(){
     const game = new Game();
     const world = new World(game, 'LEVEL1');
     const enemies = new Enemies(game);
-    const towers = new Towers(enemies);
+    const towers = new Towers(game, enemies);
     const input = new Input(game, world, towers, enemies);
 
     setInterval(() => { game.timer++ }, 1000);
@@ -36,10 +36,10 @@ window.addEventListener('load', function(){
         
         world.drawBackground(ctx);
         world.placementTiles.forEach((tile) => tile.update(input.mouse, ctx));
-        game.renderGUI(ctx, deltaTime);
         enemies.triggerEnemies(animationID);
-        towers.renderTowers(ctx);
         enemies.renderEnemies(ctx);
+        towers.renderTowers(ctx);
+        game.renderGUI(ctx, deltaTime);
 
 //     if(!input.isRunning) 
 //         return;
@@ -48,7 +48,7 @@ window.addEventListener('load', function(){
             cancelAnimationFrame(animationID);
             ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
             ctx.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
-            game.drawText(ctx, "GAME OVER", GAME_WIDTH / 2, GAME_HEIGHT / 2, 30, 'center');
+            game.drawText(ctx, "GAME OVER", GAME_WIDTH / 2, GAME_HEIGHT / 2, 100, 'center');
         }
     }
     requestAnimationFrame(animate);
