@@ -70,7 +70,7 @@ Gold 		money generation, weak damage
 Silver		Sniper range
 Opal		Tower boost auras
 Citrine     chain lighting, spreadshot
-*Uranium		Enemy Damage, weakness auras / remove armour and abilities
+*Uranium	Enemy Damage, weakness auras / remove armour and abilities
 Obsidian	rail gun laser
 fire pit, landmines, net traps /air units to the ground
 */

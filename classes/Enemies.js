@@ -6,13 +6,14 @@ export class Enemies{
     constructor(game){
         this.game = game;   
         this.allEnemiesActive = false;
-        this.enemyCount = 3;    
+        this.enemyCount = 100;    
         this.enemies = this.spawnEnemies(this.enemyCount);
     }
 
     spawnEnemies(enemyCount) {
         const enemies = [];
         for (let i = 1; i < enemyCount + 1; i++) {
+            const enemyColour = this.pickRandomEnemy();
             const randomWaypoints = [];
             waypoints.forEach((waypoint) => {
                 randomWaypoints.push({ 
@@ -24,8 +25,8 @@ export class Enemies{
                 new Enemy({
                     game: this.game,
                     sprite: { 
-                        imageLeft: document.getElementById('opalLeft'),
-                        imageRight: document.getElementById('opalRight'), 
+                        imageLeft: document.getElementById(enemyColour.left),
+                        imageRight: document.getElementById(enemyColour.right), 
                         x: 0, 
                         y: 2, //Running animation row 
                         width: ENEMY_SIZE, 
@@ -35,12 +36,41 @@ export class Enemies{
                         x: waypoints[0].x,  
                         y: waypoints[0].y  
                     },
-                    scale: 5,
+                    scale: Math.random() * 3 + 1,
                     waypoints: randomWaypoints
                 })
             )
         }
         return enemies;
+    }
+
+    pickRandomEnemy(){
+        const chance = Math.random() * 100;
+        let enemyColour;
+        if (chance > 80) 
+            return enemyColour = { left: "topazLeft", right: "topazRight" };
+        else if (chance > 65) 
+            return enemyColour = { left: "citrineLeft", right: "citrineRight" };
+        else if (chance > 55)
+            return enemyColour = { left: "rubyLeft", right: "rubyRight" };
+        else if (chance > 45) 
+            return enemyColour = { left: "sapphireLeft", right: "sapphireRight" };
+        else if (chance > 35)
+            return enemyColour = { left: "emeraldLeft", right: "emeraldRight" };
+        else if (chance > 25)
+            return enemyColour = { left: "amethystLeft", right: "amethystRight" };
+        else if (chance > 17) 
+            return enemyColour = { left: "silverLeft", right: "silverRight" };
+        else if (chance > 11) 
+            return enemyColour = { left: "opalLeft", right: "opalRight" };
+        else if (chance > 7)
+            return enemyColour = { left: "goldLeft", right: "goldRight" };
+        else if (chance > 4) 
+            return enemyColour = { left: "diamondLeft", right: "diamondRight" };
+        else if (chance > 1)
+            return enemyColour = { left: "obsidianLeft", right: "obsidianRight" };
+        else (chance > 0)
+            return enemyColour = { left: "uraniumLeft", right: "uraniumRight" };
     }
 
     triggerEnemies(animationID){
