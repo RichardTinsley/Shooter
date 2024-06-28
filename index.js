@@ -39,8 +39,8 @@ window.addEventListener('load', function(){
         world.placementTiles.forEach((tile) => tile.update(input.mouse, ctx));
         game.renderGUI(ctx, deltaTime);
         enemies.triggerEnemies(animationID);
-        enemies.renderEnemies(ctx);
         towers.renderTowers(ctx);
+        enemies.renderEnemies(ctx);
 
 //     if(!input.isRunning) 
 //         return;

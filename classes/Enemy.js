@@ -43,6 +43,7 @@ export class Enemy {
         
         this.maxFrame = (this.sprite.imageRight.width / this.sprite.width) - 1;
 
+        this.direction;
         this.activeStatus = false;
         this.health = 100;
     }
@@ -80,14 +81,20 @@ export class Enemy {
         //     this.image.src = this.imageLeft.src;
         // else
         //     this.image.src = this.imageRightSrc;    
+        if(xDistance < 0)
+            this.direction = "left";
+        else
+            this.direction = "right";
     }
 
     draw(ctx){
+        const direction = this.direction === "left" ? this.sprite.imageLeft : this.sprite.imageRight;
+
         this.drawShadow(ctx);
         if(this.game.debug)
             this.drawDebug(ctx);
         ctx.drawImage(
-            this.sprite.imageRight,
+            direction,
             this.sprite.x * this.sprite.width,
             this.sprite.y * this.sprite.height + 1,
             this.sprite.width,

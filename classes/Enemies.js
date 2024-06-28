@@ -24,7 +24,7 @@ export class Enemies{
                 new Enemy({
                     game: this.game,
                     sprite: { 
-                        imageLeft: "",
+                        imageLeft: document.getElementById('goldLeft'),
                         imageRight: document.getElementById('goldRight'), 
                         x: 0, 
                         y: 2, //Running animation row 
