@@ -107,11 +107,10 @@ export class Enemy {
         const healthBarX = this.center.x - this.thirdWidth;
         const healthBarY = this.center.y - this.scale * 30;
         const healthBarWidth = this.thirdWidth * 2;
-        const healtBarThickness = 5 * this.scale;
         ctx.fillStyle = 'red';
-        ctx.fillRect(healthBarX, healthBarY, healthBarWidth, healtBarThickness);
+        ctx.fillRect(healthBarX, healthBarY, healthBarWidth, 5);
         ctx.fillStyle = 'rgb(85, 255, 0)';
-        ctx.fillRect(healthBarX, healthBarY, healthBarWidth * (this.health / 100), healtBarThickness);
+        ctx.fillRect(healthBarX, healthBarY, healthBarWidth * (this.health / 100), 5);
     }
     
     drawShadow(ctx){

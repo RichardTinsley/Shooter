@@ -36,7 +36,7 @@ export class Enemies{
                         x: waypoints[0].x,  
                         y: waypoints[0].y  
                     },
-                    scale: Math.random() * 3 + 1,
+                    scale: Math.random() + 1,
                     waypoints: randomWaypoints
                 })
             )

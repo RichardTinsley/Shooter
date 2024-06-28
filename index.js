@@ -21,7 +21,7 @@ window.addEventListener('load', function(){
     ctx.imageSmoothingEnabled = false;
     
     const game = new Game();
-    const world = new World(game, 'LEVEL1');
+    const world = new World(game);
     const enemies = new Enemies(game);
     const towers = new Towers(game, enemies);
     const input = new Input(game, world, towers, enemies);
@@ -41,24 +41,22 @@ window.addEventListener('load', function(){
         towers.renderTowers(ctx);
         game.renderGUI(ctx, deltaTime);
 
-//     if(!input.isRunning) 
-//         return;
-        enemies.startNewWave();
         if(game.hearts === 0){
             cancelAnimationFrame(animationID);
             ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
             ctx.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
             game.drawText(ctx, "GAME OVER", GAME_WIDTH / 2, GAME_HEIGHT / 2, 100, 'center');
         }
+//     if(!input.isRunning) 
+//         return;
+        enemies.startNewWave();
     }
     requestAnimationFrame(animate);
 });
 
-
 /* 
 PAUSE FUNCTIONALITY
 DYING ANIMATIONS
-ALL ENEMIES
 PARTCILE EFFECTS
 Ruby		Splash damage
 *Emerald  	Poison, damage, reduce armour
