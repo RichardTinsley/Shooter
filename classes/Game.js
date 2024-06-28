@@ -1,11 +1,5 @@
-import { World } from "./World.js";
-import { Input } from "./Input.js";
-
 export class Game {
     constructor(){
-        this.input = new Input(this);
-        this.world = new World('LEVEL1');
-
         this.isRunning = true;
         this.debug = false;
         this.audio = new Audio('./sounds/music.mp3');
@@ -19,21 +13,14 @@ export class Game {
         this.eventUpdate = false;
         this.eventTimer = 0;
         this.eventInterval = 60;
-
-        this.towers = [];
     }
-    
-    render(ctx, deltaTime){
-        this.world.drawBackground(ctx);
-        if(this.debug)
-            this.world.drawGrid(ctx);
+
+    renderGUI(ctx, deltaTime){
         this.drawText(ctx, this.hearts, 65, 52, 20,'left');
         this.drawText(ctx, this.coins, 225, 52, 20,'left');
         this.drawText(ctx, this.exp, 515, 52, 20,'left');
         this.drawText(ctx, this.waves, 805, 52, 20,'left');
         this.drawText(ctx, this.timer, 1155, 52, 20,'left');
-        
-        this.world.placementTiles.forEach((tile) => tile.update(this.input.mouse, ctx));
 
         if (this.eventTimer < this.eventInterval){
             this.eventTimer += deltaTime;

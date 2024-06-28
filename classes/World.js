@@ -2,7 +2,8 @@ import { TILE_SIZE, COLUMNS, ROWS } from "../index.js";
 import { PlacementTile } from './PlacementTile.js';
 
 export class World {
-    constructor(map){
+    constructor(game, map){
+        this.game = game;
         this.backgroundLayer = document.getElementById(map) // image.src = new Image() doesn't reload image from broswer memory
         this.placementTiles = this.initialiseTiles();
     }
@@ -20,6 +21,8 @@ export class World {
 
     drawBackground(ctx){
         ctx.drawImage(this.backgroundLayer, 0, 0);
+        if(this.game.debug) 
+            this.drawGrid(ctx);
     }
 
     make2DArray(array){
@@ -50,7 +53,7 @@ export class World {
 
 export const waypoints = [
     {
-        "x":-50,
+        "x":-100,
         "y":685
     }, 
     {

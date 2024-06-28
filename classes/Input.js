@@ -1,32 +1,47 @@
 import { Tower } from "./Tower.js";
+import { ENEMY_SIZE } from "../index.js";
 
 const PAUSE = 'PAUSE';
 const DEBUG = 'DEBUG';
 
 export class Input {
-    constructor(game){
-        this.game = game
+    constructor(game, world, towers, enemies){
+        this.game = game;
+        this.world = world
+        this.towers = towers;
+        this.enemies = enemies;
+        
         this.mouse = {
             x: undefined,
             y: undefined
-        }
+        };
 
         this.keys = [];
         this.activeTile = undefined;
         
         window.addEventListener('click', e => {
             if (this.activeTile && !this.activeTile.isOccupied && this.game.coins - 25 >= 0) {
-                this.game.towers.push(
-                    new Tower({ 
-                        position: { 
-                            x: this.activeTile.position.x, 
-                            y: this.activeTile.position.y } 
+                this.towers.towers.push(
+                    new Tower({
+                        game: this.game,
+                        sprite: { 
+                            imageLeft: "",
+                            imageRight: document.getElementById('sapphire1'), 
+                            x: 0, 
+                            y: 0, //Animation Row
+                            width: ENEMY_SIZE, 
+                            height: ENEMY_SIZE 
                         },
-                        './img/towers/sapphire1.png'
-                    ));
+                        position: { 
+                            x: this.activeTile.position.x,
+                            y: this.activeTile.position.y  
+                        },
+                        scale: 1,
+                    })
+                );
         
-                    this.activeTile.isOccupied = true;
-                this.game.towers.sort((a, b) => {
+                this.activeTile.isOccupied = true;
+                this.towers.towers.sort((a, b) => {
                     return a.position.y - b.position.y;
                 })
             }
@@ -36,9 +51,10 @@ export class Input {
             this.mouse.x = e.clientX;
             this.mouse.y = e.clientY;
             this.activeTile = null;
+            const cursor = document.getElementById("canvas");
         
-            for (let i = 0; i < this.game.world.placementTiles.length; i++) {
-                const tile = this.game.world.placementTiles[i];
+            for (let i = 0; i < this.world.placementTiles.length; i++) {
+                const tile = this.world.placementTiles[i];
                 if (
                     this.mouse.x > tile.position.x &&
                     this.mouse.x < tile.position.x + tile.size &&
@@ -47,6 +63,25 @@ export class Input {
                 ) {
                     this.activeTile = tile;
                     break;
+                }
+            }
+
+            for (let i = 0; i < this.enemies.enemies.length; i++) {
+                const enemy = this.enemies.enemies[i];
+                const enemyX = enemy.center.x - enemy.thirdWidth;
+                const enemyWidth = enemy.thirdWidth * 2;
+                const enemyY = enemy.center.y - enemy.scale * 30;
+                const enemyHeight = ENEMY_SIZE * enemy.scale;
+                if (
+                    this.mouse.x > enemyX &&
+                    this.mouse.x < enemyX + enemyWidth &&
+                    this.mouse.y > enemyY &&
+                    this.mouse.y < enemyY + enemyHeight
+                ) {
+                    cursor.style = "cursor: url(./images/cursors/text.cur), auto;";
+                    break;
+                } else {
+                    cursor.style = "cursor: url(./images/cursors/normal.cur), auto;";
                 }
             }
         })

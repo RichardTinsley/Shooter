@@ -1,4 +1,5 @@
-import Projectile from "./Projectile.js";
+import { Projectile } from "./Projectile.js";
+import { TILE_SIZE, HALF_TILE_SIZE } from "../index.js";
 
 export class Tower {
     constructor({
@@ -28,6 +29,7 @@ export class Tower {
             x: this.position.x + this.width / 2,
             y: this.position.y + this.height / 2
         };
+
         this.projectiles = [];
         this.target;
 
@@ -35,20 +37,37 @@ export class Tower {
         this.fireRate = 100;
     }
     draw(ctx){
+        this.drawRadius(ctx);
+        ctx.drawImage(
+            this.sprite.imageRight,
+            this.sprite.x * this.sprite.width,
+            this.sprite.y * this.sprite.height,
+            this.sprite.width,
+            this.sprite.height,
+            this.position.x + HALF_TILE_SIZE - this.halfWidth,
+            this.position.y + TILE_SIZE - this.height,
+            this.width,
+            this.height
+        );
+    }
+    drawRadius(ctx){
         ctx.beginPath();
         ctx.arc(this.center.x, this.center.y, this.radius, 0, Math.PI * 2);
         ctx.fillStyle = 'rgba(200, 0, 0, 0.1)';
         ctx.fill();
     }
     update() {
+        if (this.game.eventUpdate){
+            this.sprite.x < this.maxFrame ? this.sprite.x++ : this.sprite.x = 0;
+        }
         // if (this.target || (!this.target && this.frames.current !== 0)) // pauses tower
 
-        if (
-            this.target &&
-            this.frames.current === 1 &&
-            this.frames.elapsed % this.frames.hold === 0
-        )
-        this.shoot();
+        // if (
+        //     this.target &&
+        //     this.frames.current === 1 &&
+        //     this.frames.elapsed % this.frames.hold === 0
+        // )
+        // this.shoot();
     }
 
     shoot() {
@@ -62,57 +81,11 @@ export class Tower {
             })
         )
     }
+
 }
 
-//     this.towers.forEach((tower) => {
-//         tower.update(ctx);
-//         tower.target = null;
-//         const validEnemies = enemies.filter(enemy => {
-//                 const xDifference = enemy.center.x - tower.center.x;
-//                 const yDifference = enemy.center.y - tower.center.y;
-//                 const distance = Math.hypot(xDifference, yDifference);
-//                 return distance < enemy.radius + tower.radius;
-//         }).sort((a, b) => {
-//             if (a.waypointIndex > b.waypointIndex) return -1;
-//             if (a.waypointIndex < b.waypointIndex) return 1;
-//             if (a.priorityDistance < b.priorityDistance) return -1;
-//             if (a.priorityDistance > b.priorityDistance) return 1;
-//             return 0;
-//         });
 
-//         tower.target = validEnemies[0];
-//         for (let i = tower.projectiles.length - 1; i >= 0; i-- ){
-//             const projectile = tower.projectiles[i];
 
-//             projectile.update(ctx);
-//             const xDifference = projectile.enemy.center.x - projectile.position.x;
-//             const yDifference = projectile.enemy.center.y - projectile.position.y;
-//             const distance = Math.hypot(xDifference, yDifference);
-
-//             if (distance < projectile.enemy.radius + projectile.radius){
-//                 projectile.enemy.health -= 20;
-
-//                 if(projectile.enemy.health <= 0){
-//                     const enemyIndex = enemies.findIndex((enemy) => {
-//                         return projectile.enemy === enemy;
-//                     });
-//                     if (enemyIndex > -1){
-//                         enemies.splice(enemyIndex, 1);
-//                         coins += 25;
-//                     }
-//                 }
-//                 explosions.push(
-//                     new Sprite({
-//                         position: { x: projectile.position.x, y: projectile.position.y },
-//                         imageSrc: './img/explosion.png',
-//                         frames: { max: 12 },
-//                         offset: { x: - 80, y: -80 }
-//                     })
-//                 )
-//                 tower.projectiles.splice(i, 1);
-//             }
-//         }
-//     })
 
 // const explosions = [];
 // function animate(){

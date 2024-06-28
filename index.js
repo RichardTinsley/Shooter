@@ -1,5 +1,9 @@
 import { Game } from "./classes/Game.js";
-import { Wave } from "./classes/Wave.js";
+import { World } from "./classes/World.js";
+import { Input } from "./classes/Input.js";
+import { Enemies } from "./classes/Enemies.js";
+import { Towers } from "./classes/Towers.js";
+
 
 export const TILE_SIZE = 32;
 export const HALF_TILE_SIZE = TILE_SIZE / 2;
@@ -18,7 +22,11 @@ window.addEventListener('load', function(){
     ctx.imageSmoothingEnabled = false;
     
     const game = new Game();
-    const wave = new Wave(game);
+    const world = new World(game, 'LEVEL1');
+    const enemies = new Enemies(game);
+    const towers = new Towers(enemies);
+    const input = new Input(game, world, towers, enemies);
+
     setInterval(() => { game.timer++ }, 1000);
 
     let lastTime = 0;
@@ -27,12 +35,16 @@ window.addEventListener('load', function(){
         const deltaTime = timeStamp - lastTime;
         lastTime = timeStamp;
         
-        game.render(ctx, deltaTime);
-        wave.triggerEnemies(animationID);
-        wave.renderEnemies(ctx);
+        world.drawBackground(ctx);
+        world.placementTiles.forEach((tile) => tile.update(input.mouse, ctx));
+        game.renderGUI(ctx, deltaTime);
+        enemies.triggerEnemies(animationID);
+        enemies.renderEnemies(ctx);
+        towers.renderTowers(ctx);
+
 //     if(!input.isRunning) 
 //         return;
-        wave.startNewWave();
+        enemies.startNewWave();
         if(game.hearts === 0){
             cancelAnimationFrame(animationID);
             ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
@@ -45,7 +57,6 @@ window.addEventListener('load', function(){
 
 
 /* 
-CURSOR TO GAUNTLET
 PAUSE FUNCTIONALITY
 TOWERS
 DYING ANIMATIONS

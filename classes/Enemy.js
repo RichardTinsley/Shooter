@@ -84,6 +84,8 @@ export class Enemy {
 
     draw(ctx){
         this.drawShadow(ctx);
+        if(this.game.debug)
+            this.drawDebug(ctx);
         ctx.drawImage(
             this.sprite.imageRight,
             this.sprite.x * this.sprite.width,
@@ -95,8 +97,6 @@ export class Enemy {
             this.width,
             this.height
         );
-        if(this.game.debug)
-            this.drawDebug(ctx);
         this.drawHealthBar(ctx);
     }
 

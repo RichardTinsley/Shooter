@@ -2,11 +2,11 @@ import { waypoints } from "./World.js";
 import { Enemy } from "./Enemy.js";
 import { ENEMY_SIZE } from "../index.js";
 
-export class Wave{
+export class Enemies{
     constructor(game){
-        this.game = game;    
+        this.game = game;   
         this.allEnemiesActive = false;
-        this.enemyCount = 100;    
+        this.enemyCount = 2;    
         this.enemies = this.spawnEnemies(this.enemyCount);
     }
 
@@ -35,7 +35,7 @@ export class Wave{
                         x: waypoints[0].x,  
                         y: waypoints[0].y  
                     },
-                    scale: 3,
+                    scale: 1,
                     waypoints: randomWaypoints
                 })
             )
@@ -59,9 +59,9 @@ export class Wave{
             const enemy = this.enemies[i];
             if(enemy.activeStatus === true){
                 enemy.draw(ctx);
-                enemy.update(ctx);
-                if(this.game.input.debug) 
-                    debugEnemy(ctx, enemy);
+                enemy.update();
+                if(this.game.debug) 
+                    enemy.drawDebug(ctx);
             }
             if (enemy.position.x > canvas.width){
                 this.game.hearts -= 1;
