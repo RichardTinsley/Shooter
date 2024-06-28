@@ -63,11 +63,9 @@ export class Tower {
         if (this.game.eventUpdate)
             this.sprite.x < this.maxFrame ? this.sprite.x++ : this.sprite.x = 0;
         if (this.game.eventUpdate && this.target)
-            this.shoot();
-        
+            this.shoot();     
         // if (this.target || (!this.target && this.frames.current !== 0)) // pauses tower
         // if ( this.target && this.frames.current === 1 && this.frames.elapsed % this.frames.hold === 0 )
-
     }
 
     shoot() {
@@ -82,15 +80,3 @@ export class Tower {
         )
     }
 }
-
-// const explosions = [];
-// function animate(){
-//     for (let i = explosions.length - 1; i >= 0; i--) {
-//         const explosion = explosions[i];
-//         explosion.draw(ctx);
-//         explosion.update(ctx);
-//         if (explosion.frames.current >= explosion.frames.max - 1) {
-//             explosions.splice(i, 1);
-//         }
-//     }
-// }

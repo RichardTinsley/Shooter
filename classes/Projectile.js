@@ -10,7 +10,7 @@ export class Projectile {
         // this.scale = scale ?? 1;
         this.enemy = enemy;
         
-        this.radius = 10;
+        this.radius = 5;
         this.center = {
             x: this.position.x + this.radius / 2,
             y: this.position.y + this.radius / 2
@@ -19,13 +19,13 @@ export class Projectile {
             x: 0,
             y: 0
         };
-        this.speed = 10;
-        this.damage = 5;
+        this.speed = 5;
+        this.damage = 1;
     }
 
     draw(ctx){
         ctx.beginPath();
-        ctx.arc(this.center.x, this.center.y, this.radius, 0, Math.PI * 2);
+        ctx.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2);
         ctx.fillStyle = 'black';
         ctx.fill();
     }

@@ -57,7 +57,6 @@ window.addEventListener('load', function(){
 
 /* 
 PAUSE FUNCTIONALITY
-TOWERS
 DYING ANIMATIONS
 ALL ENEMIES
 PARTCILE EFFECTS
