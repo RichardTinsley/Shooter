@@ -4,7 +4,7 @@ export class Game {
         this.debug = false;
         this.audio = new Audio('./sounds/music.mp3');
 
-        this.hearts = 11;
+        this.hearts = 100;
         this.coins = 100;
         this.exp = 0;
         this.waves = 1;

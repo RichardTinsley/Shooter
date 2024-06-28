@@ -1,5 +1,5 @@
 import { Projectile } from "./Projectile.js";
-import { TILE_SIZE, HALF_TILE_SIZE } from "../index.js";
+import { TILE_SIZE, HALF_TILE_SIZE, TOWER_SIZE } from "../index.js";
 
 export class Tower {
     constructor({
@@ -14,8 +14,8 @@ export class Tower {
             imageRight: "", 
             x: 0, 
             y: 0, 
-            width: TILE_SIZE, 
-            height: TILE_SIZE 
+            width: 0, 
+            height: 0 
         };
         this.position = position ?? {
             x: 0,
@@ -23,12 +23,15 @@ export class Tower {
         }
         this.scale = scale ?? 1;
 
-        this.width = this.sprite.width;
-        this.height = this.sprite.height;  
+        this.width = this.sprite.width * this.scale;
+        this.height = this.sprite.height * this.scale;
+        this.halfWidth = this.width / 2;
         this.center = {
             x: this.position.x + this.width / 2,
             y: this.position.y + this.height / 2
         };
+
+        this.maxFrame = (this.sprite.imageRight.width / this.sprite.width) - 1;
 
         this.projectiles = [];
         this.target;
@@ -37,18 +40,18 @@ export class Tower {
         this.fireRate = 100;
     }
     draw(ctx){
-        this.drawRadius(ctx);
         ctx.drawImage(
             this.sprite.imageRight,
             this.sprite.x * this.sprite.width,
             this.sprite.y * this.sprite.height,
             this.sprite.width,
             this.sprite.height,
-            this.position.x + HALF_TILE_SIZE - this.halfWidth,
+            this.position.x + TILE_SIZE - this.halfWidth,
             this.position.y + TILE_SIZE - this.height,
             this.width,
             this.height
         );
+        this.drawRadius(ctx);
     }
     drawRadius(ctx){
         ctx.beginPath();

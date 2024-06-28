@@ -4,7 +4,6 @@ import { Input } from "./classes/Input.js";
 import { Enemies } from "./classes/Enemies.js";
 import { Towers } from "./classes/Towers.js";
 
-
 export const TILE_SIZE = 32;
 export const HALF_TILE_SIZE = TILE_SIZE / 2;
 export const ENEMY_SIZE = 48;

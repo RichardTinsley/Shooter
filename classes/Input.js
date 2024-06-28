@@ -1,5 +1,5 @@
 import { Tower } from "./Tower.js";
-import { ENEMY_SIZE } from "../index.js";
+import { HALF_TILE_SIZE, ENEMY_SIZE, TOWER_SIZE } from "../index.js";
 
 const PAUSE = 'PAUSE';
 const DEBUG = 'DEBUG';
@@ -29,12 +29,12 @@ export class Input {
                             imageRight: document.getElementById('sapphire1'), 
                             x: 0, 
                             y: 0, //Animation Row
-                            width: ENEMY_SIZE, 
-                            height: ENEMY_SIZE 
+                            width: TOWER_SIZE, 
+                            height: TOWER_SIZE 
                         },
                         position: { 
-                            x: this.activeTile.position.x,
-                            y: this.activeTile.position.y  
+                            x: this.activeTile.position.x - HALF_TILE_SIZE,
+                            y: this.activeTile.position.y - HALF_TILE_SIZE  
                         },
                         scale: 1,
                     })

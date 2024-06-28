@@ -115,8 +115,7 @@ export class Enemy {
         const healtBarThickness = 5 * this.scale;
         ctx.fillStyle = 'red';
         ctx.fillRect(healthBarX, healthBarY, healthBarWidth, healtBarThickness);
-        ctx.strokeRect(healthBarX, healthBarY, healthBarWidth, healtBarThickness);
-        ctx.fillStyle = 'green';
+        ctx.fillStyle = 'rgb(85, 255, 0)';
         ctx.fillRect(healthBarX, healthBarY, healthBarWidth * (this.health / 100), healtBarThickness);
     }
     

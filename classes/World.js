@@ -89,7 +89,7 @@ export const waypoints = [
         "y":175
     }, 
     {
-        "x":1325,
+        "x":1350,
         "y":175
     }
 ]

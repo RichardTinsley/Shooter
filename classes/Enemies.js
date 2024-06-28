@@ -6,7 +6,7 @@ export class Enemies{
     constructor(game){
         this.game = game;   
         this.allEnemiesActive = false;
-        this.enemyCount = 2;    
+        this.enemyCount = 100;    
         this.enemies = this.spawnEnemies(this.enemyCount);
     }
 
@@ -16,16 +16,16 @@ export class Enemies{
             const randomWaypoints = [];
             waypoints.forEach((waypoint) => {
                 randomWaypoints.push({ 
-                    x: (waypoint.x - 25) + Math.round(Math.random() * 70),
-                    y: (waypoint.y - 25) + Math.round(Math.random() * 70)
+                    x: (waypoint.x - 40) + Math.round(Math.random() * 70),
+                    y: (waypoint.y - 40) + Math.round(Math.random() * 70)
                 });
             })
             enemies.push(  
                 new Enemy({
                     game: this.game,
                     sprite: { 
-                        imageLeft: document.getElementById('goldLeft'),
-                        imageRight: document.getElementById('goldRight'), 
+                        imageLeft: document.getElementById('opalLeft'),
+                        imageRight: document.getElementById('opalRight'), 
                         x: 0, 
                         y: 2, //Running animation row 
                         width: ENEMY_SIZE, 
