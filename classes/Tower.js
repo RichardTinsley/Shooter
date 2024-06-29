@@ -36,8 +36,10 @@ export class Tower {
         this.projectiles = [];
         this.target;
 
-        this.radius = 200;
+        this.damage = 10;
+        this.radius = 1000;
         this.fireRate = 100;
+        this.fireRateTimer = 0;
     }
     draw(ctx){
         ctx.drawImage(
@@ -59,11 +61,17 @@ export class Tower {
         ctx.fillStyle = 'rgba(200, 0, 0, 0.1)';
         ctx.fill();
     }
-    update() {
+    update(deltaTime) {
+        const scaledSpeed = this.fireRate * (deltaTime / 1000);
+        this.fireRateTimer += scaledSpeed;
+        if (this.fireRate / this.fireRateTimer < 1 && this.target)
+            this.shoot();
+
+            console.log(deltaTime / 1000);
         if (this.game.eventUpdate)
             this.sprite.x < this.maxFrame ? this.sprite.x++ : this.sprite.x = 0;
-        if (this.game.eventUpdate && this.target)
-            this.shoot();     
+        // if (this.game.eventUpdate && this.target)
+        //     this.shoot();     
         // if (this.target || (!this.target && this.frames.current !== 0)) // pauses tower
         // if ( this.target && this.frames.current === 1 && this.frames.elapsed % this.frames.hold === 0 )
     }
@@ -75,8 +83,11 @@ export class Tower {
                     x: this.center.x,
                     y: this.center.y
                 },
-                enemy: this.target
+                enemy: this.target,
+                scale: 1,
+                damage: this.damage
             })
         )
+        this.fireRateTimer = 1;
     }
 }

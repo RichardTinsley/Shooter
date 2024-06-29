@@ -5,10 +5,10 @@ export class Towers{
         this.towers = [];
     }
 
-    renderTowers(ctx){
+    renderTowers(ctx, deltaTime){
         this.towers.forEach((tower) => {
+            tower.update(deltaTime);
             tower.draw(ctx);
-            tower.update();
             tower.target = null;
             const validEnemies = this.enemies.enemies.filter(enemy => {
                     const xDifference = enemy.center.x - tower.center.x;
@@ -25,7 +25,7 @@ export class Towers{
             tower.target = validEnemies[0];
             for (let i = tower.projectiles.length - 1; i >= 0; i-- ){
                 const projectile = tower.projectiles[i];        
-                projectile.update();
+                projectile.update(deltaTime);
                 projectile.draw(ctx);
                 const xDifference = projectile.enemy.center.x - projectile.position.x;
                 const yDifference = projectile.enemy.center.y - projectile.position.y;

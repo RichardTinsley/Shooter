@@ -32,12 +32,6 @@ export class Game {
         }
     }
 
-    renderGameOver(ctx){
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
-        ctx.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
-        this.drawText(ctx, "GAME OVER", GAME_WIDTH / 2, GAME_HEIGHT / 2, 100, 'center');
-    }
-
     drawText(ctx, text, x, y, textSize, align){
         ctx.fillStyle = 'white';
         ctx.font = 'bold ' + textSize + 'px canterbury';

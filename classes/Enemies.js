@@ -10,6 +10,56 @@ export class Enemies{
         this.enemies = this.spawnEnemies(this.enemyCount);
     }
 
+    // beginWave(){
+    //     if (this.enemies.length > 0 && this.allEnemiesActive === false){
+    //         setInterval(() => {
+    //             const enemy = this.enemies.find((enemy) => enemy.activeStatus === false);
+    //             if(enemy)
+    //                 enemy.activeStatus = true;
+    //             else
+    //                 this.allEnemiesActive = true; 
+    //         }, Math.random() * 1000000);
+    //     }
+    // }
+
+    beginWave(timeStamp){
+        console.log(Math.floor(timeStamp))
+        if (Math.floor(timeStamp) % Math.floor(Math.random() * 250) === 0 && this.allEnemiesActive === false){
+            const enemy = this.enemies.find((enemy) => enemy.activeStatus === false);
+            if(enemy)
+                enemy.activeStatus = true;
+            else
+                this.allEnemiesActive = true; 
+        }
+    }
+
+    renderEnemies(ctx, deltaTime){
+        this.enemies.sort((a, b) => b.position.y - a.position.y);
+        for (let i = this.enemies.length - 1; i >= 0; i--){
+            const enemy = this.enemies[i];
+            if(enemy.activeStatus === true){
+                enemy.update(deltaTime);
+                enemy.draw(ctx);
+                if(this.game.debug) 
+                    enemy.drawDebug(ctx);
+            }
+            if (enemy.position.x > canvas.width){
+                this.game.hearts -= 1;
+                enemy.position.x = enemy.waypoints[0].x;
+                enemy.position.y = enemy.waypoints[0].y;
+                enemy.waypointIndex = 0;
+            }
+        }
+    }
+
+    newWave(){
+        if (this.enemies.length === 0){
+            this.game.waves++;
+            this.allEnemiesActive = false;
+            this.enemies = this.spawnEnemies(this.enemyCount += 1);
+        }
+    }
+
     spawnEnemies(enemyCount) {
         const enemies = [];
         for (let i = 1; i < enemyCount + 1; i++) {
@@ -71,43 +121,6 @@ export class Enemies{
             return enemyColour = { left: "obsidianLeft", right: "obsidianRight" };
         else (chance > 0)
             return enemyColour = { left: "uraniumLeft", right: "uraniumRight" };
-    }
-
-    triggerEnemies(animationID){
-        if (animationID % Math.floor(Math.random() * 250) === 0 && this.enemies.length > 0 && this.allEnemiesActive === false){
-            const enemy = this.enemies.find((enemy) => enemy.activeStatus === false);
-            if(enemy)
-                enemy.activeStatus = true;
-            else
-                this.allEnemiesActive = true;
-        }
-    }
-
-    renderEnemies(ctx){
-        this.enemies.sort((a, b) => b.position.y - a.position.y);
-        for (let i = this.enemies.length - 1; i >= 0; i--){
-            const enemy = this.enemies[i];
-            if(enemy.activeStatus === true){
-                enemy.draw(ctx);
-                enemy.update();
-                if(this.game.debug) 
-                    enemy.drawDebug(ctx);
-            }
-            if (enemy.position.x > canvas.width){
-                this.game.hearts -= 1;
-                enemy.position.x = enemy.waypoints[0].x;
-                enemy.position.y = enemy.waypoints[0].y;
-                enemy.waypointIndex = 0;
-            }
-        }
-    }
-
-    startNewWave(){
-        if (this.enemies.length === 0){
-            this.game.waves++;
-            this.allEnemiesActive = false;
-            this.enemies = this.spawnEnemies(this.enemyCount += 1);
-        }
     }
 }                
 
