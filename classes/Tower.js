@@ -38,8 +38,10 @@ export class Tower {
 
         this.damage = 10;
         this.radius = 1000;
-        this.fireRate = 100;
-        this.fireRateTimer = 0;
+        this.shootRate = 800;
+        this.shootUpdate = false;
+        this.shootTimer = 0;
+        this.shootInterval = 1000;
     }
     draw(ctx){
         ctx.drawImage(
@@ -62,18 +64,20 @@ export class Tower {
         ctx.fill();
     }
     update(deltaTime) {
-        const scaledSpeed = this.fireRate * (deltaTime / 1000);
-        this.fireRateTimer += scaledSpeed;
-        if (this.fireRate / this.fireRateTimer < 1 && this.target)
-            this.shoot();
 
-            console.log(deltaTime / 1000);
+        if (this.shootUpdate && this.target)
+            this.shoot(); //FIX FIRE
+
+        if (this.shootTimer < this.shootInterval - this.shootRate){
+            this.shootTimer += deltaTime;
+            this.shootUpdate = false;
+        } else {
+            this.shootTimer = 0;
+            this.shootUpdate = true; 
+        }
+
         if (this.game.eventUpdate)
             this.sprite.x < this.maxFrame ? this.sprite.x++ : this.sprite.x = 0;
-        // if (this.game.eventUpdate && this.target)
-        //     this.shoot();     
-        // if (this.target || (!this.target && this.frames.current !== 0)) // pauses tower
-        // if ( this.target && this.frames.current === 1 && this.frames.elapsed % this.frames.hold === 0 )
     }
 
     shoot() {

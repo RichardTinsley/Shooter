@@ -10,20 +10,7 @@ export class Enemies{
         this.enemies = this.spawnEnemies(this.enemyCount);
     }
 
-    // beginWave(){
-    //     if (this.enemies.length > 0 && this.allEnemiesActive === false){
-    //         setInterval(() => {
-    //             const enemy = this.enemies.find((enemy) => enemy.activeStatus === false);
-    //             if(enemy)
-    //                 enemy.activeStatus = true;
-    //             else
-    //                 this.allEnemiesActive = true; 
-    //         }, Math.random() * 1000000);
-    //     }
-    // }
-
     beginWave(timeStamp){
-        console.log(Math.floor(timeStamp))
         if (Math.floor(timeStamp) % Math.floor(Math.random() * 250) === 0 && this.allEnemiesActive === false){
             const enemy = this.enemies.find((enemy) => enemy.activeStatus === false);
             if(enemy)

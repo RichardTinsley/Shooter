@@ -27,8 +27,8 @@ export class Towers{
                 const projectile = tower.projectiles[i];        
                 projectile.update(deltaTime);
                 projectile.draw(ctx);
-                const xDifference = projectile.enemy.center.x - projectile.position.x;
-                const yDifference = projectile.enemy.center.y - projectile.position.y;
+                const xDifference = projectile.enemy.center.x - projectile.center.x;
+                const yDifference = projectile.enemy.center.y - projectile.center.y;
                 const distance = Math.hypot(xDifference, yDifference);
 
                 if (distance < projectile.enemy.width / 32 + projectile.radius){
