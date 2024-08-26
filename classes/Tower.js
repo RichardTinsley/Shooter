@@ -37,12 +37,13 @@ export class Tower {
         this.target;
 
         this.damage = 10;
-        this.radius = 1000;
+        this.radius = 125;
         this.shootRate = 800;
         this.shootUpdate = false;
         this.shootTimer = 0;
         this.shootInterval = 1000;
     }
+
     draw(ctx){
         ctx.drawImage(
             this.sprite.imageRight,
@@ -57,14 +58,15 @@ export class Tower {
         );
         this.drawRadius(ctx);
     }
+
     drawRadius(ctx){
         ctx.beginPath();
         ctx.arc(this.center.x, this.center.y, this.radius, 0, Math.PI * 2);
         ctx.fillStyle = 'rgba(200, 0, 0, 0.1)';
         ctx.fill();
     }
-    update(deltaTime) {
 
+    update(deltaTime) {
         if (this.shootUpdate && this.target)
             this.shoot(); //FIX FIRE
 

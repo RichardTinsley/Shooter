@@ -47,6 +47,7 @@ export class Enemy {
         this.activeStatus = false;
         this.health = 100;
         this.coins = Math.floor(Math.random() * 5 + 1);
+        this.exp = Math.floor(Math.random() * 2 + 1);
     }
 
     update(deltaTime){

@@ -30,7 +30,7 @@ export class Towers{
                 const xDifference = projectile.enemy.center.x - projectile.center.x;
                 const yDifference = projectile.enemy.center.y - projectile.center.y;
                 const distance = Math.hypot(xDifference, yDifference);
-
+                
                 if (distance < projectile.enemy.width / 32 + projectile.radius){
                     projectile.enemy.health -= projectile.damage;
                     if(projectile.enemy.health <= 0){
@@ -39,6 +39,7 @@ export class Towers{
                         });
                         if (enemyIndex > -1){
                             this.game.coins += this.enemies.enemies[enemyIndex].coins;
+                            this.game.exp += this.enemies.enemies[enemyIndex].exp;
                             this.enemies.enemies.splice(enemyIndex, 1);
                         }
                     }

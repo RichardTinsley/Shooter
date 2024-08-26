@@ -22,7 +22,7 @@ export class Projectile {
             x: 0,
             y: 0
         };
-        this.speed = 150;
+        this.speed = 500;
     }
 
     draw(ctx){
