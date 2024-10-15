@@ -18,14 +18,10 @@ export class GameText {
         }
         this.textSize = textSize;
         this.align = align;
-
-        this.lifespan = 60;
     }
-    update(deltaTime){
+    update(){
         this.alpha -= 0.1;
-        this.position.y -= 0.7;
-        if (this.game.eventUpdate)
-            this.lifespan--;    
+        this.position.y -= 0.6; 
     }
 
     draw(ctx){

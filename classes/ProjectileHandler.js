@@ -1,15 +1,14 @@
 import { GameText } from "./GameText.js";
-import { GameTextHandler } from "./GameTextHandler.js";
 
 export class ProjectileHandler{
-    constructor(game, enemyHandler){
+    constructor(game, enemyHandler, gameTextHandler){
         this.game = game;
         this.enemyHandler = enemyHandler;
-        this.gameTextHandler = new GameTextHandler();
+        this.gameTextHandler = gameTextHandler;
     }
 
     renderProjectiles(ctx, deltaTime, tower){
-        for (let i = tower.projectiles.length - 1; i >= 0; i-- ){
+        for (let i = tower.projectiles.length - 1; i >= 0; i--){
             const projectile = tower.projectiles[i];        
             projectile.update(deltaTime);
             projectile.draw(ctx);
@@ -27,35 +26,32 @@ export class ProjectileHandler{
                         this.game.coins += this.enemyHandler.enemies[enemyIndex].coins;
                         this.game.exp += this.enemyHandler.enemies[enemyIndex].exp;
                         this.enemyHandler.enemies.splice(enemyIndex, 1);
-
+                        
                         this.gameTextHandler.gameTexts.push(
                             new GameText({
                                 game: this.game,
                                 text: '+' + projectile.enemy.coins,
                                 color: '255, 215, 0, ', //GOLD COLOUR
                                 alpha: '10',
-                                position: projectile.enemy.position,
+                                position: {x: projectile.enemy.position.x, y: projectile.enemy.position.y},
                                 textSize: 20,
                                 align: 'left' 
-                            })
+                            })            
                         );
                         
                         this.gameTextHandler.gameTexts.push(
                             new GameText({
                                 game: this.game,
                                 text: '+' + projectile.enemy.exp,
-                                color: '19, 50, 29, ', //EMERALD COLOUR
+                                color: '50, 205, 50, ', //LIME COLOUR
                                 alpha: '10',
-                                position: tower.position,
+                                position: {x: tower.position.x + 16, y: tower.position.y},
                                 textSize: 20,
                                 align: 'left' 
                             })
                         );
                     }
                 }
-
-                this.gameTextHandler.renderGameTexts(ctx, deltaTime);
-
                 tower.projectiles.splice(i, 1);
             }
         }

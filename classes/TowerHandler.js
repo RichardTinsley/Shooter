@@ -1,10 +1,10 @@
 import { GameText } from "./GameText.js";
 
 export class TowerHandler{
-    constructor(game, enemyHandler, GameTextHandler){
+    constructor(game, enemyHandler, gameTextHandler){
         this.game = game;
         this.enemyHandler = enemyHandler;
-        this.GameTextHandler = GameTextHandler;
+        this.gameTextHandler = gameTextHandler;
         this.towers = [];
     }
 
@@ -48,7 +48,7 @@ export class TowerHandler{
                             this.game.exp += this.enemyHandler.enemies[enemyIndex].exp;
                             this.enemyHandler.enemies.splice(enemyIndex, 1);
                             
-                            this.GameTextHandler.gameTexts.push(
+                            this.gameTextHandler.gameTexts.push(
                                 new GameText({
                                     game: this.game,
                                     text: '+' + projectile.enemy.coins,
@@ -58,10 +58,9 @@ export class TowerHandler{
                                     textSize: 20,
                                     align: 'left' 
                                 })
-                            
                             );
                             
-                            this.GameTextHandler.gameTexts.push(
+                            this.gameTextHandler.gameTexts.push(
                                 new GameText({
                                     game: this.game,
                                     text: '+' + projectile.enemy.exp,
@@ -70,12 +69,10 @@ export class TowerHandler{
                                     position: {x: tower.position.x + 16, y: tower.position.y},
                                     textSize: 20,
                                     align: 'left' 
-                                })
-                            
+                                }) 
                             );
                         }
                     }
-
                     tower.projectiles.splice(i, 1);
                 }
             }

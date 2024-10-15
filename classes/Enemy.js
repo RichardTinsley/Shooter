@@ -35,7 +35,7 @@ export class Enemy {
         };
         
         this.priorityDistance = 0; 
-        this.speed = Math.random() * 80 + 30;
+        this.speed = Math.random() * 80 + 20;
         this.velocity = { 
             x: 0, 
             y: 0
@@ -44,7 +44,6 @@ export class Enemy {
         this.maxFrame = (this.sprite.imageRight.width / this.sprite.width) - 1;
 
         this.direction;
-        this.activeStatus = false;
         this.health = 100;
         this.coins = Math.floor(Math.random() * 5 + 1);
         this.exp = Math.floor(Math.random() * 2 + 1);
@@ -55,36 +54,38 @@ export class Enemy {
 
         if (this.game.eventUpdate)
             this.sprite.x < this.maxFrame ? this.sprite.x++ : this.sprite.x = 0;
-        
-        const waypoint = this.waypoints[this.waypointIndex];
-        const yDistance = waypoint.y - this.center.y;
-        const xDistance = waypoint.x - this.center.x;
-        const angle = Math.atan2(yDistance, xDistance);
-        this.priorityDistance = Math.round(Math.abs(xDistance) + Math.abs(yDistance));
 
-        this.velocity.x = Math.cos(angle) * scaledSpeed;
-        this.velocity.y = Math.sin(angle) * scaledSpeed;
-        
-        this.position.x += this.velocity.x;
-        this.position.y += this.velocity.y;
-        this.center = {
-            x: this.position.x + HALF_TILE_SIZE,
-            y: this.position.y + HALF_TILE_SIZE
-        };
-        
-        if( Math.abs(Math.round(this.center.x) - Math.round(waypoint.x)) <
-            Math.abs(this.velocity.x) && 
-            Math.abs(Math.round(this.center.y) - Math.round(waypoint.y)) <
-            Math.abs(this.velocity.y) &&
-            this.waypointIndex < this.waypoints.length - 1
-        ){
-            this.waypointIndex++;
+        if (this.health > 0){
+            const waypoint = this.waypoints[this.waypointIndex];
+            const yDistance = waypoint.y - this.center.y;
+            const xDistance = waypoint.x - this.center.x;
+            const angle = Math.atan2(yDistance, xDistance);
+            this.priorityDistance = Math.round(Math.abs(xDistance) + Math.abs(yDistance));
+
+            this.velocity.x = Math.cos(angle) * scaledSpeed;
+            this.velocity.y = Math.sin(angle) * scaledSpeed;
+            
+            this.position.x += this.velocity.x;
+            this.position.y += this.velocity.y;
+            this.center = {
+                x: this.position.x + HALF_TILE_SIZE,
+                y: this.position.y + HALF_TILE_SIZE
+            };
+            
+            if( Math.abs(Math.round(this.center.x) - Math.round(waypoint.x)) <
+                Math.abs(this.velocity.x) && 
+                Math.abs(Math.round(this.center.y) - Math.round(waypoint.y)) <
+                Math.abs(this.velocity.y) &&
+                this.waypointIndex < this.waypoints.length - 1
+            ){
+                this.waypointIndex++;
+            }
+
+            if(xDistance < 0)
+                this.direction = "left";
+            else
+                this.direction = "right";
         }
-
-        if(xDistance < 0)
-            this.direction = "left";
-        else
-            this.direction = "right";
     }
 
     draw(ctx){

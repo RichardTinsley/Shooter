@@ -3,13 +3,13 @@ export class GameTextHandler {
         this.gameTexts = [];
     }
 
-    renderGameTexts(ctx, deltaTime){
+    renderGameTexts(ctx){
         for (let i = this.gameTexts.length - 1; i >= 0; i-- ){
             const gameText = this.gameTexts[i];        
             gameText.draw(ctx);
-            gameText.update(deltaTime);
+            gameText.update();
             
-            if (gameText.lifespan <= 0){
+            if (gameText.alpha <= 0){
                 this.gameTexts.splice(i, 1);
             }
         }

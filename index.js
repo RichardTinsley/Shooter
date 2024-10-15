@@ -37,15 +37,13 @@ window.addEventListener('load', function(){
         const animationID = requestAnimationFrame(animate);
         const deltaTime = timeStamp - lastTime;
         lastTime = timeStamp;
-        
+
         world.drawBackground(ctx);
         placementTileHandler.renderTiles(ctx, input);
-        enemyHandler.beginWave(timeStamp);
-        enemyHandler.renderEnemies(ctx, deltaTime);
+        enemyHandler.renderEnemies(ctx, deltaTime, timeStamp);
         towerHandler.renderTowers(ctx, deltaTime);
-        gameTextHandler.renderGameTexts(ctx, deltaTime);
+        gameTextHandler.renderGameTexts(ctx);
         game.renderGUI(ctx, deltaTime);
-        enemyHandler.newWave();
 
         if(game.hearts <= 0){
             cancelAnimationFrame(animationID);
@@ -62,7 +60,6 @@ window.addEventListener('load', function(){
 /* 
 PAUSE FUNCTIONALITY
 DYING ANIMATIONS / ENEMY STATES
-PARTCILE EFFECTS
 Ruby		Splash damage
 *Emerald  	Poison, damage, reduce armour
 Amethyst  	Air Attack only
