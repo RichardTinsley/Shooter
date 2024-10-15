@@ -54,7 +54,7 @@ export class TowerHandler{
                                     text: '+' + projectile.enemy.coins,
                                     color: '255, 215, 0, ', //GOLD COLOUR
                                     alpha: '10',
-                                    position: projectile.enemy.position,
+                                    position: {x: projectile.enemy.position.x, y: projectile.enemy.position.y},
                                     textSize: 20,
                                     align: 'left' 
                                 })
@@ -65,16 +65,14 @@ export class TowerHandler{
                                 new GameText({
                                     game: this.game,
                                     text: '+' + projectile.enemy.exp,
-                                    color: '19, 50, 29, ', //EMERALD COLOUR
+                                    color: '50, 205, 50, ', //LIME COLOUR
                                     alpha: '10',
-                                    position: tower.position,
+                                    position: {x: tower.position.x + 16, y: tower.position.y},
                                     textSize: 20,
                                     align: 'left' 
                                 })
                             
                             );
-
-                            console.log(tower.position);
                         }
                     }
 
