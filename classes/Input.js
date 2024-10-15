@@ -24,7 +24,6 @@ export class Input {
         
         window.addEventListener('click', e => {
             if (this.activeTile && !this.activeTile.isOccupied && this.game.coins - 25 >= 0) {
-
                 this.towers.towers.push(
                     new Tower({
                         game: this.game,
@@ -56,8 +55,7 @@ export class Input {
             this.mouse.y = e.clientY;
             this.activeTile = null;
 
-            for (let i = 0; i < this.placementTiles.placementTiles.length; i++) {
-                const tile = this.placementTiles.placementTiles[i];
+            this.placementTiles.placementTiles.forEach(tile => {
                 if (
                     this.mouse.x > tile.position.x &&
                     this.mouse.x < tile.position.x + tile.size &&
@@ -65,12 +63,11 @@ export class Input {
                     this.mouse.y < tile.position.y + tile.size
                 ) {
                     this.activeTile = tile;
-                    break;
+                    return;
                 }
-            }
+            });
 
-            for (let i = 0; i < this.enemies.enemies.length; i++) {
-                const enemy = this.enemies.enemies[i];
+            this.enemies.enemies.forEach(enemy => {
                 const enemyX = enemy.center.x - enemy.thirdWidth;
                 const enemyWidth = enemy.thirdWidth * 2;
                 const enemyY = enemy.center.y - enemy.scale * 30;
@@ -82,11 +79,11 @@ export class Input {
                     this.mouse.y < enemyY + enemyHeight
                 ) {
                     cursor.style = "cursor: url(./images/cursors/text.cur), auto;";
-                    break;
+                    return;
                 } else {
                     cursor.style = "cursor: url(./images/cursors/normal.cur), auto;";
                 }
-            }
+            })
         })
         
         window.addEventListener('keydown', e =>{

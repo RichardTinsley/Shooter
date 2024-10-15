@@ -2,7 +2,7 @@ import { waypoints } from "./World.js";
 import { Enemy } from "./Enemy.js";
 import { ENEMY_SIZE } from "../index.js";
 
-export class Enemies{
+export class EnemyHandler{
     constructor(game){
         this.game = game;   
         this.allEnemiesActive = false;

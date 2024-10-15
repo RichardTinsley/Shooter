@@ -1,9 +1,7 @@
 import { PlacementTile } from './PlacementTile.js';
 
-export class PlacementTiles {
-    constructor(
-
-        ) {
+export class PlacementTileHandler {
+    constructor(){
         this.placementTiles = this.initialiseTiles();
     }
 
@@ -11,10 +9,10 @@ export class PlacementTiles {
         const array2D = [];
         for (let i = 0; i < array.length; i+= 40)
             array2D.push(array.slice(i, i + 40));
-        return array2D
+        return array2D;
     }
     
-    initialiseTiles() {
+    initialiseTiles(){
         const placementTilesData2D = this.make2DArray(placementTilesData);
         const placementTiles = [];
         placementTilesData2D.forEach((row, y) => {
@@ -29,12 +27,11 @@ export class PlacementTiles {
                         }));
             })
         })
-        return placementTiles
+        return placementTiles;
     }
 
     renderTiles(ctx, input){
-        this.placementTiles.forEach((tile) => tile.update(ctx, input.mouse))
-
+        this.placementTiles.forEach((tile) => tile.update(ctx, input.mouse));
     }
 }
 

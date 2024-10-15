@@ -1,7 +1,7 @@
-export class Towers{
-    constructor(game, enemies){
+export class TowerHandler{
+    constructor(game, enemyHandler){
         this.game = game;
-        this.enemies = enemies;
+        this.enemyHandler = enemyHandler;
         this.towers = [];
     }
 
@@ -10,7 +10,7 @@ export class Towers{
             tower.update(deltaTime);
             tower.draw(ctx);
             tower.target = null;
-            const validEnemies = this.enemies.enemies.filter(enemy => {
+            const validEnemies = this.enemyHandler.enemies.filter(enemy => {
                     const xDifference = enemy.center.x - tower.center.x;
                     const yDifference = enemy.center.y - tower.center.y;
                     const distance = Math.hypot(xDifference, yDifference);
@@ -34,13 +34,13 @@ export class Towers{
                 if (distance < projectile.enemy.width / 32 + projectile.radius){
                     projectile.enemy.health -= projectile.damage;
                     if(projectile.enemy.health <= 0){
-                        const enemyIndex = this.enemies.enemies.findIndex((enemy) => {
+                        const enemyIndex = this.enemyHandler.enemies.findIndex((enemy) => {
                             return projectile.enemy === enemy;
                         });
                         if (enemyIndex > -1){
-                            this.game.coins += this.enemies.enemies[enemyIndex].coins;
-                            this.game.exp += this.enemies.enemies[enemyIndex].exp;
-                            this.enemies.enemies.splice(enemyIndex, 1);
+                            this.game.coins += this.enemyHandler.enemies[enemyIndex].coins;
+                            this.game.exp += this.enemyHandler.enemies[enemyIndex].exp;
+                            this.enemyHandler.enemies.splice(enemyIndex, 1);
                         }
                     }
                     // explosions.push(

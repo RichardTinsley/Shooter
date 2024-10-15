@@ -1,9 +1,9 @@
 import { Game } from "./classes/Game.js";
 import { World } from "./classes/World.js";
 import { Input } from "./classes/Input.js";
-import { Enemies } from "./classes/Enemies.js";
-import { Towers } from "./classes/Towers.js";
-import { PlacementTiles } from "./classes/PlacementTiles.js";
+import { EnemyHandler } from "./classes/EnemyHandler.js";
+import { TowerHandler } from "./classes/TowerHandler.js";
+import { PlacementTileHandler } from "./classes/PlacementTileHandler.js";
 
 export const TILE_SIZE = 32;
 export const HALF_TILE_SIZE = TILE_SIZE / 2;
@@ -23,10 +23,10 @@ window.addEventListener('load', function(){
     
     const game = new Game();
     const world = new World(game);
-    const enemies = new Enemies(game);
-    const towers = new Towers(game, enemies);
-    const placementTiles = new PlacementTiles();
-    const input = new Input(game, world, towers, enemies, placementTiles);
+    const enemyHandler = new EnemyHandler(game);
+    const towerHandler = new TowerHandler(game, enemyHandler);
+    const placementTileHandler = new PlacementTileHandler();
+    const input = new Input(game, world, towerHandler, enemyHandler, placementTileHandler);
 
     setInterval(() => { game.timer++ }, 1000);
     
@@ -37,12 +37,12 @@ window.addEventListener('load', function(){
         lastTime = timeStamp;
         
         world.drawBackground(ctx);
-        placementTiles.renderTiles(ctx, input);
-        enemies.beginWave(timeStamp);
-        enemies.renderEnemies(ctx, deltaTime);
-        towers.renderTowers(ctx, deltaTime);
+        placementTileHandler.renderTiles(ctx, input);
+        enemyHandler.beginWave(timeStamp);
+        enemyHandler.renderEnemies(ctx, deltaTime);
+        towerHandler.renderTowers(ctx, deltaTime);
         game.renderGUI(ctx, deltaTime);
-        enemies.newWave();
+        enemyHandler.newWave();
 
         if(game.hearts === 0){
             cancelAnimationFrame(animationID);
