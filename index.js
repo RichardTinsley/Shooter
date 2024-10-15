@@ -4,6 +4,7 @@ import { Input } from "./classes/Input.js";
 import { EnemyHandler } from "./classes/EnemyHandler.js";
 import { TowerHandler } from "./classes/TowerHandler.js";
 import { PlacementTileHandler } from "./classes/PlacementTileHandler.js";
+import { GameTextHandler } from "./classes/GameTextHandler.js";
 
 export const TILE_SIZE = 32;
 export const HALF_TILE_SIZE = TILE_SIZE / 2;
@@ -23,8 +24,9 @@ window.addEventListener('load', function(){
     
     const game = new Game();
     const world = new World(game);
+    const gameTextHandler = new GameTextHandler();
     const enemyHandler = new EnemyHandler(game);
-    const towerHandler = new TowerHandler(game, enemyHandler);
+    const towerHandler = new TowerHandler(game, enemyHandler, gameTextHandler);
     const placementTileHandler = new PlacementTileHandler();
     const input = new Input(game, world, towerHandler, enemyHandler, placementTileHandler);
 
@@ -41,10 +43,11 @@ window.addEventListener('load', function(){
         enemyHandler.beginWave(timeStamp);
         enemyHandler.renderEnemies(ctx, deltaTime);
         towerHandler.renderTowers(ctx, deltaTime);
+        gameTextHandler.renderGameTexts(ctx, deltaTime);
         game.renderGUI(ctx, deltaTime);
         enemyHandler.newWave();
 
-        if(game.hearts === 0){
+        if(game.hearts <= 0){
             cancelAnimationFrame(animationID);
             ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
             ctx.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);

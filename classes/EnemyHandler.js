@@ -4,7 +4,7 @@ import { ENEMY_SIZE } from "../index.js";
 
 export class EnemyHandler{
     constructor(game){
-        this.game = game;   
+        this.game = game; 
         this.allEnemiesActive = false;
         this.enemyCount = 100;    
         this.enemies = this.spawnEnemies(this.enemyCount);
@@ -21,9 +21,8 @@ export class EnemyHandler{
     }
 
     renderEnemies(ctx, deltaTime){
-        this.enemies.sort((a, b) => b.position.y - a.position.y);
-        for (let i = this.enemies.length - 1; i >= 0; i--){
-            const enemy = this.enemies[i];
+        this.enemies.sort((a, b) => a.position.y - b.position.y)
+        .forEach(enemy => {
             if(enemy.activeStatus === true){
                 enemy.update(deltaTime);
                 enemy.draw(ctx);
@@ -36,7 +35,7 @@ export class EnemyHandler{
                 enemy.position.y = enemy.waypoints[0].y;
                 enemy.waypointIndex = 0;
             }
-        }
+        });
     }
 
     newWave(){
