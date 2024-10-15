@@ -5,11 +5,12 @@ const PAUSE = 'PAUSE';
 const DEBUG = 'DEBUG';
 
 export class Input {
-    constructor(game, world, towers, enemies){
+    constructor(game, world, towers, enemies, placementTiles){
         this.game = game;
         this.world = world
         this.towers = towers;
         this.enemies = enemies;
+        this.placementTiles = placementTiles;
         
         this.mouse = {
             x: undefined,
@@ -18,9 +19,12 @@ export class Input {
 
         this.keys = [];
         this.activeTile = undefined;
+
+        const cursor = document.getElementById("canvas");
         
         window.addEventListener('click', e => {
             if (this.activeTile && !this.activeTile.isOccupied && this.game.coins - 25 >= 0) {
+
                 this.towers.towers.push(
                     new Tower({
                         game: this.game,
@@ -39,7 +43,7 @@ export class Input {
                         scale: 1,
                     })
                 );
-        
+                
                 this.activeTile.isOccupied = true;
                 this.towers.towers.sort((a, b) => {
                     return a.position.y - b.position.y;
@@ -51,10 +55,9 @@ export class Input {
             this.mouse.x = e.clientX;
             this.mouse.y = e.clientY;
             this.activeTile = null;
-            const cursor = document.getElementById("canvas");
-        
-            for (let i = 0; i < this.world.placementTiles.length; i++) {
-                const tile = this.world.placementTiles[i];
+
+            for (let i = 0; i < this.placementTiles.placementTiles.length; i++) {
+                const tile = this.placementTiles.placementTiles[i];
                 if (
                     this.mouse.x > tile.position.x &&
                     this.mouse.x < tile.position.x + tile.size &&

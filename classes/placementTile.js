@@ -15,7 +15,7 @@ export class PlacementTile {
         ctx.fillStyle = this.colour;
         ctx.fillRect(this.position.x, this.position.y, this.size, this.size);
     }
-    update(mouse, ctx) {
+    update(ctx, mouse) {
         this.draw(ctx);
         if (
             mouse.x > this.position.x &&
