@@ -92,13 +92,6 @@ export class Input {
             else if (e.key.toLowerCase() === 'o')
                 this.keyPressed(DEBUG);
         });
-
-        window.addEventListener('keyup', e =>{
-            if (e.key.toLowerCase() === 'p')
-                this.keyReleased(PAUSE);
-            else if (e.key.toLowerCase() === 'o')
-                this.keyReleased(DEBUG);
-        });
     }
     
     get lastKey(){ return this.keys[0]; }
@@ -108,14 +101,10 @@ export class Input {
             this.keys.unshift(key);
         
         if(key === 'PAUSE') {
-            if(this.game.isRunning){
-                this.game.audio.pause();
-            }
-            else {
-                // animate();
-                this.game.audio.play();
-            }
-            this.game.isRunning = !this.game.isRunning;
+            if(this.game.currentGameState === this.game.gameStates.PLAYING)
+                this.game.currentGameState = this.game.gameStates.PAUSED;
+            else
+                this.game.currentGameState = this.game.gameStates.PLAYING;
         }
         if(key === 'DEBUG')
             this.game.debug = !this.game.debug;
