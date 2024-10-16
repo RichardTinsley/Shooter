@@ -90,13 +90,14 @@ export class Enemy {
 
     draw(ctx){
         const direction = this.direction === "left" ? this.sprite.imageLeft : this.sprite.imageRight;
+        const state = this.health > 0 ? this.sprite.height : this.sprite.height + (this.sprite.height * 3);
         this.drawShadow(ctx);
         if(this.game.debug)
             this.drawDebug(ctx);
         ctx.drawImage(
             direction,
             this.sprite.x * this.sprite.width,
-            this.sprite.y * this.sprite.height + 1,
+            this.sprite.y * state + 1,
             this.sprite.width,
             this.sprite.height,
             this.position.x + HALF_TILE_SIZE - this.halfWidth,

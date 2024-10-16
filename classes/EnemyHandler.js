@@ -12,59 +12,20 @@ export class EnemyHandler{
     }
 
     renderEnemies(ctx, deltaTime, timeStamp){
+
         if (Math.floor(timeStamp) % Math.floor(Math.random() * 300) === 0 && this.enemyCounter < this.maxEnemies){
-            const enemyColour = this.pickRandomEnemy();
-            const randomWaypoints = [];
-            waypoints.forEach((waypoint) => {
-                randomWaypoints.push({ 
-                    x: (waypoint.x - 40) + Math.round(Math.random() * 70),
-                    y: (waypoint.y - 40) + Math.round(Math.random() * 70)
-                });
-            })
-            this.enemies.push(  
-                new Enemy({
-                    game: this.game,
-                    sprite: { 
-                        imageLeft: document.getElementById(enemyColour.left),
-                        imageRight: document.getElementById(enemyColour.right), 
-                        x: 0, 
-                        y: 2, //Running animation row 
-                        width: ENEMY_SIZE, 
-                        height: ENEMY_SIZE 
-                    },
-                    position: { 
-                        x: waypoints[0].x,  
-                        y: waypoints[0].y  
-                    },
-                    scale: Math.random() + 1,
-                    waypoints: randomWaypoints
-                })
-            )
-            this.enemyCounter++;
+            const enemyColour = this.generateRandomEnemy();
+            const randomWaypoints = this.generateRandomEnemyWaypoints();
+
+            this.populateEnemiesArray(enemyColour, randomWaypoints);
 
             if(this.enemyCounter === this.maxEnemies)
                 this.allEnemiesActive = true;
         }
-        
+
         this.enemies.sort((b, a) => a.position.y - b.position.y);
         
-        for (let i = this.enemies.length - 1; i >= 0; i--){
-            const enemy = this.enemies[i];
-            if(enemy.health > 0){
-                enemy.update(deltaTime);
-                enemy.draw(ctx);
-                if(this.game.debug) 
-                    enemy.drawDebug(ctx);
-            } else 
-                this.enemies.splice(i, 1);
-            
-            if (enemy.position.x > canvas.width){
-                this.game.hearts -= 1;
-                enemy.position.x = enemy.waypoints[0].x;
-                enemy.position.y = enemy.waypoints[0].y;
-                enemy.waypointIndex = 0;
-            }
-        }
+        this.drawEnemies(ctx, deltaTime);
 
         if (this.enemies.length === 0 && this.allEnemiesActive === true){
             this.game.waves++;
@@ -74,8 +35,7 @@ export class EnemyHandler{
         }
     }
 
-
-    pickRandomEnemy(){
+    generateRandomEnemy(){
         const chance = Math.random() * 100;
         let enemyColour;
         if (chance > 80) 
@@ -102,5 +62,57 @@ export class EnemyHandler{
             return enemyColour = { left: "obsidianLeft", right: "obsidianRight" };
         else (chance > 0)
             return enemyColour = { left: "uraniumLeft", right: "uraniumRight" };
+    }
+
+    generateRandomEnemyWaypoints(){
+        return waypoints.map((waypoint) => {
+            return { 
+                x: (waypoint.x - 40) + Math.round(Math.random() * 70),
+                y: (waypoint.y - 40) + Math.round(Math.random() * 70)
+            }
+        });
+    }
+
+    populateEnemiesArray(enemyColour, randomWaypoints){
+        this.enemies.push(  
+            new Enemy({
+                game: this.game,
+                sprite: { 
+                    imageLeft: document.getElementById(enemyColour.left),
+                    imageRight: document.getElementById(enemyColour.right), 
+                    x: 0, 
+                    y: 2, //Running animation row 
+                    width: ENEMY_SIZE, 
+                    height: ENEMY_SIZE 
+                },
+                position: { 
+                    x: waypoints[0].x,  
+                    y: waypoints[0].y  
+                },
+                scale: Math.random() + 1,
+                waypoints: randomWaypoints
+            })
+        );
+        this.enemyCounter++;
+    }
+
+    drawEnemies(ctx, deltaTime){
+        for (let i = this.enemies.length - 1; i >= 0; i--){
+            const enemy = this.enemies[i];
+            if(enemy.health > 0){
+                enemy.update(deltaTime);
+                enemy.draw(ctx);
+                if(this.game.debug) 
+                    enemy.drawDebug(ctx);
+            } else 
+                this.enemies.splice(i, 1);
+            
+            if (enemy.position.x > canvas.width){
+                this.game.hearts -= 1;
+                enemy.position.x = enemy.waypoints[0].x;
+                enemy.position.y = enemy.waypoints[0].y;
+                enemy.waypointIndex = 0;
+            }
+        }
     }
 }                

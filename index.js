@@ -3,8 +3,8 @@ import { World } from "./classes/World.js";
 import { Input } from "./classes/Input.js";
 import { EnemyHandler } from "./classes/EnemyHandler.js";
 import { TowerHandler } from "./classes/TowerHandler.js";
-import { PlacementTileHandler } from "./classes/PlacementTileHandler.js";
 import { GameTextHandler } from "./classes/GameTextHandler.js";
+import { PlacementTileHandler } from "./classes/PlacementTileHandler.js";
 
 export const TILE_SIZE = 32;
 export const HALF_TILE_SIZE = TILE_SIZE / 2;
@@ -14,6 +14,14 @@ export const COLUMNS = 40;
 export const ROWS = 24;
 const GAME_WIDTH = TILE_SIZE * COLUMNS;
 const GAME_HEIGHT = TILE_SIZE * ROWS;
+
+const gameState = {
+    PLAYING: 'Playing',
+    MENU: 'Menu',
+    PAUSED: 'Paused',
+    LOADING: 'Loading',
+    GAMEOVER: 'GameOver'
+};
 
 window.addEventListener('load', function(){
     const canvas = document.getElementById('canvas');
@@ -25,9 +33,9 @@ window.addEventListener('load', function(){
     const game = new Game();
     const world = new World(game);
     const gameTextHandler = new GameTextHandler();
+    const placementTileHandler = new PlacementTileHandler();
     const enemyHandler = new EnemyHandler(game);
     const towerHandler = new TowerHandler(game, enemyHandler, gameTextHandler);
-    const placementTileHandler = new PlacementTileHandler();
     const input = new Input(game, world, towerHandler, enemyHandler, placementTileHandler);
 
     setInterval(() => { game.timer++ }, 1000);
