@@ -1,3 +1,5 @@
+import { GameText } from "./GameText.js";
+
 export class GameTextHandler {
     constructor(){
         this.gameTexts = [];
@@ -13,5 +15,19 @@ export class GameTextHandler {
                 this.gameTexts.splice(i, 1);
             }
         }
+    }
+
+    populateGameTextArray(game, text, color, alpha, position, textSize, align){
+        this.gameTexts.push(
+            new GameText({
+                game: game,
+                text: text,
+                color: color,
+                alpha: alpha,
+                position: position,
+                textSize: textSize,
+                align: align 
+            })            
+        );
     }
 }
