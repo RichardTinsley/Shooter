@@ -5,12 +5,12 @@ const PAUSE = 'PAUSE';
 const DEBUG = 'DEBUG';
 
 export class Input {
-    constructor(game, world, towers, enemies, placementTiles){
+    constructor(game, world, towerHandler, enemyHandler, placementTileHandler){
         this.game = game;
         this.world = world
-        this.towers = towers;
-        this.enemies = enemies;
-        this.placementTiles = placementTiles;
+        this.towerHandler = towerHandler;
+        this.enemyHandler = enemyHandler;
+        this.placementTileHandler = placementTileHandler;
         
         this.mouse = {
             x: undefined,
@@ -24,7 +24,7 @@ export class Input {
         
         window.addEventListener('click', e => {
             if (this.activeTile && !this.activeTile.isOccupied && this.game.coins - 25 >= 0) {
-                this.towers.towers.push(
+                this.towerHandler.towers.push(
                     new Tower({
                         game: this.game,
                         sprite: { 
@@ -44,7 +44,7 @@ export class Input {
                 );
                 
                 this.activeTile.isOccupied = true;
-                this.towers.towers.sort((a, b) => {
+                this.towerHandler.towers.sort((a, b) => {
                     return a.position.y - b.position.y;
                 })
             }
@@ -55,7 +55,7 @@ export class Input {
             this.mouse.y = e.clientY;
             this.activeTile = null;
 
-            this.placementTiles.placementTiles.forEach(tile => {
+            this.placementTileHandler.placementTiles.forEach(tile => {
                 if (
                     this.mouse.x > tile.position.x &&
                     this.mouse.x < tile.position.x + tile.size &&
@@ -67,7 +67,7 @@ export class Input {
                 }
             });
 
-            this.enemies.enemies.forEach(enemy => {
+            this.enemyHandler.enemies.forEach(enemy => {
                 const enemyX = enemy.center.x - enemy.thirdWidth;
                 const enemyWidth = enemy.thirdWidth * 2;
                 const enemyY = enemy.center.y - enemy.scale * 30;

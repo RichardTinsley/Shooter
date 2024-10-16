@@ -12,19 +12,16 @@ export class EnemyHandler{
     }
 
     renderEnemies(ctx, deltaTime, timeStamp){
-
         if (Math.floor(timeStamp) % Math.floor(Math.random() * 300) === 0 && this.enemyCounter < this.maxEnemies){
             const enemyColour = this.generateRandomEnemy();
             const randomWaypoints = this.generateRandomEnemyWaypoints();
-
             this.populateEnemiesArray(enemyColour, randomWaypoints);
-
+            
             if(this.enemyCounter === this.maxEnemies)
                 this.allEnemiesActive = true;
         }
 
-        this.enemies.sort((b, a) => a.position.y - b.position.y);
-        
+        this.enemies.sort((b, a) => a.position.y - b.position.y);        
         this.drawEnemies(ctx, deltaTime);
 
         if (this.enemies.length === 0 && this.allEnemiesActive === true){
