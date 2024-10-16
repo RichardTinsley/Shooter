@@ -44,34 +44,25 @@ export class Game {
     gameHandler(ctx, deltaTime, timeStamp, animate){
         switch(this.currentGameState){
             case 'PLAYING': 
-                if(this.music.paused) this.music.pause();
+            
                 this.animationID = requestAnimationFrame(animate);
-                this.world.drawBackground(ctx);
-                this.placementTileHandler.renderTiles(ctx, this.input);
-                this.enemyHandler.renderEnemies(ctx, deltaTime, timeStamp);
-                this.towerHandler.renderTowers(ctx, deltaTime);
-                this.gameTextHandler.renderGameTexts(ctx);
-                this.renderGUI(ctx, deltaTime);
-
-                if(this.hearts <= 0){
-                    this.currentGameState = "GAMEOVER"
-                }
+                this.drawPlayingScreen(ctx, deltaTime, timeStamp);
+                if(this.music.paused) this.music.play();
+                if(this.hearts <= 0) this.currentGameState = "GAMEOVER";
                 break
             case 'PAUSED': 
-                if(!this.music.paused) this.music.pause();
                 cancelAnimationFrame(this.animationID);
                 this.animationID = requestAnimationFrame(animate);
+                if(!this.music.paused) this.music.pause();
                 break
             case 'MENU': 
                 break
             case 'LOADING': 
                 break
             case 'GAMEOVER':
-                if(!this.music.paused) this.music.pause();
-                ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
-                ctx.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
-                this.drawText(ctx, "GAME OVER", GAME_WIDTH / 2, GAME_HEIGHT / 2, 100, 'center'); 
+                this.drawGameOverScreen(ctx);
                 cancelAnimationFrame(this.animationID);
+                if(!this.music.paused) this.music.pause();
                 break
         }
     }
@@ -92,6 +83,21 @@ export class Game {
             this.eventTimer = 0;
             this.eventUpdate = true; 
         }
+    }
+
+    drawPlayingScreen(ctx, deltaTime, timeStamp){
+        this.world.drawBackground(ctx);
+        this.placementTileHandler.renderTiles(ctx, this.input);
+        this.enemyHandler.renderEnemies(ctx, deltaTime, timeStamp);
+        this.towerHandler.renderTowers(ctx, deltaTime);
+        this.gameTextHandler.renderGameTexts(ctx);
+        this.renderGUI(ctx, deltaTime);
+    }
+
+    drawGameOverScreen(ctx){
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
+        ctx.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+        this.drawText(ctx, "GAME OVER", GAME_WIDTH / 2, GAME_HEIGHT / 2, 100, 'center'); 
     }
 
     drawText(ctx, text, x, y, textSize, align){
