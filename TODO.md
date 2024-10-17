@@ -1,4 +1,3 @@
-DYING ANIMATIONS / ENEMY STATES
 BUTTONS/MENUS
 Ruby		Splash damage
 *Emerald  	Poison, damage, reduce armour

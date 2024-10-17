@@ -44,26 +44,39 @@ export class Enemy {
         
         this.maxFrame = (this.sprite.imageRight.width / this.sprite.width) - 1;
 
-        this.state = ENEMY_STATE.RUNNING;
+        this.state;
         this.direction;
         this.health = 100;
         this.coins = Math.floor(Math.random() * 5 + 1);
         this.exp = Math.floor(Math.random() * 2 + 1);
+        
+        if(this.speed >= 40){
+            this.sprite.y = ENEMY_STATE.RUNNING;
+            this.state = ENEMY_STATE.RUNNING;
+        } else {
+            this.sprite.y = ENEMY_STATE.WALKING;
+            this.state = ENEMY_STATE.WALKING;
+        }
     }
 
     renderEnemy(ctx, deltaTime){
         switch(this.state){
-            case 'RUNNING': 
-                this.update(deltaTime);
-                this.draw(ctx);
-                if(this.game.debug) this.drawDebug(ctx);
+            case ENEMY_STATE.WALKING: 
+                this.enemyFunctions(ctx, deltaTime);
                 break
-            case 'DYING': 
-                this.update(deltaTime);
-                this.draw(ctx);
-                if(this.game.debug) this.drawDebug(ctx);
+            case ENEMY_STATE.RUNNING: 
+                this.enemyFunctions(ctx, deltaTime);
+                break
+            case ENEMY_STATE.DYING: 
+                this.enemyFunctions(ctx, deltaTime);
                 break
         }
+    }
+
+    enemyFunctions(ctx, deltaTime){
+        this.update(deltaTime);
+        this.draw(ctx);
+        if(this.game.debug) this.drawDebug(ctx);
     }
 
     update(deltaTime){
@@ -71,11 +84,11 @@ export class Enemy {
         
         if(this.health <= 0 && this.state !== ENEMY_STATE.DYING) {
             this.state = ENEMY_STATE.DYING;
-            this.sprite.y = 5;
+            this.sprite.y = ENEMY_STATE.DYING;
             this.direction === this.sprite.imageRight ? this.sprite.x = 0 : this.sprite.x = this.maxFrame;
         }
         
-        if(this.state === ENEMY_STATE.RUNNING){
+        if(this.state === ENEMY_STATE.RUNNING || this.state === ENEMY_STATE.WALKING){
             const waypoint = this.waypoints[this.waypointIndex];
             const yDistance = waypoint.y - this.center.y;
             const xDistance = waypoint.x - this.center.x;
@@ -108,7 +121,7 @@ export class Enemy {
         }
 
         if(this.game.eventUpdate){
-            if(this.state === ENEMY_STATE.RUNNING)
+            if(this.state === ENEMY_STATE.RUNNING || this.state === ENEMY_STATE.WALKING)
                 this.sprite.x < this.maxFrame ? this.sprite.x++ : this.sprite.x = 0;
 
             if(this.state === ENEMY_STATE.DYING){
@@ -116,14 +129,14 @@ export class Enemy {
                     this.sprite.x < this.maxFrame ? this.sprite.x++ : this.sprite.x = this.maxFrame;
                 else
                     this.sprite.x !== 0 ? this.sprite.x-- : this.sprite.x = 0;
+
+                this.height > 0 ? this.height -= 2 : this.state = ENEMY_STATE.DEAD;
             }
         }
-        
     }
 
     draw(ctx){
-        let image;
-        if(this.state === ENEMY_STATE.RUNNING){
+        if(this.state === ENEMY_STATE.RUNNING || this.state === ENEMY_STATE.WALKING){
             this.drawHealthBar(ctx);
             this.drawShadow(ctx);
         }
@@ -139,15 +152,6 @@ export class Enemy {
             this.width,
             this.height
         );
-        if(this.state === ENEMY_STATE.DYING){
-            // image = ctx.getImageData(
-            //     this.position.x,
-            //     this.position.y,
-            //     this.sprite.width,
-            //     this.sprite.height,
-            // );
-            // ctx.putImageData(image, 10, 70);
-        }
     }
 
     drawHealthBar(ctx){
@@ -172,7 +176,6 @@ export class Enemy {
         ctx.fillRect(this.position.x, this.position.y, TILE_SIZE, TILE_SIZE);
         ctx.fillStyle = 'rgba(0, 0, 250, 0.3)';
         ctx.fillRect(Math.floor(this.position.x / TILE_SIZE) * TILE_SIZE, Math.floor(this.position.y / TILE_SIZE) * TILE_SIZE, TILE_SIZE, TILE_SIZE);
-        // this.game.drawText(ctx, this.ID, Math.floor(this.position.x / TILE_SIZE) * TILE_SIZE, Math.floor(this.position.y / TILE_SIZE) * TILE_SIZE, HALF_TILE_SIZE, 'right');
         this.game.drawText(ctx, this.priorityDistance, Math.floor(this.position.x / TILE_SIZE) * TILE_SIZE, Math.floor(this.position.y / TILE_SIZE) * TILE_SIZE + 20, HALF_TILE_SIZE, 'right');
     }
 }

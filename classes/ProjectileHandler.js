@@ -1,3 +1,5 @@
+import { ENEMY_STATE } from "./EnemyHandler.js";
+
 export class ProjectileHandler{
     constructor(game, enemyHandler, gameTextHandler){
         this.game = game;
@@ -19,11 +21,10 @@ export class ProjectileHandler{
                 if(projectile.enemy.health <= 0){
                     const enemyIndex = this.enemyHandler.enemies.findIndex((enemy) => projectile.enemy === enemy);
                     
-                    if (enemyIndex > -1){
+                    if (enemyIndex > -1 && projectile.enemy.state !== ENEMY_STATE.DYING){
                         this.game.coins += this.enemyHandler.enemies[enemyIndex].coins;
                         this.game.exp += this.enemyHandler.enemies[enemyIndex].exp;
-                        // this.enemyHandler.enemies.splice(enemyIndex, 1);
-                        
+
                         this.gameTextHandler.populateGameTextArray(
                             this.game, 
                             '+' + projectile.enemy.coins, 

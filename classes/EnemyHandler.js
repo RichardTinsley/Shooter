@@ -3,9 +3,13 @@ import { Enemy } from "./Enemy.js";
 import { ENEMY_SIZE } from "../index.js";
 
 export const ENEMY_STATE = {
-    RUNNING: 'RUNNING',
-    DYING: 'DYING',
-    DEAD: 'DEAD'
+    IDLE: 0,
+    WALKING: 1,
+    RUNNING: 2,
+    ATTACK: 3,
+    INJURED: 4,
+    DYING: 5,
+    DEAD: 6
 }
 
 export class EnemyHandler{
@@ -99,7 +103,7 @@ export class EnemyHandler{
                     imageLeft: document.getElementById(enemyColour.left),
                     imageRight: document.getElementById(enemyColour.right), 
                     x: 0, 
-                    y: 2, //Running animation row 
+                    y: 0,  
                     width: ENEMY_SIZE, 
                     height: ENEMY_SIZE 
                 },

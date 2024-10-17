@@ -47,6 +47,7 @@ export class Input {
                 this.towerHandler.towers.sort((a, b) => {
                     return a.position.y - b.position.y;
                 })
+                this.game.coins -= 25;
             }
         })
         

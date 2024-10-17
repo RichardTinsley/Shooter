@@ -1,3 +1,4 @@
+import { ENEMY_STATE } from "./EnemyHandler.js";
 import { ProjectileHandler } from "./ProjectileHandler.js";
 
 export class TowerHandler{
@@ -22,7 +23,7 @@ export class TowerHandler{
 
     findEnemiesInTowerRange(tower){
         return this.enemyHandler.enemies.filter(enemy => {
-            if(enemy.state === 'RUNNING'){
+            if(enemy.state === ENEMY_STATE.WALKING || enemy.state === ENEMY_STATE.RUNNING){
                 const xDifference = enemy.center.x - tower.center.x;
                 const yDifference = enemy.center.y - tower.center.y;
                 const distance = Math.hypot(xDifference, yDifference);

@@ -86,8 +86,8 @@ export class Game {
     drawPlayingScreen(ctx, deltaTime, timeStamp){
         this.world.drawBackground(ctx);
         this.placementTileHandler.renderTiles(ctx, this.input);
-        this.enemyHandler.renderEnemies(ctx, deltaTime, timeStamp);
         this.towerHandler.renderTowers(ctx, deltaTime);
+        this.enemyHandler.renderEnemies(ctx, deltaTime, timeStamp);
         this.gameTextHandler.renderGameTexts(ctx);
         this.renderGUI(ctx, deltaTime);
     }
