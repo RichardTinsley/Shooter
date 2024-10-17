@@ -1,4 +1,5 @@
 import { TILE_SIZE, HALF_TILE_SIZE } from "../index.js";
+import { ENEMY_STATE } from "./EnemyHandler.js";
 
 export class Enemy {
     constructor({
@@ -43,19 +44,38 @@ export class Enemy {
         
         this.maxFrame = (this.sprite.imageRight.width / this.sprite.width) - 1;
 
+        this.state = ENEMY_STATE.RUNNING;
         this.direction;
         this.health = 100;
         this.coins = Math.floor(Math.random() * 5 + 1);
         this.exp = Math.floor(Math.random() * 2 + 1);
     }
 
+    renderEnemy(ctx, deltaTime){
+        switch(this.state){
+            case 'RUNNING': 
+                this.update(deltaTime);
+                this.draw(ctx);
+                if(this.game.debug) this.drawDebug(ctx);
+                break
+            case 'DYING': 
+                this.update(deltaTime);
+                this.draw(ctx);
+                if(this.game.debug) this.drawDebug(ctx);
+                break
+        }
+    }
+
     update(deltaTime){
         const scaledSpeed = this.speed * (deltaTime / 1000);
-
-        if (this.game.eventUpdate)
-            this.sprite.x < this.maxFrame ? this.sprite.x++ : this.sprite.x = 0;
-
-        if (this.health > 0){
+        
+        if(this.health <= 0 && this.state !== ENEMY_STATE.DYING) {
+            this.state = ENEMY_STATE.DYING;
+            this.sprite.y = 5;
+            this.direction === this.sprite.imageRight ? this.sprite.x = 0 : this.sprite.x = this.maxFrame;
+        }
+        
+        if(this.state === ENEMY_STATE.RUNNING){
             const waypoint = this.waypoints[this.waypointIndex];
             const yDistance = waypoint.y - this.center.y;
             const xDistance = waypoint.x - this.center.x;
@@ -82,22 +102,36 @@ export class Enemy {
             }
 
             if(xDistance < 0)
-                this.direction = "left";
+                this.direction = this.sprite.imageLeft;
             else
-                this.direction = "right";
+                this.direction = this.sprite.imageRight;
         }
+
+        if(this.game.eventUpdate){
+            if(this.state === ENEMY_STATE.RUNNING)
+                this.sprite.x < this.maxFrame ? this.sprite.x++ : this.sprite.x = 0;
+
+            if(this.state === ENEMY_STATE.DYING){
+                if(this.direction === this.sprite.imageRight)
+                    this.sprite.x < this.maxFrame ? this.sprite.x++ : this.sprite.x = this.maxFrame;
+                else
+                    this.sprite.x !== 0 ? this.sprite.x-- : this.sprite.x = 0;
+            }
+        }
+        
     }
 
     draw(ctx){
-        const direction = this.direction === "left" ? this.sprite.imageLeft : this.sprite.imageRight;
-        const state = this.health > 0 ? this.sprite.height : this.sprite.height + (this.sprite.height * 3);
-        this.drawShadow(ctx);
-        if(this.game.debug)
-            this.drawDebug(ctx);
+        let image;
+        if(this.state === ENEMY_STATE.RUNNING){
+            this.drawHealthBar(ctx);
+            this.drawShadow(ctx);
+        }
+        if(this.game.debug) this.drawDebug(ctx);
         ctx.drawImage(
-            direction,
+            this.direction,
             this.sprite.x * this.sprite.width,
-            this.sprite.y * state + 1,
+            this.sprite.y * this.sprite.height + 1,
             this.sprite.width,
             this.sprite.height,
             this.position.x + HALF_TILE_SIZE - this.halfWidth,
@@ -105,7 +139,15 @@ export class Enemy {
             this.width,
             this.height
         );
-        this.drawHealthBar(ctx);
+        if(this.state === ENEMY_STATE.DYING){
+            // image = ctx.getImageData(
+            //     this.position.x,
+            //     this.position.y,
+            //     this.sprite.width,
+            //     this.sprite.height,
+            // );
+            // ctx.putImageData(image, 10, 70);
+        }
     }
 
     drawHealthBar(ctx){

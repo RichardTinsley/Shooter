@@ -21,13 +21,11 @@ window.addEventListener('load', function(){
     setInterval(() => { game.timer++ }, 1000);
     let lastTime = 0;
     
-    function animate(timeStamp){
-        
+    function animate(timeStamp){    
         const deltaTime = timeStamp - lastTime;
         lastTime = timeStamp;
         
-        game.gameHandler(ctx, deltaTime, timeStamp, animate);
-        
+        game.gameHandler(ctx, deltaTime, timeStamp, animate);   
     }
     requestAnimationFrame(animate);
 });

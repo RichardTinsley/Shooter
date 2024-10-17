@@ -22,7 +22,7 @@ export class ProjectileHandler{
                     if (enemyIndex > -1){
                         this.game.coins += this.enemyHandler.enemies[enemyIndex].coins;
                         this.game.exp += this.enemyHandler.enemies[enemyIndex].exp;
-                        this.enemyHandler.enemies.splice(enemyIndex, 1);
+                        // this.enemyHandler.enemies.splice(enemyIndex, 1);
                         
                         this.gameTextHandler.populateGameTextArray(
                             this.game, 

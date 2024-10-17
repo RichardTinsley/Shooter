@@ -2,6 +2,12 @@ import { waypoints } from "./World.js";
 import { Enemy } from "./Enemy.js";
 import { ENEMY_SIZE } from "../index.js";
 
+export const ENEMY_STATE = {
+    RUNNING: 'RUNNING',
+    DYING: 'DYING',
+    DEAD: 'DEAD'
+}
+
 export class EnemyHandler{
     constructor(game){
         this.game = game; 
@@ -22,7 +28,22 @@ export class EnemyHandler{
         }
 
         this.enemies.sort((b, a) => a.position.y - b.position.y);        
-        this.drawEnemies(ctx, deltaTime);
+        
+        for (let i = this.enemies.length - 1; i >= 0; i--){
+            const enemy = this.enemies[i];
+
+            if(enemy.state === ENEMY_STATE.DEAD) 
+                this.enemies.splice(i, 1);
+            else
+                enemy.renderEnemy(ctx, deltaTime);
+            
+            if(enemy.position.x > canvas.width){
+                this.game.hearts -= 1;
+                enemy.position.x = enemy.waypoints[0].x;
+                enemy.position.y = enemy.waypoints[0].y;
+                enemy.waypointIndex = 0;
+            }
+        }
 
         if (this.enemies.length === 0 && this.allEnemiesActive === true){
             this.game.waves++;
@@ -91,25 +112,5 @@ export class EnemyHandler{
             })
         );
         this.enemyCounter++;
-    }
-
-    drawEnemies(ctx, deltaTime){
-        for (let i = this.enemies.length - 1; i >= 0; i--){
-            const enemy = this.enemies[i];
-            if(enemy.health > 0){
-                enemy.update(deltaTime);
-                enemy.draw(ctx);
-                if(this.game.debug) 
-                    enemy.drawDebug(ctx);
-            } else 
-                this.enemies.splice(i, 1);
-            
-            if (enemy.position.x > canvas.width){
-                this.game.hearts -= 1;
-                enemy.position.x = enemy.waypoints[0].x;
-                enemy.position.y = enemy.waypoints[0].y;
-                enemy.waypointIndex = 0;
-            }
-        }
     }
 }                

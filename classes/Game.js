@@ -44,11 +44,10 @@ export class Game {
     gameHandler(ctx, deltaTime, timeStamp, animate){
         switch(this.currentGameState){
             case 'PLAYING': 
-            
                 this.animationID = requestAnimationFrame(animate);
                 this.drawPlayingScreen(ctx, deltaTime, timeStamp);
-                if(this.music.paused) this.music.play();
-                if(this.hearts <= 0) this.currentGameState = "GAMEOVER";
+                if(this.music.paused) this.music.pause();
+                if(this.hearts <= 0) this.currentGameState = 'GAMEOVER';
                 break
             case 'PAUSED': 
                 cancelAnimationFrame(this.animationID);
@@ -66,7 +65,6 @@ export class Game {
                 break
         }
     }
-
 
     renderGUI(ctx, deltaTime){
         this.drawText(ctx, this.hearts, 65, 52, 20,'left');

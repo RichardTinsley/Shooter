@@ -22,10 +22,12 @@ export class TowerHandler{
 
     findEnemiesInTowerRange(tower){
         return this.enemyHandler.enemies.filter(enemy => {
-            const xDifference = enemy.center.x - tower.center.x;
-            const yDifference = enemy.center.y - tower.center.y;
-            const distance = Math.hypot(xDifference, yDifference);
-            return distance < enemy.width / 32 + tower.radius;
+            if(enemy.state === 'RUNNING'){
+                const xDifference = enemy.center.x - tower.center.x;
+                const yDifference = enemy.center.y - tower.center.y;
+                const distance = Math.hypot(xDifference, yDifference);
+                return distance < enemy.width / 32 + tower.radius;
+            }
         }).sort((a, b) => {
             if (a.waypointIndex > b.waypointIndex) return -1;
             if (a.waypointIndex < b.waypointIndex) return 1;
