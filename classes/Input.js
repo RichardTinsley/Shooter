@@ -1,5 +1,6 @@
 import { Tower } from "./Tower.js";
 import { HALF_TILE_SIZE, ENEMY_SIZE, TOWER_SIZE } from "../index.js";
+import { GAME_STATES } from "./Game.js";
 
 const PAUSE = 'PAUSE';
 const DEBUG = 'DEBUG';
@@ -102,10 +103,10 @@ export class Input {
             this.keys.unshift(key);
         
         if(key === 'PAUSE') {
-            if(this.game.currentGameState === this.game.gameStates.PLAYING)
-                this.game.currentGameState = this.game.gameStates.PAUSED;
+            if(this.game.currentGameState === GAME_STATES.PLAYING)
+                this.game.currentGameState = GAME_STATES.PAUSED;
             else
-                this.game.currentGameState = this.game.gameStates.PLAYING;
+                this.game.currentGameState = GAME_STATES.PLAYING;
         }
         if(key === 'DEBUG')
             this.game.debug = !this.game.debug;

@@ -61,86 +61,76 @@ export class Enemy {
 
     renderEnemy(ctx, deltaTime){
         switch(this.state){
-            case ENEMY_STATE.WALKING: 
-                this.enemyFunctions(ctx, deltaTime);
+            case ENEMY_STATE.WALKING:
+                this.updateMovement(deltaTime); 
+                this.draw(ctx);
                 break
-            case ENEMY_STATE.RUNNING: 
-                this.enemyFunctions(ctx, deltaTime);
+            case ENEMY_STATE.RUNNING:
+                this.updateMovement(deltaTime);
+                this.draw(ctx); 
                 break
-            case ENEMY_STATE.DYING: 
-                this.enemyFunctions(ctx, deltaTime);
+            case ENEMY_STATE.DYING:
+                this.updateDying();
+                this.draw(ctx); 
                 break
         }
     }
 
-    enemyFunctions(ctx, deltaTime){
-        this.update(deltaTime);
-        this.draw(ctx);
-        if(this.game.debug) this.drawDebug(ctx);
-    }
-
-    update(deltaTime){
+    updateMovement(deltaTime){
         const scaledSpeed = this.speed * (deltaTime / 1000);
+        const waypoint = this.waypoints[this.waypointIndex];
+
+        const yDistance = waypoint.y - this.center.y;
+        const xDistance = waypoint.x - this.center.x;
+
+        const angle = Math.atan2(yDistance, xDistance);
+        this.priorityDistance = Math.round(Math.abs(xDistance) + Math.abs(yDistance));
+        this.velocity.x = Math.cos(angle) * scaledSpeed;
+        this.velocity.y = Math.sin(angle) * scaledSpeed;
         
+        this.position.x += this.velocity.x;
+        this.position.y += this.velocity.y;
+        this.center = {
+            x: this.position.x + HALF_TILE_SIZE,
+            y: this.position.y + HALF_TILE_SIZE
+        };
+        
+        if( Math.abs(Math.round(this.center.x) - Math.round(waypoint.x)) <
+            Math.abs(this.velocity.x) && 
+            Math.abs(Math.round(this.center.y) - Math.round(waypoint.y)) <
+            Math.abs(this.velocity.y) &&
+            this.waypointIndex < this.waypoints.length - 1
+        ){
+            this.waypointIndex++;
+        }
+
+        if(xDistance < 0)
+            this.direction = this.sprite.imageLeft;
+        else
+            this.direction = this.sprite.imageRight;
+
         if(this.health <= 0 && this.state !== ENEMY_STATE.DYING) {
             this.state = ENEMY_STATE.DYING;
             this.sprite.y = ENEMY_STATE.DYING;
             this.direction === this.sprite.imageRight ? this.sprite.x = 0 : this.sprite.x = this.maxFrame;
         }
-        
-        if(this.state === ENEMY_STATE.RUNNING || this.state === ENEMY_STATE.WALKING){
-            const waypoint = this.waypoints[this.waypointIndex];
-            const yDistance = waypoint.y - this.center.y;
-            const xDistance = waypoint.x - this.center.x;
-            const angle = Math.atan2(yDistance, xDistance);
-            this.priorityDistance = Math.round(Math.abs(xDistance) + Math.abs(yDistance));
 
-            this.velocity.x = Math.cos(angle) * scaledSpeed;
-            this.velocity.y = Math.sin(angle) * scaledSpeed;
-            
-            this.position.x += this.velocity.x;
-            this.position.y += this.velocity.y;
-            this.center = {
-                x: this.position.x + HALF_TILE_SIZE,
-                y: this.position.y + HALF_TILE_SIZE
-            };
-            
-            if( Math.abs(Math.round(this.center.x) - Math.round(waypoint.x)) <
-                Math.abs(this.velocity.x) && 
-                Math.abs(Math.round(this.center.y) - Math.round(waypoint.y)) <
-                Math.abs(this.velocity.y) &&
-                this.waypointIndex < this.waypoints.length - 1
-            ){
-                this.waypointIndex++;
-            }
+        if(this.game.eventUpdate)
+            this.sprite.x < this.maxFrame ? this.sprite.x++ : this.sprite.x = 0;
+    }
 
-            if(xDistance < 0)
-                this.direction = this.sprite.imageLeft;
-            else
-                this.direction = this.sprite.imageRight;
-        }
-
+    updateDying(){
         if(this.game.eventUpdate){
-            if(this.state === ENEMY_STATE.RUNNING || this.state === ENEMY_STATE.WALKING)
-                this.sprite.x < this.maxFrame ? this.sprite.x++ : this.sprite.x = 0;
-
-            if(this.state === ENEMY_STATE.DYING){
-                if(this.direction === this.sprite.imageRight)
-                    this.sprite.x < this.maxFrame ? this.sprite.x++ : this.sprite.x = this.maxFrame;
-                else
-                    this.sprite.x !== 0 ? this.sprite.x-- : this.sprite.x = 0;
-
-                this.height > 0 ? this.height -= 2 : this.state = ENEMY_STATE.DEAD;
-            }
+            if(this.direction === this.sprite.imageRight)
+                this.sprite.x < this.maxFrame ? this.sprite.x++ : this.sprite.x = this.maxFrame;
+            else
+                this.sprite.x > 0 ? this.sprite.x-- : this.sprite.x = 0;
+            
+            this.height > 0 ? this.height -= 2 : this.state = ENEMY_STATE.DEAD;
         }
     }
 
     draw(ctx){
-        if(this.state === ENEMY_STATE.RUNNING || this.state === ENEMY_STATE.WALKING){
-            this.drawHealthBar(ctx);
-            this.drawShadow(ctx);
-        }
-        if(this.game.debug) this.drawDebug(ctx);
         ctx.drawImage(
             this.direction,
             this.sprite.x * this.sprite.width,
@@ -152,6 +142,11 @@ export class Enemy {
             this.width,
             this.height
         );
+        if(this.state === ENEMY_STATE.RUNNING || this.state === ENEMY_STATE.WALKING){
+            this.drawHealthBar(ctx);
+            this.drawShadow(ctx);
+        }
+        if(this.game.debug) this.drawDebug(ctx);
     }
 
     drawHealthBar(ctx){

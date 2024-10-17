@@ -16,7 +16,7 @@ export class EnemyHandler{
     constructor(game){
         this.game = game; 
         this.allEnemiesActive = false;
-        this.maxEnemies = 5;
+        this.maxEnemies = 100;
         this.enemyCounter = 0;    
         this.enemies = [];
     }

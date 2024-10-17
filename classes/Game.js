@@ -7,6 +7,14 @@ import { PlacementTileHandler } from "./PlacementTileHandler.js";
 
 import { GAME_WIDTH, GAME_HEIGHT } from "../index.js";
 
+export const GAME_STATES = {
+    PLAYING: 'PLAYING',
+    PAUSED: 'PAUSED',
+    MENU: 'MENU',
+    LOADING: 'LOADING',
+    GAMEOVER: 'GAMEOVER'
+};
+
 export class Game {
     constructor(){
         this.world = new World(this);
@@ -16,15 +24,7 @@ export class Game {
         this.towerHandler = new TowerHandler(this, this.enemyHandler, this.gameTextHandler);
         this.input = new Input(this, this.world, this.towerHandler, this.enemyHandler, this.placementTileHandler);
         
-        this.gameStates = {
-            PLAYING: 'PLAYING',
-            PAUSED: 'PAUSED',
-            MENU: 'MENU',
-            LOADING: 'LOADING',
-            GAMEOVER: 'GAMEOVER'
-        };
-        this.currentGameState = this.gameStates.PLAYING;
-
+        this.currentGameState = GAME_STATES.PLAYING;
         this.debug = false;
         this.music = new Audio('./sounds/music.mp3');
 
@@ -43,22 +43,22 @@ export class Game {
 
     gameHandler(ctx, deltaTime, timeStamp, animate){
         switch(this.currentGameState){
-            case 'PLAYING': 
+            case GAME_STATES.PLAYING: 
                 this.animationID = requestAnimationFrame(animate);
                 this.drawPlayingScreen(ctx, deltaTime, timeStamp);
                 if(this.music.paused) this.music.pause();
-                if(this.hearts <= 0) this.currentGameState = 'GAMEOVER';
+                if(this.hearts <= 0) this.currentGameState = GAME_STATES.GAMEOVER;
                 break
-            case 'PAUSED': 
+            case GAME_STATES.PAUSED: 
                 cancelAnimationFrame(this.animationID);
                 this.animationID = requestAnimationFrame(animate);
                 if(!this.music.paused) this.music.pause();
                 break
-            case 'MENU': 
+            case GAME_STATES.MENU: 
                 break
-            case 'LOADING': 
+            case GAME_STATES.LOADING: 
                 break
-            case 'GAMEOVER':
+            case GAME_STATES.GAMEOVER:
                 this.drawGameOverScreen(ctx);
                 cancelAnimationFrame(this.animationID);
                 if(!this.music.paused) this.music.pause();

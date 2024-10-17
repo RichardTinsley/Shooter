@@ -1,5 +1,5 @@
 import { Projectile } from "./Projectile.js";
-import { TILE_SIZE, HALF_TILE_SIZE, TOWER_SIZE } from "../index.js";
+import { TILE_SIZE } from "../index.js";
 
 export class Tower {
     constructor({

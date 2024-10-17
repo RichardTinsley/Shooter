@@ -25,6 +25,11 @@ export class ProjectileHandler{
                         this.game.coins += this.enemyHandler.enemies[enemyIndex].coins;
                         this.game.exp += this.enemyHandler.enemies[enemyIndex].exp;
 
+                        if(projectile.enemy.direction === projectile.enemy.sprite.imageRight)
+                            projectile.enemy.sprite.x = 0;
+                        else
+                            projectile.enemy.sprite.x = 7;
+            
                         this.gameTextHandler.populateGameTextArray(
                             this.game, 
                             '+' + projectile.enemy.coins, 
