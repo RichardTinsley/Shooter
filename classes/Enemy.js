@@ -108,25 +108,38 @@ export class Enemy {
             this.direction = this.sprite.imageLeft;
         else
             this.direction = this.sprite.imageRight;
+        
+        if(this.game.eventUpdate)
+            this.sprite.x < this.maxFrame ? this.sprite.x++ : this.sprite.x = 0;
 
         if(this.health <= 0 && this.state !== ENEMY_STATE.DYING) {
             this.state = ENEMY_STATE.DYING;
             this.sprite.y = ENEMY_STATE.DYING;
-            this.direction === this.sprite.imageRight ? this.sprite.x = 0 : this.sprite.x = this.maxFrame;
+            if(this.direction === this.sprite.imageLeft)
+                this.sprite.x = this.maxFrame 
+            else
+                this.sprite.x = 0;
         }
 
-        if(this.game.eventUpdate)
-            this.sprite.x < this.maxFrame ? this.sprite.x++ : this.sprite.x = 0;
     }
 
     updateDying(){
         if(this.game.eventUpdate){
             if(this.direction === this.sprite.imageRight)
-                this.sprite.x < this.maxFrame ? this.sprite.x++ : this.sprite.x = this.maxFrame;
+                if(this.sprite.x < this.maxFrame) 
+                    this.sprite.x++; 
+                else 
+                    this.sprite.x = this.maxFrame;
             else
-                this.sprite.x > 0 ? this.sprite.x-- : this.sprite.x = 0;
+                if(this.sprite.x > 0) 
+                    this.sprite.x--; 
+                else
+                    this.sprite.x = 0;
             
-            this.height > 0 ? this.height -= 2 : this.state = ENEMY_STATE.DEAD;
+        if(this.height > 0) 
+            this.height -= 2;
+        else
+            this.state = ENEMY_STATE.DEAD;
         }
     }
 
