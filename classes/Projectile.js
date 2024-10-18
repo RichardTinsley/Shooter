@@ -22,7 +22,7 @@ export class Projectile {
             x: 0,
             y: 0
         };
-        this.speed = 500;
+        this.speed = 10;
     }
 
     draw(ctx){
@@ -43,15 +43,13 @@ export class Projectile {
         // ctx.stroke();
     }
 
-    update(deltaTime) {
-        const scaledSpeed = this.speed * (deltaTime / 1000);
-
+    update() {
         const angle = Math.atan2(
             this.enemy.center.y - this.center.y,
             this.enemy.center.x - this.center.x
         );
-        this.velocity.x = Math.cos(angle) * scaledSpeed;
-        this.velocity.y = Math.sin(angle) * scaledSpeed;
+        this.velocity.x = Math.cos(angle) * this.speed;
+        this.velocity.y = Math.sin(angle) * this.speed;
         this.center.x += this.velocity.x;
         this.center.y += this.velocity.y;
     }

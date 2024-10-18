@@ -8,26 +8,26 @@ export class TowerHandler{
         this.towers = [];
     }
 
-    renderTowers(ctx, deltaTime){
+    renderTowers(ctx){
         this.towers.forEach((tower) => {
-            tower.update(deltaTime);
+            tower.update();
             tower.draw(ctx);
 
-            const enemiesInTowerRange = this.findEnemiesInTowerRange(tower);
+            const enemiesInTowerRange = this.prioritiseEnemiesInTowerRange(tower);
 
             tower.target = enemiesInTowerRange[0];
 
-            this.projectileHandler.renderProjectiles(ctx, deltaTime, tower);
+            this.projectileHandler.renderProjectiles(ctx, tower);
         })
     }
 
-    findEnemiesInTowerRange(tower){
+    prioritiseEnemiesInTowerRange(tower){
         return this.enemyHandler.enemies.filter(enemy => {
             if(enemy.state === ENEMY_STATE.WALKING || enemy.state === ENEMY_STATE.RUNNING){
                 const xDifference = enemy.center.x - tower.center.x;
                 const yDifference = enemy.center.y - tower.center.y;
                 const distance = Math.hypot(xDifference, yDifference);
-                return distance < enemy.width / 32 + tower.radius;
+                return distance < enemy.width / 32 + tower.range;
             }
         }).sort((a, b) => {
             if (a.waypointIndex > b.waypointIndex) return -1;

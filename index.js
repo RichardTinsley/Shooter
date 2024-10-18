@@ -24,7 +24,7 @@ window.addEventListener('load', function(){
         const deltaTime = timeStamp - lastTime;
         lastTime = timeStamp;
 
-        game.gameHandler(ctx, deltaTime, animate);   
+        game.gameHandler(ctx, deltaTime, animate);  
     }
     requestAnimationFrame(animate);
 });

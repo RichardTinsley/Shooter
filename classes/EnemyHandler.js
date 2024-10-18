@@ -16,13 +16,13 @@ export class EnemyHandler{
     constructor(game){
         this.game = game; 
         this.allEnemiesActive = false;
-        this.maxEnemies = 100;
+        this.maxEnemies = 10;
         this.enemyCounter = 0;    
         this.enemies = [];
         this.enemySpawnTimer = 0;
     }
 
-    renderEnemies(ctx, deltaTime){
+    renderEnemies(ctx){
 
         if(this.game.eventUpdate)
             this.enemySpawnTimer++;
@@ -44,7 +44,7 @@ export class EnemyHandler{
             if(enemy.state === ENEMY_STATE.DEAD) 
                 this.enemies.splice(i, 1);
             else
-                enemy.renderEnemy(ctx, deltaTime);
+                enemy.renderEnemy(ctx);
             
             if(enemy.position.x > canvas.width){
                 this.game.hearts -= 1;

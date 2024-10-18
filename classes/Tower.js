@@ -36,12 +36,10 @@ export class Tower {
         this.projectiles = [];
         this.target;
 
-        this.damage = 10;
-        this.radius = 125;
-        this.shootRate = 800;
-        this.shootUpdate = false;
+        this.damage = 30;
+        this.range = 125;
+        this.cooldown = 10;
         this.shootTimer = 0;
-        this.shootInterval = 1000;
     }
 
     draw(ctx){
@@ -61,25 +59,21 @@ export class Tower {
 
     drawRadius(ctx){
         ctx.beginPath();
-        ctx.arc(this.center.x, this.center.y, this.radius, 0, Math.PI * 2);
+        ctx.arc(this.center.x, this.center.y, this.range, 0, Math.PI * 2);
         ctx.fillStyle = 'rgba(200, 0, 0, 0.1)';
         ctx.fill();
     }
 
-    update(deltaTime) {
-        if (this.shootUpdate && this.target)
-            this.shoot(); //FIX FIRE
-
-        if (this.shootTimer < this.shootInterval - this.shootRate){
-            this.shootTimer += deltaTime;
-            this.shootUpdate = false;
-        } else {
-            this.shootTimer = 0;
-            this.shootUpdate = true; 
+    update() {
+        if (this.game.eventUpdate){
+            this.shootTimer++;
+            this.sprite.x < this.maxFrame ? this.sprite.x++ : this.sprite.x = 0;
         }
 
-        if (this.game.eventUpdate)
-            this.sprite.x < this.maxFrame ? this.sprite.x++ : this.sprite.x = 0;
+        if (this.shootTimer > this.cooldown && this.target){
+            this.shoot();
+            this.shootTimer = 0;
+        }
     }
 
     shoot() {
@@ -93,7 +87,6 @@ export class Tower {
                 scale: 1,
                 damage: this.damage
             })
-        )
-        this.fireRateTimer = 1;
+        );
     }
 }

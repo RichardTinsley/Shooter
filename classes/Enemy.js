@@ -34,23 +34,26 @@ export class Enemy {
             x: this.position.x + HALF_TILE_SIZE,
             y: this.position.y + HALF_TILE_SIZE
         };
-        
-        this.priorityDistance = 0; 
-        this.speed = Math.random() * 80 + 20;
         this.velocity = { 
             x: 0, 
             y: 0
         }; 
         
+        this.priorityDistance = 0;
         this.maxFrame = (this.sprite.imageRight.width / this.sprite.width) - 1;
-
+        
         this.state;
         this.direction;
         this.health = 100;
         this.coins = Math.floor(Math.random() * 5 + 1);
         this.exp = Math.floor(Math.random() * 2 + 1);
         
-        if(this.speed >= 40){
+        this.speedMinimum = 0.4; 
+        this.speedRange = 1.0
+        this.speed = Math.random() * this.speedRange + this.speedMinimum;
+        this.speedAverage = (this.speedRange + this.speedMinimum) / 2;
+        
+        if(this.speed >= .8){
             this.sprite.y = ENEMY_STATE.RUNNING;
             this.state = ENEMY_STATE.RUNNING;
         } else {
@@ -59,14 +62,14 @@ export class Enemy {
         }
     }
 
-    renderEnemy(ctx, deltaTime){
+    renderEnemy(ctx){
         switch(this.state){
             case ENEMY_STATE.WALKING:
-                this.updateMovement(deltaTime); 
+                this.updateMovement(); 
                 this.draw(ctx);
                 break
             case ENEMY_STATE.RUNNING:
-                this.updateMovement(deltaTime);
+                this.updateMovement();
                 this.draw(ctx); 
                 break
             case ENEMY_STATE.DYING:
@@ -76,8 +79,7 @@ export class Enemy {
         }
     }
 
-    updateMovement(deltaTime){
-        const scaledSpeed = this.speed * (deltaTime / 1000);
+    updateMovement(){
         const waypoint = this.waypoints[this.waypointIndex];
 
         const yDistance = waypoint.y - this.center.y;
@@ -85,8 +87,8 @@ export class Enemy {
 
         const angle = Math.atan2(yDistance, xDistance);
         this.priorityDistance = Math.round(Math.abs(xDistance) + Math.abs(yDistance));
-        this.velocity.x = Math.cos(angle) * scaledSpeed;
-        this.velocity.y = Math.sin(angle) * scaledSpeed;
+        this.velocity.x = Math.cos(angle) * this.speed;
+        this.velocity.y = Math.sin(angle) * this.speed;
         
         this.position.x += this.velocity.x;
         this.position.y += this.velocity.y;

@@ -7,10 +7,10 @@ export class ProjectileHandler{
         this.gameTextHandler = gameTextHandler;
     }
 
-    renderProjectiles(ctx, deltaTime, tower){
+    renderProjectiles(ctx, tower){
         for (let i = tower.projectiles.length - 1; i >= 0; i--){
             const projectile = tower.projectiles[i];        
-            projectile.update(deltaTime);
+            projectile.update();
             projectile.draw(ctx);
             const xDifference = projectile.enemy.center.x - projectile.center.x;
             const yDifference = projectile.enemy.center.y - projectile.center.y;

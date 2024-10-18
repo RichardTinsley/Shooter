@@ -49,15 +49,14 @@ export class Game {
             case GAME_STATES.PLAYING: 
                 requestAnimationFrame(animate);
                 this.gameTimer(deltaTime);
-                this.drawPlayingScreen(ctx, deltaTime);
+                this.drawPlayingScreen(ctx);
                 if(this.music.paused) this.music.pause();
                 if(this.hearts <= 0) this.currentGameState = GAME_STATES.GAMEOVER;
                 break
             case GAME_STATES.PAUSED:
-                cancelAnimationFrame(this.animationID);
+                // cancelAnimationFrame(this.animationID);
                 this.drawScreenText(ctx, "PAUSED"); 
                 requestAnimationFrame(animate);
-                if(!this.music.paused) this.music.pause();
                 break
             case GAME_STATES.MENU: 
                 break
@@ -88,11 +87,11 @@ export class Game {
         }
     }
     
-    drawPlayingScreen(ctx, deltaTime){
+    drawPlayingScreen(ctx){
         this.world.drawBackground(ctx);
         this.placementTileHandler.renderTiles(ctx, this.input);
-        this.towerHandler.renderTowers(ctx, deltaTime);
-        this.enemyHandler.renderEnemies(ctx, deltaTime);
+        this.towerHandler.renderTowers(ctx);
+        this.enemyHandler.renderEnemies(ctx);
         this.gameTextHandler.renderGameTexts(ctx);
         this.renderGUI(ctx);
     }
