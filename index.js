@@ -18,14 +18,13 @@ window.addEventListener('load', function(){
     canvas.height = GAME_HEIGHT;
     ctx.imageSmoothingEnabled = false;
     
-    setInterval(() => { game.timer++ }, 1000);
     let lastTime = 0;
     
     function animate(timeStamp){    
         const deltaTime = timeStamp - lastTime;
         lastTime = timeStamp;
-        
-        game.gameHandler(ctx, deltaTime, timeStamp, animate);   
+
+        game.gameHandler(ctx, deltaTime, animate);   
     }
     requestAnimationFrame(animate);
 });

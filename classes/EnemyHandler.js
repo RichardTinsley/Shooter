@@ -19,10 +19,15 @@ export class EnemyHandler{
         this.maxEnemies = 100;
         this.enemyCounter = 0;    
         this.enemies = [];
+        this.enemySpawnTimer = 0;
     }
 
-    renderEnemies(ctx, deltaTime, timeStamp){
-        if (Math.floor(timeStamp) % Math.floor(Math.random() * 300) === 0 && this.enemyCounter < this.maxEnemies){
+    renderEnemies(ctx, deltaTime){
+
+        if(this.game.eventUpdate)
+            this.enemySpawnTimer++;
+            
+        if (this.enemySpawnTimer % Math.floor(Math.random() * 300) === 0 && this.enemyCounter < this.maxEnemies){
             const enemyColour = this.generateRandomEnemy();
             const randomWaypoints = this.generateRandomEnemyWaypoints();
             this.populateEnemiesArray(enemyColour, randomWaypoints);

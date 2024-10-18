@@ -105,7 +105,7 @@ export class Input {
         if(key === 'PAUSE') {
             if(this.game.currentGameState === GAME_STATES.PLAYING)
                 this.game.currentGameState = GAME_STATES.PAUSED;
-            else
+            else 
                 this.game.currentGameState = GAME_STATES.PLAYING;
         }
         if(key === 'DEBUG')

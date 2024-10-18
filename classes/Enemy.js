@@ -108,11 +108,11 @@ export class Enemy {
             this.direction = this.sprite.imageLeft;
         else
             this.direction = this.sprite.imageRight;
-        
+
         if(this.game.eventUpdate)
             this.sprite.x < this.maxFrame ? this.sprite.x++ : this.sprite.x = 0;
 
-        if(this.health <= 0 && this.state !== ENEMY_STATE.DYING) {
+        if(this.health <= 0 && this.state) {
             this.state = ENEMY_STATE.DYING;
             this.sprite.y = ENEMY_STATE.DYING;
             if(this.direction === this.sprite.imageLeft)

@@ -38,20 +38,25 @@ export class Game {
         this.eventTimer = 0;
         this.eventInterval = 60;
 
+        this.secondTimer = 0;
+        this.secondInterval = 1000;
+
         this.animationID;
     }
 
-    gameHandler(ctx, deltaTime, timeStamp, animate){
+    gameHandler(ctx, deltaTime, animate){
         switch(this.currentGameState){
             case GAME_STATES.PLAYING: 
-                this.animationID = requestAnimationFrame(animate);
-                this.drawPlayingScreen(ctx, deltaTime, timeStamp);
+                requestAnimationFrame(animate);
+                this.gameTimer(deltaTime);
+                this.drawPlayingScreen(ctx, deltaTime);
                 if(this.music.paused) this.music.pause();
                 if(this.hearts <= 0) this.currentGameState = GAME_STATES.GAMEOVER;
                 break
-            case GAME_STATES.PAUSED: 
+            case GAME_STATES.PAUSED:
                 cancelAnimationFrame(this.animationID);
-                this.animationID = requestAnimationFrame(animate);
+                this.drawScreenText(ctx, "PAUSED"); 
+                requestAnimationFrame(animate);
                 if(!this.music.paused) this.music.pause();
                 break
             case GAME_STATES.MENU: 
@@ -59,50 +64,58 @@ export class Game {
             case GAME_STATES.LOADING: 
                 break
             case GAME_STATES.GAMEOVER:
-                this.drawGameOverScreen(ctx);
+                this.drawScreenText(ctx, "GAME OVER");
                 cancelAnimationFrame(this.animationID);
                 if(!this.music.paused) this.music.pause();
                 break
         }
     }
 
-    renderGUI(ctx, deltaTime){
-        this.drawText(ctx, this.hearts, 65, 52, 20,'left');
-        this.drawText(ctx, this.coins, 225, 52, 20,'left');
-        this.drawText(ctx, this.exp, 515, 52, 20,'left');
-        this.drawText(ctx, this.waves, 805, 52, 20,'left');
-        this.drawText(ctx, this.timer, 1155, 52, 20,'left');
-
+    gameTimer(deltaTime){
         if (this.eventTimer < this.eventInterval){
             this.eventTimer += deltaTime;
             this.eventUpdate = false;
         } else {
-            // this.eventTimer = this.eventInterval % this.eventTimer;
             this.eventTimer = 0;
             this.eventUpdate = true; 
         }
-    }
 
-    drawPlayingScreen(ctx, deltaTime, timeStamp){
+        if (this.secondTimer < this.secondInterval){
+            this.secondTimer += deltaTime;
+        } else {
+            this.secondTimer = 0;
+            this.timer++; 
+        }
+    }
+    
+    drawPlayingScreen(ctx, deltaTime){
         this.world.drawBackground(ctx);
         this.placementTileHandler.renderTiles(ctx, this.input);
         this.towerHandler.renderTowers(ctx, deltaTime);
-        this.enemyHandler.renderEnemies(ctx, deltaTime, timeStamp);
+        this.enemyHandler.renderEnemies(ctx, deltaTime);
         this.gameTextHandler.renderGameTexts(ctx);
-        this.renderGUI(ctx, deltaTime);
+        this.renderGUI(ctx);
     }
 
-    drawGameOverScreen(ctx){
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
-        ctx.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
-        this.drawText(ctx, "GAME OVER", GAME_WIDTH / 2, GAME_HEIGHT / 2, 100, 'center'); 
+    renderGUI(ctx){
+        this.drawGUIText(ctx, this.hearts, 65, 52, 20,'left');
+        this.drawGUIText(ctx, this.coins, 225, 52, 20,'left');
+        this.drawGUIText(ctx, this.exp, 515, 52, 20,'left');
+        this.drawGUIText(ctx, this.waves, 805, 52, 20,'left');
+        this.drawGUIText(ctx, this.timer, 1155, 52, 20,'left');
     }
-
-    drawText(ctx, text, x, y, textSize, align){
+    
+    drawGUIText(ctx, text, x, y, textSize, align){
         ctx.fillStyle = 'white';
         ctx.font = 'bold ' + textSize + 'px canterbury';
         ctx.textAlign = align;
         ctx.textBaseline = 'middle';
         ctx.fillText(text, x + 5, y - 3);
+    }
+    
+    drawScreenText(ctx, text){
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
+        ctx.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+        this.drawGUIText(ctx, text, GAME_WIDTH / 2, GAME_HEIGHT / 2, 100, 'center'); 
     }
 }
