@@ -25,6 +25,8 @@ export class Game {
         this.currentGameState = GAME_STATES.PLAYING;
         this.debug = false;
         this.music = new Audio('./sounds/music.mp3');
+        this.music.volume = 0.2;
+        this.music.play();
 
         this.hearts = 1;
         this.coins = 100;
@@ -48,7 +50,6 @@ export class Game {
                 requestAnimationFrame(animate);
                 this.gameTimer(deltaTime);
                 this.drawPlayingScreen(ctx);
-                if(this.music.paused) this.music.pause();
                 if(this.hearts <= 0) this.currentGameState = GAME_STATES.GAMEOVER;
                 break
             case GAME_STATES.PAUSED:
@@ -63,7 +64,6 @@ export class Game {
             case GAME_STATES.GAMEOVER:
                 this.drawScreenText(ctx, "GAME OVER");
                 cancelAnimationFrame(this.animationID);
-                if(!this.music.paused) this.music.pause();
                 break
         }
     }

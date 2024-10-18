@@ -160,7 +160,8 @@ export class Enemy {
             this.drawHealthBar(ctx);
             this.drawShadow(ctx);
         }
-        if(this.game.debug) this.drawDebug(ctx);
+        if(this.game.debug) 
+            this.drawDebug(ctx);
     }
 
     drawHealthBar(ctx){
@@ -185,6 +186,6 @@ export class Enemy {
         ctx.fillRect(this.position.x, this.position.y, TILE_SIZE, TILE_SIZE);
         ctx.fillStyle = 'rgba(0, 0, 250, 0.3)';
         ctx.fillRect(Math.floor(this.position.x / TILE_SIZE) * TILE_SIZE, Math.floor(this.position.y / TILE_SIZE) * TILE_SIZE, TILE_SIZE, TILE_SIZE);
-        this.game.drawText(ctx, this.priorityDistance, Math.floor(this.position.x / TILE_SIZE) * TILE_SIZE, Math.floor(this.position.y / TILE_SIZE) * TILE_SIZE + 20, HALF_TILE_SIZE, 'right');
+        this.game.drawGUIText(ctx, this.priorityDistance, Math.floor(this.position.x / TILE_SIZE) * TILE_SIZE, Math.floor(this.position.y / TILE_SIZE) * TILE_SIZE + 20, HALF_TILE_SIZE, 'right');
     }
 }

@@ -4,6 +4,7 @@ import { GAME_STATES } from "./Game.js";
 
 const PAUSE = 'PAUSE';
 const DEBUG = 'DEBUG';
+const MUSIC = 'MUSIC';
 
 export class Input {
     constructor(game, level, towerHandler, enemyHandler){
@@ -93,6 +94,8 @@ export class Input {
                 this.keyPressed(PAUSE);
             else if (e.key.toLowerCase() === 'o')
                 this.keyPressed(DEBUG);
+            else if (e.key.toLowerCase() === 'm')
+                this.keyPressed(MUSIC);
         });
     }
     
@@ -102,14 +105,20 @@ export class Input {
         if (this.keys.indexOf(key) === -1)
             this.keys.unshift(key);
         
-        if(key === 'PAUSE') {
+        if(key === PAUSE)
             if(this.game.currentGameState === GAME_STATES.PLAYING)
                 this.game.currentGameState = GAME_STATES.PAUSED;
             else 
                 this.game.currentGameState = GAME_STATES.PLAYING;
-        }
-        if(key === 'DEBUG')
+
+        if(key === DEBUG)
             this.game.debug = !this.game.debug;
+
+        if(key === MUSIC)
+            if(this.game.music.paused) 
+                this.game.music.play();
+            else
+                this.game.music.pause();
     }
 
     keyReleased(key){

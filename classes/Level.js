@@ -34,7 +34,9 @@ export class Level {
     renderLevel(ctx){
         ctx.drawImage(this.backgroundLayer, 0, 0);
         this.placementTiles.forEach((tile) => tile.renderTile(ctx));
-        if(this.game.debug) this.drawGrid(ctx);
+        
+        if(this.game.debug) 
+            this.drawGrid(ctx);
     }
 
     drawGrid(ctx){
