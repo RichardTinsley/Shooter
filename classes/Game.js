@@ -54,8 +54,8 @@ export class Game {
                 break
             case GAME_STATES.PAUSED:
                 // cancelAnimationFrame(this.animationID);
-                this.drawScreenText(ctx, "PAUSED"); 
                 requestAnimationFrame(animate);
+                this.drawScreenText(ctx, "PAUSED"); 
                 break
             case GAME_STATES.MENU: 
                 break

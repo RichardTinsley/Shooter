@@ -83,6 +83,7 @@ export class Input {
                     this.mouse.y < enemyY + enemyHeight
                 ) {
                     cursor.style = "cursor: url(./images/cursors/text.cur), auto;";
+                    console.log("SELECTED")
                 } else {
                     cursor.style = "cursor: url(./images/cursors/normal.cur), auto;";
                 }
