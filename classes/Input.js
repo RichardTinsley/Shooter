@@ -6,12 +6,11 @@ const PAUSE = 'PAUSE';
 const DEBUG = 'DEBUG';
 
 export class Input {
-    constructor(game, world, towerHandler, enemyHandler, placementTileHandler){
+    constructor(game, level, towerHandler, enemyHandler){
         this.game = game;
-        this.world = world
+        this.level = level;
         this.towerHandler = towerHandler;
         this.enemyHandler = enemyHandler;
-        this.placementTileHandler = placementTileHandler;
         
         this.mouse = {
             x: undefined,
@@ -57,7 +56,7 @@ export class Input {
             this.mouse.y = e.clientY;
             this.activeTile = null;
 
-            this.placementTileHandler.placementTiles.forEach(tile => {
+            this.level.placementTiles.forEach(tile => {
                 if (
                     this.mouse.x > tile.position.x &&
                     this.mouse.x < tile.position.x + tile.size &&
@@ -65,7 +64,9 @@ export class Input {
                     this.mouse.y < tile.position.y + tile.size
                 ) {
                     this.activeTile = tile;
-                    return;
+                    tile.mouseOver = true;
+                } else {
+                    tile.mouseOver = false;
                 }
             });
 
@@ -81,7 +82,6 @@ export class Input {
                     this.mouse.y < enemyY + enemyHeight
                 ) {
                     cursor.style = "cursor: url(./images/cursors/text.cur), auto;";
-                    return;
                 } else {
                     cursor.style = "cursor: url(./images/cursors/normal.cur), auto;";
                 }

@@ -122,7 +122,6 @@ export class Enemy {
             else
                 this.sprite.x = 0;
         }
-
     }
 
     updateDying(){

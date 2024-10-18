@@ -1,9 +1,8 @@
-import { World } from "./World.js";
+import { Level } from "./Level.js";
 import { Input } from "./Input.js";
 import { EnemyHandler } from "./EnemyHandler.js";
 import { TowerHandler } from "./TowerHandler.js";
 import { GameTextHandler } from "./GameTextHandler.js";
-import { PlacementTileHandler } from "./PlacementTileHandler.js";
 
 import { GAME_WIDTH, GAME_HEIGHT } from "../index.js";
 
@@ -17,12 +16,11 @@ export const GAME_STATES = {
 
 export class Game {
     constructor(){
-        this.world = new World(this);
+        this.level = new Level(this);
         this.gameTextHandler = new GameTextHandler();
-        this.placementTileHandler = new PlacementTileHandler();
         this.enemyHandler = new EnemyHandler(this);
         this.towerHandler = new TowerHandler(this, this.enemyHandler, this.gameTextHandler);
-        this.input = new Input(this, this.world, this.towerHandler, this.enemyHandler, this.placementTileHandler);
+        this.input = new Input(this, this.level, this.towerHandler, this.enemyHandler);
         
         this.currentGameState = GAME_STATES.PLAYING;
         this.debug = false;
@@ -88,8 +86,8 @@ export class Game {
     }
     
     drawPlayingScreen(ctx){
-        this.world.drawBackground(ctx);
-        this.placementTileHandler.renderTiles(ctx, this.input);
+        this.level.renderLevel(ctx);
+        // this.level.renderTiles(ctx, this.input);
         this.towerHandler.renderTowers(ctx);
         this.enemyHandler.renderEnemies(ctx);
         this.gameTextHandler.renderGameTexts(ctx);

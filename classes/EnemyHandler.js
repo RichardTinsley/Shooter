@@ -1,4 +1,4 @@
-import { waypoints } from "./World.js";
+import { waypoints } from "./Level.js";
 import { Enemy } from "./Enemy.js";
 import { ENEMY_SIZE } from "../index.js";
 
