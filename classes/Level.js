@@ -31,9 +31,10 @@ export class Level {
         })
         return placementTiles;
     }
-
-    renderTiles(ctx){
-        this.placementTiles.forEach((tile) => tile.update(ctx));
+    renderLevel(ctx){
+        ctx.drawImage(this.backgroundLayer, 0, 0);
+        this.placementTiles.forEach((tile) => tile.renderTile(ctx));
+        if(this.game.debug) this.drawGrid(ctx);
     }
 
     drawGrid(ctx){
@@ -46,12 +47,6 @@ export class Level {
                     TILE_SIZE
                 );   
     }
-
-    renderLevel(ctx){
-        ctx.drawImage(this.backgroundLayer, 0, 0);
-        this.renderTiles(ctx);
-        if(this.game.debug) this.drawGrid(ctx);
-    }
 }
 
 class PlacementTile {
@@ -62,20 +57,19 @@ class PlacementTile {
         } }) {
         this.position = position;
         this.size = TILE_SIZE;
-        this.colour = 'rgba(255, 255, 255, 0.15)';
+        this.colour;
         this.occupied = false;
         this.mouseOver = false;
     }
-    draw(ctx) {
-        ctx.fillStyle = this.colour;
-        ctx.fillRect(this.position.x, this.position.y, this.size, this.size);
-    }
-    update(ctx) {
-        this.draw(ctx);
+
+    renderTile(ctx){
         if(this.mouseOver)
             this.colour = 'rgba(50, 255, 50, 0.15)';
         else
             this.colour = 'rgba(255, 255, 255, 0.15)';
+        
+        ctx.fillStyle = this.colour;
+        ctx.fillRect(this.position.x, this.position.y, this.size, this.size);
     }
 }
 

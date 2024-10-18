@@ -87,7 +87,6 @@ export class Game {
     
     drawPlayingScreen(ctx){
         this.level.renderLevel(ctx);
-        // this.level.renderTiles(ctx, this.input);
         this.towerHandler.renderTowers(ctx);
         this.enemyHandler.renderEnemies(ctx);
         this.gameTextHandler.renderGameTexts(ctx);
