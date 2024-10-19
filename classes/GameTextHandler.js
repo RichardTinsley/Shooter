@@ -17,10 +17,9 @@ export class GameTextHandler {
         }
     }
 
-    populateGameTextArray(game, text, color, alpha, position, textSize, align){
+    populateGameTextArray(text, color, alpha, position, textSize, align){
         this.gameTexts.push(
             new GameText({
-                game: game,
                 text: text,
                 color: color,
                 alpha: alpha,

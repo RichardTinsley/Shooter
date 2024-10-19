@@ -1,6 +1,5 @@
 export class GameText {
     constructor({
-        game,
         text,
         color,
         alpha,
@@ -8,7 +7,6 @@ export class GameText {
         textSize,
         align 
     }){
-        this.game = game
         this.text = text;
         this.color = color;
         this.alpha = alpha

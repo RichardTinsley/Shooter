@@ -26,7 +26,6 @@ export class ProjectileHandler{
                         this.game.exp += this.enemyHandler.enemies[enemyIndex].exp;
 
                         this.gameTextHandler.populateGameTextArray(
-                            this.game, 
                             '+' + projectile.enemy.coins, 
                             '255, 215, 0, ', //GOLD COLOUR TEXT
                             '10', 
@@ -35,8 +34,7 @@ export class ProjectileHandler{
                             'left'
                         ); 
 
-                        this.gameTextHandler.populateGameTextArray(
-                            this.game, 
+                        this.gameTextHandler.populateGameTextArray( 
                             '+' + projectile.enemy.exp, 
                             '50, 205, 50, ', //LIME COLOUR TEXT
                             '10', 

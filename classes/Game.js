@@ -67,6 +67,14 @@ export class Game {
                 break
         }
     }
+    
+    drawPlayingScreen(ctx){
+        this.level.renderLevel(ctx, this.debug);
+        this.towerHandler.renderTowers(ctx, this.eventUpdate);
+        this.enemyHandler.renderEnemies(ctx);
+        this.gameTextHandler.renderGameTexts(ctx);
+        this.renderGUI(ctx);
+    }
 
     gameTimer(deltaTime){
         if (this.eventTimer < this.eventInterval){
@@ -85,14 +93,6 @@ export class Game {
         }
     }
     
-    drawPlayingScreen(ctx){
-        this.level.renderLevel(ctx, this.debug);
-        this.towerHandler.renderTowers(ctx, this.eventUpdate);
-        this.enemyHandler.renderEnemies(ctx);
-        this.gameTextHandler.renderGameTexts(ctx);
-        this.renderGUI(ctx);
-    }
-
     renderGUI(ctx){
         this.drawGUIText(ctx, this.hearts, 65, 52, 20,'left');
         this.drawGUIText(ctx, this.coins, 225, 52, 20,'left');
