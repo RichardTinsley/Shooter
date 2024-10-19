@@ -2,9 +2,9 @@ import { Tower } from "./Tower.js";
 import { HALF_TILE_SIZE, ENEMY_SIZE, TOWER_SIZE } from "../index.js";
 import { GAME_STATES } from "./Game.js";
 
-const PAUSE = 'PAUSE';
-const DEBUG = 'DEBUG';
-const MUSIC = 'MUSIC';
+const PAUSE = 'p';
+const DEBUG = 'o';
+const MUSIC = 'm';
 
 export class Input {
     constructor(game, level, towerHandler, enemyHandler){
@@ -20,6 +20,7 @@ export class Input {
 
         this.keys = [];
         this.activeTile = undefined;
+        this.activeEnemy = undefined;
 
         const cursor = document.getElementById("canvas");
         
@@ -50,12 +51,36 @@ export class Input {
                 })
                 this.game.coins -= 25;
             }
+            
+            if(this.activeEnemy){
+                this.activeEnemy.isSelected = true;
+                this.enemyHandler.enemies.forEach(enemy => {
+                    if(enemy != this.activeEnemy){
+                        enemy.isSelected = false;
+                    }
+                })
+            }
         })
         
         window.addEventListener('mousemove', e => {
             this.mouse.x = e.clientX;
             this.mouse.y = e.clientY;
             this.activeTile = null;
+            this.activeEnemy = null;
+
+            this.enemyHandler.enemies.forEach(enemy => {
+                if (
+                    this.mouse.x > enemy.position.x &&
+                    this.mouse.x < enemy.position.x + ENEMY_SIZE &&
+                    this.mouse.y > enemy.position.y - (ENEMY_SIZE / 2) &&
+                    this.mouse.y < enemy.position.y + ENEMY_SIZE
+                ) {
+                    cursor.style = "cursor: url(./images/cursors/text.cur), auto;";
+                    this.activeEnemy = enemy;
+                }
+                else
+                    cursor.style = "cursor: url(./images/cursors/normal.cur), auto;";
+            })
 
             this.level.placementTiles.forEach(tile => {
                 if (
@@ -70,32 +95,14 @@ export class Input {
                     tile.mouseOver = false;
                 }
             });
-
-            this.enemyHandler.enemies.forEach(enemy => {
-                const enemyX = enemy.center.x - enemy.thirdWidth;
-                const enemyWidth = enemy.thirdWidth * 2;
-                const enemyY = enemy.center.y - enemy.scale * 30;
-                const enemyHeight = ENEMY_SIZE * enemy.scale;
-                if (
-                    this.mouse.x > enemyX &&
-                    this.mouse.x < enemyX + enemyWidth &&
-                    this.mouse.y > enemyY &&
-                    this.mouse.y < enemyY + enemyHeight
-                ) {
-                    cursor.style = "cursor: url(./images/cursors/text.cur), auto;";
-                    console.log("SELECTED")
-                } else {
-                    cursor.style = "cursor: url(./images/cursors/normal.cur), auto;";
-                }
-            })
         })
         
         window.addEventListener('keydown', e =>{
-            if (e.key.toLowerCase() === 'p')
+            if (e.key.toLowerCase() === PAUSE)
                 this.keyPressed(PAUSE);
-            else if (e.key.toLowerCase() === 'o')
+            else if (e.key.toLowerCase() === DEBUG)
                 this.keyPressed(DEBUG);
-            else if (e.key.toLowerCase() === 'm')
+            else if (e.key.toLowerCase() === MUSIC)
                 this.keyPressed(MUSIC);
         });
     }

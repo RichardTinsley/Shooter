@@ -25,8 +25,8 @@ export class Game {
         this.currentGameState = GAME_STATES.PLAYING;
         this.debug = false;
         this.music = new Audio('./sounds/music.mp3');
-        this.music.volume = 0.2;
-        this.music.play();
+        this.music.volume = 0.1;
+        this.music.pause();
 
         this.hearts = 1;
         this.coins = 100;

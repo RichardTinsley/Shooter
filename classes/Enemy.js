@@ -43,6 +43,7 @@ export class Enemy {
         this.maxFrame = (this.sprite.imageRight.width / this.sprite.width) - 1;
         
         this.state;
+        this.isSelected = false;
         this.direction;
         this.health = 100;
         this.coins = Math.floor(Math.random() * 5 + 1);
@@ -66,10 +67,14 @@ export class Enemy {
         switch(this.state){
             case ENEMY_STATE.WALKING:
                 this.updateMovement(); 
+                this.drawHealthBar(ctx);
+                this.drawShadow(ctx);
                 this.draw(ctx);
                 break
             case ENEMY_STATE.RUNNING:
                 this.updateMovement();
+                this.drawHealthBar(ctx);
+                this.drawShadow(ctx);
                 this.draw(ctx); 
                 break
             case ENEMY_STATE.DYING:
@@ -156,10 +161,6 @@ export class Enemy {
             this.width,
             this.height
         );
-        if(this.state === ENEMY_STATE.RUNNING || this.state === ENEMY_STATE.WALKING){
-            this.drawHealthBar(ctx);
-            this.drawShadow(ctx);
-        }
         if(this.game.debug) 
             this.drawDebug(ctx);
     }
@@ -177,7 +178,10 @@ export class Enemy {
     drawShadow(ctx){
         ctx.beginPath();
         ctx.ellipse(this.center.x, this.position.y + TILE_SIZE - (2 * this.scale), this.thirdWidth / 3, this.thirdWidth, Math.PI / 2, 0, 2 * Math.PI);
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
+        if(this.isSelected)
+            ctx.fillStyle = 'rgba(250, 100, 100, 1)';
+        else    
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
         ctx.fill();      
     }
 

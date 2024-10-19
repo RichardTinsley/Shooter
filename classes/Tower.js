@@ -37,7 +37,7 @@ export class Tower {
         this.target;
 
         this.damage = 30;
-        this.range = 125;
+        this.range = 225;
         this.cooldown = 10;
         this.shootTimer = 0;
     }
