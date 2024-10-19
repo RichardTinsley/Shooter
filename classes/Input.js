@@ -123,7 +123,10 @@ export class Input {
                 this.game.currentGameState = GAME_STATES.PLAYING;
 
         if(key === DEBUG)
-            this.game.debug = !this.game.debug;
+            if(this.game.currentGameState === GAME_STATES.PLAYING)
+                this.game.currentGameState = GAME_STATES.DEBUG;
+            else 
+                this.game.currentGameState = GAME_STATES.PLAYING;
 
         if(key === MUSIC)
             if(this.game.music.paused) 

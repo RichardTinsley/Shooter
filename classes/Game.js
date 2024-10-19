@@ -12,7 +12,8 @@ export const GAME_STATES = {
     PAUSED: 'PAUSED',
     MENU: 'MENU',
     LOADING: 'LOADING',
-    GAMEOVER: 'GAMEOVER'
+    GAMEOVER: 'GAMEOVER',
+    DEBUG: 'DEBUG'
 };
 
 export class Game {
@@ -33,7 +34,7 @@ export class Game {
         this.hearts = 1;
         this.coins = 100;
         this.exp = 0;
-        this.waves = 111;
+        this.waves = 1;
         this.timer = 0;
         
         this.eventUpdate = false;
@@ -52,7 +53,6 @@ export class Game {
                 requestAnimationFrame(animate);
                 this.gameTimer(deltaTime);
                 this.drawPlayingScreen(ctx);
-                if(this.hearts <= 0) this.currentGameState = GAME_STATES.GAMEOVER;
                 break
             case GAME_STATES.PAUSED:
                 // cancelAnimationFrame(this.animationID);
@@ -67,16 +67,24 @@ export class Game {
                 this.drawScreenText(ctx, "GAME OVER");
                 cancelAnimationFrame(this.animationID);
                 break
+            case GAME_STATES.DEBUG: 
+                requestAnimationFrame(animate);
+                this.gameTimer(deltaTime);
+                this.drawPlayingScreen(ctx);
+                this.level.drawGrid(ctx);
+                this.enemyHandler.drawEnemyDebug(ctx);
+                break
         }
     }
     
     drawPlayingScreen(ctx){
-        this.level.renderLevel(ctx, this.debug);
+        this.level.renderLevel(ctx);
         this.towerHandler.renderTowers(ctx, this.eventUpdate);
         this.enemyHandler.renderEnemies(ctx);
         this.gameTextHandler.renderGameTexts(ctx);
         this.effectHandler.renderEffects(ctx, this.eventUpdate)
         this.renderGUI(ctx);
+        if(this.hearts <= 0) this.currentGameState = GAME_STATES.GAMEOVER;
     }
 
     gameTimer(deltaTime){

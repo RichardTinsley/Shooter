@@ -61,7 +61,6 @@ export class EnemyHandler{
                 this.enemies.splice(i, 1);
             else{
                 enemy.renderEnemy(ctx, this.game.eventUpdate);
-                if(this.game.debug) this.drawEnemyDebug(ctx, enemy);   
             }
             
             if(enemy.position.x > canvas.width){
@@ -133,11 +132,13 @@ export class EnemyHandler{
         return array;
     }
 
-    drawEnemyDebug(ctx, enemy){
-        ctx.fillStyle = 'rgba(250, 0, 0, 0.3)';
-        ctx.fillRect(enemy.position.x, enemy.position.y, TILE_SIZE, TILE_SIZE);
-        ctx.fillStyle = 'rgba(0, 0, 250, 0.3)';
-        ctx.fillRect(Math.floor(enemy.position.x / TILE_SIZE) * TILE_SIZE, Math.floor(enemy.position.y / TILE_SIZE) * TILE_SIZE, TILE_SIZE, TILE_SIZE);
-        this.game.drawGUIText(ctx, enemy.priorityDistance, Math.floor(enemy.position.x / TILE_SIZE) * TILE_SIZE, Math.floor(enemy.position.y / TILE_SIZE) * TILE_SIZE + 20, HALF_TILE_SIZE, 'right');
+    drawEnemyDebug(ctx){
+        this.enemies.forEach(enemy => {
+            ctx.fillStyle = 'rgba(250, 0, 0, 0.3)';
+            ctx.fillRect(enemy.position.x, enemy.position.y, TILE_SIZE, TILE_SIZE);
+            ctx.fillStyle = 'rgba(0, 0, 250, 0.3)';
+            ctx.fillRect(Math.floor(enemy.position.x / TILE_SIZE) * TILE_SIZE, Math.floor(enemy.position.y / TILE_SIZE) * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+            this.game.drawGUIText(ctx, enemy.priorityDistance, Math.floor(enemy.position.x / TILE_SIZE) * TILE_SIZE, Math.floor(enemy.position.y / TILE_SIZE) * TILE_SIZE + 20, HALF_TILE_SIZE, 'right');
+        })
     }
 }                
