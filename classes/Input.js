@@ -66,8 +66,8 @@ export class Input {
         })
         
         window.addEventListener('mousemove', e => {
-            this.mouse.x = e.clientX;
-            this.mouse.y = e.clientY;
+            this.mouse.x = e.offsetX;
+            this.mouse.y = e.offsetY;
             this.activeTile = null;
             this.activeEnemy = null;
 

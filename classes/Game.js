@@ -26,7 +26,7 @@ export class Game {
         this.input = new Input(this, this.level, this.towerHandler, this.enemyHandler);
         
         this.currentGameState = GAME_STATES.PLAYING;
-        this.debug = false;
+
         this.music = new Audio('./sounds/music.mp3');
         this.music.volume = 0.1;
         this.music.pause();
@@ -37,12 +37,12 @@ export class Game {
         this.waves = 1;
         this.timer = 0;
         
+        this.secondsTimer = 0;
+        this.secondsInterval = 1000;
+        
         this.eventUpdate = false;
         this.eventTimer = 0;
         this.eventInterval = 60;
-
-        this.secondTimer = 0;
-        this.secondInterval = 1000;
 
         this.animationID;
     }
@@ -51,33 +51,30 @@ export class Game {
         switch(this.currentGameState){
             case GAME_STATES.PLAYING: 
                 requestAnimationFrame(animate);
-                this.gameTimer(deltaTime);
-                this.drawPlayingScreen(ctx);
+                this.renderGame(ctx, deltaTime);
                 break
             case GAME_STATES.PAUSED:
-                // cancelAnimationFrame(this.animationID);
                 requestAnimationFrame(animate);
-                this.drawScreenText(ctx, "PAUSED"); 
+                this.drawScreenText(ctx, GAME_STATES.PAUSED); 
                 break
             case GAME_STATES.MENU: 
                 break
             case GAME_STATES.LOADING: 
                 break
             case GAME_STATES.GAMEOVER:
-                this.drawScreenText(ctx, "GAME OVER");
+                this.drawScreenText(ctx, GAME_STATES.GAMEOVER);
                 cancelAnimationFrame(this.animationID);
                 break
             case GAME_STATES.DEBUG: 
                 requestAnimationFrame(animate);
-                this.gameTimer(deltaTime);
-                this.drawPlayingScreen(ctx);
-                this.level.drawGrid(ctx);
-                this.enemyHandler.drawEnemyDebug(ctx);
+                this.renderGame(ctx, deltaTime);
+                this.renderDebugInfo(ctx);
                 break
         }
     }
     
-    drawPlayingScreen(ctx){
+    renderGame(ctx, deltaTime){
+        this.gameTimer(deltaTime)
         this.level.renderLevel(ctx);
         this.towerHandler.renderTowers(ctx, this.eventUpdate);
         this.enemyHandler.renderEnemies(ctx);
@@ -85,6 +82,11 @@ export class Game {
         this.effectHandler.renderEffects(ctx, this.eventUpdate)
         this.renderGUI(ctx);
         if(this.hearts <= 0) this.currentGameState = GAME_STATES.GAMEOVER;
+    }
+
+    renderDebugInfo(ctx){
+        this.level.drawGrid(ctx);
+        this.enemyHandler.drawEnemyDebug(ctx);
     }
 
     gameTimer(deltaTime){
@@ -96,10 +98,10 @@ export class Game {
             this.eventUpdate = true; 
         }
 
-        if (this.secondTimer < this.secondInterval){
-            this.secondTimer += deltaTime;
+        if (this.secondsTimer < this.secondsInterval){
+            this.secondsTimer += deltaTime;
         } else {
-            this.secondTimer = 0;
+            this.secondsTimer = 0;
             this.timer++; 
         }
     }

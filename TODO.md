@@ -1,5 +1,10 @@
 BUTTONS/MENUS
-Ruby		Splash damage
+AUDIO SOUND FX
+
+MERGE GAMETEXT AND EFFECTS SOMEHOW
+
+
+Ruby		Splash damage / flame thrower
 *Emerald  	Poison, damage, reduce armour
 Amethyst  	Air Attack only
 Sapphire	Freeze / slow group 
