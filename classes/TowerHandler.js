@@ -8,9 +8,9 @@ export class TowerHandler{
         this.towers = [];
     }
 
-    renderTowers(ctx){
+    renderTowers(ctx, event){
         this.towers.forEach((tower) => {
-            tower.update();
+            tower.update(event);
             tower.draw(ctx);
 
             const enemiesInTowerRange = this.prioritiseEnemiesInTowerRange(tower);

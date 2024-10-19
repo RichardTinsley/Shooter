@@ -2,14 +2,12 @@ import { TILE_SIZE, HALF_TILE_SIZE } from "../index.js";
 import { ENEMY_STATE } from "./EnemyHandler.js";
 
 export class Enemy {
-    constructor({
-        game, 
+    constructor({ 
         sprite, 
         position, 
         scale,
         waypoints
     }){
-        this.game = game;
         this.sprite = sprite ?? { 
             imageLeft: "",
             imageRight: "", 
@@ -63,28 +61,28 @@ export class Enemy {
         }
     }
 
-    renderEnemy(ctx){
+    renderEnemy(ctx, event){
         switch(this.state){
             case ENEMY_STATE.WALKING:
-                this.updateMovement(); 
+                this.updateMovement(event); 
                 this.drawHealthBar(ctx);
                 this.drawShadow(ctx);
                 this.draw(ctx);
                 break
             case ENEMY_STATE.RUNNING:
-                this.updateMovement();
+                this.updateMovement(event);
                 this.drawHealthBar(ctx);
                 this.drawShadow(ctx);
                 this.draw(ctx); 
                 break
             case ENEMY_STATE.DYING:
-                this.updateDying();
+                this.updateDying(event);
                 this.draw(ctx); 
                 break
         }
     }
 
-    updateMovement(){
+    updateMovement(event){
         const waypoint = this.waypoints[this.waypointIndex];
 
         const yDistance = waypoint.y - this.center.y;
@@ -107,16 +105,15 @@ export class Enemy {
             Math.abs(Math.round(this.center.y) - Math.round(waypoint.y)) <
             Math.abs(this.velocity.y) &&
             this.waypointIndex < this.waypoints.length - 1
-        ){
+        )
             this.waypointIndex++;
-        }
-
+        
         if(xDistance < 0)
             this.direction = this.sprite.imageLeft;
         else
             this.direction = this.sprite.imageRight;
 
-        if(this.game.eventUpdate)
+        if(event)
             this.sprite.x < this.maxFrame ? this.sprite.x++ : this.sprite.x = 0;
 
         if(this.health <= 0 && this.state) {
@@ -129,8 +126,8 @@ export class Enemy {
         }
     }
 
-    updateDying(){
-        if(this.game.eventUpdate){
+    updateDying(event){
+        if(event){
             if(this.direction === this.sprite.imageRight)
                 if(this.sprite.x < this.maxFrame) 
                     this.sprite.x++; 
@@ -161,8 +158,6 @@ export class Enemy {
             this.width,
             this.height
         );
-        if(this.game.debug) 
-            this.drawDebug(ctx);
     }
 
     drawHealthBar(ctx){
@@ -183,13 +178,5 @@ export class Enemy {
         else    
             ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
         ctx.fill();      
-    }
-
-    drawDebug(ctx){
-        ctx.fillStyle = 'rgba(250, 0, 0, 0.3)';
-        ctx.fillRect(this.position.x, this.position.y, TILE_SIZE, TILE_SIZE);
-        ctx.fillStyle = 'rgba(0, 0, 250, 0.3)';
-        ctx.fillRect(Math.floor(this.position.x / TILE_SIZE) * TILE_SIZE, Math.floor(this.position.y / TILE_SIZE) * TILE_SIZE, TILE_SIZE, TILE_SIZE);
-        this.game.drawGUIText(ctx, this.priorityDistance, Math.floor(this.position.x / TILE_SIZE) * TILE_SIZE, Math.floor(this.position.y / TILE_SIZE) * TILE_SIZE + 20, HALF_TILE_SIZE, 'right');
     }
 }

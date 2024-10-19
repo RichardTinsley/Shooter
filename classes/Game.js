@@ -16,7 +16,7 @@ export const GAME_STATES = {
 
 export class Game {
     constructor(){
-        this.level = new Level(this);
+        this.level = new Level();
         this.gameTextHandler = new GameTextHandler();
         this.enemyHandler = new EnemyHandler(this);
         this.towerHandler = new TowerHandler(this, this.enemyHandler, this.gameTextHandler);
@@ -86,8 +86,8 @@ export class Game {
     }
     
     drawPlayingScreen(ctx){
-        this.level.renderLevel(ctx);
-        this.towerHandler.renderTowers(ctx);
+        this.level.renderLevel(ctx, this.debug);
+        this.towerHandler.renderTowers(ctx, this.eventUpdate);
         this.enemyHandler.renderEnemies(ctx);
         this.gameTextHandler.renderGameTexts(ctx);
         this.renderGUI(ctx);

@@ -1,6 +1,6 @@
 import { waypoints } from "./Level.js";
 import { Enemy } from "./Enemy.js";
-import { ENEMY_SIZE } from "../index.js";
+import { ENEMY_SIZE, TILE_SIZE, HALF_TILE_SIZE } from "../index.js";
 
 export const ENEMY_STATE = {
     IDLE: 0,
@@ -23,7 +23,6 @@ export class EnemyHandler{
     }
 
     renderEnemies(ctx){
-
         if(this.game.eventUpdate)
             this.enemySpawnTimer++;
             
@@ -43,13 +42,14 @@ export class EnemyHandler{
 
             if(enemy.state === ENEMY_STATE.DEAD) 
                 this.enemies.splice(i, 1);
-            else
-                enemy.renderEnemy(ctx);
+            else{
+                enemy.renderEnemy(ctx, this.game.eventUpdate);
+                if(this.game.debug) this.drawEnemyDebug(ctx, enemy);   
+            }
             
             if(enemy.position.x > canvas.width){
                 this.game.hearts -= 1;
-                enemy.position.x = enemy.waypoints[0].x;
-                enemy.position.y = enemy.waypoints[0].y;
+                enemy.position = { x: enemy.waypoints[0].x, y: enemy.waypoints[0].y };
                 enemy.waypointIndex = 0;
             }
         }
@@ -92,7 +92,7 @@ export class EnemyHandler{
     }
 
     generateRandomEnemyWaypoints(){
-        return waypoints.map((waypoint) => {
+        return waypoints.map(waypoint => {
             return { 
                 x: (waypoint.x - 40) + Math.round(Math.random() * 70),
                 y: (waypoint.y - 40) + Math.round(Math.random() * 70)
@@ -103,7 +103,6 @@ export class EnemyHandler{
     populateEnemiesArray(enemyColour, randomWaypoints){
         this.enemies.push(  
             new Enemy({
-                game: this.game,
                 sprite: { 
                     imageLeft: document.getElementById(enemyColour.left),
                     imageRight: document.getElementById(enemyColour.right), 
@@ -121,5 +120,13 @@ export class EnemyHandler{
             })
         );
         this.enemyCounter++;
+    }
+
+    drawEnemyDebug(ctx, enemy){
+        ctx.fillStyle = 'rgba(250, 0, 0, 0.3)';
+        ctx.fillRect(enemy.position.x, enemy.position.y, TILE_SIZE, TILE_SIZE);
+        ctx.fillStyle = 'rgba(0, 0, 250, 0.3)';
+        ctx.fillRect(Math.floor(enemy.position.x / TILE_SIZE) * TILE_SIZE, Math.floor(enemy.position.y / TILE_SIZE) * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+        this.game.drawGUIText(ctx, enemy.priorityDistance, Math.floor(enemy.position.x / TILE_SIZE) * TILE_SIZE, Math.floor(enemy.position.y / TILE_SIZE) * TILE_SIZE + 20, HALF_TILE_SIZE, 'right');
     }
 }                
