@@ -14,9 +14,12 @@ export class TowerHandler{
             tower.draw(ctx);
 
             const enemiesInTowerRange = this.prioritiseEnemiesInTowerRange(tower);
-            // enemiesInTowerRange.unshift(enemy => enemy.isSelected);
+            const selectedEnemy = enemiesInTowerRange.find(enemy => enemy.isSelected);
 
-            tower.target = enemiesInTowerRange[0];
+            if(selectedEnemy)
+                tower.target = selectedEnemy;
+            else
+                tower.target = enemiesInTowerRange[0];
 
             this.projectileHandler.renderProjectiles(ctx, tower);
         })
@@ -31,7 +34,6 @@ export class TowerHandler{
                 return distance < enemy.width / 10 + tower.range;
             }
         }).sort((a, b) => {
-            if (a.isSelected) return 0;
             if (a.waypointIndex > b.waypointIndex) return -1;
             if (a.waypointIndex < b.waypointIndex) return 1;
             if (a.priorityDistance < b.priorityDistance) return -1;
