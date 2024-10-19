@@ -1,9 +1,10 @@
 import { ENEMY_STATE } from "./EnemyHandler.js";
 
 export class ProjectileHandler{
-    constructor(game, enemyHandler, gameTextHandler){
+    constructor(game, enemyHandler, effectHandler, gameTextHandler){
         this.game = game;
         this.enemyHandler = enemyHandler;
+        this.effectHandler = effectHandler;
         this.gameTextHandler = gameTextHandler;
     }
 
@@ -24,6 +25,14 @@ export class ProjectileHandler{
                     if (enemyIndex > -1 && projectile.enemy.state !== ENEMY_STATE.DYING){
                         this.game.coins += this.enemyHandler.enemies[enemyIndex].coins;
                         this.game.exp += this.enemyHandler.enemies[enemyIndex].exp;
+
+                        this.effectHandler.populateEffectsArray(
+                            "bloodLeft",
+                            "bloodRight",
+                            {x: projectile.enemy.position.x, y: projectile.enemy.position.y}, 
+                            110,
+                            110,
+                        );
 
                         this.gameTextHandler.populateGameTextArray(
                             '+' + projectile.enemy.coins, 

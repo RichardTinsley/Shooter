@@ -2,9 +2,9 @@ import { ENEMY_STATE } from "./EnemyHandler.js";
 import { ProjectileHandler } from "./ProjectileHandler.js";
 
 export class TowerHandler{
-    constructor(game, enemyHandler, gameTextHandler){
+    constructor(game, enemyHandler, effectHandler, gameTextHandler){
         this.enemyHandler = enemyHandler;
-        this.projectileHandler = new ProjectileHandler(game, enemyHandler, gameTextHandler);
+        this.projectileHandler = new ProjectileHandler(game, enemyHandler, effectHandler, gameTextHandler);
         this.towers = [];
     }
 

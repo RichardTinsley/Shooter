@@ -2,6 +2,7 @@ import { Level } from "./Level.js";
 import { Input } from "./Input.js";
 import { EnemyHandler } from "./EnemyHandler.js";
 import { TowerHandler } from "./TowerHandler.js";
+import { EffectHandler } from "./EffectHandler.js";
 import { GameTextHandler } from "./GameTextHandler.js";
 
 import { GAME_WIDTH, GAME_HEIGHT } from "../index.js";
@@ -18,8 +19,9 @@ export class Game {
     constructor(){
         this.level = new Level();
         this.gameTextHandler = new GameTextHandler();
+        this.effectHandler = new EffectHandler();
         this.enemyHandler = new EnemyHandler(this);
-        this.towerHandler = new TowerHandler(this, this.enemyHandler, this.gameTextHandler);
+        this.towerHandler = new TowerHandler(this, this.enemyHandler, this.effectHandler, this.gameTextHandler);
         this.input = new Input(this, this.level, this.towerHandler, this.enemyHandler);
         
         this.currentGameState = GAME_STATES.PLAYING;
@@ -73,6 +75,7 @@ export class Game {
         this.towerHandler.renderTowers(ctx, this.eventUpdate);
         this.enemyHandler.renderEnemies(ctx);
         this.gameTextHandler.renderGameTexts(ctx);
+        this.effectHandler.renderEffects(ctx, this.eventUpdate)
         this.renderGUI(ctx);
     }
 

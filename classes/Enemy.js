@@ -65,15 +65,15 @@ export class Enemy {
         switch(this.state){
             case ENEMY_STATE.WALKING:
                 this.updateMovement(event); 
-                this.drawHealthBar(ctx);
                 this.drawShadow(ctx);
                 this.draw(ctx);
+                this.drawHealthBar(ctx);
                 break
             case ENEMY_STATE.RUNNING:
                 this.updateMovement(event);
-                this.drawHealthBar(ctx);
                 this.drawShadow(ctx);
                 this.draw(ctx); 
+                this.drawHealthBar(ctx);
                 break
             case ENEMY_STATE.DYING:
                 this.updateDying(event);
