@@ -23,7 +23,10 @@ export class Input {
         this.activeEnemy = undefined;
 
         const cursor = document.getElementById("canvas");
-        
+
+        this.sapphireTower = new Image();
+        this.sapphireTower.src = "./images/towers/sapphire1.png";
+
         window.addEventListener('click', e => {
             if (this.activeTile && !this.activeTile.isOccupied && this.game.coins - 25 >= 0) {
                 this.towerHandler.towers.push(
@@ -31,7 +34,7 @@ export class Input {
                         game: this.game,
                         sprite: { 
                             imageLeft: "",
-                            imageRight: document.getElementById('sapphire1'), 
+                            imageRight: this.sapphireTower, 
                             x: 0, 
                             y: 0, //Animation Row
                             width: TOWER_SIZE, 

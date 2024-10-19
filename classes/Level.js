@@ -3,6 +3,10 @@ import { TILE_SIZE, COLUMNS, ROWS } from "../index.js";
 export class Level {
     constructor(game){
         this.backgroundLayer = document.getElementById('LEVEL1') // image.src = new Image() doesn't reload image from broswer memory
+
+        this.level1 = new Image();
+        this.level1.src = "./images/LEVEL1.png";
+
         this.placementTiles = this.initialiseTiles();
     }
 
@@ -31,7 +35,7 @@ export class Level {
         return placementTiles;
     }
     renderLevel(ctx, debug){
-        ctx.drawImage(this.backgroundLayer, 0, 0);
+        ctx.drawImage(this.level1, 0, 0);
         this.placementTiles.forEach((tile) => tile.renderTile(ctx));
         
         if(debug) 

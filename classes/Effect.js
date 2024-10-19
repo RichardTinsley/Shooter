@@ -20,6 +20,7 @@ export class Effect {
         }
         this.scale = scale ?? 1;
         this.maxFrame = (this.sprite.imageRight.width / this.sprite.width) - 1;
+        this.maxRow = (this.sprite.imageRight.height / this.sprite.height) - 1;
 
         this.width = this.sprite.width * this.scale;
         this.height = this.sprite.height * this.scale; 
@@ -37,7 +38,6 @@ export class Effect {
                 this.update(event); 
                 break
             case EFFECT_STATES.FINISHED:
-                console.log(this.sprite.y);
                 break
         }
     }

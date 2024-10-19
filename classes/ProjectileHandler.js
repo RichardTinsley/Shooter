@@ -27,11 +27,12 @@ export class ProjectileHandler{
                         this.game.exp += this.enemyHandler.enemies[enemyIndex].exp;
 
                         this.effectHandler.populateEffectsArray(
-                            "bloodLeft",
-                            "bloodRight",
+                            this.effectHandler.bloodLeft,
+                            this.effectHandler.bloodRight,
                             {x: projectile.enemy.position.x, y: projectile.enemy.position.y}, 
                             110,
                             110,
+                            projectile.enemy.scale,
                         );
 
                         this.gameTextHandler.populateGameTextArray(
@@ -39,7 +40,7 @@ export class ProjectileHandler{
                             '255, 215, 0, ', //GOLD COLOUR TEXT
                             '10', 
                             {x: projectile.enemy.position.x, y: projectile.enemy.position.y}, 
-                            20, 
+                            25, 
                             'left'
                         ); 
 
@@ -48,7 +49,7 @@ export class ProjectileHandler{
                             '50, 205, 50, ', //LIME COLOUR TEXT
                             '10', 
                             {x: tower.position.x + 16, y: tower.position.y}, 
-                            20, 
+                            25, 
                             'left'
                         ); 
                     }

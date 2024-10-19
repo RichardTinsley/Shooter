@@ -33,7 +33,7 @@ export class Game {
         this.hearts = 1;
         this.coins = 100;
         this.exp = 0;
-        this.waves = 1;
+        this.waves = 111;
         this.timer = 0;
         
         this.eventUpdate = false;

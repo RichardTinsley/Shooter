@@ -44,6 +44,7 @@ export class Enemy {
         this.isSelected = false;
         this.direction;
         this.health = 100;
+        this.healthBarThickness = 3
         this.coins = Math.floor(Math.random() * 5 + 1);
         this.exp = Math.floor(Math.random() * 2 + 1);
         
@@ -165,9 +166,9 @@ export class Enemy {
         const healthBarY = this.center.y - this.scale * 30;
         const healthBarWidth = this.thirdWidth * 2;
         ctx.fillStyle = 'red';
-        ctx.fillRect(healthBarX, healthBarY, healthBarWidth, 5);
+        ctx.fillRect(healthBarX, healthBarY, healthBarWidth, this.healthBarThickness);
         ctx.fillStyle = 'rgb(85, 255, 0)';
-        ctx.fillRect(healthBarX, healthBarY, healthBarWidth * (this.health / 100), 5);
+        ctx.fillRect(healthBarX, healthBarY, healthBarWidth * (this.health / 100), this.healthBarThickness);
     }
     
     drawShadow(ctx){
