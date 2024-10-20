@@ -77,7 +77,8 @@ export class Input {
                     this.mouse.x > enemy.position.x &&
                     this.mouse.x < enemy.position.x + ENEMY_SIZE &&
                     this.mouse.y > enemy.position.y - (ENEMY_SIZE / 2) &&
-                    this.mouse.y < enemy.position.y + ENEMY_SIZE
+                    this.mouse.y < enemy.position.y + ENEMY_SIZE &&
+                    enemy.state !== "DYING"
                 ) {
                     cursor.style = "cursor: url(./images/cursors/text.cur), auto;";
                     this.activeEnemy = enemy;
@@ -132,10 +133,10 @@ export class Input {
                 this.game.currentGameState = GAME_STATES.PLAYING;
 
         if(key === MUSIC)
-            if(this.game.music.paused) 
-                this.game.music.play();
+            if(this.game.audioHandler.music.paused) 
+                this.game.audioHandler.music.play();
             else
-                this.game.music.pause();
+                this.game.audioHandler.music.pause();
 
         if(key === RESTART)
             this.game.currentGameState = GAME_STATES.RESTART;

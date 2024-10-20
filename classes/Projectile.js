@@ -1,56 +1,92 @@
 export class Projectile {
     constructor({ 
+        sprite,
         position,
         enemy,
         scale,
         damage
     }){
+        this.sprite = sprite ?? { 
+            imageLeft: "",
+            imageRight: "", 
+            x: 0, 
+            y: 0, 
+            width: 0, 
+            height: 0 
+        };
         this.position = position ?? {
             x: 0,
             y: 0
         }
         this.scale = scale ?? 1;
+
+        this.width = this.sprite.width * this.scale;
+        this.height = this.sprite.height * this.scale;   
+
+        this.maxFrame = (this.sprite.imageRight.width / this.sprite.width) - 1;
+        this.maxRow = (this.sprite.imageRight.height / this.sprite.height) - 1;
+
         this.enemy = enemy;
         this.damage = damage;
         
-        this.radius = 5;
+        this.angle = 0;
         this.center = {
-            x: this.position.x + this.radius / 2,
-            y: this.position.y + this.radius / 2
+            x: this.position.x + this.sprite.width / 2,
+            y: this.position.y + this.sprite.height / 2
         };
         this.velocity = {
             x: 0,
             y: 0
         };
-        this.speed = 10;
+        this.speed = 5;
     }
 
     draw(ctx){
-        ctx.beginPath();
-        ctx.arc(this.center.x, this.center.y, this.radius * this.scale, 0, Math.PI * 2);
-        ctx.fillStyle = 'black';
-        ctx.fill();
-
-        const angle = Math.atan2(
-            this.center.y - this.position.y,
-            this.center.x - this.position.x
+        ctx.save();
+        ctx.translate(this.center.x, this.center.y);
+        ctx.rotate(this.angle);
+        ctx.drawImage(
+            this.sprite.imageRight,
+            this.sprite.x * this.sprite.width,
+            this.sprite.y * this.sprite.height,
+            this.sprite.width,
+            this.sprite.height,
+            0,
+            0,
+            this.width / 2,
+            this.height
         );
-        // LASER LINES        
-        // ctx.beginPath();
-        // ctx.moveTo(this.position.x, this.position.y);
-        // ctx.lineTo(this.center.x, this.center.y);
-        // ctx.strokeStyle = "red";
-        // ctx.stroke();
+
+        ctx.restore();
     }
 
-    update() {
-        const angle = Math.atan2(
+    update(event) {
+        this.angle = Math.atan2(
             this.enemy.center.y - this.center.y,
             this.enemy.center.x - this.center.x
         );
-        this.velocity.x = Math.cos(angle) * this.speed;
-        this.velocity.y = Math.sin(angle) * this.speed;
+        this.velocity.x = Math.cos(this.angle) * this.speed;
+        this.velocity.y = Math.sin(this.angle) * this.speed;
         this.center.x += this.velocity.x;
         this.center.y += this.velocity.y;
+
+        if(event)
+            if(this.sprite.x < this.maxFrame)
+                this.sprite.x++;
+            else{
+                this.sprite.y++;
+                this.sprite.x = 0;
+            }
+            if(this.sprite.y === this.maxRow && this.sprite.x < this.maxFrame){
+                this.sprite.y = 0;
+                this.sprite.x = 0;
+            }
     }
 }
+
+// LASER LINES        
+// ctx.beginPath();
+// ctx.moveTo(this.position.x, this.position.y);
+// ctx.lineTo(this.center.x, this.center.y);
+// ctx.strokeStyle = "red";
+// ctx.stroke();

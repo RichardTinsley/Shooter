@@ -1,5 +1,6 @@
 import { Level } from "./Level.js";
 import { Input } from "./Input.js";
+import { AudioHandler } from "./AudioHandler.js";
 import { EnemyHandler } from "./EnemyHandler.js";
 import { TowerHandler } from "./TowerHandler.js";
 import { EffectHandler } from "./EffectHandler.js";
@@ -21,6 +22,7 @@ export const GAME_STATES = {
 export class Game {
     constructor(){
         this.level = new Level();
+        this.audioHandler = new AudioHandler();
         this.gameTextHandler = new GameTextHandler();
         this.effectHandler = new EffectHandler();
         this.enemyHandler = new EnemyHandler(this);
@@ -29,10 +31,6 @@ export class Game {
         this.input = new Input(this, this.level, this.towerHandler, this.enemyHandler);
         
         this.currentGameState = GAME_STATES.PLAYING;
-
-        this.music = new Audio('./sounds/music.mp3');
-        this.music.volume = 0.1;
-        this.music.pause();
 
         this.hearts = 1;
         this.coins = 100;
@@ -84,8 +82,9 @@ export class Game {
         this.level.renderLevel(ctx);
         this.towerHandler.renderTowers(ctx, this.eventUpdate);
         this.enemyHandler.renderEnemies(ctx, this.eventUpdate);
-        this.gameTextHandler.renderGameTexts(ctx, this.eventUpdate);
         this.effectHandler.renderEffects(ctx, this.eventUpdate);
+        this.gameTextHandler.renderGameTexts(ctx);
+        // this.audioHandler.renderAudios();
         this.renderGUI(ctx);
         if(this.hearts <= 0) this.currentGameState = GAME_STATES.GAMEOVER;
     }

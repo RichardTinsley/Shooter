@@ -6,19 +6,25 @@ export class ProjectileHandler{
         this.enemyHandler = enemyHandler;
         this.effectHandler = effectHandler;
         this.gameTextHandler = gameTextHandler;
+
+        this.fireball = new Image();
+        this.fireball.src = './images/projectiles/fireball_68x9.png';
     }
 
-    renderProjectiles(ctx, tower){
+    renderProjectiles(ctx, event, tower){
         for (let i = tower.projectiles.length - 1; i >= 0; i--){
             const projectile = tower.projectiles[i];        
-            projectile.update();
+            projectile.update(event);
             projectile.draw(ctx);
             const xDifference = projectile.enemy.center.x - projectile.center.x;
             const yDifference = projectile.enemy.center.y - projectile.center.y;
             const distance = Math.hypot(xDifference, yDifference);
             
-            if (distance < projectile.enemy.width / 32 + projectile.radius){
+            if (distance < projectile.enemy.width / 32 + projectile.sprite.width / 2){
                 projectile.enemy.health -= projectile.damage;
+
+                this.game.audioHandler.populateAudiosArray(this.game.audioHandler.bowImpact1);
+
                 if(projectile.enemy.health <= 0){
                     const enemyIndex = this.enemyHandler.enemies.findIndex((enemy) => projectile.enemy === enemy);
                     

@@ -17,11 +17,9 @@ export class GameText {
         this.textSize = textSize;
         this.align = align;
     }
-    update(event){
-        if(event){
-            this.alpha -= 0.1;
-            this.position.y -= 0.6;
-        }
+    update(){
+        this.alpha -= 0.1;
+        this.position.y -= 0.6;
     }
 
     draw(ctx){

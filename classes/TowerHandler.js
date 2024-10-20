@@ -20,7 +20,7 @@ export class TowerHandler{
             else
                 tower.target = enemiesInTowerRange[0];
 
-            this.projectileHandler.renderProjectiles(ctx, tower);
+            this.projectileHandler.renderProjectiles(ctx, event, tower);
         })
     }
 
