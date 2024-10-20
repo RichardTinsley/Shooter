@@ -150,6 +150,7 @@ export class Enemy {
     draw(ctx){
         if(this.direction === "LEFT"){
             ctx.save();
+            // ctx.translate(this.position.x + HALF_TILE_SIZE - this.halfWidth, this.position.y + TILE_SIZE - this.height)
             ctx.scale(-1, 1);
             // ctx.setTransform(
             //     -1,
@@ -166,7 +167,7 @@ export class Enemy {
             this.sprite.y * this.sprite.height + 1,
             this.sprite.width,
             this.sprite.height,
-            this.direction === "LEFT" ? -(this.position.x - HALF_TILE_SIZE + this.width) : this.position.x + HALF_TILE_SIZE - this.halfWidth,
+            this.direction === "LEFT" ? - this.halfWidth - HALF_TILE_SIZE - this.position.x  : this.position.x + HALF_TILE_SIZE - this.halfWidth,
             this.position.y + TILE_SIZE - this.height,
             this.width,
             this.height
