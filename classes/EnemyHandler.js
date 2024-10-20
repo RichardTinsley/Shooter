@@ -96,12 +96,11 @@ export class EnemyHandler{
         });
     }
 
-    populateEnemiesArray(enemyColour, randomWaypoints){
+    populateEnemiesArray(enemy, randomWaypoints){
         this.enemies.push(  
             new Enemy({
                 sprite: { 
-                    imageLeft: enemyColour.left,
-                    imageRight: enemyColour.right, 
+                    image: enemy.image, 
                     x: 0, 
                     y: 0,  
                     width: ENEMY_SIZE, 
@@ -123,11 +122,9 @@ export class EnemyHandler{
         for(let i = 0; i < enemyColours.length; i++){
             array[i] = {
                 colour: enemyColours[i], 
-                left: new Image(), 
-                right: new Image()
+                image: new Image(), 
             }
-            array[i].left.src = `${enemiesURL}${enemyColours[i]}Left.png`;
-            array[i].right.src = `${enemiesURL}${enemyColours[i]}Right.png`;
+            array[i].image.src = `${enemiesURL}${enemyColours[i]}Right.png`;
         }
         return array;
     }

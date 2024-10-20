@@ -9,8 +9,7 @@ export class Enemy {
         waypoints
     }){
         this.sprite = sprite ?? { 
-            imageLeft: "",
-            imageRight: "", 
+            image: "",
             x: 0, 
             y: 0, 
             width: TILE_SIZE, 
@@ -37,12 +36,13 @@ export class Enemy {
             y: 0
         }; 
         
+        this.direction;
         this.priorityDistance = 0;
-        this.maxFrame = (this.sprite.imageRight.width / this.sprite.width) - 1;
+        this.maxFrame = (this.sprite.image.width / this.sprite.width) - 1;
         
         this.state;
         this.isSelected = false;
-        this.direction;
+
         this.health = 100;
         this.healthBarThickness = 2.5;
         this.coins = Math.floor(Math.random() * 5 + 1);
@@ -109,18 +109,18 @@ export class Enemy {
         )
             this.waypointIndex++;
         
-        if(xDistance < 0)
-            this.direction = this.sprite.imageLeft;
-        else
-            this.direction = this.sprite.imageRight;
-
         if(event)
             this.sprite.x < this.maxFrame ? this.sprite.x++ : this.sprite.x = 0;
+
+        if(xDistance < 0)
+            this.direction = "LEFT";
+        else
+            this.direction = "RIGHT";
 
         if(this.health <= 0 && this.state) {
             this.state = ENEMY_STATE.DYING;
             this.sprite.y = ENEMY_STATE.DYING;
-            if(this.direction === this.sprite.imageLeft)
+            if(xDistance < 0)
                 this.sprite.x = this.maxFrame 
             else
                 this.sprite.x = 0;
@@ -129,7 +129,7 @@ export class Enemy {
 
     updateDying(event){
         if(event){
-            if(this.direction === this.sprite.imageRight)
+            if(this.direction === "RIGHT")
                 if(this.sprite.x < this.maxFrame) 
                     this.sprite.x++; 
                 else 
@@ -148,17 +148,31 @@ export class Enemy {
     }
 
     draw(ctx){
+        if(this.direction === "LEFT"){
+            ctx.save();
+            ctx.scale(-1, 1);
+            // ctx.setTransform(
+            //     -1,
+            //     0,
+            //     0,
+            //     1,
+            //     TILE_SIZE * 40,
+            //     0
+            // );
+        }
         ctx.drawImage(
-            this.direction,
+            this.sprite.image,
             this.sprite.x * this.sprite.width,
             this.sprite.y * this.sprite.height + 1,
             this.sprite.width,
             this.sprite.height,
-            this.position.x + HALF_TILE_SIZE - this.halfWidth,
+            this.direction === "LEFT" ? -(this.position.x - HALF_TILE_SIZE + this.width) : this.position.x + HALF_TILE_SIZE - this.halfWidth,
             this.position.y + TILE_SIZE - this.height,
             this.width,
             this.height
         );
+        if(this.direction === "LEFT")
+            ctx.restore();
     }
 
     drawHealthBar(ctx){
