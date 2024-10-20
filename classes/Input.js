@@ -77,8 +77,7 @@ export class Input {
                     this.mouse.x > enemy.position.x &&
                     this.mouse.x < enemy.position.x + ENEMY_SIZE &&
                     this.mouse.y > enemy.position.y - (ENEMY_SIZE / 2) &&
-                    this.mouse.y < enemy.position.y + ENEMY_SIZE &&
-                    enemy.state !== "DYING"
+                    this.mouse.y < enemy.position.y + ENEMY_SIZE 
                 ) {
                     cursor.style = "cursor: url(./images/cursors/text.cur), auto;";
                     this.activeEnemy = enemy;

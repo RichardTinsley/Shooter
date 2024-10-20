@@ -22,8 +22,7 @@ export class ProjectileHandler{
             
             if (distance < projectile.enemy.width / 32 + projectile.sprite.width / 2){
                 projectile.enemy.health -= projectile.damage;
-
-                this.game.audioHandler.populateAudiosArray(this.game.audioHandler.bowImpact1);
+                this.game.audioHandler.bowImpact1.play();
 
                 if(projectile.enemy.health <= 0){
                     const enemyIndex = this.enemyHandler.enemies.findIndex((enemy) => projectile.enemy === enemy);
