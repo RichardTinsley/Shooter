@@ -49,7 +49,7 @@ export class Enemy {
         this.exp = Math.floor(Math.random() * 2 + 1);
         
         this.speedMinimum = 0.4; 
-        this.speedRange = 4.0;
+        this.speedRange = 1.0;
         this.speed = Math.random() * this.speedRange + this.speedMinimum;
         this.speedAverage = (this.speedRange + this.speedMinimum) / 2;
         

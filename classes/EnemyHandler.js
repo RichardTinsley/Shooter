@@ -39,8 +39,8 @@ export class EnemyHandler{
         this.enemyTemplates = this.enemyTemplatesMaker();
     }
 
-    renderEnemies(ctx){
-        if(this.game.eventUpdate)
+    renderEnemies(ctx, event){
+        if(event)
             this.enemySpawnTimer++;
             
         if (this.enemySpawnTimer % Math.floor(Math.random() * 300) === 0 && this.enemyCounter < this.maxEnemies){
@@ -60,7 +60,7 @@ export class EnemyHandler{
             if(enemy.state === ENEMY_STATE.DEAD) 
                 this.enemies.splice(i, 1);
             else{
-                enemy.renderEnemy(ctx, this.game.eventUpdate);
+                enemy.renderEnemy(ctx, event);
             }
             
             if(enemy.position.x > canvas.width){

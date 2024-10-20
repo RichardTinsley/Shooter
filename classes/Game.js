@@ -46,13 +46,10 @@ export class Game {
         this.eventUpdate = false;
         this.eventTimer = 0;
         this.eventInterval = 60;
-
-        this.animationID;
     }
 
     gameHandler(ctx, deltaTime, animate){
         requestAnimationFrame(animate);
-        console.log(this.currentGameState);
 
         switch(this.currentGameState){
             case GAME_STATES.PLAYING: 
@@ -82,9 +79,9 @@ export class Game {
         this.gameTimer(deltaTime)
         this.level.renderLevel(ctx);
         this.towerHandler.renderTowers(ctx, this.eventUpdate);
-        this.enemyHandler.renderEnemies(ctx);
-        this.gameTextHandler.renderGameTexts(ctx);
-        this.effectHandler.renderEffects(ctx, this.eventUpdate)
+        this.enemyHandler.renderEnemies(ctx, this.eventUpdate);
+        this.gameTextHandler.renderGameTexts(ctx, this.eventUpdate);
+        this.effectHandler.renderEffects(ctx, this.eventUpdate);
         this.renderGUI(ctx);
         if(this.hearts <= 0) this.currentGameState = GAME_STATES.GAMEOVER;
     }
@@ -95,7 +92,7 @@ export class Game {
         this.exp = 0;
         this.waves = 1;
         this.timer = 0;
-        
+
         this.enemyHandler.allEnemiesActive = false;
         this.enemyHandler.maxEnemies = 10;
         this.enemyHandler.enemyCounter = 0;    
