@@ -1,8 +1,10 @@
 BUTTONS/MENUS
 AUDIO SOUND FX
+NOT ENOUGH GOLD NOTIFICATION
 
 MERGE GAMETEXT AND EFFECTS SOMEHOW
-
+LOADING SCREEN
+MAIN MENU
 
 Ruby		Splash damage / flame thrower
 *Emerald  	Poison, damage, reduce armour

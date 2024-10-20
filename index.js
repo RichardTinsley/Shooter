@@ -19,12 +19,14 @@ window.addEventListener('load', function(){
     ctx.imageSmoothingEnabled = false;
     
     let lastTime = 0;
-    
+
     function animate(timeStamp){    
         const deltaTime = timeStamp - lastTime;
         lastTime = timeStamp;
-
+        
         game.gameHandler(ctx, deltaTime, animate);  
     }
     requestAnimationFrame(animate);
+
+    
 });

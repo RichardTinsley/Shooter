@@ -46,6 +46,10 @@ export class Game {
         this.eventUpdate = false;
         this.eventTimer = 0;
         this.eventInterval = 60;
+
+        this.frames = 0;
+        this.startTime = performance.now();
+        this.FPSNormal = 0;
     }
 
     gameHandler(ctx, deltaTime, animate){
@@ -76,7 +80,7 @@ export class Game {
     }
     
     renderGame(ctx, deltaTime){
-        this.gameTimer(deltaTime)
+        this.gameTimer(deltaTime);
         this.level.renderLevel(ctx);
         this.towerHandler.renderTowers(ctx, this.eventUpdate);
         this.enemyHandler.renderEnemies(ctx, this.eventUpdate);
@@ -122,10 +126,24 @@ export class Game {
         }
     }
 
+    calculateFPSNormal(){
+        let t = performance.now();
+        let dt = t - this.startTime;
+
+        if(dt > 1000) {
+            this.FPSNormal = this.frames * 1000 / dt;
+            this.frames = 0;
+            this.startTime = t
+        }
+        this.frames++;
+    }
+
     renderDebugInfo(ctx){
+        this.calculateFPSNormal();
         this.input.drawLevelDebug(ctx);
         this.input.drawTowerDebug(ctx);
         this.input.drawEnemyDebug(ctx);
+        this.input.drawPerformanceDebug(ctx);
     }
     
     renderGUI(ctx){

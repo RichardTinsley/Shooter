@@ -3,7 +3,7 @@ import { TILE_SIZE } from "../index.js";
 export class Level {
     constructor(){
         this.level1 = new Image();
-        this.level1.src = "./images/LEVEL1.png";
+        this.level1.src = './images/LEVEL1.png';
 
         this.placementTiles = this.initialiseTiles();
     }

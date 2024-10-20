@@ -177,4 +177,11 @@ export class Input {
             this.game.drawGUIText(ctx, tower.range, tower.center.x, tower.center.y - TOWER_SIZE, HALF_TILE_SIZE, 'right');
         })
     }
+
+    drawPerformanceDebug(ctx){
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+        ctx.fillRect(TILE_SIZE, TILE_SIZE * 3, TILE_SIZE * 3, TILE_SIZE * 2);
+        const FPS = Math.round(this.game.FPSNormal * 1000) / 1000;
+        this.game.drawGUIText(ctx, `f p s: ${FPS}`, TILE_SIZE, TILE_SIZE * 4, HALF_TILE_SIZE, 'left');
+    }
 }
