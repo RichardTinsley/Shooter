@@ -4,6 +4,7 @@ import { EnemyHandler } from "./EnemyHandler.js";
 import { TowerHandler } from "./TowerHandler.js";
 import { EffectHandler } from "./EffectHandler.js";
 import { GameTextHandler } from "./GameTextHandler.js";
+import { ProjectileHandler } from "./ProjectileHandler.js";
 
 import { GAME_WIDTH, GAME_HEIGHT } from "../index.js";
 
@@ -13,7 +14,8 @@ export const GAME_STATES = {
     MENU: 'MENU',
     LOADING: 'LOADING',
     GAMEOVER: 'GAMEOVER',
-    DEBUG: 'DEBUG'
+    DEBUG: 'DEBUG',
+    RESTART: 'RESTART'
 };
 
 export class Game {
@@ -22,7 +24,8 @@ export class Game {
         this.gameTextHandler = new GameTextHandler();
         this.effectHandler = new EffectHandler();
         this.enemyHandler = new EnemyHandler(this);
-        this.towerHandler = new TowerHandler(this, this.enemyHandler, this.effectHandler, this.gameTextHandler);
+        this.projectileHandler = new ProjectileHandler(this, this.enemyHandler, this.effectHandler, this.gameTextHandler);
+        this.towerHandler = new TowerHandler(this.enemyHandler, this.projectileHandler);
         this.input = new Input(this, this.level, this.towerHandler, this.enemyHandler);
         
         this.currentGameState = GAME_STATES.PLAYING;
@@ -48,13 +51,14 @@ export class Game {
     }
 
     gameHandler(ctx, deltaTime, animate){
+        requestAnimationFrame(animate);
+        console.log(this.currentGameState);
+
         switch(this.currentGameState){
             case GAME_STATES.PLAYING: 
-                requestAnimationFrame(animate);
                 this.renderGame(ctx, deltaTime);
                 break
             case GAME_STATES.PAUSED:
-                requestAnimationFrame(animate);
                 this.drawScreenText(ctx, GAME_STATES.PAUSED); 
                 break
             case GAME_STATES.MENU: 
@@ -63,12 +67,13 @@ export class Game {
                 break
             case GAME_STATES.GAMEOVER:
                 this.drawScreenText(ctx, GAME_STATES.GAMEOVER);
-                cancelAnimationFrame(this.animationID);
                 break
             case GAME_STATES.DEBUG: 
-                requestAnimationFrame(animate);
                 this.renderGame(ctx, deltaTime);
                 this.renderDebugInfo(ctx);
+                break
+            case GAME_STATES.RESTART: 
+                this.restartGame();
                 break
         }
     }
@@ -84,9 +89,23 @@ export class Game {
         if(this.hearts <= 0) this.currentGameState = GAME_STATES.GAMEOVER;
     }
 
-    renderDebugInfo(ctx){
-        this.level.drawGrid(ctx);
-        this.enemyHandler.drawEnemyDebug(ctx);
+    restartGame(){
+        this.hearts = 1;
+        this.coins = 100;
+        this.exp = 0;
+        this.waves = 1;
+        this.timer = 0;
+        
+        this.enemyHandler.allEnemiesActive = false;
+        this.enemyHandler.maxEnemies = 10;
+        this.enemyHandler.enemyCounter = 0;    
+        this.enemyHandler.enemySpawnTimer = 0;
+
+        this.enemyHandler.enemies = [];
+        this.towerHandler.towers = [];
+        this.effectHandler.effects = [];
+        this.gameTextHandler.gameTexts = [];
+        this.currentGameState = GAME_STATES.PLAYING;
     }
 
     gameTimer(deltaTime){
@@ -97,13 +116,19 @@ export class Game {
             this.eventTimer = 0;
             this.eventUpdate = true; 
         }
-
+        
         if (this.secondsTimer < this.secondsInterval){
             this.secondsTimer += deltaTime;
         } else {
             this.secondsTimer = 0;
             this.timer++; 
         }
+    }
+
+    renderDebugInfo(ctx){
+        this.input.drawLevelDebug(ctx);
+        this.input.drawTowerDebug(ctx);
+        this.input.drawEnemyDebug(ctx);
     }
     
     renderGUI(ctx){

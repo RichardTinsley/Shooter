@@ -1,4 +1,4 @@
-import { TILE_SIZE, COLUMNS, ROWS } from "../index.js";
+import { TILE_SIZE } from "../index.js";
 
 export class Level {
     constructor(){
@@ -35,17 +35,6 @@ export class Level {
     renderLevel(ctx){
         ctx.drawImage(this.level1, 0, 0);
         this.placementTiles.forEach((tile) => tile.renderTile(ctx));
-    }
-
-    drawGrid(ctx){
-        for (let row = 0; row < ROWS; row++)
-            for (let column = 0; column < COLUMNS; column++)
-                ctx.strokeRect(
-                    column * TILE_SIZE,
-                    row * TILE_SIZE,
-                    TILE_SIZE,
-                    TILE_SIZE
-                );   
     }
 }
 

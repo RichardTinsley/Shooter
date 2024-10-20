@@ -52,14 +52,6 @@ export class Tower {
             this.width,
             this.height
         );
-        this.drawRadius(ctx);
-    }
-
-    drawRadius(ctx){
-        ctx.beginPath();
-        ctx.arc(this.center.x, this.center.y, this.range, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(200, 0, 0, 0.1)';
-        ctx.fill();
     }
 
     update(event) {

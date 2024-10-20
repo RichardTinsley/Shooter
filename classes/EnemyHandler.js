@@ -1,6 +1,6 @@
 import { waypoints } from "./Level.js";
 import { Enemy } from "./Enemy.js";
-import { ENEMY_SIZE, TILE_SIZE, HALF_TILE_SIZE } from "../index.js";
+import { ENEMY_SIZE } from "../index.js";
 
 const enemiesURL = './images/enemies/'
 export const ENEMY_STATE = {
@@ -130,15 +130,5 @@ export class EnemyHandler{
             array[i].right.src = `${enemiesURL}${enemyColours[i]}Right.png`;
         }
         return array;
-    }
-
-    drawEnemyDebug(ctx){
-        this.enemies.forEach(enemy => {
-            ctx.fillStyle = 'rgba(250, 0, 0, 0.3)';
-            ctx.fillRect(enemy.position.x, enemy.position.y, TILE_SIZE, TILE_SIZE);
-            ctx.fillStyle = 'rgba(0, 0, 250, 0.3)';
-            ctx.fillRect(Math.floor(enemy.position.x / TILE_SIZE) * TILE_SIZE, Math.floor(enemy.position.y / TILE_SIZE) * TILE_SIZE, TILE_SIZE, TILE_SIZE);
-            this.game.drawGUIText(ctx, enemy.priorityDistance, Math.floor(enemy.position.x / TILE_SIZE) * TILE_SIZE, Math.floor(enemy.position.y / TILE_SIZE) * TILE_SIZE + 20, HALF_TILE_SIZE, 'right');
-        })
     }
 }                
