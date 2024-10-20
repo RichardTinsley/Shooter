@@ -113,53 +113,37 @@ export class Enemy {
             this.sprite.x < this.maxFrame ? this.sprite.x++ : this.sprite.x = 0;
 
         if(xDistance < 0)
-            this.direction = "LEFT";
+            this.direction = ENEMY_STATE.LEFT;
         else
-            this.direction = "RIGHT";
+            this.direction = ENEMY_STATE.RIGHT;
 
         if(this.health <= 0 && this.state) {
             this.state = ENEMY_STATE.DYING;
             this.sprite.y = ENEMY_STATE.DYING;
-            if(xDistance < 0)
-                this.sprite.x = this.maxFrame 
-            else
-                this.sprite.x = 0;
+            this.sprite.x = 0;
         }
     }
 
     updateDying(event){
         if(event){
-            if(this.direction === "RIGHT")
-                if(this.sprite.x < this.maxFrame) 
-                    this.sprite.x++; 
-                else 
-                    this.sprite.x = this.maxFrame;
-            else
-                if(this.sprite.x > 0) 
-                    this.sprite.x--; 
-                else
-                    this.sprite.x = 0;
+            if(this.sprite.x < this.maxFrame) 
+                this.sprite.x++; 
+            else 
+                this.sprite.x = this.maxFrame;
             
-        if(this.height > 0) 
-            this.height -= 2;
-        else
-            this.state = ENEMY_STATE.DEAD;
+            if(this.height > 0) 
+                this.height -= 2;
+            else
+                this.state = ENEMY_STATE.DEAD;
         }
     }
 
     draw(ctx){
-        if(this.direction === "LEFT"){
+        const left = -this.halfWidth - HALF_TILE_SIZE - this.position.x;
+        const right = this.position.x + HALF_TILE_SIZE - this.halfWidth;
+        if(this.direction === ENEMY_STATE.LEFT){
             ctx.save();
-            // ctx.translate(this.position.x + HALF_TILE_SIZE - this.halfWidth, this.position.y + TILE_SIZE - this.height)
             ctx.scale(-1, 1);
-            // ctx.setTransform(
-            //     -1,
-            //     0,
-            //     0,
-            //     1,
-            //     TILE_SIZE * 40,
-            //     0
-            // );
         }
         ctx.drawImage(
             this.sprite.image,
@@ -167,12 +151,12 @@ export class Enemy {
             this.sprite.y * this.sprite.height + 1,
             this.sprite.width,
             this.sprite.height,
-            this.direction === "LEFT" ? - this.halfWidth - HALF_TILE_SIZE - this.position.x  : this.position.x + HALF_TILE_SIZE - this.halfWidth,
+            this.direction === ENEMY_STATE.LEFT ? left : right,
             this.position.y + TILE_SIZE - this.height,
             this.width,
             this.height
         );
-        if(this.direction === "LEFT")
+        if(this.direction === ENEMY_STATE.LEFT)
             ctx.restore();
     }
 

@@ -10,7 +10,9 @@ export const ENEMY_STATE = {
     ATTACK: 3,
     INJURED: 4,
     DYING: 5,
-    DEAD: 6
+    DEAD: 6,
+    LEFT: "LEFT",
+    RIGHT: "RIGHT"
 }
 
 const enemyColours = [
