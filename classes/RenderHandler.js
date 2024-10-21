@@ -10,9 +10,9 @@ export const ENEMY_STATE = {
     DEAD: 6,
     LEFT: "LEFT",
     RIGHT: "RIGHT"
-}
+};
 
-export const EFFECT_STATES = {
+export const ANIMATION_STATE = {
     ANIMATING: 0,
     FINISHED: 1
 };
@@ -23,6 +23,7 @@ export class RenderHandler {
 
         this.enemies = [];
         this.towers = [];
+        this.projectiles = [];
         this.effects = [];
         this.gameTexts = [];
         this.placementTiles = this.game.assetHandler.populateTilesArray();
@@ -34,20 +35,20 @@ export class RenderHandler {
         
     }
 
-        
     renderGame(ctx, deltaTime){
+        ctx.drawImage(this.game.assetHandler.level1, 0, 0);
         this.game.gameTimer(deltaTime);
         this.renderTiles(ctx);
-        this.renderTowers(ctx, this.game.eventUpdate);
         this.renderEnemies(ctx, this.game.eventUpdate);
+        this.renderTowers(ctx, this.game.eventUpdate);
+        this.renderProjectiles(ctx, this.game.eventUpdate);
         this.renderEffects(ctx, this.game.eventUpdate);
         this.renderGameTexts(ctx);
         this.renderGUI(ctx);
     }
 
     renderTiles(ctx){
-        ctx.drawImage(this.game.assetHandler.level1, 0, 0);
-        this.placementTiles.forEach((tile) => tile.renderTile(ctx));
+        this.placementTiles.forEach(tile => tile.draw(ctx));
     }
 
     renderEnemies(ctx, event){
@@ -57,7 +58,7 @@ export class RenderHandler {
         if (this.enemySpawnTimer % Math.floor(Math.random() * 300) === 0 && this.enemyCounter < this.maxEnemies){
             const enemyColour = this.game.assetHandler.generateRandomEnemy();
             const randomWaypoints = this.game.assetHandler.generateRandomEnemyWaypoints();
-            this.game.assetHandler.populateEnemiesArray(this.enemies, enemyColour, randomWaypoints);
+            this.game.assetHandler.populateEnemiesArray(enemyColour, randomWaypoints);
             
             if(this.enemyCounter === this.maxEnemies)
                 this.allEnemiesActive = true;
@@ -76,7 +77,10 @@ export class RenderHandler {
             
             if(enemy.position.x > canvas.width){
                 this.game.hearts -= 1;
-                enemy.position = { x: enemy.waypoints[0].x, y: enemy.waypoints[0].y };
+                enemy.position = { 
+                    x: enemy.waypoints[0].x, 
+                    y: enemy.waypoints[0].y 
+                };
                 enemy.waypointIndex = 0;
             }
         }
@@ -90,7 +94,7 @@ export class RenderHandler {
     }
 
     renderTowers(ctx, event){
-        this.towers.forEach((tower) => {
+        this.towers.forEach(tower => {
             tower.update(event);
             tower.draw(ctx);
 
@@ -102,42 +106,66 @@ export class RenderHandler {
             else
                 tower.target = enemiesInTowerRange[0];
 
-            this.renderProjectiles(ctx, event, tower);
+            const newProjectile = {
+                    image: this.game.assetHandler.blueFireball, 
+                    position : {
+                        x: tower.center.x,
+                        y: tower.center.y
+                    }, 
+                    width: 50, 
+                    height: 25, 
+                    scale: 1, 
+                    damage: tower.damage, 
+                    target: tower.target
+            };
+
+            if(tower.shootTimer > tower.cooldown && tower.target){
+                this.game.assetHandler.populateProjectilesArray(newProjectile);
+                tower.shootTimer = 0;
+            }
         })
     }
 
-    renderProjectiles(ctx, event, tower){
-        for (let i = tower.projectiles.length - 1; i >= 0; i--){
-            const projectile = tower.projectiles[i];        
-            projectile.update(event);
-            projectile.draw(ctx);
+    renderProjectiles(ctx, event){
+        for (let i = this.projectiles.length - 1; i >= 0; i--){
+
+            const projectile = this.projectiles[i];        
+            projectile.renderProjectile(ctx, event);
+
             const xDifference = projectile.enemy.center.x - projectile.center.x;
             const yDifference = projectile.enemy.center.y - projectile.center.y;
             const distance = Math.hypot(xDifference, yDifference);
             
-            if (distance < projectile.enemy.width / 32 + projectile.sprite.width){
+            if (distance < projectile.enemy.width / TILE_SIZE + projectile.sprite.width && projectile.state === ANIMATION_STATE.ANIMATING){
+
+                const enemyIndex = this.game.renderHandler.enemies.findIndex(enemy => projectile.enemy === enemy);
+                projectile.state = ANIMATION_STATE.FINISHED
                 projectile.enemy.health -= projectile.damage;
-                // this.game.audioHandler.bowImpact1.play();
 
                 this.game.assetHandler.populateEffectsArray(
                     this.game.assetHandler.blueExplosion,
-                    {x: projectile.enemy.position.x, y: projectile.enemy.position.y}, 
+                    {
+                        x: this.game.renderHandler.enemies[enemyIndex].position.x + Math.floor(Math.random() * TILE_SIZE) - HALF_TILE_SIZE, 
+                        y: this.game.renderHandler.enemies[enemyIndex].position.y + Math.floor(Math.random() * TILE_SIZE) - HALF_TILE_SIZE
+                    }, 
                     256,
                     256,
                     projectile.enemy.scale / 2,
                     projectile.enemy.direction
                 );
-
+                
                 if(projectile.enemy.health <= 0){
-                    const enemyIndex = this.game.renderHandler.enemies.findIndex((enemy) => projectile.enemy === enemy);
                     
                     if (enemyIndex > -1 && projectile.enemy.state !== ENEMY_STATE.DYING){
                         this.game.coins += this.game.renderHandler.enemies[enemyIndex].coins;
                         this.game.exp += this.game.renderHandler.enemies[enemyIndex].exp;
-
+                    
                         this.game.assetHandler.populateEffectsArray(
                             this.game.assetHandler.blood,
-                            {x: projectile.enemy.position.x, y: projectile.enemy.position.y}, 
+                            {
+                                x: projectile.enemy.position.x, 
+                                y: projectile.enemy.position.y
+                            }, 
                             110,
                             110,
                             projectile.enemy.scale,
@@ -148,7 +176,10 @@ export class RenderHandler {
                             '+' + projectile.enemy.coins, 
                             '255, 215, 0, ', //GOLD COLOUR TEXT
                             '10', 
-                            {x: projectile.enemy.position.x, y: projectile.enemy.position.y}, 
+                            {
+                                x: projectile.enemy.position.x, 
+                                y: projectile.enemy.position.y
+                            }, 
                             25, 
                             'left'
                         ); 
@@ -157,13 +188,19 @@ export class RenderHandler {
                             '+' + projectile.enemy.exp, 
                             '50, 205, 50, ', //LIME COLOUR TEXT
                             '10', 
-                            {x: tower.position.x + 16, y: tower.position.y}, 
+                            {
+                                x: projectile.position.x + HALF_TILE_SIZE,
+                                y: projectile.position.y
+                            }, 
                             25, 
                             'left'
                         ); 
                     }
                 }
-                tower.projectiles.splice(i, 1);
+
+                if(projectile.state === ANIMATION_STATE.FINISHED){
+                    this.projectiles.splice(i, 1);
+                } 
             }
         }
     }
@@ -171,7 +208,7 @@ export class RenderHandler {
     renderEffects(ctx, event){
         for (let i = this.effects.length - 1; i >= 0; i-- ){
             const effect = this.effects[i];        
-            if (effect.state === EFFECT_STATES.ANIMATING)
+            if (effect.state === ANIMATION_STATE.ANIMATING)
                 effect.renderEffect(ctx, event);
             else {
                 this.effects.splice(i, 1);
@@ -217,14 +254,11 @@ export class RenderHandler {
     }
     
     drawScreenStopped(ctx, text){
-        this.renderTiles(ctx);
-        this.enemies.forEach(enemy => enemy.draw(ctx));
-        this.towers.forEach(tower => {
-            tower.draw(ctx);
-            tower.projectiles.forEach(projectile => {
-                projectile.draw(ctx);
-            })
-        });
+        ctx.drawImage(this.game.assetHandler.level1, 0, 0);
+        this.placementTiles.forEach(tile => tile.draw(ctx));
+        this.enemies.sort((a, b) => a.position.y - b.position.y).forEach(enemy => enemy.draw(ctx));
+        this.towers.forEach(tower => tower.draw(ctx));
+        this.projectiles.forEach(projectile => projectile.draw(ctx));
         this.effects.forEach(effect => effect.draw(ctx));
         this.gameTexts.forEach(text => text.draw(ctx));
         this.renderGUI(ctx);

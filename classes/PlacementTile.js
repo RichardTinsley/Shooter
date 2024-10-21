@@ -13,7 +13,7 @@ export class PlacementTile {
         this.mouseOver = false;
     }
 
-    renderTile(ctx){
+    draw(ctx){
         if(this.mouseOver)
             this.colour = 'rgba(50, 255, 50, 0.15)';
         else

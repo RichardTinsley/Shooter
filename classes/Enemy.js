@@ -38,6 +38,7 @@ export class Enemy {
         
         this.direction;
         this.priorityDistance = 0;
+        
         this.maxFrame = (this.sprite.image.width / this.sprite.width) - 1;
         
         this.state;

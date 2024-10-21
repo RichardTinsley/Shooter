@@ -1,3 +1,5 @@
+import { ANIMATION_STATE } from "./RenderHandler.js";
+
 export class Projectile {
     constructor({ 
         sprite,
@@ -18,6 +20,10 @@ export class Projectile {
             y: 0
         }
         this.scale = scale ?? 1;
+        this.damage = damage;
+        this.speed = 2;
+        
+        this.enemy = enemy;
 
         this.width = this.sprite.width * this.scale;
         this.height = this.sprite.height * this.scale;   
@@ -25,22 +31,30 @@ export class Projectile {
         this.maxFrame = (this.sprite.image.width / this.sprite.width) - 1;
         this.maxRow = (this.sprite.image.height / this.sprite.height) - 1;
 
-        this.enemy = enemy;
-        this.damage = damage;
-        
-        this.angle = 0;
+        this.angle;
         this.center = {
             x: this.position.x,
-            y: this.position.y - 64
+            y: this.position.y - 64 // DOUBLE CHECK THIS
         };
+
         this.velocity = {
             x: 0,
             y: 0
         };
-        this.speed = 2;
+
+        this.state = ANIMATION_STATE.ANIMATING;
     }
 
-    
+    renderProjectile(ctx, event){
+        switch(this.state){
+            case ANIMATION_STATE.ANIMATING:
+                this.update(event); 
+                this.draw(ctx);
+                break
+            case ANIMATION_STATE.FINISHED:
+                break
+        }
+    }
 
     draw(ctx){
         ctx.save();
@@ -57,7 +71,6 @@ export class Projectile {
             this.width,
             this.height
         );
-
         ctx.restore();
     }
 

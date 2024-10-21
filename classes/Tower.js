@@ -1,14 +1,11 @@
-import { Projectile } from "./Projectile.js";
 import { TILE_SIZE } from "../index.js";
 
 export class Tower {
     constructor({
-        game,
         sprite, 
         position, 
         scale,
     }){
-        this.game = game;
         this.sprite = sprite ?? { 
             image: "", 
             x: 0, 
@@ -30,9 +27,9 @@ export class Tower {
             y: this.position.y + this.height / 2
         };
 
-        this.maxFrame = (this.sprite.image.width / this.sprite.width) - 1;
+        this.maxFrame = Math.floor((this.sprite.image.width / this.sprite.width)) - 1;
+        this.maxRow = Math.floor((this.sprite.image.height / this.sprite.height)) - 1;
 
-        this.projectiles = [];
         this.target;
 
         this.damage = 50;
@@ -60,31 +57,5 @@ export class Tower {
             this.shootTimer++;
             this.sprite.x < this.maxFrame ? this.sprite.x++ : this.sprite.x = 0;
         }
-
-        if (this.shootTimer > this.cooldown && this.target){
-            this.shoot(this.game.assetHandler.blueFireball);
-            this.shootTimer = 0;
-        }
-    }
-
-    shoot(projectile) {
-        this.projectiles.push(
-            new Projectile({
-                sprite: { 
-                    image: projectile, 
-                    x: 0, 
-                    y: 0,  
-                    width: 50, 
-                    height: 25 
-                },
-                position: {
-                    x: this.center.x,
-                    y: this.center.y
-                },
-                enemy: this.target,
-                scale: 1,
-                damage: this.damage
-            })
-        );
     }
 }

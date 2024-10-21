@@ -1,6 +1,6 @@
-import { Tower } from "./Tower.js";
-import { TILE_SIZE, HALF_TILE_SIZE, TOWER_SIZE } from "../index.js";
+import { TILE_SIZE } from "../index.js";
 import { GAME_STATES } from "./Game.js";
+import { ENEMY_STATE } from "./RenderHandler.js";
 
 const PAUSE = 'p';
 const DEBUG = 'o';
@@ -10,7 +10,6 @@ const RESTART = 'r';
 export class Input {
     constructor(game){
         this.game = game;
-
         this.mouse = {
             x: undefined,
             y: undefined
@@ -24,24 +23,8 @@ export class Input {
 
         window.addEventListener('click', e => {
             if (this.activeTile && !this.activeTile.isOccupied && this.game.coins - 25 >= 0) {
-                this.game.renderHandler.towers.push(
-                    new Tower({
-                        game: this.game,
-                        sprite: { 
-                            image: this.game.assetHandler.sapphireTower, 
-                            x: 0, 
-                            y: 0, //Animation Row
-                            width: TOWER_SIZE, 
-                            height: TOWER_SIZE 
-                        },
-                        position: { 
-                            x: this.activeTile.position.x - HALF_TILE_SIZE,
-                            y: this.activeTile.position.y - HALF_TILE_SIZE  
-                        },
-                        scale: 1,
-                    })
-                );
-                
+                this.game.assetHandler.populateTowersArray(this.activeTile);
+            
                 this.activeTile.isOccupied = true;
                 this.game.renderHandler.towers.sort((a, b) => {
                     return a.position.y - b.position.y;
@@ -70,7 +53,8 @@ export class Input {
                     this.mouse.x > enemy.position.x &&
                     this.mouse.x < enemy.position.x + TILE_SIZE &&
                     this.mouse.y > enemy.position.y - (TILE_SIZE / 2) &&
-                    this.mouse.y < enemy.position.y + TILE_SIZE 
+                    this.mouse.y < enemy.position.y + TILE_SIZE &&
+                    enemy.state !== ENEMY_STATE.DYING
                 ) {
                     this.activeEnemy = enemy;
                 }

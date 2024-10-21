@@ -1,9 +1,11 @@
 import { PlacementTile } from "./PlacementTile.js";
+import { Projectile } from "./Projectile.js";
 import { Enemy } from "./Enemy.js";
+import { Tower } from "./Tower.js";
 import { Effect } from "./Effect.js";
 import { GameText } from "./GameText.js";
-import { ENEMY_SIZE } from "../index.js";
 import { ENEMY_STATE } from "./RenderHandler.js";
+import { ENEMY_SIZE, HALF_TILE_SIZE, TOWER_SIZE } from "../index.js";
 
 const enemyColours = [
     "topaz",
@@ -80,8 +82,27 @@ export class AssetHandler {
         return placementTiles;
     }
 
-    populateEnemiesArray(enemies, enemy, randomWaypoints){
-        enemies.push(  
+    populateTowersArray(activeTile){
+        this.game.renderHandler.towers.push(
+            new Tower({
+                sprite: { 
+                    image: this.sapphireTower, 
+                    x: 0, 
+                    y: 0,
+                    width: TOWER_SIZE, 
+                    height: TOWER_SIZE 
+                },
+                position: { 
+                    x: activeTile.position.x - HALF_TILE_SIZE,
+                    y: activeTile.position.y - HALF_TILE_SIZE  
+                },
+                scale: 1,
+            })
+        );
+    }
+
+    populateEnemiesArray(enemy, randomWaypoints){
+        this.game.renderHandler.enemies.push(  
             new Enemy({
                 sprite: { 
                     image: enemy.image, 
@@ -99,6 +120,58 @@ export class AssetHandler {
             })
         );
         this.game.renderHandler.enemyCounter++;
+    }
+
+    populateProjectilesArray(projectile){
+        this.game.renderHandler.projectiles.push(
+            new Projectile({
+                sprite: { 
+                    image: projectile.image, 
+                    x: 0, 
+                    y: 0,  
+                    width: projectile.width, 
+                    height: projectile.height 
+                },
+                position: projectile.position,
+                enemy: projectile.target,
+                scale: projectile.scale,
+                damage: projectile.damage
+            })
+        );
+    }
+
+    populateEffectsArray(image, position, width, height, scale, direction){
+        let number = 0
+        if(image === this.blood)
+            Math.floor(Math.random() * 9)
+
+        this.game.renderHandler.effects.push(
+            new Effect({
+                sprite: { 
+                    image: image,
+                    x: 0, 
+                    y: number,  
+                    width: width, 
+                    height: height 
+                }, 
+                position: position, 
+                scale: scale * .6,
+                direction: direction
+            })            
+        );
+    }
+
+    populateGameTextArray(text, color, alpha, position, textSize, align){
+        this.game.renderHandler.gameTexts.push(
+            new GameText({
+                text: text,
+                color: color,
+                alpha: alpha,
+                position: position,
+                textSize: textSize,
+                align: align 
+            })            
+        );
     }
 
     generateRandomEnemy(){
@@ -146,36 +219,6 @@ export class AssetHandler {
             if (a.priorityDistance > b.priorityDistance) return 1;
             return 0;
         });
-    }
-
-    populateEffectsArray(image, position, width, height, scale, direction){
-        this.game.renderHandler.effects.push(
-            new Effect({
-                sprite: { 
-                    image: image,
-                    x: 0, 
-                    y: Math.floor(Math.random() * 9),  
-                    width: width, 
-                    height: height 
-                }, 
-                position: position, 
-                scale: scale * .6,
-                direction: direction
-            })            
-        );
-    }
-
-    populateGameTextArray(text, color, alpha, position, textSize, align){
-        this.game.renderHandler.gameTexts.push(
-            new GameText({
-                text: text,
-                color: color,
-                alpha: alpha,
-                position: position,
-                textSize: textSize,
-                align: align 
-            })            
-        );
     }
 }
 
