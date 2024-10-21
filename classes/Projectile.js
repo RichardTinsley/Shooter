@@ -98,6 +98,14 @@ export class Projectile {
                 this.sprite.x = 0;
             }
     }
+
+    checkCollision(a, b){
+        const dx = a.center.x - b.center.x;
+        const dy = a.center.y - b.center.y;
+        const distance = Math.hypot(dx, dy);
+        const sumOfRadii = a.width / 3 + b.width / 3 ;
+        return distance < sumOfRadii; 
+    }
 }
 
 // LASER LINES        

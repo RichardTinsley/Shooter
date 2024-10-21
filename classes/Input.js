@@ -81,9 +81,7 @@ export class Input {
         
         window.addEventListener('keydown', e =>{
             const key = e.key.toLowerCase();
-
             this.keys.add(key);
-
         });
 
         window.addEventListener('keyup', e =>{

@@ -128,66 +128,65 @@ export class RenderHandler {
         })
     }
 
+
+
     renderProjectiles(ctx, event){
         for (let i = this.projectiles.length - 1; i >= 0; i--){
 
             const projectile = this.projectiles[i];        
             projectile.renderProjectile(ctx, event);
 
-            const xDifference = projectile.enemy.center.x - projectile.center.x;
-            const yDifference = projectile.enemy.center.y - projectile.center.y;
-            const distance = Math.hypot(xDifference, yDifference);
+            const enemyIndex = this.game.renderHandler.enemies.findIndex(enemy => projectile.enemy === enemy);
+            const enemy = this.game.renderHandler.enemies[enemyIndex];
             
-            
-            if (distance < projectile.enemy.height && projectile.state === ANIMATION_STATE.ANIMATING){
-                const enemyIndex = this.game.renderHandler.enemies.findIndex(enemy => projectile.enemy === enemy);
+            if (projectile.checkCollision(enemy, projectile) && projectile.state === ANIMATION_STATE.ANIMATING){
                 projectile.state = ANIMATION_STATE.FINISHED
-                projectile.enemy.health -= projectile.damage;
+                enemy.health -= projectile.damage;
 
                 this.game.assetHandler.populateEffectsArray(
                     this.game.assetHandler.blueExplosion,
                     {
-                        x: projectile.enemy.position.x, 
-                        y: projectile.enemy.position.y
+                        x: enemy.position.x + Math.floor(Math.random() * 9), 
+                        y: enemy.position.y + Math.floor(Math.random() * 9)
                     }, 
                     256,
                     256,
-                    projectile.enemy.scale / 2,
-                    projectile.enemy.direction
+                    enemy.scale / 2,
+                    enemy.direction
                 );
                 
-                if(projectile.enemy.health <= 0){
+                if(enemy.health <= 0){
                     
-                    if (enemyIndex > -1 && projectile.enemy.state !== ENEMY_STATE.DYING){
-                        this.game.coins += this.game.renderHandler.enemies[enemyIndex].coins;
-                        this.game.exp += this.game.renderHandler.enemies[enemyIndex].exp;
+                    if (enemyIndex > -1 && enemy.state !== ENEMY_STATE.DYING){
+                        this.game.coins += enemy.coins;
+                        this.game.exp += enemy.exp;
                     
                         this.game.assetHandler.populateEffectsArray(
                             this.game.assetHandler.blood,
                             {
-                                x: projectile.enemy.position.x, 
-                                y: projectile.enemy.position.y
+                                x: enemy.position.x, 
+                                y: enemy.position.y
                             }, 
                             110,
                             110,
-                            projectile.enemy.scale,
-                            projectile.enemy.direction
+                            enemy.scale,
+                            enemy.direction
                         );
 
                         this.game.assetHandler.populateGameTextArray(
-                            '+' + projectile.enemy.coins, 
+                            '+' + enemy.coins, 
                             '255, 215, 0, ', //GOLD COLOUR TEXT
                             '10', 
                             {
-                                x: projectile.enemy.position.x, 
-                                y: projectile.enemy.position.y
+                                x: enemy.position.x, 
+                                y: enemy.position.y
                             }, 
                             25, 
                             'left'
                         ); 
 
                         this.game.assetHandler.populateGameTextArray( 
-                            '+' + projectile.enemy.exp, 
+                            '+' + enemy.exp, 
                             '50, 205, 50, ', //LIME COLOUR TEXT
                             '10', 
                             {

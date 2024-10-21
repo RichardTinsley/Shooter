@@ -44,8 +44,6 @@ export class Effect {
     }
 
     draw(ctx){
-
-        console.log(this.sprite.y)
         const left = -this.position.x - HALF_TILE_SIZE - this.halfWidth;
         const right = this.position.x + HALF_TILE_SIZE - this.halfWidth;
         if(this.direction === ENEMY_STATE.RIGHT){
