@@ -38,7 +38,7 @@ export class Enemy {
         
         this.direction;
         this.priorityDistance = 0;
-        
+
         this.maxFrame = (this.sprite.image.width / this.sprite.width) - 1;
         
         this.state;
@@ -132,7 +132,7 @@ export class Enemy {
             else 
                 this.sprite.x = this.maxFrame;
             
-            if(this.height > 0) 
+            if(this.height > 2) 
                 this.height -= 2;
             else
                 this.state = ENEMY_STATE.DEAD;

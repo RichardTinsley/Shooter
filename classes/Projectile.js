@@ -33,8 +33,8 @@ export class Projectile {
 
         this.angle;
         this.center = {
-            x: this.position.x,
-            y: this.position.y - 64 // DOUBLE CHECK THIS
+            x: this.position.x + 8,
+            y: this.position.y - 32 // DOUBLE CHECK THIS
         };
 
         this.velocity = {

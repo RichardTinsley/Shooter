@@ -136,8 +136,8 @@ export class RenderHandler {
             const yDifference = projectile.enemy.center.y - projectile.center.y;
             const distance = Math.hypot(xDifference, yDifference);
             
-            if (distance < projectile.enemy.width / TILE_SIZE + projectile.sprite.width && projectile.state === ANIMATION_STATE.ANIMATING){
-
+            
+            if (distance < projectile.enemy.height && projectile.state === ANIMATION_STATE.ANIMATING){
                 const enemyIndex = this.game.renderHandler.enemies.findIndex(enemy => projectile.enemy === enemy);
                 projectile.state = ANIMATION_STATE.FINISHED
                 projectile.enemy.health -= projectile.damage;
@@ -145,8 +145,8 @@ export class RenderHandler {
                 this.game.assetHandler.populateEffectsArray(
                     this.game.assetHandler.blueExplosion,
                     {
-                        x: this.game.renderHandler.enemies[enemyIndex].position.x + Math.floor(Math.random() * TILE_SIZE) - HALF_TILE_SIZE, 
-                        y: this.game.renderHandler.enemies[enemyIndex].position.y + Math.floor(Math.random() * TILE_SIZE) - HALF_TILE_SIZE
+                        x: projectile.enemy.position.x, 
+                        y: projectile.enemy.position.y
                     }, 
                     256,
                     256,
