@@ -17,7 +17,7 @@ export class Input {
             y: undefined
         };
 
-        this.keys = [];
+        this.keys = new Set();
         this.activeTile = undefined;
         this.activeEnemy = undefined;
 
@@ -82,38 +82,34 @@ export class Input {
         window.addEventListener('keydown', e =>{
             const key = e.key.toLowerCase();
 
-            if (this.keys.indexOf(key) === -1)
-                this.keys.unshift(key);
-            
-            if(key === KEYS.PAUSE)
-                if(this.game.currentGameState === GAME_STATES.PLAYING)
-                    this.game.currentGameState = GAME_STATES.PAUSED;
-                else 
-                    this.game.currentGameState = GAME_STATES.PLAYING;
-
-            if(key === KEYS.DEBUG)
-                if(this.game.currentGameState === GAME_STATES.PLAYING)
-                    this.game.currentGameState = GAME_STATES.DEBUG;
-                else 
-                    this.game.currentGameState = GAME_STATES.PLAYING;
-
-            if(key === KEYS.MUSIC)
-                if(this.game.assetHandler.music.paused) 
-                    this.game.assetHandler.music.play();
-                else
-                    this.game.assetHandler.music.pause();
-
-            if(key === KEYS.RESTART)
-                this.game.currentGameState = GAME_STATES.RESTART;
+            this.keys.add(key);
 
         });
 
         window.addEventListener('keyup', e =>{
-            const key = e.key.toLowerCase();
-            const index = this.keys.indexOf(key);
-            if (index === -1) 
-                return;
-            this.keys.splice(index, 1);
+            if (this.keys.has(KEYS.PAUSE))
+                if(this.game.currentGameState === GAME_STATES.PLAYING)
+                    this.game.currentGameState = GAME_STATES.PAUSED;
+                else 
+                    this.game.currentGameState = GAME_STATES.PLAYING;
+            
+            if(this.keys.has(KEYS.DEBUG))
+                if(this.game.currentGameState === GAME_STATES.PLAYING)
+                    this.game.currentGameState = GAME_STATES.DEBUG;
+                else 
+                    this.game.currentGameState = GAME_STATES.PLAYING;
+            
+            if(this.keys.has(KEYS.MUSIC))
+                if(this.game.assetHandler.music.paused) 
+                    this.game.assetHandler.music.play();
+                else
+                    this.game.assetHandler.music.pause();
+            
+            if(this.keys.has(KEYS.RESTART))
+                this.game.currentGameState = GAME_STATES.RESTART;
+
+            this.keys.clear();
         });
     }
 }
+
