@@ -1,5 +1,5 @@
 import { Tower } from "./Tower.js";
-import { TILE_SIZE, HALF_TILE_SIZE, ENEMY_SIZE, TOWER_SIZE, ROWS, COLUMNS } from "../index.js";
+import { TILE_SIZE, HALF_TILE_SIZE, TOWER_SIZE, ROWS, COLUMNS } from "../index.js";
 import { GAME_STATES } from "./Game.js";
 
 const PAUSE = 'p';
@@ -22,17 +22,13 @@ export class Input {
 
         const cursor = document.getElementById("canvas");
 
-        this.sapphireTower = new Image();
-        this.sapphireTower.src = "./images/towers/sapphire1.png";
-
         window.addEventListener('click', e => {
             if (this.activeTile && !this.activeTile.isOccupied && this.game.coins - 25 >= 0) {
-                this.game.towerHandler.towers.push(
+                this.game.renderHandler.towers.push(
                     new Tower({
                         game: this.game,
                         sprite: { 
-                            imageLeft: "",
-                            imageRight: this.sapphireTower, 
+                            image: this.game.assetHandler.sapphireTower, 
                             x: 0, 
                             y: 0, //Animation Row
                             width: TOWER_SIZE, 
@@ -47,7 +43,7 @@ export class Input {
                 );
                 
                 this.activeTile.isOccupied = true;
-                this.game.towerHandler.towers.sort((a, b) => {
+                this.game.renderHandler.towers.sort((a, b) => {
                     return a.position.y - b.position.y;
                 })
                 this.game.coins -= 25;
@@ -55,7 +51,7 @@ export class Input {
             
             if(this.activeEnemy){
                 this.activeEnemy.isSelected = true;
-                this.game.enemyHandler.enemies.forEach(enemy => {
+                this.game.renderHandler.enemies.forEach(enemy => {
                     if(enemy != this.activeEnemy){
                         enemy.isSelected = false;
                     }
@@ -69,7 +65,7 @@ export class Input {
             this.activeTile = null;
             this.activeEnemy = null;
 
-            this.game.enemyHandler.enemies.forEach(enemy => {
+            this.game.renderHandler.enemies.forEach(enemy => {
                 if (
                     this.mouse.x > enemy.position.x &&
                     this.mouse.x < enemy.position.x + TILE_SIZE &&
@@ -85,7 +81,7 @@ export class Input {
             if(this.activeEnemy)
                 cursor.style = "cursor: url(./images/cursors/text.cur), auto;";
 
-            this.game.level.placementTiles.forEach(tile => {
+            this.game.renderHandler.placementTiles.forEach(tile => {
                 if (
                     this.mouse.x > tile.position.x &&
                     this.mouse.x < tile.position.x + tile.size &&
@@ -161,22 +157,22 @@ export class Input {
     }
 
     drawEnemyDebug(ctx){
-        this.game.enemyHandler.enemies.forEach(enemy => {
+        this.game.renderHandler.enemies.forEach(enemy => {
             ctx.fillStyle = 'rgba(250, 0, 0, 0.3)';
             ctx.fillRect(enemy.position.x, enemy.position.y, TILE_SIZE, TILE_SIZE);
             ctx.fillStyle = 'rgba(0, 0, 250, 0.3)';
             ctx.fillRect(Math.floor(enemy.position.x / TILE_SIZE) * TILE_SIZE, Math.floor(enemy.position.y / TILE_SIZE) * TILE_SIZE, TILE_SIZE, TILE_SIZE);
-            this.game.drawGUIText(ctx, enemy.priorityDistance, Math.floor(enemy.position.x / TILE_SIZE) * TILE_SIZE, Math.floor(enemy.position.y / TILE_SIZE) * TILE_SIZE + 20, HALF_TILE_SIZE, 'right');
+            this.game.renderHandler.drawGUIText(ctx, enemy.priorityDistance, Math.floor(enemy.position.x / TILE_SIZE) * TILE_SIZE, Math.floor(enemy.position.y / TILE_SIZE) * TILE_SIZE + 20, HALF_TILE_SIZE, 'right');
         })
     }
 
     drawTowerDebug(ctx){
-        this.game.towerHandler.towers.forEach(tower => {
+        this.game.renderHandler.towers.forEach(tower => {
             ctx.beginPath();
             ctx.arc(tower.center.x, tower.center.y, tower.range, 0, Math.PI * 2);
             ctx.fillStyle = 'rgba(200, 0, 0, 0.1)';
             ctx.fill();
-            this.game.drawGUIText(ctx, tower.range, tower.center.x, tower.center.y - TOWER_SIZE, HALF_TILE_SIZE, 'right');
+            this.game.renderHandler.drawGUIText(ctx, tower.range, tower.center.x, tower.center.y - TOWER_SIZE, HALF_TILE_SIZE, 'right');
         })
     }
 
@@ -184,6 +180,6 @@ export class Input {
         ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
         ctx.fillRect(TILE_SIZE, TILE_SIZE * 3, TILE_SIZE * 3, TILE_SIZE * 2);
         const FPS = Math.round(this.game.FPSNormal * 1000) / 1000;
-        this.game.drawGUIText(ctx, `f p s: ${FPS}`, TILE_SIZE, TILE_SIZE * 4, HALF_TILE_SIZE, 'left');
+        this.game.renderHandler.drawGUIText(ctx, `f p s: ${FPS}`, TILE_SIZE, TILE_SIZE * 4, HALF_TILE_SIZE, 'left');
     }
 }

@@ -30,14 +30,14 @@ export class Projectile {
         
         this.angle = 0;
         this.center = {
-            x: this.position.x + this.sprite.width / 2,
-            y: this.position.y + this.sprite.height / 2
+            x: this.position.x,
+            y: this.position.y - 64
         };
         this.velocity = {
             x: 0,
             y: 0
         };
-        this.speed = 5;
+        this.speed = 2;
     }
 
     draw(ctx){
@@ -50,9 +50,9 @@ export class Projectile {
             this.sprite.y * this.sprite.height,
             this.sprite.width,
             this.sprite.height,
+            0 / 2,
             0,
-            0,
-            this.width / 2,
+            this.width,
             this.height
         );
 
@@ -73,7 +73,9 @@ export class Projectile {
             if(this.sprite.x < this.maxFrame)
                 this.sprite.x++;
             else{
-                this.sprite.y++;
+                if(Math.floor(this.maxRow) !== 0)
+                    this.sprite.y++;
+                
                 this.sprite.x = 0;
             }
             if(this.sprite.y === this.maxRow && this.sprite.x < this.maxFrame){

@@ -1,5 +1,5 @@
 import { TILE_SIZE, HALF_TILE_SIZE } from "../index.js";
-import { ENEMY_STATE } from "./EnemyHandler.js";
+import { ENEMY_STATE } from "./RenderHandler.js";
 
 export class Enemy {
     constructor({ 

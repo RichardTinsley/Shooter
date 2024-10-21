@@ -10,8 +10,7 @@ export class Tower {
     }){
         this.game = game;
         this.sprite = sprite ?? { 
-            imageLeft: "",
-            imageRight: "", 
+            image: "", 
             x: 0, 
             y: 0, 
             width: 0, 
@@ -31,7 +30,7 @@ export class Tower {
             y: this.position.y + this.height / 2
         };
 
-        this.maxFrame = (this.sprite.imageRight.width / this.sprite.width) - 1;
+        this.maxFrame = (this.sprite.image.width / this.sprite.width) - 1;
 
         this.projectiles = [];
         this.target;
@@ -44,7 +43,7 @@ export class Tower {
 
     draw(ctx){
         ctx.drawImage(
-            this.sprite.imageRight,
+            this.sprite.image,
             this.sprite.x * this.sprite.width,
             this.sprite.y * this.sprite.height,
             this.sprite.width,
@@ -63,7 +62,7 @@ export class Tower {
         }
 
         if (this.shootTimer > this.cooldown && this.target){
-            this.shoot(this.game.projectileHandler.fireball);
+            this.shoot(this.game.assetHandler.blueFireball);
             this.shootTimer = 0;
         }
     }
@@ -75,8 +74,8 @@ export class Tower {
                     image: projectile, 
                     x: 0, 
                     y: 0,  
-                    width: 68, 
-                    height: 9 
+                    width: 50, 
+                    height: 25 
                 },
                 position: {
                     x: this.center.x,

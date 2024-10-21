@@ -1,5 +1,4 @@
-import { ENEMY_STATE } from "./EnemyHandler.js";
-import { EFFECT_STATES } from "./EffectHandler.js";
+import { ENEMY_STATE, EFFECT_STATES } from "./RenderHandler.js";
 import { TILE_SIZE, HALF_TILE_SIZE } from "../index.js";
 
 export class Effect {
@@ -31,7 +30,6 @@ export class Effect {
 
         this.state = EFFECT_STATES.ANIMATING;
         this.direction = direction;
-
     }
 
     renderEffect(ctx, event){
