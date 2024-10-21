@@ -27,8 +27,8 @@ export class Tower {
         this.height = this.sprite.height * this.scale;
         this.halfWidth = this.width / 2;
         this.center = {
-            x: this.position.x + this.width / 3,
-            y: this.position.y + this.height / 3
+            x: this.position.x + this.width / 2,
+            y: this.position.y + this.height / 2
         };
 
         this.maxFrame = (this.sprite.imageRight.width / this.sprite.width) - 1;
@@ -36,7 +36,7 @@ export class Tower {
         this.projectiles = [];
         this.target;
 
-        this.damage = 30;
+        this.damage = 50;
         this.range = 125;
         this.cooldown = 10;
         this.shootTimer = 0;
@@ -72,8 +72,7 @@ export class Tower {
         this.projectiles.push(
             new Projectile({
                 sprite: { 
-                    imageLeft: null,
-                    imageRight: projectile, 
+                    image: projectile, 
                     x: 0, 
                     y: 0,  
                     width: 68, 

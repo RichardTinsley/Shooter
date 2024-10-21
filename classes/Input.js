@@ -8,12 +8,9 @@ const MUSIC = 'm';
 const RESTART = 'r';
 
 export class Input {
-    constructor(game, level, towerHandler, enemyHandler){
+    constructor(game){
         this.game = game;
-        this.level = level;
-        this.towerHandler = towerHandler;
-        this.enemyHandler = enemyHandler;
-        
+
         this.mouse = {
             x: undefined,
             y: undefined
@@ -30,7 +27,7 @@ export class Input {
 
         window.addEventListener('click', e => {
             if (this.activeTile && !this.activeTile.isOccupied && this.game.coins - 25 >= 0) {
-                this.towerHandler.towers.push(
+                this.game.towerHandler.towers.push(
                     new Tower({
                         game: this.game,
                         sprite: { 
@@ -50,7 +47,7 @@ export class Input {
                 );
                 
                 this.activeTile.isOccupied = true;
-                this.towerHandler.towers.sort((a, b) => {
+                this.game.towerHandler.towers.sort((a, b) => {
                     return a.position.y - b.position.y;
                 })
                 this.game.coins -= 25;
@@ -58,7 +55,7 @@ export class Input {
             
             if(this.activeEnemy){
                 this.activeEnemy.isSelected = true;
-                this.enemyHandler.enemies.forEach(enemy => {
+                this.game.enemyHandler.enemies.forEach(enemy => {
                     if(enemy != this.activeEnemy){
                         enemy.isSelected = false;
                     }
@@ -72,21 +69,23 @@ export class Input {
             this.activeTile = null;
             this.activeEnemy = null;
 
-            this.enemyHandler.enemies.forEach(enemy => {
+            this.game.enemyHandler.enemies.forEach(enemy => {
                 if (
                     this.mouse.x > enemy.position.x &&
-                    this.mouse.x < enemy.position.x + ENEMY_SIZE &&
-                    this.mouse.y > enemy.position.y - (ENEMY_SIZE / 2) &&
-                    this.mouse.y < enemy.position.y + ENEMY_SIZE 
+                    this.mouse.x < enemy.position.x + TILE_SIZE &&
+                    this.mouse.y > enemy.position.y - (TILE_SIZE / 2) &&
+                    this.mouse.y < enemy.position.y + TILE_SIZE 
                 ) {
-                    cursor.style = "cursor: url(./images/cursors/text.cur), auto;";
                     this.activeEnemy = enemy;
                 }
                 else
                     cursor.style = "cursor: url(./images/cursors/normal.cur), auto;";
             })
 
-            this.level.placementTiles.forEach(tile => {
+            if(this.activeEnemy)
+                cursor.style = "cursor: url(./images/cursors/text.cur), auto;";
+
+            this.game.level.placementTiles.forEach(tile => {
                 if (
                     this.mouse.x > tile.position.x &&
                     this.mouse.x < tile.position.x + tile.size &&
@@ -143,11 +142,14 @@ export class Input {
 
     keyReleased(key){
         const index = this.keys.indexOf(key);
-        if (index === -1) return;
+        if (index === -1) 
+            return;
         this.keys.splice(index, 1);
     }  
 
     drawLevelDebug(ctx){
+        ctx.strokeStyle = 'rgba(0, 0, 0, 1)';
+        ctx.lineWidth = 1;
         for (let row = 0; row < ROWS; row++)
             for (let column = 0; column < COLUMNS; column++)
                 ctx.strokeRect(
@@ -159,7 +161,7 @@ export class Input {
     }
 
     drawEnemyDebug(ctx){
-        this.enemyHandler.enemies.forEach(enemy => {
+        this.game.enemyHandler.enemies.forEach(enemy => {
             ctx.fillStyle = 'rgba(250, 0, 0, 0.3)';
             ctx.fillRect(enemy.position.x, enemy.position.y, TILE_SIZE, TILE_SIZE);
             ctx.fillStyle = 'rgba(0, 0, 250, 0.3)';
@@ -169,7 +171,7 @@ export class Input {
     }
 
     drawTowerDebug(ctx){
-        this.towerHandler.towers.forEach(tower => {
+        this.game.towerHandler.towers.forEach(tower => {
             ctx.beginPath();
             ctx.arc(tower.center.x, tower.center.y, tower.range, 0, Math.PI * 2);
             ctx.fillStyle = 'rgba(200, 0, 0, 0.1)';

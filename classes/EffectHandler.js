@@ -3,17 +3,13 @@ import { Effect } from "./Effect.js";
 const effectsURL = './images/effects/'; 
 export const EFFECT_STATES = {
     ANIMATING: 0,
-    FINISHED: 1,
+    FINISHED: 1
 };
-
 
 export class EffectHandler {
     constructor(){
-        this.bloodLeft = new Image();
-        this.bloodLeft.src = `${effectsURL}bloodLeft.png`;
-
-        this.bloodRight = new Image();
-        this.bloodRight.src = `${effectsURL}bloodRight.png`;
+        this.blood = new Image();
+        this.blood.src = `${effectsURL}blood.png`;
 
         this.effects = [];
     }
@@ -29,12 +25,11 @@ export class EffectHandler {
         }
     }
 
-    populateEffectsArray(leftImage, rightImage, position, width, height, scale){
+    populateEffectsArray(image, position, width, height, scale, direction){
         this.effects.push(
             new Effect({
                 sprite: { 
-                    imageLeft: leftImage,
-                    imageRight: rightImage,
+                    image: image,
                     x: 0, 
                     y: Math.floor(Math.random() * 9),  
                     width: width, 
@@ -42,6 +37,7 @@ export class EffectHandler {
                 }, 
                 position: position, 
                 scale: scale * .6,
+                direction: direction
             })            
         );
     }

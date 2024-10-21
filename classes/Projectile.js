@@ -7,8 +7,7 @@ export class Projectile {
         damage
     }){
         this.sprite = sprite ?? { 
-            imageLeft: "",
-            imageRight: "", 
+            image: "", 
             x: 0, 
             y: 0, 
             width: 0, 
@@ -23,8 +22,8 @@ export class Projectile {
         this.width = this.sprite.width * this.scale;
         this.height = this.sprite.height * this.scale;   
 
-        this.maxFrame = (this.sprite.imageRight.width / this.sprite.width) - 1;
-        this.maxRow = (this.sprite.imageRight.height / this.sprite.height) - 1;
+        this.maxFrame = (this.sprite.image.width / this.sprite.width) - 1;
+        this.maxRow = (this.sprite.image.height / this.sprite.height) - 1;
 
         this.enemy = enemy;
         this.damage = damage;
@@ -46,7 +45,7 @@ export class Projectile {
         ctx.translate(this.center.x, this.center.y);
         ctx.rotate(this.angle);
         ctx.drawImage(
-            this.sprite.imageRight,
+            this.sprite.image,
             this.sprite.x * this.sprite.width,
             this.sprite.y * this.sprite.height,
             this.sprite.width,

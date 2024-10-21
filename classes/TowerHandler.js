@@ -1,9 +1,9 @@
 import { ENEMY_STATE } from "./EnemyHandler.js";
 
 export class TowerHandler{
-    constructor(enemyHandler, projectileHandler){
-        this.enemyHandler = enemyHandler;
-        this.projectileHandler = projectileHandler;
+    constructor(game){
+        this.game = game;
+
         this.towers = [];
     }
 
@@ -20,12 +20,12 @@ export class TowerHandler{
             else
                 tower.target = enemiesInTowerRange[0];
 
-            this.projectileHandler.renderProjectiles(ctx, event, tower);
+            this.game.projectileHandler.renderProjectiles(ctx, event, tower);
         })
     }
 
     prioritiseEnemiesInTowerRange(tower){
-        return this.enemyHandler.enemies.filter(enemy => {
+        return this.game.enemyHandler.enemies.filter(enemy => {
             if(enemy.state === ENEMY_STATE.WALKING || enemy.state === ENEMY_STATE.RUNNING){
                 const xDifference = enemy.center.x - tower.center.x;
                 const yDifference = enemy.center.y - tower.center.y;

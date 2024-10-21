@@ -126,7 +126,7 @@ export class EnemyHandler{
                 colour: enemyColours[i], 
                 image: new Image(), 
             }
-            array[i].image.src = `${enemiesURL}${enemyColours[i]}Right.png`;
+            array[i].image.src = `${enemiesURL}${enemyColours[i]}.png`;
         }
         return array;
     }

@@ -26,9 +26,9 @@ export class Game {
         this.gameTextHandler = new GameTextHandler();
         this.effectHandler = new EffectHandler();
         this.enemyHandler = new EnemyHandler(this);
-        this.projectileHandler = new ProjectileHandler(this, this.enemyHandler, this.effectHandler, this.gameTextHandler);
-        this.towerHandler = new TowerHandler(this.enemyHandler, this.projectileHandler);
-        this.input = new Input(this, this.level, this.towerHandler, this.enemyHandler);
+        this.projectileHandler = new ProjectileHandler(this);
+        this.towerHandler = new TowerHandler(this);
+        this.input = new Input(this);
         
         this.currentGameState = GAME_STATES.PLAYING;
 
@@ -84,7 +84,6 @@ export class Game {
         this.enemyHandler.renderEnemies(ctx, this.eventUpdate);
         this.effectHandler.renderEffects(ctx, this.eventUpdate);
         this.gameTextHandler.renderGameTexts(ctx);
-        // this.audioHandler.renderAudios();
         this.renderGUI(ctx);
         if(this.hearts <= 0) this.currentGameState = GAME_STATES.GAMEOVER;
     }

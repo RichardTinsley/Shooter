@@ -1,11 +1,8 @@
 import { ENEMY_STATE } from "./EnemyHandler.js";
 
 export class ProjectileHandler{
-    constructor(game, enemyHandler, effectHandler, gameTextHandler){
+    constructor(game){
         this.game = game;
-        this.enemyHandler = enemyHandler;
-        this.effectHandler = effectHandler;
-        this.gameTextHandler = gameTextHandler;
 
         this.fireball = new Image();
         this.fireball.src = './images/projectiles/fireball_68x9.png';
@@ -25,22 +22,23 @@ export class ProjectileHandler{
                 this.game.audioHandler.bowImpact1.play();
 
                 if(projectile.enemy.health <= 0){
-                    const enemyIndex = this.enemyHandler.enemies.findIndex((enemy) => projectile.enemy === enemy);
+                    const enemyIndex = this.game.enemyHandler.enemies.findIndex((enemy) => projectile.enemy === enemy);
                     
                     if (enemyIndex > -1 && projectile.enemy.state !== ENEMY_STATE.DYING){
-                        this.game.coins += this.enemyHandler.enemies[enemyIndex].coins;
-                        this.game.exp += this.enemyHandler.enemies[enemyIndex].exp;
+                        this.game.coins += this.game.enemyHandler.enemies[enemyIndex].coins;
+                        this.game.exp += this.game.enemyHandler.enemies[enemyIndex].exp;
+                        console.log(projectile.enemy.direction, ENEMY_STATE.RIGHT);
 
-                        this.effectHandler.populateEffectsArray(
-                            this.effectHandler.bloodLeft,
-                            this.effectHandler.bloodRight,
+                        this.game.effectHandler.populateEffectsArray(
+                            this.game.effectHandler.blood,
                             {x: projectile.enemy.position.x, y: projectile.enemy.position.y}, 
                             110,
                             110,
                             projectile.enemy.scale,
+                            projectile.enemy.direction
                         );
 
-                        this.gameTextHandler.populateGameTextArray(
+                        this.game.gameTextHandler.populateGameTextArray(
                             '+' + projectile.enemy.coins, 
                             '255, 215, 0, ', //GOLD COLOUR TEXT
                             '10', 
@@ -49,7 +47,7 @@ export class ProjectileHandler{
                             'left'
                         ); 
 
-                        this.gameTextHandler.populateGameTextArray( 
+                        this.game.gameTextHandler.populateGameTextArray( 
                             '+' + projectile.enemy.exp, 
                             '50, 205, 50, ', //LIME COLOUR TEXT
                             '10', 
