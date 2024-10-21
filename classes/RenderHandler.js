@@ -216,7 +216,19 @@ export class RenderHandler {
         ctx.fillText(text, x + 5, y - 3);
     }
     
-    drawScreenText(ctx, text){
+    drawScreenStopped(ctx, text){
+        this.renderTiles(ctx);
+        this.enemies.forEach(enemy => enemy.draw(ctx));
+        this.towers.forEach(tower => {
+            tower.draw(ctx);
+            tower.projectiles.forEach(projectile => {
+                projectile.draw(ctx);
+            })
+        });
+        this.effects.forEach(effect => effect.draw(ctx));
+        this.gameTexts.forEach(text => text.draw(ctx));
+        this.renderGUI(ctx);
+
         ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
         ctx.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
         this.drawGUIText(ctx, text, GAME_WIDTH / 2, GAME_HEIGHT / 2, 100, 'center'); 

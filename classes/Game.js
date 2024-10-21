@@ -47,14 +47,14 @@ export class Game {
                 this.renderHandler.renderGame(ctx, deltaTime);
                 break
             case GAME_STATES.PAUSED:
-                this.renderHandler.drawScreenText(ctx, GAME_STATES.PAUSED); 
+                this.renderHandler.drawScreenStopped(ctx, GAME_STATES.PAUSED); 
                 break
             case GAME_STATES.MENU: 
                 break
             case GAME_STATES.LOADING: 
                 break
             case GAME_STATES.GAMEOVER:
-                this.renderHandler.drawScreenText(ctx, GAME_STATES.GAMEOVER);
+                this.renderHandler.drawScreenStopped(ctx, GAME_STATES.GAMEOVER);
                 break
             case GAME_STATES.DEBUG: 
                 this.renderHandler.renderGame(ctx, deltaTime);
@@ -73,15 +73,15 @@ export class Game {
         this.waves = 1;
         this.timer = 0;
 
-        this.enemyHandler.allEnemiesActive = false;
-        this.enemyHandler.maxEnemies = 10;
-        this.enemyHandler.enemyCounter = 0;    
-        this.enemyHandler.enemySpawnTimer = 0;
+        this.renderHandler.allEnemiesActive = false;
+        this.renderHandler.maxEnemies = 10;
+        this.renderHandler.enemyCounter = 0;    
+        this.renderHandler.enemySpawnTimer = 0;
 
-        this.enemyHandler.enemies = [];
-        this.towerHandler.towers = [];
-        this.effectHandler.effects = [];
-        this.gameTextHandler.gameTexts = [];
+        this.renderHandler.enemies = [];
+        this.renderHandler.towers = [];
+        this.renderHandler.effects = [];
+        this.renderHandler.gameTexts = [];
         this.currentGameState = GAME_STATES.PLAYING;
     }
 

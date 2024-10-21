@@ -40,6 +40,8 @@ export class Projectile {
         this.speed = 2;
     }
 
+    
+
     draw(ctx){
         ctx.save();
         ctx.translate(this.center.x, this.center.y);
