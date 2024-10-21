@@ -21,6 +21,8 @@ export class RenderHandler {
     constructor(game) {
         this.game = game; 
 
+
+        this.assets = [];
         this.enemies = [];
         this.towers = [];
         this.projectiles = [];

@@ -2,10 +2,12 @@ import { TILE_SIZE } from "../index.js";
 import { GAME_STATES } from "./Game.js";
 import { ENEMY_STATE } from "./RenderHandler.js";
 
-const PAUSE = 'p';
-const DEBUG = 'o';
-const MUSIC = 'm';
-const RESTART = 'r';
+const KEYS = {
+    PAUSE: 'p',
+    DEBUG: 'o',
+    MUSIC: 'm',
+    RESTART: 'r'
+}
 
 export class Input {
     constructor(game){
@@ -49,16 +51,14 @@ export class Input {
             this.activeEnemy = null;
 
             this.game.renderHandler.enemies.forEach(enemy => {
-                if (
-                    this.mouse.x > enemy.position.x &&
+                if( this.mouse.x > enemy.position.x &&
                     this.mouse.x < enemy.position.x + TILE_SIZE &&
                     this.mouse.y > enemy.position.y - (TILE_SIZE / 2) &&
                     this.mouse.y < enemy.position.y + TILE_SIZE &&
                     enemy.state !== ENEMY_STATE.DYING
-                ) {
+                ){
                     this.activeEnemy = enemy;
-                }
-                else
+                } else
                     cursor.style = "cursor: url(./images/cursors/normal.cur), auto;";
             })
 
@@ -66,64 +66,54 @@ export class Input {
                 cursor.style = "cursor: url(./images/cursors/text.cur), auto;";
 
             this.game.renderHandler.placementTiles.forEach(tile => {
-                if (
-                    this.mouse.x > tile.position.x &&
+                if( this.mouse.x > tile.position.x &&
                     this.mouse.x < tile.position.x + tile.size &&
                     this.mouse.y > tile.position.y &&
                     this.mouse.y < tile.position.y + tile.size
-                ) {
+                ){
                     this.activeTile = tile;
                     tile.mouseOver = true;
-                } else {
+                } else 
                     tile.mouseOver = false;
-                }
+                
             });
         })
         
         window.addEventListener('keydown', e =>{
-            if (e.key.toLowerCase() === PAUSE)
-                this.keyPressed(PAUSE);
-            else if (e.key.toLowerCase() === DEBUG)
-                this.keyPressed(DEBUG);
-            else if (e.key.toLowerCase() === MUSIC)
-                this.keyPressed(MUSIC);
-            else if (e.key.toLowerCase() === RESTART)
-                this.keyPressed(RESTART);
+            const key = e.key.toLowerCase();
+
+            if (this.keys.indexOf(key) === -1)
+                this.keys.unshift(key);
+            
+            if(key === KEYS.PAUSE)
+                if(this.game.currentGameState === GAME_STATES.PLAYING)
+                    this.game.currentGameState = GAME_STATES.PAUSED;
+                else 
+                    this.game.currentGameState = GAME_STATES.PLAYING;
+
+            if(key === KEYS.DEBUG)
+                if(this.game.currentGameState === GAME_STATES.PLAYING)
+                    this.game.currentGameState = GAME_STATES.DEBUG;
+                else 
+                    this.game.currentGameState = GAME_STATES.PLAYING;
+
+            if(key === KEYS.MUSIC)
+                if(this.game.assetHandler.music.paused) 
+                    this.game.assetHandler.music.play();
+                else
+                    this.game.assetHandler.music.pause();
+
+            if(key === KEYS.RESTART)
+                this.game.currentGameState = GAME_STATES.RESTART;
+
+        });
+
+        window.addEventListener('keyup', e =>{
+            const key = e.key.toLowerCase();
+            const index = this.keys.indexOf(key);
+            if (index === -1) 
+                return;
+            this.keys.splice(index, 1);
         });
     }
-    
-    get lastKey(){ return this.keys[0]; }
-
-    keyPressed(key){
-        if (this.keys.indexOf(key) === -1)
-            this.keys.unshift(key);
-        
-        if(key === PAUSE)
-            if(this.game.currentGameState === GAME_STATES.PLAYING)
-                this.game.currentGameState = GAME_STATES.PAUSED;
-            else 
-                this.game.currentGameState = GAME_STATES.PLAYING;
-
-        if(key === DEBUG)
-            if(this.game.currentGameState === GAME_STATES.PLAYING)
-                this.game.currentGameState = GAME_STATES.DEBUG;
-            else 
-                this.game.currentGameState = GAME_STATES.PLAYING;
-
-        if(key === MUSIC)
-            if(this.game.audioHandler.music.paused) 
-                this.game.audioHandler.music.play();
-            else
-                this.game.audioHandler.music.pause();
-
-        if(key === RESTART)
-            this.game.currentGameState = GAME_STATES.RESTART;
-    }
-
-    keyReleased(key){
-        const index = this.keys.indexOf(key);
-        if (index === -1) 
-            return;
-        this.keys.splice(index, 1);
-    }  
 }

@@ -67,15 +67,11 @@ export class Enemy {
         switch(this.state){
             case ENEMY_STATE.WALKING:
                 this.updateMovement(event); 
-                this.drawShadow(ctx);
                 this.draw(ctx);
-                this.drawHealthBar(ctx);
                 break
             case ENEMY_STATE.RUNNING:
                 this.updateMovement(event);
-                this.drawShadow(ctx);
                 this.draw(ctx); 
-                this.drawHealthBar(ctx);
                 break
             case ENEMY_STATE.DYING:
                 this.updateDying(event);
@@ -140,6 +136,10 @@ export class Enemy {
     }
 
     draw(ctx){
+        if(this.health > 0){
+            this.drawHealthBar(ctx);
+            this.drawShadow(ctx);
+        }
         const left = -this.halfWidth - HALF_TILE_SIZE - this.position.x;
         const right = this.position.x + HALF_TILE_SIZE - this.halfWidth;
         if(this.direction === ENEMY_STATE.LEFT){
