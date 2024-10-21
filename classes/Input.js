@@ -1,5 +1,5 @@
 import { Tower } from "./Tower.js";
-import { TILE_SIZE, HALF_TILE_SIZE, TOWER_SIZE, ROWS, COLUMNS } from "../index.js";
+import { TILE_SIZE, HALF_TILE_SIZE, TOWER_SIZE } from "../index.js";
 import { GAME_STATES } from "./Game.js";
 
 const PAUSE = 'p';
@@ -142,44 +142,4 @@ export class Input {
             return;
         this.keys.splice(index, 1);
     }  
-
-    drawLevelDebug(ctx){
-        ctx.strokeStyle = 'rgba(0, 0, 0, 1)';
-        ctx.lineWidth = 1;
-        for (let row = 0; row < ROWS; row++)
-            for (let column = 0; column < COLUMNS; column++)
-                ctx.strokeRect(
-                    column * TILE_SIZE,
-                    row * TILE_SIZE,
-                    TILE_SIZE,
-                    TILE_SIZE
-                );   
-    }
-
-    drawEnemyDebug(ctx){
-        this.game.renderHandler.enemies.forEach(enemy => {
-            ctx.fillStyle = 'rgba(250, 0, 0, 0.3)';
-            ctx.fillRect(enemy.position.x, enemy.position.y, TILE_SIZE, TILE_SIZE);
-            ctx.fillStyle = 'rgba(0, 0, 250, 0.3)';
-            ctx.fillRect(Math.floor(enemy.position.x / TILE_SIZE) * TILE_SIZE, Math.floor(enemy.position.y / TILE_SIZE) * TILE_SIZE, TILE_SIZE, TILE_SIZE);
-            this.game.renderHandler.drawGUIText(ctx, enemy.priorityDistance, Math.floor(enemy.position.x / TILE_SIZE) * TILE_SIZE, Math.floor(enemy.position.y / TILE_SIZE) * TILE_SIZE + 20, HALF_TILE_SIZE, 'right');
-        })
-    }
-
-    drawTowerDebug(ctx){
-        this.game.renderHandler.towers.forEach(tower => {
-            ctx.beginPath();
-            ctx.arc(tower.center.x, tower.center.y, tower.range, 0, Math.PI * 2);
-            ctx.fillStyle = 'rgba(200, 0, 0, 0.1)';
-            ctx.fill();
-            this.game.renderHandler.drawGUIText(ctx, tower.range, tower.center.x, tower.center.y - TOWER_SIZE, HALF_TILE_SIZE, 'right');
-        })
-    }
-
-    drawPerformanceDebug(ctx){
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
-        ctx.fillRect(TILE_SIZE, TILE_SIZE * 3, TILE_SIZE * 3, TILE_SIZE * 2);
-        const FPS = Math.round(this.game.FPSNormal * 1000) / 1000;
-        this.game.renderHandler.drawGUIText(ctx, `f p s: ${FPS}`, TILE_SIZE, TILE_SIZE * 4, HALF_TILE_SIZE, 'left');
-    }
 }

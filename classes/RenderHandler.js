@@ -1,4 +1,4 @@
-import { GAME_WIDTH, GAME_HEIGHT } from "../index.js";
+import { GAME_WIDTH, GAME_HEIGHT, ROWS, COLUMNS, TILE_SIZE, HALF_TILE_SIZE, TOWER_SIZE } from "../index.js";
 
 export const ENEMY_STATE = {
     IDLE: 0,
@@ -194,10 +194,10 @@ export class RenderHandler {
 
     renderDebugInfo(ctx){
         this.game.calculateFPSNormal();
-        this.game.input.drawLevelDebug(ctx);
-        this.game.input.drawTowerDebug(ctx);
-        this.game.input.drawEnemyDebug(ctx);
-        this.game.input.drawPerformanceDebug(ctx);
+        this.drawLevelDebug(ctx);
+        this.drawTowerDebug(ctx);
+        this.drawEnemyDebug(ctx);
+        this.drawPerformanceDebug(ctx);
     }
     
     renderGUI(ctx){
@@ -220,6 +220,46 @@ export class RenderHandler {
         ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
         ctx.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
         this.drawGUIText(ctx, text, GAME_WIDTH / 2, GAME_HEIGHT / 2, 100, 'center'); 
+    }
+
+    drawLevelDebug(ctx){
+        ctx.strokeStyle = 'rgba(0, 0, 0, 1)';
+        ctx.lineWidth = 1;
+        for (let row = 0; row < ROWS; row++)
+            for (let column = 0; column < COLUMNS; column++)
+                ctx.strokeRect(
+                    column * TILE_SIZE,
+                    row * TILE_SIZE,
+                    TILE_SIZE,
+                    TILE_SIZE
+                );   
+    }
+
+    drawEnemyDebug(ctx){
+        this.enemies.forEach(enemy => {
+            ctx.fillStyle = 'rgba(250, 0, 0, 0.3)';
+            ctx.fillRect(enemy.position.x, enemy.position.y, TILE_SIZE, TILE_SIZE);
+            ctx.fillStyle = 'rgba(0, 0, 250, 0.3)';
+            ctx.fillRect(Math.floor(enemy.position.x / TILE_SIZE) * TILE_SIZE, Math.floor(enemy.position.y / TILE_SIZE) * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+            this.drawGUIText(ctx, enemy.priorityDistance, Math.floor(enemy.position.x / TILE_SIZE) * TILE_SIZE, Math.floor(enemy.position.y / TILE_SIZE) * TILE_SIZE + 20, HALF_TILE_SIZE, 'right');
+        })
+    }
+
+    drawTowerDebug(ctx){
+        this.towers.forEach(tower => {
+            ctx.beginPath();
+            ctx.arc(tower.center.x, tower.center.y, tower.range, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(200, 0, 0, 0.1)';
+            ctx.fill();
+            this.drawGUIText(ctx, tower.range, tower.center.x, tower.center.y - TOWER_SIZE, HALF_TILE_SIZE, 'right');
+        })
+    }
+
+    drawPerformanceDebug(ctx){
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+        ctx.fillRect(TILE_SIZE, TILE_SIZE * 3, TILE_SIZE * 3, TILE_SIZE * 2);
+        const FPS = Math.round(this.game.FPSNormal * 1000) / 1000;
+        this.drawGUIText(ctx, `f p s: ${FPS}`, TILE_SIZE, TILE_SIZE * 4, HALF_TILE_SIZE, 'left');
     }
 }
 
