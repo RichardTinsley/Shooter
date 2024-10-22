@@ -148,10 +148,7 @@ export class RenderHandler {
                     projectile.populateEffectsArray(this.game.assetHandler.blood, this.effects);
                 }
 
-                projectile.populateEffectsArray(
-                    projectile.loadExplosion(this.game.assetHandler.blueExplosion), 
-                    this.effects
-                );
+                projectile.populateExplosionsArray(this.game.assetHandler.blueExplosion, this.effects);
 
                 if(projectile.state === ANIMATION_STATE.FINISHED){
                     this.projectiles.splice(i, 1);

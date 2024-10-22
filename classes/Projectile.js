@@ -119,18 +119,18 @@ export class Projectile {
             height: effect.height,
             scale: effect.scale,
             direction: effect.direction
-        }
-            
-        ));
+        }));
     }
 
-    loadExplosion(effect){
-        return {        
-            image: effect.image,
-            x: 0, 
-            y: 0,  
-            width: effect.width, 
-            height: effect.height, 
+    populateExplosionsArray(effect, effects){
+        effects.push(new Effect({        
+            sprite: { 
+                image: effect.image,
+                x: 0, 
+                y: 0,  
+                width: effect.width, 
+                height: effect.height 
+            }, 
             position: {
                 x: this.enemy.position.x + Math.floor(Math.random() * HALF_TILE_SIZE), 
                 y: this.enemy.position.y + Math.floor(Math.random() * HALF_TILE_SIZE)
@@ -139,7 +139,7 @@ export class Projectile {
             height: effect.height,
             scale: Math.random() * .4 + .3,
             direction: effect.direction
-        }
+        }));
     }
 
     populateGameTextArray(gameText, text, position, gameTexts){
