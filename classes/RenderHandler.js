@@ -47,8 +47,10 @@ export class RenderHandler {
             
         if (this.enemySpawnTimer % Math.floor(Math.random() * 300) === 0 && this.enemyCounter < this.maxEnemies){
 
-            const enemyColour = this.game.assetHandler.generateRandomEnemy();
-            this.game.assetHandler.populateEnemiesArray(this.game.loadEnemy(enemyColour), this.enemies);
+            this.game.assetHandler.populateEnemiesArray(
+                this.game.loadEnemy(this.game.assetHandler.generateRandomEnemy()), 
+                this.enemies
+            );
 
             if(this.enemyCounter === this.maxEnemies)
                 this.allEnemiesActive = true;
@@ -116,8 +118,11 @@ export class RenderHandler {
                 projectile.state = ANIMATION_STATE.FINISHED
                 enemy.health -= projectile.damage;
 
-                if(enemy.health <= 0){
-                    if (enemyIndex > -1 && enemy.state !== ENEMY_STATE.DYING){
+                const random = Math.floor(Math.random() * 3);
+                this.game.assetHandler.sounds[random].currentTime = 0;
+                this.game.assetHandler.sounds[random].play()
+
+                if(enemy.health <= 0 && enemyIndex > -1 && enemy.state !== ENEMY_STATE.DYING){
                         this.game.coins += enemy.coins;
                         this.game.exp += enemy.exp;
 
@@ -135,7 +140,6 @@ export class RenderHandler {
                             projectile.loadGameText(this.game.assetHandler.greenGameText, '+' + enemy.exp, projectile.position), 
                             this.gameTexts
                         );
-                    }
                 }
 
                 if(enemy.state === ENEMY_STATE.DYING){
@@ -144,8 +148,6 @@ export class RenderHandler {
                         this.effects
                     );
                 }
-
-                // this.game.assetHandler.createExplosion(projectile, this.game.assetHandler.blueExplosion);
 
                 this.game.assetHandler.populateEffectsArray(
                     projectile.loadExplosion(this.game.assetHandler.blueExplosion), 

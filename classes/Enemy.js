@@ -125,7 +125,7 @@ export class Enemy {
         else
             this.direction = ENEMY_STATE.RIGHT;
 
-        if(this.health <= 0 && this.state) {
+        if(this.health <= 0) {
             this.state = ENEMY_STATE.DYING;
             this.sprite.row = ENEMY_STATE.DYING;
             this.sprite.frame = 0;

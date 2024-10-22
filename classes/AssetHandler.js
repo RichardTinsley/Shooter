@@ -36,11 +36,18 @@ export class AssetHandler {
         this.levelOneImage.src = './images/levels/levelOne.png';
         this.levelOne = new Level1();
         
-        // AUDIO
-        this.music = new Audio('./audio/music.mp3');
+        // MUSIC
+        this.music = new Audio('./audio/battleMusic.mp3');
+        this.music.currentTime = 9;
         this.music.volume = 0.1;
         this.music.pause();
-        this.bowImpact1 = new Audio('./audio/bowImpact1.ogg');
+
+        // SOUNDSFX
+        this.bowImpact1 = new Audio('./audio/death (1).ogg');
+        this.bowImpact2 = new Audio('./audio/death (2).ogg');
+        this.bowImpact3 = new Audio('./audio/death (3).ogg');
+
+        this.sounds = [this.bowImpact1, this.bowImpact2, this.bowImpact3];
 
         // ENEMIES
         this.enemyImages = this.enemyImageImporter();
@@ -148,6 +155,19 @@ export class AssetHandler {
 
     enemyImageImporter(){
         let array = [];
+        for(let i = 0; i < enemyColours.length; i++){
+            array[i] = {
+                colour: enemyColours[i], 
+                image: new Image(), 
+            }
+            array[i].image.src = `${enemiesURL}${enemyColours[i]}.png`;
+        }
+        return array;
+    }
+
+    audioImporter(){
+        let array = [];
+
         for(let i = 0; i < enemyColours.length; i++){
             array[i] = {
                 colour: enemyColours[i], 
