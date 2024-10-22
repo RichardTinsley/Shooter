@@ -10,8 +10,8 @@ export class Tower {
     }){
         this.sprite = sprite ?? { 
             image: "", 
-            x: 0, 
-            y: 0, 
+            frame: 0, 
+            row: 0, 
             width: 0, 
             height: 0 
         };
@@ -42,8 +42,8 @@ export class Tower {
     draw(ctx){
         ctx.drawImage(
             this.sprite.image,
-            this.sprite.x * this.sprite.width,
-            this.sprite.y * this.sprite.height,
+            this.sprite.frame * this.sprite.width,
+            this.sprite.row * this.sprite.height,
             this.sprite.width,
             this.sprite.height,
             this.position.x + TILE_SIZE - this.halfWidth,
@@ -56,7 +56,7 @@ export class Tower {
     update(event) {
         if (event){
             this.shootTimer++;
-            this.sprite.x < this.maxFrame ? this.sprite.x++ : this.sprite.x = 0;
+            this.sprite.frame < this.maxFrame ? this.sprite.frame++ : this.sprite.frame = 0;
         }
     }
 
@@ -64,8 +64,8 @@ export class Tower {
         return {
             sprite: { 
                 image: this.projectile.image, 
-                x: 0, 
-                y: 0,  
+                frame: 0, 
+                row: 0,  
                 width: this.projectile.width, 
                 height: this.projectile.height 
             },

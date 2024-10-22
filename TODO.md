@@ -1,13 +1,14 @@
 BUTTONS/MENUS
 NOT ENOUGH GOLD NOTIFICATION
-FIX TOWER OFF CENTER PROJECTILE
 MERGE GAMETEXT AND EFFECTS SOMEHOW
 LOADING SCREEN
 MAIN MENU
 
 AUDIO SOUND FX
+enemy collisions, push each other away
 states for projectiles, tiles, towers
 animate enemy selection
+randomise direction for effect sprites
 
 Ruby		Splash damage / flame thrower
 *Emerald  	Poison, damage, reduce armour

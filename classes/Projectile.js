@@ -11,8 +11,8 @@ export class Projectile {
     }){
         this.sprite = sprite ?? { 
             image: "", 
-            x: 0, 
-            y: 0, 
+            frame: 0, 
+            row: 0, 
             width: 0, 
             height: 0 
         };
@@ -63,8 +63,8 @@ export class Projectile {
         ctx.rotate(this.angle);
         ctx.drawImage(
             this.sprite.image,
-            this.sprite.x * this.sprite.width,
-            this.sprite.y * this.sprite.height,
+            this.sprite.frame * this.sprite.width,
+            this.sprite.row * this.sprite.height,
             this.sprite.width,
             this.sprite.height,
             0 / 2,
@@ -86,17 +86,17 @@ export class Projectile {
         this.center.y += this.velocity.y;
 
         if(event)
-            if(this.sprite.x < this.maxFrame)
-                this.sprite.x++;
+            if(this.sprite.frame < this.maxFrame)
+                this.sprite.frame++;
             else{
                 if(Math.floor(this.maxRow) !== 0)
-                    this.sprite.y++;
+                    this.sprite.row++;
                 
-                this.sprite.x = 0;
+                this.sprite.frame = 0;
             }
-            if(this.sprite.y === this.maxRow && this.sprite.x < this.maxFrame){
-                this.sprite.y = 0;
-                this.sprite.x = 0;
+            if(this.sprite.row === this.maxRow && this.sprite.frame < this.maxFrame){
+                this.sprite.row = 0;
+                this.sprite.frame = 0;
             }
     }
 

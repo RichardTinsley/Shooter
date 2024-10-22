@@ -1,5 +1,6 @@
 import { PlacementTile } from "./PlacementTile.js";
 import { Projectile } from "./Projectile.js";
+import { Level1 } from "./Level.js";
 import { Enemy } from "./Enemy.js";
 import { Tower } from "./Tower.js";
 import { Effect } from "./Effect.js";
@@ -31,8 +32,9 @@ export class AssetHandler {
         this.game = game;
 
         // LEVEL
-        this.level1 = new Image();
-        this.level1.src = './images/LEVEL1.png';
+        this.levelOneImage = new Image();
+        this.levelOneImage.src = './images/levels/levelOne.png';
+        this.levelOne = new Level1();
         
         // AUDIO
         this.music = new Audio('./audio/music.mp3');
@@ -47,40 +49,36 @@ export class AssetHandler {
         this.fireball = new Image();
         this.fireball.src = `${projectilesURL}fireball_68x9.png`;
 
-        this.blueFireballImage = new Image();
-        this.blueFireballImage.src = `${projectilesURL}bluefireball_50x25.png`;
         this.blueFireball = {
-            image: this.blueFireballImage,
+            image: new Image(),
             width: 50,
             height: 25
         }
+        this.blueFireball.image.src = `${projectilesURL}bluefireball_50x25.png`;
 
         // TOWERS
-        this.sapphireTowerImage = new Image();
-        this.sapphireTowerImage.src = `${towersURL}sapphire1.png`;
         this.sapphireTower = {
-            image: this.sapphireTowerImage,
+            image: new Image(),
             projectile: this.blueFireball
         }
+        this.sapphireTower.image.src = `${towersURL}sapphire1.png`;
         
         // EFFECTS //
-        this.bloodImage = new Image();
-        this.bloodImage.src = `${effectsURL}blood_110x110.png`;
         this.blood = {
-            image: this.bloodImage,
+            image: new Image(),
             width: 110,
             height: 110,
             scale: 1
         };
+        this.blood.image.src = `${effectsURL}blood_110x110.png`;
 
-        this.blueExplosionImage = new Image();
-        this.blueExplosionImage.src = `${effectsURL}blueExplosion_256x256.png`;
         this.blueExplosion = {
-            image: this.blueExplosionImage,
+            image: new Image(),
             width: 256,
             height: 256,
             scale: null
         };
+        this.blueExplosion.image.src = `${effectsURL}blueExplosion_256x256.png`;
 
         // GAMETEXTS
         this.greenGameText = {
@@ -101,8 +99,8 @@ export class AssetHandler {
     populateTilesArray(){
         const placementTilesData2D = [];
         const placementTiles = [];
-        for (let i = 0; i < placementTilesData.length; i+= COLUMNS)
-            placementTilesData2D.push(placementTilesData.slice(i, i + COLUMNS));
+        for (let i = 0; i < this.levelOne.placementTilesData.length; i+= COLUMNS)
+            placementTilesData2D.push(this.levelOne.placementTilesData.slice(i, i + COLUMNS));
 
         placementTilesData2D.forEach((row, y) => {
             row.forEach((symbol, x) => {
@@ -159,76 +157,4 @@ export class AssetHandler {
         }
         return array;
     }
-    
-
 }
-
-const placementTilesData = [
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 353, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 353, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 353, 0,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 353, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 353, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 353, 0, 0, 0, 0, 0, 353, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 353, 0, 0, 0, 0, 0, 353, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 353, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-]
-
-export const waypoints = [
-    {
-        "x":-100,
-        "y":685
-    }, 
-    {
-        "x":205,
-        "y":685
-    }, 
-    {
-        "x":205,
-        "y":175
-    }, 
-    {
-        "x":815,
-        "y":175
-    }, 
-    {
-        "x":815,
-        "y":435
-    }, 
-    {
-        "x":555,
-        "y":435
-    }, 
-    {
-        "x":555,
-        "y":685
-    }, 
-    {
-        "x":1135,
-        "y":685
-    }, 
-    {
-        "x":1135,
-        "y":175
-    }, 
-    {
-        "x":1350,
-        "y":175
-    }
-]

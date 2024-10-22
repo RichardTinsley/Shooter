@@ -26,7 +26,7 @@ export class RenderHandler {
     }
 
     renderGame(ctx, deltaTime){
-        ctx.drawImage(this.game.assetHandler.level1, 0, 0);
+        ctx.drawImage(this.game.assetHandler.levelOneImage, 0, 0);
         this.game.gameTimer(deltaTime);
         this.renderTiles(ctx);
         this.renderEnemies(ctx, this.game.eventUpdate);
@@ -208,7 +208,7 @@ export class RenderHandler {
     }
     
     drawScreenStopped(ctx, text){
-        ctx.drawImage(this.game.assetHandler.level1, 0, 0);
+        ctx.drawImage(this.game.assetHandler.levelOneImage, 0, 0);
         this.placementTiles.forEach(tile => tile.draw(ctx));
         this.enemies.sort((a, b) => a.position.y - b.position.y).forEach(enemy => enemy.draw(ctx));
         this.towers.forEach(tower => tower.draw(ctx));

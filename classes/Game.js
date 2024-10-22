@@ -1,5 +1,5 @@
 import { Input } from "./Input.js";
-import { AssetHandler, waypoints } from "./AssetHandler.js";
+import { AssetHandler } from "./AssetHandler.js";
 import { RenderHandler } from "./RenderHandler.js";
 import { ENEMY_SIZE, TOWER_SIZE, HALF_TILE_SIZE} from "../index.js";
 
@@ -126,8 +126,8 @@ export class Game {
         return({
             sprite: { 
                 image: enemy.image, 
-                x: 0, 
-                y: 0,  
+                frame: 0, 
+                row: 0,  
                 width: ENEMY_SIZE, 
                 height: ENEMY_SIZE 
             },
@@ -136,7 +136,7 @@ export class Game {
                 y: 0 
             },
             scale: Math.random() + 1,
-            waypoints: waypoints
+            waypoints: this.assetHandler.levelOne.waypoints
         })
     }
 
@@ -144,8 +144,8 @@ export class Game {
         return {
             sprite: { 
                 image: tower.image, 
-                x: 0, 
-                y: 0,
+                frame: 0, 
+                row: 0,
                 width: TOWER_SIZE, 
                 height: TOWER_SIZE 
             },

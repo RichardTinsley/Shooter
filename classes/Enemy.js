@@ -21,8 +21,8 @@ export class Enemy {
     }){
         this.sprite = sprite ?? { 
             image: "",
-            x: 0, 
-            y: 0, 
+            frame: 0, 
+            row: 0, 
             width: TILE_SIZE, 
             height: TILE_SIZE 
         };
@@ -66,10 +66,10 @@ export class Enemy {
         this.speedAverage = (this.speedRange + this.speedMinimum) / 2;
         
         if(this.speed >= .8){
-            this.sprite.y = ENEMY_STATE.RUNNING;
+            this.sprite.row = ENEMY_STATE.RUNNING;
             this.state = ENEMY_STATE.RUNNING;
         } else {
-            this.sprite.y = ENEMY_STATE.WALKING;
+            this.sprite.row = ENEMY_STATE.WALKING;
             this.state = ENEMY_STATE.WALKING;
         }
     }
@@ -118,7 +118,7 @@ export class Enemy {
             this.waypointIndex++;
         
         if(event)
-            this.sprite.x < this.maxFrame ? this.sprite.x++ : this.sprite.x = 0;
+            this.sprite.frame < this.maxFrame ? this.sprite.frame++ : this.sprite.frame = 0;
 
         if(xDistance < 0)
             this.direction = ENEMY_STATE.LEFT;
@@ -127,17 +127,17 @@ export class Enemy {
 
         if(this.health <= 0 && this.state) {
             this.state = ENEMY_STATE.DYING;
-            this.sprite.y = ENEMY_STATE.DYING;
-            this.sprite.x = 0;
+            this.sprite.row = ENEMY_STATE.DYING;
+            this.sprite.frame = 0;
         }
     }
 
     updateDying(event){
         if(event){
-            if(this.sprite.x < this.maxFrame) 
-                this.sprite.x++; 
+            if(this.sprite.frame < this.maxFrame) 
+                this.sprite.frame++; 
             else 
-                this.sprite.x = this.maxFrame;
+                this.sprite.frame = this.maxFrame;
             
             if(this.height > 2) 
                 this.height -= 2;
@@ -159,8 +159,8 @@ export class Enemy {
         }
         ctx.drawImage(
             this.sprite.image,
-            this.sprite.x * this.sprite.width,
-            this.sprite.y * this.sprite.height + 1,
+            this.sprite.frame * this.sprite.width,
+            this.sprite.row * this.sprite.height + 1,
             this.sprite.width,
             this.sprite.height,
             this.direction === ENEMY_STATE.LEFT ? left : right,
