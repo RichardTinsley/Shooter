@@ -27,6 +27,4 @@ window.addEventListener('load', function(){
         game.gameHandler(ctx, deltaTime, animate);  
     }
     requestAnimationFrame(animate);
-
-    
 });
