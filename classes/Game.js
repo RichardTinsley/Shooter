@@ -66,6 +66,11 @@ export class Game {
         }
     }
 
+    randomPositiveOrNegativeNumber(range){
+        const positiveOrNegative = Math.ceil((Math.random() - 0.5) * 2) < 1 ? -1 : 1
+        return Math.floor(Math.random() * range) * positiveOrNegative;
+    }
+
     restartGame(){
         this.hearts = 1;
         this.coins = 100;

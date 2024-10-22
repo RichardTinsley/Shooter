@@ -66,7 +66,6 @@ export class Effect {
     }
     
     update(event){
-
         if(event){
             if(this.sprite.x < this.maxFrame) 
                 this.sprite.x++; 

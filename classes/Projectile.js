@@ -1,3 +1,4 @@
+import { HALF_TILE_SIZE } from "../index.js";
 import { ANIMATION_STATE } from "./RenderHandler.js";
 
 export class Projectile {
@@ -6,7 +7,7 @@ export class Projectile {
         position,
         enemy,
         scale,
-        damage
+        damage,
     }){
         this.sprite = sprite ?? { 
             image: "", 
@@ -97,6 +98,60 @@ export class Projectile {
                 this.sprite.y = 0;
                 this.sprite.x = 0;
             }
+    }
+
+    loadEffect(effect){
+        return {        
+            sprite: { 
+                image: effect.image,
+                x: 0, 
+                y: Math.floor(Math.random() * 9),  
+                width: effect.width, 
+                height: effect.height 
+            }, 
+            position: {
+                x: this.enemy.position.x, 
+                y: this.enemy.position.y
+            }, 
+            width: effect.width,
+            height: effect.height,
+            scale: effect.scale,
+            direction: effect.direction
+        }
+    }
+
+    loadExplosion(effect){
+        return {        
+            sprite: { 
+                image: effect.image,
+                x: 0, 
+                y: 0,  
+                width: effect.width, 
+                height: effect.height 
+            }, 
+            position: {
+                x: this.enemy.position.x + Math.floor(Math.random() * HALF_TILE_SIZE), 
+                y: this.enemy.position.y + Math.floor(Math.random() * HALF_TILE_SIZE)
+            }, 
+            width: effect.width,
+            height: effect.height,
+            scale: Math.random() * .4 + .3,
+            direction: effect.direction
+        }
+    }
+
+    loadGameText(gameText, text, position){
+        return {
+            text: text,
+            color: gameText.color,
+            alpha: gameText.alpha,
+            position: {
+                x: position.x,
+                y: position.y
+            },
+            textSize: gameText.textSize,
+            align: gameText.align 
+        }
     }
 
     checkCollision(a, b){

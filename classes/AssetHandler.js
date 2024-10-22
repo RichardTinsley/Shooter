@@ -5,7 +5,7 @@ import { Tower } from "./Tower.js";
 import { Effect } from "./Effect.js";
 import { GameText } from "./GameText.js";
 import { ENEMY_STATE } from "./RenderHandler.js";
-import { ENEMY_SIZE, HALF_TILE_SIZE, TOWER_SIZE } from "../index.js";
+import { ENEMY_SIZE, TILE_SIZE, HALF_TILE_SIZE, TOWER_SIZE } from "../index.js";
 
 const enemyColours = [
     "topaz",
@@ -51,14 +51,48 @@ export class AssetHandler {
         // PROJECTILES
         this.fireball = new Image();
         this.fireball.src = `${projectilesURL}fireball_68x9.png`;
-        this.blueFireball = new Image();
-        this.blueFireball.src = `${projectilesURL}bluefireball_50x25.png`;
+        this.blueFireballImage = new Image();
+        this.blueFireballImage.src = `${projectilesURL}bluefireball_50x25.png`;
+
+        this.blueFireball = {
+            image: this.blueFireballImage,
+            width: 50,
+            height: 25
+        }
 
         // EFFECTS //
-        this.blood = new Image();
-        this.blood.src = `${effectsURL}blood.png`;
-        this.blueExplosion = new Image();
-        this.blueExplosion.src = `${effectsURL}blueExplosion_256x256.png`;
+        this.bloodImage = new Image();
+        this.bloodImage.src = `${effectsURL}blood_110x110.png`;
+        this.blood = {
+            image: this.bloodImage,
+            width: 110,
+            height: 110,
+            scale: 1
+        };
+
+        this.blueExplosionImage = new Image();
+        this.blueExplosionImage.src = `${effectsURL}blueExplosion_256x256.png`;
+        this.blueExplosion = {
+            image: this.blueExplosionImage,
+            width: 256,
+            height: 256,
+            scale: null
+        };
+
+        // GAMETEXTS
+        this.greenGameText = {
+            color: '50, 205, 50, ',
+            alpha: '10', 
+            textSize: 25, 
+            align: 'left'
+        };
+
+        this.goldGameText = {
+            color:  '255, 215, 0, ',
+            alpha: '10',
+            textSize: 25,
+            align: 'left'
+        };
     }
 
     populateTilesArray(){
@@ -73,8 +107,8 @@ export class AssetHandler {
                     placementTiles.push(
                         new PlacementTile({ 
                             position: { 
-                                x: x * 32, 
-                                y: y * 32 
+                                x: x * TILE_SIZE, 
+                                y: y * TILE_SIZE 
                             } 
                         }));
                     })
@@ -97,6 +131,7 @@ export class AssetHandler {
                     y: activeTile.position.y - HALF_TILE_SIZE  
                 },
                 scale: 1,
+                projectile: this.blueFireball
             })
         );
     }
@@ -122,56 +157,17 @@ export class AssetHandler {
         this.game.renderHandler.enemyCounter++;
     }
 
-    populateProjectilesArray(projectile){
-        this.game.renderHandler.projectiles.push(
-            new Projectile({
-                sprite: { 
-                    image: projectile.image, 
-                    x: 0, 
-                    y: 0,  
-                    width: projectile.width, 
-                    height: projectile.height 
-                },
-                position: projectile.position,
-                enemy: projectile.target,
-                scale: projectile.scale,
-                damage: projectile.damage
-            })
-        );
+    populateProjectilesArray(projectile, projectiles){
+        console.log(projectile);
+        projectiles.push(new Projectile(projectile));
     }
 
-    populateEffectsArray(image, position, width, height, scale, direction){
-        let number = 0
-        if(image === this.blood)
-            Math.floor(Math.random() * 9)
-
-        this.game.renderHandler.effects.push(
-            new Effect({
-                sprite: { 
-                    image: image,
-                    x: 0, 
-                    y: number,  
-                    width: width, 
-                    height: height 
-                }, 
-                position: position, 
-                scale: scale * .6,
-                direction: direction
-            })            
-        );
+    populateEffectsArray(effect, effects){
+        effects.push(new Effect(effect));
     }
 
-    populateGameTextArray(text, color, alpha, position, textSize, align){
-        this.game.renderHandler.gameTexts.push(
-            new GameText({
-                text: text,
-                color: color,
-                alpha: alpha,
-                position: position,
-                textSize: textSize,
-                align: align 
-            })            
-        );
+    populateGameTextArray(gameText, gameTexts){
+        gameTexts.push(new GameText(gameText));
     }
 
     generateRandomEnemy(){

@@ -108,27 +108,12 @@ export class RenderHandler {
             else
                 tower.target = enemiesInTowerRange[0];
 
-            const newProjectile = {
-                    image: this.game.assetHandler.blueFireball, 
-                    position : {
-                        x: tower.center.x,
-                        y: tower.center.y
-                    }, 
-                    width: 50, 
-                    height: 25, 
-                    scale: 1, 
-                    damage: tower.damage, 
-                    target: tower.target
-            };
-
             if(tower.shootTimer > tower.cooldown && tower.target){
-                this.game.assetHandler.populateProjectilesArray(newProjectile);
+                this.game.assetHandler.populateProjectilesArray(tower.loadTowerProjectile(tower.target), this.projectiles);
                 tower.shootTimer = 0;
             }
         })
     }
-
-
 
     renderProjectiles(ctx, event){
         for (let i = this.projectiles.length - 1; i >= 0; i--){
@@ -143,61 +128,41 @@ export class RenderHandler {
                 projectile.state = ANIMATION_STATE.FINISHED
                 enemy.health -= projectile.damage;
 
-                this.game.assetHandler.populateEffectsArray(
-                    this.game.assetHandler.blueExplosion,
-                    {
-                        x: enemy.position.x + Math.floor(Math.random() * 9), 
-                        y: enemy.position.y + Math.floor(Math.random() * 9)
-                    }, 
-                    256,
-                    256,
-                    enemy.scale / 2,
-                    enemy.direction
-                );
-                
                 if(enemy.health <= 0){
-                    
                     if (enemyIndex > -1 && enemy.state !== ENEMY_STATE.DYING){
                         this.game.coins += enemy.coins;
                         this.game.exp += enemy.exp;
-                    
+
                         this.game.assetHandler.populateEffectsArray(
-                            this.game.assetHandler.blood,
-                            {
-                                x: enemy.position.x, 
-                                y: enemy.position.y
-                            }, 
-                            110,
-                            110,
-                            enemy.scale,
-                            enemy.direction
+                            projectile.loadEffect(this.game.assetHandler.blood), 
+                            this.effects
                         );
 
                         this.game.assetHandler.populateGameTextArray(
-                            '+' + enemy.coins, 
-                            '255, 215, 0, ', //GOLD COLOUR TEXT
-                            '10', 
-                            {
-                                x: enemy.position.x, 
-                                y: enemy.position.y
-                            }, 
-                            25, 
-                            'left'
-                        ); 
+                            projectile.loadGameText(this.game.assetHandler.goldGameText, '+' + enemy.coins, enemy.position), 
+                            this.gameTexts
+                        );
 
-                        this.game.assetHandler.populateGameTextArray( 
-                            '+' + enemy.exp, 
-                            '50, 205, 50, ', //LIME COLOUR TEXT
-                            '10', 
-                            {
-                                x: projectile.position.x + HALF_TILE_SIZE,
-                                y: projectile.position.y
-                            }, 
-                            25, 
-                            'left'
-                        ); 
+                        this.game.assetHandler.populateGameTextArray(
+                            projectile.loadGameText(this.game.assetHandler.greenGameText, '+' + enemy.exp, projectile.position), 
+                            this.gameTexts
+                        );
                     }
                 }
+
+                if(enemy.state === ENEMY_STATE.DYING){
+                    this.game.assetHandler.populateEffectsArray(
+                        projectile.loadEffect(this.game.assetHandler.blood), 
+                        this.effects
+                    );
+                }
+
+                // this.game.assetHandler.createExplosion(projectile, this.game.assetHandler.blueExplosion);
+
+                this.game.assetHandler.populateEffectsArray(
+                    projectile.loadExplosion(this.game.assetHandler.blueExplosion), 
+                    this.effects
+                );
 
                 if(projectile.state === ANIMATION_STATE.FINISHED){
                     this.projectiles.splice(i, 1);
