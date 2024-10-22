@@ -1,16 +1,5 @@
 import { GAME_WIDTH, GAME_HEIGHT, ROWS, COLUMNS, TILE_SIZE, HALF_TILE_SIZE, TOWER_SIZE } from "../index.js";
-
-export const ENEMY_STATE = {
-    IDLE: 0,
-    WALKING: 1,
-    RUNNING: 2,
-    ATTACK: 3,
-    INJURED: 4,
-    DYING: 5,
-    DEAD: 6,
-    LEFT: "LEFT",
-    RIGHT: "RIGHT"
-};
+import { ENEMY_STATE } from "./Enemy.js";
 
 export const ANIMATION_STATE = {
     ANIMATING: 0,
@@ -22,7 +11,6 @@ export class RenderHandler {
         this.game = game; 
 
 
-        this.assets = [];
         this.enemies = [];
         this.towers = [];
         this.projectiles = [];
@@ -58,10 +46,10 @@ export class RenderHandler {
             this.enemySpawnTimer++;
             
         if (this.enemySpawnTimer % Math.floor(Math.random() * 300) === 0 && this.enemyCounter < this.maxEnemies){
+
             const enemyColour = this.game.assetHandler.generateRandomEnemy();
-            const randomWaypoints = this.game.assetHandler.generateRandomEnemyWaypoints();
-            this.game.assetHandler.populateEnemiesArray(enemyColour, randomWaypoints);
-            
+            this.game.assetHandler.populateEnemiesArray(this.game.loadEnemy(enemyColour), this.enemies);
+
             if(this.enemyCounter === this.maxEnemies)
                 this.allEnemiesActive = true;
         }
@@ -100,7 +88,7 @@ export class RenderHandler {
             tower.update(event);
             tower.draw(ctx);
 
-            const enemiesInTowerRange = this.game.assetHandler.prioritiseEnemiesInTowerRange(tower);
+            const enemiesInTowerRange = tower.prioritiseEnemiesInTowerRange(tower, this.enemies);
             const selectedEnemy = enemiesInTowerRange.find(enemy => enemy.isSelected);
 
             if(selectedEnemy)

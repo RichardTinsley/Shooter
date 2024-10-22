@@ -1,5 +1,16 @@
 import { TILE_SIZE, HALF_TILE_SIZE } from "../index.js";
-import { ENEMY_STATE } from "./RenderHandler.js";
+
+export const ENEMY_STATE = {
+    IDLE: 0,
+    WALKING: 1,
+    RUNNING: 2,
+    ATTACK: 3,
+    INJURED: 4,
+    DYING: 5,
+    DEAD: 6,
+    LEFT: "LEFT",
+    RIGHT: "RIGHT"
+};
 
 export class Enemy {
     constructor({ 
@@ -20,7 +31,7 @@ export class Enemy {
             y: 0
         }
         this.scale = scale ?? 1;
-        this.waypoints = waypoints;
+        this.waypoints = this.generateRandomEnemyWaypoints(waypoints);
         this.waypointIndex = 0;
         
         this.width = this.sprite.width * this.scale;
@@ -183,5 +194,18 @@ export class Enemy {
             ctx.strokeStyle = 'rgba(255, 30, 30, 1)'
             ctx.stroke();
         }   
+    }
+
+    generateRandomEnemyWaypoints(wayspoints){
+        const newWaypoints = wayspoints.map(waypoint => {
+            return { 
+                    x: (waypoint.x - 40) + Math.round(Math.random() * 70),
+                    y: (waypoint.y - 40) + Math.round(Math.random() * 70)
+                }
+            }
+        );
+        this.position.x = newWaypoints[0].x;
+        this.position.y = newWaypoints[0].y;
+        return newWaypoints;
     }
 }

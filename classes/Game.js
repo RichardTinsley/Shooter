@@ -1,6 +1,7 @@
 import { Input } from "./Input.js";
-import { AssetHandler } from "./AssetHandler.js";
+import { AssetHandler, waypoints } from "./AssetHandler.js";
 import { RenderHandler } from "./RenderHandler.js";
+import { ENEMY_SIZE, TOWER_SIZE, HALF_TILE_SIZE} from "../index.js";
 
 export const GAME_STATES = {
     PLAYING: 'PLAYING',
@@ -85,6 +86,7 @@ export class Game {
 
         this.renderHandler.enemies = [];
         this.renderHandler.towers = [];
+        this.renderHandler.projectiles = [];
         this.renderHandler.effects = [];
         this.renderHandler.gameTexts = [];
         this.currentGameState = GAME_STATES.PLAYING;
@@ -118,4 +120,42 @@ export class Game {
         }
         this.frames++;
     }
+
+    loadEnemy(enemy){
+        this.renderHandler.enemyCounter++;
+        return({
+            sprite: { 
+                image: enemy.image, 
+                x: 0, 
+                y: 0,  
+                width: ENEMY_SIZE, 
+                height: ENEMY_SIZE 
+            },
+            position: { 
+                x: 0,  
+                y: 0 
+            },
+            scale: Math.random() + 1,
+            waypoints: waypoints
+        })
+    }
+
+    loadTower(tower, activeTile){
+        return {
+            sprite: { 
+                image: tower.image, 
+                x: 0, 
+                y: 0,
+                width: TOWER_SIZE, 
+                height: TOWER_SIZE 
+            },
+            position: { 
+                x: activeTile.position.x - HALF_TILE_SIZE,
+                y: activeTile.position.y - HALF_TILE_SIZE  
+            },
+            scale: 1,
+            projectile: tower.projectile
+        }
+    }
 }
+

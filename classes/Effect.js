@@ -1,4 +1,5 @@
-import { ENEMY_STATE, ANIMATION_STATE } from "./RenderHandler.js";
+import { ANIMATION_STATE } from "./RenderHandler.js";
+import { ENEMY_STATE } from "./Enemy.js";
 import { TILE_SIZE, HALF_TILE_SIZE } from "../index.js";
 
 export class Effect {

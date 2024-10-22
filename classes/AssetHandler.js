@@ -4,8 +4,7 @@ import { Enemy } from "./Enemy.js";
 import { Tower } from "./Tower.js";
 import { Effect } from "./Effect.js";
 import { GameText } from "./GameText.js";
-import { ENEMY_STATE } from "./RenderHandler.js";
-import { ENEMY_SIZE, TILE_SIZE, HALF_TILE_SIZE, TOWER_SIZE } from "../index.js";
+import { TILE_SIZE, COLUMNS } from "../index.js";
 
 const enemyColours = [
     "topaz",
@@ -43,23 +42,27 @@ export class AssetHandler {
 
         // ENEMIES
         this.enemyImages = this.enemyImageImporter();
-
-        // TOWERS
-        this.sapphireTower = new Image();
-        this.sapphireTower.src = `${towersURL}sapphire1.png`;
-
+        
         // PROJECTILES
         this.fireball = new Image();
         this.fireball.src = `${projectilesURL}fireball_68x9.png`;
+
         this.blueFireballImage = new Image();
         this.blueFireballImage.src = `${projectilesURL}bluefireball_50x25.png`;
-
         this.blueFireball = {
             image: this.blueFireballImage,
             width: 50,
             height: 25
         }
 
+        // TOWERS
+        this.sapphireTowerImage = new Image();
+        this.sapphireTowerImage.src = `${towersURL}sapphire1.png`;
+        this.sapphireTower = {
+            image: this.sapphireTowerImage,
+            projectile: this.blueFireball
+        }
+        
         // EFFECTS //
         this.bloodImage = new Image();
         this.bloodImage.src = `${effectsURL}blood_110x110.png`;
@@ -98,8 +101,8 @@ export class AssetHandler {
     populateTilesArray(){
         const placementTilesData2D = [];
         const placementTiles = [];
-        for (let i = 0; i < placementTilesData.length; i+= 40)
-            placementTilesData2D.push(placementTilesData.slice(i, i + 40));
+        for (let i = 0; i < placementTilesData.length; i+= COLUMNS)
+            placementTilesData2D.push(placementTilesData.slice(i, i + COLUMNS));
 
         placementTilesData2D.forEach((row, y) => {
             row.forEach((symbol, x) => {
@@ -116,49 +119,15 @@ export class AssetHandler {
         return placementTiles;
     }
 
-    populateTowersArray(activeTile){
-        this.game.renderHandler.towers.push(
-            new Tower({
-                sprite: { 
-                    image: this.sapphireTower, 
-                    x: 0, 
-                    y: 0,
-                    width: TOWER_SIZE, 
-                    height: TOWER_SIZE 
-                },
-                position: { 
-                    x: activeTile.position.x - HALF_TILE_SIZE,
-                    y: activeTile.position.y - HALF_TILE_SIZE  
-                },
-                scale: 1,
-                projectile: this.blueFireball
-            })
-        );
+    populateTowersArray(tower, towers){
+        towers.push(new Tower(tower));
     }
 
-    populateEnemiesArray(enemy, randomWaypoints){
-        this.game.renderHandler.enemies.push(  
-            new Enemy({
-                sprite: { 
-                    image: enemy.image, 
-                    x: 0, 
-                    y: 0,  
-                    width: ENEMY_SIZE, 
-                    height: ENEMY_SIZE 
-                },
-                position: { 
-                    x: waypoints[0].x,  
-                    y: waypoints[0].y  
-                },
-                scale: Math.random() + 1,
-                waypoints: randomWaypoints
-            })
-        );
-        this.game.renderHandler.enemyCounter++;
+    populateEnemiesArray(enemy, enemies){
+        enemies.push(new Enemy(enemy));
     }
 
     populateProjectilesArray(projectile, projectiles){
-        console.log(projectile);
         projectiles.push(new Projectile(projectile));
     }
 
@@ -176,16 +145,7 @@ export class AssetHandler {
             enemyIndexer = Math.floor(Math.random() * (this.game.waves / 10));
         else 
         enemyIndexer = Math.floor(Math.random() * 12);
-    return this.enemyImages[enemyIndexer];
-}
-
-    generateRandomEnemyWaypoints(){
-        return waypoints.map(waypoint => {
-            return { 
-                    x: (waypoint.x - 40) + Math.round(Math.random() * 70),
-                    y: (waypoint.y - 40) + Math.round(Math.random() * 70)
-                }
-            });
+        return this.enemyImages[enemyIndexer];
     }
 
     enemyImageImporter(){
@@ -200,22 +160,7 @@ export class AssetHandler {
         return array;
     }
     
-    prioritiseEnemiesInTowerRange(tower){
-        return this.game.renderHandler.enemies.filter(enemy => {
-            if(enemy.state === ENEMY_STATE.WALKING || enemy.state === ENEMY_STATE.RUNNING){
-                const xDifference = enemy.center.x - tower.center.x;
-                const yDifference = enemy.center.y - tower.center.y;
-                const distance = Math.hypot(xDifference, yDifference);
-                return distance < enemy.width / 10 + tower.range;
-            }
-        }).sort((a, b) => {
-            if (a.waypointIndex > b.waypointIndex) return -1;
-            if (a.waypointIndex < b.waypointIndex) return 1;
-            if (a.priorityDistance < b.priorityDistance) return -1;
-            if (a.priorityDistance > b.priorityDistance) return 1;
-            return 0;
-        });
-    }
+
 }
 
 const placementTilesData = [
@@ -245,7 +190,7 @@ const placementTilesData = [
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 ]
 
-const waypoints = [
+export const waypoints = [
     {
         "x":-100,
         "y":685

@@ -1,6 +1,6 @@
 import { TILE_SIZE } from "../index.js";
 import { GAME_STATES } from "./Game.js";
-import { ENEMY_STATE } from "./RenderHandler.js";
+import { ENEMY_STATE } from "./Enemy.js";
 
 const KEYS = {
     PAUSE: 'p',
@@ -25,7 +25,11 @@ export class Input {
 
         window.addEventListener('click', e => {
             if (this.activeTile && !this.activeTile.isOccupied && this.game.coins - 25 >= 0) {
-                this.game.assetHandler.populateTowersArray(this.activeTile);
+                
+                this.game.assetHandler.populateTowersArray(
+                    this.game.loadTower(this.game.assetHandler.sapphireTower, this.activeTile), 
+                    this.game.renderHandler.towers
+                );
             
                 this.activeTile.isOccupied = true;
                 this.game.renderHandler.towers.sort((a, b) => {

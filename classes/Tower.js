@@ -1,4 +1,5 @@
 import { TILE_SIZE } from "../index.js";
+import { ENEMY_STATE } from "./Enemy.js";
 
 export class Tower {
     constructor({
@@ -78,6 +79,23 @@ export class Tower {
             scale: 1, 
             damage: this.damage, 
         }
+    }
+
+    prioritiseEnemiesInTowerRange(tower, enemies){
+        return enemies.filter(enemy => {
+            if(enemy.state === ENEMY_STATE.WALKING || enemy.state === ENEMY_STATE.RUNNING){
+                const xDifference = enemy.center.x - tower.center.x;
+                const yDifference = enemy.center.y - tower.center.y;
+                const distance = Math.hypot(xDifference, yDifference);
+                return distance < enemy.width / 10 + tower.range;
+            }
+        }).sort((a, b) => {
+            if (a.waypointIndex > b.waypointIndex) return -1;
+            if (a.waypointIndex < b.waypointIndex) return 1;
+            if (a.priorityDistance < b.priorityDistance) return -1;
+            if (a.priorityDistance > b.priorityDistance) return 1;
+            return 0;
+        });
     }
 }
 
