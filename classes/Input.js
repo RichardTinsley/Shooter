@@ -26,10 +26,11 @@ export class Input {
         window.addEventListener('click', e => {
             if (this.activeTile && !this.activeTile.isOccupied && this.game.coins - 25 >= 0) {
                 
-                this.game.assetHandler.populateTowersArray(
-                    this.game.loadTower(this.game.assetHandler.sapphireTower, this.activeTile), 
-                    this.game.renderHandler.towers
+                this.game.populateTowersArray(this.game.assetHandler.sapphireTower, 
+                    this.game.renderHandler.towers,
+                    this.activeTile
                 );
+                
             
                 this.activeTile.isOccupied = true;
                 this.game.renderHandler.towers.sort((a, b) => {

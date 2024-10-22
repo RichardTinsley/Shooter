@@ -10,7 +10,6 @@ export class RenderHandler {
     constructor(game) {
         this.game = game; 
 
-
         this.enemies = [];
         this.towers = [];
         this.projectiles = [];
@@ -47,8 +46,10 @@ export class RenderHandler {
             
         if (this.enemySpawnTimer % Math.floor(Math.random() * 300) === 0 && this.enemyCounter < this.maxEnemies){
 
-            this.game.assetHandler.populateEnemiesArray(
-                this.game.loadEnemy(this.game.assetHandler.generateRandomEnemy()), 
+
+
+            this.game.populateEnemiesArray(
+                this.game.assetHandler.generateRandomEnemy(), 
                 this.enemies
             );
 
@@ -99,7 +100,7 @@ export class RenderHandler {
                 tower.target = enemiesInTowerRange[0];
 
             if(tower.shootTimer > tower.cooldown && tower.target){
-                this.game.assetHandler.populateProjectilesArray(tower.loadTowerProjectile(tower.target), this.projectiles);
+                tower.populateProjectilesArray(tower.target, this.projectiles);
                 tower.shootTimer = 0;
             }
         })
@@ -126,30 +127,28 @@ export class RenderHandler {
                         this.game.coins += enemy.coins;
                         this.game.exp += enemy.exp;
 
-                        this.game.assetHandler.populateEffectsArray(
-                            projectile.loadEffect(this.game.assetHandler.blood), 
-                            this.effects
-                        );
+                        projectile.populateEffectsArray(this.game.assetHandler.blood, this.effects);
 
-                        this.game.assetHandler.populateGameTextArray(
-                            projectile.loadGameText(this.game.assetHandler.goldGameText, '+' + enemy.coins, enemy.position), 
+                        projectile.populateGameTextArray(
+                            this.game.assetHandler.goldGameText, 
+                            '+' + enemy.coins, 
+                            enemy.position, 
                             this.gameTexts
                         );
 
-                        this.game.assetHandler.populateGameTextArray(
-                            projectile.loadGameText(this.game.assetHandler.greenGameText, '+' + enemy.exp, projectile.position), 
+                        projectile.populateGameTextArray(
+                            this.game.assetHandler.greenGameText, 
+                            '+' + enemy.exp, 
+                            projectile.position, 
                             this.gameTexts
                         );
                 }
 
                 if(enemy.state === ENEMY_STATE.DYING){
-                    this.game.assetHandler.populateEffectsArray(
-                        projectile.loadEffect(this.game.assetHandler.blood), 
-                        this.effects
-                    );
+                    projectile.populateEffectsArray(this.game.assetHandler.blood, this.effects);
                 }
 
-                this.game.assetHandler.populateEffectsArray(
+                projectile.populateEffectsArray(
                     projectile.loadExplosion(this.game.assetHandler.blueExplosion), 
                     this.effects
                 );
@@ -172,7 +171,6 @@ export class RenderHandler {
         }
     }
 
-    
     renderGameTexts(ctx){
         for (let i = this.gameTexts.length - 1; i >= 0; i-- ){
             const gameText = this.gameTexts[i];        

@@ -1,3 +1,4 @@
+import { Projectile } from "./Projectile.js";
 import { TILE_SIZE } from "../index.js";
 import { ENEMY_STATE } from "./Enemy.js";
 
@@ -60,8 +61,8 @@ export class Tower {
         }
     }
 
-    loadTowerProjectile(enemy){
-        return {
+    populateProjectilesArray(target, projectiles){
+        projectiles.push(new Projectile({
             sprite: { 
                 image: this.projectile.image, 
                 frame: 0, 
@@ -75,10 +76,10 @@ export class Tower {
             }, 
             width: 50, 
             height: 25, 
-            enemy: enemy,
+            enemy: target,
             scale: 1, 
             damage: this.damage, 
-        }
+        }));
     }
 
     prioritiseEnemiesInTowerRange(tower, enemies){

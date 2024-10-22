@@ -1,10 +1,5 @@
 import { PlacementTile } from "./PlacementTile.js";
-import { Projectile } from "./Projectile.js";
 import { Level1 } from "./Level.js";
-import { Enemy } from "./Enemy.js";
-import { Tower } from "./Tower.js";
-import { Effect } from "./Effect.js";
-import { GameText } from "./GameText.js";
 import { TILE_SIZE, COLUMNS } from "../index.js";
 
 const enemyColours = [
@@ -122,26 +117,6 @@ export class AssetHandler {
                     })
                 })
         return placementTiles;
-    }
-
-    populateTowersArray(tower, towers){
-        towers.push(new Tower(tower));
-    }
-
-    populateEnemiesArray(enemy, enemies){
-        enemies.push(new Enemy(enemy));
-    }
-
-    populateProjectilesArray(projectile, projectiles){
-        projectiles.push(new Projectile(projectile));
-    }
-
-    populateEffectsArray(effect, effects){
-        effects.push(new Effect(effect));
-    }
-
-    populateGameTextArray(gameText, gameTexts){
-        gameTexts.push(new GameText(gameText));
     }
 
     generateRandomEnemy(){

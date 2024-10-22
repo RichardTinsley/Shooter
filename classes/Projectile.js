@@ -1,5 +1,7 @@
 import { HALF_TILE_SIZE } from "../index.js";
 import { ANIMATION_STATE } from "./RenderHandler.js";
+import { Effect } from "./Effect.js";
+import { GameText } from "./GameText.js";
 
 export class Projectile {
     constructor({ 
@@ -100,8 +102,8 @@ export class Projectile {
             }
     }
 
-    loadEffect(effect){
-        return {        
+    populateEffectsArray(effect, effects){
+        effects.push(new Effect({        
             sprite: { 
                 image: effect.image,
                 x: 0, 
@@ -118,17 +120,17 @@ export class Projectile {
             scale: effect.scale,
             direction: effect.direction
         }
+            
+        ));
     }
 
     loadExplosion(effect){
         return {        
-            sprite: { 
-                image: effect.image,
-                x: 0, 
-                y: 0,  
-                width: effect.width, 
-                height: effect.height 
-            }, 
+            image: effect.image,
+            x: 0, 
+            y: 0,  
+            width: effect.width, 
+            height: effect.height, 
             position: {
                 x: this.enemy.position.x + Math.floor(Math.random() * HALF_TILE_SIZE), 
                 y: this.enemy.position.y + Math.floor(Math.random() * HALF_TILE_SIZE)
@@ -140,8 +142,8 @@ export class Projectile {
         }
     }
 
-    loadGameText(gameText, text, position){
-        return {
+    populateGameTextArray(gameText, text, position, gameTexts){
+        gameTexts.push(new GameText({
             text: text,
             color: gameText.color,
             alpha: gameText.alpha,
@@ -151,7 +153,7 @@ export class Projectile {
             },
             textSize: gameText.textSize,
             align: gameText.align 
-        }
+        }));
     }
 
     checkCollision(a, b){
