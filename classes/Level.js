@@ -1,5 +1,7 @@
-export class Level1 {
+import { PlacementTile } from "./PlacementTile.js";
+import { TILE_SIZE, COLUMNS } from "../index.js";
 
+export class Level1 {
     constructor(){
         this.name = "level1";
 
@@ -72,6 +74,27 @@ export class Level1 {
                 "y":175
             }
         ]
+    }
+
+    populateTilesArray(){
+        const placementTilesData2D = [];
+        const placementTiles = [];
+        for (let i = 0; i < this.placementTilesData.length; i+= COLUMNS)
+            placementTilesData2D.push(this.placementTilesData.slice(i, i + COLUMNS));
+
+        placementTilesData2D.forEach((row, y) => {
+            row.forEach((symbol, x) => {
+                if (symbol != 0) 
+                    placementTiles.push(
+                        new PlacementTile({ 
+                            position: { 
+                                x: x * TILE_SIZE, 
+                                y: y * TILE_SIZE 
+                            } 
+                        }));
+                    })
+                })
+        return placementTiles;
     }
 
 }

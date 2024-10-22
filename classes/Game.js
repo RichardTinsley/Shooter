@@ -1,6 +1,7 @@
 import { Input } from "./Input.js";
 import { AssetHandler } from "./AssetHandler.js";
 import { RenderHandler } from "./RenderHandler.js";
+import { GameTextHandler } from "./GameTextHandler.js";
 import { Enemy } from "./Enemy.js";
 import { Tower } from "./Tower.js";
 import { ENEMY_SIZE, TOWER_SIZE, HALF_TILE_SIZE} from "../index.js";
@@ -20,7 +21,8 @@ export class Game {
         this.input = new Input(this);
         this.assetHandler = new AssetHandler(this);
         this.renderHandler = new RenderHandler(this);
-        
+        this.gameTextHandler = new GameTextHandler(this);
+
         this.currentGameState = GAME_STATES.PLAYING;
 
         this.hearts = 1;
@@ -50,18 +52,18 @@ export class Game {
                 this.renderHandler.renderGame(ctx, deltaTime);
                 break
             case GAME_STATES.PAUSED:
-                this.renderHandler.drawScreenStopped(ctx, GAME_STATES.PAUSED); 
+                this.gameTextHandler.BigScreenText(ctx, GAME_STATES.PAUSED); 
                 break
             case GAME_STATES.MENU: 
                 break
             case GAME_STATES.LOADING: 
                 break
             case GAME_STATES.GAMEOVER:
-                this.renderHandler.drawScreenStopped(ctx, GAME_STATES.GAMEOVER);
+                this.gameTextHandler.BigScreenText(ctx, GAME_STATES.GAMEOVER);
                 break
             case GAME_STATES.DEBUG: 
                 this.renderHandler.renderGame(ctx, deltaTime);
-                this.renderHandler.renderDebugInfo(ctx);
+                this.gameTextHandler.renderAllDebugInfoText(ctx);
                 break
             case GAME_STATES.RESTART: 
                 this.restartGame();
@@ -141,7 +143,6 @@ export class Game {
         }));
         this.renderHandler.enemyCounter++;
     }
-
 
     populateTowersArray(tower, towers, activeTile){
         towers.push(new Tower({

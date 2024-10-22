@@ -1,6 +1,4 @@
-import { PlacementTile } from "./PlacementTile.js";
 import { Level1 } from "./Level.js";
-import { TILE_SIZE, COLUMNS } from "../index.js";
 
 const enemyColours = [
     "topaz",
@@ -98,27 +96,6 @@ export class AssetHandler {
         };
     }
 
-    populateTilesArray(){
-        const placementTilesData2D = [];
-        const placementTiles = [];
-        for (let i = 0; i < this.levelOne.placementTilesData.length; i+= COLUMNS)
-            placementTilesData2D.push(this.levelOne.placementTilesData.slice(i, i + COLUMNS));
-
-        placementTilesData2D.forEach((row, y) => {
-            row.forEach((symbol, x) => {
-                if (symbol != 0) 
-                    placementTiles.push(
-                        new PlacementTile({ 
-                            position: { 
-                                x: x * TILE_SIZE, 
-                                y: y * TILE_SIZE 
-                            } 
-                        }));
-                    })
-                })
-        return placementTiles;
-    }
-
     generateRandomEnemy(){
         let enemyIndexer;
         if(this.game.waves < 119)
@@ -141,15 +118,5 @@ export class AssetHandler {
     }
 
     audioImporter(){
-        let array = [];
-
-        for(let i = 0; i < enemyColours.length; i++){
-            array[i] = {
-                colour: enemyColours[i], 
-                image: new Image(), 
-            }
-            array[i].image.src = `${enemiesURL}${enemyColours[i]}.png`;
-        }
-        return array;
     }
 }
