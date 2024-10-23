@@ -1,7 +1,4 @@
-export const ANIMATION_STATE = {
-    ANIMATING: 0,
-    FINISHED: 1
-};
+import { ANIMATION_STATES } from "./Constants.js";
 
 export class Projectile{
     constructor({ 
@@ -27,7 +24,7 @@ export class Projectile{
         this.maxFrame = (this.sprite.image.width / this.sprite.width) - 1;
         this.maxRow = (this.sprite.image.height / this.sprite.height) - 1;
         
-        this.state = ANIMATION_STATE.ANIMATING;
+        this.state = ANIMATION_STATES.ANIMATING;
         this.angle;
         this.speed = speed;
         this.velocity = {
@@ -41,11 +38,11 @@ export class Projectile{
 
     renderProjectile(ctx, event){
         switch(this.state){
-            case ANIMATION_STATE.ANIMATING:
+            case ANIMATION_STATES.ANIMATING:
                 this.update(event); 
                 this.draw(ctx);
                 break
-            case ANIMATION_STATE.FINISHED:
+            case ANIMATION_STATES.FINISHED:
                 break
         }
     }
@@ -91,14 +88,6 @@ export class Projectile{
                 this.sprite.row = 0;
                 this.sprite.frame = 0;
             }
-    }
-
-    checkCollision(a, b){
-        const dx = a.center.x - b.center.x;
-        const dy = a.center.y - b.center.y;
-        const distance = Math.hypot(dx, dy);
-        const sumOfRadii = a.width / 8 + b.width / 8 ;
-        return distance < sumOfRadii; 
     }
 }
 

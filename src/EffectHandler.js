@@ -1,6 +1,5 @@
-import { Effect, ANIMATION_STATE } from "./Effect.js";
-
-const effectsURL = './images/effects/'; 
+import { ANIMATION_STATES, EFFECTS_URL } from "./Constants.js";
+import { Effect } from "./Effect.js";
 
 export class EffectHandler {
     constructor(game) {
@@ -13,7 +12,7 @@ export class EffectHandler {
             height: 110,
             scale: 1
         };
-        this.blood.image.src = `${effectsURL}blood_110x110.png`;
+        this.blood.image.src = `${EFFECTS_URL}blood_110x110.png`;
 
         this.blueExplosion = {
             image: new Image(),
@@ -21,13 +20,13 @@ export class EffectHandler {
             height: 256,
             scale: null
         };
-        this.blueExplosion.image.src = `${effectsURL}blueExplosion_256x256.png`;
+        this.blueExplosion.image.src = `${EFFECTS_URL}blueExplosion_256x256.png`;
     }
 
     renderEffects(ctx, event){
         for (let i = this.effects.length - 1; i >= 0; i-- ){
             const effect = this.effects[i];        
-            if (effect.state === ANIMATION_STATE.ANIMATING)
+            if (effect.state === ANIMATION_STATES.ANIMATING)
                 effect.renderEffect(ctx, event);
             else {
                 this.effects.splice(i, 1);

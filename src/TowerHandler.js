@@ -1,8 +1,6 @@
-import { Tower, TOWER_SIZE } from "./Tower.js";
-import { HALF_TILE_SIZE } from "./Tile.js";
-import { ENEMY_STATE } from "./Enemy.js";
+import { Tower } from "./Tower.js";
 
-const towersURL = './images/towers/';
+import { TOWER_SIZE, TOWERS_URL, ENEMY_STATES, TILE_SIZE_HALF } from "./Constants.js";
 
 export class TowerHandler{
     constructor(game){
@@ -13,7 +11,7 @@ export class TowerHandler{
                 image: new Image(),
                 projectile: this.blueFireball
             }
-            this.sapphireTower.image.src = `${towersURL}sapphire1.png`;
+            this.sapphireTower.image.src = `${TOWERS_URL}sapphire1.png`;
     }
 
     renderTowers(ctx, event){
@@ -38,7 +36,7 @@ export class TowerHandler{
 
     prioritiseEnemiesInTowerRange(tower){
         return this.game.enemyHandler.enemies.filter(enemy => {
-            if(enemy.state === ENEMY_STATE.WALKING || enemy.state === ENEMY_STATE.RUNNING){
+            if(enemy.state === ENEMY_STATES.WALKING || enemy.state === ENEMY_STATES.RUNNING){
                 const xDifference = enemy.center.x - tower.center.x;
                 const yDifference = enemy.center.y - tower.center.y;
                 const distance = Math.hypot(xDifference, yDifference);
@@ -67,8 +65,8 @@ export class TowerHandler{
                 height: TOWER_SIZE 
             },
             position: { 
-                x: activeTile.position.x - HALF_TILE_SIZE,
-                y: activeTile.position.y - HALF_TILE_SIZE  
+                x: activeTile.position.x - TILE_SIZE_HALF,
+                y: activeTile.position.y - TILE_SIZE_HALF  
             },
             projectile: tower.projectile,
             damage: damage,

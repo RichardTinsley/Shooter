@@ -1,5 +1,4 @@
-import { GAME_WIDTH, GAME_HEIGHT, ROWS, COLUMNS } from "./Main.js";
-import { TILE_SIZE, HALF_TILE_SIZE } from "./Tile.js";
+import { GAME_WIDTH, GAME_HEIGHT, ROWS, COLUMNS, TILE_SIZE, TILE_SIZE_HALF } from "./Constants.js";
 import { Text } from "./Text.js";
 
 export class TextHandler{
@@ -74,7 +73,14 @@ export class TextHandler{
             ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
             ctx.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
         }
-        this.drawText(ctx, text, GAME_WIDTH / 2, GAME_HEIGHT / 2, 100, 'center'); 
+        ctx.fillStyle = 'white';
+        ctx.font = 'bold ' + 150 + 'px canterbury';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.lineWidth = 10;
+        ctx.strokeStyle = 'black';
+        ctx.strokeText(text, GAME_WIDTH / 2, GAME_HEIGHT / 2);
+        ctx.fillText(text, GAME_WIDTH / 2, GAME_HEIGHT / 2);
     }
     
     drawText(ctx, text, x, y, textSize, align){
@@ -116,10 +122,10 @@ export class TextHandler{
             ctx.fillRect(enemy.center.x - enemy.halfWidth, enemy.center.y - enemy.halfWidth, enemy.width, enemy.height);
             ctx.fillStyle = 'rgba(0, 0, 250, 0.3)';
             ctx.fillRect(Math.floor(enemy.position.x / TILE_SIZE) * TILE_SIZE, Math.floor(enemy.position.y / TILE_SIZE) * TILE_SIZE, TILE_SIZE, TILE_SIZE);
-            this.drawText(ctx, enemy.priorityDistance, Math.floor(enemy.position.x / TILE_SIZE) * TILE_SIZE, Math.floor(enemy.position.y / TILE_SIZE) * TILE_SIZE + 20, HALF_TILE_SIZE, 'right');
+            this.drawText(ctx, enemy.priorityDistance, Math.floor(enemy.position.x / TILE_SIZE) * TILE_SIZE, Math.floor(enemy.position.y / TILE_SIZE) * TILE_SIZE + 20, TILE_SIZE_HALF, 'right');
             ctx.fillStyle = 'rgba(250, 0, 0, 0.4)';
             ctx.beginPath();
-            ctx.arc(enemy.center.x, enemy.center.y, HALF_TILE_SIZE, 0, 2 * Math.PI, false);
+            ctx.arc(enemy.center.x, enemy.center.y, TILE_SIZE_HALF, 0, 2 * Math.PI, false);
             ctx.fill();
             ctx.fillStyle = 'rgba(250, 0, 0, 1)';
             ctx.fillRect(enemy.center.x, enemy.center.y, 5, 5);
@@ -132,7 +138,7 @@ export class TextHandler{
             ctx.arc(tower.center.x, tower.center.y, tower.range, 0, Math.PI * 2);
             ctx.fillStyle = 'rgba(200, 0, 0, 0.1)';
             ctx.fill();
-            this.drawText(ctx, tower.range, tower.center.x, tower.center.y - TILE_SIZE, HALF_TILE_SIZE, 'right');
+            this.drawText(ctx, tower.range, tower.center.x, tower.center.y - TILE_SIZE, TILE_SIZE_HALF, 'right');
             ctx.fillStyle = 'rgba(250, 0, 0, 1)';
             ctx.fillRect(tower.center.x, tower.center.y, 5, 5);
         })
@@ -153,6 +159,6 @@ export class TextHandler{
         ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
         ctx.fillRect(TILE_SIZE, TILE_SIZE * 3, TILE_SIZE * 3, TILE_SIZE * 2);
         const FPS = Math.round(this.game.FPSNormal * 1000) / 1000;
-        this.drawText(ctx, `f p s: ${FPS}`, TILE_SIZE, TILE_SIZE * 4, HALF_TILE_SIZE, 'left');
+        this.drawText(ctx, `f p s: ${FPS}`, TILE_SIZE, TILE_SIZE * 4, TILE_SIZE_HALF, 'left');
     }
 }

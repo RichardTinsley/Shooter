@@ -1,6 +1,5 @@
-import { Tile, TILE_SIZE } from "./Tile.js";
-import { COLUMNS } from "./Main.js";
-import { LEVELS } from "./GameHandler.js";
+import { LEVELS, COLUMNS, TILE_SIZE } from "./Constants.js";
+import { Tile } from "./Tile.js";
 
 export class TileHandler {
     constructor(game){

@@ -1,16 +1,4 @@
-export const ENEMY_SIZE = 48;
-export const HALF_ENEMY_SIZE = ENEMY_SIZE / 2;
-export const ENEMY_STATE = {
-    IDLE: 0,
-    WALKING: 1,
-    RUNNING: 2,
-    ATTACK: 3,
-    INJURED: 4,
-    DYING: 5,
-    DEAD: 6,
-    LEFT: "LEFT",
-    RIGHT: "RIGHT"
-};
+import { ENEMY_STATES, ENEMY_SIZE_HALF } from "./Constants.js";
 
 export class Enemy {
     constructor({ 
@@ -59,17 +47,17 @@ export class Enemy {
 
     renderEnemy(ctx, event){
         switch(this.state){
-            case ENEMY_STATE.WALKING:
+            case ENEMY_STATES.WALKING:
                 this.updateMovement(event); 
                 this.drawShadow(ctx);
                 this.draw(ctx);
                 break
-            case ENEMY_STATE.RUNNING:
+            case ENEMY_STATES.RUNNING:
                 this.updateMovement(event);
                 this.drawShadow(ctx);
                 this.draw(ctx); 
                 break
-            case ENEMY_STATE.DYING:
+            case ENEMY_STATES.DYING:
                 this.updateDying(event);
                 this.draw(ctx); 
                 break
@@ -77,9 +65,9 @@ export class Enemy {
     }
 
     draw(ctx){
-        const left = -this.halfWidth - HALF_ENEMY_SIZE - this.position.x;
-        const right = this.position.x + HALF_ENEMY_SIZE - this.halfWidth;
-        if(this.direction === ENEMY_STATE.LEFT){
+        const left = -this.halfWidth - ENEMY_SIZE_HALF - this.position.x;
+        const right = this.position.x + ENEMY_SIZE_HALF - this.halfWidth;
+        if(this.direction === ENEMY_STATES.LEFT){
             ctx.save();
             ctx.scale(-1, 1);
         }
@@ -89,12 +77,12 @@ export class Enemy {
             this.sprite.row * this.sprite.height + 1,
             this.sprite.width,
             this.sprite.height,
-            this.direction === ENEMY_STATE.LEFT ? left : right,
-            this.center.y - this.height + HALF_ENEMY_SIZE,
+            this.direction === ENEMY_STATES.LEFT ? left : right,
+            this.center.y - this.height + ENEMY_SIZE_HALF,
             this.width,
             this.height
         );
-        if(this.direction === ENEMY_STATE.LEFT)
+        if(this.direction === ENEMY_STATES.LEFT)
             ctx.restore();
     }
 
@@ -112,8 +100,8 @@ export class Enemy {
         this.position.x += this.velocity.x;
         this.position.y += this.velocity.y;
         this.center = {
-            x: this.position.x + HALF_ENEMY_SIZE,
-            y: this.position.y + HALF_ENEMY_SIZE
+            x: this.position.x + ENEMY_SIZE_HALF,
+            y: this.position.y + ENEMY_SIZE_HALF
         };
         
         if( Math.abs(Math.round(this.center.x) - Math.round(waypoint.x)) <
@@ -128,13 +116,13 @@ export class Enemy {
             this.sprite.frame < this.maxFrame ? this.sprite.frame++ : this.sprite.frame = 0;
 
         if(xDistance < 0)
-            this.direction = ENEMY_STATE.LEFT;
+            this.direction = ENEMY_STATES.LEFT;
         else
-            this.direction = ENEMY_STATE.RIGHT;
+            this.direction = ENEMY_STATES.RIGHT;
 
         if(this.health <= 0) {
-            this.state = ENEMY_STATE.DYING;
-            this.sprite.row = ENEMY_STATE.DYING;
+            this.state = ENEMY_STATES.DYING;
+            this.sprite.row = ENEMY_STATES.DYING;
             this.sprite.frame = 0;
         }
     }
@@ -149,7 +137,7 @@ export class Enemy {
             if(this.height > 2) 
                 this.height -= 2;
             else
-                this.state = ENEMY_STATE.DEAD;
+                this.state = ENEMY_STATES.DEAD;
         }
     }
 
@@ -167,7 +155,7 @@ export class Enemy {
 
     drawShadow(ctx){
         ctx.beginPath();
-        ctx.ellipse(this.center.x, this.center.y + HALF_ENEMY_SIZE, this.shadowHeight, this.quarterWidth, Math.PI / 2, 0, 2 * Math.PI);
+        ctx.ellipse(this.center.x, this.center.y + ENEMY_SIZE_HALF, this.shadowHeight, this.quarterWidth, Math.PI / 2, 0, 2 * Math.PI);
         ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
         ctx.fill();      
         if(this.isSelected){

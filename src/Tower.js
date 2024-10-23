@@ -1,5 +1,3 @@
-export const TOWER_SIZE = 64;
-
 export class Tower {
     constructor({
         sprite, 

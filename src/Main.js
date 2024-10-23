@@ -1,10 +1,5 @@
+import { GAME_WIDTH, GAME_HEIGHT } from "./Constants.js";
 import { GameHandler } from "./GameHandler.js";
-import { TILE_SIZE } from "./Tile.js";
-
-export const COLUMNS = 40;
-export const ROWS = 24;
-export const GAME_WIDTH = TILE_SIZE * COLUMNS;
-export const GAME_HEIGHT = TILE_SIZE * ROWS;
 
 window.addEventListener('load', function(){
     const canvas = document.getElementById('canvas');

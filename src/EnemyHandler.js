@@ -1,21 +1,5 @@
-import { Enemy, ENEMY_STATE, ENEMY_SIZE } from "./Enemy.js";
-import { TILE_SIZE } from "./Tile.js";
-
-const enemiesURL = './images/enemies/';
-const enemyColours = [
-    "topaz",
-    "ruby",
-    "sapphire",
-    "emerald",
-    "amethyst",
-    "citrine",
-    "silver",
-    "gold",
-    "diamond",
-    "obsidian",
-    "opal",
-    "uranium"
-];
+import { ENEMY_STATES, ENEMY_COLOURS, ENEMY_SIZE, ENEMIES_URL, TILE_SIZE } from "./Constants.js";
+import { Enemy } from "./Enemy.js";
 
 export class EnemyHandler {
     constructor(game){
@@ -50,7 +34,7 @@ export class EnemyHandler {
         for (let i = this.enemies.length - 1; i >= 0; i--){
             const enemy = this.enemies[i];
 
-            if(enemy.state === ENEMY_STATE.DEAD) 
+            if(enemy.state === ENEMY_STATES.DEAD) 
                 this.enemies.splice(i, 1);
             else
                 enemy.renderEnemy(ctx, event);
@@ -81,7 +65,7 @@ export class EnemyHandler {
     
     populateEnemiesArray(enemyImage){
         const enemySpeed = Math.random() * this.enemySpeedRange + this.enemySpeedMinimum;
-        const enemyState = enemySpeed < this.enemyRunningSpeed ? ENEMY_STATE.WALKING : ENEMY_STATE.RUNNING;
+        const enemyState = enemySpeed < this.enemyRunningSpeed ? ENEMY_STATES.WALKING : ENEMY_STATES.RUNNING;
         const enemyScale = Math.random() + 1;
         const waypoints = this.generateEnemyWaypoints(this.game.tileHandler.waypoints);
 
@@ -104,7 +88,6 @@ export class EnemyHandler {
         }));
     }
 
-    
     selectRandomEnemyImage(){
         let index;
         if(this.game.waves < 119)
@@ -116,9 +99,9 @@ export class EnemyHandler {
     
     populateEnemyImageArray(){
         let array = [];
-        for(let i = 0; i < enemyColours.length; i++){
+        for(let i = 0; i < ENEMY_COLOURS.length; i++){
             array[i] = new Image(), 
-            array[i].src = `${enemiesURL}${enemyColours[i]}.png`;
+            array[i].src = `${ENEMIES_URL}${ENEMY_COLOURS[i]}.png`;
         }
         return array;
     }

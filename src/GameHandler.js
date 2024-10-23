@@ -1,3 +1,5 @@
+import { GAME_STATES, LEVELS, TIME_INTERVALS } from "./Constants.js";
+import { AudioHandler } from "./AudioHandler.js";
 import { TextHandler } from "./TextHandler.js";
 import { TileHandler } from "./TileHandler.js";
 import { EnemyHandler } from "./EnemyHandler.js";
@@ -6,28 +8,12 @@ import { ProjectileHandler } from "./ProjectileHandler.js";
 import { EffectHandler } from "./EffectHandler.js";
 import { UserInput } from "./UserInput.js";
 
-export const GAME_STATES = {
-    PLAYING: 'PLAYING',
-    PAUSED: 'PAUSED',
-    MENU: 'MENU',
-    LOADING: 'LOADING',
-    GAMEOVER: 'GAMEOVER',
-    DEBUG: 'DEBUG',
-    RESTART: 'RESTART'
-};
-export const LEVELS = {
-    TERRA_HAUTE: 0,
-}
-const INTERVALS = {
-    SECOND: 1000,
-    EVENT:  60
-}
-
 export class GameHandler {
     constructor(){
         this.currentLevel = LEVELS.TERRA_HAUTE;
         this.currentGameState = GAME_STATES.PLAYING;
 
+        this.audioHandler = new AudioHandler(this);
         this.userInput = new UserInput(this);
         this.textHandler = new TextHandler(this);
         this.tileHandler = new TileHandler(this);
@@ -84,12 +70,10 @@ export class GameHandler {
                 this.effectHandler.renderEffects(ctx, this.eventUpdate);
                 this.textHandler.renderTexts(ctx);
 
-
-
                 this.textHandler.renderDebugTexts(ctx);
                 break
             case GAME_STATES.RESTART: 
-                // this.restartGame();
+                this.restartGame();
                 break
         }
     }
@@ -100,7 +84,7 @@ export class GameHandler {
     }
 
     gameTimer(deltaTime){
-        if (this.eventTimer < INTERVALS.EVENT){
+        if (this.eventTimer < TIME_INTERVALS.EVENT){
             this.eventTimer += deltaTime;
             this.eventUpdate = false;
         } else {
@@ -108,17 +92,12 @@ export class GameHandler {
             this.eventUpdate = true; 
         }
         
-        if (this.secondsTimer < INTERVALS.SECOND){
+        if (this.secondsTimer < TIME_INTERVALS.SECOND){
             this.secondsTimer += deltaTime;
         } else {
             this.secondsTimer = 0;
             this.timer++; 
         }
-    }
-
-    randomPositiveOrNegativeNumber(range){
-        const positiveOrNegative = Math.ceil((Math.random() - 0.5) * 2) < 1 ? -1 : 1
-        return Math.floor(Math.random() * range) * positiveOrNegative;
     }
 
     restartGame(){
@@ -134,10 +113,10 @@ export class GameHandler {
         this.enemyHandler.enemySpawnTimer = 0;
 
         this.enemyHandler.enemies = [];
-        // this.towers = [];
-        // this.projectiles = [];
-        // this.effects = [];
-        // this.gameTexts = [];
+        this.towerHandler.towers = [];
+        this.projectileHandler.projectiles = [];
+        this.effectHandler.effects = [];
+        this.textHandler.texts = [];
         this.currentGameState = GAME_STATES.PLAYING;
     }
 }

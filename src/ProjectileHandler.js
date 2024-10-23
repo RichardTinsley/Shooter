@@ -1,7 +1,6 @@
-import { Projectile, ANIMATION_STATE } from "./Projectile.js";
-import { ENEMY_STATE } from "./Enemy.js";
-
-const projectilesURL = './images/projectiles/';
+import { ANIMATION_STATES, ENEMY_STATES, PROJECTILES_URL } from "./Constants.js";
+import { Projectile } from "./Projectile.js";
+import { checkCollision } from "./Math.js";
 
 export class ProjectileHandler{
     constructor(game) {
@@ -13,7 +12,7 @@ export class ProjectileHandler{
             width: 50,
             height: 25
         }
-        this.blueFireball.image.src = `${projectilesURL}blueFireball_50x25.png`;
+        this.blueFireball.image.src = `${PROJECTILES_URL}blueFireball_50x25.png`;
     }
 
     renderProjectiles(ctx, event){
@@ -25,15 +24,15 @@ export class ProjectileHandler{
             const enemyIndex = this.game.enemyHandler.enemies.findIndex(enemy => projectile.enemy === enemy);
             const enemy = this.game.enemyHandler.enemies[enemyIndex];
             
-            if (projectile.checkCollision(enemy, projectile) && projectile.state === ANIMATION_STATE.ANIMATING){
-                projectile.state = ANIMATION_STATE.FINISHED
+            if (checkCollision(enemy, projectile) && projectile.state === ANIMATION_STATES.ANIMATING){
+                projectile.state = ANIMATION_STATES.FINISHED
                 enemy.health -= projectile.damage;
 
                 // const random = Math.floor(Math.random() * 3);
                 // this.game.assetHandler.sounds[random].currentTime = 0;
                 // this.game.assetHandler.sounds[random].play()
 
-                if(enemy.health <= 0 && enemyIndex > -1 && enemy.state !== ENEMY_STATE.DYING){
+                if(enemy.health <= 0 && enemyIndex > -1 && enemy.state !== ENEMY_STATES.DYING){
                         this.game.coins += enemy.coins;
                         this.game.exp += enemy.exp;
 
@@ -54,13 +53,13 @@ export class ProjectileHandler{
                         );
                 }
 
-                if(enemy.state === ENEMY_STATE.DYING){
+                if(enemy.state === ENEMY_STATES.DYING){
                     this.game.effectHandler.populateEffectsArray(this.game.effectHandler.blood, enemy);
                 }
 
                 this.game.effectHandler.populateExplosionsArray(this.game.effectHandler.blueExplosion, projectile, enemy);
 
-                if(projectile.state === ANIMATION_STATE.FINISHED){
+                if(projectile.state === ANIMATION_STATES.FINISHED){
                     this.projectiles.splice(i, 1);
                 } 
             }

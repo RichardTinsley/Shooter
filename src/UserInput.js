@@ -1,12 +1,4 @@
-import { GAME_STATES } from "./GameHandler.js";
-import { ENEMY_STATE, ENEMY_SIZE, HALF_ENEMY_SIZE } from "./Enemy.js";
-
-const KEYS = {
-    PAUSE: 'p',
-    DEBUG: 'o',
-    MUSIC: 'm',
-    RESTART: 'r'
-}
+import { GAME_STATES, USER_INPUT_KEYS, ENEMY_STATES, ENEMY_SIZE, ENEMY_SIZE_HALF } from './Constants.js'
 
 export class UserInput {
     constructor(game){
@@ -47,11 +39,11 @@ export class UserInput {
             this.activeEnemy = null;
 
             this.game.enemyHandler.enemies.forEach(enemy => {
-                if( this.mouse.x > enemy.center.x - HALF_ENEMY_SIZE &&
-                    this.mouse.x < enemy.center.x - HALF_ENEMY_SIZE + ENEMY_SIZE &&
+                if( this.mouse.x > enemy.center.x - ENEMY_SIZE_HALF &&
+                    this.mouse.x < enemy.center.x - ENEMY_SIZE_HALF + ENEMY_SIZE &&
                     this.mouse.y > enemy.center.y - enemy.height / 2 &&
-                    this.mouse.y < enemy.center.y - HALF_ENEMY_SIZE + ENEMY_SIZE &&
-                    enemy.state !== ENEMY_STATE.DYING
+                    this.mouse.y < enemy.center.y - ENEMY_SIZE_HALF + ENEMY_SIZE &&
+                    enemy.state !== ENEMY_STATES.DYING
                 ){
                     this.activeEnemy = enemy;
                 } else
@@ -81,25 +73,25 @@ export class UserInput {
         });
 
         window.addEventListener('keyup', e =>{
-            if (this.keys.has(KEYS.PAUSE))
+            if (this.keys.has(USER_INPUT_KEYS.PAUSE))
                 if(this.game.currentGameState === GAME_STATES.PLAYING)
                     this.game.currentGameState = GAME_STATES.PAUSED;
                 else 
                     this.game.currentGameState = GAME_STATES.PLAYING;
             
-            if(this.keys.has(KEYS.DEBUG))
+            if(this.keys.has(USER_INPUT_KEYS.DEBUG))
                 if(this.game.currentGameState === GAME_STATES.PLAYING)
                     this.game.currentGameState = GAME_STATES.DEBUG;
                 else 
                     this.game.currentGameState = GAME_STATES.PLAYING;
             
-            if(this.keys.has(KEYS.MUSIC))
-                if(this.game.assetHandler.music.paused) 
-                    this.game.assetHandler.music.play();
+            if(this.keys.has(USER_INPUT_KEYS.MUSIC))
+                if(this.game.audioHandler.music.paused) 
+                    this.game.audioHandler.music.play();
                 else
-                    this.game.assetHandler.music.pause();
+                    this.game.audioHandler.music.pause();
             
-            if(this.keys.has(KEYS.RESTART))
+            if(this.keys.has(USER_INPUT_KEYS.RESTART))
                 this.game.currentGameState = GAME_STATES.RESTART;
 
             this.keys.clear();
