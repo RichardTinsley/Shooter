@@ -1,6 +1,7 @@
-import { TILE_SIZE } from "./Main.js";
+export const TILE_SIZE = 32;
+export const HALF_TILE_SIZE = TILE_SIZE / 2;
 
-export class PlacementTile {
+export class Tile {
     constructor({ 
         position = { 
             x: 0, 

@@ -1,5 +1,5 @@
-import { PlacementTile } from "./Tile.js";
-import { TILE_SIZE, COLUMNS } from "./Main.js";
+import { Tile, TILE_SIZE } from "./Tile.js";
+import { COLUMNS } from "./Main.js";
 import { LEVELS } from "./GameHandler.js";
 
 export class TileHandler {
@@ -26,7 +26,7 @@ export class TileHandler {
             row.forEach((symbol, x) => {
                 if (symbol != 0) 
                     tiles.push(
-                        new PlacementTile({ 
+                        new Tile({ 
                             position: { 
                                 x: x * TILE_SIZE, 
                                 y: y * TILE_SIZE 

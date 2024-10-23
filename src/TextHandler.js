@@ -1,38 +1,54 @@
-import { GAME_WIDTH, GAME_HEIGHT, ROWS, COLUMNS, TILE_SIZE, HALF_TILE_SIZE, TOWER_SIZE } from "./Main.js";
-
-    // this.greenGameText = {
-    //     color: '50, 205, 50, ',
-    //     alpha: '10', 
-    //     textSize: 25, 
-    //     align: 'left'
-    // };
-
-    // this.goldGameText = {
-    //     color:  '255, 215, 0, ',
-    //     alpha: '10',
-    //     textSize: 25,
-    //     align: 'left'
-    // };
+import { GAME_WIDTH, GAME_HEIGHT, ROWS, COLUMNS } from "./Main.js";
+import { TILE_SIZE, HALF_TILE_SIZE } from "./Tile.js";
+import { Text } from "./Text.js";
 
 export class TextHandler{
     constructor(game) {
         this.game = game;
-        this.gameTexts = [];
+        this.texts = [];
+
+        this.greenGameText = {
+            color: '50, 205, 50, ',
+            alpha: '10', 
+            textSize: 25, 
+            align: 'left'
+        };
+
+        this.goldGameText = {
+            color:  '255, 215, 0, ',
+            alpha: '10',
+            textSize: 25,
+            align: 'left'
+        };
 
         this.frames = 0;
         this.startTime = performance.now();
         this.FPSNormal = 0;
     }
 
-    renderGameTexts(ctx){
-        for (let i = this.gameTexts.length - 1; i >= 0; i-- ){
-            const gameText = this.gameTexts[i];        
-            gameText.draw(ctx);
-            gameText.update();
-            if (gameText.alpha <= 0){
-                this.gameTexts.splice(i, 1);
+    renderTexts(ctx){
+        for (let i = this.texts.length - 1; i >= 0; i-- ){
+            const text = this.texts[i];        
+            text.draw(ctx);
+            text.update();
+            if (text.alpha <= 0){
+                this.texts.splice(i, 1);
             }
         }
+    }
+
+    populateGameTextArray(gameText, text, position){
+        this.texts.push(new Text({
+            text: text,
+            color: gameText.color,
+            alpha: gameText.alpha,
+            position: {
+                x: position.x,
+                y: position.y
+            },
+            textSize: gameText.textSize,
+            align: gameText.align 
+        }));
     }
     
     renderGUITexts(ctx){
@@ -47,8 +63,9 @@ export class TextHandler{
     renderDebugTexts(ctx){
         this.calculateFPSNormal();
         this.levelDebugText(ctx);
-        // this.towerDebugText(ctx);
+        this.towerDebugText(ctx);
         this.enemyDebugText(ctx);
+        this.projectileDebugText(ctx);
         this.performanceDebugText(ctx);
     }
 
@@ -110,12 +127,25 @@ export class TextHandler{
     }
     
     towerDebugText(ctx){
-        this.game.renderHandler.towers.forEach(tower => {
+        this.game.towerHandler.towers.forEach(tower => {
             ctx.beginPath();
             ctx.arc(tower.center.x, tower.center.y, tower.range, 0, Math.PI * 2);
             ctx.fillStyle = 'rgba(200, 0, 0, 0.1)';
             ctx.fill();
-            this.drawText(ctx, tower.range, tower.center.x, tower.center.y - TOWER_SIZE, HALF_TILE_SIZE, 'right');
+            this.drawText(ctx, tower.range, tower.center.x, tower.center.y - TILE_SIZE, HALF_TILE_SIZE, 'right');
+            ctx.fillStyle = 'rgba(250, 0, 0, 1)';
+            ctx.fillRect(tower.center.x, tower.center.y, 5, 5);
+        })
+    }
+
+    projectileDebugText(ctx){
+        this.game.projectileHandler.projectiles.forEach(projectile => {
+            ctx.beginPath();
+            ctx.arc(projectile.center.x, projectile.center.y, projectile.range, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(200, 0, 0, 0.1)';
+            ctx.fill();
+            ctx.fillStyle = 'rgba(250, 0, 0, 1)';
+            ctx.fillRect(projectile.center.x, projectile.center.y, 5, 5);
         })
     }
     

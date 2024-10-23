@@ -1,6 +1,9 @@
 import { TextHandler } from "./TextHandler.js";
 import { TileHandler } from "./TileHandler.js";
 import { EnemyHandler } from "./EnemyHandler.js";
+import { TowerHandler } from "./TowerHandler.js";
+import { ProjectileHandler } from "./ProjectileHandler.js";
+import { EffectHandler } from "./EffectHandler.js";
 import { UserInput } from "./UserInput.js";
 
 export const GAME_STATES = {
@@ -20,17 +23,18 @@ const INTERVALS = {
     EVENT:  60
 }
 
-
 export class GameHandler {
     constructor(){
         this.currentLevel = LEVELS.TERRA_HAUTE;
-        this.currentGameState = GAME_STATES.DEBUG;
+        this.currentGameState = GAME_STATES.PLAYING;
 
         this.userInput = new UserInput(this);
         this.textHandler = new TextHandler(this);
         this.tileHandler = new TileHandler(this);
         this.enemyHandler = new EnemyHandler(this);
-
+        this.towerHandler = new TowerHandler(this);
+        this.projectileHandler = new ProjectileHandler(this);
+        this.effectHandler = new EffectHandler(this);
 
         this.hearts = 1;
         this.coins = 100;
@@ -50,31 +54,38 @@ export class GameHandler {
         this.lastTime = timeStamp;
 
         this.playerStatusCheck();
+        this.tileHandler.renderTiles(ctx);
+        this.textHandler.renderGUITexts(ctx);
 
         switch(this.currentGameState){
             case GAME_STATES.PLAYING: 
                 this.gameTimer(deltaTime);
-                this.tileHandler.renderTiles(ctx);
-                this.textHandler.renderGUITexts(ctx);
                 this.enemyHandler.renderEnemies(ctx, this.eventUpdate);
+                this.towerHandler.renderTowers(ctx, this.eventUpdate);
+                this.projectileHandler.renderProjectiles(ctx, this.eventUpdate);
+                this.effectHandler.renderEffects(ctx, this.eventUpdate);
+                this.textHandler.renderTexts(ctx);
                 break
             case GAME_STATES.PAUSED:
-                this.textHandler.renderbigScreenTexts(ctx, GAME_STATES.PAUSED, true)
+                this.textHandler.renderbigScreenTexts(ctx, GAME_STATES.PAUSED, true);
                 break
             case GAME_STATES.MENU: 
                 break
             case GAME_STATES.LOADING: 
                 break
             case GAME_STATES.GAMEOVER:
-                // this.gameTextHandler.BigScreenText(ctx, GAME_STATES.GAMEOVER);
+                this.textHandler.renderbigScreenTexts(ctx, GAME_STATES.GAMEOVER, true);
                 break
-            case GAME_STATES.DEBUG: 
+            case GAME_STATES.DEBUG:
                 this.gameTimer(deltaTime);
-                this.tileHandler.renderTiles(ctx);
-                this.textHandler.renderGUITexts(ctx);
                 this.enemyHandler.renderEnemies(ctx, this.eventUpdate);
-                
-                
+                this.towerHandler.renderTowers(ctx, this.eventUpdate);    
+                this.projectileHandler.renderProjectiles(ctx, this.eventUpdate);         
+                this.effectHandler.renderEffects(ctx, this.eventUpdate);
+                this.textHandler.renderTexts(ctx);
+
+
+
                 this.textHandler.renderDebugTexts(ctx);
                 break
             case GAME_STATES.RESTART: 
@@ -103,6 +114,11 @@ export class GameHandler {
             this.secondsTimer = 0;
             this.timer++; 
         }
+    }
+
+    randomPositiveOrNegativeNumber(range){
+        const positiveOrNegative = Math.ceil((Math.random() - 0.5) * 2) < 1 ? -1 : 1
+        return Math.floor(Math.random() * range) * positiveOrNegative;
     }
 
     restartGame(){

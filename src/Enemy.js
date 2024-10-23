@@ -21,7 +21,6 @@ export class Enemy {
         state,
         waypoints,
     }){
-
         this.sprite = sprite;
         this.maxFrame = (this.sprite.image.width / this.sprite.width) - 1;
 
@@ -31,10 +30,12 @@ export class Enemy {
         this.halfWidth = this.width / 2;
         this.quarterWidth = this.width / 4;
         this.shadowHeight = this.halfWidth / 6;
-                
-        this.state = state;
-        this.isSelected = false;
-        this.direction;
+
+        this.position = position;
+        this.center = {
+            x: Math.round(this.position.x + this.width / 2 * 100) / 100,
+            y: Math.round(this.position.y + this.height / 2 * 100) / 100
+        };
         
         this.speed = speed;
         this.velocity = { 
@@ -42,14 +43,13 @@ export class Enemy {
             y: 0
         }; 
 
+        this.state = state;
+        this.isSelected = false;
+        this.direction;
+        
         this.priorityDistance = 0;
         this.waypointIndex = 0;
         this.waypoints = waypoints;
-        this.position = position;
-        this.center = {
-            x: Math.round(this.position.x + this.width / 2 * 100) / 100,
-            y: Math.round(this.position.y + this.height / 2 * 100) / 100
-        };
 
         this.health = 100;
         this.healthBarThickness = 2.5;

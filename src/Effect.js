@@ -1,6 +1,9 @@
-import { ANIMATION_STATE } from "./RenderHandler.js";
+import { HALF_TILE_SIZE, TILE_SIZE } from "./Tile.js";
 import { ENEMY_STATE } from "./Enemy.js";
-import { TILE_SIZE, HALF_TILE_SIZE } from "../Main.js";
+export const ANIMATION_STATE = {
+    ANIMATING: 0,
+    FINISHED: 1
+};
 
 export class Effect {
     constructor({ 
@@ -9,18 +12,9 @@ export class Effect {
         scale,
         direction
     }){
-        this.sprite = sprite ?? { 
-            image: "",
-            x: 0, 
-            y: 0, 
-            width: 0, 
-            height: 0 
-        };
-        this.position = position ?? {
-            x: 0,
-            y: 0
-        }
-        this.scale = scale ?? 1;
+        this.sprite = sprite;
+        this.position = position
+        this.scale = scale;
         this.maxFrame = (this.sprite.image.width / this.sprite.width) - 1;
         this.maxRow = (this.sprite.image.height / this.sprite.height) - 1;
 
@@ -65,6 +59,28 @@ export class Effect {
         if(this.direction === ENEMY_STATE.RIGHT)
             ctx.restore();
     }
+
+    // draw(ctx){
+    //     const left = -this.halfWidth - HALF_ENEMY_SIZE - this.position.x;
+    //     const right = this.position.x + HALF_ENEMY_SIZE - this.halfWidth;
+    //     if(this.direction === ENEMY_STATE.LEFT){
+    //         ctx.save();
+    //         ctx.scale(-1, 1);
+    //     }
+    //     ctx.drawImage(
+    //         this.sprite.image,
+    //         this.sprite.frame * this.sprite.width,
+    //         this.sprite.row * this.sprite.height + 1,
+    //         this.sprite.width,
+    //         this.sprite.height,
+    //         this.direction === ENEMY_STATE.LEFT ? left : right,
+    //         this.center.y - this.height + HALF_ENEMY_SIZE,
+    //         this.width,
+    //         this.height
+    //     );
+    //     if(this.direction === ENEMY_STATE.LEFT)
+    //         ctx.restore();
+    // }
     
     update(event){
         if(event){

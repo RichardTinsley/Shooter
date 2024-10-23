@@ -25,22 +25,15 @@ export class UserInput {
         window.addEventListener('click', e => {
             if (this.activeTile && !this.activeTile.isOccupied && this.game.coins - 25 >= 0) {
                 
-                this.game.populateTowersArray(this.game.assetHandler.sapphireTower, 
-                    this.game.renderHandler.towers,
-                    this.activeTile
-                );
-                
-            
+                this.game.towerHandler.populateTowersArray(this.game.towerHandler.sapphireTower, this.activeTile);
                 this.activeTile.isOccupied = true;
-                this.game.renderHandler.towers.sort((a, b) => {
-                    return a.position.y - b.position.y;
-                })
+                this.game.towerHandler.towers.sort((a, b) => { return a.position.y - b.position.y });
                 this.game.coins -= 25;
             }
             
             if(this.activeEnemy){
                 this.activeEnemy.isSelected = true;
-                this.game.renderHandler.enemies.forEach(enemy => {
+                this.game.enemyHandler.enemies.forEach(enemy => {
                     if(enemy != this.activeEnemy){
                         enemy.isSelected = false;
                     }

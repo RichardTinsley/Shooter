@@ -1,5 +1,5 @@
 import { Enemy, ENEMY_STATE, ENEMY_SIZE } from "./Enemy.js";
-import { TILE_SIZE } from "./Main.js";
+import { TILE_SIZE } from "./Tile.js";
 
 const enemiesURL = './images/enemies/';
 const enemyColours = [
@@ -49,18 +49,16 @@ export class EnemyHandler {
         
         for (let i = this.enemies.length - 1; i >= 0; i--){
             const enemy = this.enemies[i];
-            this.renderEnemyOrRemoveFromArray(enemy, ctx, event);
-            this.returnEnemyToBeginningAfterReachingLastWaypoint(enemy)
+
+            if(enemy.state === ENEMY_STATE.DEAD) 
+                this.enemies.splice(i, 1);
+            else
+                enemy.renderEnemy(ctx, event);
+            
+            this.returnEnemyToBeginningAfterReachingLastWaypoint(enemy);
         }
         if (this.enemies.length === 0 && this.allEnemiesActive === true)
             this.newEnemyWave();
-    }
-
-    renderEnemyOrRemoveFromArray(enemy, ctx, event){
-        if(enemy.state === ENEMY_STATE.DEAD) 
-            this.enemies.splice(i, 1);
-        else
-            enemy.renderEnemy(ctx, event);
     }
 
     returnEnemyToBeginningAfterReachingLastWaypoint(enemy){
