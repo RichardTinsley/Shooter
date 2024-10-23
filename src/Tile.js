@@ -1,4 +1,4 @@
-import { TILE_SIZE } from "../index.js";
+import { TILE_SIZE } from "./Main.js";
 
 export class PlacementTile {
     constructor({ 

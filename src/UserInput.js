@@ -1,6 +1,5 @@
-import { TILE_SIZE } from "../index.js";
-import { GAME_STATES } from "./Game.js";
-import { ENEMY_STATE } from "./Enemy.js";
+import { GAME_STATES } from "./GameHandler.js";
+import { ENEMY_STATE, ENEMY_SIZE, HALF_ENEMY_SIZE } from "./Enemy.js";
 
 const KEYS = {
     PAUSE: 'p',
@@ -9,7 +8,7 @@ const KEYS = {
     RESTART: 'r'
 }
 
-export class Input {
+export class UserInput {
     constructor(game){
         this.game = game;
         this.mouse = {
@@ -55,11 +54,11 @@ export class Input {
             this.activeTile = null;
             this.activeEnemy = null;
 
-            this.game.renderHandler.enemies.forEach(enemy => {
-                if( this.mouse.x > enemy.position.x &&
-                    this.mouse.x < enemy.position.x + TILE_SIZE &&
-                    this.mouse.y > enemy.position.y - (TILE_SIZE / 2) &&
-                    this.mouse.y < enemy.position.y + TILE_SIZE &&
+            this.game.enemyHandler.enemies.forEach(enemy => {
+                if( this.mouse.x > enemy.center.x - HALF_ENEMY_SIZE &&
+                    this.mouse.x < enemy.center.x - HALF_ENEMY_SIZE + ENEMY_SIZE &&
+                    this.mouse.y > enemy.center.y - enemy.height / 2 &&
+                    this.mouse.y < enemy.center.y - HALF_ENEMY_SIZE + ENEMY_SIZE &&
                     enemy.state !== ENEMY_STATE.DYING
                 ){
                     this.activeEnemy = enemy;
@@ -70,7 +69,7 @@ export class Input {
             if(this.activeEnemy)
                 cursor.style = "cursor: url(./images/cursors/text.cur), auto;";
 
-            this.game.renderHandler.placementTiles.forEach(tile => {
+            this.game.tileHandler.tiles.forEach(tile => {
                 if( this.mouse.x > tile.position.x &&
                     this.mouse.x < tile.position.x + tile.size &&
                     this.mouse.y > tile.position.y &&

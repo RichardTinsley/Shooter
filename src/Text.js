@@ -1,4 +1,4 @@
-export class GameText {
+export class Text {
     constructor({
         text,
         color,

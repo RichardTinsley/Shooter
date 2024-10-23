@@ -1,5 +1,5 @@
 import { Projectile } from "./Projectile.js";
-import { TILE_SIZE } from "../index.js";
+import { TILE_SIZE } from "../Main.js";
 import { ENEMY_STATE } from "./Enemy.js";
 
 export class Tower {

@@ -1,4 +1,4 @@
-import { HALF_TILE_SIZE } from "../index.js";
+import { HALF_TILE_SIZE } from "../Main.js";
 import { ANIMATION_STATE } from "./RenderHandler.js";
 import { Effect } from "./Effect.js";
 import { GameText } from "./GameText.js";
