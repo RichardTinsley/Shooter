@@ -106,6 +106,10 @@ export class EnemyHandler {
         return array;
     }
 
+    enemyImage(){
+        return new Image();
+    }
+
     generateEnemyWaypoints(wayspoints){
         return wayspoints.map(waypoint => {
             return { 

@@ -48,14 +48,12 @@ export class ProjectileHandler{
                             this.game.textHandler.goldGameText, 
                             '+' + enemy.coins, 
                             enemy.position, 
-                            this.gameTexts
                         );
 
                         this.game.textHandler.populateGameTextArray(
                             this.game.textHandler.greenGameText, 
-                            '+' + enemy.exp, 
+                            '+' + enemy.exp + 'xp', 
                             projectile.position, 
-                            this.gameTexts
                         );
                 }
 

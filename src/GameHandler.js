@@ -1,4 +1,4 @@
-import { GAME_STATES, GAME_WIDTH, GAME_HEIGHT, LEVELS, TIME_INTERVALS } from "./Constants.js";
+import { GAME_STATES, LEVELS, TIME_INTERVALS } from "./Constants.js";
 import { AudioHandler } from "./AudioHandler.js";
 import { TextHandler } from "./TextHandler.js";
 import { TileHandler } from "./TileHandler.js";
@@ -7,6 +7,7 @@ import { TowerHandler } from "./TowerHandler.js";
 import { ProjectileHandler } from "./ProjectileHandler.js";
 import { EffectHandler } from "./EffectHandler.js";
 import { UserInput } from "./UserInput.js";
+import { DebugHandler } from "./DebugHandler.js";
 
 export class GameHandler {
     constructor(){
@@ -21,6 +22,7 @@ export class GameHandler {
         this.towerHandler = new TowerHandler(this);
         this.projectileHandler = new ProjectileHandler(this);
         this.effectHandler = new EffectHandler(this);
+        this.debugHandler = new DebugHandler(this); 
 
         this.hearts = 1;
         this.coins = 100;
@@ -70,7 +72,7 @@ export class GameHandler {
                 this.effectHandler.renderEffects(ctx, this.eventUpdate);
                 this.textHandler.renderTexts(ctx);
 
-                this.textHandler.renderDebugTexts(ctx);
+                this.debugHandler.renderDebugInfo(ctx);
                 break
             case GAME_STATES.RESTART: 
                 this.restartGame();

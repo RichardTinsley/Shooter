@@ -1,4 +1,4 @@
-import { ENEMY_STATES, ENEMY_SIZE_HALF } from "./Constants.js";
+import { ENEMY_STATES, ENEMY_SIZE_HALF, TILE_SIZE } from "./Constants.js";
 import { checkCollision, findAngleOfDirection } from "./Math.js";
 
 export class Enemy {
@@ -80,7 +80,7 @@ export class Enemy {
             this.sprite.width,
             this.sprite.height,
             this.direction === ENEMY_STATES.LEFT ? left : right,
-            this.center.y - this.height + ENEMY_SIZE_HALF,
+            this.position.y + TILE_SIZE - this.height,
             this.width,
             this.height
         );
@@ -164,9 +164,11 @@ export class Enemy {
         ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
         ctx.fill();      
         if(this.isSelected){
-            ctx.lineWidth = this.healthBarThickness;
+            ctx.setLineDash([this.quarterWidth / 2, this.quarterWidth / 2]);
+            ctx.lineWidth = 3;
             ctx.strokeStyle = 'rgba(255, 30, 30, 1)'
             ctx.stroke();
+            ctx.setLineDash([0, 0]);
         }   
     }
 }
