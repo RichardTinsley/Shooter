@@ -1,6 +1,5 @@
-import { Tower } from "./Tower.js";
-
 import { TOWER_SIZE, TOWERS_URL, ENEMY_STATES, TILE_SIZE_HALF } from "./Constants.js";
+import { Tower } from "./Tower.js";
 
 export class TowerHandler{
     constructor(game){
@@ -9,7 +8,6 @@ export class TowerHandler{
             
             this.sapphireTower = {
                 image: new Image(),
-                projectile: this.blueFireball
             }
             this.sapphireTower.image.src = `${TOWERS_URL}sapphire1.png`;
     }
@@ -28,7 +26,9 @@ export class TowerHandler{
                 tower.target = enemiesInTowerRange[0];
 
             if(tower.shootTimer > tower.cooldown && tower.target){
-                this.game.projectileHandler.populateProjectilesArray(tower.target, tower);
+                this.game.projectileHandler.populateProjectilesArray(
+                    tower.target, 
+                    tower, this.game.projectileHandler.blueFireball);
                 tower.shootTimer = 0;
             }
         })
@@ -55,7 +55,6 @@ export class TowerHandler{
         const damage = 50;
         const range = 150;
         const cooldown = 10;
-
         this.towers.push(new Tower({
             sprite: { 
                 image: tower.image, 
@@ -68,7 +67,6 @@ export class TowerHandler{
                 x: activeTile.position.x - TILE_SIZE_HALF,
                 y: activeTile.position.y - TILE_SIZE_HALF  
             },
-            projectile: tower.projectile,
             damage: damage,
             range: range,
             cooldown: cooldown

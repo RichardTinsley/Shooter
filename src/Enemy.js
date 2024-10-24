@@ -1,4 +1,5 @@
 import { ENEMY_STATES, ENEMY_SIZE_HALF } from "./Constants.js";
+import { checkCollision, findAngleOfDirection } from "./Math.js";
 
 export class Enemy {
     constructor({ 
@@ -67,6 +68,7 @@ export class Enemy {
     draw(ctx){
         const left = -this.halfWidth - ENEMY_SIZE_HALF - this.position.x;
         const right = this.position.x + ENEMY_SIZE_HALF - this.halfWidth;
+
         if(this.direction === ENEMY_STATES.LEFT){
             ctx.save();
             ctx.scale(-1, 1);
@@ -88,28 +90,31 @@ export class Enemy {
 
     updateMovement(event){
         const waypoint = this.waypoints[this.waypointIndex];
-
         const yDistance = waypoint.y - this.center.y;
         const xDistance = waypoint.x - this.center.x;
+        const angle = findAngleOfDirection(waypoint, this.center);
 
-        const angle = Math.atan2(yDistance, xDistance);
         this.priorityDistance = Math.round(Math.abs(xDistance) + Math.abs(yDistance));
+
         this.velocity.x = Math.cos(angle) * this.speed;
         this.velocity.y = Math.sin(angle) * this.speed;
-        
         this.position.x += this.velocity.x;
         this.position.y += this.velocity.y;
         this.center = {
             x: this.position.x + ENEMY_SIZE_HALF,
             y: this.position.y + ENEMY_SIZE_HALF
         };
+
+        const waypointCenter = {
+            center: {
+                x: this.waypoints[this.waypointIndex].x,
+                y: this.waypoints[this.waypointIndex].y
+            },
+            width: 1
+        };
         
-        if( Math.abs(Math.round(this.center.x) - Math.round(waypoint.x)) <
-            Math.abs(this.velocity.x) && 
-            Math.abs(Math.round(this.center.y) - Math.round(waypoint.y)) <
-            Math.abs(this.velocity.y) &&
-            this.waypointIndex < this.waypoints.length - 1
-        )
+        if (checkCollision(this, waypointCenter) && 
+            this.waypointIndex < this.waypoints.length - 1)
             this.waypointIndex++;
         
         if(event)

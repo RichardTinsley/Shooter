@@ -1,4 +1,4 @@
-import { GAME_STATES, LEVELS, TIME_INTERVALS } from "./Constants.js";
+import { GAME_STATES, GAME_WIDTH, GAME_HEIGHT, LEVELS, TIME_INTERVALS } from "./Constants.js";
 import { AudioHandler } from "./AudioHandler.js";
 import { TextHandler } from "./TextHandler.js";
 import { TileHandler } from "./TileHandler.js";

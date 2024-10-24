@@ -1,4 +1,5 @@
 import { ANIMATION_STATES } from "./Constants.js";
+import { findAngleOfDirection, giveDirection } from "./Math.js";
 
 export class Projectile{
     constructor({ 
@@ -25,6 +26,7 @@ export class Projectile{
         this.maxRow = (this.sprite.image.height / this.sprite.height) - 1;
         
         this.state = ANIMATION_STATES.ANIMATING;
+        this.direction;
         this.angle;
         this.speed = speed;
         this.velocity = {
@@ -66,10 +68,9 @@ export class Projectile{
     }
 
     update(event) {
-        this.angle = Math.atan2(
-            this.enemy.center.y - this.center.y,
-            this.enemy.center.x - this.center.x
-        );
+        this.angle = findAngleOfDirection(this.enemy.center, this.center);
+        this.direction = giveDirection(this.angle);
+
         this.velocity.x = Math.cos(this.angle) * this.speed;
         this.velocity.y = Math.sin(this.angle) * this.speed;
         this.center.x += this.velocity.x;

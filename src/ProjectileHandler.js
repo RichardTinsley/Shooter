@@ -36,7 +36,13 @@ export class ProjectileHandler{
                         this.game.coins += enemy.coins;
                         this.game.exp += enemy.exp;
 
-                        this.game.effectHandler.populateEffectsArray(this.game.effectHandler.blood, enemy);
+                        this.game.effectHandler.populateEffectsArray(
+                            this.game.effectHandler.blood, 
+                            projectile,  
+                            projectile.enemy.position,
+                            Math.floor(Math.random() * 9),  
+                            projectile.enemy.scale / 1.5
+                        );
 
                         this.game.textHandler.populateGameTextArray(
                             this.game.textHandler.goldGameText, 
@@ -54,10 +60,22 @@ export class ProjectileHandler{
                 }
 
                 if(enemy.state === ENEMY_STATES.DYING){
-                    this.game.effectHandler.populateEffectsArray(this.game.effectHandler.blood, enemy);
+                    this.game.effectHandler.populateEffectsArray(
+                        this.game.effectHandler.blood, 
+                        projectile,  
+                        projectile.enemy.position,
+                        Math.floor(Math.random() * 9),  
+                        projectile.enemy.scale / 1.5
+                    );
                 }
 
-                this.game.effectHandler.populateExplosionsArray(this.game.effectHandler.blueExplosion, projectile, enemy);
+                this.game.effectHandler.populateEffectsArray(
+                    this.game.effectHandler.blueExplosion, 
+                    projectile, 
+                    projectile.center,
+                    0, 
+                    Math.random() * .4 + .3
+                );
 
                 if(projectile.state === ANIMATION_STATES.FINISHED){
                     this.projectiles.splice(i, 1);
@@ -66,20 +84,20 @@ export class ProjectileHandler{
         }
     }
 
-    populateProjectilesArray(target, tower){
+    populateProjectilesArray(enemy, tower, projectile){
         this.projectiles.push(new Projectile({
             sprite: { 
-                image: this.blueFireball.image, 
+                image: projectile.image, 
                 frame: 0, 
                 row: 0,  
-                width: this.blueFireball.width, 
-                height: this.blueFireball.height 
+                width: projectile.width, 
+                height: projectile.height 
             },
             position : {
                 x: tower.center.x,
                 y: tower.center.y - (tower.height / 2)
             }, 
-            enemy: target,
+            enemy: enemy,
             scale: 1, 
             speed: 2.5,
             damage: tower.damage, 

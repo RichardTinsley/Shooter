@@ -28,7 +28,7 @@ export class Text {
         ctx.textAlign = this.align;
         ctx.textBaseline = 'middle';
         ctx.lineWidth = 5;
-        ctx.strokeStyle = 'black';
+        ctx.strokeStyle = `rgba(0, 0, 0, ${this.alpha})`;
         ctx.strokeText(this.text, this.position.x + 5, this.position.y - 3);
         ctx.fillText(this.text, this.position.x + 5, this.position.y - 3);
     }

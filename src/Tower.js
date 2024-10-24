@@ -2,7 +2,6 @@ export class Tower {
     constructor({
         sprite, 
         position, 
-        projectile,
         damage,
         range,
         cooldown
@@ -21,7 +20,6 @@ export class Tower {
         this.maxFrame = Math.floor((this.sprite.image.width / this.sprite.width)) - 1;
         
         this.shootTimer = 0;
-        this.projectile = projectile;
         this.damage = damage;
         this.range = range;
         this.cooldown = cooldown;

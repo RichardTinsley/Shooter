@@ -34,40 +34,18 @@ export class EffectHandler {
         }
     }
 
-    populateEffectsArray(effect, enemy){
+    populateEffectsArray(effect, projectile, position, animationRow, scale){
         this.effects.push(new Effect({        
             sprite: { 
                 image: effect.image,
                 x: 0, 
-                y: Math.floor(Math.random() * 9),  
+                y: animationRow,  
                 width: effect.width, 
                 height: effect.height 
             }, 
-            position: {
-                x: enemy.position.x, 
-                y: enemy.position.y
-            }, 
-            scale: enemy.scale / 2,
-            direction: effect.direction
+            position: position, 
+            scale: scale,
+            direction: projectile.direction
         }));
     }
-
-    populateExplosionsArray(effect, projectile, enemy){
-        this.effects.push(new Effect({        
-            sprite: { 
-                image: effect.image,
-                x: 0, 
-                y: 0,  
-                width: effect.width, 
-                height: effect.height 
-            }, 
-            position: {
-                x: projectile.center.x, 
-                y: projectile.center.y
-            }, 
-            scale: Math.random() * .4 + .3,
-            direction: effect.direction
-        }));
-    }
-
 }

@@ -1,4 +1,4 @@
-import { ENEMY_STATES, ENEMY_COLOURS, ENEMY_SIZE, ENEMIES_URL, TILE_SIZE } from "./Constants.js";
+import { ENEMY_STATES, ENEMY_COLOURS, ENEMY_SIZE, ENEMIES_URL, TILE_SIZE, TILE_SIZE_HALF } from "./Constants.js";
 import { Enemy } from "./Enemy.js";
 
 export class EnemyHandler {
@@ -109,8 +109,8 @@ export class EnemyHandler {
     generateEnemyWaypoints(wayspoints){
         return wayspoints.map(waypoint => {
             return { 
-                    x: (waypoint.x - TILE_SIZE) + Math.round(Math.random() * TILE_SIZE),
-                    y: (waypoint.y - TILE_SIZE) + Math.round(Math.random() * TILE_SIZE)
+                    x: (waypoint.x - TILE_SIZE) + Math.round(Math.random() * (TILE_SIZE + TILE_SIZE_HALF + 10)),
+                    y: (waypoint.y - TILE_SIZE) + Math.round(Math.random() * (TILE_SIZE + TILE_SIZE_HALF + 10))
                 }
             }
         );
