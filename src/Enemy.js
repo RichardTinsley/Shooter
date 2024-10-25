@@ -153,30 +153,31 @@ export class Enemy {
         const healthBarY = this.center.y - (this.height / 1.4);
         const healthBarLength = this.quarterWidth * 2;
         const healthBarThickness = 4;
-
-        ctx.beginPath();
-        ctx.fillStyle = 'red';
-        ctx.lineWidth = 1;
-        ctx.strokeStyle = 'black'
-        ctx.fillRect(
-            healthBarX, 
-            healthBarY, 
-            healthBarLength, 
-            healthBarThickness
-        );
-        ctx.fillStyle = 'rgb(85, 255, 0)';
-        ctx.fillRect(
-            healthBarX, 
-            healthBarY, 
-            healthBarLength * (this.health / this.maxHealth), 
-            healthBarThickness
-        );
-        ctx.strokeRect(
-            healthBarX,
-            healthBarY, 
-            healthBarLength, 
-            healthBarThickness
-        );
+        if(this.health > 0){
+            ctx.beginPath();
+            ctx.fillStyle = 'red';
+            ctx.lineWidth = 1;
+            ctx.strokeStyle = 'black'
+            ctx.fillRect(
+                healthBarX, 
+                healthBarY, 
+                healthBarLength, 
+                healthBarThickness
+            );
+            ctx.fillStyle = 'rgb(85, 255, 0)';
+            ctx.fillRect(
+                healthBarX, 
+                healthBarY, 
+                healthBarLength * (this.health / this.maxHealth), 
+                healthBarThickness
+            );
+            ctx.strokeRect(
+                healthBarX,
+                healthBarY, 
+                healthBarLength, 
+                healthBarThickness
+            );
+        }
     }
 
     drawShadow(ctx){
