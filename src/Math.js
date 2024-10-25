@@ -21,6 +21,10 @@ export function giveDirection(angle){
         return ANIMATION_STATES.LEFT;
 }
 
+export function randomPositiveFloat(range){
+    const randomNumber = Math.random() * range;
+    return Math.round(randomNumber * 100) / 100
+}
 
 export function randomPositiveOrNegativeNumber(range){
     const positiveOrNegative = Math.ceil((Math.random() - 0.5) * 2) < 1 ? -1 : 1

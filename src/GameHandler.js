@@ -108,7 +108,7 @@ export class GameHandler {
         this.exp = 0;
         this.waves = 1;
         this.timer = 0;
-
+        console.log();
         this.enemyHandler.allEnemiesActive = false;
         this.enemyHandler.maxEnemies = 10;
         this.enemyHandler.enemyCounter = 0;    

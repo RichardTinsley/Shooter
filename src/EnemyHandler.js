@@ -1,4 +1,5 @@
 import { ENEMY_STATES, ENEMY_COLOURS, ENEMY_SIZE, ENEMIES_URL, TILE_SIZE, TILE_SIZE_HALF } from "./Constants.js";
+import { randomPositiveFloat } from "./Math.js";
 import { Enemy } from "./Enemy.js";
 
 export class EnemyHandler {
@@ -64,10 +65,12 @@ export class EnemyHandler {
     }
     
     populateEnemiesArray(enemyImage){
-        const enemySpeed = Math.random() * this.enemySpeedRange + this.enemySpeedMinimum;
+        const enemySpeed = randomPositiveFloat(this.enemySpeedRange) + this.enemySpeedMinimum;
         const enemyState = enemySpeed < this.enemyRunningSpeed ? ENEMY_STATES.WALKING : ENEMY_STATES.RUNNING;
-        const enemyScale = Math.random() + 1;
+        const enemyScale = 1.5;
+        const enemyHealth = randomPositiveFloat(200) + 100;
         const waypoints = this.generateEnemyWaypoints(this.game.tileHandler.waypoints);
+        console.log(enemyHealth)
 
         this.enemies.push(new Enemy({
             sprite: { 
@@ -81,8 +84,9 @@ export class EnemyHandler {
                 x: waypoints[0].x,
                 y: waypoints[0].y
             },
-            scale: Math.round(enemyScale * 100) / 100,
-            speed: Math.round(enemySpeed * 100) / 100,
+            maxHealth: enemyHealth,
+            scale: enemyScale,
+            speed: enemySpeed,
             state: enemyState,
             waypoints: waypoints,
         }));

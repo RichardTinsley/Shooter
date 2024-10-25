@@ -1,10 +1,11 @@
-import { ENEMY_STATES, ENEMY_SIZE_HALF, TILE_SIZE } from "./Constants.js";
+import { ENEMY_STATES, ENEMY_SIZE, ENEMY_SIZE_HALF, TILE_SIZE } from "./Constants.js";
 import { checkCollision, findAngleOfDirection } from "./Math.js";
 
 export class Enemy {
     constructor({ 
         sprite, 
         position, 
+        maxHealth,
         scale,
         speed,
         state,
@@ -18,7 +19,6 @@ export class Enemy {
         this.height = Math.round(this.sprite.height * this.scale * 100) / 100; 
         this.halfWidth = this.width / 2;
         this.quarterWidth = this.width / 4;
-        this.shadowHeight = this.halfWidth / 6;
 
         this.position = position;
         this.center = {
@@ -40,8 +40,8 @@ export class Enemy {
         this.waypointIndex = 0;
         this.waypoints = waypoints;
 
-        this.health = 100;
-        this.healthBarThickness = 2.5;
+        this.maxHealth = maxHealth;
+        this.health = maxHealth;
         this.coins = Math.floor(Math.random() * 5 + 1);
         this.exp = Math.floor(Math.random() * 2 + 1);
     }
@@ -52,11 +52,13 @@ export class Enemy {
                 this.updateMovement(event); 
                 this.drawShadow(ctx);
                 this.draw(ctx);
+                this.drawHealthBar(ctx);
                 break
             case ENEMY_STATES.RUNNING:
                 this.updateMovement(event);
                 this.drawShadow(ctx);
                 this.draw(ctx); 
+                this.drawHealthBar(ctx);
                 break
             case ENEMY_STATES.DYING:
                 this.updateDying(event);
@@ -147,25 +149,54 @@ export class Enemy {
     }
 
     drawHealthBar(ctx){
-        const healthBarX = this.center.x - this.thirdWidth;
-        const healthBarY = this.center.y - this.scale * 30;
-        const healthBarWidth = this.thirdWidth * 2;
+        const healthBarX = this.center.x - this.quarterWidth;
+        const healthBarY = this.center.y - (this.height / 1.4);
+        const healthBarLength = this.quarterWidth * 2;
+        const healthBarThickness = 4;
 
+        ctx.beginPath();
         ctx.fillStyle = 'red';
-        ctx.fillRect(healthBarX, healthBarY, healthBarWidth, this.healthBarThickness);
-
+        ctx.lineWidth = 1;
+        ctx.strokeStyle = 'black'
+        ctx.fillRect(
+            healthBarX, 
+            healthBarY, 
+            healthBarLength, 
+            healthBarThickness
+        );
         ctx.fillStyle = 'rgb(85, 255, 0)';
-        ctx.fillRect(healthBarX, healthBarY, healthBarWidth * (this.health / 100), this.healthBarThickness);
+        ctx.fillRect(
+            healthBarX, 
+            healthBarY, 
+            healthBarLength * (this.health / this.maxHealth), 
+            healthBarThickness
+        );
+        ctx.strokeRect(
+            healthBarX,
+            healthBarY, 
+            healthBarLength, 
+            healthBarThickness
+        );
     }
 
     drawShadow(ctx){
+        const shadowHeight = this.height / 12;
+
         ctx.beginPath();
-        ctx.ellipse(this.center.x, this.center.y + ENEMY_SIZE_HALF, this.shadowHeight, this.quarterWidth, Math.PI / 2, 0, 2 * Math.PI);
+        ctx.ellipse(
+            this.center.x, 
+            this.center.y + ENEMY_SIZE_HALF / 6, 
+            shadowHeight, 
+            this.quarterWidth, 
+            Math.PI / 2, 
+            0, 
+            2 * Math.PI
+        );
         ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
         ctx.fill();      
         if(this.isSelected){
             ctx.setLineDash([this.quarterWidth / 2, this.quarterWidth / 2]);
-            ctx.lineWidth = 3;
+            ctx.lineWidth = 5;
             ctx.strokeStyle = 'rgba(255, 30, 30, 1)'
             ctx.stroke();
             ctx.setLineDash([0, 0]);
