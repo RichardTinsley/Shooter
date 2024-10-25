@@ -1,32 +1,30 @@
+import { TILE_SIZE } from "./Constants.js";
+import { randomPositiveOrNegativeNumber } from "./Math.js";
+
 export class Text {
     constructor({
         text,
-        color,
-        alpha,
-        position,
-        textSize,
-        align 
+        colour,
+        position
     }){
         this.text = text;
-        this.color = color;
-        this.alpha = alpha
-        this.position = position ?? {
-            x: 0,
-            y: 0
-        }
-        this.textSize = textSize;
-        this.align = align;
+        this.colour = colour;
+        this.alpha = 10;
+        this.position = position;
+        this.textSize = 25;
+        this.position.x += randomPositiveOrNegativeNumber(TILE_SIZE);
+        this.movementSpeed = Math.random() * 1 + 0.3;
     }
     update(){
-        this.alpha -= 0.1;
-        this.position.y -= 0.6;
+        this.alpha -= 0.2;
+        this.position.y -= this.movementSpeed;
     }
 
     draw(ctx){
-        ctx.fillStyle = `rgba(${this.color} ${this.alpha})`;
+        ctx.fillStyle = `rgba(${this.colour} ${this.alpha})`;
         ctx.font = 'bold ' + this.textSize + 'px canterbury';
-        ctx.textAlign = this.align;
-        ctx.textBaseline = 'middle';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'bottom';
         ctx.lineWidth = 5;
         ctx.strokeStyle = `rgba(0, 0, 0, ${this.alpha})`;
         ctx.strokeText(this.text, this.position.x + 5, this.position.y - 3);

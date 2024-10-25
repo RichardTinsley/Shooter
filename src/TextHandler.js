@@ -5,20 +5,6 @@ export class TextHandler{
     constructor(game) {
         this.game = game;
         this.texts = [];
-
-        this.greenGameText = {
-            color: '50, 205, 50, ',
-            alpha: '10', 
-            textSize: 25, 
-            align: 'left'
-        };
-
-        this.goldGameText = {
-            color:  '255, 215, 0, ',
-            alpha: '10',
-            textSize: 25,
-            align: 'left'
-        };
     }
 
     renderTexts(ctx){
@@ -34,17 +20,14 @@ export class TextHandler{
         }
     }
 
-    populateGameTextArray(gameText, text, position){
+    populateGameTextArray(text, colour, position){
         this.texts.push(new Text({
             text: text,
-            color: gameText.color,
-            alpha: gameText.alpha,
+            colour: colour,
             position: {
                 x: position.x,
                 y: position.y
             },
-            textSize: gameText.textSize,
-            align: gameText.align 
         }));
     }
     

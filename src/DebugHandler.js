@@ -67,17 +67,25 @@ export class DebugHandler{
             ctx.strokeStyle = 'white';
             ctx.stroke();
             ctx.setLineDash([0, 0]);
+
+            ctx.fillStyle = 'rgba(0, 0, 250, 1)';
+            ctx.fillRect(tower.position.x - 2, tower.position.y - 2, 4, 4);
+            ctx.fillStyle = 'rgba(250, 0, 0, 1)';
+            ctx.fillRect(tower.center.x - 2, tower.center.y - 2, 4, 4);
         })
     }
 
     projectileDebugInfo(ctx){
         this.game.projectileHandler.projectiles.forEach(projectile => {
             ctx.beginPath();
-            ctx.arc(projectile.center.x, projectile.center.y, projectile.range, 0, Math.PI * 2);
+            ctx.arc(projectile.center.x, projectile.center.y, projectile.width, 0, Math.PI * 2);
             ctx.fillStyle = 'rgba(200, 0, 0, 0.1)';
             ctx.fill();
+
             ctx.fillStyle = 'rgba(250, 0, 0, 1)';
             ctx.fillRect(projectile.center.x, projectile.center.y, 5, 5);
+            ctx.fillStyle = 'rgba(0, 0, 250, 1)';
+            ctx.fillRect(projectile.position.x - 2, projectile.position.y - 2, 4, 4);
         })
     }
     

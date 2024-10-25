@@ -33,26 +33,27 @@ export class ProjectileHandler{
                 // this.game.assetHandler.sounds[random].play()
 
                 if(enemy.health <= 0 && enemyIndex > -1 && enemy.state !== ENEMY_STATES.DYING){
-                        this.game.coins += enemy.coins;
-                        this.game.exp += enemy.exp;
+                    this.game.coins += enemy.coins;
+                    this.game.exp += enemy.exp;
 
-                        this.game.effectHandler.populateEffectsArray(
-                            this.game.effectHandler.blood, 
-                            projectile,  
-                            projectile.enemy.position,
-                            Math.floor(Math.random() * 9),  
-                            projectile.enemy.scale / 1.5
-                        );
+                    this.game.effectHandler.populateEffectsArray(
+                        this.game.effectHandler.blood, 
+                        projectile,  
+                        projectile.enemy.position,
+                        Math.floor(Math.random() * 9),  
+                        projectile.enemy.scale / 1.5
+                    );
 
+                    this.game.textHandler.populateGameTextArray(
+                        '+' + enemy.coins, 
+                        '255, 215, 0, ',
+                        enemy.position, 
+                    );
+
+                    if(enemy.exp > 0)
                         this.game.textHandler.populateGameTextArray(
-                            this.game.textHandler.goldGameText, 
-                            '+' + enemy.coins, 
-                            enemy.position, 
-                        );
-
-                        this.game.textHandler.populateGameTextArray(
-                            this.game.textHandler.greenGameText, 
                             '+' + enemy.exp + 'xp', 
+                            '50, 205, 50, ', 
                             projectile.position, 
                         );
                 }

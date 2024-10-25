@@ -43,7 +43,7 @@ export class Enemy {
         this.maxHealth = maxHealth;
         this.health = maxHealth;
         this.coins = Math.floor(Math.random() * 5 + 1);
-        this.exp = Math.floor(Math.random() * 2 + 1);
+        this.exp = this.generateRandomExp();
     }
 
     renderEnemy(ctx, event){
@@ -202,5 +202,12 @@ export class Enemy {
             ctx.stroke();
             ctx.setLineDash([0, 0]);
         }   
+    }
+
+    generateRandomExp(){
+        if (Math.random() * 10 < 1)
+            return Math.floor(Math.random() * 5) + 1;
+        else
+            return 0
     }
 }

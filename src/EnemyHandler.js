@@ -68,9 +68,8 @@ export class EnemyHandler {
         const enemySpeed = randomPositiveFloat(this.enemySpeedRange) + this.enemySpeedMinimum;
         const enemyState = enemySpeed < this.enemyRunningSpeed ? ENEMY_STATES.WALKING : ENEMY_STATES.RUNNING;
         const enemyScale = 1.5;
-        const enemyHealth = randomPositiveFloat(200) + 100;
+        const enemyHealth = randomPositiveFloat(100);
         const waypoints = this.generateEnemyWaypoints(this.game.tileHandler.waypoints);
-        console.log(enemyHealth)
 
         this.enemies.push(new Enemy({
             sprite: { 
@@ -108,10 +107,6 @@ export class EnemyHandler {
             array[i].src = `${ENEMIES_URL}${ENEMY_COLOURS[i]}.png`;
         }
         return array;
-    }
-
-    enemyImage(){
-        return new Image();
     }
 
     generateEnemyWaypoints(wayspoints){
