@@ -1,15 +1,11 @@
-import { TOWER_SIZE, TOWERS_URL, ENEMY_STATES, TILE_SIZE_HALF } from "./Constants.js";
+import { TOWER_SIZE, ENEMY_STATES, TILE_SIZE_HALF } from "./Constants.js";
 import { Tower } from "./Tower.js";
+import { assets } from "./AssetHandler.js";
 
 export class TowerHandler{
     constructor(game){
         this.game = game;
         this.towers = [];
-            
-            this.sapphireTower = {
-                image: new Image(),
-            }
-            this.sapphireTower.image.src = `${TOWERS_URL}sapphire1.png`;
     }
 
     renderTowers(ctx, event){
@@ -28,7 +24,8 @@ export class TowerHandler{
             if(tower.shootTimer > tower.cooldown && tower.target){
                 this.game.projectileHandler.populateProjectilesArray(
                     tower.target, 
-                    tower, this.game.projectileHandler.blueFireball);
+                    tower, 
+                    assets.get('blueFireball'))
                 tower.shootTimer = 0;
             }
         })
@@ -57,7 +54,7 @@ export class TowerHandler{
         const cooldown = 10;
         this.towers.push(new Tower({
             sprite: { 
-                image: tower.image, 
+                image: tower, 
                 frame: 0, 
                 row: 0,
                 width: TOWER_SIZE, 

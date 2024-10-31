@@ -1,5 +1,5 @@
 import { GAME_STATES, LEVELS, TIME_INTERVALS } from "./Constants.js";
-import { AudioHandler } from "./AudioHandler.js";
+import { initialiseAssets } from "./AssetHandler.js";
 import { TextHandler } from "./TextHandler.js";
 import { TileHandler } from "./TileHandler.js";
 import { EnemyHandler } from "./EnemyHandler.js";
@@ -9,15 +9,16 @@ import { EffectHandler } from "./EffectHandler.js";
 import { UserInput } from "./UserInput.js";
 import { DebugHandler } from "./DebugHandler.js";
 
+
 export class GameHandler {
     constructor(){
+        initialiseAssets();
         this.currentLevel = LEVELS.TERRA_HAUTE;
         this.currentGameState = GAME_STATES.PLAYING;
-
-        this.audioHandler = new AudioHandler(this);
+                
+        this.tileHandler = new TileHandler(this);
         this.userInput = new UserInput(this);
         this.textHandler = new TextHandler(this);
-        this.tileHandler = new TileHandler(this);
         this.enemyHandler = new EnemyHandler(this);
         this.towerHandler = new TowerHandler(this);
         this.projectileHandler = new ProjectileHandler(this);

@@ -1,11 +1,11 @@
-import { ENEMY_STATES, ENEMY_COLOURS, ENEMY_SIZE, ENEMIES_URL, TILE_SIZE, TILE_SIZE_HALF } from "./Constants.js";
+import { ENEMY_STATES, ENEMY_COLOURS, ENEMY_SIZE, TILE_SIZE, TILE_SIZE_HALF } from "./Constants.js";
 import { randomPositiveFloat } from "./Math.js";
 import { Enemy } from "./Enemy.js";
+import { assets } from "./AssetHandler.js";
 
 export class EnemyHandler {
     constructor(game){
         this.game = game;
-        this.enemyImages = this.populateEnemyImageArray();
         this.enemies = [];
 
         this.enemySpeedMinimum = 0.4; 
@@ -23,7 +23,9 @@ export class EnemyHandler {
             this.enemySpawnTimer++;
 
         if (this.enemySpawnTimer % Math.floor(Math.random() * 300) === 0 && this.allEnemiesActive === false){
-            this.populateEnemiesArray(this.selectRandomEnemyImage());
+            const enemy = this.generateEnemy();
+            if(!enemy) return
+            this.populateEnemiesArray(enemy);
             this.enemyCounter++;
         }
 
@@ -91,24 +93,15 @@ export class EnemyHandler {
         }));
     }
 
-    selectRandomEnemyImage(){
+    generateEnemy(){
         let index;
         if(this.game.waves < 119)
             index = Math.floor(Math.random() * (this.game.waves / 10));
         else 
-        index = Math.floor(Math.random() * 12);
-        return this.enemyImages[index];
+            index = Math.floor(Math.random() * 12);
+        return assets.get(ENEMY_COLOURS[index]);
     }
     
-    populateEnemyImageArray(){
-        let array = [];
-        for(let i = 0; i < ENEMY_COLOURS.length; i++){
-            array[i] = new Image(), 
-            array[i].src = `${ENEMIES_URL}${ENEMY_COLOURS[i]}.png`;
-        }
-        return array;
-    }
-
     generateEnemyWaypoints(wayspoints){
         return wayspoints.map(waypoint => {
             return { 

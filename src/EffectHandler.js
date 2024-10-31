@@ -1,26 +1,10 @@
-import { ANIMATION_STATES, EFFECTS_URL } from "./Constants.js";
+import { ANIMATION_STATES } from "./Constants.js";
 import { Effect } from "./Effect.js";
 
 export class EffectHandler {
     constructor(game) {
         this.game = game; 
         this.effects = [];
-
-        this.blood = {
-            image: new Image(),
-            width: 110,
-            height: 110,
-            scale: 1
-        };
-        this.blood.image.src = `${EFFECTS_URL}blood_110x110.png`;
-
-        this.blueExplosion = {
-            image: new Image(),
-            width: 256,
-            height: 256,
-            scale: null
-        };
-        this.blueExplosion.image.src = `${EFFECTS_URL}blueExplosion_256x256.png`;
     }
 
     renderEffects(ctx, event){
@@ -34,14 +18,14 @@ export class EffectHandler {
         }
     }
 
-    populateEffectsArray(effect, projectile, position, animationRow, scale){
+    populateEffectsArray(effect, projectile, position, animationRow, scale, width, height){
         this.effects.push(new Effect({        
             sprite: { 
-                image: effect.image,
+                image: effect,
                 x: 0, 
                 y: animationRow,  
-                width: effect.width, 
-                height: effect.height 
+                width: width, 
+                height: height 
             }, 
             position: position, 
             scale: scale,

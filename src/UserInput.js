@@ -1,4 +1,5 @@
 import { GAME_STATES, USER_INPUT_KEYS, ENEMY_STATES, ENEMY_SIZE, ENEMY_SIZE_HALF } from './Constants.js'
+import { assets } from './AssetHandler.js';
 
 export class UserInput {
     constructor(game){
@@ -18,7 +19,7 @@ export class UserInput {
             if (this.activeTile && !this.activeTile.isOccupied && this.game.coins - 25 >= 0) {
 
                 this.game.towerHandler.populateTowersArray(
-                    this.game.towerHandler.sapphireTower, 
+                    assets.get('sapphireTower'), 
                     this.activeTile
                 );
                 

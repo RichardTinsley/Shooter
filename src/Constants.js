@@ -1,3 +1,13 @@
+export const COLUMNS = 40;
+export const ROWS = 24;
+export const TILE_SIZE = 32;
+export const TILE_SIZE_HALF = TILE_SIZE / 2;
+export const TOWER_SIZE = 64;
+export const GAME_WIDTH = TILE_SIZE * COLUMNS;
+export const GAME_HEIGHT = TILE_SIZE * ROWS;
+export const ENEMY_SIZE = 48;
+export const ENEMY_SIZE_HALF = ENEMY_SIZE / 2;
+
 export const ANIMATION_STATES = {
     ANIMATING: 0,
     FINISHED: 1,
@@ -5,22 +15,21 @@ export const ANIMATION_STATES = {
     RIGHT: "RIGHT"
 };
 
-export const ENEMY_SIZE = 48;
-export const ENEMY_SIZE_HALF = ENEMY_SIZE / 2;
 export const ENEMY_COLOURS = [
-    "topaz",
-    "ruby",
-    "sapphire",
-    "emerald",
-    "amethyst",
-    "citrine",
-    "silver",
-    "gold",
-    "diamond",
-    "obsidian",
-    "opal",
-    "uranium"
+    'topaz',
+    'ruby',
+    'sapphire',
+    'emerald',
+    'amethyst',
+    'citrine',
+    'silver',
+    'gold',
+    'diamond',
+    'obsidian',
+    'opal',
+    'uranium'
 ];
+
 export const ENEMY_STATES = {
     IDLE: 0,
     WALKING: 1,
@@ -40,14 +49,6 @@ export const USER_INPUT_KEYS = {
     RESTART: 'r'
 }
 
-export const COLUMNS = 40;
-export const ROWS = 24;
-export const TILE_SIZE = 32;
-export const TILE_SIZE_HALF = TILE_SIZE / 2;
-export const TOWER_SIZE = 64;
-export const GAME_WIDTH = TILE_SIZE * COLUMNS;
-export const GAME_HEIGHT = TILE_SIZE * ROWS;
-
 export const GAME_STATES = {
     PLAYING: 'PLAYING',
     PAUSED: 'PAUSED',
@@ -64,8 +65,3 @@ export const TIME_INTERVALS = {
     SECOND: 1000,
     EVENT:  60
 }
-
-export const EFFECTS_URL = './images/effects/'; 
-export const ENEMIES_URL = './images/enemies/';
-export const PROJECTILES_URL = './images/projectiles/';
-export const TOWERS_URL = './images/towers/';
