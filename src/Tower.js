@@ -1,3 +1,5 @@
+import { ENEMY_STATES } from "./Constants.js";
+
 export class Tower {
     constructor({
         sprite, 
@@ -50,5 +52,22 @@ export class Tower {
             this.shootTimer++;
             this.sprite.frame < this.maxFrame ? this.sprite.frame++ : this.sprite.frame = 0;
         }
+    }
+
+    prioritiseEnemiesInTowerRange(enemies){
+        return enemies.filter(enemy => {
+            if(enemy.state === ENEMY_STATES.WALKING || enemy.state === ENEMY_STATES.RUNNING){
+                const xDifference = enemy.center.x - this.center.x;
+                const yDifference = enemy.center.y - this.center.y;
+                const distance = Math.hypot(xDifference, yDifference);
+                return distance < enemy.width / 10 + this.range;
+            }
+        }).sort((a, b) => {
+            if (a.waypointIndex > b.waypointIndex) return -1;
+            if (a.waypointIndex < b.waypointIndex) return 1;
+            if (a.priorityDistance < b.priorityDistance) return -1;
+            if (a.priorityDistance > b.priorityDistance) return 1;
+            return 0;
+        });
     }
 }

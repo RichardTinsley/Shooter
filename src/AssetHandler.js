@@ -16,36 +16,32 @@ const ASSET_TYPE_LOOKUP = {
     ogg: ASSET_TYPE.SOUND,
 }
 
+export const assetList = [
+    ['amethyst',    `${ENEMIES_URL}amethyst.png`],
+    ['citrine',     `${ENEMIES_URL}citrine.png`],
+    ['diamond',     `${ENEMIES_URL}diamond.png`],
+    ['emerald',     `${ENEMIES_URL}emerald.png`],
+    ['gold',        `${ENEMIES_URL}gold.png`],
+    ['obsidian',    `${ENEMIES_URL}obsidian.png`],
+    ['opal',        `${ENEMIES_URL}opal.png`],
+    ['ruby',        `${ENEMIES_URL}ruby.png`],
+    ['sapphire',    `${ENEMIES_URL}sapphire.png`],
+    ['silver',      `${ENEMIES_URL}silver.png`],
+    ['topaz',       `${ENEMIES_URL}topaz.png`],
+    ['uranium',     `${ENEMIES_URL}uranium.png`],
+    ['blood',       `${EFFECTS_URL}blood_110x110.png`],
+    ['blueExplosion',   `${EFFECTS_URL}blueExplosion_256x256.png`],
+    ['sapphireTower',   `${TOWERS_URL}sapphire1.png`],
+    ['blueFireball',    `${PROJECTILES_URL}blueFireball_50x25.png`],
+    ['boss',        './audio/boss.ogg'],
+    ['levelOne',    './images/levels/levelOne.png'],
+] 
+
 export async function initialiseAssets(){
-    await load([
-        ['amethyst', `${ENEMIES_URL}amethyst.png`],
-        ['citrine', `${ENEMIES_URL}citrine.png`],
-        ['diamond', `${ENEMIES_URL}diamond.png`],
-        ['emerald', `${ENEMIES_URL}emerald.png`],
-        ['gold', `${ENEMIES_URL}gold.png`],
-        ['obsidian', `${ENEMIES_URL}obsidian.png`],
-        ['opal', `${ENEMIES_URL}opal.png`],
-        ['ruby', `${ENEMIES_URL}ruby.png`],
-        ['sapphire', `${ENEMIES_URL}sapphire.png`],
-        ['silver', `${ENEMIES_URL}silver.png`],
-        ['topaz', `${ENEMIES_URL}topaz.png`],
-        ['uranium', `${ENEMIES_URL}uranium.png`],
-
-        ['blood', `${EFFECTS_URL}blood_110x110.png`],
-        ['blueExplosion', `${EFFECTS_URL}blueExplosion_256x256.png`],
-
-        ['sapphireTower', `${TOWERS_URL}sapphire1.png`],
-
-        ['blueFireball', `${PROJECTILES_URL}blueFireball_50x25.png`],
-
-        ['boss', './audio/boss.ogg']
-    ]);
-
-    // const sound = assets.get('boss');
-    // sound.play();
+    await load(assetList);
 }
 
-async function load(assetArray, onComplete){
+export async function load(assetArray, onComplete){
     const promises = assetArray.map(([key, fileName]) => {
         const extension = fileName.substring(fileName.lastIndexOf('.') + 1).toLowerCase();
         const type = ASSET_TYPE_LOOKUP[extension];

@@ -1,10 +1,10 @@
 import { LEVELS, COLUMNS, TILE_SIZE } from "./Constants.js";
+import { assets } from "./AssetHandler.js";
 import { Tile } from "./Tile.js";
 
 export class TileHandler {
     constructor(game){
-        this.backgroundImage = new Image();
-        this.backgroundImage.src = this.createBackgroundImage(game.currentLevel);
+        this.backgroundImage = assets.get('levelOne');
         this.tileMap = this.populateTileMapArray(game.currentLevel);
         this.waypoints = this.populateWaypointsArray(game.currentLevel);
         this.tiles = this.populateTilesArray();
@@ -38,7 +38,7 @@ export class TileHandler {
 
     createBackgroundImage(currentLevel){
         if(currentLevel === LEVELS.TERRA_HAUTE){
-            return '../images/levels/levelOne.png';    
+            return assets.get('levelOne');    
         }
     }
 

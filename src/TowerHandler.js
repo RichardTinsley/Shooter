@@ -1,4 +1,4 @@
-import { TOWER_SIZE, ENEMY_STATES, TILE_SIZE_HALF } from "./Constants.js";
+import { TOWER_SIZE, TILE_SIZE_HALF } from "./Constants.js";
 import { Tower } from "./Tower.js";
 import { assets } from "./AssetHandler.js";
 
@@ -13,7 +13,7 @@ export class TowerHandler{
             tower.update(event);
             tower.draw(ctx);
 
-            const enemiesInTowerRange = this.prioritiseEnemiesInTowerRange(tower);
+            const enemiesInTowerRange = tower.prioritiseEnemiesInTowerRange(this.game.enemyHandler.enemies);
             const selectedEnemy = enemiesInTowerRange.find(enemy => enemy.isSelected);
 
             if(selectedEnemy)
@@ -29,23 +29,6 @@ export class TowerHandler{
                 tower.shootTimer = 0;
             }
         })
-    }
-
-    prioritiseEnemiesInTowerRange(tower){
-        return this.game.enemyHandler.enemies.filter(enemy => {
-            if(enemy.state === ENEMY_STATES.WALKING || enemy.state === ENEMY_STATES.RUNNING){
-                const xDifference = enemy.center.x - tower.center.x;
-                const yDifference = enemy.center.y - tower.center.y;
-                const distance = Math.hypot(xDifference, yDifference);
-                return distance < enemy.width / 10 + tower.range;
-            }
-        }).sort((a, b) => {
-            if (a.waypointIndex > b.waypointIndex) return -1;
-            if (a.waypointIndex < b.waypointIndex) return 1;
-            if (a.priorityDistance < b.priorityDistance) return -1;
-            if (a.priorityDistance > b.priorityDistance) return 1;
-            return 0;
-        });
     }
 
     populateTowersArray(tower, activeTile){

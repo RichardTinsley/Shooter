@@ -8,7 +8,6 @@ export class Enemy {
         maxHealth,
         scale,
         speed,
-        state,
         waypoints,
     }){
         this.sprite = sprite;
@@ -32,7 +31,8 @@ export class Enemy {
             y: 0
         }; 
 
-        this.state = state;
+        this.state = this.speed < 0.8 ? ENEMY_STATES.WALKING : ENEMY_STATES.RUNNING;
+        this.sprite.row = this.state;
         this.isSelected = false;
         this.direction;
         
