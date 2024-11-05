@@ -39,26 +39,5 @@ export class TextHandler{
         this.drawText(ctx, this.game.timer, 1155, 52, 20,'left');
     }
 
-    renderbigScreenTexts(ctx, text, screenFill){
-        if(screenFill){
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
-            ctx.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
-        }
-        ctx.fillStyle = 'white';
-        ctx.font = 'bold ' + 150 + 'px canterbury';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.lineWidth = 10;
-        ctx.strokeStyle = 'black';
-        ctx.strokeText(text, GAME_WIDTH / 2, GAME_HEIGHT / 2);
-        ctx.fillText(text, GAME_WIDTH / 2, GAME_HEIGHT / 2);
-    }
 
-    drawText(ctx, text, x, y, textSize, align){
-        ctx.fillStyle = 'white';
-        ctx.font = 'bold ' + textSize + 'px canterbury';
-        ctx.textAlign = align;
-        ctx.textBaseline = 'middle';
-        ctx.fillText(text, x + 5, y - 3);
-    }
 }

@@ -1,6 +1,5 @@
-import { GAME_HEIGHT, GAME_WIDTH } from '../Constants.js';
 import * as AssetHandler from '../AssetHandler.js'
-
+import { drawBigScreenTexts } from '../utilities/textRender.js';
 
 export class LoadingScene {
     fade = 0;
@@ -27,10 +26,10 @@ export class LoadingScene {
     }
 
     update(event){
-        if(time.previous < this.fadeTimer) return;
+        // if(time.previous < this.fadeTimer) return;
 
-        this.fadeAngle = (this.fadeAngle + 1 * time.secondsPassed) % Math.PI;
-        this.fade = Math.sin(this.fadeAngle);
+        // this.fadeAngle = (this.fadeAngle + 1 * time.secondsPassed) % Math.PI;
+        // this.fade = Math.sin(this.fadeAngle);
     }
 
     // draw(ctx){
@@ -43,16 +42,10 @@ export class LoadingScene {
     // }
 
     draw(ctx){
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
-        ctx.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
-        
-        ctx.fillStyle = 'white';
-        ctx.font = 'bold ' + 150 + 'px canterbury';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.lineWidth = 10;
-        ctx.strokeStyle = 'black';
-        ctx.strokeText("LOADING...", GAME_WIDTH / 2, GAME_HEIGHT / 2);
-        ctx.fillText("LOADING...", GAME_WIDTH / 2, GAME_HEIGHT / 2);
+        drawBigScreenTexts(
+            ctx,
+            "Summoning",
+            false
+        )
     }
 }

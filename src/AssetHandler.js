@@ -34,7 +34,9 @@ export const assetList = [
     ['sapphireTower',   `${TOWERS_URL}sapphire1.png`],
     ['blueFireball',    `${PROJECTILES_URL}blueFireball_50x25.png`],
     ['boss',        './audio/boss.ogg'],
+    ['menuMusic',   './audio/menuMusic.mp3'],
     ['levelOne',    './images/levels/levelOne.png'],
+    ['menuLogo',    './images/logos/menuLogo.png'],
 ] 
 
 export async function initialiseAssets(){
