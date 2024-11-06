@@ -1,4 +1,4 @@
-import { LEVELS, COLUMNS, TILE_SIZE } from "./Constants.js";
+import { LEVELS, COLUMNS, TILE_SIZE } from "./utilities/constants.js";
 import { assets } from "./AssetHandler.js";
 import { Tile } from "./Tile.js";
 
@@ -10,7 +10,7 @@ export class TileHandler {
         this.tiles = this.populateTilesArray();
     }
 
-    renderTiles(ctx){
+    draw(ctx){
         ctx.drawImage(this.backgroundImage, 0, 0);
         this.tiles.forEach(tile => tile.draw(ctx));
     }

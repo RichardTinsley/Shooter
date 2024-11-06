@@ -1,6 +1,5 @@
-import { ANIMATION_STATES } from "./Constants.js";
-import { findAngleOfDirection, giveDirection } from "./Math.js";
-
+import { ANIMATION_STATES } from "./utilities/constants.js";
+import { findAngleOfDirection, giveDirection } from "./utilities/math.js";
 export class Projectile{
     constructor({ 
         sprite,
@@ -38,11 +37,10 @@ export class Projectile{
         this.enemy = enemy;
     }
 
-    renderProjectile(ctx, event){
+    update(event){
         switch(this.state){
             case ANIMATION_STATES.ANIMATING:
-                this.update(event); 
-                this.draw(ctx);
+                this.updateProjectile(event); 
                 break
             case ANIMATION_STATES.FINISHED:
                 break
@@ -50,6 +48,16 @@ export class Projectile{
     }
 
     draw(ctx){
+        switch(this.state){
+            case ANIMATION_STATES.ANIMATING:
+                this.drawProjectile(ctx); 
+                break
+            case ANIMATION_STATES.FINISHED:
+                break
+        }
+    }
+
+    drawProjectile(ctx){
         ctx.save();
         ctx.translate(this.center.x, this.center.y);
         ctx.rotate(this.angle);
@@ -67,7 +75,7 @@ export class Projectile{
         ctx.restore();
     }
 
-    update(event) {
+    updateProjectile(event) {
         this.angle = findAngleOfDirection(this.enemy.center, this.center);
         this.direction = giveDirection(this.angle);
 

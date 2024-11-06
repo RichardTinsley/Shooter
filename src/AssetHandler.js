@@ -17,6 +17,10 @@ const ASSET_TYPE_LOOKUP = {
 }
 
 export const assetList = [
+    ['boss',        './audio/boss.ogg'],
+    ['menuMusic',   './audio/menuMusic.mp3'],
+    ['levelOne',    './images/levels/levelOne.png'],
+    ['menuLogo',    './images/logos/menuLogo.png'],
     ['amethyst',    `${ENEMIES_URL}amethyst.png`],
     ['citrine',     `${ENEMIES_URL}citrine.png`],
     ['diamond',     `${ENEMIES_URL}diamond.png`],
@@ -33,10 +37,6 @@ export const assetList = [
     ['blueExplosion',   `${EFFECTS_URL}blueExplosion_256x256.png`],
     ['sapphireTower',   `${TOWERS_URL}sapphire1.png`],
     ['blueFireball',    `${PROJECTILES_URL}blueFireball_50x25.png`],
-    ['boss',        './audio/boss.ogg'],
-    ['menuMusic',   './audio/menuMusic.mp3'],
-    ['levelOne',    './images/levels/levelOne.png'],
-    ['menuLogo',    './images/logos/menuLogo.png'],
 ] 
 
 export async function initialiseAssets(){

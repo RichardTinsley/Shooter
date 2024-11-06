@@ -1,4 +1,4 @@
-import { ENEMY_STATES } from "./Constants.js";
+import { ENEMY_STATES } from "./utilities/constants.js";
 
 export class Tower {
     constructor({

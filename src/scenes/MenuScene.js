@@ -1,30 +1,27 @@
+import { GAME_WIDTH } from "../utilities/constants.js";
 import { assets } from "../AssetHandler.js";
-import { GAME_WIDTH } from "../Constants.js";
+import { BattleScene } from "./BattleScene.js";
 import { drawText } from '../utilities/textRender.js';
-import { GameScene } from "./GameScene.js";
 
 const menuOptions = [
     {
         name: "New Game",
         colour: "white",
-        optionAction: function(scene) {
-            scene = new GameScene("OMG222");
+        optionAction: function(game) {
+            game.scene.menuMusic.pause();
+            game.scene = new BattleScene(game);
         }
     },
     {
         name: "Options",
         colour: "white",
-        optionAction: function(scene) {
-            // scene = new GameScene();
-            console.log("ERNST");
+        optionAction: function() {
         }
     },  
     {
         name: "About",
         colour: "white",
-        optionAction: function(scene) {
-            // scene = new GameScene();
-            console.log("NYOH");
+        optionAction: function() {
         }
     }
 ];
@@ -39,17 +36,16 @@ let mouse = {
 };
 
 export class MenuScene{
-    constructor(scene) {
+    constructor(game) {
         this.menuMusic = assets.get("menuMusic");
         this.menuMusic.loop = true;
-        this.menuMusic.volume = 0.1;
+        this.menuMusic.volume = 0.05;
         this.menuMusic.play();
+        this.game = game;
 
-        this.scene = scene;
-        console.log(this.scene)
         window.addEventListener('click', e => {
             if(activeOption)
-                activeOption.optionAction(this.scene);
+                activeOption.optionAction(this.game);
         })
     }
 
@@ -75,7 +71,6 @@ export class MenuScene{
     }
 
     update(){
-        
     }
 }
 

@@ -1,5 +1,5 @@
-import { TILE_SIZE } from "./Constants.js";
-import { randomPositiveOrNegativeNumber } from "./Math.js";
+import { TILE_SIZE } from "./utilities/constants.js";
+import { randomPositiveOrNegativeNumber } from "./utilities/math.js";
 
 export class Text {
     constructor({

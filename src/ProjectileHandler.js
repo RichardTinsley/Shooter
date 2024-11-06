@@ -1,6 +1,6 @@
-import { ANIMATION_STATES, ENEMY_STATES } from "./Constants.js";
+import { ANIMATION_STATES, ENEMY_STATES } from "./utilities/constants.js";
+import { checkCollision } from "./utilities/math.js";
 import { Projectile } from "./Projectile.js";
-import { checkCollision } from "./Math.js";
 import { assets } from "./AssetHandler.js";
 
 export class ProjectileHandler{
@@ -9,11 +9,17 @@ export class ProjectileHandler{
         this.projectiles = [];
     }
 
-    renderProjectiles(ctx, event){
+    draw(ctx){
+        this.projectiles.forEach(projectile => {
+            projectile.draw(ctx);
+        });
+    }
+
+    update(event){
         for (let i = this.projectiles.length - 1; i >= 0; i--){
 
             const projectile = this.projectiles[i];        
-            projectile.renderProjectile(ctx, event);
+            projectile.update(event);
 
             const enemyIndex = this.game.enemyHandler.enemies.findIndex(enemy => projectile.enemy === enemy);
             const enemy = this.game.enemyHandler.enemies[enemyIndex];
@@ -26,15 +32,7 @@ export class ProjectileHandler{
                     this.game.coins += enemy.coins;
                     this.game.exp += enemy.exp;
 
-                    this.game.effectHandler.populateEffectsArray(
-                        assets.get('blood'), 
-                        projectile,  
-                        projectile.enemy.position,
-                        Math.floor(Math.random() * 9),  
-                        projectile.enemy.scale / 1.5,
-                        110,
-                        110
-                    );
+                    this.addBlood(projectile);
 
                     this.game.textHandler.populateGameTextArray(
                         '+' + enemy.coins, 
@@ -51,32 +49,40 @@ export class ProjectileHandler{
                 }
 
                 if(enemy.state === ENEMY_STATES.DYING){
-                    this.game.effectHandler.populateEffectsArray(
-                        assets.get('blood'), 
-                        projectile,  
-                        projectile.enemy.position,
-                        Math.floor(Math.random() * 9),  
-                        projectile.enemy.scale / 1.5,
-                        110,
-                        110
-                    );
+                    this.addBlood(projectile);
                 }
 
-                this.game.effectHandler.populateEffectsArray(
-                    assets.get('blueExplosion'), 
-                    projectile, 
-                    projectile.center,
-                    0, 
-                    Math.random() * .4 + .3,
-                    256,
-                    256
-                );
+                this.addExplosion(projectile);
 
                 if(projectile.state === ANIMATION_STATES.FINISHED){
                     this.projectiles.splice(i, 1);
                 } 
-            }
+            }       
         }
+    }
+
+    addExplosion(projectile){
+        this.game.effectHandler.populateEffectsArray(
+            assets.get('blueExplosion'), 
+            projectile, 
+            projectile.center,
+            0, 
+            Math.random() * .4 + .3,
+            256,
+            256
+        );
+    }
+
+    addBlood(projectile){
+        this.game.effectHandler.populateEffectsArray(
+            assets.get('blood'), 
+            projectile,  
+            projectile.enemy.position,
+            Math.floor(Math.random() * 9),  
+            projectile.enemy.scale / 1.5,
+            110,
+            110
+        );
     }
 
     populateProjectilesArray(enemy, tower, projectile){

@@ -1,4 +1,4 @@
-import { TOWER_SIZE, TILE_SIZE_HALF } from "./Constants.js";
+import { TOWER_SIZE, TILE_SIZE_HALF } from "./utilities/constants.js";
 import { Tower } from "./Tower.js";
 import { assets } from "./AssetHandler.js";
 
@@ -8,30 +8,41 @@ export class TowerHandler{
         this.towers = [];
     }
 
-    renderTowers(ctx, event){
+    draw(ctx){
         this.towers.forEach(tower => {
-            tower.update(event);
             tower.draw(ctx);
-
-            const enemiesInTowerRange = tower.prioritiseEnemiesInTowerRange(this.game.enemyHandler.enemies);
-            const selectedEnemy = enemiesInTowerRange.find(enemy => enemy.isSelected);
-
-            if(selectedEnemy)
-                tower.target = selectedEnemy;
-            else
-                tower.target = enemiesInTowerRange[0];
-
-            if(tower.shootTimer > tower.cooldown && tower.target){
-                this.game.projectileHandler.populateProjectilesArray(
-                    tower.target, 
-                    tower, 
-                    assets.get('blueFireball'))
-                tower.shootTimer = 0;
-            }
         })
     }
 
-    populateTowersArray(tower, activeTile){
+    update(event){
+        this.towers.forEach(tower => {
+            tower.update(event);
+            this.targetEnemy(tower);
+            this.shootEnemy(tower);
+        })
+    }
+
+    targetEnemy(tower){
+        const enemiesInTowerRange = tower.prioritiseEnemiesInTowerRange(this.game.enemyHandler.enemies);
+        const selectedEnemy = enemiesInTowerRange.find(enemy => enemy.isSelected);
+
+        if(selectedEnemy)
+            tower.target = selectedEnemy;
+        else
+            tower.target = enemiesInTowerRange[0];
+    }
+
+    shootEnemy(tower){
+        if(tower.shootTimer > tower.cooldown && tower.target){
+            this.game.projectileHandler.populateProjectilesArray(
+                tower.target, 
+                tower, 
+                assets.get('blueFireball'))
+            tower.shootTimer = 0;
+        }
+    }
+
+    addTowerToTowersArray(tower, activeTile){
         const damage = 50;
         const range = 150;
         const cooldown = 10;

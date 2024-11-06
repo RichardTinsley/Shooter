@@ -1,5 +1,5 @@
-import { GAME_HEIGHT, GAME_WIDTH } from "./Constants.js";
 import { Text } from "./Text.js";
+import { drawText } from "./utilities/textRender.js";
 
 export class TextHandler{
     constructor(game) {
@@ -7,12 +7,16 @@ export class TextHandler{
         this.texts = [];
     }
 
-    renderTexts(ctx){
-        this.texts.sort((b, a) => a.position.y - b.position.y); 
+    draw(ctx){
+        this.texts.forEach(text =>{
+            text.draw(ctx);
+        });
+    }
 
+    update(){
+        this.texts.sort((b, a) => a.position.y - b.position.y); 
         for (let i = this.texts.length - 1; i >= 0; i-- ){
             const text = this.texts[i];        
-            text.draw(ctx);
             text.update();
             if (text.alpha <= 0){
                 this.texts.splice(i, 1);
@@ -32,12 +36,10 @@ export class TextHandler{
     }
     
     renderGUITexts(ctx){
-        this.drawText(ctx, this.game.hearts, 65, 52, 20,'left');
-        this.drawText(ctx, this.game.coins, 225, 52, 20,'left');
-        this.drawText(ctx, this.game.exp, 515, 52, 20,'left');
-        this.drawText(ctx, this.game.waves, 805, 52, 20,'left');
-        this.drawText(ctx, this.game.timer, 1155, 52, 20,'left');
+        drawText(ctx, "white", this.game.hearts, 70, 39, 20, 'left', 'top');
+        drawText(ctx, "white", this.game.coins, 230, 39, 20, 'left', 'top');
+        drawText(ctx, "white", this.game.exp, 520, 39, 20, 'left', 'top');
+        drawText(ctx, "white", this.game.waves, 810, 39, 20, 'left', 'top');
+        drawText(ctx, "white", this.game.timer, 1160, 39, 20, 'left', 'top');
     }
-
-
 }

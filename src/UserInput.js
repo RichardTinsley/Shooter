@@ -1,4 +1,4 @@
-import { GAME_STATES, USER_INPUT_KEYS, ENEMY_STATES, ENEMY_SIZE, ENEMY_SIZE_HALF } from './Constants.js'
+import { GAME_STATES, USER_INPUT_KEYS, ENEMY_STATES, ENEMY_SIZE, ENEMY_SIZE_HALF } from './utilities/constants.js'
 import { assets } from './AssetHandler.js';
 
 export class UserInput {
@@ -18,7 +18,7 @@ export class UserInput {
         window.addEventListener('click', e => {
             if (this.activeTile && !this.activeTile.isOccupied && this.game.coins - 25 >= 0) {
 
-                this.game.towerHandler.populateTowersArray(
+                this.game.towerHandler.addTowerToTowersArray(
                     assets.get('sapphireTower'), 
                     this.activeTile
                 );

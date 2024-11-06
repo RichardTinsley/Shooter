@@ -1,5 +1,5 @@
-import { ENEMY_STATES, ENEMY_SIZE, ENEMY_SIZE_HALF, TILE_SIZE } from "./Constants.js";
-import { checkCollision, findAngleOfDirection } from "./Math.js";
+import { ENEMY_STATES, ENEMY_SIZE_HALF, TILE_SIZE } from "./utilities/constants.js";
+import { checkCollision, findAngleOfDirection } from "./utilities/math.js";
 
 export class Enemy {
     constructor({ 
@@ -46,28 +46,39 @@ export class Enemy {
         this.exp = this.generateRandomExp();
     }
 
-    renderEnemy(ctx, event){
+    update(event){
         switch(this.state){
             case ENEMY_STATES.WALKING:
                 this.updateMovement(event); 
-                this.drawShadow(ctx);
-                this.draw(ctx);
-                this.drawHealthBar(ctx);
                 break
             case ENEMY_STATES.RUNNING:
                 this.updateMovement(event);
-                this.drawShadow(ctx);
-                this.draw(ctx); 
-                this.drawHealthBar(ctx);
                 break
             case ENEMY_STATES.DYING:
                 this.updateDying(event);
-                this.draw(ctx); 
                 break
         }
     }
 
     draw(ctx){
+        switch(this.state){
+            case ENEMY_STATES.WALKING:
+                this.drawShadow(ctx);
+                this.drawEnemy(ctx);
+                this.drawHealthBar(ctx);
+                break
+            case ENEMY_STATES.RUNNING:
+                this.drawShadow(ctx);
+                this.drawEnemy(ctx); 
+                this.drawHealthBar(ctx);
+                break
+            case ENEMY_STATES.DYING:
+                this.drawEnemy(ctx); 
+                break
+        }
+    }
+
+    drawEnemy(ctx){
         const left = -this.halfWidth - ENEMY_SIZE_HALF - this.position.x;
         const right = this.position.x + ENEMY_SIZE_HALF - this.halfWidth;
 

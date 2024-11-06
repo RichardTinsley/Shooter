@@ -1,4 +1,4 @@
-import { ROWS, COLUMNS, TILE_SIZE, TILE_SIZE_HALF } from "./Constants.js";
+import { ROWS, COLUMNS, TILE_SIZE, TILE_SIZE_HALF } from "./constants.js";
 
 export class DebugHandler{
     constructor(game){

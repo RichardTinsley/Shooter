@@ -32,15 +32,6 @@ export class LoadingScene {
         // this.fade = Math.sin(this.fadeAngle);
     }
 
-    // draw(ctx){
-    //     ctx.clearReact(0, 0, GAME_WIDTH, GAME_HEIGHT);
-    //     ctx.globalAlpha = this.fade;
-    //     ctx.fillStyle = "white";
-    //     ctx.textAlign = "right";
-    //     ctx.fillText('LOADING...', GAME_WIDTH - 4, GAME_HEIGHT - 4 );
-    //     ctx.globalAlpha = 1;
-    // }
-
     draw(ctx){
         drawBigScreenTexts(
             ctx,

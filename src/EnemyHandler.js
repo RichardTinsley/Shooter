@@ -1,5 +1,5 @@
-import { ENEMY_STATES, ENEMY_COLOURS, ENEMY_SIZE, TILE_SIZE, TILE_SIZE_HALF } from "./Constants.js";
-import { randomPositiveFloat } from "./Math.js";
+import { ENEMY_STATES, ENEMY_COLOURS, ENEMY_SIZE, TILE_SIZE, TILE_SIZE_HALF } from "./utilities/constants.js";
+import { randomPositiveFloat } from "./utilities/math.js";
 import { Enemy } from "./Enemy.js";
 import { assets } from "./AssetHandler.js";
 
@@ -16,33 +16,25 @@ export class EnemyHandler {
         this.enemyCounter = 0;   
         this.enemySpawnTimer = 0;
     }
+    
+    draw(ctx){
+        this.enemies.sort((a, b) => a.position.y - b.position.y);   
+        this.enemies.forEach(enemy => {
+            enemy.draw(ctx);
+        })
+    }
 
-    renderEnemies(ctx, event){
-        if(event)
-            this.enemySpawnTimer++;
+    update(event){
+        if (event) this.enemySpawnTimer++;
+        this.addEnemyToEnemiesArray();
+        this.updateEnemiesStatus(event);
+        this.nextWave();
+    }
 
-        if (this.enemySpawnTimer % Math.floor(Math.random() * 300) === 0 && this.allEnemiesActive === false){
-            const enemy = this.generateEnemy();
-        
-            this.populateEnemiesArray(enemy);
-            this.enemyCounter++;
-        }
-
-        if(this.enemyCounter === this.maxEnemies)
+    nextWave(){
+        if (this.enemyCounter === this.maxEnemies)
             this.allEnemiesActive = true;
 
-        this.enemies.sort((b, a) => a.position.y - b.position.y);        
-        
-        for (let i = this.enemies.length - 1; i >= 0; i--){
-            const enemy = this.enemies[i];
-
-            if(enemy.state === ENEMY_STATES.DEAD) 
-                this.enemies.splice(i, 1);
-            else
-                enemy.renderEnemy(ctx, event);
-            
-            this.sendEnemyToBeginning(enemy);
-        }
         if (this.enemies.length === 0 && this.allEnemiesActive === true) {
             this.game.waves++;
             this.maxEnemies++;
@@ -51,37 +43,51 @@ export class EnemyHandler {
         }
     }
 
-    sendEnemyToBeginning(enemy){
-        if(enemy.position.x > canvas.width){
-            this.game.hearts -= 1;
-            enemy.position = { 
-                x: enemy.waypoints[0].x, 
-                y: enemy.waypoints[0].y 
-            };
-            enemy.waypointIndex = 0;
+    updateEnemiesStatus(event){
+        for (let i = this.enemies.length - 1; i >= 0; i--){
+            const enemy = this.enemies[i];
+
+            if (enemy.state === ENEMY_STATES.DEAD) 
+                this.enemies.splice(i, 1);
+            else
+                enemy.update(event);
+            
+            if (enemy.position.x > canvas.width){
+                this.game.hearts -= 1;
+                enemy.position = { 
+                    x: enemy.waypoints[0].x, 
+                    y: enemy.waypoints[0].y 
+                };
+                enemy.waypointIndex = 0;
+            }
         }
     }
 
-    populateEnemiesArray(enemy){
-        const waypoints = this.generateEnemyWaypoints(this.game.tileHandler.waypoints);
+    addEnemyToEnemiesArray(){
+        if (this.enemySpawnTimer % Math.floor(Math.random() * 300) === 0 && this.allEnemiesActive === false){
 
-        this.enemies.push(new Enemy({
-            sprite: { 
-                image: enemy, 
-                frame: 0, 
-                row: 0,  
-                width: ENEMY_SIZE, 
-                height: ENEMY_SIZE 
-            },
-            position: {
-                x: waypoints[0].x,
-                y: waypoints[0].y
-            },
-            maxHealth: randomPositiveFloat(100),
-            scale: 1.5,
-            speed: randomPositiveFloat(this.enemySpeedRange) + this.enemySpeedMinimum,
-            waypoints: waypoints,
-        }));
+            const waypoints = this.generateEnemyWaypoints(this.game.tileHandler.waypoints);
+            const enemy = this.generateEnemy();
+
+            this.enemies.push(new Enemy({
+                sprite: { 
+                    image: enemy, 
+                    frame: 0, 
+                    row: 0,  
+                    width: ENEMY_SIZE, 
+                    height: ENEMY_SIZE 
+                },
+                position: {
+                    x: waypoints[0].x,
+                    y: waypoints[0].y
+                },
+                maxHealth: randomPositiveFloat(100),
+                scale: 1.5,
+                speed: randomPositiveFloat(this.enemySpeedRange) + this.enemySpeedMinimum,
+                waypoints: waypoints,
+            }));
+            this.enemyCounter++;
+        }
     }
 
     generateEnemy(){
