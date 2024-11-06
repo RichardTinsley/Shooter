@@ -3,13 +3,22 @@ import { assets } from "../AssetHandler.js";
 import { BattleScene } from "./BattleScene.js";
 import { drawText } from '../utilities/textRender.js';
 
+const textSize =  50;
+const initialPosition = 350;
+
+let activeOption = undefined;
+let mouse = {
+    x: undefined,
+    y: undefined
+};
+
 const menuOptions = [
     {
         name: "New Game",
         colour: "white",
-        optionAction: function(game) {
-            game.scene.menuMusic.pause();
-            game.scene = new BattleScene(game);
+        optionAction: function(switchToBattleScene, menuMusic) {
+            menuMusic.pause();
+            switchToBattleScene();
         }
     },
     {
@@ -26,27 +35,39 @@ const menuOptions = [
     }
 ];
 
-const textSize =  50;
-const initialPosition = 350;
-
-let activeOption = undefined;
-let mouse = {
-    x: undefined,
-    y: undefined
-};
-
 export class MenuScene{
-    constructor(game) {
+    constructor(switchToBattleScene) {
         this.menuMusic = assets.get("menuMusic");
         this.menuMusic.loop = true;
         this.menuMusic.volume = 0.05;
         this.menuMusic.play();
-        this.game = game;
 
+        
         window.addEventListener('click', e => {
             if(activeOption)
-                activeOption.optionAction(this.game);
-        })
+                activeOption.optionAction(switchToBattleScene, this.menuMusic);
+        });
+
+        window.addEventListener('mousemove', e => {
+            mouse.x = e.offsetX;
+            mouse.y = e.offsetY;
+            activeOption = null;
+        
+            menuOptions.forEach((option, index) => {
+                if( mouse.x > GAME_WIDTH / 2 - ((option.name.length / 2) * textSize) &&
+                    mouse.x < GAME_WIDTH / 2 + ((option.name.length / 2) * textSize) &&
+                    mouse.y > initialPosition + (textSize * index) &&
+                    mouse.y < initialPosition + (textSize * index) + textSize
+                )
+                    activeOption = option;
+                else
+                    option.colour = "white";
+            
+            });
+        
+            if(activeOption)
+                activeOption.colour = "red";
+        });
     }
 
     draw(ctx){
@@ -74,24 +95,4 @@ export class MenuScene{
     }
 }
 
-window.addEventListener('mousemove', e => {
-    mouse.x = e.offsetX;
-    mouse.y = e.offsetY;
-    activeOption = null;
-
-    menuOptions.forEach((option, index) => {
-        if( mouse.x > GAME_WIDTH / 2 - ((option.name.length / 2) * textSize) &&
-            mouse.x < GAME_WIDTH / 2 + ((option.name.length / 2) * textSize) &&
-            mouse.y > initialPosition + (textSize * index) &&
-            mouse.y < initialPosition + (textSize * index) + textSize
-        )
-            activeOption = option;
-        else
-            option.colour = "white";
-    
-    });
-
-    if(activeOption)
-        activeOption.colour = "red";
-})
 

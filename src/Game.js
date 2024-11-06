@@ -2,10 +2,12 @@ import { context } from "./utilities/context.js";
 import { LoadingScene } from "./scenes/LoadingScene.js";
 import { MenuScene } from "./scenes/MenuScene.js";
 import { TIME_INTERVALS } from "./utilities/constants.js";
+import { BattleScene } from "./scenes/BattleScene.js";
+import { GameOver } from "./scenes/GameOver.js";
 
 export class Game{
     constructor(){
-        this.scene = new LoadingScene(this.onLoadedComplete);
+        this.scene = new LoadingScene(this.switchToMenuScene);
         this.ctx = context();
         requestAnimationFrame(this.frame);
 
@@ -14,8 +16,16 @@ export class Game{
         this.eventUpdate = false;      
     }
 
-    onLoadedComplete = () => {
-        this.scene = new MenuScene(this);
+    switchToMenuScene = () => {
+        this.scene = new MenuScene(this.switchToBattleScene);
+    }
+
+    switchToBattleScene = () => {
+        this.scene = new BattleScene(this.switchToGameOverScene, this.switchToBattleScene);
+    }
+
+    switchToGameOverScene = () => {
+        this.scene = new GameOver(this.switchToMenuScene, this.switchToBattleScene);
     }
 
     frame = (time) => {

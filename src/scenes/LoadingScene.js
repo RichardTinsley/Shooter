@@ -5,23 +5,23 @@ export class LoadingScene {
     fade = 0;
     fadeAngle = 0;
 
-    constructor(onLoadedComplete){
+    constructor(switchToMenuScene){
 
-        this.loadAssets(onLoadedComplete);
+        this.loadAssets(switchToMenuScene);
     }
 
     handleAssetComplete = (fileName) => {
         console.log(`${fileName.fileName} Loaded.`);
     }
 
-    async loadAssets(onLoadedComplete){
+    async loadAssets(switchToMenuScene){
         await AssetHandler.load(AssetHandler.assetList, this.handleAssetComplete)
             .catch((error) => {
                 console.error(`Error: Unable to load asset "${error.fileName}"`);
             })
             .then(() => {
                 console.log(`Asset loading complete. A total of ${AssetHandler.assets.size} assets have been loaded.`);
-                onLoadedComplete();
+                switchToMenuScene();
             });
     }
 

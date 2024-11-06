@@ -3,10 +3,10 @@ import { assets } from "./AssetHandler.js";
 import { Tile } from "./Tile.js";
 
 export class TileHandler {
-    constructor(game){
+    constructor(currentLevel){
         this.backgroundImage = assets.get('levelOne');
-        this.tileMap = this.populateTileMapArray(game.currentLevel);
-        this.waypoints = this.populateWaypointsArray(game.currentLevel);
+        this.tileMap = this.populateTileMapArray(currentLevel);
+        this.waypoints = this.populateWaypointsArray(currentLevel);
         this.tiles = this.populateTilesArray();
     }
 
