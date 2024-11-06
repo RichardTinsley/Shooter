@@ -34,7 +34,7 @@ export class TowerHandler{
 
     shootEnemy(tower){
         if(tower.shootTimer > tower.cooldown && tower.target){
-            this.game.projectileHandler.populateProjectilesArray(
+            this.game.projectileHandler.add(
                 tower.target, 
                 tower, 
                 assets.get('blueFireball'))
@@ -42,7 +42,7 @@ export class TowerHandler{
         }
     }
 
-    addTowerToTowersArray(tower, activeTile){
+    add(tower, activeTile){
         const damage = 50;
         const range = 150;
         const cooldown = 10;

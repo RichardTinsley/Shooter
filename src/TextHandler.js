@@ -24,7 +24,7 @@ export class TextHandler{
         }
     }
 
-    populateGameTextArray(text, colour, position){
+    add(text, colour, position){
         this.texts.push(new Text({
             text: text,
             colour: colour,

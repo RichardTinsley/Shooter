@@ -26,7 +26,7 @@ export class EnemyHandler {
 
     update(event){
         if (event) this.enemySpawnTimer++;
-        this.addEnemyToEnemiesArray();
+        this.add();
         this.updateEnemiesStatus(event);
         this.nextWave();
     }
@@ -63,7 +63,7 @@ export class EnemyHandler {
         }
     }
 
-    addEnemyToEnemiesArray(){
+    add(){
         if (this.enemySpawnTimer % Math.floor(Math.random() * 300) === 0 && this.allEnemiesActive === false){
 
             const waypoints = this.generateEnemyWaypoints(this.game.tileHandler.waypoints);

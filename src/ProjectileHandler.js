@@ -17,52 +17,56 @@ export class ProjectileHandler{
 
     update(event){
         for (let i = this.projectiles.length - 1; i >= 0; i--){
-
             const projectile = this.projectiles[i];        
             projectile.update(event);
 
-            const enemyIndex = this.game.enemyHandler.enemies.findIndex(enemy => projectile.enemy === enemy);
-            const enemy = this.game.enemyHandler.enemies[enemyIndex];
+            const enemy = this.game.enemyHandler.enemies.find(enemy => projectile.enemy === enemy);
             
-            if (checkCollision(enemy, projectile) && projectile.state === ANIMATION_STATES.ANIMATING){
-                projectile.state = ANIMATION_STATES.FINISHED
-                enemy.health -= projectile.damage;
+            this.checkProjectileImpact(enemy, projectile);
 
-                if(enemy.health <= 0 && enemyIndex > -1 && enemy.state !== ENEMY_STATES.DYING){
-                    this.game.coins += enemy.coins;
-                    this.game.exp += enemy.exp;
+            if(projectile.state === ANIMATION_STATES.FINISHED)
+                this.projectiles.splice(i, 1); 
+        }
+    }
 
-                    this.addBlood(projectile);
+    checkProjectileImpact(enemy, projectile){
+        if (checkCollision(enemy, projectile) && projectile.state === ANIMATION_STATES.ANIMATING){
+            projectile.state = ANIMATION_STATES.FINISHED
+            enemy.health -= projectile.damage;
 
-                    this.game.textHandler.populateGameTextArray(
-                        '+' + enemy.coins, 
-                        '255, 215, 0, ',
-                        enemy.position, 
-                    );
+            this.checkEnemyDeath(enemy, projectile);
 
-                    if(enemy.exp > 0)
-                        this.game.textHandler.populateGameTextArray(
-                            '+' + enemy.exp + 'xp', 
-                            '50, 205, 50, ', 
-                            projectile.position, 
-                        );
-                }
+            if(enemy.state === ENEMY_STATES.DYING)
+                this.addBlood(projectile);
+        
+            this.addExplosion(projectile);
+        }   
+    }
 
-                if(enemy.state === ENEMY_STATES.DYING){
-                    this.addBlood(projectile);
-                }
+    checkEnemyDeath(enemy, projectile){
+        if(enemy.health <= 0 && enemy.state !== ENEMY_STATES.DYING){
+            this.game.coins += enemy.coins;
+            this.game.exp += enemy.exp;
 
-                this.addExplosion(projectile);
+            this.addBlood(projectile);
 
-                if(projectile.state === ANIMATION_STATES.FINISHED){
-                    this.projectiles.splice(i, 1);
-                } 
-            }       
+            this.game.textHandler.add(
+                '$' + enemy.coins, 
+                '255, 215, 0, ',
+                enemy.position, 
+            );
+
+            if(enemy.exp > 0)
+                this.game.textHandler.add(
+                    '+' + enemy.exp + 'xp', 
+                    '50, 205, 50, ', 
+                    projectile.position, 
+            );
         }
     }
 
     addExplosion(projectile){
-        this.game.effectHandler.populateEffectsArray(
+        this.game.effectHandler.add(
             assets.get('blueExplosion'), 
             projectile, 
             projectile.center,
@@ -74,7 +78,7 @@ export class ProjectileHandler{
     }
 
     addBlood(projectile){
-        this.game.effectHandler.populateEffectsArray(
+        this.game.effectHandler.add(
             assets.get('blood'), 
             projectile,  
             projectile.enemy.position,
@@ -85,7 +89,7 @@ export class ProjectileHandler{
         );
     }
 
-    populateProjectilesArray(enemy, tower, projectile){
+    add(enemy, tower, projectile){
         this.projectiles.push(new Projectile({
             sprite: { 
                 image: projectile, 

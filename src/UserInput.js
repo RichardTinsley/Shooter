@@ -6,6 +6,8 @@ let mouse = {
     y: undefined
 };
 
+const cursor = document.getElementById("canvas");
+
 let keys = new Set();
 let activeTile = undefined;
 let activeEnemy = undefined;
@@ -29,12 +31,10 @@ export class UserInput {
         this.restartGame = restartGame;
         this.debugGame = debugGame;
 
-        const cursor = document.getElementById("canvas");
-
         window.addEventListener('click', e => {
             if (activeTile && !activeTile.isOccupied && this.game.coins - 25 >= 0) {
 
-                this.towerHandler.addTowerToTowersArray(
+                this.towerHandler.add(
                     assets.get('sapphireTower'), 
                     activeTile
                 );
