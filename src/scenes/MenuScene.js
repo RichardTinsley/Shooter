@@ -1,9 +1,9 @@
 import { GAME_WIDTH } from "../utilities/constants.js";
-import { assets } from "../AssetHandler.js";
+import { assets } from "../AssetLoader.js";
 import { drawText } from '../utilities/textRender.js';
 
-const textSize =  50;
-const initialPosition = 450;
+const textSize =  60;
+const initialPosition = 460;
 
 let activeOption = undefined;
 let mouse = {
@@ -82,7 +82,7 @@ export class MenuScene{
             "Death   Sorcery",
             GAME_WIDTH / 2,
             90,
-            150,
+            170,
             "center",
             "top"
         )

@@ -1,4 +1,5 @@
-import * as AssetHandler from '../AssetHandler.js'
+import * as AssetHandler from '../AssetLoader.js'
+import { GAME_HEIGHT, GAME_WIDTH } from '../utilities/constants.js';
 import { drawBigScreenTexts } from '../utilities/textRender.js';
 
 export class LoadingScene {
@@ -8,6 +9,9 @@ export class LoadingScene {
     constructor(switchToMenuScene){
 
         this.loadAssets(switchToMenuScene);
+        this.dslogo = new Image();
+        this.dslogo.src = './images/logos/DsShieldLogo.png';
+        
     }
 
     handleAssetComplete = (fileName) => {
@@ -33,10 +37,18 @@ export class LoadingScene {
     }
 
     draw(ctx){
-        drawBigScreenTexts(
-            ctx,
-            "Summoning",
-            false
-        )
+        ctx.drawImage(
+            this.dslogo,
+            GAME_WIDTH / 2,
+            GAME_HEIGHT / 2,
+            // dslogo.image.width,
+            // dslogo.image.height
+        );
+
+        // drawBigScreenTexts(
+        //     ctx,
+        //     "Summoning",
+        //     false
+        // )
     }
 }

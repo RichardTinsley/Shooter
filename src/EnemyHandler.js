@@ -1,7 +1,7 @@
 import { ENEMY_STATES, ENEMY_COLOURS, ENEMY_SIZE, TILE_SIZE, TILE_SIZE_HALF } from "./utilities/constants.js";
 import { randomPositiveFloat } from "./utilities/math.js";
 import { Enemy } from "./Enemy.js";
-import { assets } from "./AssetHandler.js";
+import { assets } from "./AssetLoader.js";
 
 export class EnemyHandler {
     constructor(

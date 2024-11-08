@@ -1,6 +1,6 @@
 import { ANIMATION_STATES, ENEMY_STATES } from "./utilities/constants.js";
 import { findAngleOfDirection, giveDirection, checkCollision } from "./utilities/math.js";
-import { assets } from "./AssetHandler.js";
+import { assets } from "./AssetLoader.js";
 
 export class Projectile{
     constructor({ 

@@ -1,5 +1,5 @@
 import { GAME_STATES, USER_INPUT_KEYS, ENEMY_STATES, ENEMY_SIZE, ENEMY_SIZE_HALF } from './utilities/constants.js'
-import { assets } from './AssetHandler.js';
+import { assets } from './AssetLoader.js';
 
 let mouse = {
     x: undefined,

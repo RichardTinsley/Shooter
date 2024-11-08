@@ -1,5 +1,5 @@
 import { ENEMY_STATES } from "./utilities/constants.js";
-import { assets } from "./AssetHandler.js";
+import { assets } from "./AssetLoader.js";
 
 export class Tower {
     constructor({

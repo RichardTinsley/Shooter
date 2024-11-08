@@ -7,8 +7,8 @@ import { GameOver } from "./scenes/GameOver.js";
 
 export class Game{
     constructor(){
-        this.scene = new LoadingScene(this.switchToMenuScene);
         this.ctx = context();
+        this.scene = new LoadingScene(this.switchToMenuScene);
         requestAnimationFrame(this.frame);
 
         this.previousTime = 0;  

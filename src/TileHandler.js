@@ -1,5 +1,5 @@
 import { LEVELS, COLUMNS, TILE_SIZE } from "./utilities/constants.js";
-import { assets } from "./AssetHandler.js";
+import { assets } from "./AssetLoader.js";
 import { Tile } from "./Tile.js";
 
 export class TileHandler {

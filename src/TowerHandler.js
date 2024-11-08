@@ -19,7 +19,7 @@ export class TowerHandler{
             tower.update(event);
             tower.targetEnemy(this.enemyHandler.enemies);
             tower.shootEnemy(this.projectileHandler);
-        })
+        });
     }
 
     add(tower, activeTile){
