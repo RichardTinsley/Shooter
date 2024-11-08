@@ -1,11 +1,19 @@
-import { ANIMATION_STATES, ENEMY_STATES } from "./utilities/constants.js";
-import { checkCollision } from "./utilities/math.js";
+import { ANIMATION_STATES } from "./utilities/constants.js";
 import { Projectile } from "./Projectile.js";
-import { assets } from "./AssetHandler.js";
 
 export class ProjectileHandler{
-    constructor(game) {
-        this.game = game;
+    constructor(
+        enemyHandler,
+        textHandler,
+        effectHandler,
+        hudElements
+    ) {
+
+        this.enemyHandler = enemyHandler;
+        this.textHandler = textHandler;
+        this.effectHandler = effectHandler;
+        this.hudElements = hudElements;
+
         this.projectiles = [];
     }
 
@@ -20,73 +28,13 @@ export class ProjectileHandler{
             const projectile = this.projectiles[i];        
             projectile.update(event);
 
-            const enemy = this.game.enemyHandler.enemies.find(enemy => projectile.enemy === enemy);
+            const enemy = this.enemyHandler.enemies.find(enemy => projectile.enemy === enemy);
             
-            this.checkProjectileImpact(enemy, projectile);
+            projectile.checkProjectileImpact(enemy, this.textHandler, this.effectHandler, this.hudElements);
 
             if(projectile.state === ANIMATION_STATES.FINISHED)
                 this.projectiles.splice(i, 1); 
         }
-    }
-
-    checkProjectileImpact(enemy, projectile){
-        if (checkCollision(enemy, projectile) && projectile.state === ANIMATION_STATES.ANIMATING){
-            projectile.state = ANIMATION_STATES.FINISHED
-            enemy.health -= projectile.damage;
-
-            this.checkEnemyDeath(enemy, projectile);
-
-            if(enemy.state === ENEMY_STATES.DYING)
-                this.addBlood(projectile);
-        
-            this.addExplosion(projectile);
-        }   
-    }
-
-    checkEnemyDeath(enemy, projectile){
-        if(enemy.health <= 0 && enemy.state !== ENEMY_STATES.DYING){
-            this.game.coins += enemy.coins;
-            this.game.exp += enemy.exp;
-
-            this.addBlood(projectile);
-
-            this.game.textHandler.add(
-                '$' + enemy.coins, 
-                '255, 215, 0, ',
-                enemy.position, 
-            );
-
-            if(enemy.exp > 0)
-                this.game.textHandler.add(
-                    '+' + enemy.exp + 'xp', 
-                    '50, 205, 50, ', 
-                    projectile.position, 
-            );
-        }
-    }
-
-    addExplosion(projectile){
-        this.game.effectHandler.add(
-            assets.get('blueExplosion'), 
-            projectile, 
-            projectile.center,
-            0, 
-            Math.random() * .4 + .3,
-            256,
-            256
-        );
-    }
-
-    addBlood(projectile){
-        this.game.effectHandler.add(
-            assets.get('blood'), 
-            projectile,  
-            projectile.enemy.position,
-            Math.floor(Math.random() * 9),  
-            projectile.enemy.scale / 1.5,
-            110,
-            110
-        );
     }
 
     add(enemy, tower, projectile){

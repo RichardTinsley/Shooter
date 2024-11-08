@@ -2,8 +2,7 @@ import { ANIMATION_STATES } from "./utilities/constants.js";
 import { Effect } from "./Effect.js";
 
 export class EffectHandler {
-    constructor(game) {
-        this.game = game; 
+    constructor() {
         this.effects = [];
     }
 

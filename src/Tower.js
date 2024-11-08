@@ -1,4 +1,5 @@
 import { ENEMY_STATES } from "./utilities/constants.js";
+import { assets } from "./AssetHandler.js";
 
 export class Tower {
     constructor({
@@ -51,6 +52,26 @@ export class Tower {
         if (event){
             this.shootTimer++;
             this.sprite.frame < this.maxFrame ? this.sprite.frame++ : this.sprite.frame = 0;
+        }
+    }
+
+    targetEnemy(enemies){
+        const enemiesInTowerRange = this.prioritiseEnemiesInTowerRange(enemies);
+        const selectedEnemy = enemiesInTowerRange.find(enemy => enemy.isSelected);
+
+        if(selectedEnemy)
+            this.target = selectedEnemy;
+        else
+            this.target = enemiesInTowerRange[0];
+    }
+
+    shootEnemy(projectileHandler){
+        if(this.shootTimer > this.cooldown && this.target){
+            projectileHandler.add(
+                this.target, 
+                this, 
+                assets.get('blueFireball'))
+                this.shootTimer = 0;
         }
     }
 

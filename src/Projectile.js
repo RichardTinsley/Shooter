@@ -1,5 +1,7 @@
-import { ANIMATION_STATES } from "./utilities/constants.js";
-import { findAngleOfDirection, giveDirection } from "./utilities/math.js";
+import { ANIMATION_STATES, ENEMY_STATES } from "./utilities/constants.js";
+import { findAngleOfDirection, giveDirection, checkCollision } from "./utilities/math.js";
+import { assets } from "./AssetHandler.js";
+
 export class Projectile{
     constructor({ 
         sprite,
@@ -97,6 +99,66 @@ export class Projectile{
                 this.sprite.row = 0;
                 this.sprite.frame = 0;
             }
+    }
+
+    checkProjectileImpact(enemy, textHandler, effectHandler, hudElements){
+        if (checkCollision(enemy, this) && this.state === ANIMATION_STATES.ANIMATING){
+            this.state = ANIMATION_STATES.FINISHED
+            enemy.health -= this.damage;
+
+            this.checkEnemyDeath(enemy, textHandler, effectHandler, hudElements);
+
+            if(enemy.state === ENEMY_STATES.DYING)
+                this.addBlood(effectHandler);
+        
+            this.addExplosion(effectHandler);
+        }   
+    }
+
+    checkEnemyDeath(enemy, textHandler, effectHandler, hudElements){
+        if(enemy.health <= 0 && enemy.state !== ENEMY_STATES.DYING){
+            hudElements.coins += enemy.coins;
+            hudElements.exp += enemy.exp;
+
+            this.addBlood(effectHandler);
+
+            textHandler.add(
+                '$' + enemy.coins, 
+                '255, 215, 0, ',
+                enemy.position, 
+            );
+
+            if(enemy.exp > 0)
+                textHandler.add(
+                    '+' + enemy.exp + 'xp', 
+                    '50, 205, 50, ', 
+                    this.position, 
+            );
+        }
+    }
+
+    addExplosion(effectHandler){
+        effectHandler.add(
+            assets.get('blueExplosion'), 
+            this, 
+            this.center,
+            0, 
+            Math.random() * .4 + .3,
+            256,
+            256
+        );
+    }
+
+    addBlood(effectHandler){
+        effectHandler.add(
+            assets.get('blood'), 
+            this,  
+            this.enemy.position,
+            Math.floor(Math.random() * 9),  
+            this.enemy.scale / 1.5,
+            110,
+            110
+        );
     }
 }
 

@@ -4,8 +4,12 @@ import { Enemy } from "./Enemy.js";
 import { assets } from "./AssetHandler.js";
 
 export class EnemyHandler {
-    constructor(game){
-        this.game = game;
+    constructor(
+        tileHandler,
+        hudElements
+    ){
+        this.tileHandler = tileHandler;
+        this.hudElements = hudElements;
         this.enemies = [];
 
         this.enemySpeedMinimum = 0.4; 
@@ -36,7 +40,7 @@ export class EnemyHandler {
             this.allEnemiesActive = true;
 
         if (this.enemies.length === 0 && this.allEnemiesActive === true) {
-            this.game.waves++;
+            this.hudElements.waves++;
             this.maxEnemies++;
             this.enemyCounter = 0;
             this.allEnemiesActive = false;
@@ -53,7 +57,7 @@ export class EnemyHandler {
                 enemy.update(event);
             
             if (enemy.position.x > canvas.width){
-                this.game.hearts -= 1;
+                this.hudElements.hearts -= 1;
                 enemy.position = { 
                     x: enemy.waypoints[0].x, 
                     y: enemy.waypoints[0].y 
@@ -66,7 +70,7 @@ export class EnemyHandler {
     add(){
         if (this.enemySpawnTimer % Math.floor(Math.random() * 300) === 0 && this.allEnemiesActive === false){
 
-            const waypoints = this.generateEnemyWaypoints(this.game.tileHandler.waypoints);
+            const waypoints = this.generateEnemyWaypoints(this.tileHandler.waypoints);
             const enemy = this.generateEnemy();
 
             this.enemies.push(new Enemy({
@@ -92,8 +96,8 @@ export class EnemyHandler {
 
     generateEnemy(){
         let index;
-        if(this.game.waves < 119)
-            index = Math.floor(Math.random() * (this.game.waves / 10));
+        if(this.hudElements.waves < 119)
+            index = Math.floor(Math.random() * (this.hudElements.waves / 10));
         else 
             index = Math.floor(Math.random() * 12);
         return assets.get(ENEMY_COLOURS[index]);

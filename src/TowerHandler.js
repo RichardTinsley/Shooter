@@ -1,10 +1,10 @@
 import { TOWER_SIZE, TILE_SIZE_HALF } from "./utilities/constants.js";
 import { Tower } from "./Tower.js";
-import { assets } from "./AssetHandler.js";
 
 export class TowerHandler{
-    constructor(game){
-        this.game = game;
+    constructor(enemyHandler, projectileHandler){
+        this.enemyHandler = enemyHandler;
+        this.projectileHandler = projectileHandler;
         this.towers = [];
     }
 
@@ -17,29 +17,9 @@ export class TowerHandler{
     update(event){
         this.towers.forEach(tower => {
             tower.update(event);
-            this.targetEnemy(tower);
-            this.shootEnemy(tower);
+            tower.targetEnemy(this.enemyHandler.enemies);
+            tower.shootEnemy(this.projectileHandler);
         })
-    }
-
-    targetEnemy(tower){
-        const enemiesInTowerRange = tower.prioritiseEnemiesInTowerRange(this.game.enemyHandler.enemies);
-        const selectedEnemy = enemiesInTowerRange.find(enemy => enemy.isSelected);
-
-        if(selectedEnemy)
-            tower.target = selectedEnemy;
-        else
-            tower.target = enemiesInTowerRange[0];
-    }
-
-    shootEnemy(tower){
-        if(tower.shootTimer > tower.cooldown && tower.target){
-            this.game.projectileHandler.add(
-                tower.target, 
-                tower, 
-                assets.get('blueFireball'))
-            tower.shootTimer = 0;
-        }
     }
 
     add(tower, activeTile){

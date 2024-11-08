@@ -14,7 +14,7 @@ let activeEnemy = undefined;
 
 export class UserInput {
     constructor(
-        game, 
+        hudElements, 
         tileHandler, 
         towerHandler, 
         enemyHandler,
@@ -23,7 +23,7 @@ export class UserInput {
         debugGame
     ){
 
-        this.game = game;
+        this.hudElements = hudElements;
         this.tileHandler = tileHandler;
         this.towerHandler = towerHandler;
         this.enemyHandler = enemyHandler;
@@ -32,7 +32,7 @@ export class UserInput {
         this.debugGame = debugGame;
 
         window.addEventListener('click', e => {
-            if (activeTile && !activeTile.isOccupied && this.game.coins - 25 >= 0) {
+            if (activeTile && !activeTile.isOccupied && hudElements.coins - 25 >= 0) {
 
                 this.towerHandler.add(
                     assets.get('sapphireTower'), 
@@ -41,7 +41,7 @@ export class UserInput {
                 
                 activeTile.isOccupied = true;
                 this.towerHandler.towers.sort((a, b) => { return a.position.y - b.position.y });
-                this.game.coins -= 25;
+                hudElements.coins -= 25;
             }
             
             if(activeEnemy){

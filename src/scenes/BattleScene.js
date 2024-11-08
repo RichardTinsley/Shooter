@@ -17,16 +17,23 @@ export class BattleScene {
     constructor(switchToGameOverScene, switchToBattleScene){
         this.currentLevel = LEVELS.TERRA_HAUTE;
         this.currentGameState = GAME_STATES.PLAYING;
+        
+        this.hudElements = {
+            hearts: 2,
+            coins: 100,
+            exp: 0,
+            waves: 1,
+            timer: 0
+        };
 
         this.tileHandler        = new TileHandler(this.currentLevel);
-        this.textHandler        = new TextHandler(this);
-        this.enemyHandler       = new EnemyHandler(this);
-        this.towerHandler       = new TowerHandler(this);
-        this.projectileHandler  = new ProjectileHandler(this);
-        this.effectHandler      = new EffectHandler(this);
-        this.textHandler        = new TextHandler(this);
+        this.textHandler        = new TextHandler(this.hudElements);
+        this.enemyHandler       = new EnemyHandler(this.tileHandler, this.hudElements);
+        this.effectHandler      = new EffectHandler();
+        this.projectileHandler  = new ProjectileHandler(this.enemyHandler, this.textHandler, this.effectHandler, this.hudElements);
+        this.towerHandler       = new TowerHandler(this.enemyHandler, this.projectileHandler);
         this.userInput          = new UserInput(
-            this, 
+            this.hudElements,
             this.tileHandler, 
             this.towerHandler, 
             this.enemyHandler,
@@ -37,12 +44,6 @@ export class BattleScene {
         
         this.switchToGameOverScene = switchToGameOverScene;
         this.switchToBattleScene = switchToBattleScene;
-
-        this.hearts = 2;
-        this.coins = 100;
-        this.exp = 0;
-        this.waves = 1;
-        this.timer = 0;
 
         this.lastTime = 0;
         this.eventTimer = 0;
@@ -67,7 +68,7 @@ export class BattleScene {
             );
 
         if(this.currentGameState === GAME_STATES.PAUSED)
-            drawBigScreenTexts(ctx,"Paused", true);
+            drawBigScreenTexts(ctx, "Paused", true);
     }
 
     update(event){
@@ -77,13 +78,13 @@ export class BattleScene {
         this.towerHandler.update(event);
         this.projectileHandler.update(event);
         this.effectHandler.update(event);
-        this.textHandler.update(event);
+        this.textHandler.update();
         this.playerStatusCheck();
     }
 
     
     playerStatusCheck(){
-        if(this.hearts <= 0){
+        if(this.hudElements.hearts <= 0){
             this.enemyHandler.enemies = [];
             this.switchToGameOverScene();
         }
@@ -95,20 +96,20 @@ export class BattleScene {
         }
         if (this.secondsTimer >= 15){
             this.secondsTimer = 0;
-            this.timer++; 
+            this.hudElements.timer++; 
         }
     }
 
     debugGame = () => {
         if(this.currentGameState === GAME_STATES.PLAYING)
-            this.currentGameState = GAME_STATES.DEBUG
+            this.currentGameState = GAME_STATES.DEBUG;
         else
             this.currentGameState = GAME_STATES.PLAYING;
     }
 
     pauseGame = () => {
         if(this.currentGameState === GAME_STATES.PLAYING)
-            this.currentGameState = GAME_STATES.PAUSED
+            this.currentGameState = GAME_STATES.PAUSED;
         else
             this.currentGameState = GAME_STATES.PLAYING;
     }

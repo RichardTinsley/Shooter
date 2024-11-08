@@ -2,8 +2,9 @@ import { Text } from "./Text.js";
 import { drawText } from "./utilities/textRender.js";
 
 export class TextHandler{
-    constructor(game) {
-        this.game = game;
+    constructor(hudElements) {
+        this.hudElements = hudElements;
+
         this.texts = [];
     }
 
@@ -36,10 +37,10 @@ export class TextHandler{
     }
     
     renderGUITexts(ctx){
-        drawText(ctx, "white", this.game.hearts, 70, 39, 20, 'left', 'top');
-        drawText(ctx, "white", this.game.coins, 230, 39, 20, 'left', 'top');
-        drawText(ctx, "white", this.game.exp, 520, 39, 20, 'left', 'top');
-        drawText(ctx, "white", this.game.waves, 810, 39, 20, 'left', 'top');
-        drawText(ctx, "white", this.game.timer, 1160, 39, 20, 'left', 'top');
+        drawText(ctx, "white", this.hudElements.hearts, 70, 39, 20, 'left', 'top');
+        drawText(ctx, "white", this.hudElements.coins, 230, 39, 20, 'left', 'top');
+        drawText(ctx, "white", this.hudElements.exp, 520, 39, 20, 'left', 'top');
+        drawText(ctx, "white", this.hudElements.waves, 810, 39, 20, 'left', 'top');
+        drawText(ctx, "white", this.hudElements.timer, 1160, 39, 20, 'left', 'top');
     }
 }

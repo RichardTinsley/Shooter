@@ -1,10 +1,9 @@
 import { GAME_WIDTH } from "../utilities/constants.js";
 import { assets } from "../AssetHandler.js";
-import { BattleScene } from "./BattleScene.js";
 import { drawText } from '../utilities/textRender.js';
 
 const textSize =  50;
-const initialPosition = 350;
+const initialPosition = 450;
 
 let activeOption = undefined;
 let mouse = {
@@ -76,6 +75,17 @@ export class MenuScene{
             0,
             0,
         );
+
+        drawText(
+            ctx,
+            "white",
+            "Death   Sorcery",
+            GAME_WIDTH / 2,
+            90,
+            150,
+            "center",
+            "top"
+        )
 
         menuOptions.forEach((option, index) => {
             drawText(
