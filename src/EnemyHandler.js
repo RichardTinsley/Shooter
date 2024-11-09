@@ -1,19 +1,13 @@
-import { ENEMY_STATES, ENEMY_COLOURS, ENEMY_SIZE, TILE_SIZE, TILE_SIZE_HALF } from "./utilities/constants.js";
-import { randomPositiveFloat } from "./utilities/math.js";
+import { ENEMY_STATES, ENEMY_COLOURS, ENEMY_SIZE } from "./utilities/constants.js";
 import { Enemy } from "./Enemy.js";
 import { assets } from "./AssetLoader.js";
 
 export class EnemyHandler {
     constructor(
-        tileHandler,
         hudElements
     ){
-        this.tileHandler = tileHandler;
         this.hudElements = hudElements;
         this.enemies = [];
-
-        this.enemySpeedMinimum = 0.4; 
-        this.enemySpeedRange = 1.0;
 
         this.allEnemiesActive = false;
         this.maxEnemies = 10;
@@ -58,11 +52,7 @@ export class EnemyHandler {
             
             if (enemy.position.x > canvas.width){
                 this.hudElements.hearts -= 1;
-                enemy.position = { 
-                    x: enemy.waypoints[0].x, 
-                    y: enemy.waypoints[0].y 
-                };
-                enemy.waypointIndex = 0;
+                enemy.resetEnemyPosition();
             }
         }
     }
@@ -70,26 +60,17 @@ export class EnemyHandler {
     add(){
         if (this.enemySpawnTimer % Math.floor(Math.random() * 300) === 0 && this.allEnemiesActive === false){
 
-            const waypoints = this.generateEnemyWaypoints(this.tileHandler.waypoints);
             const enemy = this.generateEnemy();
 
             this.enemies.push(new Enemy({
                 sprite: { 
                     image: enemy, 
-                    frame: 0, 
-                    row: 0,  
                     width: ENEMY_SIZE, 
                     height: ENEMY_SIZE 
                 },
-                position: {
-                    x: waypoints[0].x,
-                    y: waypoints[0].y
-                },
-                maxHealth: randomPositiveFloat(100),
                 scale: 1.5,
-                speed: randomPositiveFloat(this.enemySpeedRange) + this.enemySpeedMinimum,
-                waypoints: waypoints,
             }));
+            
             this.enemyCounter++;
         }
     }
@@ -101,15 +82,5 @@ export class EnemyHandler {
         else 
             index = Math.floor(Math.random() * 12);
         return assets.get(ENEMY_COLOURS[index]);
-    }
-    
-    generateEnemyWaypoints(wayspoints){
-        return wayspoints.map(waypoint => {
-            return { 
-                    x: (waypoint.x - TILE_SIZE) + Math.round(Math.random() * (TILE_SIZE + TILE_SIZE_HALF + 10)),
-                    y: (waypoint.y - TILE_SIZE) + Math.round(Math.random() * (TILE_SIZE + TILE_SIZE_HALF + 10))
-                }
-            }
-        );
     }
 }

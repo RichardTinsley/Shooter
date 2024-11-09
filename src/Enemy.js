@@ -1,14 +1,11 @@
-import { ENEMY_STATES, ENEMY_SIZE_HALF, TILE_SIZE } from "./utilities/constants.js";
-import { checkCollision, findAngleOfDirection } from "./utilities/math.js";
+import { ENEMY_STATES, ENEMY_SIZE_HALF, TILE_SIZE, TILE_SIZE_HALF } from "./utilities/constants.js";
+import { TERRA_HAUTE_WAYPOINTS } from "./constants/terraHaute.js";
+import { checkCollision, findAngleOfDirection, randomPositiveFloat } from "./utilities/math.js";
 
 export class Enemy {
     constructor({ 
         sprite, 
-        position, 
-        maxHealth,
         scale,
-        speed,
-        waypoints,
     }){
         this.sprite = sprite;
         this.maxFrame = (this.sprite.image.width / this.sprite.width) - 1;
@@ -19,13 +16,23 @@ export class Enemy {
         this.halfWidth = this.width / 2;
         this.quarterWidth = this.width / 4;
 
-        this.position = position;
+        this.waypoints = this.generateEnemyWaypoints();
+        this.priorityDistance = 0;
+        this.waypointIndex = 0;
+        this.position =  {
+            x: this.waypoints[this.waypointIndex].x,
+            y: this.waypoints[this.waypointIndex].y
+        };
+
         this.center = {
             x: Math.round(this.position.x + this.width / 2 * 100) / 100,
             y: Math.round(this.position.y + this.height / 2 * 100) / 100
         };
         
-        this.speed = speed;
+
+        this.enemySpeedMinimum = 0.4; 
+        this.enemySpeedRange = 1.0;
+        this.speed = randomPositiveFloat(this.enemySpeedRange) + this.enemySpeedMinimum;
         this.velocity = { 
             x: 0, 
             y: 0
@@ -36,12 +43,8 @@ export class Enemy {
         this.isSelected = false;
         this.direction;
         
-        this.priorityDistance = 0;
-        this.waypointIndex = 0;
-        this.waypoints = waypoints;
-
-        this.maxHealth = maxHealth;
-        this.health = maxHealth;
+        this.maxHealth = randomPositiveFloat(100);
+        this.health = this.maxHealth;
         this.coins = Math.floor(Math.random() * 5 + 1);
         this.exp = this.generateRandomExp();
     }
@@ -76,6 +79,14 @@ export class Enemy {
                 this.drawEnemy(ctx); 
                 break
         }
+    }
+
+    resetEnemyPosition(){
+        this.waypointIndex = 0;
+        this.position = { 
+            x: this.waypoints[this.waypointIndex].x, 
+            y: this.waypoints[this.waypointIndex].y 
+        };
     }
 
     drawEnemy(ctx){
@@ -220,5 +231,15 @@ export class Enemy {
             return Math.floor(Math.random() * 5) + 1;
         else
             return 0
+    }
+
+    generateEnemyWaypoints(){
+        return TERRA_HAUTE_WAYPOINTS.map(waypoint => {
+            return { 
+                    x: (waypoint.x - TILE_SIZE) + Math.round(Math.random() * (TILE_SIZE + TILE_SIZE_HALF + 10)),
+                    y: (waypoint.y - TILE_SIZE) + Math.round(Math.random() * (TILE_SIZE + TILE_SIZE_HALF + 10))
+                }
+            }
+        );
     }
 }

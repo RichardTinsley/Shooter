@@ -28,7 +28,7 @@ export class BattleScene {
 
         this.tileHandler        = new TileHandler(this.currentLevel);
         this.textHandler        = new TextHandler(this.hudElements);
-        this.enemyHandler       = new EnemyHandler(this.tileHandler, this.hudElements);
+        this.enemyHandler       = new EnemyHandler(this.hudElements);
         this.effectHandler      = new EffectHandler();
         this.projectileHandler  = new ProjectileHandler(this.enemyHandler, this.textHandler, this.effectHandler, this.hudElements);
         this.towerHandler       = new TowerHandler(this.enemyHandler, this.projectileHandler);
