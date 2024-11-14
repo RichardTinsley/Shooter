@@ -1,4 +1,4 @@
-import { TOWER_SIZE, TILE_SIZE_HALF } from "./utilities/constants.js";
+import { TOWER_SIZE, TILE_SIZE_HALF } from "./constants/constants.js";
 import { Tower } from "./Tower.js";
 
 export class TowerHandler{

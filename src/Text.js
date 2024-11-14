@@ -1,4 +1,4 @@
-import { TILE_SIZE_HALF } from "./utilities/constants.js";
+import { TILE_SIZE_HALF } from "./constants/constants.js";
 import { randomPositiveOrNegativeNumber } from "./utilities/math.js";
 
 export class Text {
@@ -13,11 +13,13 @@ export class Text {
         this.position = position;
         this.textSize = 25;
         this.position.x += randomPositiveOrNegativeNumber(TILE_SIZE_HALF);
-        this.movementSpeed = Math.random() * 1 + 0.3;
+        this.movementSpeed = Math.random() * 1 + 0.5;
     }
-    update(){
-        this.alpha -= 0.2;
-        this.position.y -= this.movementSpeed;
+    update(event){
+        if(event){
+            this.alpha -= 0.5;
+            this.position.y -= this.movementSpeed;
+        }
     }
 
     draw(ctx){

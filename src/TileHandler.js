@@ -1,4 +1,4 @@
-import { LEVELS, COLUMNS, TILE_SIZE } from "./utilities/constants.js";
+import { LEVELS, COLUMNS, TILE_SIZE } from "./constants/constants.js";
 import { assets } from "./AssetLoader.js";
 import { Tile } from "./Tile.js";
 import { TERRA_HAUTE_TILEMAP, TERRA_HAUTE_WAYPOINTS } from "./constants/terraHaute.js";
@@ -12,7 +12,7 @@ export class TileHandler {
     }
 
     draw(ctx){
-        ctx.drawImage(this.backgroundImage, 0, 0);
+        // ctx.drawImage(this.backgroundImage, 0, 0);
         this.tiles.forEach(tile => tile.draw(ctx));
     }
 

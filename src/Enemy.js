@@ -1,4 +1,4 @@
-import { ENEMY_STATES, ENEMY_SIZE_HALF, TILE_SIZE, TILE_SIZE_HALF } from "./utilities/constants.js";
+import { ENEMY_STATES, ENEMY_SIZE_HALF, TILE_SIZE, TILE_SIZE_HALF } from "./constants/constants.js";
 import { TERRA_HAUTE_WAYPOINTS } from "./constants/terraHaute.js";
 import { checkCollision, findAngleOfDirection, randomPositiveFloat } from "./utilities/math.js";
 

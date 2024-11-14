@@ -1,5 +1,5 @@
 import * as AssetHandler from '../AssetLoader.js'
-import { GAME_HEIGHT, GAME_WIDTH } from '../utilities/constants.js';
+import { GAME_HEIGHT, GAME_WIDTH } from '../constants/constants.js';
 import { drawBigScreenTexts } from '../utilities/textRender.js';
 
 export class LoadingScene {

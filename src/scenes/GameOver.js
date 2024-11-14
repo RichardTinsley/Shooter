@@ -1,5 +1,5 @@
 import { drawBigScreenTexts, drawText } from '../utilities/textRender.js';
-import { GAME_WIDTH } from '../utilities/constants.js';
+import { GAME_WIDTH } from '../constants/constants.js';
 
 const textSize =  50;
 const initialPosition = 500;

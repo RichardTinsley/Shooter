@@ -17,6 +17,7 @@ const ASSET_TYPE_LOOKUP = {
 }
 
 export const assetList = [
+    ['hudBackgroundImage',  './images/hudBackgroundImage.png'],
     ['boss',        './audio/boss.ogg'],
     ['menuMusic',   './audio/menuMusic.mp3'],
     ['levelOne',    './images/levels/levelOne.png'],

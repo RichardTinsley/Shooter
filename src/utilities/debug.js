@@ -1,4 +1,4 @@
-import { ROWS, COLUMNS, TILE_SIZE, TILE_SIZE_HALF } from "./constants.js";
+import { ROWS, COLUMNS, TILE_SIZE, TILE_SIZE_HALF } from "../constants/constants.js";
 
 export function renderDebugInfo(ctx, towerHandler, enemyHandler, projectileHandler){
     // this.calculateFPSNormal();

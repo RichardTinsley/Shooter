@@ -1,4 +1,5 @@
-import { TIME_INTERVALS, LEVELS, GAME_STATES } from "../utilities/constants.js";
+import { TIME_INTERVALS, LEVELS, GAME_STATES } from "../constants/constants.js";
+import { HudDisplay } from "./HudDisplay.js";
 import { renderDebugInfo } from "../utilities/debug.js"
 import { drawBigScreenTexts } from "../utilities/textRender.js";
 import { TileHandler } from "../TileHandler.js"
@@ -18,22 +19,15 @@ export class BattleScene {
         this.currentLevel = LEVELS.TERRA_HAUTE;
         this.currentGameState = GAME_STATES.PLAYING;
         
-        this.hudElements = {
-            hearts: 2,
-            coins: 100,
-            exp: 0,
-            waves: 1,
-            timer: 0
-        };
-
+        this.hudDisplay         = new HudDisplay();
         this.tileHandler        = new TileHandler(this.currentLevel);
-        this.textHandler        = new TextHandler(this.hudElements);
-        this.enemyHandler       = new EnemyHandler(this.hudElements);
+        this.textHandler        = new TextHandler();
+        this.enemyHandler       = new EnemyHandler(this.hudDisplay.hudElements);
         this.effectHandler      = new EffectHandler();
-        this.projectileHandler  = new ProjectileHandler(this.enemyHandler, this.textHandler, this.effectHandler, this.hudElements);
+        this.projectileHandler  = new ProjectileHandler(this.enemyHandler, this.textHandler, this.effectHandler, this.hudDisplay.hudElements);
         this.towerHandler       = new TowerHandler(this.enemyHandler, this.projectileHandler);
         this.userInput          = new UserInput(
-            this.hudElements,
+            this.hudDisplay.hudElements,
             this.tileHandler, 
             this.towerHandler, 
             this.enemyHandler,
@@ -44,10 +38,6 @@ export class BattleScene {
         
         this.switchToGameOverScene = switchToGameOverScene;
         this.switchToBattleScene = switchToBattleScene;
-
-        this.lastTime = 0;
-        this.eventTimer = 0;
-        this.secondsTimer = 0;
     }
 
     draw(ctx){
@@ -57,7 +47,7 @@ export class BattleScene {
         this.projectileHandler.draw(ctx);
         this.effectHandler.draw(ctx);
         this.textHandler.draw(ctx);
-        this.textHandler.renderGUITexts(ctx);
+        this.hudDisplay.draw(ctx);
 
         if(this.currentGameState === GAME_STATES.DEBUG)
             renderDebugInfo(
@@ -73,30 +63,20 @@ export class BattleScene {
 
     update(event){
         if(this.currentGameState === GAME_STATES.PAUSED) return
-        this.timerUpdate(event)
         this.enemyHandler.update(event);
         this.towerHandler.update(event);
         this.projectileHandler.update(event);
         this.effectHandler.update(event);
-        this.textHandler.update();
-        this.playerStatusCheck();
+        this.hudDisplay.update(event);
+        this.textHandler.update(event);
+        // this.playerStatusCheck();
     }
 
     
     playerStatusCheck(){
-        if(this.hudElements.hearts <= 0){
+        if(this.hudDisplay.hudElements.hearts <= 0){
             this.enemyHandler.enemies = [];
             this.switchToGameOverScene();
-        }
-    }
-    
-    timerUpdate(event){
-        if (event){
-            this.secondsTimer++;
-        }
-        if (this.secondsTimer >= 15){
-            this.secondsTimer = 0;
-            this.hudElements.timer++; 
         }
     }
 

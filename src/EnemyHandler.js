@@ -1,4 +1,4 @@
-import { ENEMY_STATES, ENEMY_COLOURS, ENEMY_SIZE } from "./utilities/constants.js";
+import { ENEMY_STATES, ENEMY_COLOURS, ENEMY_SIZE } from "./constants/constants.js";
 import { Enemy } from "./Enemy.js";
 import { assets } from "./AssetLoader.js";
 
@@ -70,7 +70,7 @@ export class EnemyHandler {
                 },
                 scale: 1.5,
             }));
-            
+
             this.enemyCounter++;
         }
     }

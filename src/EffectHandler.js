@@ -1,4 +1,4 @@
-import { ANIMATION_STATES } from "./utilities/constants.js";
+import { ANIMATION_STATES } from "./constants/constants.js";
 import { Effect } from "./Effect.js";
 
 export class EffectHandler {

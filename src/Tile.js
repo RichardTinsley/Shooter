@@ -1,4 +1,4 @@
-import { TILE_SIZE } from "./utilities/constants.js";
+import { TILE_SIZE } from "./constants/constants.js";
 
 export class Tile {
     constructor({ 

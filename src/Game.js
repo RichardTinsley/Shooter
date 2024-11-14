@@ -1,4 +1,4 @@
-import { TIME_INTERVALS } from "./utilities/constants.js";
+import { TIME_INTERVALS } from "./constants/constants.js";
 import { context } from "./utilities/context.js";
 import { LoadingScene } from "./scenes/LoadingScene.js";
 import { MenuScene } from "./scenes/MenuScene.js";

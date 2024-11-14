@@ -1,4 +1,4 @@
-import { GAME_WIDTH } from "../utilities/constants.js";
+import { GAME_WIDTH } from "../constants/constants.js";
 import { assets } from "../AssetLoader.js";
 import { drawText } from '../utilities/textRender.js';
 
