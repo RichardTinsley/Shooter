@@ -11,7 +11,7 @@ export class Effect {
         this.position = position
         this.scale = scale;
         this.maxFrame = (this.sprite.image.width / this.sprite.width) - 1;
-        this.maxRow = (this.sprite.image.height / this.sprite.height) - 1;
+        this.sprite.frame = 0;
 
         this.width = this.sprite.width * this.scale;
         this.height = this.sprite.height * this.scale; 
@@ -56,8 +56,8 @@ export class Effect {
         }
         ctx.drawImage(
             this.sprite.image,
-            this.sprite.x * this.sprite.width,
-            this.sprite.y * this.sprite.height,
+            this.sprite.frame * this.sprite.width,
+            this.sprite.row * this.sprite.height,
             this.sprite.width,
             this.sprite.height,
             this.direction === ENEMY_STATES.RIGHT ? left : right,
@@ -71,8 +71,8 @@ export class Effect {
 
     updateEffect(event){
         if(event){
-            if(this.sprite.x < this.maxFrame) 
-                this.sprite.x++; 
+            if(this.sprite.frame < this.maxFrame) 
+                this.sprite.frame++; 
             else {
                 this.state = ANIMATION_STATES.FINISHED;
             }

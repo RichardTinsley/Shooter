@@ -26,7 +26,7 @@ export class Projectile{
         };
         
         this.maxFrame = (this.sprite.image.width / this.sprite.width) - 1;
-        this.maxRow = (this.sprite.image.height / this.sprite.height) - 1;
+        this.sprite.row = 0;
         
         this.state = ANIMATION_STATES.ANIMATING;
         this.direction;
@@ -93,18 +93,7 @@ export class Projectile{
         this.center.y += this.velocity.y;
 
         if(event)
-            if(this.sprite.frame < this.maxFrame)
-                this.sprite.frame++;
-            else{
-                if(Math.floor(this.maxRow) !== 0)
-                    this.sprite.row++;
-                
-                this.sprite.frame = 0;
-            }
-            if(this.sprite.row === this.maxRow && this.sprite.frame < this.maxFrame){
-                this.sprite.row = 0;
-                this.sprite.frame = 0;
-            }
+            this.sprite.frame < this.maxFrame ? this.sprite.frame++ : this.sprite.frame = 0;
     }
 
     checkProjectileImpact(){

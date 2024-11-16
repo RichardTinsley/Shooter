@@ -1,4 +1,4 @@
-import { ANIMATION_STATES, ENEMY_STATES } from "../constants/constants.js";
+import { ANIMATION_STATES, ENEMY_STATES, TILE_SIZE } from "../constants/constants.js";
 import { assets } from "../AssetLoader.js";
 
 export class Tower {
@@ -10,17 +10,16 @@ export class Tower {
         cooldown
     }){
         this.sprite = sprite;
-        this.width = this.sprite.width;
-        this.height = this.sprite.height;
-        this.halfWidth = this.width / 2;
+        this.halfWidth = this.sprite.width / 2;
         
         this.position = position;
         this.center = {
-            x: this.position.x + this.width / 2,
-            y: this.position.y + this.height / 2
+            x: this.position.x + this.sprite.width / 2,
+            y: this.position.y + this.sprite.height / 2
         };
         
         this.maxFrame = Math.floor((this.sprite.image.width / this.sprite.width)) - 1;
+        this.sprite.row = 0;
         
         this.shootTimer = 0;
         this.damage = damage;
@@ -36,16 +35,6 @@ export class Tower {
         };
 
         this.state = ANIMATION_STATES.ANIMATING;
-    }
-
-    update(event){
-        switch(this.state){
-            case ANIMATION_STATES.ANIMATING:
-                this.updateTower(event); 
-                break
-            case ANIMATION_STATES.FINISHED:
-                break
-        }
     }
 
     draw(ctx){
@@ -65,10 +54,10 @@ export class Tower {
             this.sprite.row * this.sprite.height,
             this.sprite.width,
             this.sprite.height,
-            this.center.x - this.width + this.halfWidth,
+            this.center.x - this.sprite.width + this.halfWidth,
             this.center.y - this.halfWidth ,
-            this.width,
-            this.height
+            this.sprite.width,
+            this.sprite.height
         );
 
         if(this.mouseOver)
@@ -77,7 +66,17 @@ export class Tower {
             this.colour = 'rgba(255, 255, 255, 0.15)';
         
         ctx.fillStyle = this.colour;
-        ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
+        ctx.fillRect(this.position.x, this.position.y, this.sprite.width, this.sprite.height);
+    }
+
+    update(event){
+        switch(this.state){
+            case ANIMATION_STATES.ANIMATING:
+                this.updateTower(event); 
+                break
+            case ANIMATION_STATES.FINISHED:
+                break
+        }
     }
 
     updateTower(event) {

@@ -53,9 +53,9 @@ export class UserInput {
 
             this.entityHandler.towers.forEach(tower => {
                 if( mouse.x > tower.position.x &&
-                    mouse.x < tower.position.x + tower.width &&
+                    mouse.x < tower.position.x + tower.sprite.width &&
                     mouse.y > tower.position.y &&
-                    mouse.y < tower.position.y + tower.height
+                    mouse.y < tower.position.y + tower.sprite.height
                 ){
                     activeTower = tower;
                     tower.mouseOver = true;

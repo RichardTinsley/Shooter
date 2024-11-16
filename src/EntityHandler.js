@@ -51,7 +51,6 @@ export class EntityHandler{
         }));
     }
     
-
     addTower(tower, activeTower){
         const damage = 50;
         const range = 150;
@@ -59,8 +58,6 @@ export class EntityHandler{
         const newTower = new Tower({
             sprite: { 
                 image: tower, 
-                frame: 0, 
-                row: 0,
                 width: TOWER_SIZE, 
                 height: TOWER_SIZE 
             },
@@ -81,14 +78,12 @@ export class EntityHandler{
         this.projectiles.push(new Projectile({
             sprite: { 
                 image: projectile, 
-                frame: 0, 
-                row: 0,  
                 width: 50, 
                 height: 25 
             },
             position : {
                 x: tower.center.x,
-                y: tower.center.y - (tower.height / 2)
+                y: tower.center.y - (tower.sprite.height / 2)
             }, 
             enemy: enemy,
             scale: 1, 
@@ -103,8 +98,7 @@ export class EntityHandler{
         this.effects.push(new Effect({        
             sprite: { 
                 image: effect,
-                x: 0, 
-                y: animationRow,  
+                row: animationRow,  
                 width: width, 
                 height: height 
             }, 
