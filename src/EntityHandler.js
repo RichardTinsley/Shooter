@@ -30,8 +30,6 @@ export class EntityHandler{
                 entity.targetEnemy(this.enemies);
                 entity.shootEnemy(this.addProjectile);
             }
-            if(entity instanceof Projectile)
-                entity.checkProjectileImpact(entity.enemy, this.addText, this.addEffect, this.hudElements);
         })
 
         this.enemies = this.enemies.filter(enemy => enemy.state !== ENEMY_STATES.DEAD);
@@ -96,6 +94,8 @@ export class EntityHandler{
             scale: 1, 
             speed: 2.5,
             damage: tower.damage, 
+            addText: this.addText, 
+            addEffect: this.addEffect
         }));
     }
 

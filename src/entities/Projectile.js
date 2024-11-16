@@ -10,6 +10,8 @@ export class Projectile{
         scale,
         speed,
         damage,
+        addText,
+        addEffect,
     }){
         this.sprite = sprite;
         
@@ -37,12 +39,16 @@ export class Projectile{
         
         this.damage = damage;       
         this.enemy = enemy;
+
+        this.addText = addText;
+        this.addEffect = addEffect;
     }
 
     update(event){
         switch(this.state){
             case ANIMATION_STATES.ANIMATING:
-                this.updateProjectile(event); 
+                this.updateProjectile(event);
+                this.checkProjectileImpact(); 
                 break
             case ANIMATION_STATES.FINISHED:
                 break
@@ -101,40 +107,40 @@ export class Projectile{
             }
     }
 
-    checkProjectileImpact(enemy, addText, addEffect, hudElements){
-        if (checkCollision(enemy, this) && this.state === ANIMATION_STATES.ANIMATING){
+    checkProjectileImpact(){
+        if (checkCollision(this.enemy, this) && this.state === ANIMATION_STATES.ANIMATING){
             this.state = ANIMATION_STATES.FINISHED
-            enemy.health -= this.damage;
+            this.enemy.health -= this.damage;
 
-            if(enemy.health <= 0 && enemy.state !== ENEMY_STATES.DYING){
-                hudElements.coins += enemy.coins;
-                hudElements.exp += enemy.exp;
+            if(this.enemy.health <= 0 && this.enemy.state !== ENEMY_STATES.DYING){
+                this.enemy.hudElements.coins += this.enemy.coins;
+                this.enemy.hudElements.exp += this.enemy.exp;
 
-                this.addBlood(addEffect);
+                this.addBlood();
 
-                addText(
-                    '$' + enemy.coins, 
+                this.addText(
+                    '$' + this.enemy.coins, 
                     '255, 215, 0, ',
-                    enemy.position, 
+                    this.enemy.position, 
                 );
 
-                if(enemy.exp > 0)
-                    addText(
-                        '+' + enemy.exp + 'xp', 
+                if(this.enemy.exp > 0)
+                    this.addText(
+                        '+' + this.enemy.exp + 'xp', 
                         '50, 205, 50, ', 
                         this.position, 
                     );
             }
 
-            if(enemy.state === ENEMY_STATES.DYING)
-                this.addBlood(addEffect);
+            if(this.enemy.state === ENEMY_STATES.DYING)
+                this.addBlood();
         
-            this.addExplosion(addEffect);
+            this.addExplosion();
         }   
     }
 
-    addExplosion(addEffect){
-        addEffect(
+    addExplosion(){
+        this.addEffect(
             assets.get('blueExplosion'), 
             this, 
             this.center,
@@ -145,8 +151,8 @@ export class Projectile{
         );
     }
 
-    addBlood(addEffect){
-        addEffect(
+    addBlood(){
+        this.addEffect(
             assets.get('blood'), 
             this,  
             this.enemy.position,
