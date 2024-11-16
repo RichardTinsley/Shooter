@@ -1,13 +1,11 @@
-import { assets } from "./AssetLoader.js";
 import { TOWER_SIZE, TILE_SIZE_HALF, TILE_SIZE } from "./constants/constants.js";
 import { Tower } from "./Tower.js";
 
 export class TowerHandler{
-    constructor(enemyHandler, projectileHandler, tileMap){
+    constructor(enemyHandler, projectileHandler, towerSpots){
         this.enemyHandler = enemyHandler;
         this.projectileHandler = projectileHandler;
-        this.towers = [];
-        this.towerPlacementSpots(tileMap);
+        this.towers = towerSpots;
     }
 
     draw(ctx){
@@ -22,28 +20,6 @@ export class TowerHandler{
             tower.targetEnemy(this.enemyHandler.enemies);
             tower.shootEnemy(this.projectileHandler);
         });
-    }
-
-    towerPlacementSpots(tileMap){
-        tileMap.forEach((row, y) => {
-            row.forEach((symbol, x) => {
-                if (symbol == 19)
-                    this.towers.push(new Tower({
-                        sprite: { 
-                            image: assets.get('towerSpot'), 
-                            frame: 0, 
-                            row: 0,
-                            width: TILE_SIZE, 
-                            height: TILE_SIZE 
-                        }, 
-                        position: { 
-                            x: x * TILE_SIZE, 
-                            y: y * TILE_SIZE 
-                        } 
-                    })
-                ) 
-            })
-        })
     }
 
     add(tower, activeTower){

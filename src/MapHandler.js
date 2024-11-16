@@ -1,6 +1,7 @@
 import { COLUMNS, TILE_SIZE, GAME_HEIGHT, GAME_WIDTH } from "./constants/constants.js";
 import { WASTELANDS_TILEMAP, WASTELANDS_WAYPOINTS } from "./constants/levelData.js";
 import { assets } from "./AssetLoader.js";
+import { Tower } from "./Tower.js";
 
 export class MapHandler {
     constructor(){
@@ -11,6 +12,10 @@ export class MapHandler {
         this.context = this.stateImage.getContext('2d');
         this.numberOfTilesWidth = Math.floor(this.image.width / TILE_SIZE);
         this.buildMap();
+
+        this.towerSpots = [];
+        this.towerPlacementSpots();
+
     }
 
     draw(ctx){
@@ -40,5 +45,27 @@ export class MapHandler {
         for (let i = 0; i < tileMap.length; i+= COLUMNS)
             TileMapArray.push(tileMap.slice(i, i + COLUMNS));
         return TileMapArray;
+    }
+
+    towerPlacementSpots(){
+        this.tileMap.forEach((row, y) => {
+            row.forEach((symbol, x) => {
+                if (symbol == 19)
+                    this.towerSpots.push(new Tower({
+                        sprite: { 
+                            image: assets.get('towerSpot'), 
+                            frame: 0, 
+                            row: 0,
+                            width: TILE_SIZE, 
+                            height: TILE_SIZE 
+                        }, 
+                        position: { 
+                            x: x * TILE_SIZE, 
+                            y: y * TILE_SIZE 
+                        } 
+                    })
+                ) 
+            })
+        })
     }
 }

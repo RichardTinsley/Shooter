@@ -1,25 +1,31 @@
 import { ROWS, COLUMNS, TILE_SIZE, TILE_SIZE_HALF } from "../constants/constants.js";
+import { drawText } from "./textRender.js";
+
+let frames = 0;
+let startTime = performance.now();
+let FPSNormal = 0;
+
 
 export function renderDebugInfo(ctx, towerHandler, enemyHandler, projectileHandler){
-    // this.calculateFPSNormal();
+    calculateFPSNormal();
     levelDebugInfo(ctx);
     towerDebugInfo(ctx, towerHandler);
     enemyDebugInfo(ctx, enemyHandler);
     projectileDebugInfo(ctx, projectileHandler);
-    // this.performanceDebugInfo(ctx);
+    performanceDebugInfo(ctx);
 }
 
-// function calculateFPSNormal(){
-//     const t = performance.now();
-//     const dt = t - this.startTime;
+function calculateFPSNormal(){
+    const t = performance.now();
+    const dt = t - startTime;
     
-//     if(dt > 1000) {
-//         this.FPSNormal = this.frames * 1000 / dt;
-//         this.frames = 0;
-//         this.startTime = t
-//     }
-//     this.frames++;
-// }
+    if(dt > 1000) {
+        FPSNormal = frames * 1000 / dt;
+        frames = 0;
+        startTime = t
+    }
+    frames++;
+}
 
 function levelDebugInfo(ctx){
     ctx.beginPath();
@@ -80,10 +86,11 @@ function projectileDebugInfo(ctx, projectileHandler){
     })
 }
 
-// function performanceDebugInfo(ctx){
-//     ctx.beginPath();
-//     ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
-//     ctx.fillRect(TILE_SIZE, TILE_SIZE * 3, TILE_SIZE * 3, TILE_SIZE * 2);
-//     const FPS = Math.round(this.FPSNormal * 1000) / 1000;
-//     this.game.textHandler.drawText(ctx, `f p s: ${FPS}`, TILE_SIZE, TILE_SIZE * 4, TILE_SIZE_HALF, 'left');
-// }
+function performanceDebugInfo(ctx){
+    ctx.beginPath();
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+    ctx.fillRect(TILE_SIZE, TILE_SIZE * 3, TILE_SIZE * 3, TILE_SIZE * 2);
+    const FPS = Math.round(FPSNormal * 1000) / 1000;
+    drawText(ctx, 'white', `f p s: ${FPS}`, TILE_SIZE, TILE_SIZE * 4, TILE_SIZE_HALF, 'left', 'middle');
+}
+
