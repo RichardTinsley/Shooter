@@ -5,11 +5,7 @@ import { renderDebugInfo } from "../utilities/debug.js"
 import { drawBigScreenTexts } from "../utilities/textRender.js";
 import { MapHandler } from "../MapHandler.js"
 import { UserInput } from "../UserInput.js"
-import { EnemyHandler } from "../EnemyHandler.js"
-import { TowerHandler } from "../TowerHandler.js"
-import { ProjectileHandler } from "../ProjectileHandler.js"
-import { EffectHandler } from "../EffectHandler.js";
-import { TextHandler } from "../TextHandler.js";
+import { EntityHandler } from "../EntityHandler.js";
 
 export class BattleScene {
     constructor(switchToGameOverScene, switchToBattleScene){
@@ -18,15 +14,10 @@ export class BattleScene {
         
         this.hudDisplay         = new HudDisplay();
         this.mapHandler         = new MapHandler();
-        this.textHandler        = new TextHandler();
-        this.enemyHandler       = new EnemyHandler(this.hudDisplay.hudElements);
-        this.effectHandler      = new EffectHandler();
-        this.projectileHandler  = new ProjectileHandler(this.enemyHandler, this.textHandler, this.effectHandler, this.hudDisplay.hudElements);
-        this.towerHandler       = new TowerHandler(this.enemyHandler, this.projectileHandler, this.mapHandler.towerSpots);
+        this.entityHandler      = new EntityHandler(this.mapHandler.towerSpots, this.hudDisplay.hudElements);
+
         this.userInput          = new UserInput(
-            this.hudDisplay.hudElements,
-            this.towerHandler, 
-            this.enemyHandler,
+            this.entityHandler, 
             this.pauseGame,
             this.restartGame,
             this.debugGame
@@ -43,19 +34,15 @@ export class BattleScene {
 
     draw(ctx){
         this.mapHandler.draw(ctx);
-        this.enemyHandler.draw(ctx);
-        this.towerHandler.draw(ctx);
-        this.projectileHandler.draw(ctx);
-        this.effectHandler.draw(ctx);
-        this.textHandler.draw(ctx);
+        this.entityHandler.draw(ctx);
         this.hudDisplay.draw(ctx);
 
         if(this.currentGameState === GAME_STATES.DEBUG)
             renderDebugInfo(
                 ctx, 
-                this.towerHandler, 
-                this.enemyHandler, 
-                this.projectileHandler
+                this.entityHandler.towers,
+                this.entityHandler.enemies,
+                this.entityHandler.projectiles
             );
 
         if(this.currentGameState === GAME_STATES.PAUSED)
@@ -65,21 +52,17 @@ export class BattleScene {
     update(event){
         if(this.currentGameState === GAME_STATES.PAUSED) return
         this.addEnemy(event);
-        this.enemyHandler.update(event);
-        this.towerHandler.update(event);
-        this.projectileHandler.update(event);
-        this.effectHandler.update(event);
+        this.entityHandler.update(event);
         this.hudDisplay.update(event);
-        this.textHandler.update(event);
+        this.playerStatusCheck();
         this.nextWave();
-        // this.playerStatusCheck();
     }
 
     addEnemy(event){
         if (event) this.enemySpawnTimer++;
         if (this.enemySpawnTimer % Math.floor(Math.random() * 300) === 0 && this.allEnemiesActive === false){
             const enemy = this.generateEnemy();
-            this.enemyHandler.add(enemy);
+            this.entityHandler.addEnemy(enemy);
             this.enemyCounter++;
         }
     }
@@ -88,7 +71,7 @@ export class BattleScene {
         if (this.enemyCounter === this.maxEnemies)
             this.allEnemiesActive = true;
 
-        if (this.enemyHandler.enemies.length === 0 && this.allEnemiesActive === true) {
+        if (this.entityHandler.enemies.length === 0 && this.allEnemiesActive === true) {
             this.hudDisplay.hudElements.waves++;
             this.maxEnemies++;
             this.enemyCounter = 0;

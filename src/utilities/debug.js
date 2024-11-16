@@ -6,12 +6,12 @@ let startTime = performance.now();
 let FPSNormal = 0;
 
 
-export function renderDebugInfo(ctx, towerHandler, enemyHandler, projectileHandler){
+export function renderDebugInfo(ctx, towers, enemies, projectiles){
     calculateFPSNormal();
     levelDebugInfo(ctx);
-    towerDebugInfo(ctx, towerHandler);
-    enemyDebugInfo(ctx, enemyHandler);
-    projectileDebugInfo(ctx, projectileHandler);
+    towerDebugInfo(ctx, towers);
+    enemyDebugInfo(ctx, enemies);
+    projectileDebugInfo(ctx, projectiles);
     performanceDebugInfo(ctx);
 }
 
@@ -41,8 +41,8 @@ function levelDebugInfo(ctx){
             );   
 }
 
-function enemyDebugInfo(ctx, enemyHandler){
-    enemyHandler.enemies.forEach(enemy => {
+function enemyDebugInfo(ctx, enemies){
+    enemies.forEach(enemy => {
         ctx.beginPath();
         ctx.fillStyle = 'rgba(0, 0, 250, 1)';
         ctx.fillRect(enemy.position.x - 2, enemy.position.y - 2, 4, 4);
@@ -55,8 +55,8 @@ function enemyDebugInfo(ctx, enemyHandler){
     })
 }
 
-function towerDebugInfo(ctx, towerHandler){
-    towerHandler.towers.forEach(tower => {
+function towerDebugInfo(ctx, towers){
+    towers.forEach(tower => {
         ctx.beginPath();
         ctx.arc(tower.center.x, tower.center.y, tower.range, 0, Math.PI * 2);
         ctx.setLineDash([5, 15]);
@@ -72,8 +72,8 @@ function towerDebugInfo(ctx, towerHandler){
     })
 }
 
-function projectileDebugInfo(ctx, projectileHandler){
-    projectileHandler.projectiles.forEach(projectile => {
+function projectileDebugInfo(ctx, projectiles){
+    projectiles.forEach(projectile => {
         ctx.beginPath();
         ctx.arc(projectile.center.x, projectile.center.y, projectile.width, 0, Math.PI * 2);
         ctx.fillStyle = 'rgba(200, 0, 0, 0.1)';

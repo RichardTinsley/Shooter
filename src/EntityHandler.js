@@ -1,4 +1,5 @@
-import { TOWER_SIZE, TILE_SIZE_HALF, ANIMATION_STATES } from "./constants/constants.js";
+import { TOWER_SIZE, TILE_SIZE_HALF, ANIMATION_STATES, ENEMY_SIZE, ENEMY_STATES } from "./constants/constants.js";
+import { assets } from "./AssetLoader.js";
 import { Enemy } from "./Enemy.js";
 import { Tower } from "./Tower.js";
 import { Effect } from "./Effect.js";
@@ -6,14 +7,13 @@ import { Projectile } from "./Projectile.js";
 import { Text } from "./Text.js";
 
 export class EntityHandler{
-    constructor(towerSpots){
+    constructor(towerSpots, hudElements){
+        this.hudElements = hudElements;
         this.towers = towerSpots;
         this.enemies = [];
         this.effects = [];
         this.projectiles = [];
         this.texts = [];
-
-        this.hudElements = hudElements;
     }
 
     draw(ctx){
@@ -29,7 +29,6 @@ export class EntityHandler{
     }
 
     update(event){
-
         for (let i = this.enemies.length - 1; i >= 0; i--){
             const enemy = this.enemies[i];
 
@@ -46,17 +45,17 @@ export class EntityHandler{
 
         this.towers.forEach(tower => {
             tower.update(event);
-            tower.targetEnemy(this.enemyHandler.enemies);
-            tower.shootEnemy(this.projectileHandler);
+            tower.targetEnemy(this.enemies);
+            tower.shootEnemy(this.addProjectile);
         });
 
         for (let i = this.projectiles.length - 1; i >= 0; i--){
             const projectile = this.projectiles[i];        
             projectile.update(event);
 
-            const enemy = this.enemyHandler.enemies.find(enemy => projectile.enemy === enemy);
+            const enemy = this.enemies.find(enemy => projectile.enemy === enemy);
             
-            projectile.checkProjectileImpact(enemy, this.textHandler, this.effectHandler, this.hudElements);
+            projectile.checkProjectileImpact(enemy, this.addText, this.addEffect, this.hudElements);
 
             if(projectile.state === ANIMATION_STATES.FINISHED)
                 this.projectiles.splice(i, 1); 
@@ -120,7 +119,7 @@ export class EntityHandler{
         this.towers.splice(foundIndex, 1, newTower);
     }
 
-    addProjectile(enemy, tower, projectile){
+    addProjectile = (enemy, tower, projectile) => {
         this.projectiles.push(new Projectile({
             sprite: { 
                 image: projectile, 
@@ -140,7 +139,7 @@ export class EntityHandler{
         }));
     }
 
-    addEffect(effect, projectile, position, animationRow, scale, width, height){
+    addEffect = (effect, projectile, position, animationRow, scale, width, height) => {
         this.effects.push(new Effect({        
             sprite: { 
                 image: effect,
@@ -155,8 +154,7 @@ export class EntityHandler{
         }));
     }
     
-
-    addText(text, colour, position){
+    addText = (text, colour, position) => {
         this.texts.push(new Text({
             text: text,
             colour: colour,

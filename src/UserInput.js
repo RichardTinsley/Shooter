@@ -14,37 +14,33 @@ let activeEnemy = undefined;
 
 export class UserInput {
     constructor(
-        hudElements, 
-        towerHandler, 
-        enemyHandler,
+        entityHandler,
         pauseGame,
         restartGame,
         debugGame
     ){
 
-        this.hudElements = hudElements;
-        this.towerHandler = towerHandler;
-        this.enemyHandler = enemyHandler;
+        this.entityHandler = entityHandler;
         this.pauseGame = pauseGame;
         this.restartGame = restartGame;
         this.debugGame = debugGame;
 
         window.addEventListener('click', e => {
-            if (activeTower && !activeTower.isOccupied && hudElements.coins - 25 >= 0) {
+            if (activeTower && !activeTower.isOccupied && this.entityHandler.hudElements.coins - 25 >= 0) {
 
-                this.towerHandler.add(
+                this.entityHandler.addTower(
                     assets.get('sapphireTower'), 
                     activeTower
                 );
                 
                 activeTower.isOccupied = true;
-                this.towerHandler.towers.sort((a, b) => { return a.position.y - b.position.y });
-                hudElements.coins -= 25;
+                this.entityHandler.towers.sort((a, b) => { return a.position.y - b.position.y });
+                this.entityHandler.hudElements.coins -= 25;
             }
             
             if(activeEnemy){
                 activeEnemy.isSelected = true;
-                this.enemyHandler.enemies.forEach(enemy => {
+                this.entityHandler.enemies.forEach(enemy => {
                     if(enemy != activeEnemy){
                         enemy.isSelected = false;
                     }
@@ -58,7 +54,7 @@ export class UserInput {
             activeTower = null;
             activeEnemy = null;
 
-            this.enemyHandler.enemies.forEach(enemy => {
+            this.entityHandler.enemies.forEach(enemy => {
                 if( mouse.x > enemy.center.x - ENEMY_SIZE_HALF &&
                     mouse.x < enemy.center.x - ENEMY_SIZE_HALF + ENEMY_SIZE &&
                     mouse.y > enemy.center.y - enemy.height / 2 &&
@@ -73,7 +69,7 @@ export class UserInput {
             if(activeEnemy)
                 cursor.style = "cursor: url(./images/cursors/text.cur), auto;";
 
-            this.towerHandler.towers.forEach(tower => {
+            this.entityHandler.towers.forEach(tower => {
                 if( mouse.x > tower.position.x &&
                     mouse.x < tower.position.x + tower.width &&
                     mouse.y > tower.position.y &&

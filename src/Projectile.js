@@ -101,44 +101,40 @@ export class Projectile{
             }
     }
 
-    checkProjectileImpact(enemy, textHandler, effectHandler, hudElements){
+    checkProjectileImpact(enemy, addText, addEffect, hudElements){
         if (checkCollision(enemy, this) && this.state === ANIMATION_STATES.ANIMATING){
             this.state = ANIMATION_STATES.FINISHED
             enemy.health -= this.damage;
 
-            this.checkEnemyDeath(enemy, textHandler, effectHandler, hudElements);
-
-            if(enemy.state === ENEMY_STATES.DYING)
-                this.addBlood(effectHandler);
-        
-            this.addExplosion(effectHandler);
-        }   
-    }
-
-    checkEnemyDeath(enemy, textHandler, effectHandler, hudElements){
-        if(enemy.health <= 0 && enemy.state !== ENEMY_STATES.DYING){
+            if(enemy.health <= 0 && enemy.state !== ENEMY_STATES.DYING){
             hudElements.coins += enemy.coins;
             hudElements.exp += enemy.exp;
 
-            this.addBlood(effectHandler);
+            this.addBlood(addEffect);
 
-            textHandler.add(
+            addText(
                 '$' + enemy.coins, 
                 '255, 215, 0, ',
                 enemy.position, 
             );
 
             if(enemy.exp > 0)
-                textHandler.add(
+                addText(
                     '+' + enemy.exp + 'xp', 
                     '50, 205, 50, ', 
                     this.position, 
             );
         }
+
+            if(enemy.state === ENEMY_STATES.DYING)
+                this.addBlood(addEffect);
+        
+            this.addExplosion(addEffect);
+        }   
     }
 
-    addExplosion(effectHandler){
-        effectHandler.add(
+    addExplosion(addEffect){
+        addEffect(
             assets.get('blueExplosion'), 
             this, 
             this.center,
@@ -149,8 +145,8 @@ export class Projectile{
         );
     }
 
-    addBlood(effectHandler){
-        effectHandler.add(
+    addBlood(addEffect){
+        addEffect(
             assets.get('blood'), 
             this,  
             this.enemy.position,

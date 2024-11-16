@@ -75,9 +75,9 @@ export class Tower {
             this.target = enemiesInTowerRange[0];
     }
 
-    shootEnemy(projectileHandler){
+    shootEnemy(addProjectile){
         if(this.shootTimer > this.cooldown && this.target){
-            projectileHandler.add(
+            addProjectile(
                 this.target, 
                 this, 
                 assets.get('blueFireball'))
