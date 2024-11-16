@@ -1,6 +1,6 @@
-import { ENEMY_STATES, ENEMY_SIZE_HALF, TILE_SIZE, TILE_SIZE_HALF } from "./constants/constants.js";
-import { WASTELANDS_WAYPOINTS } from "./constants/levelData.js";
-import { checkCollision, findAngleOfDirection, randomPositiveFloat } from "./utilities/math.js";
+import { ENEMY_STATES, ENEMY_SIZE_HALF, TILE_SIZE, TILE_SIZE_HALF } from "../constants/constants.js";
+import { WASTELANDS_WAYPOINTS } from "../constants/levelData.js";
+import { checkCollision, findAngleOfDirection, randomPositiveFloat } from "../utilities/math.js";
 
 export class Enemy {
     constructor({ 

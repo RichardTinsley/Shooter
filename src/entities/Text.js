@@ -1,5 +1,5 @@
-import { TILE_SIZE_HALF, ANIMATION_STATES } from "./constants/constants.js";
-import { randomPositiveOrNegativeNumber } from "./utilities/math.js";
+import { TILE_SIZE_HALF, ANIMATION_STATES } from "../constants/constants.js";
+import { randomPositiveOrNegativeNumber } from "../utilities/math.js";
 
 export class Text {
     constructor({
@@ -50,7 +50,7 @@ export class Text {
 
     updateText(event){
         if(event){
-            this.alpha -= 0.8;
+            this.alpha -= 0.6;
             this.position.y -= this.movementSpeed;
         }
         if(this.alpha <= 0)

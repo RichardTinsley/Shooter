@@ -1,9 +1,9 @@
 import { TOWER_SIZE, TILE_SIZE_HALF, ANIMATION_STATES, ENEMY_SIZE, ENEMY_STATES } from "./constants/constants.js";
-import { Enemy } from "./Enemy.js";
-import { Tower } from "./Tower.js";
-import { Effect } from "./Effect.js";
-import { Projectile } from "./Projectile.js";
-import { Text } from "./Text.js";
+import { Enemy } from "./entities/Enemy.js";
+import { Tower } from "./entities/Tower.js";
+import { Effect } from "./entities/Effect.js";
+import { Projectile } from "./entities/Projectile.js";
+import { Text } from "./entities/Text.js";
 
 export class EntityHandler{
     constructor(towerSpots, hudElements){

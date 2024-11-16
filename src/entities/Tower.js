@@ -1,5 +1,5 @@
-import { ANIMATION_STATES, ENEMY_STATES } from "./constants/constants.js";
-import { assets } from "./AssetLoader.js";
+import { ANIMATION_STATES, ENEMY_STATES } from "../constants/constants.js";
+import { assets } from "../AssetLoader.js";
 
 export class Tower {
     constructor({

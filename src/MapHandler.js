@@ -1,7 +1,7 @@
 import { COLUMNS, TILE_SIZE, GAME_HEIGHT, GAME_WIDTH } from "./constants/constants.js";
 import { WASTELANDS_TILEMAP, WASTELANDS_WAYPOINTS } from "./constants/levelData.js";
 import { assets } from "./AssetLoader.js";
-import { Tower } from "./Tower.js";
+import { Tower } from "./entities/Tower.js";
 
 export class MapHandler {
     constructor(){

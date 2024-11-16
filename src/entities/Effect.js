@@ -1,4 +1,4 @@
-import { ANIMATION_STATES, ENEMY_STATES, TILE_SIZE, TILE_SIZE_HALF } from "./constants/constants.js";
+import { ANIMATION_STATES, ENEMY_STATES, TILE_SIZE, TILE_SIZE_HALF } from "../constants/constants.js";
 
 export class Effect {
     constructor({ 
