@@ -1,4 +1,4 @@
-import { TIME_INTERVALS, LEVELS, GAME_STATES, ENEMY_COLOURS } from "../constants/constants.js";
+import { LEVELS, GAME_STATES, ENEMY_COLOURS } from "../constants/constants.js";
 import { assets } from "../AssetLoader.js";
 import { HudDisplay } from "./HudDisplay.js";
 import { renderDebugInfo } from "../utilities/debug.js"
@@ -55,11 +55,13 @@ export class BattleScene {
         this.entityHandler.update(event);
         this.hudDisplay.update(event);
         this.playerStatusCheck();
-        this.nextWave();
+        this.waveStatusCheck();
     }
 
     addEnemy(event){
-        if (event) this.enemySpawnTimer++;
+        if (event) 
+            this.enemySpawnTimer++;
+
         if (this.enemySpawnTimer % Math.floor(Math.random() * 300) === 0 && this.allEnemiesActive === false){
             const enemy = this.generateEnemy();
             this.entityHandler.addEnemy(enemy);
@@ -67,7 +69,7 @@ export class BattleScene {
         }
     }
 
-    nextWave(){
+    waveStatusCheck(){
         if (this.enemyCounter === this.maxEnemies)
             this.allEnemiesActive = true;
 

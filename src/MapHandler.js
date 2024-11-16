@@ -15,7 +15,6 @@ export class MapHandler {
 
         this.towerSpots = [];
         this.towerPlacementSpots();
-
     }
 
     draw(ctx){

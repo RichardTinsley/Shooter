@@ -6,7 +6,9 @@ export class Enemy {
     constructor({ 
         sprite, 
         scale,
+        hudElements
     }){
+        this.hudElements = hudElements;
         this.sprite = sprite;
         this.maxFrame = (this.sprite.image.width / this.sprite.width) - 1;
 
@@ -81,17 +83,6 @@ export class Enemy {
         }
     }
 
-    resetEnemyPosition(hudElements){
-        if (this.position.x > canvas.width){
-            hudElements.hearts -= 1;
-            this.waypointIndex = 0;
-            this.position = { 
-                x: this.waypoints[this.waypointIndex].x, 
-                y: this.waypoints[this.waypointIndex].y 
-            };
-        }
-    }
-
     drawEnemy(ctx){
         const left = -this.halfWidth - ENEMY_SIZE_HALF - this.position.x;
         const right = this.position.x + ENEMY_SIZE_HALF - this.halfWidth;
@@ -156,6 +147,19 @@ export class Enemy {
             this.state = ENEMY_STATES.DYING;
             this.sprite.row = ENEMY_STATES.DYING;
             this.sprite.frame = 0;
+        }
+        this.resetEnemyPosition();
+    }
+
+    
+    resetEnemyPosition(){
+        if (this.position.x > canvas.width){
+            this.hudElements.hearts -= 1;
+            this.waypointIndex = 0;
+            this.position = { 
+                x: this.waypoints[this.waypointIndex].x, 
+                y: this.waypoints[this.waypointIndex].y 
+            };
         }
     }
 

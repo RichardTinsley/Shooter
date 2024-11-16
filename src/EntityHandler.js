@@ -26,8 +26,6 @@ export class EntityHandler{
 
         this.entities.forEach(entity => {
             entity.update(event);
-            if(entity instanceof Enemy)
-                entity.resetEnemyPosition(this.hudElements);
             if(entity instanceof Tower) {
                 entity.targetEnemy(this.enemies);
                 entity.shootEnemy(this.addProjectile);
@@ -51,6 +49,7 @@ export class EntityHandler{
                 height: ENEMY_SIZE 
             },
             scale: 1.5,
+            hudElements: this.hudElements
         }));
     }
     
