@@ -1,4 +1,4 @@
-import { ENEMY_STATES } from "./constants/constants.js";
+import { ENEMY_STATES, TOWER_SIZE } from "./constants/constants.js";
 import { assets } from "./AssetLoader.js";
 
 export class Tower {
@@ -26,6 +26,8 @@ export class Tower {
         this.damage = damage;
         this.range = range;
         this.cooldown = cooldown;
+
+        this.mouseOver = false;
         
         this.cost;
         this.muzzlePosition = {
@@ -42,10 +44,18 @@ export class Tower {
             this.sprite.width,
             this.sprite.height,
             this.center.x - this.width + this.halfWidth,
-            this.center.y - this.width ,
+            this.center.y - this.halfWidth ,
             this.width,
             this.height
         );
+
+        if(this.mouseOver)
+            this.colour = 'rgba(50, 255, 50, 0.15)';
+        else
+            this.colour = 'rgba(255, 255, 255, 0.15)';
+        
+        ctx.fillStyle = this.colour;
+        ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
     }
 
     update(event) {

@@ -25,10 +25,9 @@ export class BattleScene {
         this.enemyHandler       = new EnemyHandler(this.hudDisplay.hudElements);
         this.effectHandler      = new EffectHandler();
         this.projectileHandler  = new ProjectileHandler(this.enemyHandler, this.textHandler, this.effectHandler, this.hudDisplay.hudElements);
-        this.towerHandler       = new TowerHandler(this.enemyHandler, this.projectileHandler);
+        this.towerHandler       = new TowerHandler(this.enemyHandler, this.projectileHandler, this.mapHandler.tileMap);
         this.userInput          = new UserInput(
             this.hudDisplay.hudElements,
-            this.tileHandler, 
             this.towerHandler, 
             this.enemyHandler,
             this.pauseGame,

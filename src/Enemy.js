@@ -1,5 +1,5 @@
 import { ENEMY_STATES, ENEMY_SIZE_HALF, TILE_SIZE, TILE_SIZE_HALF } from "./constants/constants.js";
-import { TERRA_HAUTE_WAYPOINTS } from "./constants/terraHaute.js";
+import { WASTELANDS_WAYPOINTS } from "./constants/levelData.js";
 import { checkCollision, findAngleOfDirection, randomPositiveFloat } from "./utilities/math.js";
 
 export class Enemy {
@@ -234,7 +234,7 @@ export class Enemy {
     }
 
     generateEnemyWaypoints(){
-        return TERRA_HAUTE_WAYPOINTS.map(waypoint => {
+        return WASTELANDS_WAYPOINTS.map(waypoint => {
             return { 
                     x: (waypoint.x - TILE_SIZE) + Math.round(Math.random() * (TILE_SIZE + TILE_SIZE_HALF + 10)),
                     y: (waypoint.y - TILE_SIZE) + Math.round(Math.random() * (TILE_SIZE + TILE_SIZE_HALF + 10))

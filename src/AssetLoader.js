@@ -19,6 +19,7 @@ const ASSET_TYPE_LOOKUP = {
 export const assetList = [
     ['hudBackgroundImage',  './images/hudBackgroundImage.png'],
     ['wastelands',  './images/levels/wastelandsTilemap.png'],
+    ['towerSpot',  './images/levels/towerSpot.png'],
     ['boss',        './audio/boss.ogg'],
     ['menuMusic',   './audio/menuMusic.mp3'],
     ['levelOne',    './images/levels/levelOne.png'],
