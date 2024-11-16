@@ -90,7 +90,7 @@ export class BattleScene {
 
     playerStatusCheck(){
         if(this.hudDisplay.hudElements.hearts <= 0){
-            this.enemyHandler.enemies = [];
+            this.entityHandler.enemies = [];
             this.switchToGameOverScene();
         }
     }

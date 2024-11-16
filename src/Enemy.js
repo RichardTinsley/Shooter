@@ -81,12 +81,15 @@ export class Enemy {
         }
     }
 
-    resetEnemyPosition(){
-        this.waypointIndex = 0;
-        this.position = { 
-            x: this.waypoints[this.waypointIndex].x, 
-            y: this.waypoints[this.waypointIndex].y 
-        };
+    resetEnemyPosition(hudElements){
+        if (this.position.x > canvas.width){
+            hudElements.hearts -= 1;
+            this.waypointIndex = 0;
+            this.position = { 
+                x: this.waypoints[this.waypointIndex].x, 
+                y: this.waypoints[this.waypointIndex].y 
+            };
+        }
     }
 
     drawEnemy(ctx){

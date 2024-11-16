@@ -107,24 +107,24 @@ export class Projectile{
             enemy.health -= this.damage;
 
             if(enemy.health <= 0 && enemy.state !== ENEMY_STATES.DYING){
-            hudElements.coins += enemy.coins;
-            hudElements.exp += enemy.exp;
+                hudElements.coins += enemy.coins;
+                hudElements.exp += enemy.exp;
 
-            this.addBlood(addEffect);
+                this.addBlood(addEffect);
 
-            addText(
-                '$' + enemy.coins, 
-                '255, 215, 0, ',
-                enemy.position, 
-            );
-
-            if(enemy.exp > 0)
                 addText(
-                    '+' + enemy.exp + 'xp', 
-                    '50, 205, 50, ', 
-                    this.position, 
-            );
-        }
+                    '$' + enemy.coins, 
+                    '255, 215, 0, ',
+                    enemy.position, 
+                );
+
+                if(enemy.exp > 0)
+                    addText(
+                        '+' + enemy.exp + 'xp', 
+                        '50, 205, 50, ', 
+                        this.position, 
+                    );
+            }
 
             if(enemy.state === ENEMY_STATES.DYING)
                 this.addBlood(addEffect);

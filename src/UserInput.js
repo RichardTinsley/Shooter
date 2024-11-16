@@ -26,15 +26,12 @@ export class UserInput {
         this.debugGame = debugGame;
 
         window.addEventListener('click', e => {
-            if (activeTower && !activeTower.isOccupied && this.entityHandler.hudElements.coins - 25 >= 0) {
-
+            if (activeTower && this.entityHandler.hudElements.coins - 25 >= 0) {
                 this.entityHandler.addTower(
                     assets.get('sapphireTower'), 
                     activeTower
                 );
                 
-                activeTower.isOccupied = true;
-                this.entityHandler.towers.sort((a, b) => { return a.position.y - b.position.y });
                 this.entityHandler.hudElements.coins -= 25;
             }
             
@@ -54,6 +51,19 @@ export class UserInput {
             activeTower = null;
             activeEnemy = null;
 
+            this.entityHandler.towers.forEach(tower => {
+                if( mouse.x > tower.position.x &&
+                    mouse.x < tower.position.x + tower.width &&
+                    mouse.y > tower.position.y &&
+                    mouse.y < tower.position.y + tower.height
+                ){
+                    activeTower = tower;
+                    tower.mouseOver = true;
+                } else 
+                    tower.mouseOver = false;
+                
+            });
+
             this.entityHandler.enemies.forEach(enemy => {
                 if( mouse.x > enemy.center.x - ENEMY_SIZE_HALF &&
                     mouse.x < enemy.center.x - ENEMY_SIZE_HALF + ENEMY_SIZE &&
@@ -68,19 +78,6 @@ export class UserInput {
 
             if(activeEnemy)
                 cursor.style = "cursor: url(./images/cursors/text.cur), auto;";
-
-            this.entityHandler.towers.forEach(tower => {
-                if( mouse.x > tower.position.x &&
-                    mouse.x < tower.position.x + tower.width &&
-                    mouse.y > tower.position.y &&
-                    mouse.y < tower.position.y + tower.height
-                ){
-                    activeTower = tower;
-                    tower.mouseOver = true;
-                } else 
-                    tower.mouseOver = false;
-                
-            });
         })
         
         window.addEventListener('keydown', e =>{

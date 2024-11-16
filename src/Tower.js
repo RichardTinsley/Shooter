@@ -1,4 +1,4 @@
-import { ENEMY_STATES, TOWER_SIZE } from "./constants/constants.js";
+import { ANIMATION_STATES, ENEMY_STATES } from "./constants/constants.js";
 import { assets } from "./AssetLoader.js";
 
 export class Tower {
@@ -34,9 +34,31 @@ export class Tower {
             x: 0,
             y: 0
         };
+
+        this.state = ANIMATION_STATES.ANIMATING;
+    }
+
+    update(event){
+        switch(this.state){
+            case ANIMATION_STATES.ANIMATING:
+                this.updateTower(event); 
+                break
+            case ANIMATION_STATES.FINISHED:
+                break
+        }
     }
 
     draw(ctx){
+        switch(this.state){
+            case ANIMATION_STATES.ANIMATING:
+                this.drawTower(ctx); 
+                break
+            case ANIMATION_STATES.FINISHED:
+                break
+        }
+    }
+
+    drawTower(ctx){
         ctx.drawImage(
             this.sprite.image,
             this.sprite.frame * this.sprite.width,
@@ -58,7 +80,7 @@ export class Tower {
         ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
     }
 
-    update(event) {
+    updateTower(event) {
         if (event){
             this.shootTimer++;
             this.sprite.frame < this.maxFrame ? this.sprite.frame++ : this.sprite.frame = 0;

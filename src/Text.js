@@ -1,4 +1,4 @@
-import { TILE_SIZE_HALF } from "./constants/constants.js";
+import { TILE_SIZE_HALF, ANIMATION_STATES } from "./constants/constants.js";
 import { randomPositiveOrNegativeNumber } from "./utilities/math.js";
 
 export class Text {
@@ -13,16 +13,31 @@ export class Text {
         this.position = position;
         this.textSize = 25;
         this.position.x += randomPositiveOrNegativeNumber(TILE_SIZE_HALF);
-        this.movementSpeed = Math.random() * 1 + 0.5;
-    }
-    update(event){
-        if(event){
-            this.alpha -= 0.5;
-            this.position.y -= this.movementSpeed;
-        }
+        this.movementSpeed = Math.random() * 1 + 0.7;
+        this.state = ANIMATION_STATES.ANIMATING;
     }
 
     draw(ctx){
+        switch(this.state){
+            case ANIMATION_STATES.ANIMATING:
+                this.drawText(ctx);
+                break
+            case ANIMATION_STATES.FINISHED:
+                break
+        }
+    }
+
+    update(event){
+        switch(this.state){
+            case ANIMATION_STATES.ANIMATING:
+                this.updateText(event); 
+                break
+            case ANIMATION_STATES.FINISHED:
+                break
+        }
+    }
+    
+    drawText(ctx){
         ctx.fillStyle = `rgba(${this.colour} ${this.alpha})`;
         ctx.font = 'bold ' + this.textSize + 'px canterbury';
         ctx.textAlign = 'center';
@@ -31,5 +46,14 @@ export class Text {
         ctx.strokeStyle = `rgba(0, 0, 0, ${this.alpha})`;
         ctx.strokeText(this.text, this.position.x + 5, this.position.y - 3);
         ctx.fillText(this.text, this.position.x + 5, this.position.y - 3);
+    }
+
+    updateText(event){
+        if(event){
+            this.alpha -= 0.8;
+            this.position.y -= this.movementSpeed;
+        }
+        if(this.alpha <= 0)
+            this.state = ANIMATION_STATES.FINISHED;
     }
 }
