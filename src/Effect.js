@@ -18,6 +18,11 @@ export class Effect {
         this.halfWidth = this.width / 2;
         this.halfHeight = this.height / 2;
 
+        this.center = {
+            x: Math.round(this.position.x + this.width / 2 * 100) / 100,
+            y: Math.round(this.position.y + this.height / 2 * 100) / 100
+        };
+
         this.state = ANIMATION_STATES.ANIMATING;
         this.direction = direction;
     }

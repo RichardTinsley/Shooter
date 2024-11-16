@@ -14,6 +14,7 @@ export class EntityHandler{
         this.effects = [];
         this.projectiles = [];
         this.texts = [];
+        this.entities = [];
     }
 
     draw(ctx){
@@ -21,10 +22,14 @@ export class EntityHandler{
         this.enemies.forEach(enemy => { enemy.draw(ctx) });
 
         this.towers.forEach(tower => { tower.draw(ctx) });
-        this.projectiles.forEach(projectile => { projectile.draw(ctx) });
-        this.effects.forEach(effect => { effect.draw(ctx) });
+        // this.projectiles.forEach(projectile => { projectile.draw(ctx) });
+        // this.effects.forEach(effect => { effect.draw(ctx) });
 
-        this.texts.sort((b, a) => a.position.y - b.position.y); 
+        // this.texts.sort((b, a) => a.position.y - b.position.y); 
+
+        this.entities = [...this.effects, ...this.projectiles];
+        this.entities.sort((a, b) => a.center.y - b.center.y); 
+        this.entities.forEach(entity => { entity.draw(ctx) });
         this.texts.forEach(text => { text.draw(ctx) });
     }
 
