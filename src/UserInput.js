@@ -75,18 +75,18 @@ export class UserInput {
             if(activeEnemy)
                 cursor.style = "cursor: url(./images/cursors/text.cur), auto;";
 
-            this.tileHandler.tiles.forEach(tile => {
-                if( mouse.x > tile.position.x &&
-                    mouse.x < tile.position.x + tile.size &&
-                    mouse.y > tile.position.y &&
-                    mouse.y < tile.position.y + tile.size
-                ){
-                    activeTile = tile;
-                    tile.mouseOver = true;
-                } else 
-                    tile.mouseOver = false;
+            // this.tileHandler.tiles.forEach(tile => {
+            //     if( mouse.x > tile.position.x &&
+            //         mouse.x < tile.position.x + tile.size &&
+            //         mouse.y > tile.position.y &&
+            //         mouse.y < tile.position.y + tile.size
+            //     ){
+            //         activeTile = tile;
+            //         tile.mouseOver = true;
+            //     } else 
+            //         tile.mouseOver = false;
                 
-            });
+            // });
         })
         
         window.addEventListener('keydown', e =>{

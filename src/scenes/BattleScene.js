@@ -2,7 +2,7 @@ import { TIME_INTERVALS, LEVELS, GAME_STATES } from "../constants/constants.js";
 import { HudDisplay } from "./HudDisplay.js";
 import { renderDebugInfo } from "../utilities/debug.js"
 import { drawBigScreenTexts } from "../utilities/textRender.js";
-import { TileHandler } from "../TileHandler.js"
+import { MapHandler } from "../MapHandler.js"
 import { UserInput } from "../UserInput.js"
 import { EnemyHandler } from "../EnemyHandler.js"
 import { TowerHandler } from "../TowerHandler.js"
@@ -20,7 +20,7 @@ export class BattleScene {
         this.currentGameState = GAME_STATES.PLAYING;
         
         this.hudDisplay         = new HudDisplay();
-        this.tileHandler        = new TileHandler(this.currentLevel);
+        this.mapHandler         = new MapHandler();
         this.textHandler        = new TextHandler();
         this.enemyHandler       = new EnemyHandler(this.hudDisplay.hudElements);
         this.effectHandler      = new EffectHandler();
@@ -41,7 +41,7 @@ export class BattleScene {
     }
 
     draw(ctx){
-        this.tileHandler.draw(ctx);
+        this.mapHandler.draw(ctx);
         this.enemyHandler.draw(ctx);
         this.towerHandler.draw(ctx);
         this.projectileHandler.draw(ctx);
