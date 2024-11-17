@@ -12,9 +12,6 @@ export class MapHandler {
         this.context = this.stateImage.getContext('2d');
         this.numberOfTilesWidth = Math.floor(this.image.width / TILE_SIZE);
         this.buildMap();
-
-        this.towerSpots = [];
-        this.towerPlacementSpots();
     }
 
     draw(ctx){
@@ -46,11 +43,12 @@ export class MapHandler {
         return TileMapArray;
     }
 
-    towerPlacementSpots(){
+    towerPlacementSpots = () => {
+        let towerSpots = [];
         this.tileMap.forEach((row, y) => {
             row.forEach((symbol, x) => {
                 if (symbol == 19)
-                    this.towerSpots.push(new Tower({
+                    towerSpots.push(new Tower({
                         sprite: { 
                             image: assets.get('towerSpot'), 
                             frame: 0, 
@@ -61,10 +59,11 @@ export class MapHandler {
                         position: { 
                             x: x * TILE_SIZE, 
                             y: y * TILE_SIZE 
-                        } 
+                        }
                     })
                 ) 
             })
         })
+        return towerSpots;
     }
 }

@@ -18,12 +18,11 @@ const ASSET_TYPE_LOOKUP = {
 
 export const assetList = [
     ['hudBackgroundImage',  './images/hudBackgroundImage.png'],
+    ['menuLogo',    './images/logos/menuLogo.png'],
     ['wastelands',  './images/levels/wastelandsTilemap.png'],
-    ['towerSpot',  './images/levels/towerSpot.png'],
+    ['towerSpot',   './images/levels/towerSpot.png'],
     ['boss',        './audio/boss.ogg'],
     ['menuMusic',   './audio/menuMusic.mp3'],
-    ['levelOne',    './images/levels/levelOne.png'],
-    ['menuLogo',    './images/logos/menuLogo.png'],
     ['amethyst',    `${ENEMIES_URL}amethyst.png`],
     ['citrine',     `${ENEMIES_URL}citrine.png`],
     ['diamond',     `${ENEMIES_URL}diamond.png`],

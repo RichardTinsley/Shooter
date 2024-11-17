@@ -14,7 +14,7 @@ export class BattleScene {
         
         this.hudDisplay         = new HudDisplay();
         this.mapHandler         = new MapHandler();
-        this.entityHandler      = new EntityHandler(this.mapHandler.towerSpots, this.hudDisplay.hudElements);
+        this.entityHandler      = new EntityHandler(this.mapHandler.towerPlacementSpots, this.hudDisplay.hudElements);
 
         this.userInput          = new UserInput(
             this.entityHandler, 

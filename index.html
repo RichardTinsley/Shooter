@@ -3,29 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles/style.css">
     <link rel="icon" type="image/png" sizes="96x96" href="./images/logos/favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="32x32" href="./images/logos/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="./images/logos/favicon-16x16.png">
     <title>Death Sorcery</title>
-    <style>
-        @font-face {
-            font-family: 'canterbury';
-            src: url(./canterbury.ttf);
-        }
-        body {
-            background: #000000;
-        }
-        #canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            image-rendering: crisp-edges;
-            image-rendering: pixelated;
-            cursor: url(./images/cursors/normal.cur), auto;
-        }
-    </style>
 </head>
 <body>
+    <div class = "assets">
+        <img src="./images/logos/DsShieldLogo.png" id="dslogo">
+    </div>
     <canvas id="canvas"></canvas>
     <script type="module" src="./index.js"></script>
 </body>

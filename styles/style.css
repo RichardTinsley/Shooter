@@ -1,0 +1,21 @@
+@font-face {
+    font-family: 'canterbury';
+    src: url(canterbury.ttf);
+    font-display: swap;
+}
+
+html {
+    background: #000000;
+    font-family: "canterbury";
+}
+#canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    image-rendering: crisp-edges;
+    image-rendering: pixelated;
+    cursor: url(./images/cursors/normal.cur), auto;
+}
+.assets {
+    display: none;
+}

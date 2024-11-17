@@ -6,9 +6,9 @@ import { Projectile } from "./entities/Projectile.js";
 import { Text } from "./entities/Text.js";
 
 export class EntityHandler{
-    constructor(towerSpots, hudElements){
+    constructor(towerPlacementSpots, hudElements){
         this.hudElements = hudElements;
-        this.towers = towerSpots;
+        this.towers = towerPlacementSpots();
         this.enemies = [];
         this.effects = [];
         this.projectiles = [];
@@ -26,10 +26,8 @@ export class EntityHandler{
 
         this.entities.forEach(entity => {
             entity.update(event);
-            if(entity instanceof Tower) {
+            if(entity instanceof Tower)
                 entity.targetEnemy(this.enemies);
-                entity.shootEnemy(this.addProjectile);
-            }
         })
 
         this.enemies = this.enemies.filter(enemy => enemy.state !== ENEMY_STATES.DEAD);
@@ -51,7 +49,7 @@ export class EntityHandler{
         }));
     }
     
-    addTower(tower, activeTower){
+    addTower = (tower, activeTower) => {
         const damage = 50;
         const range = 150;
         const cooldown = 10;
@@ -68,6 +66,7 @@ export class EntityHandler{
             damage: damage,
             range: range,
             cooldown: cooldown,
+            addProjectile: this.addProjectile,
         });
         
         let foundIndex = this.towers.findIndex(tower => tower === activeTower);

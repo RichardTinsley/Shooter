@@ -1,13 +1,14 @@
-import { ANIMATION_STATES, ENEMY_STATES, TILE_SIZE } from "../constants/constants.js";
+import { ANIMATION_STATES, ENEMY_STATES } from "../constants/constants.js";
 import { assets } from "../AssetLoader.js";
 
 export class Tower {
     constructor({
         sprite, 
-        position, 
+        position,
         damage,
         range,
-        cooldown
+        cooldown,
+        addProjectile,
     }){
         this.sprite = sprite;
         this.halfWidth = this.sprite.width / 2;
@@ -35,6 +36,7 @@ export class Tower {
         };
 
         this.state = ANIMATION_STATES.ANIMATING;
+        this.addProjectile = addProjectile;
     }
 
     draw(ctx){
@@ -94,11 +96,13 @@ export class Tower {
             this.target = selectedEnemy;
         else
             this.target = enemiesInTowerRange[0];
+
+        this.shootEnemy();
     }
 
-    shootEnemy(addProjectile){
+    shootEnemy(){
         if(this.shootTimer > this.cooldown && this.target){
-            addProjectile(
+            this.addProjectile(
                 this.target, 
                 this, 
                 assets.get('blueFireball'))
