@@ -1,4 +1,4 @@
-import { ANIMATION_STATES, ENEMY_STATES } from "../constants/constants.js";
+import { ANIMATION_STATES, ENEMY_STATES, TILE_SIZE } from "../constants/constants.js";
 import { assets } from "../AssetLoader.js";
 
 export class Tower {
@@ -15,8 +15,8 @@ export class Tower {
         
         this.position = position;
         this.center = {
-            x: this.position.x + this.sprite.width / 2,
-            y: this.position.y + this.sprite.height / 2
+            x: this.position.x + TILE_SIZE / 2,
+            y: this.position.y + TILE_SIZE / 2
         };
         
         this.maxFrame = Math.floor((this.sprite.image.width / this.sprite.width)) - 1;
@@ -71,8 +71,8 @@ export class Tower {
             this.sprite.row * this.sprite.height,
             this.sprite.width,
             this.sprite.height,
-            this.center.x - this.sprite.width + this.halfWidth,
-            this.center.y - this.halfWidth ,
+            this.center.x - this.sprite.width / 2,
+            this.center.y - this.sprite.height / 2,
             this.sprite.width,
             this.sprite.height
         );

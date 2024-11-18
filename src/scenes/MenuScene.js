@@ -1,4 +1,5 @@
 import { GAME_WIDTH } from "../constants/constants.js";
+import { menuOptions } from "../constants/menuOptions.js";
 import { assets } from "../AssetLoader.js";
 import { drawText } from '../utilities/textRender.js';
 
@@ -12,38 +13,17 @@ let mouse = {
 };
 
 export class MenuScene {
-    menuOptions = [
-        {
-            name: "New Game",
-            colour: "white",
-            optionAction: function(switchToBattleScene, menuMusic) {
-                menuMusic.pause();
-                switchToBattleScene();
-            }
-        },
-        {
-            name: "Options",
-            colour: "white",
-            optionAction: function() {
-            }
-        },  
-        {
-            name: "About",
-            colour: "white",
-            optionAction: function() {
-            }
-        }
-    ];
     constructor(switchToBattleScene) {
         this.menuMusic = assets.get("menuMusic");
         this.menuMusic.loop = true;
         this.menuMusic.volume = 0.05;
         this.menuMusic.play();
+        this.options = menuOptions.filter(option => { return option.scene === "menu" });
 
         window.addEventListener('click', e => {
             if(activeOption){
                 activeOption.optionAction(switchToBattleScene, this.menuMusic);
-                this.menuOptions = [];
+                this.options = [];
             }
         });
 
@@ -52,19 +32,17 @@ export class MenuScene {
             mouse.y = e.offsetY;
             activeOption = null;
         
-            this.menuOptions.forEach((option, index) => {
+            this.options.forEach((option, index) => {
                 if( mouse.x > GAME_WIDTH / 2 - ((option.name.length / 2) * textSize) &&
                     mouse.x < GAME_WIDTH / 2 + ((option.name.length / 2) * textSize) &&
                     mouse.y > initialPosition + (textSize * index) &&
                     mouse.y < initialPosition + (textSize * index) + textSize
-                ){
+                )
                     activeOption = option;
-                }
                 else
                     option.colour = "white";
-            
             });
-        
+
             if(activeOption)
                 activeOption.colour = "red";
         });
@@ -88,7 +66,7 @@ export class MenuScene {
             "top"
         )
 
-        this.menuOptions.forEach((option, index) => {
+        this.options.forEach((option, index) => {
             drawText(
                 ctx,
                 option.colour,

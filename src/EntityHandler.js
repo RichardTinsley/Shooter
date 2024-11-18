@@ -22,54 +22,31 @@ export class EntityHandler{
     }
 
     update(event){
-        for (let i = this.enemies.length - 1; i >= 0; i--){
-            const enemy = this.enemies[i];
-            if (enemy.state !== ENEMY_STATES.DEAD)
-                enemy.update(event);
-            // else
-                // this.enemies.splice(i, 1);
-        }
+        this.enemies = this.enemies.filter(enemy => {
+            enemy.update(event);
+            return enemy.state !== ENEMY_STATES.DEAD;
+        });
 
-        for (let i = this.towers.length - 1; i >= 0; i--){
-            const tower = this.towers[i];
-            if (tower.state === ANIMATION_STATES.ANIMATING){
-                tower.update(event);
-                tower.targetEnemy(this.enemies);
-            }
-            // else
-                // this.towers.splice(i, 1);
-        }
+        this.towers = this.towers.filter(tower => {
+            tower.update(event);
+            tower.targetEnemy(this.enemies);
+            return tower.state === ANIMATION_STATES.ANIMATING;
+        });
 
-        for (let i = this.projectiles.length - 1; i >= 0; i--){
-            const projectile = this.projectiles[i];
-            if (projectile.state === ANIMATION_STATES.ANIMATING)
-                projectile.update(event);
-            // else
-                // this.projectiles.splice(i, 1);
-        }
+        this.projectiles = this.projectiles.filter(projectile => {
+            projectile.update(event);
+            return projectile.state === ANIMATION_STATES.ANIMATING;
+        });
 
-        for (let i = this.effects.length - 1; i >= 0; i--){
-            const effect = this.effects[i];
-            if (effect.state === ANIMATION_STATES.ANIMATING)
-                effect.update(event);
-            // else
-                // this.effects.splice(i, 1);
-        }
+        this.effects = this.effects.filter(effect => {
+            effect.update(event);
+            return effect.state === ANIMATION_STATES.ANIMATING;
+        });
 
-        for (let i = this.texts.length - 1; i >= 0; i--){
-            const text = this.texts[i];
-            if (text.state === ANIMATION_STATES.ANIMATING)
-                text.update(event);
-            // else
-                // this.texts.splice(i, 1);
-        }
-        
-
-        this.enemies = this.enemies.filter(enemy => enemy.state !== ENEMY_STATES.DEAD);
-        this.towers = this.towers.filter(tower => tower.state === ANIMATION_STATES.ANIMATING);
-        this.effects = this.effects.filter(effect => effect.state === ANIMATION_STATES.ANIMATING);
-        this.projectiles = this.projectiles.filter(projectile => projectile.state === ANIMATION_STATES.ANIMATING);
-        this.texts = this.texts.filter(text => text.state === ANIMATION_STATES.ANIMATING);
+        this.texts = this.texts.filter(text => {
+            text.update(event);
+            return text.state === ANIMATION_STATES.ANIMATING;
+        });
     }
 
     addEnemy(enemy){
@@ -94,10 +71,7 @@ export class EntityHandler{
                 width: TOWER_SIZE, 
                 height: TOWER_SIZE 
             },
-            position: { 
-                x: activeTower.position.x - TILE_SIZE_HALF,
-                y: activeTower.position.y - TILE_SIZE_HALF  
-            },
+            position: activeTower.position,
             damage: damage,
             range: range,
             cooldown: cooldown,

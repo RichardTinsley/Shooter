@@ -1,5 +1,6 @@
 import { drawBigScreenTexts, drawText } from '../utilities/textRender.js';
 import { GAME_WIDTH } from '../constants/constants.js';
+import { menuOptions } from '../constants/menuOptions.js';
 
 const textSize =  50;
 const initialPosition = 500;
@@ -11,31 +12,18 @@ let mouse = {
 };
 
 export class GameOver {
-    menuOptions = [
-        {
-            name: "Restart",
-            colour: "white",
-            optionAction: function(switchToBattleScene) {
-                switchToBattleScene();
-
-            }
-        },
-        {
-            name: "Main Menu",
-            colour: "white",
-            optionAction: function(switchToMenuScene) {
-                switchToMenuScene();
-            }
-        },
-    ];
-
     constructor(switchToMenuScene, switchToBattleScene){
+        this.options = menuOptions.filter(option => { return option.scene === "gameover" });
 
         window.addEventListener('click', e => {
-            if(activeOption.name === "Restart")
+            if(activeOption.name === "Restart"){
                 activeOption.optionAction(switchToBattleScene);
-            if(activeOption.name === "Main Menu")
+                this.options = [];
+            }
+            if(activeOption.name === "Main Menu"){
                 activeOption.optionAction(switchToMenuScene);
+                this.options = [];
+            }
         });
 
         window.addEventListener('mousemove', e => {
@@ -43,7 +31,7 @@ export class GameOver {
             mouse.y = e.offsetY;
             activeOption = null;
         
-            this.menuOptions.forEach((option, index) => {
+            this.options.forEach((option, index) => {
                 if( mouse.x > GAME_WIDTH / 2 - ((option.name.length / 2) * textSize) &&
                     mouse.x < GAME_WIDTH / 2 + ((option.name.length / 2) * textSize) &&
                     mouse.y > initialPosition + (textSize * index) &&
@@ -66,7 +54,7 @@ export class GameOver {
             "Game Over",
             true
         )
-        this.menuOptions.forEach((option, index) => {
+        this.options.forEach((option, index) => {
             drawText(
                 ctx,
                 option.colour,
@@ -79,7 +67,7 @@ export class GameOver {
             )
         })
     }
-    
+
     update(event){
         return
     }
