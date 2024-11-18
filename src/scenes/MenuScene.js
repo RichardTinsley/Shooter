@@ -11,40 +11,40 @@ let mouse = {
     y: undefined
 };
 
-const menuOptions = [
-    {
-        name: "New Game",
-        colour: "white",
-        optionAction: function(switchToBattleScene, menuMusic) {
-            menuMusic.pause();
-            switchToBattleScene();
+export class MenuScene {
+    menuOptions = [
+        {
+            name: "New Game",
+            colour: "white",
+            optionAction: function(switchToBattleScene, menuMusic) {
+                menuMusic.pause();
+                switchToBattleScene();
+            }
+        },
+        {
+            name: "Options",
+            colour: "white",
+            optionAction: function() {
+            }
+        },  
+        {
+            name: "About",
+            colour: "white",
+            optionAction: function() {
+            }
         }
-    },
-    {
-        name: "Options",
-        colour: "white",
-        optionAction: function() {
-        }
-    },  
-    {
-        name: "About",
-        colour: "white",
-        optionAction: function() {
-        }
-    }
-];
-
-export class MenuScene{
+    ];
     constructor(switchToBattleScene) {
         this.menuMusic = assets.get("menuMusic");
         this.menuMusic.loop = true;
         this.menuMusic.volume = 0.05;
         this.menuMusic.play();
 
-        
         window.addEventListener('click', e => {
-            if(activeOption)
+            if(activeOption){
                 activeOption.optionAction(switchToBattleScene, this.menuMusic);
+                this.menuOptions = [];
+            }
         });
 
         window.addEventListener('mousemove', e => {
@@ -52,13 +52,14 @@ export class MenuScene{
             mouse.y = e.offsetY;
             activeOption = null;
         
-            menuOptions.forEach((option, index) => {
+            this.menuOptions.forEach((option, index) => {
                 if( mouse.x > GAME_WIDTH / 2 - ((option.name.length / 2) * textSize) &&
                     mouse.x < GAME_WIDTH / 2 + ((option.name.length / 2) * textSize) &&
                     mouse.y > initialPosition + (textSize * index) &&
                     mouse.y < initialPosition + (textSize * index) + textSize
-                )
+                ){
                     activeOption = option;
+                }
                 else
                     option.colour = "white";
             
@@ -87,7 +88,7 @@ export class MenuScene{
             "top"
         )
 
-        menuOptions.forEach((option, index) => {
+        this.menuOptions.forEach((option, index) => {
             drawText(
                 ctx,
                 option.colour,
@@ -101,7 +102,8 @@ export class MenuScene{
         })
     }
 
-    update(){
+    update(event){
+        return
     }
 }
 

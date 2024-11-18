@@ -3,16 +3,12 @@ import { GAME_HEIGHT, GAME_WIDTH } from '../constants/constants.js';
 import { drawText } from '../utilities/textRender.js';
 
 export class LoadingScene {
-    
-    
     constructor(switchToMenuScene){ 
         this.dslogo = document.getElementById('dslogo');
         this.textSize = 100;
         this.alpha = .0;
         this.fade = .1;
-
         this.loadAssets(switchToMenuScene);
-        
     }
 
     handleAssetComplete = (fileName) => {
@@ -31,7 +27,8 @@ export class LoadingScene {
     }
 
     update(event){
-        if(!event) return;
+        if(!event) 
+            return;
 
         if(this.alpha >= 1)
             this.fade = -.1;
@@ -39,8 +36,6 @@ export class LoadingScene {
             this.fade = .1;
 
         this.alpha += this.fade;
-        // this.fadeAngle = (this.fadeAngle + 1 * time.secondsPassed) % Math.PI;
-        // this.fade = Math.sin(this.fadeAngle);
     }
 
     draw(ctx){

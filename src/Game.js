@@ -13,7 +13,7 @@ export class Game{
 
         this.previousTime = 0;  
         this.eventTimer = 0;
-        this.eventUpdate = false;      
+        this.eventUpdate = false; 
     }
 
     frame = (time) => {
@@ -49,5 +49,4 @@ export class Game{
             this.eventUpdate = true; 
         }
     }
-
 }

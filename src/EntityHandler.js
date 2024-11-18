@@ -13,22 +13,57 @@ export class EntityHandler{
         this.effects = [];
         this.projectiles = [];
         this.texts = [];
-        this.entities = [];
     }
 
     draw(ctx){
-        this.entities.forEach(entity => entity.draw(ctx));
+        this.enemies.sort((a, b) => a.position.y - b.position.y);   
+        const entities = [...this.towers, ...this.enemies, ...this.effects, ...this.projectiles, ...this.texts];
+        entities.forEach(entity => entity.draw(ctx));
     }
 
     update(event){
-        this.enemies.sort((a, b) => a.position.y - b.position.y);   
-        this.entities = [...this.towers, ...this.enemies, ...this.effects, ...this.projectiles, ...this.texts];
+        for (let i = this.enemies.length - 1; i >= 0; i--){
+            const enemy = this.enemies[i];
+            if (enemy.state !== ENEMY_STATES.DEAD)
+                enemy.update(event);
+            // else
+                // this.enemies.splice(i, 1);
+        }
 
-        this.entities.forEach(entity => {
-            entity.update(event);
-            if(entity instanceof Tower)
-                entity.targetEnemy(this.enemies);
-        })
+        for (let i = this.towers.length - 1; i >= 0; i--){
+            const tower = this.towers[i];
+            if (tower.state === ANIMATION_STATES.ANIMATING){
+                tower.update(event);
+                tower.targetEnemy(this.enemies);
+            }
+            // else
+                // this.towers.splice(i, 1);
+        }
+
+        for (let i = this.projectiles.length - 1; i >= 0; i--){
+            const projectile = this.projectiles[i];
+            if (projectile.state === ANIMATION_STATES.ANIMATING)
+                projectile.update(event);
+            // else
+                // this.projectiles.splice(i, 1);
+        }
+
+        for (let i = this.effects.length - 1; i >= 0; i--){
+            const effect = this.effects[i];
+            if (effect.state === ANIMATION_STATES.ANIMATING)
+                effect.update(event);
+            // else
+                // this.effects.splice(i, 1);
+        }
+
+        for (let i = this.texts.length - 1; i >= 0; i--){
+            const text = this.texts[i];
+            if (text.state === ANIMATION_STATES.ANIMATING)
+                text.update(event);
+            // else
+                // this.texts.splice(i, 1);
+        }
+        
 
         this.enemies = this.enemies.filter(enemy => enemy.state !== ENEMY_STATES.DEAD);
         this.towers = this.towers.filter(tower => tower.state === ANIMATION_STATES.ANIMATING);
@@ -52,7 +87,7 @@ export class EntityHandler{
     addTower = (tower, activeTower) => {
         const damage = 50;
         const range = 150;
-        const cooldown = 10;
+        const cooldown = 25;
         const newTower = new Tower({
             sprite: { 
                 image: tower, 
@@ -86,7 +121,7 @@ export class EntityHandler{
             }, 
             enemy: enemy,
             scale: 1, 
-            speed: 2.5,
+            speed: 4,
             damage: tower.damage, 
             addText: this.addText, 
             addEffect: this.addEffect

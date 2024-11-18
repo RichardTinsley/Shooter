@@ -51,20 +51,6 @@ export class Enemy {
         this.exp = this.generateRandomExp();
     }
 
-    update(event){
-        switch(this.state){
-            case ENEMY_STATES.WALKING:
-                this.updateMovement(event); 
-                break
-            case ENEMY_STATES.RUNNING:
-                this.updateMovement(event);
-                break
-            case ENEMY_STATES.DYING:
-                this.updateDying(event);
-                break
-        }
-    }
-
     draw(ctx){
         switch(this.state){
             case ENEMY_STATES.WALKING:
@@ -83,6 +69,19 @@ export class Enemy {
         }
     }
 
+    update(event){
+        switch(this.state){
+            case ENEMY_STATES.WALKING:
+                this.updateMovement(event); 
+                break
+            case ENEMY_STATES.RUNNING:
+                this.updateMovement(event);
+                break
+            case ENEMY_STATES.DYING:
+                if(event)this.updateDying();
+                break
+        }
+    }
     drawEnemy(ctx){
         const left = -this.halfWidth - ENEMY_SIZE_HALF - this.position.x;
         const right = this.position.x + ENEMY_SIZE_HALF - this.halfWidth;
@@ -94,7 +93,7 @@ export class Enemy {
         ctx.drawImage(
             this.sprite.image,
             this.sprite.frame * this.sprite.width,
-            this.sprite.row * this.sprite.height + 1,
+            this.state * this.sprite.height + 1,
             this.sprite.width,
             this.sprite.height,
             this.direction === ENEMY_STATES.LEFT ? left : right,
@@ -106,7 +105,10 @@ export class Enemy {
             ctx.restore();
     }
 
-    updateMovement(event){
+    updateMovement(event){  
+        if(event)
+            this.sprite.frame < this.maxFrame ? this.sprite.frame++ : this.sprite.frame = 0;
+        
         const waypoint = this.waypoints[this.waypointIndex];
         const yDistance = waypoint.y - this.center.y;
         const xDistance = waypoint.x - this.center.x;
@@ -135,8 +137,6 @@ export class Enemy {
             this.waypointIndex < this.waypoints.length - 1)
             this.waypointIndex++;
         
-        if(event)
-            this.sprite.frame < this.maxFrame ? this.sprite.frame++ : this.sprite.frame = 0;
 
         if(xDistance < 0)
             this.direction = ENEMY_STATES.LEFT;
@@ -145,13 +145,23 @@ export class Enemy {
 
         if(this.health <= 0) {
             this.state = ENEMY_STATES.DYING;
-            this.sprite.row = ENEMY_STATES.DYING;
             this.sprite.frame = 0;
         }
         this.resetEnemyPosition();
     }
 
-    
+    updateDying(){
+        if(this.sprite.frame < this.maxFrame) 
+            this.sprite.frame++; 
+        else 
+            this.sprite.frame = this.maxFrame;
+        
+        if(this.height > 2) 
+            this.height -= 2;
+        else
+            this.state = ENEMY_STATES.DEAD;
+    }
+
     resetEnemyPosition(){
         if (this.position.x > canvas.width){
             this.hudElements.hearts -= 1;
@@ -160,20 +170,6 @@ export class Enemy {
                 x: this.waypoints[this.waypointIndex].x, 
                 y: this.waypoints[this.waypointIndex].y 
             };
-        }
-    }
-
-    updateDying(event){
-        if(event){
-            if(this.sprite.frame < this.maxFrame) 
-                this.sprite.frame++; 
-            else 
-                this.sprite.frame = this.maxFrame;
-            
-            if(this.height > 2) 
-                this.height -= 2;
-            else
-                this.state = ENEMY_STATES.DEAD;
         }
     }
 

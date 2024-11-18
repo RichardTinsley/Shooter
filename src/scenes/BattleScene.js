@@ -1,10 +1,10 @@
 import { LEVELS, GAME_STATES, ENEMY_COLOURS } from "../constants/constants.js";
 import { assets } from "../AssetLoader.js";
 import { HudDisplay } from "./HudDisplay.js";
-import { renderDebugInfo } from "../utilities/debug.js"
+import { renderDebugInfo } from "../utilities/debug.js";
 import { drawBigScreenTexts } from "../utilities/textRender.js";
-import { MapHandler } from "../MapHandler.js"
-import { UserInput } from "../UserInput.js"
+import { MapHandler } from "../MapHandler.js";
+import { UserInput } from "../UserInput.js";
 import { EntityHandler } from "../EntityHandler.js";
 
 export class BattleScene {

@@ -38,9 +38,11 @@ export class Effect {
     }
 
     update(event){
+        if(!event) 
+            return;
         switch(this.state){
             case ANIMATION_STATES.ANIMATING:
-                this.updateEffect(event); 
+                this.updateEffect(); 
                 break
             case ANIMATION_STATES.FINISHED:
                 break
@@ -69,13 +71,10 @@ export class Effect {
             ctx.restore();
     }
 
-    updateEffect(event){
-        if(event){
-            if(this.sprite.frame < this.maxFrame) 
-                this.sprite.frame++; 
-            else {
-                this.state = ANIMATION_STATES.FINISHED;
-            }
-        }
+    updateEffect(){
+        if(this.sprite.frame < this.maxFrame) 
+            this.sprite.frame++; 
+        else 
+            this.state = ANIMATION_STATES.FINISHED;
     }
 }

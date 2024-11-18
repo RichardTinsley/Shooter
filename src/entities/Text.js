@@ -28,9 +28,11 @@ export class Text {
     }
 
     update(event){
+        if(!event) 
+            return;
         switch(this.state){
             case ANIMATION_STATES.ANIMATING:
-                this.updateText(event); 
+                this.updateText(); 
                 break
             case ANIMATION_STATES.FINISHED:
                 break
@@ -48,11 +50,10 @@ export class Text {
         ctx.fillText(this.text, this.position.x + 5, this.position.y - 3);
     }
 
-    updateText(event){
-        if(event){
-            this.alpha -= 0.6;
-            this.position.y -= this.movementSpeed;
-        }
+    updateText(){
+        this.alpha -= 0.6;
+        this.position.y -= this.movementSpeed;
+        
         if(this.alpha <= 0)
             this.state = ANIMATION_STATES.FINISHED;
     }

@@ -17,6 +17,7 @@ export class GameOver {
             colour: "white",
             optionAction: function(switchToBattleScene) {
                 switchToBattleScene();
+
             }
         },
         {
@@ -59,10 +60,6 @@ export class GameOver {
         });
     }
 
-    update(event){
-        return
-    }
-
     draw(ctx){
         drawBigScreenTexts(
             ctx,
@@ -81,5 +78,9 @@ export class GameOver {
                 "top"
             )
         })
+    }
+    
+    update(event){
+        return
     }
 }

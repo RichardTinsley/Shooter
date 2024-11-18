@@ -44,21 +44,23 @@ export class Projectile{
         this.addEffect = addEffect;
     }
 
-    update(event){
+    draw(ctx){
         switch(this.state){
             case ANIMATION_STATES.ANIMATING:
-                this.updateProjectile(event);
-                this.checkProjectileImpact(); 
+                this.drawProjectile(ctx); 
                 break
             case ANIMATION_STATES.FINISHED:
                 break
         }
     }
 
-    draw(ctx){
+    update(event){
+        if(event) 
+            this.sprite.frame < this.maxFrame ? this.sprite.frame++ : this.sprite.frame = 0;
         switch(this.state){
             case ANIMATION_STATES.ANIMATING:
-                this.drawProjectile(ctx); 
+                this.updateProjectile();
+                this.checkProjectileImpact(); 
                 break
             case ANIMATION_STATES.FINISHED:
                 break
@@ -83,7 +85,7 @@ export class Projectile{
         ctx.restore();
     }
 
-    updateProjectile(event) {
+    updateProjectile() {
         this.angle = findAngleOfDirection(this.enemy.center, this.center);
         this.direction = giveDirection(this.angle);
 
@@ -91,9 +93,6 @@ export class Projectile{
         this.velocity.y = Math.sin(this.angle) * this.speed;
         this.center.x += this.velocity.x;
         this.center.y += this.velocity.y;
-
-        if(event)
-            this.sprite.frame < this.maxFrame ? this.sprite.frame++ : this.sprite.frame = 0;
     }
 
     checkProjectileImpact(){

@@ -22,6 +22,8 @@ export class Tower {
         this.maxFrame = Math.floor((this.sprite.image.width / this.sprite.width)) - 1;
         this.sprite.row = 0;
         
+        this.enemiesInRange = [];
+        this.target;
         this.shootTimer = 0;
         this.damage = damage;
         this.range = range;
@@ -43,6 +45,19 @@ export class Tower {
         switch(this.state){
             case ANIMATION_STATES.ANIMATING:
                 this.drawTower(ctx); 
+                break
+            case ANIMATION_STATES.FINISHED:
+                break
+        }
+    }
+
+    update(event){
+        if(!event) 
+            return;
+
+        switch(this.state){
+            case ANIMATION_STATES.ANIMATING:
+                this.updateTower(); 
                 break
             case ANIMATION_STATES.FINISHED:
                 break
@@ -71,31 +86,19 @@ export class Tower {
         ctx.fillRect(this.position.x, this.position.y, this.sprite.width, this.sprite.height);
     }
 
-    update(event){
-        switch(this.state){
-            case ANIMATION_STATES.ANIMATING:
-                this.updateTower(event); 
-                break
-            case ANIMATION_STATES.FINISHED:
-                break
-        }
-    }
-
-    updateTower(event) {
-        if (event){
-            this.shootTimer++;
-            this.sprite.frame < this.maxFrame ? this.sprite.frame++ : this.sprite.frame = 0;
-        }
+    updateTower(){
+        this.shootTimer++;
+        this.sprite.frame < this.maxFrame ? this.sprite.frame++ : this.sprite.frame = 0;
     }
 
     targetEnemy(enemies){
-        const enemiesInTowerRange = this.prioritiseEnemiesInTowerRange(enemies);
-        const selectedEnemy = enemiesInTowerRange.find(enemy => enemy.isSelected);
+        this.enemiesInRange = this.prioritiseEnemiesInTowerRange(enemies);
+        const selectedEnemy = this.enemiesInRange.find(enemy => enemy.isSelected);
 
         if(selectedEnemy)
             this.target = selectedEnemy;
         else
-            this.target = enemiesInTowerRange[0];
+            this.target = this.enemiesInRange[0];
 
         this.shootEnemy();
     }
