@@ -76,12 +76,10 @@ export class GameHandler{
     onMouseClickListener(){
         switch(this.GameState){
             case GAME_STATES.PLAYING:
-                this.inputHandler.enemySelected(this.screen.entityHandler.enemies);
-                this.inputHandler.towerSelected(this.screen.entityHandler.addTower, this.screen.battleScreenHud.hudElements)
+                this.whilePlayingActions();
                 break
             case GAME_STATES.DEBUG:
-                this.inputHandler.enemySelected(this.screen.entityHandler.enemies);
-                this.inputHandler.towerSelected(this.screen.entityHandler.addTower, this.screen.battleScreenHud.hudElements)
+                this.whilePlayingActions();
                 break
             case GAME_STATES.MENU:
                 this.inputHandler.menuScreenButtonSelected(this.GameState);
@@ -100,5 +98,14 @@ export class GameHandler{
             eventTimer = 0;
             eventUpdate = true; 
         }
+    }
+
+    whilePlayingActions(){
+        this.inputHandler.enemySelected(this.screen.entityHandler.enemies);
+        this.inputHandler.towerSelected(
+            this.screen.entityHandler.addTower, 
+            this.screen.entityHandler.addText, 
+            this.screen.battleScreenHud.hudElements
+        );
     }
 }

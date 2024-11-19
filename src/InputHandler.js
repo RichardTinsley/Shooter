@@ -75,13 +75,20 @@ export class InputHandler {
             mouseOverOption.colour = "red";
     }
 
-    towerSelected = (addTower, battleScreenHud) => {
+    towerSelected = (addTower, addText, battleScreenHud) => {
+        console.log(mouseOverTower)
         if(mouseOverTower && battleScreenHud.coins - 25 >= 0) {
             addTower(
                 assets.get('sapphireTower'), 
                 mouseOverTower
             );
             battleScreenHud.coins -= 25;
+        } else {
+            addText(
+                "Not Enough Gold",
+                '250, 0, 0, ',
+                mouseOverTower.center
+            );
         }
     }
 
