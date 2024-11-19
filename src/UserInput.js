@@ -9,7 +9,8 @@ let mouseOverTower = undefined;
 let mouseOverEnemy = undefined;
 
 export class UserInput {
-    constructor(){
+    constructor(switchScreens){
+        this.switchScreens = switchScreens;
         this.mouse = {
             hitBox: {
                 x: 0,

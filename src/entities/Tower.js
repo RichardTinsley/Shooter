@@ -1,4 +1,5 @@
 import { ANIMATION_STATES, ENEMY_STATES, TILE_SIZE } from "../constants/constants.js";
+import { checkCollision } from "../utilities/math.js";
 import { assets } from "../AssetLoader.js";
 
 export class Tower {
@@ -99,7 +100,7 @@ export class Tower {
     }
 
     targetEnemy(enemies){
-        this.enemiesInRange = this.prioritiseEnemiesInTowerRange(enemies);
+        this.enemiesInRange = this.prioritiseEnemiesInTowerRange(enemies);//CLEAN THIS UP
         const selectedEnemy = this.enemiesInRange.find(enemy => enemy.isSelected);
 
         if(selectedEnemy)
@@ -123,10 +124,7 @@ export class Tower {
     prioritiseEnemiesInTowerRange(enemies){
         return enemies.filter(enemy => {
             if(enemy.state === ENEMY_STATES.WALKING || enemy.state === ENEMY_STATES.RUNNING){
-                const xDifference = enemy.center.x - this.center.x;
-                const yDifference = enemy.center.y - this.center.y;
-                const distance = Math.hypot(xDifference, yDifference);
-                return distance < enemy.width / 10 + this.range;
+                return checkCollision(enemy, this);
             }
         }).sort((a, b) => {
             if (a.waypointIndex > b.waypointIndex) return -1;

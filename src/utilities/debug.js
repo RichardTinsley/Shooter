@@ -70,7 +70,7 @@ function enemyDebugInfo(ctx, enemies){
 function towerDebugInfo(ctx, towers){
     towers.forEach(tower => {
         ctx.beginPath();
-        ctx.arc(tower.center.x, tower.center.y, tower.range, 0, Math.PI * 2);
+        ctx.arc(tower.hitBox.x, tower.hitBox.y, tower.hitBox.radius, 0, Math.PI * 2);
         ctx.setLineDash([5, 15]);
         ctx.lineWidth = 2;
         ctx.strokeStyle = 'white';
@@ -87,12 +87,12 @@ function towerDebugInfo(ctx, towers){
 function projectileDebugInfo(ctx, projectiles){
     projectiles.forEach(projectile => {
         ctx.beginPath();
-        ctx.arc(projectile.center.x, projectile.center.y, projectile.width, 0, Math.PI * 2);
+        ctx.arc(projectile.hitBox.x, projectile.hitBox.y, projectile.hitBox.radius, 0, Math.PI * 2);
         ctx.fillStyle = 'rgba(200, 0, 0, 0.1)';
         ctx.fill();
 
         ctx.fillStyle = 'rgba(250, 0, 0, 1)';
-        ctx.fillRect(projectile.center.x, projectile.center.y, 5, 5);
+        ctx.fillRect(projectile.hitBox.x, projectile.hitBox.y, 5, 5);
         ctx.fillStyle = 'rgba(0, 0, 250, 1)';
         ctx.fillRect(projectile.position.x - 2, projectile.position.y - 2, 4, 4);
     })

@@ -24,6 +24,11 @@ export class Projectile{
             x: this.position.x,
             y: this.position.y
         };
+        this.hitBox = {
+            x: this.center.x,
+            y: this.center.y,
+            radius: this.width / 8,
+        };
         
         this.maxFrame = (this.sprite.image.width / this.sprite.width) - 1;
         this.sprite.row = 0;
@@ -93,6 +98,9 @@ export class Projectile{
         this.velocity.y = Math.sin(this.angle) * this.speed;
         this.center.x += this.velocity.x;
         this.center.y += this.velocity.y;
+
+        this.hitBox.x = this.center.x;
+        this.hitBox.y = this.center.y;
     }
 
     checkProjectileImpact(){
