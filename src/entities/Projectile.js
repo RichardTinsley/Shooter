@@ -27,7 +27,7 @@ export class Projectile{
         this.hitBox = {
             x: this.center.x,
             y: this.center.y,
-            radius: this.width / 8,
+            radius: this.width / 18,
         };
         
         this.maxFrame = (this.sprite.image.width / this.sprite.width) - 1;

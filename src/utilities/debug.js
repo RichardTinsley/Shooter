@@ -88,7 +88,7 @@ function projectileDebugInfo(ctx, projectiles){
     projectiles.forEach(projectile => {
         ctx.beginPath();
         ctx.arc(projectile.hitBox.x, projectile.hitBox.y, projectile.hitBox.radius, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(200, 0, 0, 0.1)';
+        ctx.fillStyle = 'rgba(200, 0, 0, 0.5)';
         ctx.fill();
 
         ctx.fillStyle = 'rgba(250, 0, 0, 1)';
