@@ -32,8 +32,8 @@ export class Enemy {
         };
 
         this.hitBox = {
-            x: 0,
-            y: 0,
+            x: this.waypoints[this.waypointIndex].x,
+            y: this.waypoints[this.waypointIndex].y,
             radius: this.quarterWidth,
         };
         
@@ -153,11 +153,11 @@ export class Enemy {
 
     checkEnemyCollision(){
         const waypointCenter = {
-            center: {
+            hitBox: {
                 x: this.waypoints[this.waypointIndex].x,
-                y: this.waypoints[this.waypointIndex].y
+                y: this.waypoints[this.waypointIndex].y,
+                radius: 1
             },
-            width: 1
         };
         
         if (checkCollision(this, waypointCenter) && 

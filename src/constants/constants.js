@@ -56,7 +56,8 @@ export const GAME_STATES = {
     LOADING: 'LOADING',
     GAMEOVER: 'GAMEOVER',
     DEBUG: 'DEBUG',
-    RESTART: 'RESTART'
+    RESTART: 'RESTART',
+    OPTIONS: 'OPTIONS',
 };
 export const LEVELS = {
     TERRA_HAUTE: 0,

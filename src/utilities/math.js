@@ -1,10 +1,10 @@
 import { ANIMATION_STATES } from "../constants/constants.js";
 
 export function checkCollision(a, b){
-    const dx = a.center.x - b.center.x;
-    const dy = a.center.y - b.center.y;
+    const dx = a.hitBox.x - b.hitBox.x;
+    const dy = a.hitBox.y - b.hitBox.y;
     const distance = Math.hypot(dx, dy);
-    const sumOfRadii = a.width / 8 + b.width / 8 ;
+    const sumOfRadii = a.hitBox.radius + b.hitBox.radius;
     return distance < sumOfRadii; 
 }
 

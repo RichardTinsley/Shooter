@@ -85,7 +85,7 @@ export class Tower {
         );
 
         if(this.mouseOver)
-            this.colour = 'rgba(50, 255, 50, 0.15)';
+            this.colour = 'rgba(50, 255, 50, 1)';
         else
             this.colour = 'rgba(255, 255, 255, 0.15)';
         

@@ -4,27 +4,17 @@ import { BattleScreenHud } from "./BattleScreenHud.js";
 import { renderDebugInfo } from "../utilities/debug.js";
 import { drawBigScreenTexts } from "../utilities/textRender.js";
 import { MapHandler } from "../MapHandler.js";
-import { UserInput } from "../UserInput.js";
 import { EntityHandler } from "../EntityHandler.js";
 
 export class BattleScreen {
-    constructor(switchToGameOverScreen, switchToBattleScreen){
+    constructor(userInput){
         this.currentLevel = LEVELS.TERRA_HAUTE;
         this.currentGameState = GAME_STATES.PLAYING;
         
+        this.userInput = userInput;
         this.battleScreenHud    = new BattleScreenHud();
         this.mapHandler         = new MapHandler();
         this.entityHandler      = new EntityHandler(this.mapHandler.towerPlacementSpots, this.battleScreenHud.hudElements);
-
-        this.userInput          = new UserInput(
-            this.entityHandler, 
-            this.pauseGame,
-            this.restartGame,
-            this.debugGame
-        );
-        
-        this.switchToGameOverScreen = switchToGameOverScreen;
-        this.switchToBattleScreen = switchToBattleScreen;
 
         this.allEnemiesActive = false;
         this.maxEnemies = 10;
@@ -40,6 +30,7 @@ export class BattleScreen {
         if(this.currentGameState === GAME_STATES.DEBUG)
             renderDebugInfo(
                 ctx, 
+                this.userInput.mouse,
                 this.entityHandler.towers,
                 this.entityHandler.enemies,
                 this.entityHandler.projectiles
@@ -56,6 +47,9 @@ export class BattleScreen {
         this.battleScreenHud.update(event);
         this.playerStatusCheck();
         this.waveStatusCheck();
+
+        this.userInput.enemySelector(this.entityHandler.enemies);
+        this.userInput.towerSelector(this.entityHandler.towers);
     }
 
     addEnemy(event){
@@ -95,23 +89,5 @@ export class BattleScreen {
             this.entityHandler.enemies = [];
             this.switchToGameOverScreen();
         }
-    }
-
-    debugGame = () => {
-        if(this.currentGameState === GAME_STATES.PLAYING)
-            this.currentGameState = GAME_STATES.DEBUG;
-        else
-            this.currentGameState = GAME_STATES.PLAYING;
-    }
-
-    pauseGame = () => {
-        if(this.currentGameState === GAME_STATES.PLAYING)
-            this.currentGameState = GAME_STATES.PAUSED;
-        else
-            this.currentGameState = GAME_STATES.PLAYING;
-    }
-    
-    restartGame = () => {
-        this.switchToBattleScreen();
     }
 }

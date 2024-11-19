@@ -1,14 +1,14 @@
 import * as AssetLoader from '../AssetLoader.js'
-import { GAME_HEIGHT, GAME_WIDTH } from '../constants/constants.js';
+import { GAME_HEIGHT, GAME_STATES, GAME_WIDTH } from '../constants/constants.js';
 import { drawText } from '../utilities/textRender.js';
 
 export class LoadingScreen {
-    constructor(switchToMenuScreen){ 
+    constructor(switchScreens){ 
         this.dslogo = document.getElementById('dslogo');
         this.textSize = 65;
         this.alpha = .0;
         this.fade;
-        this.loadAssets(switchToMenuScreen);
+        this.loadAssets(switchScreens);
 
         this.maxLoadBar = AssetLoader.assetList.length;
         this.loadBar = this.maxLoadBar;
@@ -20,14 +20,14 @@ export class LoadingScreen {
         this.assetsLoaded++;
     }
 
-    async loadAssets(switchToMenuScreen){
+    async loadAssets(switchScreens){
         await AssetLoader.load(AssetLoader.assetList, this.assetLoaded)
             .catch((error) => {
                 console.error(`Error: Unable to load asset "${error.fileName}"`);
             })
             .then(() => {
                 console.log(`Asset loading complete. A total of ${AssetLoader.assets.size} assets have been loaded.`);
-                switchToMenuScreen();
+                switchScreens(GAME_STATES.MENU);
             });
     }
 

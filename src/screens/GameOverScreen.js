@@ -1,6 +1,6 @@
 import { drawBigScreenTexts, drawText } from '../utilities/textRender.js';
 import { GAME_WIDTH } from '../constants/constants.js';
-import { menuOptions } from '../constants/menuOptions.js';
+import { gameOverScreenButtons } from '../constants/buttons.js';
 
 const textSize =  50;
 const initialPosition = 500;

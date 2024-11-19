@@ -6,9 +6,10 @@ let startTime = performance.now();
 let FPSNormal = 0;
 
 
-export function renderDebugInfo(ctx, towers, enemies, projectiles){
+export function renderDebugInfo(ctx, mouse, towers, enemies, projectiles){
     calculateFPSNormal();
     levelDebugInfo(ctx);
+    mouseDebugInfo(ctx, mouse);
     towerDebugInfo(ctx, towers);
     enemyDebugInfo(ctx, enemies);
     projectileDebugInfo(ctx, projectiles);
@@ -39,6 +40,13 @@ function levelDebugInfo(ctx){
                 TILE_SIZE,
                 TILE_SIZE
             );   
+}
+
+function mouseDebugInfo(ctx, mouse){
+    ctx.beginPath();
+    ctx.arc(mouse.hitBox.x, mouse.hitBox.y, mouse.hitBox.radius, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(200, 0, 0, 0.5)';
+    ctx.fill();
 }
 
 function enemyDebugInfo(ctx, enemies){

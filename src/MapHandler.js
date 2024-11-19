@@ -59,7 +59,8 @@ export class MapHandler {
                         position: { 
                             x: x * TILE_SIZE, 
                             y: y * TILE_SIZE 
-                        }
+                        },
+                        range: TILE_SIZE / 2
                     })
                 ) 
             })

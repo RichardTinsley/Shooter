@@ -1,51 +1,15 @@
 import { GAME_WIDTH } from "../constants/constants.js";
-import { menuOptions } from "../constants/menuOptions.js";
+import { menuScreenButtons, menuScreenButtonsPosition, menuScreenButtonsTextSize } from "../constants/buttons.js";
 import { assets } from "../AssetLoader.js";
 import { drawText } from '../utilities/textRender.js';
 
-const textSize =  60;
-const initialPosition = 460;
-
-let activeOption = undefined;
-let mouse = {
-    x: undefined,
-    y: undefined
-};
-
 export class MenuScreen {
-    constructor(switchToBattleScreen) {
+    constructor(userInput) {
         this.menuMusic = assets.get("menuMusic");
         this.menuMusic.loop = true;
         this.menuMusic.volume = 0.05;
         this.menuMusic.play();
-        this.options = menuOptions.filter(option => { return option.screen === "menu" });
-
-        window.addEventListener('click', e => {
-            if(activeOption){
-                activeOption.optionAction(switchToBattleScreen, this.menuMusic);
-                this.options = [];
-            }
-        });
-
-        window.addEventListener('mousemove', e => {
-            mouse.x = e.offsetX;
-            mouse.y = e.offsetY;
-            activeOption = null;
-        
-            this.options.forEach((option, index) => {
-                if( mouse.x > GAME_WIDTH / 2 - ((option.name.length / 2) * textSize) &&
-                    mouse.x < GAME_WIDTH / 2 + ((option.name.length / 2) * textSize) &&
-                    mouse.y > initialPosition + (textSize * index) &&
-                    mouse.y < initialPosition + (textSize * index) + textSize
-                )
-                    activeOption = option;
-                else
-                    option.colour = "white";
-            });
-
-            if(activeOption)
-                activeOption.colour = "red";
-        });
+        this.userInput = userInput;
     }
 
     draw(ctx){
@@ -66,14 +30,14 @@ export class MenuScreen {
             "top"
         )
 
-        this.options.forEach((option, index) => {
+        menuScreenButtons.forEach((option, index) => {
             drawText(
                 ctx,
                 option.colour,
                 option.name,
                 GAME_WIDTH / 2,
-                initialPosition + (textSize * index),
-                textSize,
+                menuScreenButtonsPosition + (menuScreenButtonsTextSize * index),
+                menuScreenButtonsTextSize,
                 "center",
                 "top"
             )
@@ -81,7 +45,9 @@ export class MenuScreen {
     }
 
     update(event){
-        return
+        if(this.userInput.mouseClick)
+            this.userInput.menuScreenButtonSelected();
+        this.userInput.menuScreenButtonsSelector(menuScreenButtons);
     }
 }
 
