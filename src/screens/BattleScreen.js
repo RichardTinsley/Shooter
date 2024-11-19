@@ -1,4 +1,4 @@
-import { LEVELS, GAME_STATES, ENEMY_COLOURS } from "../constants/constants.js";
+import { LEVELS, ENEMY_COLOURS, GAME_STATES } from "../constants/constants.js";
 import { assets } from "../AssetLoader.js";
 import { BattleScreenHud } from "./BattleScreenHud.js";
 import { renderDebugInfo } from "../utilities/debug.js";
@@ -6,11 +6,12 @@ import { MapHandler } from "../MapHandler.js";
 import { EntityHandler } from "../EntityHandler.js";
 
 export class BattleScreen {
-    constructor(userInput){
+    constructor(userInput, switchScreens){
         this.currentLevel = LEVELS.TERRA_HAUTE;
         this.debugMode = false
                 
         this.userInput = userInput;
+        this.switchScreens = switchScreens;
         this.battleScreenHud    = new BattleScreenHud();
         this.mapHandler         = new MapHandler();
         this.entityHandler      = new EntityHandler(this.mapHandler.towerPlacementSpots, this.battleScreenHud.hudElements);
@@ -81,8 +82,7 @@ export class BattleScreen {
 
     playerStatusCheck(){
         if(this.battleScreenHud.hudElements.hearts <= 0){
-            this.entityHandler.enemies = [];
-            this.switchToGameOverScreen();
+            this.switchScreens(GAME_STATES.GAMEOVER);
         }
     }
 }

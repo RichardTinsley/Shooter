@@ -1,69 +1,33 @@
 import { drawText } from '../utilities/textRender.js';
-import { GAME_WIDTH } from '../constants/constants.js';
-import { gameOverScreenButtons } from '../constants/buttons.js';
-
-const textSize =  50;
-const initialPosition = 500;
-
-let activeOption = undefined;
-let mouse = {
-    x: undefined,
-    y: undefined
-};
+import { GAME_WIDTH, GAME_HEIGHT } from '../constants/constants.js';
 
 export class GameOverScreen {
-    constructor(switchToMenuScreen, switchToBattleScreen){
-        this.options = menuOptions.filter(option => { return option.screen === "gameover" });
-
-        window.addEventListener('click', e => {
-            if(activeOption.name === "Restart"){
-                activeOption.optionAction(switchToBattleScreen);
-                this.options = [];
-            }
-            if(activeOption.name === "Main Menu"){
-                activeOption.optionAction(switchToMenuScreen);
-                this.options = [];
-            }
-        });
-
-        window.addEventListener('mousemove', e => {
-            mouse.x = e.offsetX;
-            mouse.y = e.offsetY;
-            activeOption = null;
-        
-            this.options.forEach((option, index) => {
-                if( mouse.x > GAME_WIDTH / 2 - ((option.name.length / 2) * textSize) &&
-                    mouse.x < GAME_WIDTH / 2 + ((option.name.length / 2) * textSize) &&
-                    mouse.y > initialPosition + (textSize * index) &&
-                    mouse.y < initialPosition + (textSize * index) + textSize
-                )
-                    activeOption = option;
-                else
-                    option.colour = "white";
-            
-            });
-        
-            if(activeOption)
-                activeOption.colour = "red";
-        });
+    constructor(userInput, screen) {
+        this.userInput = userInput;
+        this.screen = screen;
     }
 
     draw(ctx){
-        this.options.forEach((option, index) => {
-            drawText(
-                ctx,
-                option.colour,
-                option.name,
-                GAME_WIDTH / 2,
-                initialPosition + (textSize * index),
-                textSize,
-                "center",
-                "top"
-            )
-        })
+        this.screen.mapHandler.draw(ctx);
+        this.screen.entityHandler.draw(ctx);
+        this.screen.battleScreenHud.draw(ctx);
+
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
+        ctx.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+
+        drawText(
+            ctx,
+            "white",
+            "GAMEOVER",
+            GAME_WIDTH / 2,
+            GAME_HEIGHT / 2 - 170 / 2,
+            170,
+            "center",
+            "top"
+        )
     }
 
     update(event){
-        return
+
     }
 }

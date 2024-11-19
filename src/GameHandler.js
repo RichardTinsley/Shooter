@@ -14,40 +14,31 @@ const ctx = context();
 
 export class GameHandler{
     constructor(){
-        this.inputHandler = new InputHandler(this.switchScreens);
-        this.screen = new LoadingScreen(this.switchScreens);
-        this.GameState = GAME_STATES.MENU;
         this.resume = null;
-
-        window.addEventListener('click', () => { 
-            switch(this.GameState){
-                case GAME_STATES.PLAYING:
-                    this.inputHandler.enemySelected(this.screen.entityHandler.enemies);
-                    this.inputHandler.towerSelected(this.screen.entityHandler.addTower, this.screen.battleScreenHud.hudElements)
-                    break
-                case GAME_STATES.MENU:
-                    this.inputHandler.menuScreenButtonSelected(this.switchScreens);
-                    break
-            }
-        });
+        this.inputHandler = new InputHandler(this.onMouseClickSwitchScreens);
+        this.screen = new LoadingScreen(this.onMouseClickSwitchScreens);
+        this.GameState = GAME_STATES.MENU;
 
         requestAnimationFrame(this.frame);
-    }
 
+        window.addEventListener('click', () => { 
+            this.onMouseClickListener();    
+        });
+
+    }
+    
     frame = (time) => {
         this.eventUpdater(time);
         this.screen.update(eventUpdate);
         this.screen.draw(ctx);
         requestAnimationFrame(this.frame);
     }
-    
-    switchScreens = (option) => {
+
+    onMouseClickSwitchScreens = (option) => {
+        this.GameState = option;
         switch(option){
             case GAME_STATES.PLAYING:
-                this.screen = new BattleScreen(this.inputHandler);
-                break
-            case GAME_STATES.GAMEOVER:
-                this.screen = new GameOverScreen();
+                this.screen = new BattleScreen(this.inputHandler, this.switchScreens);
                 break
             case GAME_STATES.MENU:
                 this.screen = new MenuScreen(this.inputHandler)
@@ -70,6 +61,31 @@ export class GameHandler{
             case GAME_STATES.DEBUG:
                 this.screen.debugMode = !this.screen.debugMode;
             break
+        }
+    }
+
+    switchScreens = (option) => {
+        this.GameState = option;
+        switch(option){
+            case GAME_STATES.GAMEOVER:
+                this.screen = new GameOverScreen(this.inputHandler, this.screen);
+                break
+        }
+    }
+
+    onMouseClickListener(){
+        switch(this.GameState){
+            case GAME_STATES.PLAYING:
+                this.inputHandler.enemySelected(this.screen.entityHandler.enemies);
+                this.inputHandler.towerSelected(this.screen.entityHandler.addTower, this.screen.battleScreenHud.hudElements)
+                break
+            case GAME_STATES.DEBUG:
+                this.inputHandler.enemySelected(this.screen.entityHandler.enemies);
+                this.inputHandler.towerSelected(this.screen.entityHandler.addTower, this.screen.battleScreenHud.hudElements)
+                break
+            case GAME_STATES.MENU:
+                this.inputHandler.menuScreenButtonSelected(this.GameState);
+                break
         }
     }
 

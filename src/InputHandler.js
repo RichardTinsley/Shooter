@@ -9,8 +9,8 @@ let mouseOverTower = undefined;
 let mouseOverEnemy = undefined;
 
 export class InputHandler {
-    constructor(switchScreens){
-        this.switchScreens = switchScreens;
+    constructor(onMouseClickSwitchScreens){
+        this.onMouseClickSwitchScreens = onMouseClickSwitchScreens;
         this.mouse = {
             hitBox: {
                 x: 0,
@@ -35,16 +35,16 @@ export class InputHandler {
 
         window.addEventListener('keyup', e =>{
             if(keys.has(USER_INPUT_KEYS.PAUSE))
-                this.switchScreens(GAME_STATES.PAUSED);
+                this.onMouseClickSwitchScreens(GAME_STATES.PAUSED);
 
             if(keys.has(USER_INPUT_KEYS.UNPAUSE))
-                this.switchScreens(GAME_STATES.UNPAUSED);
+                this.onMouseClickSwitchScreens(GAME_STATES.UNPAUSED);
             
             if(keys.has(USER_INPUT_KEYS.RESTART))
-                this.switchScreens(GAME_STATES.RESTART);
+                this.onMouseClickSwitchScreens(GAME_STATES.RESTART);
 
             if(keys.has(USER_INPUT_KEYS.DEBUG))
-                this.switchScreens(GAME_STATES.DEBUG);
+                this.onMouseClickSwitchScreens(GAME_STATES.DEBUG);
             
             // if(this.keys.has(USER_INPUT_KEYS.MUSIC))
             
@@ -52,9 +52,10 @@ export class InputHandler {
         });
     }
 
-    menuScreenButtonSelected = (switchScreens) => {
+    menuScreenButtonSelected = (GameState) => {
+        console.log(GameState);
         if(mouseOverOption){
-            switchScreens(mouseOverOption.option);
+            this.onMouseClickSwitchScreens(mouseOverOption.option);
         }
     }
 
