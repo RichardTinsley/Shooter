@@ -6,47 +6,47 @@ import { BattleScreen } from "./screens/BattleScreen.js";
 import { GameOverScreen } from "./screens/GameOverScreen.js";
 import { UserInput } from "./UserInput.js"
 
+let previousTime = 0;  
+let eventTimer = 0;
+let eventUpdate = false; 
+const ctx = context();
+const userInput = new UserInput();
+
 export class Game{
     constructor(){
         this.screen = new LoadingScreen(this.switchScreens);
-        this.ctx = context();
 
-        this.userInput = new UserInput();
-
-        window.addEventListener('click', () => {
+        window.addEventListener('click', () => { //SWWITCHBLOCK,  BRING GAME STATE UP HERE
             if(this.screen.entityHandler !== undefined){
-                this.userInput.enemySelected(this.screen.entityHandler.enemies);
-                this.userInput.towerSelected(this.screen.entityHandler.addTower, this.screen.battleScreenHud.hudElements)
+                userInput.enemySelected(this.screen.entityHandler.enemies);
+                userInput.towerSelected(this.screen.entityHandler.addTower, this.screen.battleScreenHud.hudElements)
             }
-            this.userInput.menuScreenButtonSelected(this.switchScreens);
+            userInput.menuScreenButtonSelected(this.switchScreens);
         });
 
-        this.previousTime = 0;  
-        this.eventTimer = 0;
-        this.eventUpdate = false; 
         requestAnimationFrame(this.frame);
     }
 
     frame = (time) => {
         this.eventUpdater(time);
-        this.screen.update(this.eventUpdate);
-        this.screen.draw(this.ctx);
+        this.screen.update(eventUpdate);
+        this.screen.draw(ctx);
         requestAnimationFrame(this.frame);
     }
     
     switchScreens = (option) => {
         switch(option){
             case GAME_STATES.PLAYING:
-                this.screen = new BattleScreen(this.userInput);
+                this.screen = new BattleScreen(userInput);
                 break
             case GAME_STATES.GAMEOVER:
                 this.screen = new GameOverScreen();
                 break
             case GAME_STATES.MENU:
-                this.screen = new MenuScreen(this.userInput)
+                this.screen = new MenuScreen(userInput)
                 break
             case GAME_STATES.RESTART:
-                this.screen = new BattleScreen(this.userInput);
+                this.screen = new BattleScreen(userInput);
                 break
             case GAME_STATES.PAUSED:
                 if(this.screen.currentGameState === GAME_STATES.PLAYING)
@@ -64,15 +64,15 @@ export class Game{
     }
 
     eventUpdater(time){
-        const deltaTime = time - this.previousTime;
-        this.previousTime = time;
+        const deltaTime = time - previousTime;
+        previousTime = time;
 
-        if (this.eventTimer < TIME_INTERVALS.EVENT){
-            this.eventTimer += deltaTime;
-            this.eventUpdate = false;
+        if (eventTimer < TIME_INTERVALS.EVENT){
+            eventTimer += deltaTime;
+            eventUpdate = false;
         } else {
-            this.eventTimer = 0;
-            this.eventUpdate = true; 
+            eventTimer = 0;
+            eventUpdate = true; 
         }
     }
 }
