@@ -4,24 +4,24 @@ import { LoadingScreen } from "./screens/LoadingScreen.js";
 import { MenuScreen } from "./screens/MenuScreen.js";
 import { BattleScreen } from "./screens/BattleScreen.js";
 import { GameOverScreen } from "./screens/GameOverScreen.js";
-import { UserInput } from "./UserInput.js"
+import { InputHandler } from "./InputHandler.js"
 
 let previousTime = 0;  
 let eventTimer = 0;
 let eventUpdate = false; 
 const ctx = context();
 
-export class Game{
+export class GameHandler{
     constructor(){
         this.screen = new LoadingScreen(this.switchScreens);
-        this.userInput = new UserInput(this.switchScreens);
+        this.inputHandler = new InputHandler(this.switchScreens);
 
         window.addEventListener('click', () => { //SWWITCHBLOCK,  BRING GAME STATE UP HERE
             if(this.screen.entityHandler !== undefined){
-                this.userInput.enemySelected(this.screen.entityHandler.enemies);
-                this.userInput.towerSelected(this.screen.entityHandler.addTower, this.screen.battleScreenHud.hudElements)
+                this.inputHandler.enemySelected(this.screen.entityHandler.enemies);
+                this.inputHandler.towerSelected(this.screen.entityHandler.addTower, this.screen.battleScreenHud.hudElements)
             }
-            this.userInput.menuScreenButtonSelected(this.switchScreens);
+            this.inputHandler.menuScreenButtonSelected(this.switchScreens);
         });
 
         requestAnimationFrame(this.frame);
@@ -37,16 +37,16 @@ export class Game{
     switchScreens = (option) => {
         switch(option){
             case GAME_STATES.PLAYING:
-                this.screen = new BattleScreen(this.userInput);
+                this.screen = new BattleScreen(this.inputHandler);
                 break
             case GAME_STATES.GAMEOVER:
                 this.screen = new GameOverScreen();
                 break
             case GAME_STATES.MENU:
-                this.screen = new MenuScreen(this.userInput)
+                this.screen = new MenuScreen(this.inputHandler)
                 break
             case GAME_STATES.RESTART:
-                this.screen = new BattleScreen(this.userInput);
+                this.screen = new BattleScreen(this.inputHandler);
                 break
             case GAME_STATES.PAUSED:
                 if(this.screen.currentGameState === GAME_STATES.PLAYING)

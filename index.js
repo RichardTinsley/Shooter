@@ -1,5 +1,5 @@
-import { Game } from './src/Game.js';
+import { GameHandler } from './src/GameHandler.js';
 
 window.addEventListener('load', () => {
-	new Game();
+	new GameHandler();
 });

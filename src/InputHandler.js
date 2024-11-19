@@ -8,7 +8,7 @@ let mouseOverOption = undefined;
 let mouseOverTower = undefined;
 let mouseOverEnemy = undefined;
 
-export class UserInput {
+export class InputHandler {
     constructor(switchScreens){
         this.switchScreens = switchScreens;
         this.mouse = {
