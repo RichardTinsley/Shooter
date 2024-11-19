@@ -20,7 +20,6 @@ export class Tower {
             y: this.position.y + TILE_SIZE / 2
         };
 
-        
         this.maxFrame = Math.floor((this.sprite.image.width / this.sprite.width)) - 1;
         this.sprite.row = 0;
         

@@ -83,7 +83,12 @@ export class UserInput {
 
     towerSelector(towers){
         towers.forEach(tower => {
-            if(checkCollision(this.mouse, tower)){
+            const newtower = { hitBox: {
+                x: tower.hitBox.x,
+                y: tower.hitBox.y,
+                radius: 32,
+            }};
+            if(checkCollision(this.mouse, newtower)){
                 mouseOverTower = tower;
                 tower.mouseOver = true;
             } else 
