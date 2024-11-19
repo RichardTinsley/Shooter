@@ -27,11 +27,16 @@ export class Enemy {
         };
 
         this.center = {
-            x: Math.round(this.position.x + this.width / 2 * 100) / 100,
-            y: Math.round(this.position.y + this.height / 2 * 100) / 100
+            x: 0,
+            y: 0
+        };
+
+        this.hitBox = {
+            x: 0,
+            y: 0,
+            radius: this.quarterWidth,
         };
         
-
         this.enemySpeedMinimum = 0.4; 
         this.enemySpeedRange = 1.0;
         this.speed = randomPositiveFloat(this.enemySpeedRange) + this.enemySpeedMinimum;
@@ -82,6 +87,7 @@ export class Enemy {
                 break
         }
     }
+
     drawEnemy(ctx){
         const left = -this.halfWidth - ENEMY_SIZE_HALF - this.position.x;
         const right = this.position.x + ENEMY_SIZE_HALF - this.halfWidth;
@@ -108,23 +114,44 @@ export class Enemy {
     updateMovement(event){  
         if(event)
             this.sprite.frame < this.maxFrame ? this.sprite.frame++ : this.sprite.frame = 0;
-        
+
         const waypoint = this.waypoints[this.waypointIndex];
         const yDistance = waypoint.y - this.center.y;
         const xDistance = waypoint.x - this.center.x;
+        this.priorityDistance = Math.round(Math.abs(xDistance) + Math.abs(yDistance));
         const angle = findAngleOfDirection(waypoint, this.center);
 
-        this.priorityDistance = Math.round(Math.abs(xDistance) + Math.abs(yDistance));
+        this.updateEnemyPosition(angle);
+        this.checkEnemyCollision();
+        this.checkEnemyDirection(xDistance);
+        this.checkEnemyHealth();
+        this.resetEnemyPosition();
+    }
 
+    updateDying(){
+        if(this.sprite.frame < this.maxFrame) 
+            this.sprite.frame++; 
+        else 
+            this.sprite.frame = this.maxFrame;
+        
+        if(this.height > 2)
+            this.height -= 2;
+        else
+            this.state = ENEMY_STATES.DEAD;
+    }
+
+    updateEnemyPosition(angle){
         this.velocity.x = Math.cos(angle) * this.speed;
         this.velocity.y = Math.sin(angle) * this.speed;
         this.position.x += this.velocity.x;
         this.position.y += this.velocity.y;
-        this.center = {
-            x: this.position.x + ENEMY_SIZE_HALF,
-            y: this.position.y + ENEMY_SIZE_HALF
-        };
+        this.center.x = this.position.x + ENEMY_SIZE_HALF;
+        this.center.y = this.position.y + ENEMY_SIZE_HALF;
+        this.hitBox.x = this.position.x + ENEMY_SIZE_HALF;
+        this.hitBox.y = this.position.y + ENEMY_SIZE_HALF / 4;
+    }
 
+    checkEnemyCollision(){
         const waypointCenter = {
             center: {
                 x: this.waypoints[this.waypointIndex].x,
@@ -136,30 +163,22 @@ export class Enemy {
         if (checkCollision(this, waypointCenter) && 
             this.waypointIndex < this.waypoints.length - 1)
             this.waypointIndex++;
-        
+    }
 
+    checkEnemyDirection(xDistance){
         if(xDistance < 0)
             this.direction = ENEMY_STATES.LEFT;
         else
             this.direction = ENEMY_STATES.RIGHT;
+    }
 
+    checkEnemyHealth(){
         if(this.health <= 0) {
+            this.hitBox.y += this.quarterWidth;
+            this.hitBox.radius -= this.quarterWidth;
             this.state = ENEMY_STATES.DYING;
             this.sprite.frame = 0;
         }
-        this.resetEnemyPosition();
-    }
-
-    updateDying(){
-        if(this.sprite.frame < this.maxFrame) 
-            this.sprite.frame++; 
-        else 
-            this.sprite.frame = this.maxFrame;
-        
-        if(this.height > 2) 
-            this.height -= 2;
-        else
-            this.state = ENEMY_STATES.DEAD;
     }
 
     resetEnemyPosition(){

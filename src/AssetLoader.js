@@ -75,7 +75,7 @@ function loadImage(key, fileName, onComplete){
             if(typeof onComplete === 'function')
                 onComplete({ fileName, image });
         }, { once: true });
-
+        
         image.addEventListener('error', event => reject({ fileName, event }));
 
         image.src = fileName;

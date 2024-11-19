@@ -47,11 +47,15 @@ function enemyDebugInfo(ctx, enemies){
         ctx.fillStyle = 'rgba(0, 0, 250, 1)';
         ctx.fillRect(enemy.position.x - 2, enemy.position.y - 2, 4, 4);
 
-        ctx.fillStyle = 'rgba(250, 0, 0, 0.1)';
-        ctx.arc(enemy.center.x, enemy.center.y, enemy.halfWidth, 0, 2 * Math.PI, false);
+        ctx.fillStyle = 'rgba(0, 250, 0, 1)';
+        ctx.fillRect(enemy.center.x - 2, enemy.center.y - 2, 4, 4);
+        
+        ctx.fillStyle = 'rgba(250, 0, 0, 0.4)';
+        ctx.arc(enemy.hitBox.x, enemy.hitBox.y, enemy.hitBox.radius, 0, 2 * Math.PI, false);
         ctx.fill();
         ctx.fillStyle = 'rgba(250, 0, 0, 1)';
-        ctx.fillRect(enemy.center.x - 2, enemy.center.y - 2, 4, 4);
+        ctx.fillRect(enemy.hitBox.x - 2, enemy.hitBox.y - 2, 4, 4);
+
     })
 }
 
@@ -67,7 +71,7 @@ function towerDebugInfo(ctx, towers){
 
         ctx.fillStyle = 'rgba(0, 0, 250, 1)';
         ctx.fillRect(tower.position.x - 2, tower.position.y - 2, 4, 4);
-        ctx.fillStyle = 'rgba(250, 0, 0, 1)';
+        ctx.fillStyle = 'rgba(0, 250, 0, 1)';
         ctx.fillRect(tower.center.x - 2, tower.center.y - 2, 4, 4);
     })
 }

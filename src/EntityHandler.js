@@ -64,7 +64,7 @@ export class EntityHandler{
     addTower = (tower, activeTower) => {
         const damage = 50;
         const range = 150;
-        const cooldown = 25;
+        const cooldown = 10;
         const newTower = new Tower({
             sprite: { 
                 image: tower, 

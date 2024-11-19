@@ -18,6 +18,7 @@ export class Tower {
             x: this.position.x + TILE_SIZE / 2,
             y: this.position.y + TILE_SIZE / 2
         };
+
         
         this.maxFrame = Math.floor((this.sprite.image.width / this.sprite.width)) - 1;
         this.sprite.row = 0;
@@ -28,6 +29,12 @@ export class Tower {
         this.damage = damage;
         this.range = range;
         this.cooldown = cooldown;
+        
+        this.hitBox = {
+            x: this.center.x,
+            y: this.center.y,
+            radius: this.range,
+        };
 
         this.mouseOver = false;
         
@@ -54,7 +61,7 @@ export class Tower {
     update(event){
         if(!event) 
             return;
-
+        
         switch(this.state){
             case ANIMATION_STATES.ANIMATING:
                 this.updateTower(); 
