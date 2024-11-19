@@ -1,6 +1,5 @@
 import { USER_INPUT_KEYS, ENEMY_STATES, GAME_WIDTH, GAME_STATES } from './constants/constants.js'
 import { assets } from './AssetLoader.js';
-import { Mouse } from './entities/Mouse.js';
 import { menuScreenButtonsPosition, menuScreenButtonsTextSize } from './constants/buttons.js';
 import { checkCollision } from './utilities/math.js';
 
@@ -11,7 +10,15 @@ let mouseOverEnemy = undefined;
 
 export class UserInput {
     constructor(){
-        this.mouse = new Mouse();
+        this.mouse = {
+            hitBox: {
+                x: 0,
+                y: 0,
+                radius: 3,
+            },
+            cursor: document.getElementById("canvas")
+        };  
+        this.mouse.cursor.style = "cursor: url(../image/cursors/normal.cur), auto;";
 
         window.addEventListener('mousemove', e => {
             this.mouse.hitBox.x = e.offsetX;
@@ -64,7 +71,6 @@ export class UserInput {
     }
 
     towerSelected = (addTower, battleScreenHud) => {
-        console.log(battleScreenHud.coins)
         if(mouseOverTower && battleScreenHud.coins - 25 >= 0) {
             addTower(
                 assets.get('sapphireTower'), 
