@@ -1,20 +1,20 @@
 import { LEVELS, GAME_STATES, ENEMY_COLOURS } from "../constants/constants.js";
 import { assets } from "../AssetLoader.js";
-import { HudDisplay } from "./HudDisplay.js";
+import { BattleScreenHud } from "./BattleScreenHud.js";
 import { renderDebugInfo } from "../utilities/debug.js";
 import { drawBigScreenTexts } from "../utilities/textRender.js";
 import { MapHandler } from "../MapHandler.js";
 import { UserInput } from "../UserInput.js";
 import { EntityHandler } from "../EntityHandler.js";
 
-export class BattleScene {
-    constructor(switchToGameOverScene, switchToBattleScene){
+export class BattleScreen {
+    constructor(switchToGameOverScreen, switchToBattleScreen){
         this.currentLevel = LEVELS.TERRA_HAUTE;
         this.currentGameState = GAME_STATES.PLAYING;
         
-        this.hudDisplay         = new HudDisplay();
+        this.battleScreenHud    = new BattleScreenHud();
         this.mapHandler         = new MapHandler();
-        this.entityHandler      = new EntityHandler(this.mapHandler.towerPlacementSpots, this.hudDisplay.hudElements);
+        this.entityHandler      = new EntityHandler(this.mapHandler.towerPlacementSpots, this.battleScreenHud.hudElements);
 
         this.userInput          = new UserInput(
             this.entityHandler, 
@@ -23,8 +23,8 @@ export class BattleScene {
             this.debugGame
         );
         
-        this.switchToGameOverScene = switchToGameOverScene;
-        this.switchToBattleScene = switchToBattleScene;
+        this.switchToGameOverScreen = switchToGameOverScreen;
+        this.switchToBattleScreen = switchToBattleScreen;
 
         this.allEnemiesActive = false;
         this.maxEnemies = 10;
@@ -35,7 +35,7 @@ export class BattleScene {
     draw(ctx){
         this.mapHandler.draw(ctx);
         this.entityHandler.draw(ctx);
-        this.hudDisplay.draw(ctx);
+        this.battleScreenHud.draw(ctx);
 
         if(this.currentGameState === GAME_STATES.DEBUG)
             renderDebugInfo(
@@ -53,7 +53,7 @@ export class BattleScene {
         if(this.currentGameState === GAME_STATES.PAUSED) return
         this.addEnemy(event);
         this.entityHandler.update(event);
-        this.hudDisplay.update(event);
+        this.battleScreenHud.update(event);
         this.playerStatusCheck();
         this.waveStatusCheck();
     }
@@ -74,7 +74,7 @@ export class BattleScene {
             this.allEnemiesActive = true;
 
         if (this.entityHandler.enemies.length === 0 && this.allEnemiesActive === true) {
-            this.hudDisplay.hudElements.waves++;
+            this.battleScreenHud.hudElements.waves++;
             this.maxEnemies++;
             this.enemyCounter = 0;
             this.allEnemiesActive = false;
@@ -83,17 +83,17 @@ export class BattleScene {
 
     generateEnemy(){
         let index;
-        if(this.hudDisplay.hudElements.waves < 119)
-            index = Math.floor(Math.random() * (this.hudDisplay.hudElements.waves / 10));
+        if(this.battleScreenHud.hudElements.waves < 119)
+            index = Math.floor(Math.random() * (this.battleScreenHud.hudElements.waves / 10));
         else 
             index = Math.floor(Math.random() * 12);
         return assets.get(ENEMY_COLOURS[index]);
     }
 
     playerStatusCheck(){
-        if(this.hudDisplay.hudElements.hearts <= 0){
+        if(this.battleScreenHud.hudElements.hearts <= 0){
             this.entityHandler.enemies = [];
-            this.switchToGameOverScene();
+            this.switchToGameOverScreen();
         }
     }
 
@@ -112,6 +112,6 @@ export class BattleScene {
     }
     
     restartGame = () => {
-        this.switchToBattleScene();
+        this.switchToBattleScreen();
     }
 }

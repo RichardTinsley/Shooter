@@ -2,32 +2,32 @@ import * as AssetLoader from '../AssetLoader.js'
 import { GAME_HEIGHT, GAME_WIDTH } from '../constants/constants.js';
 import { drawText } from '../utilities/textRender.js';
 
-export class LoadingScene {
-    constructor(switchToMenuScene){ 
+export class LoadingScreen {
+    constructor(switchToMenuScreen){ 
         this.dslogo = document.getElementById('dslogo');
         this.textSize = 65;
         this.alpha = .0;
         this.fade;
-        this.loadAssets(switchToMenuScene);
+        this.loadAssets(switchToMenuScreen);
 
         this.maxLoadBar = AssetLoader.assetList.length;
         this.loadBar = this.maxLoadBar;
         this.assetsLoaded = 0;
     }
 
-    handleAssetComplete = (fileName) => {
+    assetLoaded = (fileName) => {
         console.log(`${fileName.fileName} Loaded.`);
         this.assetsLoaded++;
     }
 
-    async loadAssets(switchToMenuScene){
-        await AssetLoader.load(AssetLoader.assetList, this.handleAssetComplete)
+    async loadAssets(switchToMenuScreen){
+        await AssetLoader.load(AssetLoader.assetList, this.assetLoaded)
             .catch((error) => {
                 console.error(`Error: Unable to load asset "${error.fileName}"`);
             })
             .then(() => {
                 console.log(`Asset loading complete. A total of ${AssetLoader.assets.size} assets have been loaded.`);
-                switchToMenuScene();
+                switchToMenuScreen();
             });
     }
 
@@ -83,10 +83,7 @@ export class LoadingScene {
         const loadBarX = GAME_WIDTH / 2 - loadBarLength / 2 ;
         const loadBarThickness = 15;
         ctx.beginPath();
-        ctx.fillStyle = 'red';
-        ctx.lineWidth = 5;
-        ctx.strokeStyle = 'white'
-
+        
         ctx.fillStyle = 'white';
         ctx.fillRect(
             loadBarX, 
@@ -94,6 +91,9 @@ export class LoadingScene {
             loadBarLength * (this.assetsLoaded / this.maxLoadBar), 
             loadBarThickness
         );
+        
+        ctx.lineWidth = 5;
+        ctx.strokeStyle = 'white'
         ctx.strokeRect(
             loadBarX,
             loadBarY, 

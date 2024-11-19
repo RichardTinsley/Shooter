@@ -101,8 +101,8 @@ export class Projectile{
             this.enemy.health -= this.damage;
 
             if(this.enemy.health <= 0 && this.enemy.state !== ENEMY_STATES.DYING){
-                this.enemy.hudElements.coins += this.enemy.coins;
-                this.enemy.hudElements.exp += this.enemy.exp;
+                this.enemy.battleScreenHud.coins += this.enemy.coins;
+                this.enemy.battleScreenHud.exp += this.enemy.exp;
 
                 this.addBlood();
 

@@ -1,7 +1,7 @@
 import { assets } from "../AssetLoader.js";
 import { drawText } from "../utilities/textRender.js";
 
-export class HudDisplay{
+export class BattleScreenHud{
     constructor(){
         this.hudElements = {
             hearts: 2,

@@ -12,17 +12,17 @@ let mouse = {
     y: undefined
 };
 
-export class MenuScene {
-    constructor(switchToBattleScene) {
+export class MenuScreen {
+    constructor(switchToBattleScreen) {
         this.menuMusic = assets.get("menuMusic");
         this.menuMusic.loop = true;
         this.menuMusic.volume = 0.05;
         this.menuMusic.play();
-        this.options = menuOptions.filter(option => { return option.scene === "menu" });
+        this.options = menuOptions.filter(option => { return option.screen === "menu" });
 
         window.addEventListener('click', e => {
             if(activeOption){
-                activeOption.optionAction(switchToBattleScene, this.menuMusic);
+                activeOption.optionAction(switchToBattleScreen, this.menuMusic);
                 this.options = [];
             }
         });

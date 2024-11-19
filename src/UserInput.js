@@ -26,13 +26,13 @@ export class UserInput {
         this.debugGame = debugGame;
 
         window.addEventListener('click', e => {
-            if (activeTower && this.entityHandler.hudElements.coins - 25 >= 0) {
+            if (activeTower && this.entityHandler.battleScreenHud.coins - 25 >= 0) {
                 this.entityHandler.addTower(
                     assets.get('sapphireTower'), 
                     activeTower
                 );
                 
-                this.entityHandler.hudElements.coins -= 25;
+                this.entityHandler.battleScreenHud.coins -= 25;
             }
             
             if(activeEnemy){

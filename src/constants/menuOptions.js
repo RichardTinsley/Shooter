@@ -1,43 +1,43 @@
 export const menuOptions = [
     {
         name: "New Game",
-        scene: "menu",
+        screen: "menu",
         colour: "white",
-        optionAction: function(switchScene, music) {
+        optionAction: function(switchScreen, music) {
             music.pause();
-            switchScene();
+            switchScreen();
         }
     },
     {
         name: "Options",
-        scene: "menu",
+        screen: "menu",
         colour: "white",
-        optionAction: function(switchScene) {
-            switchScene();
+        optionAction: function(switchScreen) {
+            switchScreen();
         }
     },  
     {
         name: "About",
-        scene: "menu",
+        screen: "menu",
         colour: "white",
-        optionAction: function(switchScene) {
-            switchScene();
+        optionAction: function(switchScreen) {
+            switchScreen();
         }
     },
     {
         name: "Restart",
-        scene: "gameover",
+        screen: "gameover",
         colour: "white",
-        optionAction: function(switchScene) {
-            switchScene();
+        optionAction: function(switchScreen) {
+            switchScreen();
         }
     },
     {
         name: "Main Menu",
-        scene: "gameover",
+        screen: "gameover",
         colour: "white",
-        optionAction: function(switchScene) {
-            switchScene();
+        optionAction: function(switchScreen) {
+            switchScreen();
         }
     },
 ];

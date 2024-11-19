@@ -6,8 +6,8 @@ import { Projectile } from "./entities/Projectile.js";
 import { Text } from "./entities/Text.js";
 
 export class EntityHandler{
-    constructor(towerPlacementSpots, hudElements){
-        this.hudElements = hudElements;
+    constructor(towerPlacementSpots, battleScreenHud){
+        this.battleScreenHud = battleScreenHud;
         this.towers = towerPlacementSpots();
         this.enemies = [];
         this.effects = [];
@@ -57,7 +57,7 @@ export class EntityHandler{
                 height: ENEMY_SIZE 
             },
             scale: 1.5,
-            hudElements: this.hudElements
+            battleScreenHud: this.battleScreenHud
         }));
     }
     

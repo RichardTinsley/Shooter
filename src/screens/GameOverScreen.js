@@ -11,17 +11,17 @@ let mouse = {
     y: undefined
 };
 
-export class GameOver {
-    constructor(switchToMenuScene, switchToBattleScene){
-        this.options = menuOptions.filter(option => { return option.scene === "gameover" });
+export class GameOverScreen {
+    constructor(switchToMenuScreen, switchToBattleScreen){
+        this.options = menuOptions.filter(option => { return option.screen === "gameover" });
 
         window.addEventListener('click', e => {
             if(activeOption.name === "Restart"){
-                activeOption.optionAction(switchToBattleScene);
+                activeOption.optionAction(switchToBattleScreen);
                 this.options = [];
             }
             if(activeOption.name === "Main Menu"){
-                activeOption.optionAction(switchToMenuScene);
+                activeOption.optionAction(switchToMenuScreen);
                 this.options = [];
             }
         });

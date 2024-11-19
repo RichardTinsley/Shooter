@@ -1,14 +1,14 @@
 import { TIME_INTERVALS } from "./constants/constants.js";
 import { context } from "./utilities/context.js";
-import { LoadingScene } from "./scenes/LoadingScene.js";
-import { MenuScene } from "./scenes/MenuScene.js";
-import { BattleScene } from "./scenes/BattleScene.js";
-import { GameOver } from "./scenes/GameOver.js";
+import { LoadingScreen } from "./screens/LoadingScreen.js";
+import { MenuScreen } from "./screens/MenuScreen.js";
+import { BattleScreen } from "./screens/BattleScreen.js";
+import { GameOverScreen } from "./screens/GameOverScreen.js";
 
 export class Game{
     constructor(){
         this.ctx = context();
-        this.scene = new LoadingScene(this.switchToMenuScene);
+        this.screen = new LoadingScreen(this.switchToMenuScreen);
         requestAnimationFrame(this.frame);
 
         this.previousTime = 0;  
@@ -19,22 +19,22 @@ export class Game{
     frame = (time) => {
         this.eventUpdater(time);
         
-        this.scene.update(this.eventUpdate);
-        this.scene.draw(this.ctx);
+        this.screen.update(this.eventUpdate);
+        this.screen.draw(this.ctx);
         
         requestAnimationFrame(this.frame);
     }
     
-    switchToMenuScene = () => {
-        this.scene = new MenuScene(this.switchToBattleScene);
+    switchToMenuScreen = () => {
+        this.screen = new MenuScreen(this.switchToBattleScreen);
     }
 
-    switchToBattleScene = () => {
-        this.scene = new BattleScene(this.switchToGameOverScene, this.switchToBattleScene);
+    switchToBattleScreen = () => {
+        this.screen = new BattleScreen(this.switchToGameOverScreen, this.switchToBattleScreen);
     }
 
-    switchToGameOverScene = () => {
-        this.scene = new GameOver(this.switchToMenuScene, this.switchToBattleScene);
+    switchToGameOverScreen = () => {
+        this.screen = new GameOverScreen(this.switchToMenuScreen, this.switchToBattleScreen);
     }
 
     eventUpdater(time){
