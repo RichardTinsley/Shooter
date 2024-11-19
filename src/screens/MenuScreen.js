@@ -45,8 +45,6 @@ export class MenuScreen {
     }
 
     update(event){
-        if(this.userInput.mouseClick)
-            this.userInput.menuScreenButtonSelected();
         this.userInput.menuScreenButtonsSelector(menuScreenButtons);
     }
 }

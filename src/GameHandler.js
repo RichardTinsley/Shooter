@@ -4,6 +4,7 @@ import { LoadingScreen } from "./screens/LoadingScreen.js";
 import { MenuScreen } from "./screens/MenuScreen.js";
 import { BattleScreen } from "./screens/BattleScreen.js";
 import { GameOverScreen } from "./screens/GameOverScreen.js";
+import { PauseScreen } from "./screens/PauseScreen.js";
 import { InputHandler } from "./InputHandler.js"
 
 let previousTime = 0;  
@@ -13,8 +14,10 @@ const ctx = context();
 
 export class GameHandler{
     constructor(){
-        this.screen = new LoadingScreen(this.switchScreens);
         this.inputHandler = new InputHandler(this.switchScreens);
+        this.screen = new LoadingScreen(this.switchScreens);
+        this.GameState = GAME_STATES.PLAYING;
+        this.resume;
 
         window.addEventListener('click', () => { //SWWITCHBLOCK,  BRING GAME STATE UP HERE
             if(this.screen.entityHandler !== undefined){
@@ -49,16 +52,15 @@ export class GameHandler{
                 this.screen = new BattleScreen(this.inputHandler);
                 break
             case GAME_STATES.PAUSED:
-                if(this.screen.currentGameState === GAME_STATES.PLAYING)
-                    this.screen.currentGameState = GAME_STATES.PAUSED;
-                else
-                    this.screen.currentGameState = GAME_STATES.PLAYING;
+                this.resume = this.screen;
+                this.screen = new PauseScreen(this.inputHandler, this.screen);
+                break
+            case GAME_STATES.UNPAUSED:
+                this.screen = this.resume;
+                this.resume = null;
                 break
             case GAME_STATES.DEBUG:
-                if(this.screen.currentGameState === GAME_STATES.PLAYING)
-                    this.screen.currentGameState = GAME_STATES.DEBUG;
-                else
-                    this.screen.currentGameState = GAME_STATES.PLAYING;
+                this.screen.debugMode = !this.screen.debugMode;
             break
         }
     }

@@ -34,8 +34,11 @@ export class InputHandler {
         });
 
         window.addEventListener('keyup', e =>{
-            if (keys.has(USER_INPUT_KEYS.PAUSE))
+            if(keys.has(USER_INPUT_KEYS.PAUSE))
                 this.switchScreens(GAME_STATES.PAUSED);
+
+            if(keys.has(USER_INPUT_KEYS.UNPAUSE))
+                this.switchScreens(GAME_STATES.UNPAUSED);
             
             if(keys.has(USER_INPUT_KEYS.RESTART))
                 this.switchScreens(GAME_STATES.RESTART);

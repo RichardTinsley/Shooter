@@ -2,15 +2,14 @@ import { LEVELS, GAME_STATES, ENEMY_COLOURS } from "../constants/constants.js";
 import { assets } from "../AssetLoader.js";
 import { BattleScreenHud } from "./BattleScreenHud.js";
 import { renderDebugInfo } from "../utilities/debug.js";
-import { drawBigScreenTexts } from "../utilities/textRender.js";
 import { MapHandler } from "../MapHandler.js";
 import { EntityHandler } from "../EntityHandler.js";
 
 export class BattleScreen {
     constructor(userInput){
         this.currentLevel = LEVELS.TERRA_HAUTE;
-        this.currentGameState = GAME_STATES.PLAYING;
-        
+        this.debugMode = false
+                
         this.userInput = userInput;
         this.battleScreenHud    = new BattleScreenHud();
         this.mapHandler         = new MapHandler();
@@ -27,7 +26,7 @@ export class BattleScreen {
         this.entityHandler.draw(ctx);
         this.battleScreenHud.draw(ctx);
 
-        if(this.currentGameState === GAME_STATES.DEBUG)
+        if(this.debugMode)
             renderDebugInfo(
                 ctx, 
                 this.userInput.mouse,
@@ -35,13 +34,9 @@ export class BattleScreen {
                 this.entityHandler.enemies,
                 this.entityHandler.projectiles
             );
-
-        if(this.currentGameState === GAME_STATES.PAUSED)
-            drawBigScreenTexts(ctx, "Paused", true);
     }
 
     update(event){
-        if(this.currentGameState === GAME_STATES.PAUSED) return
         this.addEnemy(event);
         this.entityHandler.update(event);
         this.battleScreenHud.update(event);

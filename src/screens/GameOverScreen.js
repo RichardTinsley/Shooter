@@ -1,4 +1,4 @@
-import { drawBigScreenTexts, drawText } from '../utilities/textRender.js';
+import { drawText } from '../utilities/textRender.js';
 import { GAME_WIDTH } from '../constants/constants.js';
 import { gameOverScreenButtons } from '../constants/buttons.js';
 
@@ -49,11 +49,6 @@ export class GameOverScreen {
     }
 
     draw(ctx){
-        drawBigScreenTexts(
-            ctx,
-            "Game Over",
-            true
-        )
         this.options.forEach((option, index) => {
             drawText(
                 ctx,

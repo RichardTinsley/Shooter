@@ -1,4 +1,4 @@
-import { TOWER_SIZE, TILE_SIZE_HALF, ANIMATION_STATES, ENEMY_SIZE, ENEMY_STATES } from "./constants/constants.js";
+import { TOWER_SIZE, ANIMATION_STATES, ENEMY_SIZE, ENEMY_STATES } from "./constants/constants.js";
 import { Enemy } from "./entities/Enemy.js";
 import { Tower } from "./entities/Tower.js";
 import { Effect } from "./entities/Effect.js";
@@ -13,12 +13,13 @@ export class EntityHandler{
         this.effects = [];
         this.projectiles = [];
         this.texts = [];
+        this.entities = [];
     }
 
     draw(ctx){
         this.enemies.sort((a, b) => a.position.y - b.position.y);   
-        const entities = [...this.towers, ...this.enemies, ...this.effects, ...this.projectiles, ...this.texts];
-        entities.forEach(entity => entity.draw(ctx));
+        this.entities = [...this.towers, ...this.enemies, ...this.effects, ...this.projectiles, ...this.texts];
+        this.entities.forEach(entity => entity.draw(ctx));
     }
 
     update(event){

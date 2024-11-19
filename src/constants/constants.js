@@ -44,6 +44,7 @@ export const ENEMY_STATES = {
 
 export const USER_INPUT_KEYS = {
     PAUSE: 'p',
+    UNPAUSE: 'u',
     DEBUG: 'o',
     MUSIC: 'm',
     RESTART: 'r'
@@ -52,6 +53,7 @@ export const USER_INPUT_KEYS = {
 export const GAME_STATES = {
     PLAYING: 'PLAYING',
     PAUSED: 'PAUSED',
+    UNPAUSED: 'UNPAUSED',
     MENU: 'MENU',
     LOADING: 'LOADING',
     GAMEOVER: 'GAMEOVER',
