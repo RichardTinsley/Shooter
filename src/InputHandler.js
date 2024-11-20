@@ -11,6 +11,7 @@ let mouseOverEnemy = undefined;
 export class InputHandler {
     constructor(onMouseClickSwitchScreens){
         this.onMouseClickSwitchScreens = onMouseClickSwitchScreens;
+        
         this.mouse = {
             hitBox: {
                 x: 0,
@@ -18,8 +19,14 @@ export class InputHandler {
                 radius: 3,
             },
             cursor: document.getElementById("canvas")
+            
         };  
-        this.mouse.cursor.style = "cursor: url(../image/cursors/normal.cur), auto;";
+        this.mouse.cursor.setAttribute("class", "normal");
+
+        // this.mouse.cursor = document.body.className = 'normal';
+        // this.mouse.cursor.style = `cursor: url(${this.cursor1.src}), auto;`;
+        // this.mouse.cursor.style.cursor = 'text';
+        // this.mouse.cursor.style = document.getElementById.apply("html").style.cursor = "text";
 
         window.addEventListener('mousemove', e => {
             this.mouse.hitBox.x = e.offsetX;
@@ -53,7 +60,6 @@ export class InputHandler {
     }
 
     menuScreenButtonSelected = (GameState) => {
-        console.log(GameState);
         if(mouseOverOption){
             this.onMouseClickSwitchScreens(mouseOverOption.option);
         }
@@ -67,29 +73,34 @@ export class InputHandler {
                 this.mouse.hitBox.y < menuScreenButtonsPosition + (menuScreenButtonsTextSize * index) + menuScreenButtonsTextSize
             )
                 mouseOverOption = option;
-            else
+            else {
                 option.colour = "white";
+                // this.mouse.cursor.setAttribute("class", "normal");
+            }
         });
 
-        if(mouseOverOption)
+        if(mouseOverOption){
             mouseOverOption.colour = "red";
+            this.mouse.cursor.setAttribute("class", "select");
+        }
     }
 
     towerSelected = (addTower, addText, battleScreenHud) => {
-        console.log(mouseOverTower)
         if(mouseOverTower && battleScreenHud.coins - 25 >= 0) {
             addTower(
                 assets.get('sapphireTower'), 
                 mouseOverTower
             );
             battleScreenHud.coins -= 25;
-        } else {
+        } 
+
+        if(mouseOverTower && battleScreenHud.coins - 25 < 0)
             addText(
                 "Not Enough Gold",
                 '250, 0, 0, ',
                 mouseOverTower.center
             );
-        }
+        
     }
 
     towerSelector(towers){
@@ -102,9 +113,14 @@ export class InputHandler {
             if(checkCollision(this.mouse, newtower)){
                 mouseOverTower = tower;
                 tower.mouseOver = true;
-            } else 
+            } else {
                 tower.mouseOver = false;
+                // this.mouse.cursor.setAttribute("class", "normal");
+            }
         });
+
+        if(mouseOverTower)
+            this.mouse.cursor.setAttribute("class", "select");
     }
 
     enemySelected(enemies){
@@ -122,12 +138,12 @@ export class InputHandler {
         enemies.forEach(enemy => {
             if(checkCollision(this.mouse, enemy) && enemy.state !== ENEMY_STATES.DYING)
                 mouseOverEnemy = enemy;
-            else
-                this.mouse.cursor.style = "cursor: url(./images/cursors/normal.cur), auto;";
         })
-
+    
         if(mouseOverEnemy)
-            this.mouse.cursor.style = "cursor: url(./images/cursors/text.cur), auto;";
+            this.mouse.cursor.setAttribute("class", "attack");
+        else
+            this.mouse.cursor.setAttribute("class", "normal");
     }
 }
 
