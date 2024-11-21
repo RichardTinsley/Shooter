@@ -1,5 +1,6 @@
-import { ENEMY_COLOURS, GAME_STATES } from "./constants/constants.js";
+import { ENEMY_COLOURS, GAME_HEIGHT, GAME_STATES, GAME_WIDTH } from "./constants/constants.js";
 import { assets } from "./AssetLoader.js";
+import { drawText } from "./utilities/textRender.js";
 
 export class WaveHandler{
     constructor(hudElements, addEnemy, switchScreens){
@@ -11,20 +12,54 @@ export class WaveHandler{
         this.maxEnemies = 10;
         this.enemyCounter = 0;   
         this.enemySpawnTimer = 0;
+
+        this.textDisplay = false;
+        this.textDisplayCurrentWave = false;
+        this.textTimer = 0;
+        this.textTimeLimit = 10;
+    }
+
+    draw(ctx){
+        this.drawWaveText(ctx);
     }
 
     update(event, enemies){
-        if(event) 
-            this.enemySpawnTimer++;
-        this.allEnemiesActiveCheck();
-        this.endOFWaveCheck(enemies);
-        this.playerLivesCheck();
+        if(!event) 
+            return
 
+        this.enemySpawnTimer++;
+        this.spawnEnemy();
+        this.allEnemiesActiveCheck();
+        this.newWaveCheck(enemies);
+        this.playerLivesCheck();
+        this.waveTextCheck();
     }
 
-    addEnemy(){
-        if (this.enemySpawnTimer % Math.floor(Math.random() * 300) === 0 && this.allEnemiesActive === false){
-            console.log("OMG")
+    
+    waveTextCheck(){
+        if(this.hudElements.waves === 1 && this.textDisplayCurrentWave)
+            this.textDisplay = true;
+        if(this.textDisplay)
+            this.textTimer++;
+    }
+
+    drawWaveText(ctx){
+        if(!this.textDisplay) return;
+
+        if(this.hudElements.waves === 1){
+            drawText(ctx, 'white', "BEGIN!", GAME_WIDTH / 2, GAME_HEIGHT / 2, 150, 'center', 'middle');
+            this.textDisplayCurrentWave = true;
+        }
+
+        if(this.textTimer >= this.textTimeLimit){
+            this.textDisplay = false;
+            this.textDisplayCurrentWave = false;
+        }
+    }
+
+
+    spawnEnemy(){
+        if (this.enemySpawnTimer % Math.floor(Math.random() * 200) === 0 && this.allEnemiesActive === false){
             const enemy = this.generateEnemy();
             this.addEnemy(enemy);
             this.enemyCounter++;
@@ -36,7 +71,7 @@ export class WaveHandler{
             this.allEnemiesActive = true;
     }
 
-    endOFWaveCheck(enemies){
+    newWaveCheck(enemies){
         if (enemies.length === 0 && this.allEnemiesActive === true) {
             this.hudElements.waves++;
             this.maxEnemies++;
@@ -58,5 +93,4 @@ export class WaveHandler{
             index = Math.floor(Math.random() * 12);
         return assets.get(ENEMY_COLOURS[index]);
     }
-
 }

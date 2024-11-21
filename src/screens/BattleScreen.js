@@ -29,6 +29,7 @@ export class BattleScreen {
     draw(ctx){
         this.mapHandler.draw(ctx);
         this.entityHandler.draw(ctx);
+        this.waveHandler.draw(ctx);
         this.battleScreenHud.draw(ctx);
 
         if(this.debugMode)
@@ -42,9 +43,9 @@ export class BattleScreen {
     }
 
     update(event){
-        this.entityHandler.update(event);
         this.battleScreenHud.update(event);
         this.waveHandler.update(event, this.entityHandler.enemies);
+        this.entityHandler.update(event);
 
         this.userInput.enemySelector(this.entityHandler.enemies);
         this.userInput.towerSelector(this.entityHandler.towers);

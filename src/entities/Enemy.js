@@ -6,9 +6,9 @@ export class Enemy {
     constructor({ 
         sprite, 
         scale,
-        battleScreenHud
+        hudElements
     }){
-        this.battleScreenHud = battleScreenHud;
+        this.hudElements = hudElements;
         this.sprite = sprite;
         this.maxFrame = (this.sprite.image.width / this.sprite.width) - 1;
 
@@ -183,7 +183,7 @@ export class Enemy {
 
     resetEnemyPosition(){
         if (this.position.x > canvas.width){
-            this.battleScreenHud.hearts -= 1;
+            this.hudElements.hearts -= 1;
             this.waypointIndex = 0;
             this.position = { 
                 x: this.waypoints[this.waypointIndex].x, 
