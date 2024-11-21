@@ -14,17 +14,13 @@ const ctx = context();
 
 export class GameHandler{
     constructor(){
+        this.GameState = GAME_STATES.MENU;
         this.resume = null;
         this.inputHandler = new InputHandler(this.onMouseClickSwitchScreens);
         this.screen = new LoadingScreen(this.onMouseClickSwitchScreens);
-        this.GameState = GAME_STATES.MENU;
-
+        window.addEventListener('click', () => this.onMouseClickListener() );
+        
         requestAnimationFrame(this.frame);
-
-        window.addEventListener('click', () => { 
-            this.onMouseClickListener();    
-        });
-
     }
     
     frame = (time) => {
@@ -41,7 +37,7 @@ export class GameHandler{
                 this.screen = new BattleScreen(this.inputHandler, this.switchScreens);
                 break
             case GAME_STATES.MENU:
-                this.screen = new MenuScreen(this.inputHandler)
+                this.screen = new MenuScreen(this.inputHandler);
                 break
             case GAME_STATES.RESTART:
                 this.screen = new BattleScreen(this.inputHandler);
@@ -103,6 +99,7 @@ export class GameHandler{
     whilePlayingActions(){
         this.inputHandler.enemySelected(this.screen.entityHandler.enemies);
         this.inputHandler.towerSelected(
+            this.screen.entityHandler.enemies,
             this.screen.entityHandler.addTower, 
             this.screen.entityHandler.addText, 
             this.screen.battleScreenHud.hudElements

@@ -13,6 +13,7 @@ export class MenuScreen {
     }
 
     draw(ctx){
+        if(ctx.globalAlpha !== 1) ctx.globalAlpha = 1;
         ctx.drawImage(
             assets.get('menuLogo'),
             0,

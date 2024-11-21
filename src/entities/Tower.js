@@ -36,7 +36,7 @@ export class Tower {
             radius: this.range,
         };
 
-        this.mouseOver = false;
+        this.isSelected = false;
         
         this.cost;
         this.muzzlePosition = {
@@ -83,14 +83,16 @@ export class Tower {
             this.sprite.width,
             this.sprite.height
         );
-
-        if(this.mouseOver)
-            this.colour = 'rgba(50, 255, 50, 1)';
-        else
-            this.colour = 'rgba(255, 255, 255, 0.15)';
-        
-        ctx.fillStyle = this.colour;
-        ctx.fillRect(this.position.x, this.position.y, this.sprite.width, this.sprite.height);
+    
+        if(this.isSelected){
+            ctx.beginPath();
+            ctx.arc(this.hitBox.x, this.hitBox.y, this.hitBox.radius, 0, Math.PI * 2);
+            ctx.setLineDash([5, 15]);
+            ctx.lineWidth = 2;
+            ctx.strokeStyle = 'white';
+            ctx.stroke();
+            ctx.setLineDash([0, 0]);
+        }   
     }
 
     updateTower(){

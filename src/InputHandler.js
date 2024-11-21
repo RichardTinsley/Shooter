@@ -22,11 +22,7 @@ export class InputHandler {
             
         };  
         this.mouse.cursor.setAttribute("class", "normal");
-
-        // this.mouse.cursor = document.body.className = 'normal';
-        // this.mouse.cursor.style = `cursor: url(${this.cursor1.src}), auto;`;
-        // this.mouse.cursor.style.cursor = 'text';
-        // this.mouse.cursor.style = document.getElementById.apply("html").style.cursor = "text";
+        
 
         window.addEventListener('mousemove', e => {
             this.mouse.hitBox.x = e.offsetX;
@@ -34,7 +30,7 @@ export class InputHandler {
             mouseOverTower = null;
             mouseOverEnemy = null;
             mouseOverOption = null;
-        })
+        });
         
         window.addEventListener('keydown', e =>{
             keys.add(e.key.toLowerCase());
@@ -75,7 +71,7 @@ export class InputHandler {
                 mouseOverOption = option;
             else {
                 option.colour = "white";
-                // this.mouse.cursor.setAttribute("class", "normal");
+                this.mouse.cursor.setAttribute("class", "normal");
             }
         });
 
@@ -85,7 +81,15 @@ export class InputHandler {
         }
     }
 
-    towerSelected = (addTower, addText, battleScreenHud) => {
+    towerSelected = (towers, addTower, addText, battleScreenHud) => {
+        if(mouseOverTower)
+            mouseOverTower.isSelected = true;
+
+        towers.forEach(tower => {
+            if(tower != mouseOverTower)
+                tower.isSelected = false;
+        });
+
         if(mouseOverTower && battleScreenHud.coins - 25 >= 0) {
             addTower(
                 assets.get('sapphireTower'), 
@@ -108,19 +112,16 @@ export class InputHandler {
             const newtower = { hitBox: {
                 x: tower.hitBox.x,
                 y: tower.hitBox.y,
-                radius: 32,
+                radius: 16,
             }};
-            if(checkCollision(this.mouse, newtower)){
+            if(checkCollision(this.mouse, newtower))
                 mouseOverTower = tower;
-                tower.mouseOver = true;
-            } else {
-                tower.mouseOver = false;
-                // this.mouse.cursor.setAttribute("class", "normal");
-            }
         });
-
+        
         if(mouseOverTower)
             this.mouse.cursor.setAttribute("class", "select");
+        else
+            this.mouse.cursor.setAttribute("class", "normal");
     }
 
     enemySelected(enemies){
@@ -138,12 +139,12 @@ export class InputHandler {
         enemies.forEach(enemy => {
             if(checkCollision(this.mouse, enemy) && enemy.state !== ENEMY_STATES.DYING)
                 mouseOverEnemy = enemy;
-        })
-    
+            else
+                this.mouse.cursor.setAttribute("class", "normal");
+    });
+        
         if(mouseOverEnemy)
             this.mouse.cursor.setAttribute("class", "attack");
-        else
-            this.mouse.cursor.setAttribute("class", "normal");
     }
 }
 

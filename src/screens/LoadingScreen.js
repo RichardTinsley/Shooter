@@ -6,8 +6,10 @@ export class LoadingScreen {
     constructor(switchScreens){ 
         this.dslogo = document.getElementById('dslogo');
         this.textSize = 65;
-        this.alpha = .0;
-        this.fade;
+
+        this.globalAlpha = 0;
+        this.alpha = 0;
+        this.delta = 0.05;
         this.loadAssets(switchScreens);
 
         this.maxLoadBar = AssetLoader.assetList.length;
@@ -35,16 +37,17 @@ export class LoadingScreen {
         if(!event) 
             return;
 
-        if(this.alpha >= 2)
-            this.fade = -.05;
-        if(this.alpha <= 0)
-            this.fade = .05;
+        this.alpha += this.delta;
+        if (this.alpha <= -0.5 || this.alpha >= 1.5) 
+            this.delta = -this.delta;
 
-        this.alpha += this.fade;
+        if(this.globalAlpha < 1)
+            this.globalAlpha += .05;
     }
 
     draw(ctx){
         ctx.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+        ctx.globalAlpha = this.globalAlpha;
 
         ctx.drawImage(
             this.dslogo,
