@@ -19,14 +19,18 @@ export class DeathHandler{
 
     update(projectiles){
         projectiles.forEach(projectile => {
-            this.checkProjectileImpact(projectile);
+            this.checkProjectileTargetCollisions(projectile);
         })
     }
 
-    checkProjectileImpact(projectile){
-        if (checkCollision(projectile.enemy, projectile) && projectile.state === ANIMATION_STATES.ANIMATING){
+    checkProjectileTargetCollisions(projectile){
+        if(projectile.state !== ANIMATION_STATES.ANIMATING)
+            return;
+
+        if (checkCollision(projectile.enemy, projectile)){
             projectile.state = ANIMATION_STATES.FINISHED
             projectile.enemy.health -= projectile.damage;
+            this.addExplosion();
 
             if(projectile.enemy.health <= 0 && projectile.enemy.state !== ENEMY_STATES.DYING){
                 const coins =  this.addCoins();
@@ -36,11 +40,9 @@ export class DeathHandler{
                 this.addText(experience, TEXT_COLOURS.GREEN, projectile.position);
                 this.addBlood();
             }
-
+            
             if(projectile.enemy.state === ENEMY_STATES.DYING)
                 this.addBlood();
-        
-            this.addExplosion();
         }   
     }
 

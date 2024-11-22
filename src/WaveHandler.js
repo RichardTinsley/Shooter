@@ -60,7 +60,7 @@ export class WaveHandler{
         }
     }
 
-    spawnEnemy(){
+    spawnEnemy(){ // 2% increase depending on round?
         if(this.allEnemiesActive)
             return;
 

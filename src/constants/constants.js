@@ -43,8 +43,6 @@ export const ENEMY_STATES = {
     INJURED: 4,
     DYING: 5,
     DEAD: 6,
-    LEFT: "LEFT",
-    RIGHT: "RIGHT"
 };
 
 export const USER_INPUT_KEYS = {

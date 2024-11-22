@@ -26,7 +26,7 @@ export class EntityHandler{
     update(event){
         this.enemies = this.enemies.filter(enemy => {
             enemy.update(event);
-            return enemy.state !== ENEMY_STATES.DEAD;
+            return enemy.state === ANIMATION_STATES.ANIMATING;
         });
 
         this.towers = this.towers.filter(tower => {

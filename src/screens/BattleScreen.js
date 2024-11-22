@@ -24,12 +24,12 @@ export class BattleScreen {
             this.switchScreens
         );
 
-        this.deathHandler       = new DeathHandler(
-            this.entityHandler.addEffect,
-            this.entityHandler.addText,
-            this.battleScreenHud.addCoins,
-            this.battleScreenHud.addExperience,
-        )
+        // this.deathHandler       = new DeathHandler(
+        //     this.entityHandler.addEffect,
+        //     this.entityHandler.addText,
+        //     this.battleScreenHud.addCoins,
+        //     this.battleScreenHud.addExperience,
+        // )
     }
 
     draw(ctx){
@@ -52,7 +52,7 @@ export class BattleScreen {
         this.battleScreenHud.update(event);
         this.entityHandler.update(event);
         this.waveHandler.update(event, this.entityHandler.enemies);
-        this.deathHandler.update(this.entityHandler.projectiles);
+        // this.deathHandler.update(this.entityHandler.projectiles);
 
         this.userInput.enemySelector(this.entityHandler.enemies);
         this.userInput.towerSelector(this.entityHandler.towers);

@@ -1,5 +1,5 @@
-import { ENEMY_STATES, ENEMY_SIZE_HALF, TILE_SIZE, ENEMY_SIZE } from "../constants/constants.js";
-import { checkCollision, findAngleOfDirection, randomPositiveFloat } from "../utilities/math.js";
+import { ENEMY_STATES, ENEMY_SIZE_HALF, TILE_SIZE, ENEMY_SIZE, ANIMATION_STATES } from "../constants/constants.js";
+import { checkCollision, findAngleOfDirection, giveDirection, randomPositiveFloat } from "../utilities/math.js";
 
 export class Enemy {
     constructor({ 
@@ -41,43 +41,36 @@ export class Enemy {
             y: 0
         }; 
 
-        this.state = this.speed < 0.8 ? ENEMY_STATES.WALKING : ENEMY_STATES.RUNNING;
-        this.sprite.row = this.state;
+        this.state = ANIMATION_STATES.ANIMATING;
+        this.sprite.row = this.speed < 0.8 ? ENEMY_STATES.WALKING : ENEMY_STATES.RUNNING;
         this.isSelected = false;
         this.direction;
-        
         this.maxHealth = randomPositiveFloat(100);
         this.health = this.maxHealth;
     }
 
     draw(ctx){
         switch(this.state){
-            case ENEMY_STATES.WALKING:
+            case ANIMATION_STATES.ANIMATING:
                 this.drawShadow(ctx);
                 this.drawEnemy(ctx);
                 this.drawHealthBar(ctx);
                 break
-            case ENEMY_STATES.RUNNING:
-                this.drawShadow(ctx);
-                this.drawEnemy(ctx); 
-                this.drawHealthBar(ctx);
-                break
-            case ENEMY_STATES.DYING:
-                this.drawEnemy(ctx); 
+            case ANIMATION_STATES.FINISHED:
                 break
         }
     }
 
     update(event){
+        if(event)
+            this.sprite.frame < this.maxFrame ? this.sprite.frame++ : this.sprite.frame = 0;
+
         switch(this.state){
-            case ENEMY_STATES.WALKING:
-                this.updateMovement(event); 
+            case ANIMATION_STATES.ANIMATING:
+                this.updateMovement(); 
+                this.updateDying();
                 break
-            case ENEMY_STATES.RUNNING:
-                this.updateMovement(event);
-                break
-            case ENEMY_STATES.DYING:
-                if(event)this.updateDying();
+            case ANIMATION_STATES.FINISHED:
                 break
         }
     }
@@ -86,54 +79,34 @@ export class Enemy {
         const left = -this.halfWidth - ENEMY_SIZE_HALF - this.position.x;
         const right = this.position.x + ENEMY_SIZE_HALF - this.halfWidth;
 
-        if(this.direction === ENEMY_STATES.LEFT){
+        if(this.direction === ANIMATION_STATES.LEFT){
             ctx.save();
             ctx.scale(-1, 1);
         }
         ctx.drawImage(
             this.sprite.image,
             this.sprite.frame * this.sprite.width,
-            this.state * this.sprite.height + 1,
+            this.sprite.row * this.sprite.height + 1,
             this.sprite.width,
             this.sprite.height,
-            this.direction === ENEMY_STATES.LEFT ? left : right,
+            this.direction === ANIMATION_STATES.LEFT ? left : right,
             this.position.y + TILE_SIZE - this.height,
             this.width,
             this.height
         );
-        if(this.direction === ENEMY_STATES.LEFT)
+        if(this.direction === ANIMATION_STATES.LEFT)
             ctx.restore();
     }
 
-    updateMovement(event){  
-        if(event)
-            this.sprite.frame < this.maxFrame ? this.sprite.frame++ : this.sprite.frame = 0;
-
+    updateMovement(){  
         const waypoint = this.waypoints[this.waypointIndex];
+        const angle = findAngleOfDirection(waypoint, this.center);
+        this.direction = giveDirection(angle);
+
         const yDistance = waypoint.y - this.center.y;
         const xDistance = waypoint.x - this.center.x;
         this.priorityDistance = Math.round(Math.abs(xDistance) + Math.abs(yDistance));
-        const angle = findAngleOfDirection(waypoint, this.center);
 
-        this.updateEnemyPosition(angle);
-        this.checkEnemyCollision();
-        this.checkEnemyDirection(xDistance);
-        this.checkEnemyHealth();
-    }
-
-    updateDying(){
-        if(this.sprite.frame < this.maxFrame) 
-            this.sprite.frame++; 
-        else 
-            this.sprite.frame = this.maxFrame;
-        
-        if(this.height > 2)
-            this.height -= 2;
-        else
-            this.state = ENEMY_STATES.DEAD;
-    }
-
-    updateEnemyPosition(angle){
         this.velocity.x = Math.cos(angle) * this.speed;
         this.velocity.y = Math.sin(angle) * this.speed;
         this.position.x += this.velocity.x;
@@ -142,6 +115,23 @@ export class Enemy {
         this.center.y = this.position.y + ENEMY_SIZE_HALF;
         this.hitBox.x = this.position.x + ENEMY_SIZE_HALF;
         this.hitBox.y = this.position.y + ENEMY_SIZE_HALF / 4;
+
+        this.checkEnemyCollision();
+        this.checkEnemyHealth();
+    }
+
+    updateDying(){
+        if(this.sprite.row === ENEMY_STATES.DYING){
+            if(this.sprite.frame < this.maxFrame) 
+                this.sprite.frame++; 
+            else 
+                this.sprite.frame = this.maxFrame;
+            
+            if(this.height > 2)
+                this.height -= 2;
+            else
+                this.state = ANIMATION_STATES.FINISHED;
+        }
     }
 
     checkEnemyCollision(){
@@ -158,55 +148,37 @@ export class Enemy {
             this.waypointIndex++;
     }
 
-    checkEnemyDirection(xDistance){
-        if(xDistance < 0)
-            this.direction = ENEMY_STATES.LEFT;
-        else
-            this.direction = ENEMY_STATES.RIGHT;
-    }
-
     checkEnemyHealth(){
         if(this.health <= 0) {
             this.hitBox.y += this.quarterWidth;
             this.hitBox.radius -= this.quarterWidth;
-            this.state = ENEMY_STATES.DYING;
+            this.sprite.row = ENEMY_STATES.DYING;
             this.sprite.frame = 0;
         }
     }
 
     drawHealthBar(ctx){
+        if(this.health <= 0)
+            return
+        
         const healthBarX = this.center.x - this.quarterWidth;
         const healthBarY = this.center.y - (this.height / 1.4);
         const healthBarLength = this.quarterWidth * 2;
         const healthBarThickness = 4;
-        if(this.health > 0){
-            ctx.beginPath();
-            ctx.fillStyle = 'red';
-            ctx.lineWidth = 1;
-            ctx.strokeStyle = 'black'
-            ctx.fillRect(
-                healthBarX, 
-                healthBarY, 
-                healthBarLength, 
-                healthBarThickness
-            );
-            ctx.fillStyle = 'rgb(85, 255, 0)';
-            ctx.fillRect(
-                healthBarX, 
-                healthBarY, 
-                healthBarLength * (this.health / this.maxHealth), 
-                healthBarThickness
-            );
-            ctx.strokeRect(
-                healthBarX,
-                healthBarY, 
-                healthBarLength, 
-                healthBarThickness
-            );
-        }
+        ctx.beginPath();
+        ctx.fillStyle = 'red';
+        ctx.lineWidth = 1;
+        ctx.strokeStyle = 'black'
+        ctx.fillRect(healthBarX, healthBarY, healthBarLength, healthBarThickness);
+        ctx.fillStyle = 'rgb(85, 255, 0)';
+        ctx.fillRect(healthBarX, healthBarY, healthBarLength * (this.health / this.maxHealth), healthBarThickness);
+        ctx.strokeRect(healthBarX, healthBarY, healthBarLength, healthBarThickness);
     }
 
     drawShadow(ctx){
+        if(this.health <= 0)
+            return
+
         const shadowHeight = this.height / 12;
 
         ctx.beginPath();
