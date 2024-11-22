@@ -2,7 +2,6 @@ export const COLUMNS = 40;
 export const ROWS = 24;
 export const TILE_SIZE = 32;
 export const TILE_SIZE_HALF = TILE_SIZE / 2;
-export const TOWER_SIZE = 64;
 export const GAME_WIDTH = TILE_SIZE * COLUMNS;
 export const GAME_HEIGHT = TILE_SIZE * ROWS;
 export const ENEMY_SIZE = 48;
@@ -14,6 +13,12 @@ export const ANIMATION_STATES = {
     LEFT: "LEFT",
     RIGHT: "RIGHT"
 };
+
+export const TEXT_COLOURS = {
+    GOLD: '255, 215, 0, ',
+    GREEN: '50, 205, 50, ',
+    RED: '250, 0, 0, ',
+}
 
 export const ENEMY_COLOURS = [
     'topaz',

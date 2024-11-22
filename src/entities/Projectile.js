@@ -1,4 +1,4 @@
-import { ANIMATION_STATES, ENEMY_STATES } from "../constants/constants.js";
+import { ANIMATION_STATES, ENEMY_STATES, TEXT_COLOURS } from "../constants/constants.js";
 import { findAngleOfDirection, giveDirection, checkCollision } from "../utilities/math.js";
 import { assets } from "../AssetLoader.js";
 
@@ -9,9 +9,7 @@ export class Projectile{
         enemy,
         scale,
         speed,
-        damage,
-        addText,
-        addEffect,
+        damage
     }){
         this.sprite = sprite;
         
@@ -47,6 +45,8 @@ export class Projectile{
 
         this.addText = addText;
         this.addEffect = addEffect;
+        this.addCoins = addCoins;
+        this.addExperience = addExperience;
     }
 
     draw(ctx){
@@ -65,7 +65,6 @@ export class Projectile{
         switch(this.state){
             case ANIMATION_STATES.ANIMATING:
                 this.updateProjectile();
-                this.checkProjectileImpact(); 
                 break
             case ANIMATION_STATES.FINISHED:
                 break
@@ -101,62 +100,6 @@ export class Projectile{
 
         this.hitBox.x = this.center.x;
         this.hitBox.y = this.center.y;
-    }
-
-    checkProjectileImpact(){
-        if (checkCollision(this.enemy, this) && this.state === ANIMATION_STATES.ANIMATING){
-            this.state = ANIMATION_STATES.FINISHED
-            this.enemy.health -= this.damage;
-
-            if(this.enemy.health <= 0 && this.enemy.state !== ENEMY_STATES.DYING){
-                this.enemy.hudElements.coins += this.enemy.coins;
-                this.enemy.hudElements.exp += this.enemy.exp;
-
-                this.addBlood();
-
-                this.addText(
-                    '$' + this.enemy.coins, 
-                    '255, 215, 0, ',
-                    this.enemy.position, 
-                );
-
-                if(this.enemy.exp > 0)
-                    this.addText(
-                        '+' + this.enemy.exp + 'xp', 
-                        '50, 205, 50, ', 
-                        this.position, 
-                    );
-            }
-
-            if(this.enemy.state === ENEMY_STATES.DYING)
-                this.addBlood();
-        
-            this.addExplosion();
-        }   
-    }
-
-    addExplosion(){
-        this.addEffect(
-            assets.get('blueExplosion'), 
-            this, 
-            this.center,
-            0, 
-            Math.random() * .4 + .3,
-            256,
-            256
-        );
-    }
-
-    addBlood(){
-        this.addEffect(
-            assets.get('blood'), 
-            this,  
-            this.enemy.position,
-            Math.floor(Math.random() * 9),  
-            this.enemy.scale / 1.5,
-            110,
-            110
-        );
     }
 }
 

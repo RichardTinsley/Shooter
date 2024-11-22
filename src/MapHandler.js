@@ -44,27 +44,38 @@ export class MapHandler {
     }
 
     towerPlacementSpots = () => {
-        let towerSpots = [];
-        this.tileMap.forEach((row, y) => {
-            row.forEach((symbol, x) => {
-                if (symbol == 19)
+        const towerSpots = [];
+        for (let rowIndex = 0; rowIndex < this.tileMap.length; rowIndex++)
+            for(let columnIndex = 0; columnIndex < this.tileMap[rowIndex].length; columnIndex++){
+                if (this.tileMap[rowIndex][columnIndex] == 19){
                     towerSpots.push(new Tower({
-                        sprite: { 
-                            image: assets.get('towerSpot'), 
-                            frame: 0, 
-                            row: 0,
-                            width: TILE_SIZE, 
-                            height: TILE_SIZE 
-                        }, 
-                        position: { 
-                            x: x * TILE_SIZE, 
-                            y: y * TILE_SIZE 
-                        },
-                        range: TILE_SIZE / 2
-                    })
-                ) 
-            })
-        })
+                        // towerSpot,
+                        // position: { 
+                        //     x: rowIndex * TILE_SIZE, 
+                        //     y: columnIndex * TILE_SIZE 
+                        //     }
+                    }))
+                }
+            }
+    
+        // this.tileMap.forEach((row, y) => {
+        //     row.forEach((symbol, x) => {
+        //         if (symbol == 19){
+        //             towerSpots.push(new Tower(
+        //                     towerSpot
+        //                 //     {
+        //                 //     towerSpot,
+        //                 //     position: { 
+        //                 //         x: x * TILE_SIZE, 
+        //                 //         y: y * TILE_SIZE 
+        //                 //     },
+        //                 // }
+        //                 )
+        //             ) 
+        //             console.log(towerSpots)
+        //         }
+        //     })
+        // })
         return towerSpots;
     }
 }

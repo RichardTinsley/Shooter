@@ -42,7 +42,7 @@ export class LoadingScreen {
             this.delta = -this.delta;
 
         if(this.globalAlpha < 1)
-            this.globalAlpha += .05;
+            this.globalAlpha += .1;
     }
 
     draw(ctx){

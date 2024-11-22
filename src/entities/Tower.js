@@ -4,14 +4,11 @@ import { assets } from "../AssetLoader.js";
 
 export class Tower {
     constructor({
-        sprite, 
-        position,
-        damage,
-        range,
-        cooldown,
-        addProjectile,
+        tower, 
+        // position,
+        // addProjectile,
     }){
-        this.sprite = sprite;
+        this.sprite.image = assets.get(tower.name);
         this.halfWidth = this.sprite.width / 2;
         
         this.position = position;
@@ -26,9 +23,9 @@ export class Tower {
         this.enemiesInRange = [];
         this.target;
         this.shootTimer = 0;
-        this.damage = damage;
-        this.range = range;
-        this.cooldown = cooldown;
+        this.damage;
+        this.range;
+        this.cooldown;
         
         this.hitBox = {
             x: this.center.x,
@@ -39,9 +36,9 @@ export class Tower {
         this.isSelected = false;
         
         this.cost;
-        this.muzzlePosition = {
-            x: 0,
-            y: 0
+        this.muzzle = {
+            x: this.center.x,
+            y: this.center.y - TILE_SIZE / 2
         };
 
         this.state = ANIMATION_STATES.ANIMATING;

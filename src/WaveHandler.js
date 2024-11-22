@@ -1,6 +1,7 @@
-import { ENEMY_COLOURS, GAME_HEIGHT, GAME_STATES, GAME_WIDTH } from "./constants/constants.js";
+import { ENEMY_COLOURS, GAME_HEIGHT, GAME_STATES, GAME_WIDTH, TILE_SIZE, TILE_SIZE_HALF } from "./constants/constants.js";
 import { assets } from "./AssetLoader.js";
 import { drawText } from "./utilities/textRender.js";
+import { WASTELANDS_WAYPOINTS } from "./constants/levelData.js";
 
 export class WaveHandler{
     constructor(hudElements, addEnemy, switchScreens){
@@ -13,10 +14,10 @@ export class WaveHandler{
         this.enemyCounter = 0;   
         this.enemySpawnTimer = 0;
 
-        this.textDisplay = false;
-        this.textDisplayCurrentWave = false;
+        this.textDisplay = true;
         this.textTimer = 0;
         this.textTimeLimit = 10;
+        this.alpha = 1;
     }
 
     draw(ctx){
@@ -31,37 +32,42 @@ export class WaveHandler{
         this.spawnEnemy();
         this.allEnemiesActiveCheck();
         this.newWaveCheck(enemies);
+        this.enemiesPositionCheck(enemies);
         this.playerLivesCheck();
         this.waveTextCheck();
     }
 
     
     waveTextCheck(){
-        if(this.hudElements.waves === 1 && this.textDisplayCurrentWave)
-            this.textDisplay = true;
-        if(this.textDisplay)
-            this.textTimer++;
+        if(!this.textDisplay) 
+            return
+            
+        this.textTimer++;
+        this.alpha -= .05;
     }
 
     drawWaveText(ctx){
-        if(!this.textDisplay) return;
+        if(!this.textDisplay) 
+            return;
 
         if(this.hudElements.waves === 1){
-            drawText(ctx, 'white', "BEGIN!", GAME_WIDTH / 2, GAME_HEIGHT / 2, 150, 'center', 'middle');
-            this.textDisplayCurrentWave = true;
+            drawText(ctx, `rgba(255, 255, 255, ${this.alpha})`, "BEGIN!", GAME_WIDTH / 2, GAME_HEIGHT / 2, 150, 'center', 'middle');
         }
 
         if(this.textTimer >= this.textTimeLimit){
             this.textDisplay = false;
-            this.textDisplayCurrentWave = false;
+            this.alpha = 0;
         }
     }
 
-
     spawnEnemy(){
-        if (this.enemySpawnTimer % Math.floor(Math.random() * 200) === 0 && this.allEnemiesActive === false){
+        if(this.allEnemiesActive)
+            return;
+
+        if (this.enemySpawnTimer % Math.floor(Math.random() * 100) === 0){
             const enemy = this.generateEnemy();
-            this.addEnemy(enemy);
+            const waypoints = this.generateEnemyWaypoints();
+            this.addEnemy(enemy, waypoints);
             this.enemyCounter++;
         }
     }
@@ -73,13 +79,27 @@ export class WaveHandler{
 
     newWaveCheck(enemies){
         if (enemies.length === 0 && this.allEnemiesActive === true) {
-            this.hudElements.waves++;
             this.maxEnemies++;
             this.enemyCounter = 0;
+            this.hudElements.waves++;
             this.allEnemiesActive = false;
+            this.textDisplay = true;
         }
     }
 
+    enemiesPositionCheck(enemies){
+        enemies.forEach(enemy =>{
+            if (enemy.position.x > canvas.width || enemy.position.y > canvas.height){
+                this.hudElements.hearts -= 1;
+                enemy.waypointIndex = 0;
+                enemy.position = { 
+                    x: enemy.waypoints[enemy.waypointIndex].x, 
+                    y: enemy.waypoints[enemy.waypointIndex].y 
+                };
+            }
+        })
+    }
+    
     playerLivesCheck(){
         if(this.hudElements.hearts <= 0)
             this.switchScreens(GAME_STATES.GAMEOVER);
@@ -92,5 +112,15 @@ export class WaveHandler{
         else 
             index = Math.floor(Math.random() * 12);
         return assets.get(ENEMY_COLOURS[index]);
+    }
+
+    generateEnemyWaypoints(){
+        return WASTELANDS_WAYPOINTS.map(waypoint => {
+            return { 
+                    x: (waypoint.x - TILE_SIZE) + Math.round(Math.random() * (TILE_SIZE + TILE_SIZE_HALF + 10)),
+                    y: (waypoint.y - TILE_SIZE) + Math.round(Math.random() * (TILE_SIZE + TILE_SIZE_HALF + 10))
+                }
+            }
+        );
     }
 }

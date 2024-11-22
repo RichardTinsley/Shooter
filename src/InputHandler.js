@@ -1,5 +1,5 @@
-import { USER_INPUT_KEYS, ENEMY_STATES, GAME_WIDTH, GAME_STATES } from './constants/constants.js'
-import { assets } from './AssetLoader.js';
+import { USER_INPUT_KEYS, ENEMY_STATES, GAME_WIDTH, GAME_STATES, TEXT_COLOURS } from './constants/constants.js'
+import { sapphireTowerLevelOne } from './constants/towers.js';
 import { menuScreenButtonsPosition, menuScreenButtonsTextSize } from './constants/buttons.js';
 import { checkCollision } from './utilities/math.js';
 
@@ -92,7 +92,7 @@ export class InputHandler {
 
         if(mouseOverTower && battleScreenHud.coins - 25 >= 0) {
             addTower(
-                assets.get('sapphireTower'), 
+                sapphireTowerLevelOne, 
                 mouseOverTower
             );
             battleScreenHud.coins -= 25;
@@ -101,7 +101,7 @@ export class InputHandler {
         if(mouseOverTower && battleScreenHud.coins - 25 < 0)
             addText(
                 "Not Enough Gold",
-                '250, 0, 0, ',
+                TEXT_COLOURS.RED,
                 mouseOverTower.center
             );
         

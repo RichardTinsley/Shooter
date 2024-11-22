@@ -1,12 +1,17 @@
+INSTALL JAVASCRIPT IDE INTELLISENSE
+COLLISIONHANDLER
 Gamehandler = GAME, frame = main /  ASSETLOADER TO HANDLER?  HANDLER FOLDER
-TIMER CLASS / CHANGE TIMER TO HAVE MINUTES AND HOURS
-FIX DELTA TIME, DEBUG FPS, (EVENT) on all entiry UPDATE methods
+TIMER CLASS, FIX TIME AND DELTA TIME, DEBUG FPS, (EVENT) on all entiry UPDATE methods
+HUD METHODS, UPDATE COINS AND EXP, ADD TEXTS from projectile class? Also coins and exp depends on wave number + 10%? 
+
 MOUSE HANDLER AND KEYBOARD HANDLER
 MOUSE CLASS, with setters /switch for changing cursor
 MOUSE CURSORs AND QUICK LOADING THEM, add divs with different classes with cursors set
+
+SCREEN HANDLER
 SCREEN CLASS, ALL SCREENS INHERIT FROM THIs
-GAME_STATES, SCENE STATES?  SCENE HANDLER.  
-GAME STATES - DEBUG, MUTE, PAUSED?
+GAME_STATES, SCENE STATES?   
+GAME STATES - DEBUG, MUTE, PAUSED? ARE BOOLS?
 
 ALL ENTITIES HAVE ANIMATION STATES, BUT ENEMY STATE DETERMINES ANIMATION ROW (ITS NOT A STATE)
 MERGE UPDATE MOVEMENT FOR ENEMY AND PROJECTILE / GIVE DIRECTION/FIND ANGLE
@@ -14,7 +19,7 @@ MERGE ENTITY STATES, enemies and animation
 ENTITY CLASS
 MAKE USE OF POSITION AND CENTER, REMOVE HITBOX OBJECTS
 
-WAVEHANDLER, UPDATE !event return.  
+UPDATE !event return. 
 CONSTANTS FOLDER AND CONSTANTS FOR EACH ENTITY
 COLLISION FUNCTION BUTTONS
 
@@ -24,6 +29,10 @@ enemy collisions, push each other away
 animate enemy selection
 
 See through options menu so game can keep running in background 
+
+CLEAN UPSWITCHES multiple emptycases next toeach other:
+case:pause
+case:gameover
 
 Ruby		Splash damage / flame thrower
 Amethyst  	Air Attack only
@@ -46,3 +55,5 @@ venusfly trap
 pirhana
 tree stump
 elder tree
+
+

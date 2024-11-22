@@ -1,30 +1,28 @@
-import { ENEMY_STATES, ENEMY_SIZE_HALF, TILE_SIZE, TILE_SIZE_HALF } from "../constants/constants.js";
-import { WASTELANDS_WAYPOINTS } from "../constants/levelData.js";
+import { ENEMY_STATES, ENEMY_SIZE_HALF, TILE_SIZE, ENEMY_SIZE } from "../constants/constants.js";
 import { checkCollision, findAngleOfDirection, randomPositiveFloat } from "../utilities/math.js";
 
 export class Enemy {
     constructor({ 
-        sprite, 
-        scale,
-        hudElements
+        sprite,
+        waypoints, 
+        scale
     }){
-        this.hudElements = hudElements;
-        this.sprite = sprite;
+        this.sprite = sprite 
+        this.sprite.width = ENEMY_SIZE;
+        this.sprite.height = ENEMY_SIZE;
+        
         this.maxFrame = (this.sprite.image.width / this.sprite.width) - 1;
-
+        
         this.scale = scale;
         this.width = Math.round(this.sprite.width * this.scale * 100) / 100; 
         this.height = Math.round(this.sprite.height * this.scale * 100) / 100; 
         this.halfWidth = this.width / 2;
         this.quarterWidth = this.width / 4;
-
-        this.waypoints = this.generateEnemyWaypoints();
-        this.priorityDistance = 0;
+        
+        this.waypoints = waypoints;
         this.waypointIndex = 0;
-        this.position =  {
-            x: this.waypoints[this.waypointIndex].x,
-            y: this.waypoints[this.waypointIndex].y
-        };
+        this.priorityDistance = 0;
+        this.position = { ...this.waypoints[this.waypointIndex]};
 
         this.center = {
             x: 0,
@@ -37,9 +35,7 @@ export class Enemy {
             radius: this.quarterWidth,
         };
         
-        this.enemySpeedMinimum = 0.4; 
-        this.enemySpeedRange = 1.0;
-        this.speed = randomPositiveFloat(this.enemySpeedRange) + this.enemySpeedMinimum;
+        this.speed = this.setSpeed();
         this.velocity = { 
             x: 0, 
             y: 0
@@ -52,8 +48,6 @@ export class Enemy {
         
         this.maxHealth = randomPositiveFloat(100);
         this.health = this.maxHealth;
-        this.coins = Math.floor(Math.random() * 5 + 1);
-        this.exp = this.generateRandomExp();
     }
 
     draw(ctx){
@@ -125,7 +119,6 @@ export class Enemy {
         this.checkEnemyCollision();
         this.checkEnemyDirection(xDistance);
         this.checkEnemyHealth();
-        this.resetEnemyPosition();
     }
 
     updateDying(){
@@ -178,17 +171,6 @@ export class Enemy {
             this.hitBox.radius -= this.quarterWidth;
             this.state = ENEMY_STATES.DYING;
             this.sprite.frame = 0;
-        }
-    }
-
-    resetEnemyPosition(){
-        if (this.position.x > canvas.width){
-            this.hudElements.hearts -= 1;
-            this.waypointIndex = 0;
-            this.position = { 
-                x: this.waypoints[this.waypointIndex].x, 
-                y: this.waypoints[this.waypointIndex].y 
-            };
         }
     }
 
@@ -248,20 +230,9 @@ export class Enemy {
         }   
     }
 
-    generateRandomExp(){
-        if (Math.random() * 10 < 1)
-            return Math.floor(Math.random() * 5) + 1;
-        else
-            return 0
-    }
-
-    generateEnemyWaypoints(){
-        return WASTELANDS_WAYPOINTS.map(waypoint => {
-            return { 
-                    x: (waypoint.x - TILE_SIZE) + Math.round(Math.random() * (TILE_SIZE + TILE_SIZE_HALF + 10)),
-                    y: (waypoint.y - TILE_SIZE) + Math.round(Math.random() * (TILE_SIZE + TILE_SIZE_HALF + 10))
-                }
-            }
-        );
+    setSpeed(){
+        const enemySpeedMinimum = 0.4; 
+        const enemySpeedRange = 1.0;
+        return randomPositiveFloat(enemySpeedRange) + enemySpeedMinimum;
     }
 }

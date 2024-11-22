@@ -7,7 +7,7 @@ import { WaveHandler } from "../WaveHandler.js";
 
 export class BattleScreen {
     constructor(userInput, switchScreens){
-        this.currentLevel = LEVELS.TERRA_HAUTE;
+        // this.currentLevel = LEVELS.TERRA_HAUTE;
         this.debugMode = false;
                 
         this.userInput          = userInput;
@@ -16,14 +16,20 @@ export class BattleScreen {
         this.mapHandler         = new MapHandler();
         this.entityHandler      = new EntityHandler(
             this.mapHandler.towerPlacementSpots, 
-            this.battleScreenHud.hudElements
         );
-
+        
         this.waveHandler        = new WaveHandler(
             this.battleScreenHud.hudElements, 
             this.entityHandler.addEnemy, 
             this.switchScreens
         );
+
+        this.deathHandler       = new DeathHandler(
+            this.entityHandler.addEffect,
+            this.entityHandler.addText,
+            this.battleScreenHud.addCoins,
+            this.battleScreenHud.addExperience,
+        )
     }
 
     draw(ctx){
@@ -44,8 +50,9 @@ export class BattleScreen {
 
     update(event){
         this.battleScreenHud.update(event);
-        this.waveHandler.update(event, this.entityHandler.enemies);
         this.entityHandler.update(event);
+        this.waveHandler.update(event, this.entityHandler.enemies);
+        this.deathHandler.update(this.entityHandler.projectiles);
 
         this.userInput.enemySelector(this.entityHandler.enemies);
         this.userInput.towerSelector(this.entityHandler.towers);
