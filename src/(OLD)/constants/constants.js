@@ -46,29 +46,6 @@ export const ENEMY_STATES = {
     DEAD: 6,
 };
 
-export const USER_INPUT_KEYS = {
-    PAUSE: 'p',
-    UNPAUSE: 'u',
-    DEBUG: 'o',
-    MUSIC: 'm',
-    RESTART: 'r'
-}
-
-export const GAME_STATES = {
-    PLAYING: 'PLAYING',
-    PAUSED: 'PAUSED',
-    UNPAUSED: 'UNPAUSED',
-    MENU: 'MENU',
-    LOADING: 'LOADING',
-    GAMEOVER: 'GAMEOVER',
-    DEBUG: 'DEBUG',
-    RESTART: 'RESTART',
-    OPTIONS: 'OPTIONS',
-};
 export const LEVELS = {
     TERRA_HAUTE: 0,
-}
-export const TIME_INTERVALS = {
-    SECOND: 1000,
-    EVENT:  60
 }

@@ -1,18 +1,21 @@
-import { ROWS, COLUMNS, TILE_SIZE, TILE_SIZE_HALF } from "../constants/constants.js";
+import { ROWS, COLUMNS, TILE_SIZE, TILE_SIZE_HALF } from "../constants/game.js";
 import { drawText } from "./textRender.js";
 
 let frames = 0;
 let startTime = performance.now();
 let FPSNormal = 0;
 
-export function renderDebugInfo(ctx, mouse, towers, enemies, projectiles){
-    calculateFPSNormal();
+export function renderDebugInfo(ctx, towers, enemies, projectiles){
     levelDebugInfoGrid(ctx);
-    mouseDebugInfo(ctx, mouse);
     towerDebugInfo(ctx, towers);
     enemyDebugInfo(ctx, enemies);
     projectileDebugInfo(ctx, projectiles);
+}
+
+export function renderPerformanceDebugInfo(ctx, mouse){
+    calculateFPSNormal();
     performanceDebugInfo(ctx);
+    mouseDebugInfo(ctx, mouse);
 }
 
 function calculateFPSNormal(){
@@ -70,9 +73,9 @@ function projectileDebugInfo(ctx, projectiles){
 
 function performanceDebugInfo(ctx){
     ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
-    ctx.fillRect(TILE_SIZE, TILE_SIZE * 3, TILE_SIZE * 3, TILE_SIZE * 2);
+    ctx.fillRect(0, TILE_SIZE * 3, TILE_SIZE * 4, TILE_SIZE * 2);
     const FPS = Math.round(FPSNormal * 1000) / 1000;
-    drawText(ctx, 'white', `f p s: ${FPS}`, TILE_SIZE, TILE_SIZE * 4, TILE_SIZE_HALF, 'left', 'middle');
+    drawText(ctx, 'white', `F P S: ${FPS}`, 10, TILE_SIZE * 4, TILE_SIZE_HALF, 'left', 'middle');
 }
 
 function drawPositionDot(ctx, entity){

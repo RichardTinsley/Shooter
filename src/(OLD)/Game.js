@@ -1,18 +1,16 @@
-import { GAME_STATES, TIME_INTERVALS } from "./constants/constants.js";
-import { context } from "./utilities/context.js";
-import { LoadingScreen } from "./screens/LoadingScreen.js";
-import { MenuScreen } from "./screens/MenuScreen.js";
-import { BattleScreen } from "./screens/BattleScreen.js";
-import { GameOverScreen } from "./screens/GameOverScreen.js";
-import { PauseScreen } from "./screens/PauseScreen.js";
-import { InputHandler } from "./InputHandler.js"
+import { GAME_STATES, TIME_INTERVALS } from "./(OLD)/constants/constants.js";
+import { context } from "./(OLD)/utilities/context.js";
+import { LoadingScreen } from "./(OLD)/screens/LoadingScreen.js";
+import { MenuScreen } from "./(OLD)/screens/MenuScreen.js";
+import { BattleScreen } from "./(OLD)/screens/BattleScreen.js";
+import { GameOverScreen } from "./(OLD)/screens/GameOverScreen.js";
+import { PauseScreen } from "./(OLD)/screens/PauseScreen.js";
+import { InputHandler } from "./(OLD)/InputHandler.js"
 
-let previousTime = 0;  
-let eventTimer = 0;
-let eventUpdate = false; 
+
 const ctx = context();
 
-export class GameHandler{
+export class Game{
     constructor(){
         this.GameState = GAME_STATES.MENU;
         this.resume = null;
@@ -80,19 +78,6 @@ export class GameHandler{
             case GAME_STATES.MENU:
                 this.inputHandler.menuScreenButtonSelected(this.GameState);
                 break
-        }
-    }
-
-    eventUpdater(time){
-        const deltaTime = time - previousTime;
-        previousTime = time;
-
-        if (eventTimer < TIME_INTERVALS.EVENT){
-            eventTimer += deltaTime;
-            eventUpdate = false;
-        } else {
-            eventTimer = 0;
-            eventUpdate = true; 
         }
     }
 

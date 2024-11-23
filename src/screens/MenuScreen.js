@@ -1,15 +1,10 @@
-import { GAME_WIDTH } from "../constants/constants.js";
-import { menuScreenButtons, menuScreenButtonsPosition, menuScreenButtonsTextSize } from "../constants/buttons.js";
-import { assets } from "../AssetLoader.js";
-import { drawText } from '../utilities/textRender.js';
+import { GAME_WIDTH } from "../constants/game.js";
+import { assets } from "../handlers/AssetHandler.js";
+import { drawText } from "../utilities/textRender.js";
 
 export class MenuScreen {
     constructor(userInput) {
-        this.menuMusic = assets.get("menuMusic");
-        this.menuMusic.loop = true;
-        this.menuMusic.volume = 0.05;
-        this.menuMusic.play();
-        this.userInput = userInput;
+        // this.userInput = userInput;
     }
 
     draw(ctx){
@@ -31,22 +26,22 @@ export class MenuScreen {
             "top"
         )
 
-        menuScreenButtons.forEach((option, index) => {
-            drawText(
-                ctx,
-                option.colour,
-                option.name,
-                GAME_WIDTH / 2,
-                menuScreenButtonsPosition + (menuScreenButtonsTextSize * index),
-                menuScreenButtonsTextSize,
-                "center",
-                "top"
-            )
-        })
+        // menuScreenButtons.forEach((option, index) => {
+        //     drawText(
+        //         ctx,
+        //         option.colour,
+        //         option.name,
+        //         GAME_WIDTH / 2,
+        //         menuScreenButtonsPosition + (menuScreenButtonsTextSize * index),
+        //         menuScreenButtonsTextSize,
+        //         "center",
+        //         "top"
+        //     )
+        // })
     }
 
     update(event){
-        this.userInput.menuScreenButtonsSelector(menuScreenButtons);
+        // this.userInput.menuScreenButtonsSelector(menuScreenButtons);
     }
 }
 

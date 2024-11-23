@@ -3,58 +3,6 @@ import { menuScreenButtonsPosition, menuScreenButtonsTextSize } from './constant
 import { checkCollision } from './utilities/math.js';
 import { SapphireTower } from './entities/towers/SapphireTower.js';
 
-let keys = new Set();
-let mouseOverOption = undefined;
-let mouseOverTower = undefined;
-let mouseOverEnemy = undefined;
-
-export class InputHandler {
-    constructor(onMouseClickSwitchScreens){
-        this.onMouseClickSwitchScreens = onMouseClickSwitchScreens;
-        
-        this.mouse = {
-            hitBox: {
-                x: 0,
-                y: 0,
-                radius: 3,
-            },
-            cursor: document.getElementById("canvas")
-            
-        };  
-        this.mouse.cursor.setAttribute("class", "normal");
-        
-
-        window.addEventListener('mousemove', e => {
-            this.mouse.hitBox.x = e.offsetX;
-            this.mouse.hitBox.y = e.offsetY;
-            mouseOverTower = null;
-            mouseOverEnemy = null;
-            mouseOverOption = null;
-        });
-        
-        window.addEventListener('keydown', e =>{
-            keys.add(e.key.toLowerCase());
-        });
-
-        window.addEventListener('keyup', e =>{
-            if(keys.has(USER_INPUT_KEYS.PAUSE))
-                this.onMouseClickSwitchScreens(GAME_STATES.PAUSED);
-
-            if(keys.has(USER_INPUT_KEYS.UNPAUSE))
-                this.onMouseClickSwitchScreens(GAME_STATES.UNPAUSED);
-            
-            if(keys.has(USER_INPUT_KEYS.RESTART))
-                this.onMouseClickSwitchScreens(GAME_STATES.RESTART);
-
-            if(keys.has(USER_INPUT_KEYS.DEBUG))
-                this.onMouseClickSwitchScreens(GAME_STATES.DEBUG);
-            
-            // if(this.keys.has(USER_INPUT_KEYS.MUSIC))
-            
-            keys.clear();
-        });
-    }
-
     menuScreenButtonSelected = (GameState) => {
         if(mouseOverOption){
             this.onMouseClickSwitchScreens(mouseOverOption.option);

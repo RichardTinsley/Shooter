@@ -1,6 +1,6 @@
 import { LEVELS } from "../constants/constants.js";
 import { BattleScreenHud } from "./BattleScreenHud.js";
-import { renderDebugInfo } from "../utilities/debug.js";
+import { renderDebugInfo } from "../../utilities/debug.js";
 import { MapHandler } from "../MapHandler.js";
 import { EntityHandler } from "../EntityHandler.js";
 import { WaveHandler } from "../WaveHandler.js";
@@ -9,8 +9,7 @@ import { BattleHandler } from "../BattleHandler.js";
 export class BattleScreen {
     constructor(userInput, switchScreens){
         // this.currentLevel = LEVELS.TERRA_HAUTE;
-        this.debugMode = false;
-                
+
         this.userInput          = userInput;
         this.switchScreens      = switchScreens;
         this.battleScreenHud    = new BattleScreenHud();
