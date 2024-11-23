@@ -1,4 +1,4 @@
-import { GAME_WIDTH } from "../constants/game.js";
+import { GAME_SIZES } from "../constants/game.js";
 import { assets } from "../handlers/AssetHandler.js";
 import { drawText } from "../utilities/textRender.js";
 
@@ -19,7 +19,7 @@ export class MenuScreen {
             ctx,
             "white",
             "Death   Sorcery",
-            GAME_WIDTH / 2,
+            GAME_SIZES.GAME_WIDTH / 2,
             90,
             170,
             "center",

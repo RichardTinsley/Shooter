@@ -1,4 +1,4 @@
-import { GAME_STATES, GAME_WIDTH, GAME_HEIGHT } from "../constants/game.js";
+import { GAME_STATES, GAME_SIZES } from "../constants/game.js";
 import { ASSET_LIST } from "../constants/assets.js";
 import * as assetHandler from "../handlers/AssetHandler.js"
 import { drawText } from "../utilities/textRender.js";
@@ -55,10 +55,10 @@ export class LoadingScreen {
     }
 
     draw(ctx){
-        ctx.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+        ctx.clearRect(0, 0, GAME_SIZES.GAME_WIDTH,  GAME_SIZES.GAME_HEIGHT);
         ctx.globalAlpha = this.globalAlpha;
 
-        ctx.drawImage(this.dslogo, GAME_WIDTH / 2 - (this.dslogo.width /2), GAME_HEIGHT / 2 - (this.dslogo.height / 2) + 40);
+        ctx.drawImage(this.dslogo, GAME_SIZES.GAME_WIDTH_HALF - (this.dslogo.width /2), GAME_SIZES.GAME_HEIGHT_HALF - (this.dslogo.height / 2) + 40);
 
         this.drawDeathSorceryText(ctx);
         this.drawSummoningText(ctx);
@@ -69,7 +69,7 @@ export class LoadingScreen {
         ctx.shadowColor = "#d53";
         ctx.shadowBlur = this.textShadowBlur;
 
-        drawText(ctx, "white", "Death Sorcery", GAME_WIDTH / 2, 60, 150, "center", "top");
+        drawText(ctx, "white", "Death Sorcery", GAME_SIZES.GAME_WIDTH_HALF, 60, 150, "center", "top");
 
         ctx.shadowColor = 0;
         ctx.shadowBlur = 0;
@@ -80,8 +80,8 @@ export class LoadingScreen {
             ctx, 
             `rgba(255, 255, 255, ${this.alpha})`, 
             "Summoning", 
-            GAME_WIDTH / 2, 
-            GAME_HEIGHT - 65, 
+            GAME_SIZES.GAME_WIDTH_HALF, 
+            GAME_SIZES.GAME_HEIGHT - 65, 
             this.textSize, 
             "center", 
             "bottom"
@@ -89,9 +89,9 @@ export class LoadingScreen {
     }
 
     drawLoadingBar(ctx){
-        const loadBarY = GAME_HEIGHT - 50;
-        const loadBarLength = GAME_WIDTH / 3;
-        const loadBarX = GAME_WIDTH / 2 - loadBarLength / 2 ;
+        const loadBarY = GAME_SIZES.GAME_HEIGHT - 50;
+        const loadBarLength = GAME_SIZES.GAME_WIDTH / 3;
+        const loadBarX = GAME_SIZES.GAME_WIDTH_HALF - loadBarLength / 2 ;
         const loadBarThickness = 5;
         const LoadBarMaxWidth = (this.assetsLoaded / this.maxLoadBar);
         ctx.beginPath();

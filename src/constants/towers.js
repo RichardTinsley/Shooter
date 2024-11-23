@@ -1,3 +1,7 @@
+export const TOWER_SIZE = 64;
+//TOWER COSTS? TOWER TYPES FOR ASSET RETRIEVAL?
+
+
 // import { assets } from "../AssetLoader.js";
 
 

@@ -1,4 +1,4 @@
-import { ROWS, COLUMNS, TILE_SIZE, TILE_SIZE_HALF } from "../constants/game.js";
+import { GAME_SIZES } from "../constants/game.js";
 import { drawText } from "./textRender.js";
 
 let frames = 0;
@@ -34,13 +34,13 @@ function levelDebugInfoGrid(ctx){
     ctx.beginPath();
     ctx.strokeStyle = 'rgba(0, 0, 0, .5)';
     ctx.lineWidth = 1;
-    for (let row = 0; row < ROWS; row++)
-        for (let column = 0; column < COLUMNS; column++)
+    for (let row = 0; row < GAME_SIZES.ROWS; row++)
+        for (let column = 0; column < GAME_SIZES.COLUMNS; column++)
             ctx.strokeRect(
-                column * TILE_SIZE,
-                row * TILE_SIZE,
-                TILE_SIZE,
-                TILE_SIZE
+                column * GAME_SIZES.TILE_SIZE,
+                row * GAME_SIZES.TILE_SIZE,
+                GAME_SIZES.TILE_SIZE,
+                GAME_SIZES.TILE_SIZE
             );   
 }
 
@@ -73,9 +73,9 @@ function projectileDebugInfo(ctx, projectiles){
 
 function performanceDebugInfo(ctx){
     ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
-    ctx.fillRect(0, TILE_SIZE * 3, TILE_SIZE * 4, TILE_SIZE * 2);
+    ctx.fillRect(0, GAME_SIZES.TILE_SIZE * 3, GAME_SIZES.TILE_SIZE * 4, GAME_SIZES.TILE_SIZE * 2);
     const FPS = Math.round(FPSNormal * 1000) / 1000;
-    drawText(ctx, 'white', `F P S: ${FPS}`, 10, TILE_SIZE * 4, TILE_SIZE_HALF, 'left', 'middle');
+    drawText(ctx, 'white', `F P S: ${FPS}`, 10, GAME_SIZES.TILE_SIZE * 4, GAME_SIZES.TILE_SIZE_HALF, 'left', 'middle');
 }
 
 function drawPositionDot(ctx, entity){
