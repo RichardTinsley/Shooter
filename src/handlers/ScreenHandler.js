@@ -1,8 +1,10 @@
 import { GAME_STATES } from "../constants/game.js";
-import { LoadingScreen } from "../screens/LoadingScreen.js";
-import { GameOverScreen } from "../screens/GameOverScreen.js";
-import { MenuScreen } from "../screens/MenuScreen.js";
+import { MouseHandler } from "./MouseHandler.js";
+import { KeyboardHandler } from "./KeyboardHandler.js";
 import { AudioHandler } from "./AudioHandler.js";
+import { LoadingScreen } from "../screens/LoadingScreen.js";
+import { MenuScreen } from "../screens/MenuScreen.js";
+import { GameOverScreen } from "../screens/GameOverScreen.js";
 import { renderDebugInfo, renderPerformanceDebugInfo } from "../utilities/debug.js";
 
 let isPaused = false;
@@ -10,8 +12,9 @@ let isDebugMode = true;
 let currentScene = GAME_STATES.LOADING;
 
 export class ScreenHandler {
-    constructor(MouseHandler){
-        this.MouseHandler = MouseHandler;
+    constructor(){
+        this.MouseHandler = new MouseHandler();
+        this.KeyboardHandler = new KeyboardHandler(this.switchScreens);
         this.AudioHandler = new AudioHandler();
         this.Screen = new LoadingScreen(this.switchScreens);
     }
