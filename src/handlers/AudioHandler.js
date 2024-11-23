@@ -8,7 +8,6 @@ export class AudioHandler {
     constructor(){  
 
     }
-
     
     chooseMusic(option){
         switch(option){

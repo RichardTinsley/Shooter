@@ -5,6 +5,7 @@ import { KeyboardHandler } from "./handlers/KeyboardHandler.js";
 import { context } from "./utilities/context.js";
 
 const ctx = context();
+let event;
 
 export class Game{
     constructor(){
@@ -17,7 +18,8 @@ export class Game{
     }
     
     frame = (time) => {
-        this.ScreenHandler.update(this.TimeHandler.eventUpdater(time));
+        event = this.TimeHandler.eventUpdater(time);
+        this.ScreenHandler.update(event);
         this.ScreenHandler.draw(ctx);
         requestAnimationFrame(this.frame);
     }

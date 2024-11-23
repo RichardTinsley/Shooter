@@ -1,4 +1,4 @@
-import { ANIMATION_STATES } from "../constants/constants.js";
+import { ANIMATION_STATES } from "../constants/animation";
 
 export function checkCollision(a, b){
     const dx = a.hitBox.x - b.hitBox.x;

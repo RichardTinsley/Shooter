@@ -8,12 +8,7 @@ export const ENEMY_SIZE = 48;
 export const ENEMY_SIZE_HALF = ENEMY_SIZE / 2;
 export const TOWER_SIZE = 64;
 
-export const ANIMATION_STATES = {
-    ANIMATING: 0,
-    FINISHED: 1,
-    LEFT: "LEFT",
-    RIGHT: "RIGHT"
-};
+
 
 export const TEXT_COLOURS = {
     GOLD: '255, 215, 0, ',
