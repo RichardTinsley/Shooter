@@ -2,18 +2,17 @@ import { GAME_STATES } from "../constants/game.js";
 import { LoadingScreen } from "../screens/LoadingScreen.js";
 import { GameOverScreen } from "../screens/GameOverScreen.js";
 import { MenuScreen } from "../screens/MenuScreen.js";
+import { AudioHandler } from "./AudioHandler.js";
 import { renderDebugInfo, renderPerformanceDebugInfo } from "../utilities/debug.js";
-import { assets } from "./AssetHandler.js";
 
 let isPaused = false;
-let isMusicPaused = false;
 let isDebugMode = true;
 let currentScene = GAME_STATES.LOADING;
-let music;
 
 export class ScreenHandler {
     constructor(MouseHandler){
         this.MouseHandler = MouseHandler;
+        this.AudioHandler = new AudioHandler();
         this.Screen = new LoadingScreen(this.switchScreens);
     }
 
@@ -28,11 +27,9 @@ export class ScreenHandler {
 
     switchScreens = (option) => {
         currentScene = option;
-
         switch(option){
             case GAME_STATES.MENU:
                 this.Screen = new MenuScreen();
-                this.playMusic();
             case GAME_STATES.RESTART:
                 // this.screen = new BattleScreen(this.inputHandler);
                 break
@@ -43,12 +40,12 @@ export class ScreenHandler {
                 this.Screen = new GameOverScreen();
                 break
             case GAME_STATES.MUSIC:
-                this.pauseMusic();
                 break
             case GAME_STATES.DEBUG:
                 isDebugMode = !isDebugMode;
                 break
         }
+        this.AudioHandler.chooseMusic(option);
     }
 
     drawDebugInfo(ctx, mouse){
@@ -58,29 +55,16 @@ export class ScreenHandler {
         renderPerformanceDebugInfo(ctx, mouse);
 
         if(currentScene === GAME_STATES.BATTLE)
-            renderDebugInfo(ctx)
-    }
-
-    playMusic(){
-        music = assets.get("menuMusic");
-        music.play();
-        music.loop = true;
-        music.volume = 0.05;
+            renderDebugInfo(ctx);
     }
 
     pauseGame(){
+        if(this.currentScene !== GAME_STATES.BATTLE)
+            return
         if(!isPaused)
             this.Screen = new PauseScreen(this.Screen);
         else    
             this.Screen = new BattleScreen(this.Screen)
         isPaused = !isPaused;
-    }
-
-    pauseMusic(){
-        if(!isMusicPaused)
-            music.pause();
-        else    
-            music.play();
-        isMusicPaused = !isMusicPaused;
     }
 }

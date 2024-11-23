@@ -38,15 +38,6 @@ export class BattleScreen {
         this.entityHandler.draw(ctx);
         this.waveHandler.draw(ctx);
         this.battleScreenHud.draw(ctx);
-
-        if(this.debugMode)
-            renderDebugInfo(
-                ctx, 
-                this.userInput.mouse,
-                this.entityHandler.towers,
-                this.entityHandler.enemies,
-                this.entityHandler.projectiles
-            );
     }
 
     update(event){
