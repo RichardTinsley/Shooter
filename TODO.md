@@ -1,15 +1,26 @@
+RESEARCH: SCOPE/CLOSURE,  OBJECT.() PROTOTYPES, JS PERFORMANCE, WINDOW DOCUMENT
+
 INSTALL JAVASCRIPT IDE INTELLISENSE
+CREATE CLASS FILES FOR EACH TYPE.  SAPPHIRE TOWER.JS.  GET RID OF 'ADD'entity'() functions and just pass arrays. 
+DEATH AND BATTLE HANDLERS MERGE, PUT SHOOT() BACK IN TOWER, BUT ITS HANDLED BY BIG BATTLE HANDLER
+CLEAN UP SHOOT()/ MERGE target enemies and prioritise enemies in tower range.
+if tower not an instanceof Empty tower // shoot
+enemiesInRange[]
+if enemySelect = enemiesInRange.find(enemy => enemy.isSelected); // return
+else enemies in range.sort // return
+
+
+
 Gamehandler = GAME, frame = main /  ASSETLOADER TO HANDLER?  HANDLER FOLDER
 TIMER CLASS, FIX TIME AND DELTA TIME, DEBUG FPS, (EVENT) on all entiry UPDATE methods
 
-ENTITY HANDLER, ANIMATION HANDLER?
-
+MAKE ENTITY HANDLER A STRICYLY ANIMATION HANDLER?
 MOUSE HANDLER AND KEYBOARD HANDLER
 MOUSE CLASS, with setters /switch for changing cursor
 MOUSE CURSORs AND QUICK LOADING THEM, add divs with different classes with cursors set
 
 SCREEN HANDLER
-SCREEN CLASS, ALL SCREENS INHERIT FROM THIs
+SCREEN CLASS, ALL SCREENS INHERIT FROM THIS
 GAME_STATES, SCENE STATES?   
 GAME STATES - DEBUG, MUTE, PAUSED? ARE BOOLS?
 

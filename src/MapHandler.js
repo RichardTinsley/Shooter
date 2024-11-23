@@ -1,7 +1,7 @@
 import { COLUMNS, TILE_SIZE, GAME_HEIGHT, GAME_WIDTH } from "./constants/constants.js";
 import { WASTELANDS_TILEMAP, WASTELANDS_WAYPOINTS } from "./constants/levelData.js";
 import { assets } from "./AssetLoader.js";
-import { Tower } from "./entities/Tower.js";
+import { EmptyTower } from "./entities/towers/emptyTower.js";
 
 export class MapHandler {
     constructor(){
@@ -44,38 +44,20 @@ export class MapHandler {
     }
 
     towerPlacementSpots = () => {
-        const towerSpots = [];
-        for (let rowIndex = 0; rowIndex < this.tileMap.length; rowIndex++)
-            for(let columnIndex = 0; columnIndex < this.tileMap[rowIndex].length; columnIndex++){
-                if (this.tileMap[rowIndex][columnIndex] == 19){
-                    towerSpots.push(new Tower({
-                        // towerSpot,
-                        // position: { 
-                        //     x: rowIndex * TILE_SIZE, 
-                        //     y: columnIndex * TILE_SIZE 
-                        //     }
-                    }))
+        const towerSpots = [];   
+        this.tileMap.forEach((row, y) => {
+            row.forEach((symbol, x) => {
+                if (symbol == 19){
+                    towerSpots.push(new EmptyTower({
+                            position: { 
+                                x: x * TILE_SIZE, 
+                                y: y * TILE_SIZE 
+                            }}
+                        )
+                    ) 
                 }
-            }
-    
-        // this.tileMap.forEach((row, y) => {
-        //     row.forEach((symbol, x) => {
-        //         if (symbol == 19){
-        //             towerSpots.push(new Tower(
-        //                     towerSpot
-        //                 //     {
-        //                 //     towerSpot,
-        //                 //     position: { 
-        //                 //         x: x * TILE_SIZE, 
-        //                 //         y: y * TILE_SIZE 
-        //                 //     },
-        //                 // }
-        //                 )
-        //             ) 
-        //             console.log(towerSpots)
-        //         }
-        //     })
-        // })
+            })
+        })
         return towerSpots;
     }
 }

@@ -1,7 +1,7 @@
 import { USER_INPUT_KEYS, ENEMY_STATES, GAME_WIDTH, GAME_STATES, TEXT_COLOURS } from './constants/constants.js'
-import { sapphireTowerLevelOne } from './constants/towers.js';
 import { menuScreenButtonsPosition, menuScreenButtonsTextSize } from './constants/buttons.js';
 import { checkCollision } from './utilities/math.js';
+import { SapphireTower } from './entities/towers/SapphireTower.js';
 
 let keys = new Set();
 let mouseOverOption = undefined;
@@ -81,7 +81,7 @@ export class InputHandler {
         }
     }
 
-    towerSelected = (towers, addTower, addText, battleScreenHud) => {
+    towerSelected(towers, addText, battleScreenHud){
         if(mouseOverTower)
             mouseOverTower.isSelected = true;
 
@@ -91,11 +91,16 @@ export class InputHandler {
         });
 
         if(mouseOverTower && battleScreenHud.coins - 25 >= 0) {
-            addTower(
-                sapphireTowerLevelOne, 
-                mouseOverTower
-            );
+            
+            const newTower = new SapphireTower({ 
+                position: mouseOverTower.position
+            });
+            let foundIndex = towers.find(tower => tower === mouseOverTower);
+            towers.splice(foundIndex, 1, newTower);
+            
+            towers.push(newTower);
             battleScreenHud.coins -= 25;
+
         } 
 
         if(mouseOverTower && battleScreenHud.coins - 25 < 0)

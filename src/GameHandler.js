@@ -96,11 +96,10 @@ export class GameHandler{
         }
     }
 
-    whilePlayingActions(){
+    whilePlayingActions() {
         this.inputHandler.enemySelected(this.screen.entityHandler.enemies);
         this.inputHandler.towerSelected(
-            this.screen.entityHandler.enemies,
-            this.screen.entityHandler.addTower, 
+            this.screen.entityHandler.towers,
             this.screen.entityHandler.addText, 
             this.screen.battleScreenHud.hudElements
         );

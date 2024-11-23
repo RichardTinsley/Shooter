@@ -4,6 +4,7 @@ import { renderDebugInfo } from "../utilities/debug.js";
 import { MapHandler } from "../MapHandler.js";
 import { EntityHandler } from "../EntityHandler.js";
 import { WaveHandler } from "../WaveHandler.js";
+import { BattleHandler } from "../BattleHandler.js";
 
 export class BattleScreen {
     constructor(userInput, switchScreens){
@@ -24,12 +25,13 @@ export class BattleScreen {
             this.switchScreens
         );
 
-        // this.deathHandler       = new DeathHandler(
-        //     this.entityHandler.addEffect,
-        //     this.entityHandler.addText,
-        //     this.battleScreenHud.addCoins,
-        //     this.battleScreenHud.addExperience,
-        // )
+        this.battleHandler = new BattleHandler(
+            this.entityHandler.addProjectile,
+            this.entityHandler.addEffect,
+            this.entityHandler.addText,
+            this.battleScreenHud.addCoins,
+            this.battleScreenHud.addExperience,
+        )
     }
 
     draw(ctx){
@@ -52,7 +54,7 @@ export class BattleScreen {
         this.battleScreenHud.update(event);
         this.entityHandler.update(event);
         this.waveHandler.update(event, this.entityHandler.enemies);
-        // this.deathHandler.update(this.entityHandler.projectiles);
+        this.battleHandler.update(this.entityHandler.projectiles, this.entityHandler.towers, this.entityHandler.enemies);
 
         this.userInput.enemySelector(this.entityHandler.enemies);
         this.userInput.towerSelector(this.entityHandler.towers);

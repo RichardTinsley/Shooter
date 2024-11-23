@@ -68,6 +68,8 @@ export class Enemy {
         switch(this.state){
             case ANIMATION_STATES.ANIMATING:
                 this.updateMovement(); 
+                this.checkEnemyCollision();
+                this.checkEnemyHealth();
                 this.updateDying();
                 break
             case ANIMATION_STATES.FINISHED:
@@ -115,9 +117,6 @@ export class Enemy {
         this.center.y = this.position.y + ENEMY_SIZE_HALF;
         this.hitBox.x = this.position.x + ENEMY_SIZE_HALF;
         this.hitBox.y = this.position.y + ENEMY_SIZE_HALF / 4;
-
-        this.checkEnemyCollision();
-        this.checkEnemyHealth();
     }
 
     updateDying(){

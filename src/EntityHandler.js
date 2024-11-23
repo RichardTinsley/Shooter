@@ -1,4 +1,4 @@
-import { ANIMATION_STATES, ENEMY_STATES } from "./constants/constants.js";
+import { ANIMATION_STATES } from "./constants/constants.js";
 import { Enemy } from "./entities/Enemy.js";
 import { Tower } from "./entities/Tower.js";
 import { Effect } from "./entities/Effect.js";
@@ -9,7 +9,7 @@ export class EntityHandler{
     constructor(
         towerPlacementSpots, 
     ){
-        this.towers = [] //towerPlacementSpots();
+        this.towers = towerPlacementSpots();
         this.enemies = [];
         this.effects = [];
         this.projectiles = [];
@@ -31,7 +31,6 @@ export class EntityHandler{
 
         this.towers = this.towers.filter(tower => {
             tower.update(event);
-            tower.targetEnemy(this.enemies);
             return tower.state === ANIMATION_STATES.ANIMATING;
         });
 
@@ -59,32 +58,7 @@ export class EntityHandler{
             waypoints,
             scale: 1.5
         }));
-    }
-    
-    addTower = (tower, activeTower) => {
-        const newTower = new Tower({
-            tower,
-            position: activeTower.position,
-            addProjectile: this.addProjectile,
-        });
-        let foundIndex = this.towers.findIndex(tower => tower === activeTower);
-        this.towers.splice(foundIndex, 1, newTower);
-    }
-
-    addProjectile = (enemy, tower, projectile) => {
-        this.projectiles.push(new Projectile({
-            sprite: { 
-                image: projectile, 
-                width: 50, 
-                height: 25 
-            },
-            position: {... position},
-            enemy: enemy,
-            scale: 1, 
-            speed: 4,
-            damage: tower.damage, 
-        }));
-    }
+    } 
 
     addEffect = (effect, projectile, position, animationRow, scale, width, height) => {
         this.effects.push(new Effect({        

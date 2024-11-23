@@ -6,6 +6,7 @@ export const GAME_WIDTH = TILE_SIZE * COLUMNS;
 export const GAME_HEIGHT = TILE_SIZE * ROWS;
 export const ENEMY_SIZE = 48;
 export const ENEMY_SIZE_HALF = ENEMY_SIZE / 2;
+export const TOWER_SIZE = 64;
 
 export const ANIMATION_STATES = {
     ANIMATING: 0,

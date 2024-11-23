@@ -1,19 +1,21 @@
-import { ANIMATION_STATES, ENEMY_STATES, TEXT_COLOURS } from "../constants/constants.js";
-import { findAngleOfDirection, giveDirection, checkCollision } from "../utilities/math.js";
-import { assets } from "../AssetLoader.js";
 
-export class Projectile{
+export class SapphireProjectile{
     constructor({ 
-        sprite,
         position,
-        enemy,
-        scale,
-        speed,
+        target,
         damage
     }){
-        this.sprite = sprite;
+        this.sprite = {
+            image: assets.get('sapphireTower'),
+            width: 50,
+            height: 25,
+            row: 0,
+            frame: 0
+        };
+
+        console.log(this)
         
-        this.scale = scale;
+        this.scale = 1;
         this.width = this.sprite.width * this.scale;
         this.height = this.sprite.height * this.scale;   
         
@@ -30,18 +32,17 @@ export class Projectile{
         
         this.maxFrame = (this.sprite.image.width / this.sprite.width) - 1;
         this.sprite.row = 0;
-        
         this.state = ANIMATION_STATES.ANIMATING;
         this.direction;
         this.angle;
-        this.speed = speed;
+        this.speed = 4;
         this.velocity = {
             x: 0,
             y: 0
         };
         
         this.damage = damage;       
-        this.enemy = enemy;
+        this.target = target;
 
         this.addText = addText;
         this.addEffect = addEffect;
@@ -90,7 +91,7 @@ export class Projectile{
     }
 
     updateProjectile() {
-        this.angle = findAngleOfDirection(this.enemy.center, this.center);
+        this.angle = findAngleOfDirection(this.target.center, this.center);
         this.direction = giveDirection(this.angle);
 
         this.velocity.x = Math.cos(this.angle) * this.speed;
@@ -105,13 +106,3 @@ export class Projectile{
 
     
 }
-
-
-
-// LASER LINES        
-// ctx.beginPath();
-// ctx.moveTo(this.position.x, this.position.y);
-// ctx.lineTo(this.center.x, this.center.y);
-// ctx.strokeStyle = "red";
-// ctx.stroke();
-

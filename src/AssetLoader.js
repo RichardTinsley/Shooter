@@ -38,7 +38,7 @@ export const assetList = [
     ['blood',       `${EFFECTS_URL}blood_110x110.png`],
     ['blueExplosion',   `${EFFECTS_URL}blueExplosion_256x256.png`],
     ['sapphireTower',   `${TOWERS_URL}sapphire1.png`],
-    ['blueFireball',    `${PROJECTILES_URL}blueFireball_50x25.png`],
+    ['sapphireProjectile',    `${PROJECTILES_URL}sapphireProjectile_50x25.png`],
 ] 
 
 export async function initialiseAssets(){
