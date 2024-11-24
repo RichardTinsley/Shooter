@@ -21,11 +21,12 @@ export class ScreenHandler {
 
     draw(ctx){
         this.Screen.draw(ctx);
-        this.DebugHandler.drawDebugInfo(ctx, this.MouseHandler, this.Screen.menu)
+        this.DebugHandler.drawDebugInfo(ctx, this.MouseHandler.mouse, this.Screen.menu);
     }
 
     update(event){
         this.Screen.update(event);
+        this.MouseHandler.mouseOverEntity(this.Screen.menu);
     }
 
     switchScreens = (option) => {

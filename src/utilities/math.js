@@ -1,23 +1,20 @@
 import { ANIMATION_STATES } from "../constants/animations.js";
 // LINE COLLISION??
 export function checkCircleCollision(a, b){
-    const dx = a.center.x - b.center.x;
-    const dy = a.center.y - b.center.y;
+    const dx = a.x - b.x;
+    const dy = a.y - b.y;
     const distance = Math.hypot(dx, dy);
-    const sumOfRadii = a.center.radius + b.center.radius;
+    const sumOfRadii = a.radius + b.radius;
     return distance < sumOfRadii; 
 }
 
 export function checkBoxCollision(a, b){
-    if (
+    return(
         a.x > b.x + b.width ||
         a.x + a.width < b.x ||
         a.y > b.y + b.height ||
         a.y + a.height < b.y
-    )
-        return false
-    else
-        return true
+    );
 }
 
 export function findAngleOfDirection(a, b){

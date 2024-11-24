@@ -14,7 +14,6 @@ export class MusicHandler {
             case GAME_STATES.MAINMENU:
                 music = assets.get("menuMusic");
                 this.playMusic();
-                console.log("PLAY!")
                 break
             case GAME_STATES.RESTART:
                 this.playMusic();

@@ -1,0 +1,6 @@
+export const MOUSE_OVER_ENTITY = {
+    NORMAL: "NORMAL",
+    ENEMY: "ENEMY",
+    TOWER: "TOWER",
+    MENUITEM: "MENUITEM",
+}

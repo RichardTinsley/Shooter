@@ -9,18 +9,6 @@ html {
     font-family: "canterbury";
 }
 
-.select {
-    cursor: url(../images/cursors/select.cur), auto;
-}
-
-.attack {
-    cursor: url(../images/cursors/attack.cur), auto;
-}
-
-.normal {
-    cursor: url(../images/cursors/normal.cur), auto;
-}
-
 #canvas {
     position: absolute;
     top: 0;

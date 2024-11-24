@@ -109,12 +109,12 @@ export class DebugHandler{
     
     drawCircleHitbox(ctx, entity){
         ctx.beginPath();
-        ctx.arc(entity.center.x, entity.center.y, entity.center.radius + 3, 0, Math.PI * 2);
+        ctx.arc(entity.x, entity.y, entity.radius + 3, 0, Math.PI * 2);
         ctx.fillStyle = 'rgba(200, 0, 0, 0.3)';
         ctx.fill();
     
         ctx.fillStyle = 'rgba(0, 250, 0, 1)';
-        ctx.fillRect(entity.center.x - 1.5, entity.center.y - 1.5, entity.center.width, entity.center.height);
+        ctx.fillRect(entity.x - 1.5, entity.y - 1.5, entity.width, entity.height);
     }
     
     drawSquareHitBox(ctx, menuItem){
