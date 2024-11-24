@@ -25,11 +25,11 @@ export class DebugHandler{
         this.mouseDebugInfo(ctx, mouse);
     }
 
-    drawBattleDebugInfo(ctx){
+    drawBattleDebugInfo = (ctx, towers) =>{
         this.levelDebugInfoGrid(ctx);
-        this.towerDebugInfo(ctx, towers);
-        this.enemyDebugInfo(ctx, enemies);
-        this.projectileDebugInfo(ctx, projectiles);
+        // this.towerDebugInfo(ctx, towers);
+        // this.enemyDebugInfo(ctx, enemies);
+        // this.projectileDebugInfo(ctx, projectiles);
     }
 
     calculateFPSNormal(){

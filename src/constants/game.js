@@ -20,14 +20,14 @@ export const GAME_SIZES = {
 };
 
 export const GAME_STATES = {
-    PLAY: 'PLAY',
-    PAUSED: 'PAUSED',
-    DEBUG: 'DEBUG',
-    RESTART: 'RESTART',
-    BATTLE: 'BATTLE',
-    MAINMENU: 'MAINMENU',
     LOADING: 'LOADING',
+    MAINMENU: 'MAINMENU',
+    BATTLE: 'BATTLE',
+    PAUSED: 'PAUSED',
+    RESTART: 'RESTART',
     GAMEOVER: 'GAMEOVER',
+    DEBUG: 'DEBUG',
     OPTIONS: 'OPTIONS',
-    MUSIC: 'MUSIC'
+    MUSIC: 'MUSIC',
+    ABOUT: 'ABOUT',
 };

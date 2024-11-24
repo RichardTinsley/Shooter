@@ -33,7 +33,7 @@ export class LevelHandler {
             }
     }
 
-    drawTile(context, tile, x, y) {    
+    drawTile(context, tile, x, y){    
         context.drawImage(
             this.tilesetImage,
             (tile % this.tilesetImageWidth) * GAME_SIZES.TILE_SIZE,
@@ -47,15 +47,13 @@ export class LevelHandler {
         const emptyTowerSpots = [];   
         this.tileMap2D.forEach((row, y) => {
             row.forEach((symbol, x) => {
-                if (symbol === 19){
+                if (symbol === 19)
                     emptyTowerSpots.push(new EmptyTowerSpot({
-                            position: { 
-                                x: x * GAME_SIZES.TILE_SIZE, 
-                                y: y * GAME_SIZES.TILE_SIZE 
-                            }}
-                        )
+                        position: { 
+                            x: x * GAME_SIZES.TILE_SIZE, 
+                            y: y * GAME_SIZES.TILE_SIZE 
+                        }})
                     ) 
-                }
             })
         })
         return emptyTowerSpots;

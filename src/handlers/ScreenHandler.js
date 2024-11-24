@@ -36,8 +36,8 @@ export class ScreenHandler {
             case GAME_STATES.MAINMENU:
                 this.Screen = new MainMenuScreen();
                 break
-            case GAME_STATES.PLAY:
-                this.Screen = new BattleScreen();
+            case GAME_STATES.BATTLE:
+                this.Screen = new BattleScreen(this.DebugHandler.drawBattleDebugInfo);
                 break
             case GAME_STATES.RESTART:
                 // this.screen = new BattleScreen(this.inputHandler);

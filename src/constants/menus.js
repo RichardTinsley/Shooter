@@ -13,7 +13,7 @@ export const MENU_SIZES = {
 export const MAIN_MENU = [
     {
         name: "New Game",
-        option: GAME_STATES.PLAY,
+        option: GAME_STATES.BATTLE,
     }, 
     {
         name: "Options",
