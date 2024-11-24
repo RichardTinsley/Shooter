@@ -1,4 +1,4 @@
-export const MOUSE_OVER_ENTITY = {
+export const MOUSE_OVER_OBJECT = {
     NORMAL: "NORMAL",
     ENEMY: "ENEMY",
     TOWER: "TOWER",

@@ -27,7 +27,7 @@ export class ScreenHandler {
 
     update(event){
         this.Screen.update(event);
-        this.MouseHandler.mouseOverEntity(this.Screen.menu);
+        this.MouseHandler.mouseOverObject(this.Screen.menu);
     }
 
     switchScreens = (option) => {
