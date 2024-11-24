@@ -28,7 +28,7 @@ export class LoadingScreen {
         })
         .then(() => {
             console.log(`Asset loading complete. A total of ${assetHandler.assets.size} assets have been loaded.`);
-            switchScreens(GAME_STATES.MENU);
+            switchScreens(GAME_STATES.MAINMENU);
         });
     }
 

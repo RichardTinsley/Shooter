@@ -4,16 +4,17 @@ import { assets } from "./AssetHandler.js";
 let isMusicPaused = false;
 let music;
 
-export class AudioHandler {
+export class MusicHandler {
     constructor(){  
 
     }
     
     chooseMusic(option){
         switch(option){
-            case GAME_STATES.MENU:
+            case GAME_STATES.MAINMENU:
                 music = assets.get("menuMusic");
                 this.playMusic();
+                console.log("PLAY!")
                 break
             case GAME_STATES.RESTART:
                 this.playMusic();
@@ -24,11 +25,7 @@ export class AudioHandler {
             case GAME_STATES.GAMEOVER:
                 //PLAY THE DREAD STRING SOUND
                 break
-            case GAME_STATES.MUSIC:
-                this.pauseMusic();
-                break
         }
-
     }
 
     playMusic(){

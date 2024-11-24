@@ -1,46 +1,40 @@
-import { GAME_STATES } from "./game";
+import { GAME_STATES, GAME_SIZES } from "./game.js";
+import { TEXT_COLOURS } from "./colours.js";
 
-export const menuScreenButtonsPosition = 460;
-export const menuScreenButtonsTextSize = 60;
-//COLOUR FOR TEXT BLUR
+export const MENU_POSITIONS = {
+    MAIN_MENU: 460,
+};
 
-export const mainMenu = [
-    {
-        x:,
-        y:,
-        name: "New Game",
-        colour: "white",
-        option: GAME_STATES.PLAYING
-    },
-    {
-        x:,
-        y:,
-        name: "Options",
-        colour: "white",
-        option: GAME_STATES.OPTIONS
-    },  
-    {
-        x:,
-        y:,
-        name: "About",
-        colour: "white",
-        option: ""
-    },
+export const MENU_SIZES = {
+    TEXT: 60,
+    BUFFER: 15,
+};
+
+export const MAIN_MENU = [
+    "New Game", 
+    "Options",
+    "About",
 ];
 
-export const gameOverMenu = [
-    {
-        x:,
-        y:,
-        name: "Restart",
-        colour: "white",
-        option: GAME_STATES.RESTART
-    },
-    {
-        x:,
-        y:,
-        name: "Main Menu",
-        colour: "white",
-        option: GAME_STATES.MENU
-    },
-]
+export const GAMEOVER_MENU = [
+    "Restart",
+    "Main Menu",
+];
+
+export const MENU_ITEM_TEMPLATE = {
+        name: " ",
+        colour: TEXT_COLOURS.WHITE,
+        option: GAME_STATES.PLAY,
+        textPosition: GAME_SIZES.GAME_WIDTH_HALF,
+        width: null,
+        x: null,
+        y: null,
+        height: MENU_SIZES.TEXT,
+        space: MENU_SIZES.BUFFER,
+}
+
+
+//MENUHANDLER?
+export const MENUS = {
+    MAIN: MAIN_MENU,
+};

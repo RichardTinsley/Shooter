@@ -1,7 +1,5 @@
 RESEARCH: SCOPE/CLOSURE,  OBJECT.() PROTOTYPES, JS PERFORMANCE, WINDOW DOCUMENT
 
-MOVE KEYBOARD AND MOUSE HANDLER INTO SCREEN HANDLER!!!!!!!!!!!!!
-
 CREATE CLASS FILES FOR EACH TYPE.  SAPPHIRE TOWER.JS.  GET RID OF 'ADD'entity'() functions and just pass arrays. 
 DEATH AND BATTLE HANDLERS MERGE, PUT SHOOT() BACK IN TOWER, BUT ITS HANDLED BY BIG BATTLE HANDLER
 CLEAN UP SHOOT()/ MERGE target enemies and prioritise enemies in tower range.
@@ -10,6 +8,7 @@ enemiesInRange[]
 if enemySelect = enemiesInRange.find(enemy => enemy.isSelected); // return
 else enemies in range.sort // return
 
+CHECKCOLLISION WITH MOUSE WITHIN EACH ENTITY?
 
 WITHIN BATTLE HANDLER CALL THESE.
 PROJECTILE.ADD EFFECT (internally for each projectile type)  ENEMY.ADD EFFECT(BLOOD)
@@ -30,9 +29,6 @@ ENTITY CLASS
 MAKE USE OF POSITION AND CENTER, REMOVE HITBOX OBJECTS
 
 UPDATE !event return. 
-CONSTANTS FOLDER AND CONSTANTS FOR EACH ENTITY
-COLLISION FUNCTION BUTTONS
-
 FIX PROJECTILE TRANSLATE/ROTATE/CENTER
 AUDIO SOUND FX
 enemy collisions, push each other away
@@ -44,26 +40,6 @@ CLEAN UPSWITCHES multiple emptycases next toeach other:
 case:pause
 case:gameover
 
-Ruby		Splash damage / flame thrower
-Amethyst  	Air Attack only
-Sapphire	Freeze / slow group 
-Topaz 		rapid fire
-Diamond		Heavy damage / stun / critical hit 
-Gold 		money generation, weak damage
-Silver		Sniper range
-Opal		Tower boost auras
-Citrine     chain lighting, spreadshot
-*Uranium	Enemy Damage, weakness auras / remove armour and abilities
-Obsidian	rail gun laser / ION cannon that comes from the sky and follows the waypoints
-fire pit, landmines, net traps /air units to the ground
 
-GREEN TOWER - Emerald Enemy Immune, Poison, damage, reduce armour
-grass,
-flower
-cactus
-venusfly trap
-pirhana
-tree stump
-elder tree
 
 

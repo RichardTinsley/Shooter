@@ -9,25 +9,7 @@ import { SapphireTower } from './entities/towers/SapphireTower.js';
         }
     }
 
-    menuScreenButtonsSelector = (menuScreenButtons) => {
-        menuScreenButtons.forEach((option, index) => {
-            if( this.mouse.hitBox.x > GAME_WIDTH / 2 - ((option.name.length / 2) * menuScreenButtonsTextSize) &&
-                this.mouse.hitBox.x < GAME_WIDTH / 2 + ((option.name.length / 2) * menuScreenButtonsTextSize) &&
-                this.mouse.hitBox.y > menuScreenButtonsPosition + (menuScreenButtonsTextSize * index) &&
-                this.mouse.hitBox.y < menuScreenButtonsPosition + (menuScreenButtonsTextSize * index) + menuScreenButtonsTextSize
-            )
-                mouseOverOption = option;
-            else {
-                option.colour = "white";
-                this.mouse.cursor.setAttribute("class", "normal");
-            }
-        });
 
-        if(mouseOverOption){
-            mouseOverOption.colour = "red";
-            this.mouse.cursor.setAttribute("class", "select");
-        }
-    }
 
     towerSelected(towers, addText, battleScreenHud){
         if(mouseOverTower)
