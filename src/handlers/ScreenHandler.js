@@ -5,6 +5,7 @@ import { MusicHandler } from "./MusicHandler.js";
 import { DebugHandler } from "./DebugHandler.js";
 import { LoadingScreen } from "../screens/LoadingScreen.js";
 import { MainMenuScreen } from "../screens/MainMenuScreen.js";
+import { BattleScreen } from "../screens/BattleScreen.js";
 import { GameOverScreen } from "../screens/GameOverScreen.js";
 
 let isPaused = false;
@@ -12,7 +13,7 @@ let currentScreen = GAME_STATES.LOADING;
 
 export class ScreenHandler {
     constructor(){
-        this.MouseHandler       = new MouseHandler();
+        this.MouseHandler       = new MouseHandler(this.switchScreens);
         this.KeyboardHandler    = new KeyboardHandler(this.switchScreens);
         this.MusicHandler       = new MusicHandler();
         this.DebugHandler       = new DebugHandler();
@@ -34,6 +35,10 @@ export class ScreenHandler {
         switch(option){
             case GAME_STATES.MAINMENU:
                 this.Screen = new MainMenuScreen();
+                break
+            case GAME_STATES.PLAY:
+                this.Screen = new BattleScreen();
+                break
             case GAME_STATES.RESTART:
                 // this.screen = new BattleScreen(this.inputHandler);
                 break

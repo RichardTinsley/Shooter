@@ -1,16 +1,16 @@
-import { COLUMNS, TILE_SIZE, GAME_HEIGHT, GAME_WIDTH } from "./constants/constants.js";
-import { WASTELANDS_TILEMAP } from "./constants/levelData.js";
-import { assets } from "./AssetLoader.js";
-import { EmptyTower } from "./entities/towers/emptyTower.js";
+import { GAME_SIZES } from "../constants/game.js";
+import { WASTELANDS_TILEMAP } from "../constants/levels.js";
+import { assets } from "./AssetHandler.js";
+import { EmptyTowerSpot } from "../objects/towers/EmptyTowerSpot.js";
 
-const levelImage = new OffscreenCanvas(GAME_WIDTH, GAME_HEIGHT);
+const levelImage = new OffscreenCanvas(GAME_SIZES.GAME_WIDTH, GAME_SIZES.GAME_HEIGHT);
 const context = levelImage.getContext('2d');
 
 export class LevelHandler {
     constructor(){
         this.tileMap2D = this.create2DTileMapArray(WASTELANDS_TILEMAP);
         this.tilesetImage = assets.get('wastelands');
-        this.tilesetImageWidth = Math.floor(this.tilesetImage.width / TILE_SIZE);
+        this.tilesetImageWidth = Math.floor(this.tilesetImage.width / GAME_SIZES.TILE_SIZE);
         this.buildMap();
     }
 
@@ -20,8 +20,8 @@ export class LevelHandler {
     
     create2DTileMapArray(tileMap){
         const TileMapArray = [];
-        for (let i = 0; i < tileMap.length; i+= COLUMNS)
-            TileMapArray.push(tileMap.slice(i, i + COLUMNS));
+        for (let i = 0; i < tileMap.length; i+= GAME_SIZES.COLUMNS)
+            TileMapArray.push(tileMap.slice(i, i + GAME_SIZES.COLUMNS));
         return TileMapArray;
     }
     
@@ -29,17 +29,17 @@ export class LevelHandler {
         for (let rowIndex = 0; rowIndex < this.tileMap2D.length; rowIndex++)
             for(let columnIndex = 0; columnIndex < this.tileMap2D[rowIndex].length; columnIndex++){
                 const tile = this.tileMap2D[rowIndex][columnIndex];
-                this.drawTile(context, tile - 1, columnIndex * TILE_SIZE, rowIndex * TILE_SIZE); // -1 to zero index
+                this.drawTile(context, tile - 1, columnIndex * GAME_SIZES.TILE_SIZE, rowIndex * GAME_SIZES.TILE_SIZE); // -1 to zero index
             }
     }
 
     drawTile(context, tile, x, y) {    
         context.drawImage(
             this.tilesetImage,
-            (tile % this.tilesetImageWidth) * TILE_SIZE,
-            Math.floor(tile / this.tilesetImageWidth) * TILE_SIZE,
-            TILE_SIZE, TILE_SIZE,
-            x, y, TILE_SIZE, TILE_SIZE,
+            (tile % this.tilesetImageWidth) * GAME_SIZES.TILE_SIZE,
+            Math.floor(tile / this.tilesetImageWidth) * GAME_SIZES.TILE_SIZE,
+            GAME_SIZES.TILE_SIZE, GAME_SIZES.TILE_SIZE,
+            x, y, GAME_SIZES.TILE_SIZE, GAME_SIZES.TILE_SIZE,
         );
     }
 
@@ -48,10 +48,10 @@ export class LevelHandler {
         this.tileMap2D.forEach((row, y) => {
             row.forEach((symbol, x) => {
                 if (symbol == 19){
-                    emptyTowerSpots.push(new EmptyTower({
+                    emptyTowerSpots.push(new EmptyTowerSpot({
                             position: { 
-                                x: x * TILE_SIZE, 
-                                y: y * TILE_SIZE 
+                                x: x * GAME_SIZES.TILE_SIZE, 
+                                y: y * GAME_SIZES.TILE_SIZE 
                             }}
                         )
                     ) 

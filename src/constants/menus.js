@@ -11,9 +11,18 @@ export const MENU_SIZES = {
 };
 
 export const MAIN_MENU = [
-    "New Game", 
-    "Options",
-    "About",
+    {
+        name: "New Game",
+        option: GAME_STATES.PLAY,
+    }, 
+    {
+        name: "Options",
+        option: GAME_STATES.OPTIONS,
+    }, 
+    {
+        name: "About",
+        option: GAME_STATES.ABOUT,
+    }, 
 ];
 
 export const GAMEOVER_MENU = [
@@ -22,15 +31,15 @@ export const GAMEOVER_MENU = [
 ];
 
 export const MENU_ITEM_TEMPLATE = {
-        name: " ",
-        colour: TEXT_COLOURS.WHITE,
-        option: GAME_STATES.PLAY,
-        textPosition: GAME_SIZES.GAME_WIDTH_HALF,
-        width: null,
-        x: null,
-        y: null,
-        height: MENU_SIZES.TEXT,
-        space: MENU_SIZES.BUFFER,
+    name: " ",
+    colour: TEXT_COLOURS.WHITE,
+    option: null,
+    textPosition: GAME_SIZES.GAME_WIDTH_HALF,
+    width: null,
+    x: null,
+    y: null,
+    height: MENU_SIZES.TEXT,
+    space: MENU_SIZES.BUFFER,
 }
 
 

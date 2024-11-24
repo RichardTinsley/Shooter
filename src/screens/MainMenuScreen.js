@@ -50,9 +50,10 @@ export class MainMenuScreen {
     initMenu(){
         MAIN_MENU.forEach((menuItem, index) => {
             let newMenuItem = new Object();
-            const width = menuItem.length * (MENU_ITEM_TEMPLATE.height / 1.75)
+            const width = menuItem.name.length * (MENU_ITEM_TEMPLATE.height / 1.75);
             newMenuItem = {...MENU_ITEM_TEMPLATE};
-            newMenuItem.name = menuItem;
+            newMenuItem.name = menuItem.name;
+            newMenuItem.option = menuItem.option;
             newMenuItem.width = width;
             newMenuItem.x = GAME_SIZES.GAME_WIDTH_HALF - width / 2;
             newMenuItem.y = MENU_POSITIONS.MAIN_MENU + (MENU_ITEM_TEMPLATE.height + MENU_ITEM_TEMPLATE.space) * index;

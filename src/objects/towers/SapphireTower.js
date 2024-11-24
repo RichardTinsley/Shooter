@@ -1,15 +1,16 @@
 import { checkCollision } from "../../utilities/math.js";
-import { ANIMATION_STATES, ENEMY_STATES, TILE_SIZE } from "../../constants/constants.js";
+import { ANIMATION_STATES, ENEMY_STATES, TILE_SIZE, TOWER_SIZE } from "../../constants/constants.js";
 import { assets } from "../../AssetLoader.js";
+import { SapphireProjectile } from "../../(OLD)/entities/projectiles/SapphireProjectile.js";
 
-export class EmptyTower {
+export class SapphireTower {
     constructor({
         position
     }){
         this.sprite = {
-            image: assets.get('towerSpot'),
-            width: TILE_SIZE,
-            height: TILE_SIZE,
+            image: assets.get('sapphireTower'),
+            width: TOWER_SIZE,
+            height: TOWER_SIZE,
             row: 0,
             frame: 0
         };
@@ -26,9 +27,13 @@ export class EmptyTower {
         this.target;
         this.shootTimer = 0;
         this.damage;
-        this.range;
+
         this.cooldown;
         
+        this.damage = 50;
+        this.range = 150;
+        this.cooldown = 10;
+
         this.hitBox = {
             x: this.center.x,
             y: this.center.y,
@@ -44,6 +49,7 @@ export class EmptyTower {
         };
 
         this.state = ANIMATION_STATES.ANIMATING;
+
     }
 
     draw(ctx){
@@ -98,7 +104,7 @@ export class EmptyTower {
         this.sprite.frame < this.maxFrame ? this.sprite.frame++ : this.sprite.frame = 0;
     }
 
-    targetEnemy(enemies){
+    shootEnemy(enemies, projectiles){
         this.enemiesInRange = this.prioritiseEnemiesInTowerRange(enemies);//CLEAN THIS UP
         const selectedEnemy = this.enemiesInRange.find(enemy => enemy.isSelected);
 
@@ -107,16 +113,14 @@ export class EmptyTower {
         else
             this.target = this.enemiesInRange[0];
 
-        this.shootEnemy();
-    }
-
-    shootEnemy(){
+        console.log(this.enemiesInRange);
         if(this.shootTimer > this.cooldown && this.target){
-            // this.addProjectile(
-            //     this.target, 
-            //     this, 
-            //     assets.get('blueFireball'))
-            //     this.shootTimer = 0;
+            projectiles.push(new SapphireProjectile({
+                position: this.muzzle, 
+                target: this.target, 
+                damage: this.damage
+            }));
+            this.shootTimer = 0;
         }
     }
 

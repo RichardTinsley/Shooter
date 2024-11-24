@@ -6,7 +6,7 @@ let selectedObject = null;
 const mouseSize = 3
 
 export class MouseHandler {
-    constructor(){  
+    constructor(switchScreens){  
         this.mouse = {
             x: 0,
             y: 0,
@@ -24,13 +24,14 @@ export class MouseHandler {
 
         window.addEventListener('click', () => {
             console.log(selectedObject);
+            switchScreens(selectedObject.option);
         });
     }
 
     mouseOverEntity = (menu, enemies) => {
         if(!menu)
             return;
-        
+
         menu.forEach((menuItem) => {
             if(checkBoxCollision(this.mouse, menuItem)){
                 menuItem.colour = "white"

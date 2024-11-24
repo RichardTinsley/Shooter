@@ -1,16 +1,16 @@
-import { checkCollision } from "../../utilities/math.js";
-import { ANIMATION_STATES, ENEMY_STATES, TILE_SIZE, TOWER_SIZE } from "../../constants/constants.js";
-import { assets } from "../../AssetLoader.js";
-import { SapphireProjectile } from "../projectiles/SapphireProjectile.js";
+import { ANIMATION_STATES } from "../../constants/animations.js";
+import { GAME_SIZES } from "../../constants/game.js";
+import { assets } from "../../handlers/AssetHandler.js";
+import { checkCircleCollision } from "../../utilities/math.js";
 
-export class SapphireTower {
+export class EmptyTowerSpot {
     constructor({
         position
     }){
         this.sprite = {
-            image: assets.get('sapphireTower'),
-            width: TOWER_SIZE,
-            height: TOWER_SIZE,
+            image: assets.get('towerSpot'),
+            width: GAME_SIZES.TILE_SIZE,
+            height: GAME_SIZES.TILE_SIZE,
             row: 0,
             frame: 0
         };
@@ -18,8 +18,8 @@ export class SapphireTower {
         this.halfWidth = this.sprite.width / 2;
         this.position = position;
         this.center = {
-            x: this.position.x + TILE_SIZE / 2,
-            y: this.position.y + TILE_SIZE / 2
+            x: this.position.x + GAME_SIZES.TILE_SIZE / 2,
+            y: this.position.y + GAME_SIZES.TILE_SIZE / 2
         };
         this.maxFrame = Math.floor((this.sprite.image.width / this.sprite.width)) - 1;
         
@@ -27,13 +27,9 @@ export class SapphireTower {
         this.target;
         this.shootTimer = 0;
         this.damage;
-
+        this.range;
         this.cooldown;
         
-        this.damage = 50;
-        this.range = 150;
-        this.cooldown = 10;
-
         this.hitBox = {
             x: this.center.x,
             y: this.center.y,
@@ -45,11 +41,10 @@ export class SapphireTower {
         this.cost;
         this.muzzle = {
             x: this.center.x,
-            y: this.center.y - TILE_SIZE / 2
+            y: this.center.y - GAME_SIZES.TILE_SIZE / 2
         };
 
         this.state = ANIMATION_STATES.ANIMATING;
-
     }
 
     draw(ctx){
@@ -104,7 +99,7 @@ export class SapphireTower {
         this.sprite.frame < this.maxFrame ? this.sprite.frame++ : this.sprite.frame = 0;
     }
 
-    shootEnemy(enemies, projectiles){
+    targetEnemy(enemies){
         this.enemiesInRange = this.prioritiseEnemiesInTowerRange(enemies);//CLEAN THIS UP
         const selectedEnemy = this.enemiesInRange.find(enemy => enemy.isSelected);
 
@@ -113,21 +108,23 @@ export class SapphireTower {
         else
             this.target = this.enemiesInRange[0];
 
-        console.log(this.enemiesInRange);
+        this.shootEnemy();
+    }
+
+    shootEnemy(){
         if(this.shootTimer > this.cooldown && this.target){
-            projectiles.push(new SapphireProjectile({
-                position: this.muzzle, 
-                target: this.target, 
-                damage: this.damage
-            }));
-            this.shootTimer = 0;
+            // this.addProjectile(
+            //     this.target, 
+            //     this, 
+            //     assets.get('blueFireball'))
+            //     this.shootTimer = 0;
         }
     }
 
     prioritiseEnemiesInTowerRange(enemies){
         return enemies.filter(enemy => {
             if(enemy.state === ENEMY_STATES.WALKING || enemy.state === ENEMY_STATES.RUNNING){
-                return checkCollision(enemy, this);
+                return checkCircleCollision(enemy, this);
             }
         }).sort((a, b) => {
             if (a.waypointIndex > b.waypointIndex) return -1;
