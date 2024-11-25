@@ -6,8 +6,8 @@ let selectedObject = null;
 const mouseSize = 3
 
 export class MouseHandler {
-    constructor(switchScreens){  
-        this.mouse = {
+    constructor(switchScreens, switchMusic){  
+        this.Mouse = {
             x: 0,
             y: 0,
             radius: mouseSize,
@@ -16,8 +16,8 @@ export class MouseHandler {
         };
         
         window.addEventListener('mousemove', e => {
-            this.mouse.x = e.offsetX;
-            this.mouse.y = e.offsetY;
+            this.Mouse.x = e.offsetX;
+            this.Mouse.y = e.offsetY;
             isMouseOverObject = MOUSE_OVER_OBJECT.NORMAL;
             selectedObject = null;
         });
@@ -25,6 +25,7 @@ export class MouseHandler {
         window.addEventListener('click', () => {
             console.log(selectedObject);
             switchScreens(selectedObject.option);
+            switchMusic(selectedObject.option);
             isMouseOverObject = MOUSE_OVER_OBJECT.NORMAL;
         });
     }
@@ -34,7 +35,7 @@ export class MouseHandler {
             return;
 
         menu.forEach((menuItem) => {
-            if(checkBoxCollision(this.mouse, menuItem)){
+            if(checkBoxCollision(this.Mouse, menuItem)){
                 menuItem.colour = "white"
             }
             else {

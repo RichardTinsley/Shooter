@@ -9,7 +9,7 @@ export class MusicHandler {
 
     }
     
-    chooseMusic(option){
+    switchMusic = (option) => {
         switch(option){
             case GAME_STATES.MAINMENU:
                 music = assets.get("menuMusic");
@@ -23,6 +23,9 @@ export class MusicHandler {
                 break
             case GAME_STATES.GAMEOVER:
                 //PLAY THE DREAD STRING SOUND
+                break
+            case GAME_STATES.MUSIC:
+                this.pauseMusic();
                 break
         }
     }

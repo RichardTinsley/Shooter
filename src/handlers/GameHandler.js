@@ -7,17 +7,28 @@ import { TimeHandler } from "./TimeHandler.js";
 
 export class GameHandler{
     constructor(){
-        this.DebugHandler       = new DebugHandler();
         this.MusicHandler       = new MusicHandler();
         this.TimeHandler        = new TimeHandler();
-        this.ScreenHandler      = new ScreenHandler(this.DebugHandler, this.MusicHandler);
-        this.MouseHandler       = new MouseHandler(this.ScreenHandler.switchScreens);
-        this.KeyboardHandler    = new KeyboardHandler(this.ScreenHandler.switchScreens);
+        this.ScreenHandler      = new ScreenHandler(
+            this.MusicHandler.switchMusic
+        );
+        this.MouseHandler       = new MouseHandler(
+            this.ScreenHandler.switchScreens,
+            this.MusicHandler.switchMusic
+        );
+        this.KeyboardHandler    = new KeyboardHandler(
+            this.ScreenHandler.switchScreens,
+            this.MusicHandler.switchMusic
+        );
+        this.DebugHandler       = new DebugHandler(
+            this.MouseHandler.Mouse, 
+            this.ScreenHandler.Screen
+        );
     }
     
     draw(ctx){
         this.ScreenHandler.draw(ctx);
-        this.DebugHandler.drawDebugInfo(ctx, this.MouseHandler.mouse, this.ScreenHandler.Screen.menu);
+        this.DebugHandler.draw(ctx, this.ScreenHandler.Screen);
     }
 
     update(time){

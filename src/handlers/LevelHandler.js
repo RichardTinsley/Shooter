@@ -50,8 +50,8 @@ export class LevelHandler {
                 if (symbol === 19)
                     emptyTowerSpots.push(new EmptyTowerSpot({
                         position: { 
-                            x: x * GAME_SIZES.TILE_SIZE, 
-                            y: y * GAME_SIZES.TILE_SIZE 
+                            x: x * GAME_SIZES.TILE_SIZE - GAME_SIZES.TILE_SIZE_HALF, 
+                            y: y * GAME_SIZES.TILE_SIZE - GAME_SIZES.TILE_SIZE_HALF 
                         }})
                     ) 
             })

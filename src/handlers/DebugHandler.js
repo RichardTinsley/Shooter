@@ -1,4 +1,5 @@
 import { GAME_SIZES } from "../constants/game.js";
+import { BattleScreen } from "../screens/BattleScreen.js";
 import { drawText } from "../utilities/textRender.js";
 
 let frames = 0;
@@ -6,32 +7,31 @@ let startTime = performance.now();
 let FPSNormal = 0;
 
 export class DebugHandler{
-    constructor() {
+    constructor(Mouse) {
+        this.Mouse = Mouse;
         this.isDebugMode = true;
+    }
+
+    draw(ctx, Screen){
+        if(!this.isDebugMode) 
+            return
+
+        this.calculateFPSNormal();
+        this.performanceDebugInfo(ctx);
+        this.mouseDebugInfo(ctx, this.Mouse);
+
+        if(Screen.menu)
+            this.menuDebugInfo(ctx, Screen.menu);
+        
+        if(Screen instanceof BattleScreen)
+            this.levelDebugInfoGrid(ctx);
+        // this.towerDebugInfo(ctx, towers);
+        // this.enemyDebugInfo(ctx, enemies);
+        // this.projectileDebugInfo(ctx, projectiles);
     }
 
     switchDebugMode(){
         this.isDebugMode = !this.isDebugMode;
-    }
-
-    drawDebugInfo(ctx, mouse, menu){
-        if(!this.isDebugMode) 
-            return
-
-        if(menu)
-            this.menuDebugInfo(ctx, menu);
-        this.calculateFPSNormal();
-        this.performanceDebugInfo(ctx);
-        this.mouseDebugInfo(ctx, mouse);
-    }
-
-    drawBattleDebugInfo = (ctx, towers) =>{
-        if(!this.isDebugMode) 
-            return
-        this.levelDebugInfoGrid(ctx);
-        // this.towerDebugInfo(ctx, towers);
-        // this.enemyDebugInfo(ctx, enemies);
-        // this.projectileDebugInfo(ctx, projectiles);
     }
 
     calculateFPSNormal(){

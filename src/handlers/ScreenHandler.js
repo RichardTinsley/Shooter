@@ -8,10 +8,8 @@ let isPaused = false;
 let currentScreen = GAME_STATES.LOADING;
 
 export class ScreenHandler {
-    constructor(DebugHandler, MusicHandler){
-        this.DebugHandler = DebugHandler;
-        this.MusicHandler = MusicHandler
-        this.Screen = new LoadingScreen(this.switchScreens);
+    constructor(switchMusic){
+        this.Screen = new LoadingScreen(this.switchScreens, switchMusic);
     }
 
     draw(ctx){
@@ -30,7 +28,7 @@ export class ScreenHandler {
                 break
             case GAME_STATES.RESTART:
             case GAME_STATES.BATTLE:
-                this.Screen = new BattleScreen(this.DebugHandler.drawBattleDebugInfo);
+                this.Screen = new BattleScreen();
                 break
             case GAME_STATES.PAUSED:
                 this.pauseGame();
@@ -38,14 +36,10 @@ export class ScreenHandler {
             case GAME_STATES.GAMEOVER:
                 this.Screen = new GameOverScreen();
                 break
-            case GAME_STATES.MUSIC:
-                this.MusicHandler.pauseMusic();
-                break
             case GAME_STATES.DEBUG:
                 this.DebugHandler.switchDebugMode();
                 break
         }
-        this.MusicHandler.chooseMusic(option);
     }
 
     pauseGame(){
