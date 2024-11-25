@@ -1,3 +1,4 @@
+import { COLOURS } from "../constants/colours.js";
 import { GAME_SIZES } from "../constants/game.js";
 import { BattleScreen } from "../screens/BattleScreen.js";
 import { drawText } from "../utilities/textRender.js";
@@ -16,18 +17,19 @@ export class DebugHandler{
         if(!this.isDebugMode) 
             return
 
-        this.calculateFPSNormal();
-        this.performanceDebugInfo(ctx);
-        this.mouseDebugInfo(ctx, this.Mouse);
+        if(Screen instanceof BattleScreen){
+            this.levelDebugInfoGrid(ctx);
+            this.towerDebugInfo(ctx, Screen.ObjectHandler.towers);
+        // this.enemyDebugInfo(ctx, enemies);
+        // this.projectileDebugInfo(ctx, projectiles);
+        }
 
         if(Screen.menu)
             this.menuDebugInfo(ctx, Screen.menu);
         
-        if(Screen instanceof BattleScreen)
-            this.levelDebugInfoGrid(ctx);
-        // this.towerDebugInfo(ctx, towers);
-        // this.enemyDebugInfo(ctx, enemies);
-        // this.projectileDebugInfo(ctx, projectiles);
+        this.calculateFPSNormal();
+        this.performanceDebugInfo(ctx);
+        this.mouseDebugInfo(ctx, this.Mouse);
     }
 
     switchDebugMode = () => {
@@ -48,7 +50,7 @@ export class DebugHandler{
     
     levelDebugInfoGrid(ctx){
         ctx.beginPath();
-        ctx.strokeStyle = 'rgba(0, 0, 0, .5)';
+        ctx.strokeStyle = COLOURS.LINES;
         ctx.lineWidth = 1;
         for (let row = 0; row < GAME_SIZES.ROWS; row++)
             for (let column = 0; column < GAME_SIZES.COLUMNS; column++)
@@ -93,34 +95,34 @@ export class DebugHandler{
     }
     
     performanceDebugInfo(ctx){
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+        ctx.fillStyle = COLOURS.SHADOW;
         ctx.fillRect(0, GAME_SIZES.TILE_SIZE * 3, GAME_SIZES.TILE_SIZE * 4, GAME_SIZES.TILE_SIZE * 2);
         const FPS = Math.round(FPSNormal * 1000) / 1000;
         drawText(ctx, 'white', `f p s: ${FPS}`, 10, GAME_SIZES.TILE_SIZE * 4, GAME_SIZES.TILE_SIZE_HALF, 'left', 'middle');
     }
     
     drawPositionDot(ctx, entity){
-        ctx.fillStyle = 'rgba(0, 0, 250, 1)';
-        ctx.fillRect(entity.position.x - 2, entity.position.y - 2, 4, 4);
+        ctx.fillStyle = COLOURS.BLUE;
+        ctx.fillRect(entity.position.x, entity.position.y, 4, 4);
     }
     
     drawCenterDot(ctx, entity){
-        ctx.fillStyle = 'rgba(0, 250, 0, 1)';
+        ctx.fillStyle = COLOURS.GREEN;
         ctx.fillRect(entity.center.x - 2, entity.center.y - 2, 4, 4);
     }
     
     drawCircleHitbox(ctx, entity){
         ctx.beginPath();
         ctx.arc(entity.center.x, entity.center.y, entity.center.radius + 3, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(200, 0, 0, 0.3)';
+        ctx.fillStyle = COLOURS.RED_ALPHA;
         ctx.fill();
     
-        ctx.fillStyle = 'rgba(0, 250, 0, 1)';
-        ctx.fillRect(entity.x - 1.5, entity.y - 1.5, entity.width, entity.height);
+        ctx.fillStyle = COLOURS.RED;
+        ctx.fillRect(entity.center.x - 1.5, entity.center.y - 1.5, entity.width, entity.height);
     }
     
     drawSquareHitBox(ctx, menuItem){
-        ctx.fillStyle = 'rgba(250, 0, 0, 0.3)';
+        ctx.fillStyle = COLOURS.RED_ALPHA;
         ctx.fillRect(menuItem.x, menuItem.y, menuItem.width, menuItem.height);
     }
 }

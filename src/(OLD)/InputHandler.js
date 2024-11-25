@@ -20,25 +20,7 @@ import { SapphireTower } from './entities/towers/SapphireTower.js';
                 tower.isSelected = false;
         });
 
-        if(mouseOverTower && battleScreenHud.coins - 25 >= 0) {
-            
-            const newTower = new SapphireTower({ 
-                position: mouseOverTower.position
-            });
-            let foundIndex = towers.find(tower => tower === mouseOverTower);
-            towers.splice(foundIndex, 1, newTower);
-            
-            towers.push(newTower);
-            battleScreenHud.coins -= 25;
 
-        } 
-
-        if(mouseOverTower && battleScreenHud.coins - 25 < 0)
-            addText(
-                "Not Enough Gold",
-                TEXT_COLOURS.RED,
-                mouseOverTower.center
-            );
         
     }
 

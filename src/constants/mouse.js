@@ -1,8 +1,8 @@
 export const OBJECT_TYPES = {
-    NORMAL: "NORMAL",
-    ENEMY: "ENEMY",
-    TOWER: "TOWER",
-    MENUITEM: "MENUITEM",
+    NORMAL: "normal",
+    ENEMY: "attack",
+    TOWER: "select",
+    MENUITEM: "select",
 }
 
 export const NULL_OBJECT = {

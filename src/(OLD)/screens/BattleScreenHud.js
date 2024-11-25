@@ -8,7 +8,8 @@ export class BattleScreenHud{
             coins: 100,
             exp: 0,
             waves: 1,
-            timer: 0
+            timer: 0,
+            mana: 0
         };
 
         this.hudBackgroundImage = assets.get('hudBackgroundImage');
@@ -23,14 +24,17 @@ export class BattleScreenHud{
         this.timerDisplay(event);
     }
 
+    canAfford(tower){
+        return tower.cost >= this.hudElements.coins;
+    }
 
-    addCoins = () => {
+    addCoins = () => {//ENEMY TYPE in parameter affect gold.  BOSS or GoldEnemy etc
         const coins = Math.floor(Math.random() * this.hudElements.waves + 1);
         this.hudElements.coins += coins;
         return '$' + coins
     }
 
-    addExperience = () => {
+    addExperience = () => {//ENEMY TYPE in parameter affect exp.  BOSS or EmeraldEnemy etc
         if (Math.random() * 10 > 1)
             return 0
 
