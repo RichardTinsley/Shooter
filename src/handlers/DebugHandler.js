@@ -26,6 +26,8 @@ export class DebugHandler{
     }
 
     drawBattleDebugInfo = (ctx, towers) =>{
+        if(!this.isDebugMode) 
+            return
         this.levelDebugInfoGrid(ctx);
         // this.towerDebugInfo(ctx, towers);
         // this.enemyDebugInfo(ctx, enemies);

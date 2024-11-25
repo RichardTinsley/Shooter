@@ -1,21 +1,17 @@
-import { ScreenHandler } from "./handlers/ScreenHandler.js";
-import { TimeHandler } from "./handlers/TimeHandler.js";
 import { context } from "./utilities/context.js";
+import { GameHandler } from "./handlers/GameHandler.js";
 
 const ctx = context();
-let event;
 
 export class Game{
     constructor(){
-        this.ScreenHandler = new ScreenHandler();
-        this.TimeHandler = new TimeHandler();
+        this.GameHandler = new GameHandler();
         requestAnimationFrame(this.frame);
     }
     
     frame = (time) => {
-        event = this.TimeHandler.eventUpdater(time);
-        this.ScreenHandler.update(event);
-        this.ScreenHandler.draw(ctx);
+        this.GameHandler.draw(ctx);
+        this.GameHandler.update(time);
         requestAnimationFrame(this.frame);
     }
 }

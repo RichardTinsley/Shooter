@@ -1,8 +1,4 @@
 import { GAME_STATES } from "../constants/game.js";
-import { MouseHandler } from "./MouseHandler.js";
-import { KeyboardHandler } from "./KeyboardHandler.js";
-import { MusicHandler } from "./MusicHandler.js";
-import { DebugHandler } from "./DebugHandler.js";
 import { LoadingScreen } from "../screens/LoadingScreen.js";
 import { MainMenuScreen } from "../screens/MainMenuScreen.js";
 import { BattleScreen } from "../screens/BattleScreen.js";
@@ -12,22 +8,18 @@ let isPaused = false;
 let currentScreen = GAME_STATES.LOADING;
 
 export class ScreenHandler {
-    constructor(){
-        this.MouseHandler       = new MouseHandler(this.switchScreens);
-        this.KeyboardHandler    = new KeyboardHandler(this.switchScreens);
-        this.MusicHandler       = new MusicHandler();
-        this.DebugHandler       = new DebugHandler();
-        this.Screen             = new LoadingScreen(this.switchScreens);
+    constructor(DebugHandler, MusicHandler){
+        this.DebugHandler = DebugHandler;
+        this.MusicHandler = MusicHandler
+        this.Screen = new LoadingScreen(this.switchScreens);
     }
 
     draw(ctx){
         this.Screen.draw(ctx);
-        this.DebugHandler.drawDebugInfo(ctx, this.MouseHandler.mouse, this.Screen.menu);
     }
 
     update(event){
         this.Screen.update(event);
-        this.MouseHandler.mouseOverObject(this.Screen.menu);
     }
 
     switchScreens = (option) => {
@@ -36,11 +28,9 @@ export class ScreenHandler {
             case GAME_STATES.MAINMENU:
                 this.Screen = new MainMenuScreen();
                 break
+            case GAME_STATES.RESTART:
             case GAME_STATES.BATTLE:
                 this.Screen = new BattleScreen(this.DebugHandler.drawBattleDebugInfo);
-                break
-            case GAME_STATES.RESTART:
-                // this.screen = new BattleScreen(this.inputHandler);
                 break
             case GAME_STATES.PAUSED:
                 this.pauseGame();

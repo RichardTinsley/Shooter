@@ -23,17 +23,6 @@ export class BattleScreenHud{
         this.timerDisplay(event);
     }
 
-    timerDisplay(event){
-        if(!event) 
-            return;
-        //OR EVENT... Seconds++
-        const seconds = Math.floor(performance.now() / TIME_INTERVALS.SECOND);
-        const minutes = Math.floor(seconds / 60) % 60;
-        const hours = Math.floor((seconds / 60) / 60);
-        minutes = minutes < 10 ? "0" + minutes : minutes;
-        seconds = seconds < 10 ? "0" + seconds : seconds;
-        this.hudElements.timer = hours + ':' + minutes + ':' + seconds;
-    }
 
     addCoins = () => {
         const coins = Math.floor(Math.random() * this.hudElements.waves + 1);
