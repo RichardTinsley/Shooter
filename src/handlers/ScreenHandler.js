@@ -36,9 +36,6 @@ export class ScreenHandler {
             case GAME_STATES.GAMEOVER:
                 this.Screen = new GameOverScreen();
                 break
-            case GAME_STATES.DEBUG:
-                this.DebugHandler.switchDebugMode();
-                break
         }
     }
 

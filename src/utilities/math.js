@@ -1,10 +1,10 @@
 import { ANIMATION_STATES } from "../constants/animations.js";
 // LINE COLLISION??
 export function checkCircleCollision(a, b){
-    const dx = a.x - b.x;
-    const dy = a.y - b.y;
+    const dx = a.center.x - b.center.x;
+    const dy = a.center.y - b.center.y;
     const distance = Math.hypot(dx, dy);
-    const sumOfRadii = a.radius + b.radius;
+    const sumOfRadii = a.center.radius + b.center.radius;
     return distance < sumOfRadii; 
 }
 

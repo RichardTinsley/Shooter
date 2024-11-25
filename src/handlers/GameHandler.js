@@ -9,21 +9,10 @@ export class GameHandler{
     constructor(){
         this.MusicHandler       = new MusicHandler();
         this.TimeHandler        = new TimeHandler();
-        this.ScreenHandler      = new ScreenHandler(
-            this.MusicHandler.switchMusic
-        );
-        this.MouseHandler       = new MouseHandler(
-            this.ScreenHandler.switchScreens,
-            this.MusicHandler.switchMusic
-        );
-        this.KeyboardHandler    = new KeyboardHandler(
-            this.ScreenHandler.switchScreens,
-            this.MusicHandler.switchMusic
-        );
-        this.DebugHandler       = new DebugHandler(
-            this.MouseHandler.Mouse, 
-            this.ScreenHandler.Screen
-        );
+        this.ScreenHandler      = new ScreenHandler(this.MusicHandler.switchMusic);
+        this.MouseHandler       = new MouseHandler(this.ScreenHandler.switchScreens, this.MusicHandler.switchMusic);
+        this.KeyboardHandler    = new KeyboardHandler();
+        this.DebugHandler       = new DebugHandler(this.MouseHandler.Mouse);
     }
     
     draw(ctx){
@@ -34,6 +23,11 @@ export class GameHandler{
     update(time){
         this.TimeHandler.update(time);
         this.ScreenHandler.update(this.TimeHandler.event);
-        this.MouseHandler.mouseOverObject(this.ScreenHandler.Screen.menu);
+        this.MouseHandler.update(this.ScreenHandler.Screen);
+        this.KeyboardHandler.update(
+            this.ScreenHandler.switchScreens, 
+            this.MusicHandler.switchMusic, 
+            this.DebugHandler.switchDebugMode
+        );
     }
 }

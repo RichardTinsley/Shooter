@@ -1,5 +1,6 @@
 import { ANIMATION_STATES } from "../constants/animations.js";
 import { TOWER_SIZE } from "../constants/towers.js";
+import { OBJECT_TYPES } from "../constants/mouse.js";
 import { checkCircleCollision } from "../utilities/math.js";
 import { assets } from "../handlers/AssetHandler.js";
 
@@ -20,7 +21,8 @@ export class Tower {
         this.position = position;
         this.center = {
             x: this.position.x + TOWER_SIZE / 2,
-            y: this.position.y + TOWER_SIZE / 2
+            y: this.position.y + TOWER_SIZE / 2,
+            radius: TOWER_SIZE / 2, 
         };
 
         this.maxFrame = Math.floor((this.sprite.image.width / this.sprite.width)) - 1;
@@ -35,6 +37,7 @@ export class Tower {
 
         this.state = ANIMATION_STATES.ANIMATING;
         this.isSelected = false;
+        this.type = OBJECT_TYPES.TOWER;
 
         this.damage;
         this.range;
@@ -77,15 +80,15 @@ export class Tower {
             this.sprite.height
         );
     
-        // if(this.isSelected){
-        //     ctx.beginPath();
-        //     ctx.arc(this.hitBox.x, this.hitBox.y, this.hitBox.radius, 0, Math.PI * 2);
-        //     ctx.setLineDash([5, 15]);
-        //     ctx.lineWidth = 2;
-        //     ctx.strokeStyle = 'white';
-        //     ctx.stroke();
-        //     ctx.setLineDash([0, 0]);
-        // }   
+        if(this.isSelected){
+            ctx.beginPath();
+            ctx.arc(this.center.x, this.center.y, this.center.radius, 0, Math.PI * 2);
+            ctx.setLineDash([5, 15]);
+            ctx.lineWidth = 2;
+            ctx.strokeStyle = 'white';
+            ctx.stroke();
+            ctx.setLineDash([0, 0]);
+        }   
     }
 
     updateTower(){

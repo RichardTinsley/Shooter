@@ -30,7 +30,7 @@ export class DebugHandler{
         // this.projectileDebugInfo(ctx, projectiles);
     }
 
-    switchDebugMode(){
+    switchDebugMode = () => {
         this.isDebugMode = !this.isDebugMode;
     }
 
@@ -111,7 +111,7 @@ export class DebugHandler{
     
     drawCircleHitbox(ctx, entity){
         ctx.beginPath();
-        ctx.arc(entity.x, entity.y, entity.radius + 3, 0, Math.PI * 2);
+        ctx.arc(entity.center.x, entity.center.y, entity.center.radius + 3, 0, Math.PI * 2);
         ctx.fillStyle = 'rgba(200, 0, 0, 0.3)';
         ctx.fill();
     

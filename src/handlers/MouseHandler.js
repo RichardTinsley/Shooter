@@ -1,73 +1,83 @@
-import { MOUSE_OVER_OBJECT } from "../constants/mouse.js";
-import { checkBoxCollision } from "../utilities/math.js";
+import * as MOUSE from "../constants/mouse.js";
+import { checkCircleCollision, checkBoxCollision } from "../utilities/math.js";
 
-let isMouseOverObject = MOUSE_OVER_OBJECT.NORMAL;
-let selectedObject = null;
-const mouseSize = 3
+let selectedObject = MOUSE.NULL_OBJECT;
 
 export class MouseHandler {
     constructor(switchScreens, switchMusic){  
         this.Mouse = {
+            center: {
+                x: 0,
+                y: 0,
+                radius: MOUSE.SIZE,
+            },
             x: 0,
             y: 0,
-            radius: mouseSize,
-            width: mouseSize,
-            height: mouseSize,
+            width: MOUSE.SIZE,
+            height: MOUSE.SIZE,
+            style: document.getElementById("canvas").style,
         };
         
         window.addEventListener('mousemove', e => {
             this.Mouse.x = e.offsetX;
             this.Mouse.y = e.offsetY;
-            isMouseOverObject = MOUSE_OVER_OBJECT.NORMAL;
-            selectedObject = null;
+            this.Mouse.center.x = e.offsetX;
+            this.Mouse.center.y = e.offsetY;
+            selectedObject = MOUSE.NULL_OBJECT;
         });
 
         window.addEventListener('click', () => {
-            console.log(selectedObject);
+            if(!selectedObject)
+                return
             switchScreens(selectedObject.option);
             switchMusic(selectedObject.option);
-            isMouseOverObject = MOUSE_OVER_OBJECT.NORMAL;
         });
     }
 
-    mouseOverObject = (menu, enemies) => {
-        if(!menu)
-            return;
+    update(Screen){
+        if(Screen.menu)
+            this.menuSelected(Screen.menu);
 
-        menu.forEach((menuItem) => {
-            if(checkBoxCollision(this.Mouse, menuItem)){
-                menuItem.colour = "white"
-            }
-            else {
-                selectedObject = menuItem;
-                menuItem.colour = "red"
-                isMouseOverObject = MOUSE_OVER_OBJECT.MENUITEM
-            }
-        });
-
-        // if(!enemies || enemies.length)
-        //     return
-
+        if(Screen.ObjectHandler)
+            this.towerSelected(Screen.ObjectHandler.towers);
+        
         this.switchMouseCursor();
     }
 
-    mouseClickOnObject(){
-        console.log(isMouseOverObject);
+    menuSelected(menu){
+        menu.forEach((menuItem) => {
+            if(checkBoxCollision(this.Mouse, menuItem))
+                menuItem.colour = "white"
+            else {
+                selectedObject = menuItem;
+                menuItem.colour = "red"
+            }
+        });
+    }
+
+    towerSelected(towers){
+        towers.forEach((tower) => {
+            if(checkCircleCollision(this.Mouse, tower)){
+                tower.isSelected = true;
+            }
+            else 
+                tower.isSelected = false;
+        });
     }
 
     switchMouseCursor(){
-        switch(isMouseOverObject){
-            case MOUSE_OVER_OBJECT.NORMAL:
-                document.getElementById("canvas").style.cursor = "url(../../images/cursors/normal.cur), auto";
+        switch(selectedObject.type){
+            case MOUSE.OBJECT_TYPES.NORMAL:
+                this.Mouse.style.cursor = "url(../../images/cursors/normal.cur), auto"; // STRING INTERPOLATION ${OBJECT_TYPES}url
                 break
-            case MOUSE_OVER_OBJECT.ENEMY:
-                document.getElementById("canvas").style.cursor = "url(../../images/cursors/attack.cur), auto";
+            case MOUSE.OBJECT_TYPES.ENEMY:
+                this.Mouse.style.cursor = "url(../../images/cursors/attack.cur), auto";
                 break
-            case MOUSE_OVER_OBJECT.MENUITEM:
-                document.getElementById("canvas").style.cursor = "url(../../images/cursors/select.cur), auto";   
+            case MOUSE.OBJECT_TYPES.MENUITEM:
+                this.Mouse.style.cursor = "url(../../images/cursors/select.cur), auto";   
                 break
-            case MOUSE_OVER_OBJECT.TOWER:
-                document.getElementById("canvas").style.cursor = "url(../../images/cursors/select.cur), auto";   
+            case MOUSE.OBJECT_TYPES.TOWER:
+                this.Mouse.style.cursor = "url(../../images/cursors/select.cur), auto";   
                 break
         }
     }
