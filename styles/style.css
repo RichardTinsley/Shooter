@@ -15,7 +15,7 @@ html {
     left: 0;
     image-rendering: crisp-edges;
     image-rendering: pixelated;
-    cursor: url(../images/cursors/normal.cur), auto;
+    cursor: url(../images/cursors/Plain.cur), auto;
 }
 .assets {
     display: none;

@@ -29,6 +29,13 @@ animate enemy selection
 See through options menu so game can keep running in background 
 
 
+<script defer src .js> tells the browswer to run js after HTML is done. 
+window.onload vs window.addevent listener("load)
 
+towers.find(tower => {
+	if tower === isSelectedObject
+	tower = newTower. 
+})
 
+PUT SWITCH MUSIC BACK INTO SWITCH SCREEN
 

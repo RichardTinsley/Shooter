@@ -8,7 +8,8 @@ let isPaused = false;
 
 export class Screen {
     constructor(switchMusic){
-        this.Screen = new LoadingScreen(this.switchScreens, switchMusic);
+        this.Screen = new LoadingScreen(this.switchScreens);
+        this.switchMusic = switchMusic;
     }
 
     draw(ctx){
@@ -17,8 +18,6 @@ export class Screen {
 
     update(event){
         this.Screen.update(event);
-        // IF screen instanceof Load.
-        // if screen.load completed. this.switchscreens(Mainmenu)
     }
 
     switchScreens = (option) => {
@@ -37,6 +36,7 @@ export class Screen {
                 this.Screen = new GameOverScreen();
                 break
         }
+        this.switchMusic(option);
     }
 
     pauseGame(){

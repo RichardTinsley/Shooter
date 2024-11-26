@@ -10,9 +10,9 @@ export class Game{
         this.Music       = new Music();
         this.Time        = new Time();
         this.Screen      = new Screen(this.Music.switchMusic);
-        this.Mouse       = new Mouse(this.Screen.switchScreens, this.Music.switchMusic);
-        this.Keyboard    = new Keyboard();
+        this.Mouse       = new Mouse(this.Screen.switchScreens);
         this.Debug       = new Debug(this.Mouse.Mouse);
+        this.Keyboard    = new Keyboard(this.Screen.switchScreens, this.Debug.switchDebugMode);
     }
     
     draw(ctx){
@@ -24,10 +24,5 @@ export class Game{
         this.Time.update(time);
         this.Screen.update(this.Time.event);
         this.Mouse.update(this.Screen.Screen);
-        this.Keyboard.update(
-            this.Screen.switchScreens, 
-            this.Music.switchMusic, 
-            this.Debug.switchDebugMode
-        );
     }
 }

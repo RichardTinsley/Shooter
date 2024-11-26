@@ -1,12 +1,7 @@
-export const CURSOR_TYPES = {
-    NORMAL: "normal",
-    ENEMY: "attack",
-    TOWER: "select",
-    MENUITEM: "select",
-}
+import { OBJECT_TYPES } from "./objects.js";
 
 export const NULL_OBJECT = {
-    type: CURSOR_TYPES.NORMAL,
+    type: OBJECT_TYPES.NORMAL,
 };
 
 export const SIZE = 3;

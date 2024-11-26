@@ -4,9 +4,9 @@ import * as assetHandler from "../handlers/Assets.js"
 import { drawText } from "../utilities/textRender.js";
 
 export class LoadingScreen {
-    constructor(switchScreens, switchMusic){ 
+    constructor(switchScreens){ 
         this.dslogo = document.getElementById('dslogo');
-        this.loadAssets(switchScreens, switchMusic);
+        this.loadAssets(switchScreens);
         
         this.globalAlpha = 0;
         this.alpha = 0;
@@ -21,7 +21,7 @@ export class LoadingScreen {
         this.assetsLoaded = 0;
     }
     
-    async loadAssets(switchScreens, switchMusic){
+    async loadAssets(switchScreens){
         await assetHandler.load(ASSET_LIST, this.assetLoaded)
         .catch((error) => {
             console.error(`Error: Unable to load asset "${error.fileName}"`);
@@ -29,7 +29,6 @@ export class LoadingScreen {
         .then(() => {
             console.log(`Asset loading complete. A total of ${assetHandler.assets.size} assets have been loaded.`);
             switchScreens(GAME_STATES.MAINMENU);
-            switchMusic(GAME_STATES.MAINMENU);
         });
     }
 

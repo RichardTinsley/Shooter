@@ -9,7 +9,7 @@ let selectedObject = MOUSE.NULL_OBJECT;
 let buildTowerHere = null;
 
 export class Mouse {
-    constructor(switchScreens, switchMusic){  
+    constructor(switchScreens){  
         this.Mouse = {
             center: {
                 x: 0,
@@ -28,7 +28,7 @@ export class Mouse {
         });
 
         window.addEventListener('click', () => {
-            this.onMouseClick(switchScreens, switchMusic);
+            this.onMouseClick(switchScreens);
         });
     }
 
@@ -42,17 +42,15 @@ export class Mouse {
         if(buildTowerHere)
             this.buildTower(buildTowerHere, Screen.Objects.towers);
         
-        
-        this.switchCursor();
+        this.Mouse.style.cursor = `url(../../images/cursors/${selectedObject.type}.cur), auto`;
     }
 
-    onMouseClick(switchScreens, switchMusic){
+    onMouseClick(switchScreens){
         switch(selectedObject.type){
             case OBJECT_TYPES.ENEMY:
                 break
             case OBJECT_TYPES.MENUITEM:
                 switchScreens(selectedObject.option);
-                switchMusic(selectedObject.option);
                 break
             case OBJECT_TYPES.TOWER:
                 buildTowerHere = selectedObject;
@@ -103,25 +101,5 @@ export class Mouse {
         newTower.isOccupied = true;
         towers[towers.findIndex(tower => tower === buildTowerHere)] = newTower;
         buildTowerHere = null;
-    }
-
-    switchCursor(){
-        let cursor;
-        switch(selectedObject.type){
-            case OBJECT_TYPES.ENEMY:
-                cursor = MOUSE.CURSOR_TYPES.ENEMY
-                break
-            case OBJECT_TYPES.MENUITEM:
-                cursor = MOUSE.CURSOR_TYPES.MENUITEM
-                break
-            case OBJECT_TYPES.TOWER:
-                cursor = MOUSE.CURSOR_TYPES.TOWER
-                break
-            case MOUSE.CURSOR_TYPES.NORMAL:
-                cursor = MOUSE.CURSOR_TYPES.NORMAL
-                break
-        }
-
-        this.Mouse.style.cursor = `url(../../images/cursors/${cursor}.cur), auto`;
     }
 }   
