@@ -1,6 +1,6 @@
-import { OBJECT_TYPES } from "../constants/objects.js";
-import { checkCircleCollision } from "../utilities/math.js";
-import { Sprite } from "./Sprite.js";
+import { OBJECT_TYPES } from "../../constants/objects.js";
+import { checkCircleCollision } from "../../utilities/math.js";
+import { Sprite } from "../Sprite.js";
 
 export class Tower extends Sprite{
     constructor({
@@ -17,6 +17,7 @@ export class Tower extends Sprite{
         this.type = OBJECT_TYPES.TOWER;
         this.isOccupied = false;
         this.isSelected = false;
+
         this.muzzle = {
             x: this.position.x,
             y: this.position.y - this.height
@@ -26,9 +27,6 @@ export class Tower extends Sprite{
         this.shootTimer = 0;
 
         this.center.radius = this.halfWidth;
-
-
-
     }
 
     draw(ctx){
@@ -92,7 +90,6 @@ export class Tower extends Sprite{
             if (a.priorityDistance > b.priorityDistance) return 1;
             return 0;
         });
-
         return enemiesInRange[0];
     }
 

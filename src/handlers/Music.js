@@ -1,5 +1,5 @@
 import { GAME_STATES } from "../constants/game.js";
-import { assets } from "./Assets.js";
+import { assets } from "../utilities/assets.js";
 
 let isMusicPaused = false;
 let music;

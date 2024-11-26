@@ -1,5 +1,5 @@
 import { GAME_SIZES } from "../constants/game.js";
-import { assets } from "../handlers/Assets.js";
+import { assets } from "../utilities/assets.js";
 import { drawText } from "../utilities/textRender.js";
 import { MAIN_MENU, MENU_ITEM_TEMPLATE, MENU_POSITIONS } from "../constants/menus.js";
 

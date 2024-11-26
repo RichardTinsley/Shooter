@@ -1,5 +1,5 @@
 import { ANIMATION_STATES } from "../../constants/animations.js";
-import { Tower } from "../Tower.js";
+import { Tower } from "./Tower.js";
 
 export class SapphireTower extends Tower{
     constructor({

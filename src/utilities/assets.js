@@ -1,6 +1,18 @@
-import { ASSET_TYPE_LOOKUP, ASSET_TYPE } from "../constants/assets.js";
+import { ASSET_TYPE_LOOKUP, ASSET_TYPE, ASSET_LIST } from "../constants/assets.js";
+import { GAME_STATES } from "../constants/game.js";
 
 export const assets = new Map();
+
+export async function loadAssets(switchScreens, assetLoaded){
+    await load(ASSET_LIST, assetLoaded)
+    .catch((error) => {
+        console.error(`Error: Unable to load asset "${error.fileName}"`);
+    })
+    .then(() => {
+        console.log(`Asset loading complete. A total of ${assets.size} assets have been loaded.`);
+        switchScreens(GAME_STATES.MAINMENU);
+    });
+}
 
 export async function load(assetArray, onComplete){
     const promises = assetArray.map(([key, fileName]) => {

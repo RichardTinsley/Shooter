@@ -1,4 +1,5 @@
 import { GAME_STATES } from "../constants/game.js";
+import { Music } from "./Music.js";
 import { LoadingScreen } from "../screens/LoadingScreen.js";
 import { MainMenuScreen } from "../screens/MainMenuScreen.js";
 import { BattleScreen } from "../screens/BattleScreen.js";
@@ -6,10 +7,10 @@ import { GameOverScreen } from "../screens/GameOverScreen.js";
 
 let isPaused = false;
 
-export class Screen {
-    constructor(switchMusic){
+export class Scene {
+    constructor(){
         this.Screen = new LoadingScreen(this.switchScreens);
-        this.switchMusic = switchMusic;
+        this.Music = new Music();
     }
 
     draw(ctx){
@@ -36,7 +37,7 @@ export class Screen {
                 this.Screen = new GameOverScreen();
                 break
         }
-        this.switchMusic(option);
+        this.Music.switchMusic(option);
     }
 
     pauseGame(){

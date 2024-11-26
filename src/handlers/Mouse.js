@@ -1,7 +1,7 @@
 import { COLOURS } from "../constants/colours.js";
 import * as MOUSE from "../constants/mouse.js";
 import { OBJECT_TYPES, OBJECT_COLOURS, TOWER_SIZE } from "../constants/objects.js";
-import { assets } from "./Assets.js";
+import { assets } from "../utilities/assets.js";
 import { checkCircleCollision, checkBoxCollision } from "../utilities/math.js";
 import { SapphireTower } from "../objects/towers/SapphireTower.js";
 
