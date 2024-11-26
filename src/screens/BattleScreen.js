@@ -1,18 +1,18 @@
-import { LevelHandler } from "../handlers/LevelHandler.js";
-import { ObjectHandler } from "../handlers/ObjectHandler.js";
+import { Levels } from "../handlers/Levels.js";
+import { Objects } from "../handlers/Objects.js";
 
 export class BattleScreen {
     constructor(){
-        this.LevelHandler = new LevelHandler();
-        this.ObjectHandler = new ObjectHandler(this.LevelHandler.emptyTowerSpots);
+        this.Levels = new Levels();
+        this.Objects = new Objects(this.Levels.emptyTowerSpots);
     }
 
     draw(ctx){
-        this.LevelHandler.draw(ctx);
-        this.ObjectHandler.draw(ctx);
+        this.Levels.draw(ctx);
+        this.Objects.draw(ctx);
     }
 
     update(event){
-        this.ObjectHandler.update(event);
+        this.Objects.update(event);
     }
 }

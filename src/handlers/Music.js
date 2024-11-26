@@ -1,10 +1,10 @@
 import { GAME_STATES } from "../constants/game.js";
-import { assets } from "./AssetHandler.js";
+import { assets } from "./Assets.js";
 
 let isMusicPaused = false;
 let music;
 
-export class MusicHandler {
+export class Music {
     constructor(){  
 
     }

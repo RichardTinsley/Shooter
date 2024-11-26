@@ -1,4 +1,4 @@
-export const OBJECT_TYPES = {
+export const CURSOR_TYPES = {
     NORMAL: "normal",
     ENEMY: "attack",
     TOWER: "select",
@@ -6,7 +6,7 @@ export const OBJECT_TYPES = {
 }
 
 export const NULL_OBJECT = {
-    type: OBJECT_TYPES.NORMAL,
+    type: CURSOR_TYPES.NORMAL,
 };
 
 export const SIZE = 3;

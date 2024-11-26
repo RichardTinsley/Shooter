@@ -4,7 +4,7 @@ let previousTime = 0;
 let eventTimer = 0;
 let totalRuntimeSeconds = 0;
 
-export class TimeHandler{
+export class Time{
     constructor(){
         this.event = false;
         this.timerDisplay; 

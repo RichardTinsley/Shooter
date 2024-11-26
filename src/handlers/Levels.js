@@ -1,12 +1,12 @@
 import { GAME_SIZES } from "../constants/game.js";
 import { WASTELANDS_TILEMAP } from "../constants/levels.js";
-import { assets } from "./AssetHandler.js";
+import { assets } from "./Assets.js";
 import { EmptyTowerSpot } from "../objects/towers/EmptyTowerSpot.js";
 
 const levelImage = new OffscreenCanvas(GAME_SIZES.GAME_WIDTH, GAME_SIZES.GAME_HEIGHT);
 const context = levelImage.getContext('2d');
 
-export class LevelHandler {
+export class Levels {
     constructor(){
         this.tileMap2D = this.create2DTileMapArray(WASTELANDS_TILEMAP);
         this.tilesetImage = assets.get('wastelands');

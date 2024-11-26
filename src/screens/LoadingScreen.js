@@ -1,6 +1,6 @@
 import { GAME_STATES, GAME_SIZES } from "../constants/game.js";
 import { ASSET_LIST } from "../constants/assets.js";
-import * as assetHandler from "../handlers/AssetHandler.js"
+import * as assetHandler from "../handlers/Assets.js"
 import { drawText } from "../utilities/textRender.js";
 
 export class LoadingScreen {

@@ -1,5 +1,5 @@
 import { Tower } from "../Tower.js";
-import { assets } from "../../handlers/AssetHandler.js";
+import { assets } from "../../handlers/Assets.js";
 
 export class EmptyTowerSpot extends Tower {
     constructor({

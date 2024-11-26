@@ -1,8 +1,8 @@
 import { ANIMATION_STATES } from "../constants/animations.js";
-import { TOWER_SIZE } from "../constants/towers.js";
-import { OBJECT_TYPES } from "../constants/mouse.js";
+import { TOWER_SIZE } from "../constants/objects.js";
+import { CURSOR_TYPES } from "../constants/mouse.js";
 import { checkCircleCollision } from "../utilities/math.js";
-import { assets } from "../handlers/AssetHandler.js";
+import { assets } from "../handlers/Assets.js";
 
 export class Tower {
     constructor({
@@ -37,7 +37,7 @@ export class Tower {
 
         this.state = ANIMATION_STATES.ANIMATING;
         this.isSelected = false;
-        this.type = OBJECT_TYPES.TOWER;
+        this.type = CURSOR_TYPES.TOWER;
 
         this.damage;
         this.range;

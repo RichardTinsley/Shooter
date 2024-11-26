@@ -1,6 +1,6 @@
 import { GAME_STATES, GAME_SIZES } from "./game.js";
 import { TEXT_COLOURS } from "./colours.js";
-import { OBJECT_TYPES } from "./mouse.js";
+import { CURSOR_TYPES } from "./mouse.js";
 
 export const MENU_POSITIONS = {
     MAIN_MENU: 460,
@@ -41,7 +41,7 @@ export const MENU_ITEM_TEMPLATE = {
     y: null,
     height: MENU_SIZES.TEXT,
     space: MENU_SIZES.BUFFER,
-    type: OBJECT_TYPES.MENUITEM,
+    type: CURSOR_TYPES.MENUITEM,
 }
 
 

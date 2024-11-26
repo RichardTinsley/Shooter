@@ -7,7 +7,7 @@ let frames = 0;
 let startTime = performance.now();
 let FPSNormal = 0;
 
-export class DebugHandler{
+export class Debug{
     constructor(Mouse) {
         this.Mouse = Mouse;
         this.isDebugMode = true;
@@ -19,7 +19,7 @@ export class DebugHandler{
 
         if(Screen instanceof BattleScreen){
             this.levelDebugInfoGrid(ctx);
-            this.towerDebugInfo(ctx, Screen.ObjectHandler.towers);
+            this.towerDebugInfo(ctx, Screen.Objects.towers);
         // this.enemyDebugInfo(ctx, enemies);
         // this.projectileDebugInfo(ctx, projectiles);
         }

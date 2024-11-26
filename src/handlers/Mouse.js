@@ -4,7 +4,7 @@ import { checkCircleCollision, checkBoxCollision } from "../utilities/math.js";
 
 let selectedObject = MOUSE.NULL_OBJECT;
 
-export class MouseHandler {
+export class Mouse {
     constructor(switchScreens, switchMusic){  
         this.Mouse = {
             center: {
@@ -32,23 +32,23 @@ export class MouseHandler {
         if(Screen.menu)
             this.menuSelector(Screen.menu);
 
-        if(Screen.ObjectHandler)
-            this.towerSelector(Screen.ObjectHandler.towers);
+        if(Screen.Objects)
+            this.towerSelector(Screen.Objects.towers);
         
         this.Mouse.style.cursor = `url(../../images/cursors/${selectedObject.type}.cur), auto`;
     }
 
     onMouseClick(switchScreens, switchMusic){
         switch(selectedObject.type){
-            case MOUSE.OBJECT_TYPES.NORMAL:
+            case MOUSE.CURSOR_TYPES.NORMAL:
                 break
-            case MOUSE.OBJECT_TYPES.ENEMY:
+            case MOUSE.CURSOR_TYPES.ENEMY:
                 break
-            case MOUSE.OBJECT_TYPES.MENUITEM:
+            case MOUSE.CURSOR_TYPES.MENUITEM:
                 switchScreens(selectedObject.option);
                 switchMusic(selectedObject.option);
                 break
-            case MOUSE.OBJECT_TYPES.TOWER:
+            case MOUSE.CURSOR_TYPES.TOWER:
                 //buildThisTower = selectedObject.tower;
                 break
         }

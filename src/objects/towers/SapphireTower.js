@@ -1,5 +1,6 @@
 import { checkCollision } from "../../utilities/math.js";
 import { ANIMATION_STATES, ENEMY_STATES, TILE_SIZE, TOWER_SIZE } from "../../constants/constants.js";
+import { OBJECT_COLOURS, OBJECT_TYPES } from "../../constants/objects.js";
 import { assets } from "../../AssetLoader.js";
 import { SapphireProjectile } from "../../(OLD)/entities/projectiles/SapphireProjectile.js";
 
@@ -8,7 +9,7 @@ export class SapphireTower {
         position
     }){
         this.sprite = {
-            image: assets.get('sapphireTower'),
+            image: assets.get(`${OBJECT_COLOURS.SAPPHIRE}${OBJECT_TYPES.TOWER}1`),
             width: TOWER_SIZE,
             height: TOWER_SIZE,
             row: 0,

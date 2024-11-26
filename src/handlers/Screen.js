@@ -5,9 +5,8 @@ import { BattleScreen } from "../screens/BattleScreen.js";
 import { GameOverScreen } from "../screens/GameOverScreen.js";
 
 let isPaused = false;
-let currentScreen = GAME_STATES.LOADING;
 
-export class ScreenHandler {
+export class Screen {
     constructor(switchMusic){
         this.Screen = new LoadingScreen(this.switchScreens, switchMusic);
     }
@@ -18,10 +17,11 @@ export class ScreenHandler {
 
     update(event){
         this.Screen.update(event);
+        // IF screen instanceof Load.
+        // if screen.load completed. this.switchscreens(Mainmenu)
     }
 
     switchScreens = (option) => {
-        currentScreen = option;
         switch(option){
             case GAME_STATES.MAINMENU:
                 this.Screen = new MainMenuScreen();
@@ -40,12 +40,14 @@ export class ScreenHandler {
     }
 
     pauseGame(){
-        if(this.currentScreen !== GAME_STATES.BATTLE)
+        if(!this.Screen instanceof BattleScreen)
             return
-        if(!isPaused)
-            this.Screen = new PauseScreen(this.Screen);
-        else    
-            this.Screen = new BattleScreen(this.Screen)
+        // if(!isPaused)
+            // this.Screen = new PauseScreen(this.Screen.Objects, this.Screen.BattleHud);
+        // else    
+            // this.Screen = new BattleScreen(this.Screen)
         isPaused = !isPaused;
     }
+
+
 }

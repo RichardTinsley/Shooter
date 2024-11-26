@@ -1,17 +1,17 @@
 import { context } from "./utilities/context.js";
-import { GameHandler } from "./handlers/GameHandler.js";
+import { Game } from "./handlers/Game.js";
 
 const ctx = context();
 
-export class Game{
+export class Main{
     constructor(){
-        this.GameHandler = new GameHandler();
+        this.Game = new Game();
         requestAnimationFrame(this.frame);
     }
     
     frame = (time) => {
-        this.GameHandler.draw(ctx);
-        this.GameHandler.update(time);
+        this.Game.draw(ctx);
+        this.Game.update(time);
         requestAnimationFrame(this.frame);
     }
 }

@@ -1,10 +1,7 @@
 RESEARCH: SCOPE/CLOSURE,  OBJECT.() PROTOTYPES, JS PERFORMANCE, WINDOW DOCUMENT
-
-TIMEHANDLER move to SCREENHANDER.
 TIMER CLASS .UPDATE() returns event, timer display from hud.  [destructure]??
-GAME.JS = MAIN.JS,  SCREENHANDLER GAME HANDLER
+move Assets to utilities
 
-CREATE CLASS FILES FOR EACH TYPE.  SAPPHIRE TOWER.JS.  GET RID OF 'ADD'entity'() functions and just pass arrays. 
 DEATH AND BATTLE HANDLERS MERGE, PUT SHOOT() BACK IN TOWER, BUT ITS HANDLED BY BIG BATTLE HANDLER
 CLEAN UP SHOOT()/ MERGE target enemies and prioritise enemies in tower range.
 if tower not an instanceof Empty tower // shoot
