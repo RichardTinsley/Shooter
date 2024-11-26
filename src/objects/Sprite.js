@@ -30,7 +30,7 @@ export class Sprite {
         this.center = {
             x: this.position.x,
             y: this.position.y - this.halfHeight,
-            radius: this.halfWidth / 2
+            radius: this.halfWidth / 2,
         }
         
         this.state = ANIMATION_STATES.ANIMATING;

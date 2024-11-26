@@ -1,5 +1,5 @@
 import { ANIMATION_STATES } from "../constants/animations.js";
-import { CURSOR_TYPES } from "../constants/mouse.js";
+import { OBJECT_TYPES } from "../constants/objects.js";
 import { checkCircleCollision } from "../utilities/math.js";
 import { Sprite } from "./Sprite.js";
 
@@ -15,7 +15,7 @@ export class Tower extends Sprite{
             size
         });
 
-        this.type = CURSOR_TYPES.TOWER;
+        this.type = OBJECT_TYPES.TOWER;
         this.isOccupied = false;
         this.isSelected = false;
         
@@ -26,31 +26,22 @@ export class Tower extends Sprite{
         this.range;
         this.cooldown;
 
+        this.center.radius = this.halfWidth;
+
         this.muzzle = {
             x: this.position.x,
-            y: this.position.y - this.sprite.height
+            y: this.position.y - this.height
         };
 
     }
 
     draw(ctx){
-        switch(this.state){
-            case ANIMATION_STATES.ANIMATING:
-                super.draw(ctx);
-                break
-            case ANIMATION_STATES.FINISHED:
-                break
-        }
+        super.draw(ctx);
+        this.drawSelection(ctx);
     }
 
     update(event){
-        switch(this.state){
-            case ANIMATION_STATES.ANIMATING:
-                super.update(event);
-                break
-            case ANIMATION_STATES.FINISHED:
-                break
-        }
+        super.update(event);
     }
 
     drawSelection(ctx){

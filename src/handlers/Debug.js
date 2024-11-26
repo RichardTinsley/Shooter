@@ -76,10 +76,10 @@ export class Debug{
     
     towerDebugInfo(ctx, towers){
         towers.forEach(tower => {
-            // this.drawCircleHitbox(ctx, tower);
             this.drawDot(ctx, tower.position, COLOURS.BLUE);
             this.drawDot(ctx, tower.center, COLOURS.GREEN);
             this.drawDot(ctx, tower.muzzle, COLOURS.YELLOW);
+            this.drawCircleHitbox(ctx, tower);
         });
     }
     
@@ -109,7 +109,7 @@ export class Debug{
     
     drawCircleHitbox(ctx, entity){
         ctx.beginPath();
-        ctx.arc(entity.center.x, entity.center.y, entity.center.radius + 3, 0, Math.PI * 2);
+        ctx.arc(entity.center.x, entity.center.y, entity.center.radius, 0, Math.PI * 2);
         ctx.fillStyle = COLOURS.RED_ALPHA;
         ctx.fill();
     
