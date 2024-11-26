@@ -1,15 +1,27 @@
-import { ANIMATION_STATES } from "../constants/constants.js";
-import { Text } from "../Text.js";
+import { ANIMATION_STATES } from "../../constants/animations.js";
+import { Text } from "./Text.js";
 
 export class GlowText extends Text {
     constructor({
         text,
         colour,
         position,
-        size
+        size,
+        align,
+        baseline,
+        alpha
     }){
-        super(text, colour, position, size);
-        // this.alpha = 10; //OVERRIDING
+        super({
+            text, 
+            colour, 
+            position, 
+            size, 
+            align, 
+            baseline,
+            alpha
+        });
+
+
         this.delta = 0.3;
         this.textShadowBlur = 1;
     }
@@ -17,7 +29,11 @@ export class GlowText extends Text {
     draw(ctx){
         switch(this.state){
             case ANIMATION_STATES.ANIMATING:
-                super.draw(ctx);
+                    ctx.shadowColor = "#d53";
+                    ctx.shadowBlur = this.textShadowBlur;
+                    super.draw(ctx);
+                    ctx.shadowColor = 0;
+                    ctx.shadowBlur = 0;
                 break
             case ANIMATION_STATES.FINISHED:
                 break
@@ -35,11 +51,11 @@ export class GlowText extends Text {
         }
     }
 
-
-    
     oscillateTextShadow(){
         this.textShadowBlur += this.delta;
         if (this.textShadowBlur <= 1 || this.textShadowBlur >= 10)
             this.delta = -this.delta;
     }
 }
+
+

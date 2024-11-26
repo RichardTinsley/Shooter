@@ -1,15 +1,27 @@
-import { ANIMATION_STATES } from "../constants/constants.js";
-import { Text } from "../Text.js";
+import { ANIMATION_STATES } from "../../constants/animations.js";
+import { Text } from "./Text.js";
 
 export class GameText extends Text {
     constructor({
         text,
         colour,
         position,
-        size
+        size,
+        align,
+        baseline,
+        alpha
     }){
-        super(text, colour, position, size);
-        this.alpha = 10; //OVERRIDING
+        super({
+            text, 
+            colour, 
+            position, 
+            size, 
+            align, 
+            baseline,
+            alpha
+        });
+        
+        //this.alpha = 10; //OVERRIDING
         this.delta = 0.6;
     }
 

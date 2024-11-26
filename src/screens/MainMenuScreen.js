@@ -1,10 +1,25 @@
 import { GAME_SIZES } from "../constants/game.js";
+import { TEXT_COLOURS } from "../constants/colours.js";
 import { assets } from "../utilities/assets.js";
 import { drawText } from "../utilities/textRender.js";
+import { GlowText } from "../objects/texts/GlowText.js";
 import { MAIN_MENU, MENU_ITEM_TEMPLATE, MENU_POSITIONS } from "../constants/menus.js";
 
 export class MainMenuScreen {
     constructor() {
+        this.title = new GlowText({
+            text: "Death   Sorcery",
+            colour: TEXT_COLOURS.WHITE, 
+            position: {
+                x: GAME_SIZES.GAME_WIDTH_HALF,
+                y: 250, 
+            },
+            size: 170,
+            align: "center",
+            baseline: "bottom",
+            alpha: 1,
+        });
+
         this.menu = [];
         this.initMenu();
 
@@ -16,16 +31,17 @@ export class MainMenuScreen {
 
         ctx.drawImage(assets.get('menuLogo'), 0, 0);
 
-        drawText(
-            ctx,
-            "white",
-            "Death   Sorcery",
-            GAME_SIZES.GAME_WIDTH_HALF,
-            90,
-            170,
-            "center",
-            "top"
-        )
+        this.title.draw(ctx);
+        // drawText(
+        //     ctx,
+        //     "white",
+        //     "Death   Sorcery",
+        //     GAME_SIZES.GAME_WIDTH_HALF,
+        //     90,
+        //     170,
+        //     "center",
+        //     "top"
+        // )
 
         this.menu.forEach((menuItem) => {
             drawText(
@@ -41,9 +57,11 @@ export class MainMenuScreen {
         })
     }
 
-
-
     update(event){
+        if(!event)
+            return
+
+        this.title.update(event);
         // this.userInput.menuScreenButtonsSelector(menuScreenButtons);
     }
 
