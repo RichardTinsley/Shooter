@@ -68,24 +68,25 @@ export class Debug{
     
     enemyDebugInfo(ctx, enemies){
         enemies.forEach(enemy => {
-            this.drawPositionDot(ctx, enemy);
-            this.drawCenterDot(ctx, enemy);
-            this.drawCircleHitbox(ctx, enemy);
+            // this.drawPositionDot(ctx, enemy);
+            // this.drawCenterDot(ctx, enemy);
+            // this.drawCircleHitbox(ctx, enemy);
         });
     }
     
     towerDebugInfo(ctx, towers){
         towers.forEach(tower => {
-            this.drawCircleHitbox(ctx, tower);
-            this.drawPositionDot(ctx, tower);
-            this.drawCenterDot(ctx, tower);
+            // this.drawCircleHitbox(ctx, tower);
+            this.drawDot(ctx, tower.position, COLOURS.BLUE);
+            this.drawDot(ctx, tower.center, COLOURS.GREEN);
+            this.drawDot(ctx, tower.muzzle, COLOURS.YELLOW);
         });
     }
     
     projectileDebugInfo(ctx, projectiles){
         projectiles.forEach(projectile => {
-            this.drawCircleHitbox(ctx, projectile);
-            this.drawPositionDot(ctx, projectile);
+            // this.drawCircleHitbox(ctx, projectile);
+            // this.drawPositionDot(ctx, projectile);
         });
     }
     menuDebugInfo(ctx, menu){
@@ -101,14 +102,9 @@ export class Debug{
         drawText(ctx, 'white', `f p s: ${FPS}`, 10, GAME_SIZES.TILE_SIZE * 4, GAME_SIZES.TILE_SIZE_HALF, 'left', 'middle');
     }
     
-    drawPositionDot(ctx, entity){
-        ctx.fillStyle = COLOURS.BLUE;
-        ctx.fillRect(entity.position.x, entity.position.y, 4, 4);
-    }
-    
-    drawCenterDot(ctx, entity){
-        ctx.fillStyle = COLOURS.GREEN;
-        ctx.fillRect(entity.center.x - 2, entity.center.y - 2, 4, 4);
+    drawDot(ctx, entity, colour){
+        ctx.fillStyle = colour;
+        ctx.fillRect(entity.x - 2, entity.y - 2, 4, 4);
     }
     
     drawCircleHitbox(ctx, entity){
@@ -117,8 +113,7 @@ export class Debug{
         ctx.fillStyle = COLOURS.RED_ALPHA;
         ctx.fill();
     
-        ctx.fillStyle = COLOURS.RED;
-        ctx.fillRect(entity.center.x - 1.5, entity.center.y - 1.5, entity.width, entity.height);
+        this.drawDot(ctx, entity.center, COLOURS.RED);
     }
     
     drawSquareHitBox(ctx, menuItem){

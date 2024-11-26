@@ -10,8 +10,10 @@ export class Objects{
         this.test = new Sprite({
             image: assets.get(`${OBJECT_COLOURS.SAPPHIRE}${OBJECT_TYPES.TOWER}1`),
             size: TOWER_SIZE, 
-            position: {x: 100, y: 100}
+            position: {x: 352, y: 352}
         });
+        this.test.muzzle = {x: 352, y: 352};
+        this.towers.push(this.test);
     }
 
     draw(ctx){
