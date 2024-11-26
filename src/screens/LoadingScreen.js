@@ -19,12 +19,9 @@ export class LoadingScreen {
             colour: TEXT_COLOURS.WHITE, 
             position: {
                 x: GAME_SIZES.GAME_WIDTH_HALF,
-                y: 200, 
+                y: 150, 
             },
             size: 150,
-            align: "center",
-            baseline: "bottom",
-            alpha: 1,
         });
         
         this.summoningText = new FadeText({
@@ -32,12 +29,9 @@ export class LoadingScreen {
             colour: TEXT_COLOURS.WHITE, 
             position: {
                 x: GAME_SIZES.GAME_WIDTH_HALF,
-                y: GAME_SIZES.GAME_HEIGHT - 65, 
+                y: GAME_SIZES.GAME_HEIGHT - 100, 
             },
             size: 60,
-            align: "center",
-            baseline: "bottom",
-            alpha: 0,
         });
     }
     

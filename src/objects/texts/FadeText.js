@@ -6,21 +6,18 @@ export class FadeText extends Text {
         text,
         colour,
         position,
-        size,
-        align,
-        baseline,
-        alpha
+        size
     }){
         super({
             text, 
             colour, 
             position, 
-            size, 
-            align, 
-            baseline,
-            alpha
+            size
         });
 
+        this.align = "center";
+        this.baseline = "middle";
+        this.alpha = 0;
         this.delta = 0.05;
     }
 

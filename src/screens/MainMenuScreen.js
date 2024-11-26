@@ -12,12 +12,9 @@ export class MainMenuScreen {
             colour: TEXT_COLOURS.WHITE, 
             position: {
                 x: GAME_SIZES.GAME_WIDTH_HALF,
-                y: 250, 
+                y: 170, 
             },
             size: 170,
-            align: "center",
-            baseline: "bottom",
-            alpha: 1,
         });
 
         this.menu = [];
