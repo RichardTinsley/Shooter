@@ -83,32 +83,25 @@ export class Mouse {
     }
 
     buildTower(tower, towers){
-        console.log(towers)
+        if(selectedObject.isOccupied)
+            return
 
-        //if(!Screen.Hud.canAfford(buildThisTower.cost))
-
-        let newTower = new SapphireTower({
-            image: assets.get(`${OBJECT_COLOURS.SAPPHIRE}${OBJECT_TYPES.TOWER}1`),
-            size: TOWER_SIZE, 
-            position: tower.position
-        });
-
-        towers.push(newTower);
-        // let foundIndex = towers.find(tower => tower === mouseOverTower);
-        // towers.splice(foundIndex, 1, newTower);
-        
-        // towers.push(newTower);
-        // battleScreenHud.coins -= 25;
-
-        
-
-        // if(mouseOverTower && battleScreenHud.coins - 25 < 0)
+        // if(!Screen.Hud.canAfford(buildThisTower.cost)){
         //     addText(
         //         "Not Enough Gold",
         //         TEXT_COLOURS.RED,
         //         mouseOverTower.center
         //     );
+        //     return
+        // }
 
+        let newTower = new SapphireTower({
+            image: assets.get(`${OBJECT_COLOURS.SAPPHIRE}${OBJECT_TYPES.TOWER}1`),
+            size: TOWER_SIZE, 
+            position: tower.position,
+        })
+        newTower.isOccupied = true;
+        towers[towers.findIndex(tower => tower === buildTowerHere)] = newTower;
         buildTowerHere = null;
     }
 
