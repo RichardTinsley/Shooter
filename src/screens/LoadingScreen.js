@@ -29,6 +29,9 @@ export class LoadingScreen {
         if(!event) 
             return;
 
+        if(this.globalAlpha < 1)
+            this.globalAlpha += .1;
+
         this.alpha += this.delta;
         if (this.alpha <= -0.5 || this.alpha >= 1.5){
             this.delta = -this.delta;
@@ -37,9 +40,6 @@ export class LoadingScreen {
         this.textShadowBlur += this.textShadowBlurDelta;
         if (this.textShadowBlur <= 1 || this.textShadowBlur >= 10)
             this.textShadowBlurDelta = -this.textShadowBlurDelta;
-
-        if(this.globalAlpha < 1)
-            this.globalAlpha += .1;
     }
 
     draw(ctx){
