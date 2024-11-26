@@ -21,7 +21,6 @@ export class GlowText extends Text {
             alpha
         });
 
-
         this.delta = 0.3;
         this.textShadowBlur = 1;
     }

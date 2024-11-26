@@ -21,7 +21,6 @@ export class GameText extends Text {
             alpha
         });
         
-        //this.alpha = 10; //OVERRIDING
         this.delta = 0.6;
     }
 

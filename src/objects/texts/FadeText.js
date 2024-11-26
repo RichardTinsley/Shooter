@@ -46,7 +46,6 @@ export class FadeText extends Text {
     }
     
     oscillateAlpha(){
-
         this.alpha += this.delta;
         if (this.alpha <= -0.5 || this.alpha >= 1.5){
             this.delta = -this.delta;

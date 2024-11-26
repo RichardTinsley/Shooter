@@ -30,18 +30,7 @@ export class MainMenuScreen {
             ctx.globalAlpha = 1;
 
         ctx.drawImage(assets.get('menuLogo'), 0, 0);
-
         this.title.draw(ctx);
-        // drawText(
-        //     ctx,
-        //     "white",
-        //     "Death   Sorcery",
-        //     GAME_SIZES.GAME_WIDTH_HALF,
-        //     90,
-        //     170,
-        //     "center",
-        //     "top"
-        // )
 
         this.menu.forEach((menuItem) => {
             drawText(

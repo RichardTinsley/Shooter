@@ -1,10 +1,5 @@
-Loading Screen is 108 lines.
-
-SCREEN to SCENE, MOVE MUSIC INTO SCENE
-move Assets to utilities, AND MOVE loadassets to assets in utilities
-DELETE this.loadBar = this.maxLoadBar;
-SCREEN CLASS, ALL SCREENS INHERIT FROM THIS  
-TEXT CLASS, MERGE ALL TEXT FUNCTIONALITY., draw and update.  Handles its own global alpha, fading, movement AND textblur oscillation
+SCREEN CLASS, ALL SCREENS INHERIT FROM THIS / FADE TRANSITIONS ctx.globalalpha?
+MENU CLASS, mouse over update text blur
 window.onload vs window.addevent listener("load)
 
 DEATH AND BATTLE HANDLERS MERGE, PUT SHOOT() BACK IN TOWER, BUT ITS HANDLED BY BIG BATTLE HANDLER
