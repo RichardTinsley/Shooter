@@ -10,10 +10,10 @@ export function checkCircleCollision(a, b){
 
 export function checkBoxCollision(a, b){ // a = MOUSE
     return(
-        a.center.x > b.x + b.width ||
-        a.center.x + a.width < b.x ||
-        a.center.y > b.y + b.height ||
-        a.center.y + a.height < b.y
+        a.center.x > b.position.x + b.width ||
+        a.center.x + a.width < b.position.x ||
+        a.center.y > b.position.y + b.height ||
+        a.center.y + a.height < b.position.y
     );
 }
 

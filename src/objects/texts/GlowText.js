@@ -15,6 +15,8 @@ export class GlowText extends Text {
             size
         });
 
+
+        this.enabled = false;
         this.alpha = 1;
         this.delta = 0.3;
         this.textShadowBlur = 1;
@@ -45,9 +47,22 @@ export class GlowText extends Text {
         }
     }
 
+    enable(value){
+        this.enabled = value;
+
+        if(this.enabled)
+            this.textShadowBlur = 5;
+        else
+            this.textShadowBlur = 0;
+        
+    }
+
     oscillateTextShadow(){
+        if(!this.enabled)
+            return
+
         this.textShadowBlur += this.delta;
-        if (this.textShadowBlur <= 1 || this.textShadowBlur >= 10)
+        if (this.textShadowBlur <= 1 || this.textShadowBlur >= 15)
             this.delta = -this.delta;
     }
 }

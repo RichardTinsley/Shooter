@@ -4,6 +4,7 @@ import { OBJECT_TYPES, OBJECT_COLOURS, TOWER_SIZE } from "../constants/objects.j
 import { assets } from "../utilities/assets.js";
 import { checkCircleCollision, checkBoxCollision } from "../utilities/math.js";
 import { SapphireTower } from "../objects/towers/SapphireTower.js";
+import { MenuItemText } from "../menus/MenuItemText.js";
 
 let selectedObject = MOUSE.NULL_OBJECT;
 let buildTowerHere = null;
@@ -33,8 +34,8 @@ export class Mouse {
     }
 
     update(Screen){
-        // if(Screen.menu)
-        //     this.menuSelector(Screen.menu);
+        if(Screen.menu)
+            this.menuSelector(Screen.menu);
 
         if(Screen.Objects)
             this.towerSelector(Screen.Objects.towers);
@@ -59,12 +60,13 @@ export class Mouse {
     }
 
     menuSelector(menu){
-        menu.forEach((menuItem) => {
+        
+        menu.menuItems.forEach((menuItem) => {
             if(checkBoxCollision(this.Mouse, menuItem))
-                menuItem.colour = COLOURS.WHITE;
+                menuItem.text.enable(false);
             else {
+                menuItem.text.enable(true);
                 selectedObject = menuItem;
-                menuItem.colour = COLOURS.RED;
             }
         });
     }

@@ -90,7 +90,6 @@ export class Debug{
         });
     }
     menuDebugInfo(ctx, menu){
-        console.log(menu)
         menu.menuItems.forEach(menuItem => {
             this.drawSquareHitBox(ctx, menuItem);
         });

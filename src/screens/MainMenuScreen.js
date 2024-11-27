@@ -20,6 +20,8 @@ export class MainMenuScreen extends Screen {
             },
             size: 170,
         });
+
+        this.title.enable(true);
     }
 
     draw(ctx){
