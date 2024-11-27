@@ -27,7 +27,7 @@ export class BattleScreen {
         })
         this.menu.menuItems.push(this.test);
 
-        this.waypoints = [{x: 500, y: 500}];
+        this.waypoints = [{x: 200, y: 700}];
 
         this.testEnemy = new Enemy({
             position: {

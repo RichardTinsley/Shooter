@@ -58,28 +58,5 @@ export class Sprite {
         
         this.sprite.frame < this.maxFrame ? this.sprite.frame++ : this.sprite.frame = 0;
     }
-    // FOR SPRITE SHEETS WITH MULTIPLE ROWS
-    // animate(event){
-    //     if(!event || this.maxFrame === 0)
-    //         return
-
-    //     if(this.maxRow === 0)
-    //         this.sprite.frame < this.maxFrame ? this.sprite.frame++ : this.sprite.frame = 0;
-    //     else
-    //         this.animateRows();
-    // }
-
-    // animateRows(){
-    //     if(this.sprite.frame < this.maxFrame)
-    //         this.sprite.frame++;
-    //     else{
-    //         this.sprite.row++;
-    //         this.sprite.frame = 0;
-    //     }
-    //     if(this.sprite.row === this.maxRow && this.sprite.frame < this.maxFrame){
-    //         this.sprite.row = 0;
-    //         this.sprite.frame = 0;
-    //     }
-    // }
 }
 

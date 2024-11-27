@@ -22,6 +22,7 @@ export class Enemy extends MovingSprite{
         });
 
         this.quarterWidth = this.width / 4;
+        this.shadowHeight = this.height / 12;
         
         this.waypoints = waypoints;
         this.waypointIndex = 0;
@@ -32,15 +33,14 @@ export class Enemy extends MovingSprite{
         this.isSelected = false;
         this.maxHealth = randomPositiveFloat(100);
         this.health = this.maxHealth;
-        this.shadowHeight = this.height / 12;
     }
 
     draw(ctx){
-        super.draw(ctx);
         switch(this.state){
             case OBJECTS.ANIMATION.ANIMATING:
-                // this.drawShadow(ctx);
-                // this.drawHealthBar(ctx);
+                this.drawShadow(ctx);
+                super.draw(ctx);
+                this.drawHealthBar(ctx);
                 break
             case OBJECTS.ANIMATION.FINISHED:
                 break
@@ -73,12 +73,12 @@ export class Enemy extends MovingSprite{
     update(event){
         switch(this.state){
             case OBJECTS.ANIMATION.ANIMATING:
-                // this.updateEnemyDirection()
-                // this.updatePriorityDistance() 
-                // this.updateMovement();
-                // this.checkWaypointArrival();
-                // this.checkEnemyHealth();
-                // this.updateDeathAnimation();
+                this.updateEnemyDirection()
+                this.updatePriorityDistance() 
+                this.updateMovement();
+                this.checkWaypointArrival();
+                this.checkEnemyHealth();
+                this.updateDeathAnimation();
                 super.update(event);
                 break
             case OBJECTS.ANIMATION.FINISHED:
@@ -99,7 +99,7 @@ export class Enemy extends MovingSprite{
     }
 
     updateDeathAnimation(){
-        if(this.sprite.row === ENEMY_STATES.DYING){
+        if(this.sprite.row === OBJECTS.STATES.DYING){
             if(this.sprite.frame < this.maxFrame) 
                 this.sprite.frame++; 
             else 
@@ -137,8 +137,8 @@ export class Enemy extends MovingSprite{
         if(this.health <= 0)
             return
         
-        const healthBarX = this.center.x - this.quarterWidth;
-        const healthBarY = this.center.y - (this.height / 1.4);
+        const healthBarX = this.position.x - this.quarterWidth;
+        const healthBarY = this.position.y - this.height + this.shadowHeight;
         const healthBarLength = this.quarterWidth * 2;
         const healthBarThickness = 4;
         ctx.beginPath();
@@ -157,8 +157,8 @@ export class Enemy extends MovingSprite{
 
         ctx.beginPath();
         ctx.ellipse(
-            this.center.x, 
-            this.center.y + ENEMY_SIZE_HALF / 6, 
+            this.position.x, 
+            this.position.y, 
             this.shadowHeight, 
             this.quarterWidth, 
             Math.PI / 2, 

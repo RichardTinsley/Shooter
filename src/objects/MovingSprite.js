@@ -33,8 +33,8 @@ export class MovingSprite extends Sprite{
     }
 
     updateMovement(){
-        this.velocity.x = Math.cos(angle) * this.speed;
-        this.velocity.y = Math.sin(angle) * this.speed;
+        this.velocity.x = Math.cos(this.angle) * this.speed;
+        this.velocity.y = Math.sin(this.angle) * this.speed;
         this.position.x += this.velocity.x;
         this.position.y += this.velocity.y;
     }
