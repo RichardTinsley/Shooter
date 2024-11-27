@@ -1,7 +1,5 @@
-import { ENEMY_STATES, ENEMY_SIZE_HALF, ENEMY_SIZE } from "../constants/objects.js";
+import * as OBJECTS from "../constants/objects.js"
 import { GAME_SIZES } from "../constants/game.js";
-import { ANIMATION_STATES } from "../constants/animations.js";
-import { OBJECT_COLOURS } from "../constants/objects.js";
 import { checkCircleCollision, findAngleOfDirection, giveDirection, randomPositiveFloat } from "../utilities/math.js";
 import { MovingSprite } from "./MovingSprite.js";
 import { assets } from "../utilities/assets.js";
@@ -16,8 +14,8 @@ export class Enemy extends MovingSprite{
         waypoints
     }){
         super({
-            image: image ?? assets.get(OBJECT_COLOURS.TOPAZ), 
-            size: size ?? ENEMY_SIZE,
+            image: image ?? assets.get(OBJECTS.COLOURS.TOPAZ), 
+            size: size ?? OBJECTS.SIZES.ENEMY,
             position,
             scale: scale ?? 1.5,
             speed: speed ?? 1, 
@@ -30,7 +28,7 @@ export class Enemy extends MovingSprite{
         this.priorityDistance = 0;
         this.currentDestination = 0;
 
-        this.sprite.row = this.speed < 0.8 ? ENEMY_STATES.WALKING : ENEMY_STATES.RUNNING;
+        this.sprite.row = this.speed < 0.8 ? OBJECTS.STATES.WALKING : OBJECTS.STATES.RUNNING;
         this.isSelected = false;
         this.maxHealth = randomPositiveFloat(100);
         this.health = this.maxHealth;
@@ -40,20 +38,20 @@ export class Enemy extends MovingSprite{
     draw(ctx){
         super.draw(ctx);
         switch(this.state){
-            case ANIMATION_STATES.ANIMATING:
+            case OBJECTS.ANIMATION.ANIMATING:
                 // this.drawShadow(ctx);
                 // this.drawHealthBar(ctx);
                 break
-            case ANIMATION_STATES.FINISHED:
+            case OBJECTS.ANIMATION.FINISHED:
                 break
         }
     }
 
     drawEnemy(ctx){
-        const left = -this.halfWidth - ENEMY_SIZE_HALF - this.position.x;
-        const right = this.position.x + ENEMY_SIZE_HALF - this.halfWidth;
+        const left = -this.halfWidth - this.halfWidth - this.position.x;
+        const right = this.position.x + this.halfWidth - this.halfWidth;
 
-        if(this.direction === ANIMATION_STATES.LEFT){
+        if(this.direction === OBJECTS.ANIMATION.LEFT){
             ctx.save();
             ctx.scale(-1, 1);
         }
@@ -63,18 +61,18 @@ export class Enemy extends MovingSprite{
             this.sprite.row * this.sprite.height + 1,
             this.sprite.width,
             this.sprite.height,
-            this.direction === ANIMATION_STATES.LEFT ? left : right,
+            this.direction === OBJECTS.ANIMATION.LEFT ? left : right,
             this.position.y + GAME_SIZES.TILE_SIZE - this.height,
             this.width,
             this.height
         );
-        if(this.direction === ANIMATION_STATES.LEFT)
+        if(this.direction === OBJECTS.ANIMATION.LEFT)
             ctx.restore();
     }
 
     update(event){
         switch(this.state){
-            case ANIMATION_STATES.ANIMATING:
+            case OBJECTS.ANIMATION.ANIMATING:
                 // this.updateEnemyDirection()
                 // this.updatePriorityDistance() 
                 // this.updateMovement();
@@ -83,7 +81,7 @@ export class Enemy extends MovingSprite{
                 // this.updateDeathAnimation();
                 super.update(event);
                 break
-            case ANIMATION_STATES.FINISHED:
+            case OBJECTS.ANIMATION.FINISHED:
                 break
         }
     }
@@ -110,7 +108,7 @@ export class Enemy extends MovingSprite{
             if(this.height > 2)
                 this.height -= 2;
             else
-                this.state = ANIMATION_STATES.FINISHED;
+                this.state = OBJECTS.ANIMATION.FINISHED;
         }
     }
 

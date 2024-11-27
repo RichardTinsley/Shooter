@@ -1,5 +1,6 @@
 import { GlowText } from "../objects/texts/GlowText.js";
-import { OBJECT_TYPES } from "../constants/objects.js";
+import * as OBJECTS from "../constants/objects.js"
+
 export class MenuItemText{
     constructor({
         text,
@@ -16,7 +17,7 @@ export class MenuItemText{
         });
         
         //MENU ITEM HITBOX FOR MOUSE CLICK
-        this.type = OBJECT_TYPES.MENUITEM;
+        this.type = OBJECTS.TYPES.MENUITEM;
         this.option = option;
         this.width = text.length * (size / 1.75);
         this.position = {

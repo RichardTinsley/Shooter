@@ -1,7 +1,7 @@
-import { OBJECT_TYPES } from "./objects.js";
+import * as OBJECTS from "./objects.js";
 
 export const NULL_OBJECT = {
-    type: OBJECT_TYPES.NORMAL,
+    type: OBJECTS.TYPES.NORMAL,
 };
 
 export const SIZE = 3;

@@ -1,10 +1,7 @@
-import { COLOURS } from "../constants/colours.js";
 import * as MOUSE from "../constants/mouse.js";
-import { OBJECT_TYPES, OBJECT_COLOURS, TOWER_SIZE } from "../constants/objects.js";
-import { assets } from "../utilities/assets.js";
+import * as OBJECTS from "../constants/objects.js"
 import { checkCircleCollision, checkBoxCollision } from "../utilities/math.js";
 import { SapphireTower } from "../objects/towers/SapphireTower.js";
-import { MenuItemText } from "../menus/MenuItemText.js";
 
 let selectedObject = MOUSE.NULL_OBJECT;
 let buildTowerHere = null;
@@ -48,12 +45,12 @@ export class Mouse {
 
     onMouseClick(switchScreens){
         switch(selectedObject.type){
-            case OBJECT_TYPES.ENEMY:
+            case OBJECTS.TYPES.ENEMY:
                 break
-            case OBJECT_TYPES.MENUITEM:
+            case OBJECTS.TYPES.MENUITEM:
                 switchScreens(selectedObject.option);
                 break
-            case OBJECT_TYPES.TOWER:
+            case OBJECTS.TYPES.TOWER:
                 buildTowerHere = selectedObject;
                 break
         }

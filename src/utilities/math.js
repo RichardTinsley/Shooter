@@ -1,4 +1,4 @@
-import { ANIMATION_STATES } from "../constants/animations.js";
+import * as OBJECTS from "../constants/objects.js"
 // LINE COLLISION??
 export function checkCircleCollision(a, b){
     const dx = a.center.x - b.center.x;
@@ -25,9 +25,9 @@ export function findAngleOfDirection(a, b){
 
 export function giveDirection(angle){
     if(angle < 1.57 && angle > -1.57)
-        return ANIMATION_STATES.RIGHT;
+        return OBJECTS.ANIMATION.RIGHT;
     else
-        return ANIMATION_STATES.LEFT;
+        return OBJECTS.ANIMATION.LEFT;
 }
 
 export function randomPositiveFloat(range){

@@ -1,6 +1,4 @@
-import { ANIMATION_STATES } from "../../constants/animations.js";
-import { OBJECT_COLOURS, OBJECT_TYPES } from "../../constants/objects.js";
-import { TOWER_SIZE } from "../../constants/objects.js";
+import * as OBJECTS from "../../constants/objects.js"
 import { Tower } from "./Tower.js";
 import { assets } from "../../utilities/assets.js";
 
@@ -13,8 +11,8 @@ export class SapphireTower extends Tower{
         isOccupied
     }){
         super({ 
-            image: image ?? assets.get(`${OBJECT_COLOURS.SAPPHIRE}${OBJECT_TYPES.TOWER}1`),
-            size: size ?? TOWER_SIZE,
+            image: image ?? assets.get(`${OBJECTS.COLOURS.SAPPHIRE}${OBJECTS.TYPES.TOWER}1`),
+            size: size ?? OBJECTS.SIZES.TOWER,
             position,
             scale: scale ?? 1, 
             isOccupied: isOccupied ?? true
@@ -27,20 +25,20 @@ export class SapphireTower extends Tower{
 
     draw(ctx){
         switch(this.state){
-            case ANIMATION_STATES.ANIMATING:
+            case OBJECTS.ANIMATION.ANIMATING:
                 super.draw(ctx);
                 break
-            case ANIMATION_STATES.FINISHED:
+            case OBJECTS.ANIMATION.FINISHED:
                 break
         }
     }
 
     update(event){
         switch(this.state){
-            case ANIMATION_STATES.ANIMATING:
+            case OBJECTS.ANIMATION.ANIMATING:
                 super.update(event);
                 break
-            case ANIMATION_STATES.FINISHED:
+            case OBJECTS.ANIMATION.FINISHED:
                 break
         }
     }

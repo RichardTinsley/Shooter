@@ -1,4 +1,4 @@
-import { OBJECT_TYPES, TOWER_SIZE } from "../../constants/objects.js";
+import * as OBJECTS from "../../constants/objects.js"
 import { assets } from "../../utilities/assets.js";
 import { checkCircleCollision } from "../../utilities/math.js";
 import { Sprite } from "../Sprite.js";
@@ -13,12 +13,12 @@ export class Tower extends Sprite{
     }){
         super({ 
             image: image ?? assets.get('towerSpot'),
-            size: size ?? TOWER_SIZE,
+            size: size ?? OBJECTS.SIZES.TOWER,
             position,
             scale: scale ?? 1, 
         });
         
-        this.type = OBJECT_TYPES.TOWER;
+        this.type = OBJECTS.TYPES.TOWER;
         this.isOccupied = isOccupied ?? false;
         // this.isSelected = false;
 
@@ -78,7 +78,7 @@ export class Tower extends Sprite{
     findEnemyTarget(enemies){
         //this.center.radius = this.range;
         const enemiesInRange = enemies.filter(enemy => {
-            if(enemy.state === ENEMY_STATES.WALKING || enemy.state === ENEMY_STATES.RUNNING)
+            if(enemy.state === OBJECTS.STATES.WALKING || enemy.state === OBJECTS.STATES.RUNNING)
                 return checkCircleCollision(enemy, this);
         })
 

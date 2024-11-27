@@ -1,4 +1,4 @@
-import { ANIMATION_STATES } from "../../constants/animations.js";
+import * as OBJECTS from "../../constants/objects.js"
 import { Text } from "./Text.js";
 
 export class GameText extends Text {
@@ -21,10 +21,10 @@ export class GameText extends Text {
 
     draw(ctx){
         switch(this.state){
-            case ANIMATION_STATES.ANIMATING:
+            case OBJECTS.ANIMATION.ANIMATING:
                 super.draw(ctx);
                 break
-            case ANIMATION_STATES.FINISHED:
+            case OBJECTS.ANIMATION.FINISHED:
                 break
         }
     }
@@ -32,10 +32,10 @@ export class GameText extends Text {
     update(event){
         super.update(event);
         switch(this.state){
-            case ANIMATION_STATES.ANIMATING:
+            case OBJECTS.ANIMATION.ANIMATING:
                 this.moveAndFadeText();
                 break
-            case ANIMATION_STATES.FINISHED:
+            case OBJECTS.ANIMATION.FINISHED:
                 break
         }
     }
@@ -45,6 +45,6 @@ export class GameText extends Text {
         this.position.y -= this.movementSpeed;
         
         if(this.alpha <= 0)
-            this.state = ANIMATION_STATES.FINISHED;
+            this.state = OBJECTS.ANIMATION.FINISHED;
     }
 }

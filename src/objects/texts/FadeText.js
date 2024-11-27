@@ -1,4 +1,5 @@
-import { ANIMATION_STATES } from "../../constants/animations.js";
+import * as OBJECTS from "../../constants/objects.js"
+
 import { Text } from "./Text.js";
 
 export class FadeText extends Text {
@@ -21,10 +22,10 @@ export class FadeText extends Text {
 
     draw(ctx){
         switch(this.state){
-            case ANIMATION_STATES.ANIMATING:
+            case OBJECTS.ANIMATION.ANIMATING:
                 super.draw(ctx);
                 break
-            case ANIMATION_STATES.FINISHED:
+            case OBJECTS.ANIMATION.FINISHED:
                 break
         }
     }
@@ -32,10 +33,10 @@ export class FadeText extends Text {
     update(event){
         super.update(event);
         switch(this.state){
-            case ANIMATION_STATES.ANIMATING:
+            case OBJECTS.ANIMATION.ANIMATING:
                 this.oscillateAlpha();
                 break
-            case ANIMATION_STATES.FINISHED:
+            case OBJECTS.ANIMATION.FINISHED:
                 break
         }
     }

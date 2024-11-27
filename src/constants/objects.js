@@ -1,9 +1,9 @@
-export const TOWER_SIZE = 64;
-export const ENEMY_SIZE = 48;
-export const ENEMY_SIZE_HALF = ENEMY_SIZE / 2;
+export const SIZES = {
+    ENEMY: 48,
+    TOWER: 64,
+}
 
-
-export const OBJECT_TYPES = {
+export const TYPES = {
     NORMAL: "Plain",
     MENUITEM: 'MenuItem',
     ENEMY: 'Enemy',
@@ -12,7 +12,7 @@ export const OBJECT_TYPES = {
     EFFECT: 'Effect',
 }
 
-export const ENEMY_STATES = {
+export const STATES = {
     IDLE: 0,
     WALKING: 1,
     RUNNING: 2,
@@ -20,14 +20,10 @@ export const ENEMY_STATES = {
     INJURED: 4,
     DYING: 5,
     DEAD: 6,
+    SHOOTING: 7,
 };
 
-export const TOWER_STATES = {
-    IDLE: 0,
-    SHOOTING: 1,
-}
-
-export const OBJECT_COLOURS = {
+export const COLOURS = {
     TOPAZ: 'topaz',
     RUBY: 'ruby',
     SAPPHIRE: 'sapphire',
@@ -42,6 +38,12 @@ export const OBJECT_COLOURS = {
     URANIUM: 'uranium'
 }
 
+export const ANIMATION = {
+    ANIMATING: 0,
+    FINISHED: 1,
+    LEFT: "LEFT",
+    RIGHT: "RIGHT"
+};
 
 
 

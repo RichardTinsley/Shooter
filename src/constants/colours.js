@@ -19,7 +19,6 @@ export const COLOURS = {
     SHADOW: "rgba(0, 0, 0, 0.3)",
 }
 
-
 // 
 //COLOUR FOR TEXT BLUR
 // COLOURS CONSTANTS?

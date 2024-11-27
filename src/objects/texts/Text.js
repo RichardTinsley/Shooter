@@ -1,5 +1,4 @@
-
-import { ANIMATION_STATES } from "../../constants/animations.js";
+import * as OBJECTS from "../../constants/objects.js"
 
 export class Text {
     constructor({
@@ -19,7 +18,7 @@ export class Text {
         this.lineWidth = Math.floor(this.size / 6);
         this.alpha = 1;
         
-        this.state = ANIMATION_STATES.ANIMATING;
+        this.state = OBJECTS.ANIMATION.ANIMATING;
     }
 
     draw(ctx){

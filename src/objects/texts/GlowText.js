@@ -1,4 +1,4 @@
-import { ANIMATION_STATES } from "../../constants/animations.js";
+import * as OBJECTS from "../../constants/objects.js"
 import { Text } from "./Text.js";
 
 export class GlowText extends Text {
@@ -24,14 +24,14 @@ export class GlowText extends Text {
 
     draw(ctx){
         switch(this.state){
-            case ANIMATION_STATES.ANIMATING:
+            case OBJECTS.ANIMATION.ANIMATING:
                     ctx.shadowColor = "#d53";
                     ctx.shadowBlur = this.textShadowBlur;
                     super.draw(ctx);
                     ctx.shadowColor = 0;
                     ctx.shadowBlur = 0;
                 break
-            case ANIMATION_STATES.FINISHED:
+            case OBJECTS.ANIMATION.FINISHED:
                 break
         }
     }
@@ -39,10 +39,10 @@ export class GlowText extends Text {
     update(event){
         super.update(event);
         switch(this.state){
-            case ANIMATION_STATES.ANIMATING:
+            case OBJECTS.ANIMATION.ANIMATING:
                 this.oscillateTextShadow();
                 break
-            case ANIMATION_STATES.FINISHED:
+            case OBJECTS.ANIMATION.FINISHED:
                 break
         }
     }

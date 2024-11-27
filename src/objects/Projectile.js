@@ -1,4 +1,4 @@
-import { ANIMATION_STATES, ENEMY_STATES, TEXT_COLOURS } from "../constants/constants.js";
+import * as OBJECTS from "../constants/objects.js"
 import { findAngleOfDirection, giveDirection, checkCollision } from "../utilities/math.js";
 import { assets } from "../AssetLoader.js";
 
@@ -31,7 +31,7 @@ export class Projectile{
         this.maxFrame = (this.sprite.image.width / this.sprite.width) - 1;
         this.sprite.row = 0;
         
-        this.state = ANIMATION_STATES.ANIMATING;
+        this.state = OBJECTS.ANIMATION.ANIMATING;
         this.direction;
         this.angle;
         this.speed = speed;
@@ -51,10 +51,10 @@ export class Projectile{
 
     draw(ctx){
         switch(this.state){
-            case ANIMATION_STATES.ANIMATING:
+            case OBJECTS.ANIMATION.ANIMATING:
                 this.drawProjectile(ctx); 
                 break
-            case ANIMATION_STATES.FINISHED:
+            case OBJECTS.ANIMATION.FINISHED:
                 break
         }
     }
@@ -63,10 +63,10 @@ export class Projectile{
         if(event) 
             this.sprite.frame < this.maxFrame ? this.sprite.frame++ : this.sprite.frame = 0;
         switch(this.state){
-            case ANIMATION_STATES.ANIMATING:
+            case OBJECTS.ANIMATION.ANIMATING:
                 this.updateProjectile();
                 break
-            case ANIMATION_STATES.FINISHED:
+            case OBJECTS.ANIMATION.FINISHED:
                 break
         }
     }

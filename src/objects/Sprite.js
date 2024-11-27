@@ -1,4 +1,4 @@
-import { ANIMATION_STATES } from "../constants/animations.js";
+import * as OBJECTS from "../constants/objects.js"
 
 export class Sprite {
     constructor({
@@ -31,7 +31,7 @@ export class Sprite {
             radius: this.halfWidth / 2,
         }
         
-        this.state = ANIMATION_STATES.ANIMATING;
+        this.state = OBJECTS.ANIMATION.ANIMATING;
     }
 
     draw(ctx){
