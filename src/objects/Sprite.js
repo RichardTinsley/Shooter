@@ -5,8 +5,8 @@ export class Sprite {
         image,
         size,
         position,
+        scale,
     }){
-        
         this.sprite = {
             image: image,
             width: size,
@@ -18,15 +18,13 @@ export class Sprite {
         this.maxFrame = Math.floor((this.sprite.image.width / this.sprite.width)) - 1;
         this.maxRow = Math.floor((this.sprite.image.height / this.sprite.height)) - 1;
         
-        this.scale = 1;
+        this.scale = scale;
         this.width = Math.round(this.sprite.width * this.scale * 100) / 100; 
         this.height = Math.round(this.sprite.height * this.scale * 100) / 100; 
-
         this.halfWidth = this.width / 2;
         this.halfHeight = this.height / 2;
 
         this.position = position;
-
         this.center = {
             x: this.position.x,
             y: this.position.y - this.halfHeight,
@@ -57,24 +55,31 @@ export class Sprite {
     animate(event){
         if(!event || this.maxFrame === 0)
             return
-
-        if(this.maxRow === 0)
-            this.sprite.frame < this.maxFrame ? this.sprite.frame++ : this.sprite.frame = 0;
-        else
-            this.animateRows();
+        
+        this.sprite.frame < this.maxFrame ? this.sprite.frame++ : this.sprite.frame = 0;
     }
+    // FOR SPRITE SHEETS WITH MULTIPLE ROWS
+    // animate(event){
+    //     if(!event || this.maxFrame === 0)
+    //         return
 
-    animateRows(){
-        if(this.sprite.frame < this.maxFrame)
-            this.sprite.frame++;
-        else{
-            this.sprite.row++;
-            this.sprite.frame = 0;
-        }
-        if(this.sprite.row === this.maxRow && this.sprite.frame < this.maxFrame){
-            this.sprite.row = 0;
-            this.sprite.frame = 0;
-        }
-    }
+    //     if(this.maxRow === 0)
+    //         this.sprite.frame < this.maxFrame ? this.sprite.frame++ : this.sprite.frame = 0;
+    //     else
+    //         this.animateRows();
+    // }
+
+    // animateRows(){
+    //     if(this.sprite.frame < this.maxFrame)
+    //         this.sprite.frame++;
+    //     else{
+    //         this.sprite.row++;
+    //         this.sprite.frame = 0;
+    //     }
+    //     if(this.sprite.row === this.maxRow && this.sprite.frame < this.maxFrame){
+    //         this.sprite.row = 0;
+    //         this.sprite.frame = 0;
+    //     }
+    // }
 }
 

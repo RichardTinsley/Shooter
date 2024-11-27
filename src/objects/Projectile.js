@@ -97,13 +97,7 @@ export class Projectile{
         this.velocity.y = Math.sin(this.angle) * this.speed;
         this.center.x += this.velocity.x;
         this.center.y += this.velocity.y;
-
-        this.hitBox.x = this.center.x;
-        this.hitBox.y = this.center.y;
-    }
-
-
-    
+    }    
 }
 
 

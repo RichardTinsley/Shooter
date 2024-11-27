@@ -5,13 +5,15 @@ import { Sprite } from "../Sprite.js";
 export class Tower extends Sprite{
     constructor({
         image,
+        size,
         position,
-        size
+        scale,
     }){
         super({
             image, 
-            position, 
-            size
+            size,
+            position,
+            scale, 
         });
 
         this.type = OBJECT_TYPES.TOWER;

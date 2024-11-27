@@ -4,13 +4,15 @@ import { Tower } from "./Tower.js";
 export class SapphireTower extends Tower{
     constructor({
         image,
+        size,
         position,
-        size
+        scale,
     }){
         super({
             image, 
-            position, 
-            size
+            size,
+            position,
+            scale, 
         });
 
         this.damage = 50;

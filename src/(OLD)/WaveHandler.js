@@ -60,16 +60,24 @@ export class WaveHandler{
         }
     }
 
-    spawnEnemy(){ // 2% increase depending on round?
+    spawnEnemy(){ // 2% Health and Armour increase depending on round?
         if(this.allEnemiesActive)
             return;
 
         if (this.enemySpawnTimer % Math.floor(Math.random() * 100) === 0){
             const enemy = this.generateEnemy();
             const waypoints = this.generateEnemyWaypoints();
+            const enemyStartingPoint = { ...this.waypoints[0]}; 
+
             this.addEnemy(enemy, waypoints);
             this.enemyCounter++;
         }
+    }
+
+    setSpeed(){
+        const enemySpeedMinimum = 0.4; 
+        const enemySpeedRange = 1.0;
+        return randomPositiveFloat(enemySpeedRange) + enemySpeedMinimum;
     }
 
     allEnemiesActiveCheck(){

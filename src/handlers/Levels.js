@@ -55,7 +55,8 @@ export class Levels {
                             x: x * GAME_SIZES.TILE_SIZE + GAME_SIZES.TILE_SIZE_HALF, 
                             y: y * GAME_SIZES.TILE_SIZE + GAME_SIZES.TILE_SIZE_HALF 
                         },
-                        size: TOWER_SIZE
+                        size: TOWER_SIZE,
+                        scale: 1,
                     })
                 ) 
             })
