@@ -4,13 +4,14 @@ import { TEXT_COLOURS } from "../constants/colours.js";
 import { loadAssets } from "../utilities/assets.js";
 import { Text } from "../objects/texts/Text.js";
 import { FadeText } from "../objects/texts/FadeText.js";
+import { Screen } from "./Screen.js";
 
-export class LoadingScreen {
+export class LoadingScreen extends Screen {
     constructor(switchScreens){ 
+        super();
         this.dslogo = document.getElementById('dslogo');
         loadAssets(switchScreens, this.assetLoaded);
-        
-        this.globalAlpha = 0;
+
         this.maxLoadBar = ASSET_LIST.length;
         this.assetsLoaded = 0;
 
@@ -36,22 +37,14 @@ export class LoadingScreen {
     }
     
     draw(ctx){
-        ctx.clearRect(0, 0, GAME_SIZES.GAME_WIDTH,  GAME_SIZES.GAME_HEIGHT);
-        ctx.globalAlpha = this.globalAlpha;
-
+        super.draw(ctx);
         ctx.drawImage(this.dslogo, GAME_SIZES.GAME_WIDTH_HALF - (this.dslogo.width /2), GAME_SIZES.GAME_HEIGHT_HALF - (this.dslogo.height / 2) + 40);
-        this.title.draw(ctx);
         this.summoningText.draw(ctx);
         this.drawLoadingBar(ctx);
     }
     
     update(event){
-        if(!event) 
-            return;
-        if(this.globalAlpha < 1)
-            this.globalAlpha += .1;
-        
-        this.title.update(event);
+        super.update(event);
         this.summoningText.update(event);
     }
     

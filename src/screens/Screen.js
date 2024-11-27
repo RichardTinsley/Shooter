@@ -2,9 +2,10 @@ import { GAME_SIZES } from "../constants/game.js";
 
 export class Screen {
     constructor(){ 
+        this.title = null;
+        this.menu = null;
         this.globalAlpha = 0;
         this.delta = 0.1;
-        this.title = null;
     }
     
     draw(ctx){
