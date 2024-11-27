@@ -33,8 +33,8 @@ export class Mouse {
     }
 
     update(Screen){
-        if(Screen.menu)
-            this.menuSelector(Screen.menu);
+        // if(Screen.menu)
+        //     this.menuSelector(Screen.menu);
 
         if(Screen.Objects)
             this.towerSelector(Screen.Objects.towers);

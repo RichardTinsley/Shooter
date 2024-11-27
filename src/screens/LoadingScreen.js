@@ -37,6 +37,7 @@ export class LoadingScreen extends Screen {
     }
     
     draw(ctx){
+        ctx.clearRect(0, 0, GAME_SIZES.GAME_WIDTH,  GAME_SIZES.GAME_HEIGHT);
         super.draw(ctx);
         ctx.drawImage(this.dslogo, GAME_SIZES.GAME_WIDTH_HALF - (this.dslogo.width /2), GAME_SIZES.GAME_HEIGHT_HALF - (this.dslogo.height / 2) + 40);
         this.summoningText.draw(ctx);

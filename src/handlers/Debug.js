@@ -90,7 +90,8 @@ export class Debug{
         });
     }
     menuDebugInfo(ctx, menu){
-        menu.forEach(menuItem => {
+        console.log(menu)
+        menu.menuItems.forEach(menuItem => {
             this.drawSquareHitBox(ctx, menuItem);
         });
     }
@@ -118,7 +119,7 @@ export class Debug{
     
     drawSquareHitBox(ctx, menuItem){
         ctx.fillStyle = COLOURS.RED_ALPHA;
-        ctx.fillRect(menuItem.x, menuItem.y, menuItem.width, menuItem.height);
+        ctx.fillRect(menuItem.position.x, menuItem.position.y, menuItem.width, menuItem.height);
     }
 }
 

@@ -15,8 +15,6 @@ export class GlowText extends Text {
             size
         });
 
-        this.align = "center";
-        this.baseline = "middle";
         this.alpha = 1;
         this.delta = 0.3;
         this.textShadowBlur = 1;

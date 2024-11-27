@@ -1,4 +1,5 @@
 SCREEN CLASS, ALL SCREENS INHERIT FROM THIS / FADE TRANSITIONS ctx.globalalpha?
+GETRIDE OF MAX LOADBAR.  / ASSETS.LENGTH / var assetsloaded to assetsloadedcounter
 MENU CLASS, mouse over update text blur
 window.onload vs window.addevent listener("load)
 
@@ -10,6 +11,8 @@ if tower not an instanceof Empty tower // shoot
 enemiesInRange[]
 if enemySelect = enemiesInRange.find(enemy => enemy.isSelected); // return
 else enemies in range.sort // return
+
+mOVING SPRITE CLASS
 DELTA TIME * ENEMY MOVIE, (EVENT) on all entiry UPDATE methods UPDATE !event return
 
 CHECKCOLLISION WITH MOUSE WITHIN EACH ENTITY?

@@ -15,8 +15,6 @@ export class GameText extends Text {
             size
         });
         
-        this.align = "center";
-        this.baseline = "middle";
         this.alpha = 10;
         this.delta = 0.6;
     }
