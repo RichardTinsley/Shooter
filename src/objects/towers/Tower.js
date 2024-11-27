@@ -1,4 +1,5 @@
-import { OBJECT_TYPES } from "../../constants/objects.js";
+import { OBJECT_TYPES, TOWER_SIZE } from "../../constants/objects.js";
+import { assets } from "../../utilities/assets.js";
 import { checkCircleCollision } from "../../utilities/math.js";
 import { Sprite } from "../Sprite.js";
 
@@ -8,17 +9,18 @@ export class Tower extends Sprite{
         size,
         position,
         scale,
+        isOccupied,
     }){
-        super({
-            image, 
-            size,
+        super({ 
+            image: image ?? assets.get('towerSpot'),
+            size: size ?? TOWER_SIZE,
             position,
-            scale, 
+            scale: scale ?? 1, 
         });
-
+        
         this.type = OBJECT_TYPES.TOWER;
-        this.isOccupied = false;
-        this.isSelected = false;
+        this.isOccupied = isOccupied ?? false;
+        // this.isSelected = false;
 
         this.muzzle = {
             x: this.position.x,

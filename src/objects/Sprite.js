@@ -9,20 +9,20 @@ export class Sprite {
     }){
         this.sprite = {
             image: image,
-            width: size,
-            height: size,
+            width: size ?? 32,
+            height: size ?? 32,
             frame: 0,
             row: 0,
         };
-        
-        this.maxFrame = Math.floor((this.sprite.image.width / this.sprite.width)) - 1;
-        this.maxRow = Math.floor((this.sprite.image.height / this.sprite.height)) - 1;
-        
-        this.scale = scale;
+                
+        this.scale = scale ?? 1;
         this.width = Math.round(this.sprite.width * this.scale * 100) / 100; 
         this.height = Math.round(this.sprite.height * this.scale * 100) / 100; 
         this.halfWidth = this.width / 2;
         this.halfHeight = this.height / 2;
+
+        this.maxFrame = Math.floor((this.sprite.image.width / this.sprite.width)) - 1;
+        this.maxRow = Math.floor((this.sprite.image.height / this.sprite.height)) - 1;
 
         this.position = position;
         this.center = {

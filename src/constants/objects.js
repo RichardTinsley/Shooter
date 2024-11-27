@@ -2,6 +2,7 @@ export const TOWER_SIZE = 64;
 export const ENEMY_SIZE = 48;
 export const ENEMY_SIZE_HALF = ENEMY_SIZE / 2;
 
+
 export const OBJECT_TYPES = {
     NORMAL: "Plain",
     MENUITEM: 'MenuItem',

@@ -50,13 +50,10 @@ export class Levels {
             row.forEach((symbol, x) => {
                 if (symbol === 19)
                     emptyTowerSpots.push(new Tower({
-                        image: assets.get('towerSpot'),
                         position: { 
                             x: x * GAME_SIZES.TILE_SIZE + GAME_SIZES.TILE_SIZE_HALF, 
                             y: y * GAME_SIZES.TILE_SIZE + GAME_SIZES.TILE_SIZE_HALF 
                         },
-                        size: TOWER_SIZE,
-                        scale: 1,
                     })
                 ) 
             })

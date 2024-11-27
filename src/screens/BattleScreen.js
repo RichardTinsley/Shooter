@@ -6,8 +6,7 @@ import { MenuItemText } from "../menus/MenuItemText.js";
 import { GAME_STATES } from "../constants/game.js";
 import { Menu } from "../menus/Menu.js";
 import { Enemy } from "../objects/Enemy.js";
-import { assets } from "../utilities/assets.js";
-import { OBJECT_COLOURS } from "../constants/objects.js";
+
 
 export class BattleScreen {
     constructor(){
@@ -31,13 +30,10 @@ export class BattleScreen {
         this.waypoints = [{x: 500, y: 500}];
 
         this.testEnemy = new Enemy({
-            image: assets.get(OBJECT_COLOURS.TOPAZ),
-            size: 48,
             position: {
                 x: 400,
                 y: 400
             },
-            scale: 5,
             speed: 1,
             waypoints: this.waypoints
         })

@@ -1,8 +1,10 @@
-import { ENEMY_STATES, ENEMY_SIZE_HALF } from "../constants/objects.js";
+import { ENEMY_STATES, ENEMY_SIZE_HALF, ENEMY_SIZE } from "../constants/objects.js";
 import { GAME_SIZES } from "../constants/game.js";
 import { ANIMATION_STATES } from "../constants/animations.js";
+import { OBJECT_COLOURS } from "../constants/objects.js";
 import { checkCircleCollision, findAngleOfDirection, giveDirection, randomPositiveFloat } from "../utilities/math.js";
 import { MovingSprite } from "./MovingSprite.js";
+import { assets } from "../utilities/assets.js";
 
 export class Enemy extends MovingSprite{
     constructor({
@@ -14,14 +16,13 @@ export class Enemy extends MovingSprite{
         waypoints
     }){
         super({
-            image, 
-            size,
+            image: image ?? assets.get(OBJECT_COLOURS.TOPAZ), 
+            size: size ?? ENEMY_SIZE,
             position,
-            scale,
-            speed, 
+            scale: scale ?? 1.5,
+            speed: speed ?? 1, 
         });
 
-        console.log(image, size, position, scale, speed)
         this.quarterWidth = this.width / 4;
         
         this.waypoints = waypoints;

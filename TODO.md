@@ -1,8 +1,8 @@
 SCREEN CLASS, ALL SCREENS INHERIT FROM THIS / FADE TRANSITIONS ctx.globalalpha?
 Build tower modal with animated SPRITEs.
 SCREEN SHRINKER FROM SHEZZOR
+let result = value1 ?? value2;
 
-mOVING SPRITE CLASS
 DELTA TIME * ENEMY MOVIE, (EVENT) on all entiry UPDATE methods UPDATE !event return
 MERGE UPDATE MOVEMENT FOR ENEMY AND PROJECTILE / GIVE DIRECTION/FIND ANGLE
 DEATH AND BATTLE HANDLERS MERGE, PUT SHOOT() BACK IN TOWER, BUT ITS HANDLED BY BIG BATTLE HANDLER
@@ -22,6 +22,7 @@ animate enemy selection
 
 See through options menu so game can keep running in background 
 RESEARCH: ASYNC, AWAIT, PROMISES,  SCOPE/CLOSURE,  OBJECT.() PROTOTYPES, JS PERFORMANCE, WINDOW DOCUMENT
+https://www.basedash.com/blog/overview-the-double-question-mark-in-javascript
 
 PASS SWITCH SCREENS RECURSIVELY FOR GAMEOVER?
 

@@ -95,11 +95,9 @@ export class Mouse {
         // }
 
         let newTower = new SapphireTower({
-            image: assets.get(`${OBJECT_COLOURS.SAPPHIRE}${OBJECT_TYPES.TOWER}1`),
-            size: TOWER_SIZE, 
             position: tower.position,
         })
-        newTower.isOccupied = true;
+
         towers[towers.findIndex(tower => tower === buildTowerHere)] = newTower;
         buildTowerHere = null;
     }
