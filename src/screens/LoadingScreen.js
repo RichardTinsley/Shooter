@@ -12,8 +12,7 @@ export class LoadingScreen extends Screen {
         this.dslogo = document.getElementById('dslogo');
         loadAssets(switchScreens, this.assetLoaded);
 
-        this.maxLoadBar = ASSET_LIST.length;
-        this.assetsLoaded = 0;
+        this.assetsLoadedCounter = 0;
 
         this.title = new Text({
             text: "Death Sorcery",
@@ -51,7 +50,7 @@ export class LoadingScreen extends Screen {
     
     assetLoaded = (fileName) => {
         console.log(`${fileName.fileName} Loaded.`);
-        this.assetsLoaded++;
+        this.assetsLoadedCounter++;
     }
     
     drawLoadingBar(ctx){
@@ -59,7 +58,7 @@ export class LoadingScreen extends Screen {
         const loadBarLength = GAME_SIZES.GAME_WIDTH / 3;
         const loadBarX = GAME_SIZES.GAME_WIDTH_HALF - loadBarLength / 2 ;
         const loadBarThickness = 5;
-        const LoadBarMaxWidth = (this.assetsLoaded / this.maxLoadBar);
+        const LoadBarMaxWidth = (this.assetsLoadedCounter / ASSET_LIST.length);
         ctx.beginPath();
         
         ctx.fillStyle = 'white';

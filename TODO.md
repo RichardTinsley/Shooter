@@ -1,5 +1,4 @@
 SCREEN CLASS, ALL SCREENS INHERIT FROM THIS / FADE TRANSITIONS ctx.globalalpha?
-GETRIDE OF MAX LOADBAR.  / ASSETS.LENGTH / var assetsloaded to assetsloadedcounter
 MENU CLASS, mouse over update text blur
 window.onload vs window.addevent listener("load)
 

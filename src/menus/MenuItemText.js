@@ -15,8 +15,9 @@ export class MenuItemText{
             size: size,
         });
         
-        this.width = text.length * (size / 1.75);
+        //MENU ITEM HITBOX FOR MOUSE CLICK
         this.option = option;
+        this.width = text.length * (size / 1.75);
         this.position = {
             x: position.x - this.width / 2,
             y: position.y - (size / 2)
