@@ -1,29 +1,14 @@
-import { ENEMY_COLOURS, GAME_HEIGHT, GAME_STATES, GAME_WIDTH, TILE_SIZE, TILE_SIZE_HALF } from "./constants/constants.js";
-import { assets } from "./AssetLoader.js";
-import { drawText } from "./utilities/textRender.js";
-import { WASTELANDS_WAYPOINTS } from "./constants/levelData.js";
-
 export class WaveHandler{
-    constructor(hudElements, addEnemy, switchScreens){
-        this.hudElements = hudElements;
-        this.addEnemy = addEnemy;
-        this.switchScreens = switchScreens;
-
+    constructor(){
         this.allEnemiesActive = false;
         this.maxEnemies = 10;
         this.enemyCounter = 0;   
         this.enemySpawnTimer = 0;
 
-        this.textDisplay = true;
-        this.textTimer = 0;
-        this.textTimeLimit = 10;
-        this.alpha = 1;
-
-        //WAVE TEXT ARRAY?  HANDILE / UPDATE AND DRAW IT HERE
+        
     }
 
     draw(ctx){
-        this.drawWaveText(ctx);
     }
 
     update(event, enemies){
@@ -36,30 +21,6 @@ export class WaveHandler{
         this.newWaveCheck(enemies);
         this.enemiesPositionCheck(enemies);
         this.playerLivesCheck();
-        this.waveTextCheck();
-    }
-
-    
-    waveTextCheck(){
-        if(!this.textDisplay) 
-            return
-            
-        this.textTimer++;
-        this.alpha -= .05;
-    }
-
-    drawWaveText(ctx){
-        if(!this.textDisplay) 
-            return;
-
-        if(this.hudElements.waves === 1){
-            drawText(ctx, `rgba(255, 255, 255, ${this.alpha})`, "BEGIN!", GAME_WIDTH / 2, GAME_HEIGHT / 2, 150, 'center', 'middle');
-        }
-
-        if(this.textTimer >= this.textTimeLimit){
-            this.textDisplay = false;
-            this.alpha = 0;
-        }
     }
 
     spawnEnemy(){ // 2% Health and Armour increase depending on round?
@@ -93,7 +54,6 @@ export class WaveHandler{
             this.enemyCounter = 0;
             this.hudElements.waves++;
             this.allEnemiesActive = false;
-            this.textDisplay = true;
         }
     }
 
@@ -108,11 +68,6 @@ export class WaveHandler{
                 };
             }
         })
-    }
-    
-    playerLivesCheck(){
-        if(this.hudElements.hearts <= 0)
-            this.switchScreens(GAME_STATES.GAMEOVER);
     }
     
     generateEnemy(){

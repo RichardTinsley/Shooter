@@ -29,3 +29,12 @@ export class Objects{
         this.enemies.forEach(enemy => enemy.update(event));
     }
 }
+
+// this.enemies.sort((a, b) => a.position.y - b.position.y);   
+// this.entities = [...this.towers, ...this.enemies, ...this.effects, ...this.projectiles, ...this.texts];
+// this.entities.forEach(entity => entity.draw(ctx));
+
+// this.enemies = this.enemies.filter(enemy => {
+//     enemy.update(event);
+//     return enemy.state === ANIMATION_STATES.ANIMATING;
+// });
