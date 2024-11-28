@@ -41,8 +41,8 @@ export const COLOURS = {
 export const ANIMATION = {
     ANIMATING: 0,
     FINISHED: 1,
-    LEFT: "LEFT",
-    RIGHT: "RIGHT"
+    LEFT: -1,
+    RIGHT: 1,
 };
 
 

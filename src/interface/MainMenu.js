@@ -1,6 +1,6 @@
 import * as GAME from "../constants/game.js"
-import { Menu } from "./Menu.js";
 import * as INTERFACE from "../constants/interface.js"
+import { Menu } from "./Menu.js";
 
 const MENU_POSITION = {
     x: GAME.SIZES.GAME_WIDTH_HALF,

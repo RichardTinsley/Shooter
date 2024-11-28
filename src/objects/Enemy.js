@@ -38,7 +38,9 @@ export class Enemy extends MovingSprite{
         switch(this.state){
             case OBJECTS.ANIMATION.ANIMATING:
                 this.drawShadow(ctx);
+                this.contextSave(ctx);
                 super.draw(ctx);
+                this.contextRestore(ctx);
                 this.drawHealthBar(ctx);
                 break
             case OBJECTS.ANIMATION.FINISHED:
@@ -46,27 +48,19 @@ export class Enemy extends MovingSprite{
         }
     }
 
-    drawEnemy(ctx){
-        const left = -this.halfWidth - this.halfWidth - this.position.x;
-        const right = this.position.x + this.halfWidth - this.halfWidth;
-
+    contextSave(ctx){
         if(this.direction === OBJECTS.ANIMATION.LEFT){
             ctx.save();
-            ctx.scale(-1, 1);
+            ctx.scale(this.direction, 1);
+            this.position.x = -this.position.x;
         }
-        ctx.drawImage(
-            this.sprite.image,
-            this.sprite.frame * this.sprite.width,
-            this.sprite.row * this.sprite.height + 1,
-            this.sprite.width,
-            this.sprite.height,
-            this.direction === OBJECTS.ANIMATION.LEFT ? left : right,
-            this.position.y + GAME_SIZES.TILE_SIZE - this.height,//WE DON"T NEED TILESZIE
-            this.width,
-            this.height
-        );
-        if(this.direction === OBJECTS.ANIMATION.LEFT)
+    }
+
+    contextRestore(ctx){
+        if(this.direction === OBJECTS.ANIMATION.LEFT){
+            this.position.x = this.position.x * -1;
             ctx.restore();
+        }
     }
 
     update(event){
