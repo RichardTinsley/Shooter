@@ -6,6 +6,7 @@ export class Sprite {
         size,
         position,
         scale,
+        speed,
     }){
         this.sprite = {
             image: image,
@@ -31,6 +32,14 @@ export class Sprite {
             radius: this.halfWidth / 2,
         }
         
+        this.speed = speed ?? 1;
+        this.angle = 0;
+        this.direction;
+        this.velocity = { 
+            x: 0, 
+            y: 0
+        }; 
+
         this.state = OBJECTS.ANIMATION.ANIMATING;
     }
 
@@ -41,8 +50,8 @@ export class Sprite {
             this.sprite.height * this.sprite.row,
             this.sprite.width,
             this.sprite.height,
-            this.position.x - this.halfWidth,
-            this.position.y - this.height,
+            this.position.x - this.halfWidth,//this.drawPositionX
+            this.position.y - this.height,//this.drawPositionY
             this.width,
             this.height
         );
@@ -52,10 +61,15 @@ export class Sprite {
         this.animate(event);
     }
 
+    updateMovement(){
+        this.velocity.x = Math.cos(this.angle) * this.speed;
+        this.velocity.y = Math.sin(this.angle) * this.speed;
+        this.position.x += this.velocity.x;
+        this.position.y += this.velocity.y;
+    }
+
     animate(event){
-        if(!event || this.maxFrame === 0)
-            return
-        
+        if(event)
         this.sprite.frame < this.maxFrame ? this.sprite.frame++ : this.sprite.frame = 0;
     }
 }

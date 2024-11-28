@@ -1,9 +1,9 @@
 import * as OBJECTS from "../constants/objects.js"
 import { checkCircleCollision, findAngleOfDirection, giveDirection, randomPositiveFloat } from "../utilities/math.js";
-import { MovingSprite } from "./MovingSprite.js";
+import { Sprite } from "./Sprite.js";
 import { assets } from "../utilities/assets.js";
 
-export class Enemy extends MovingSprite{
+export class Enemy extends Sprite{
     constructor({
         image,
         size,
@@ -40,6 +40,17 @@ export class Enemy extends MovingSprite{
                 this.drawShadow(ctx);
                 this.contextSave(ctx);
                 super.draw(ctx);
+                // ctx.drawImage(
+                //     this.sprite.image,
+                //     this.sprite.width * this.sprite.frame,
+                //     this.sprite.height * this.sprite.row,
+                //     this.sprite.width,
+                //     this.sprite.height,
+                //     0 - this.halfWidth,//this.drawPositionX
+                //     0 - this.height,//this.drawPositionY
+                //     this.width,
+                //     this.height
+                // );
                 this.contextRestore(ctx);
                 this.drawHealthBar(ctx);
                 break
@@ -51,6 +62,7 @@ export class Enemy extends MovingSprite{
     contextSave(ctx){
         if(this.direction === OBJECTS.ANIMATION.LEFT){
             ctx.save();
+            // ctx.translate(this.position.x, this.position.y);
             ctx.scale(this.direction, 1);
             this.position.x = -this.position.x;
         }
@@ -149,15 +161,7 @@ export class Enemy extends MovingSprite{
             return
 
         ctx.beginPath();
-        ctx.ellipse(
-            this.position.x, 
-            this.position.y, 
-            this.shadowHeight, 
-            this.quarterWidth, 
-            Math.PI / 2, 
-            0, 
-            2 * Math.PI
-        );
+        ctx.ellipse(this.position.x, this.position.y, this.shadowHeight, this.quarterWidth, Math.PI / 2, 0, 2 * Math.PI);
         ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
         ctx.fill();      
         if(this.isSelected){
