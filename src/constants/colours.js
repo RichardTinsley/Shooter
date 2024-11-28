@@ -4,6 +4,7 @@ export const TEXT_COLOURS = {
     RED: '250, 0, 0, ',
     WHITE: '250, 250, 250, ',
 }
+//COLOUR FOR TEXT BLUR
 
 export const COLOURS = {
     RED: "rgba(250, 0, 0, 1)",
@@ -19,6 +20,4 @@ export const COLOURS = {
     SHADOW: "rgba(0, 0, 0, 0.3)",
 }
 
-// 
-//COLOUR FOR TEXT BLUR
-// COLOURS CONSTANTS?
+

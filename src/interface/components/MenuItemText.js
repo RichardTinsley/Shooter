@@ -1,5 +1,5 @@
-import * as OBJECTS from "../constants/objects.js";
-import { GlowText } from "../objects/texts/GlowText.js";
+import * as OBJECTS from "../../constants/objects.js";
+import { GlowText } from "../../objects/texts/GlowText.js"
 
 export class MenuItemText{
     constructor({

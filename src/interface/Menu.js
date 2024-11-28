@@ -1,6 +1,6 @@
 import { TEXT_COLOURS } from "../constants/colours.js";
-import { MENU_ITEM_SIZES } from "../constants/menus.js";
-import { MenuItemText } from "./MenuItemText.js";
+import * as INTERFACE from "../constants/interface.js"
+import { MenuItemText } from "./components/MenuItemText.js";
 
 export class Menu{
     constructor(){
@@ -22,9 +22,9 @@ export class Menu{
                 colour: TEXT_COLOURS.WHITE,
                 position: {
                     x: menuPosition.x,
-                    y: menuPosition.y + (MENU_ITEM_SIZES.size + MENU_ITEM_SIZES.spacing) * index
+                    y: menuPosition.y + (INTERFACE.SIZES.textSize + INTERFACE.SIZES.spacing) * index
                 },
-                size: MENU_ITEM_SIZES.size,
+                size: INTERFACE.SIZES.textSize,
                 option: menuItem.option
             });
 

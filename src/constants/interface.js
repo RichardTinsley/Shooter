@@ -1,8 +1,9 @@
 import * as GAME from "./game.js"
 
-export const MENU_ITEM_SIZES = {
-    size: 60,
+export const SIZES = {
+    textSize: 60,
     spacing: 15,
+    thirds: GAME.SIZES.GAME_WIDTH / 3,
 };
 
 export const MAIN_MENU = [

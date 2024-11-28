@@ -18,6 +18,8 @@ export class WaveHandler{
         this.textTimer = 0;
         this.textTimeLimit = 10;
         this.alpha = 1;
+
+        //WAVE TEXT ARRAY?  HANDILE / UPDATE AND DRAW IT HERE
     }
 
     draw(ctx){

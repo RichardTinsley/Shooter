@@ -13,6 +13,8 @@ export class BattleHandler{
         this.addText = addText;
         this.addCoins = addCoins;
         this.addExperience = addExperience;
+
+        //GAME TTEXT ARRAY HERE/  HANDLE DRAW AND UP DATE GAME TEXT ERE!!!!!
     }
 
 

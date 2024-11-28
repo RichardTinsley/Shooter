@@ -1,6 +1,6 @@
 import * as GAME from "../constants/game.js"
 import { Menu } from "./Menu.js";
-import { MAIN_MENU } from "../constants/menus.js";
+import * as INTERFACE from "../constants/interface.js"
 
 const MENU_POSITION = {
     x: GAME.SIZES.GAME_WIDTH_HALF,
@@ -9,7 +9,7 @@ const MENU_POSITION = {
 export class MainMenu extends Menu{
     constructor(){
         super();
-        this.menuItems = this.initMenu(MAIN_MENU, MENU_POSITION);
+        this.menuItems = this.initMenu(INTERFACE.MAIN_MENU, MENU_POSITION);
     }
     draw(ctx){
         super.draw(ctx);

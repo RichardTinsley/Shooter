@@ -1,7 +1,7 @@
 import * as GAME from "../constants/game.js";
 import { TEXT_COLOURS } from "../constants/colours.js";
 import { Screen } from "./Screen.js";
-import { MainMenu } from "../menus/MainMenu.js";
+import { MainMenu } from "../interface/MainMenu.js";
 import { GlowText } from "../objects/texts/GlowText.js";
 import { assets } from "../utilities/assets.js";
 
