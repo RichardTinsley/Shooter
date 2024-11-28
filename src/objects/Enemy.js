@@ -1,5 +1,4 @@
 import * as OBJECTS from "../constants/objects.js"
-import { GAME_SIZES } from "../constants/game.js";
 import { checkCircleCollision, findAngleOfDirection, giveDirection, randomPositiveFloat } from "../utilities/math.js";
 import { MovingSprite } from "./MovingSprite.js";
 import { assets } from "../utilities/assets.js";
@@ -62,7 +61,7 @@ export class Enemy extends MovingSprite{
             this.sprite.width,
             this.sprite.height,
             this.direction === OBJECTS.ANIMATION.LEFT ? left : right,
-            this.position.y + GAME_SIZES.TILE_SIZE - this.height,
+            this.position.y + GAME_SIZES.TILE_SIZE - this.height,//WE DON"T NEED TILESZIE
             this.width,
             this.height
         );
@@ -128,7 +127,7 @@ export class Enemy extends MovingSprite{
 
     checkEnemyHealth(){
         if(this.health <= 0) {
-            this.sprite.row = ENEMY_STATES.DYING;
+            this.sprite.row = OBJECTS.ENEMY.DYING;
             this.sprite.frame = 0;
         }
     }

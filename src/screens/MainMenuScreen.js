@@ -1,4 +1,4 @@
-import { GAME_SIZES } from "../constants/game.js";
+import * as GAME from "../constants/game.js";
 import { TEXT_COLOURS } from "../constants/colours.js";
 import { Screen } from "./Screen.js";
 import { MainMenu } from "../menus/MainMenu.js";
@@ -15,7 +15,7 @@ export class MainMenuScreen extends Screen {
             text: "Death   Sorcery",
             colour: TEXT_COLOURS.WHITE, 
             position: {
-                x: GAME_SIZES.GAME_WIDTH_HALF,
+                x: GAME.SIZES.GAME_WIDTH_HALF,
                 y: 170, 
             },
             size: 170,

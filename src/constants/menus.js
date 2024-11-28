@@ -1,4 +1,4 @@
-import { GAME_STATES } from "./game.js";
+import * as GAME from "./game.js"
 
 export const MENU_ITEM_SIZES = {
     size: 60,
@@ -8,14 +8,14 @@ export const MENU_ITEM_SIZES = {
 export const MAIN_MENU = [
     {
         text: "New Game",
-        option: GAME_STATES.BATTLE,
+        option: GAME.STATES.BATTLE,
     }, 
     {
         text: "Options",
-        option: GAME_STATES.OPTIONS,
+        option: GAME.STATES.OPTIONS,
     }, 
     {
         text: "About",
-        option: GAME_STATES.ABOUT,
+        option: GAME.STATES.ABOUT,
     }, 
 ];

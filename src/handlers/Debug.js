@@ -1,5 +1,5 @@
 import { COLOURS } from "../constants/colours.js";
-import { GAME_SIZES } from "../constants/game.js";
+import * as GAME from "../constants/game.js";
 import { BattleScreen } from "../screens/BattleScreen.js";
 import { drawText } from "../utilities/textRender.js";
 
@@ -10,7 +10,8 @@ let FPSNormal = 0;
 export class Debug{
     constructor(Mouse) {
         this.Mouse = Mouse;
-        this.isDebugMode = true;
+        this.isDebugMode = true;  
+        //TODO NEW TEXT OBJECT // UPDATE AND DRAW FPS
     }
 
     draw(ctx, Screen){
@@ -20,7 +21,7 @@ export class Debug{
         if(Screen instanceof BattleScreen){
             this.levelDebugInfoGrid(ctx);
             this.towerDebugInfo(ctx, Screen.Objects.towers);
-        // this.enemyDebugInfo(ctx, enemies);
+            this.enemyDebugInfo(ctx, Screen.Objects.enemies);
         // this.projectileDebugInfo(ctx, projectiles);
         }
 
@@ -52,13 +53,13 @@ export class Debug{
         ctx.beginPath();
         ctx.strokeStyle = COLOURS.LINES;
         ctx.lineWidth = 1;
-        for (let row = 0; row < GAME_SIZES.ROWS; row++)
-            for (let column = 0; column < GAME_SIZES.COLUMNS; column++)
+        for (let row = 0; row < GAME.SIZES.ROWS; row++)
+            for (let column = 0; column < GAME.SIZES.COLUMNS; column++)
                 ctx.strokeRect(
-                    column * GAME_SIZES.TILE_SIZE,
-                    row * GAME_SIZES.TILE_SIZE,
-                    GAME_SIZES.TILE_SIZE,
-                    GAME_SIZES.TILE_SIZE
+                    column * GAME.SIZES.TILE,
+                    row * GAME.SIZES.TILE,
+                    GAME.SIZES.TILE,
+                    GAME.SIZES.TILE
                 );   
     }
     
@@ -68,9 +69,9 @@ export class Debug{
     
     enemyDebugInfo(ctx, enemies){
         enemies.forEach(enemy => {
-            // this.drawPositionDot(ctx, enemy);
-            // this.drawCenterDot(ctx, enemy);
-            // this.drawCircleHitbox(ctx, enemy);
+            this.drawDot(ctx, enemy.position, COLOURS.BLUE);
+            this.drawDot(ctx, enemy.center, COLOURS.GREEN);
+            this.drawCircleHitbox(ctx, enemy);
         });
     }
     
@@ -97,9 +98,9 @@ export class Debug{
     
     performanceDebugInfo(ctx){
         ctx.fillStyle = COLOURS.SHADOW;
-        ctx.fillRect(0, GAME_SIZES.TILE_SIZE * 3, GAME_SIZES.TILE_SIZE * 4, GAME_SIZES.TILE_SIZE * 2);
+        ctx.fillRect(0, GAME.SIZES.TILE * 3, GAME.SIZES.TILE * 4, GAME.SIZES.TILE * 2);
         const FPS = Math.round(FPSNormal * 1000) / 1000;
-        drawText(ctx, 'white', `f p s: ${FPS}`, 10, GAME_SIZES.TILE_SIZE * 4, GAME_SIZES.TILE_SIZE_HALF, 'left', 'middle');
+        drawText(ctx, 'white', `f p s: ${FPS}`, 10, GAME.SIZES.TILE * 4, GAME.SIZES.TILE_HALF, 'left', 'middle');
     }
     
     drawDot(ctx, entity, colour){

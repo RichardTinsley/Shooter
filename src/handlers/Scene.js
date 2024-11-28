@@ -1,4 +1,4 @@
-import { GAME_STATES } from "../constants/game.js";
+import * as GAME from "../constants/game.js";
 import { Music } from "./Music.js";
 import { LoadingScreen } from "../screens/LoadingScreen.js";
 import { MainMenuScreen } from "../screens/MainMenuScreen.js";
@@ -23,17 +23,17 @@ export class Scene {
 
     switchScreens = (option) => {
         switch(option){
-            case GAME_STATES.MAINMENU:
+            case GAME.STATES.MAINMENU:
                 this.Screen = new MainMenuScreen();
                 break
-            case GAME_STATES.RESTART:
-            case GAME_STATES.BATTLE:
+            case GAME.STATES.RESTART:
+            case GAME.STATES.BATTLE:
                 this.Screen = new BattleScreen();
                 break
-            case GAME_STATES.PAUSED:
+            case GAME.STATES.PAUSED:
                 this.pauseGame();
                 break
-            case GAME_STATES.GAMEOVER:
+            case GAME.STATES.GAMEOVER:
                 this.Screen = new GameOverScreen();
                 break
         }

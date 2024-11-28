@@ -1,4 +1,4 @@
-import { TIME_INTERVALS } from "../constants/time.js";
+import * as GAME from "../constants/game.js";
 
 let previousTime = 0;  
 let eventTimer = 0;
@@ -16,15 +16,15 @@ export class Time{
     }
 
     eventUpdate(time){
-        // console.log(Math.floor(performance.now() / TIME_INTERVALS.SECOND));
-        totalRuntimeSeconds = Math.floor(time / TIME_INTERVALS.SECOND);
+        // console.log(Math.floor(performance.now() / GAME.TIME.SECOND));
+        totalRuntimeSeconds = Math.floor(time / GAME.TIME.SECOND);
 
         const deltaTime = time - previousTime;
-        // const deltaTimeMultiplier = deltaTime / TIME_INTERVALS.FRAMES; FOR OBJECT MOVEMENT
+        // const deltaTimeMultiplier = deltaTime / GAME.TIME.FRAMES; FOR OBJECT MOVEMENT
 
         previousTime = time;
 
-        if (eventTimer < TIME_INTERVALS.FRAMES){
+        if (eventTimer < GAME.TIME.FRAMES){
             eventTimer += deltaTime;
             this.event = false;
         } else {
@@ -37,7 +37,7 @@ export class Time{
         if(!this.event) 
             return;
         //OR EVENT... Seconds++
-        const seconds = Math.floor(performance.now() / TIME_INTERVALS.SECOND);
+        const seconds = Math.floor(performance.now() / GAME.TIME.SECOND);
         const minutes = Math.floor(seconds / 60) % 60;
         const hours = Math.floor((seconds / 60) / 60);
         minutes = minutes < 10 ? "0" + minutes : minutes;

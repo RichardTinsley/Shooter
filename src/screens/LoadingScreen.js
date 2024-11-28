@@ -1,4 +1,4 @@
-import { GAME_SIZES } from "../constants/game.js";
+import * as GAME from "../constants/game.js";
 import { ASSET_LIST } from "../constants/assets.js";
 import { TEXT_COLOURS } from "../constants/colours.js";
 import { loadAssets } from "../utilities/assets.js";
@@ -18,7 +18,7 @@ export class LoadingScreen extends Screen {
             text: "Death Sorcery",
             colour: TEXT_COLOURS.WHITE, 
             position: {
-                x: GAME_SIZES.GAME_WIDTH_HALF,
+                x: GAME.SIZES.GAME_WIDTH_HALF,
                 y: 150, 
             },
             size: 150,
@@ -28,17 +28,17 @@ export class LoadingScreen extends Screen {
             text: "Summoning",
             colour: TEXT_COLOURS.WHITE, 
             position: {
-                x: GAME_SIZES.GAME_WIDTH_HALF,
-                y: GAME_SIZES.GAME_HEIGHT - 100, 
+                x: GAME.SIZES.GAME_WIDTH_HALF,
+                y: GAME.SIZES.GAME_HEIGHT - 100, 
             },
             size: 60,
         });
     }
     
     draw(ctx){
-        ctx.clearRect(0, 0, GAME_SIZES.GAME_WIDTH,  GAME_SIZES.GAME_HEIGHT);
+        ctx.clearRect(0, 0, GAME.SIZES.GAME_WIDTH,  GAME.SIZES.GAME_HEIGHT);
         super.draw(ctx);
-        ctx.drawImage(this.dslogo, GAME_SIZES.GAME_WIDTH_HALF - (this.dslogo.width /2), GAME_SIZES.GAME_HEIGHT_HALF - (this.dslogo.height / 2) + 40);
+        ctx.drawImage(this.dslogo, GAME.SIZES.GAME_WIDTH_HALF - (this.dslogo.width /2), GAME.SIZES.GAME_HEIGHT_HALF - (this.dslogo.height / 2) + 40);
         this.summoningText.draw(ctx);
         this.drawLoadingBar(ctx);
     }
@@ -54,9 +54,9 @@ export class LoadingScreen extends Screen {
     }
     
     drawLoadingBar(ctx){
-        const loadBarY = GAME_SIZES.GAME_HEIGHT - 50;
-        const loadBarLength = GAME_SIZES.GAME_WIDTH / 3;
-        const loadBarX = GAME_SIZES.GAME_WIDTH_HALF - loadBarLength / 2 ;
+        const loadBarY = GAME.SIZES.GAME_HEIGHT - 50;
+        const loadBarLength = GAME.SIZES.GAME_WIDTH / 3;
+        const loadBarX = GAME.SIZES.GAME_WIDTH_HALF - loadBarLength / 2 ;
         const loadBarThickness = 5;
         const LoadBarMaxWidth = (this.assetsLoadedCounter / ASSET_LIST.length);
         ctx.beginPath();

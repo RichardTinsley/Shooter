@@ -1,10 +1,10 @@
-import { GAME_SIZES } from "../constants/game.js";
+import * as GAME from "../constants/game.js"
 import { Menu } from "./Menu.js";
 import { MAIN_MENU } from "../constants/menus.js";
 
 const MENU_POSITION = {
-    x: GAME_SIZES.GAME_WIDTH_HALF,
-    y: GAME_SIZES.GAME_HEIGHT_HALF + 100,
+    x: GAME.SIZES.GAME_WIDTH_HALF,
+    y: GAME.SIZES.GAME_HEIGHT_HALF + 100,
 } 
 export class MainMenu extends Menu{
     constructor(){

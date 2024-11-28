@@ -1,15 +1,20 @@
-export const GAME_SIZES = {
+export const TIME = {
+    SECOND: 1000,
+    FRAMES:  60
+};
+
+export const SIZES = {
     COLUMNS: 40,
     ROWS: 24,
-    TILE_SIZE: 32,
-    get TILE_SIZE_HALF(){
-        return this.TILE_SIZE / 2;
+    TILE: 32,
+    get TILE_HALF(){
+        return this.TILE / 2;
     },
     get GAME_WIDTH(){
-        return this.TILE_SIZE * this.COLUMNS;
+        return this.TILE * this.COLUMNS;
     },
     get GAME_HEIGHT(){
-        return this.TILE_SIZE * this.ROWS;
+        return this.TILE * this.ROWS;
     }, 
     get GAME_WIDTH_HALF(){
         return this.GAME_WIDTH / 2;
@@ -19,7 +24,7 @@ export const GAME_SIZES = {
     }, 
 };
 
-export const GAME_STATES = {
+export const STATES = {
     LOADING: 'LOADING',
     MAINMENU: 'MAINMENU',
     BATTLE: 'BATTLE',

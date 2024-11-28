@@ -1,5 +1,5 @@
-import { GAME_STATES } from "../constants/game.js";
-import { USER_INPUT_KEYS } from "../constants/keyboard.js";
+import * as GAME from "../constants/game.js";
+import * as INPUT from "../constants/input.js";
 
 const keys = new Set();
 
@@ -10,17 +10,17 @@ export class Keyboard {
         });
 
         window.addEventListener('keyup', e =>{
-            if(keys.has(USER_INPUT_KEYS.PAUSE))
-                switchScreens(GAME_STATES.PAUSED);
+            if(keys.has(INPUT.KEYBOARD.PAUSE))
+                switchScreens(GAME.STATES.PAUSED);
             
-            if(keys.has(USER_INPUT_KEYS.RESTART))
-                switchScreens(GAME_STATES.RESTART);
+            if(keys.has(INPUT.KEYBOARD.RESTART))
+                switchScreens(GAME.STATES.RESTART);
             
-            if(keys.has(USER_INPUT_KEYS.DEBUG))
+            if(keys.has(INPUT.KEYBOARD.DEBUG))
                 switchDebugMode();
             
-            if(keys.has(USER_INPUT_KEYS.MUSIC))
-                switchScreens(GAME_STATES.MUSIC);
+            if(keys.has(INPUT.KEYBOARD.MUSIC))
+                switchScreens(GAME.STATES.MUSIC);
     
             keys.clear();
         });

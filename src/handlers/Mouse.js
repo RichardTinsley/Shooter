@@ -1,9 +1,9 @@
-import * as MOUSE from "../constants/mouse.js";
+import * as INPUT from "../constants/input.js"
 import * as OBJECTS from "../constants/objects.js"
 import { checkCircleCollision, checkBoxCollision } from "../utilities/math.js";
 import { SapphireTower } from "../objects/towers/SapphireTower.js";
 
-let selectedObject = MOUSE.NULL_OBJECT;
+let selectedObject = INPUT.NULL_OBJECT;
 let buildTowerHere = null;
 
 export class Mouse {
@@ -12,17 +12,17 @@ export class Mouse {
             center: {
                 x: 0,
                 y: 0,
-                radius: MOUSE.SIZE,
+                radius: INPUT.SIZE,
             },
-            width: MOUSE.SIZE,
-            height: MOUSE.SIZE,
+            width: INPUT.SIZE,
+            height: INPUT.SIZE,
             style: document.getElementById("canvas").style,
         };
         
         window.addEventListener('mousemove', e => {
             this.Mouse.center.x = e.offsetX;
             this.Mouse.center.y = e.offsetY;
-            selectedObject = MOUSE.NULL_OBJECT;
+            selectedObject = INPUT.NULL_OBJECT;
         });
 
         window.addEventListener('click', () => {

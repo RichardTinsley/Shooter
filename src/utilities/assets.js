@@ -1,5 +1,5 @@
 import { ASSET_TYPE_LOOKUP, ASSET_TYPE, ASSET_LIST } from "../constants/assets.js";
-import { GAME_STATES } from "../constants/game.js";
+import * as GAME from "../constants/game.js"
 
 export const assets = new Map();
 
@@ -10,7 +10,7 @@ export async function loadAssets(switchScreens, assetLoaded){
     })
     .then(() => {
         console.log(`Asset loading complete. A total of ${assets.size} assets have been loaded.`);
-        switchScreens(GAME_STATES.BATTLE);
+        switchScreens(GAME.STATES.BATTLE);
     });
 }
 

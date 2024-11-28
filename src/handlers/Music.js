@@ -1,4 +1,4 @@
-import { GAME_STATES } from "../constants/game.js";
+import * as GAME from "../constants/game.js";
 import { assets } from "../utilities/assets.js";
 
 let isMusicPaused = false;
@@ -11,20 +11,20 @@ export class Music {
     
     switchMusic = (option) => {
         switch(option){
-            case GAME_STATES.MAINMENU:
+            case GAME.STATES.MAINMENU:
                 music = assets.get("menuMusic");
                 this.playMusic();
                 break
-            case GAME_STATES.RESTART:
+            case GAME.STATES.RESTART:
                 this.playMusic();
                 break
-            case GAME_STATES.PAUSED:
+            case GAME.STATES.PAUSED:
                 this.pauseMusic();
                 break
-            case GAME_STATES.GAMEOVER:
+            case GAME.STATES.GAMEOVER:
                 //PLAY THE DREAD STRING SOUND
                 break
-            case GAME_STATES.MUSIC:
+            case GAME.STATES.MUSIC:
                 this.pauseMusic();
                 break
         }
