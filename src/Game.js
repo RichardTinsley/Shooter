@@ -1,8 +1,8 @@
-import { Scene } from "./Scene.js";
-import { Mouse } from "./Mouse.js";
-import { Keyboard } from "./Keyboard.js";
-import { Debug } from "./Debug.js";
-import { Time } from "./Time.js";
+import { Scene } from "./handlers/Scene.js";
+import { Mouse } from "./handlers/Mouse.js";
+import { Keyboard } from "./handlers/Keyboard.js";
+import { Debug } from "./handlers/Debug.js";
+import { Time } from "./handlers/Time.js";
 
 export class Game{
     constructor(){

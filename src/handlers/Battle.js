@@ -1,6 +1,6 @@
 import { TEXT_COLOURS, ANIMATION_STATES, ENEMY_STATES } from "./constants/constants.js";
 
-export class BattleHandler{
+export class Battle{
     constructor(
         addProjectile,
         addEffect,

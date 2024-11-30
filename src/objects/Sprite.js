@@ -22,8 +22,8 @@ export class Sprite {
         this.halfWidth = this.width / 2;
         this.halfHeight = this.height / 2;
 
-        this.maxFrame = Math.floor((this.sprite.image.width / this.sprite.width)) - 1;
-        this.maxRow = Math.floor((this.sprite.image.height / this.sprite.height)) - 1;
+        this.maxFrame = Math.floor(this.sprite.image.width / this.sprite.width) - 1;
+        this.maxRow = Math.floor(this.sprite.image.height / this.sprite.height) - 1;
 
         this.position = position;
         this.center = {

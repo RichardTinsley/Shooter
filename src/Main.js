@@ -1,5 +1,5 @@
 import { context } from "./utilities/context.js";
-import { Game } from "./handlers/Game.js";
+import { Game } from "./Game.js";
 
 const ctx = context();
 

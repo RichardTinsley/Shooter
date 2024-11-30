@@ -4,11 +4,13 @@ import { LoadingScreen } from "../screens/LoadingScreen.js";
 import { MainMenuScreen } from "../screens/MainMenuScreen.js";
 import { BattleScreen } from "../screens/BattleScreen.js";
 import { GameOverScreen } from "../screens/GameOverScreen.js";
+import { PlayerStats } from "../interface/PlayerStats.js";
 
 let isPaused = false;
 
 export class Scene {
     constructor(){
+        this.PlayerStats;
         this.Screen = new LoadingScreen(this.switchScreens);
         this.Music = new Music();
     }
@@ -28,7 +30,8 @@ export class Scene {
                 break
             case GAME.STATES.RESTART:
             case GAME.STATES.BATTLE:
-                this.Screen = new BattleScreen();
+                this.PlayerStats = new PlayerStats();
+                this.Screen = new BattleScreen(this.PlayerStats);
                 break
             case GAME.STATES.PAUSED:
                 this.pauseGame();

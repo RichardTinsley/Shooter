@@ -53,14 +53,14 @@ export const ANIMATION = {
 Ruby		Splash damage / flame thrower
 Amethyst  	Air Attack only
 Sapphire	Freeze / slow group 
-Topaz 		rapid fire
+Topaz 		rapid fire / upgraqdes to laser rail gun laser 
 Diamond		Heavy damage / stun / critical hit 
 Gold 		money generation, weak damage
 Silver		Sniper range
 Opal		Tower boost auras
 Citrine     chain lighting, spreadshot
 *Uranium	Enemy Damage, weakness auras / remove armour and abilities
-Obsidian	rail gun laser / ION cannon that comes from the sky and follows the waypoints
+Obsidian	/ ION cannon that comes from the sky and follows the waypoints
 fire pit, landmines, net traps /air units to the ground
 
 GREEN TOWER - Emerald Enemy Immune, Poison, damage, reduce armour
