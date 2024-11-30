@@ -1,58 +1,40 @@
 import * as OBJECTS from "../constants/objects.js"
+import { Sprite } from "./Sprite.js";
 import { findAngleOfDirection, giveDirection, checkCollision } from "../utilities/math.js";
-import { assets } from "../AssetLoader.js";
 
-export class Projectile{
+export class Projectile extends Sprite{
     constructor({ 
-        sprite,
-        position,
+        width,
+        height,
+        damage,
         enemy,
-        scale,
-        speed,
-        damage
+        origin,
     }){
-        this.sprite = sprite;
-        
-        this.scale = scale;
-        this.width = this.sprite.width * this.scale;
-        this.height = this.sprite.height * this.scale;   
-        
-        this.position = position;
+        super({
+            width,
+            height,
+            damage,
+            enemy,
+        })
+        this.sprite.width = width;
+        this.sprite.height = height;
+
+        this.origin = origin;
+        this.position = origin;
         this.center = {
             x: this.position.x,
-            y: this.position.y
+            y: this.position.y - this.halfHeight,
+            radius: this.halfWidth / 2,
         };
-        this.hitBox = {
-            x: this.center.x,
-            y: this.center.y,
-            radius: this.width / 18,
-        };
-        
-        this.maxFrame = (this.sprite.image.width / this.sprite.width) - 1;
-        this.sprite.row = 0;
-        
-        this.state = OBJECTS.ANIMATION.ANIMATING;
-        this.direction;
-        this.angle;
-        this.speed = speed;
-        this.velocity = {
-            x: 0,
-            y: 0
-        };
-        
+
         this.damage = damage;       
         this.enemy = enemy;
-
-        this.addText = addText;
-        this.addEffect = addEffect;
-        this.addCoins = addCoins;
-        this.addExperience = addExperience;
     }
 
     draw(ctx){
         switch(this.state){
             case OBJECTS.ANIMATION.ANIMATING:
-                this.drawProjectile(ctx); 
+                
                 break
             case OBJECTS.ANIMATION.FINISHED:
                 break
@@ -60,11 +42,9 @@ export class Projectile{
     }
 
     update(event){
-        if(event) 
-            this.sprite.frame < this.maxFrame ? this.sprite.frame++ : this.sprite.frame = 0;
         switch(this.state){
             case OBJECTS.ANIMATION.ANIMATING:
-                this.updateProjectile();
+            
                 break
             case OBJECTS.ANIMATION.FINISHED:
                 break
@@ -81,15 +61,15 @@ export class Projectile{
             this.sprite.row * this.sprite.height,
             this.sprite.width,
             this.sprite.height,
-            0 - this.width,
-            0 - this.height,
+            0,
+            0,
             this.width,
             this.height
         );
         ctx.restore();
     }
 
-    updateProjectile() {
+    updateProjectileMovement() {
         this.angle = findAngleOfDirection(this.enemy.center, this.center);
         this.direction = giveDirection(this.angle);
 
@@ -98,9 +78,30 @@ export class Projectile{
         this.center.x += this.velocity.x;
         this.center.y += this.velocity.y;
     }    
+
+    checkProjectileEnemyCollision(){//PASSARRAYS EFFECTS ARRAY, TEXT ARRAY, ADD COINS AND EXP // HANDLE 
+        if(this.state !== OBJECTS.ANIMATION.ANIMATING)
+            return;
+
+        if (checkCollision(this.enemy, this)){
+            this.state = OBJECTS.ANIMATION.FINISHED
+            this.enemy.health -= this.damage;
+            this.addExplosion();
+
+            if(this.enemy.health <= 0 && this.enemy.state !== ENEMY_STATES.DYING){
+                const coinString = this.addCoins();
+                this.addText(coinString, TEXT_COLOURS.GOLD, this.enemy.position);
+
+                const experienceString = this.addExperience();
+                this.addText(experienceString, TEXT_COLOURS.GREEN, this.position);
+                this.addBlood();
+            }
+            
+            if(this.enemy.state === ENEMY_STATES.DYING)
+                this.addBlood();
+        }   
+    }
 }
-
-
 
 // LASER LINES        
 // ctx.beginPath();
