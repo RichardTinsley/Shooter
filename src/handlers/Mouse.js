@@ -3,8 +3,8 @@ import * as OBJECTS from "../constants/objects.js"
 import { checkCircleCollision, checkBoxCollision } from "../utilities/math.js";
 import { SapphireTower } from "../objects/towers/SapphireTower.js";
 
-let selectedObject = INPUT.NULL_OBJECT;
-let buildTowerHere = null;
+let mouseOverObject = INPUT.NULL_OBJECT;
+let selectedObject = null;
 
 export class Mouse {
     constructor(switchScreens){  
@@ -22,7 +22,7 @@ export class Mouse {
         window.addEventListener('mousemove', e => {
             this.Mouse.center.x = e.offsetX;
             this.Mouse.center.y = e.offsetY;
-            selectedObject = INPUT.NULL_OBJECT;
+            mouseOverObject = INPUT.NULL_OBJECT;
         });
 
         window.addEventListener('click', () => {
@@ -32,70 +32,87 @@ export class Mouse {
 
     update(Screen){
         if(Screen.menu)
-            this.menuSelector(Screen.menu);
+            this.mouseOverMenuItem(Screen.menu);
 
-        if(Screen.Objects)
-            this.towerSelector(Screen.Objects.towers);
+        if(Screen.Objects){
+            this.mouseOverTower(Screen.Objects.towers);
+            this.mouseOverEnemy(Screen.Objects.enemies);
+        }
 
-        if(buildTowerHere)
-            this.buildTower(buildTowerHere, Screen.Objects.towers);
+        if(selectedObject){
+            if(selectedObject.type === OBJECTS.TYPES.ENEMY)
+                this.selectEnemy(Screen.Objects.enemies);
+    
+            if(selectedObject.type === OBJECTS.TYPES.TOWER)
+                this.buildTower(Screen.Objects.towers);
+
+            selectedObject = null;
+        }
         
-        this.Mouse.style.cursor = `url(../../images/cursors/${selectedObject.type}.cur), auto`;
+        this.Mouse.style.cursor = `url(../../images/cursors/${mouseOverObject.type}.cur), auto`;
     }
 
     onMouseClick(switchScreens){
-        switch(selectedObject.type){
+        switch(mouseOverObject.type){
             case OBJECTS.TYPES.ENEMY:
+                selectedObject = mouseOverObject;
+                selectedObject.isSelected = true;
                 break
             case OBJECTS.TYPES.MENUITEM:
-                switchScreens(selectedObject.option);
+                switchScreens(mouseOverObject.option);
                 break
             case OBJECTS.TYPES.TOWER:
-                buildTowerHere = selectedObject;
+                selectedObject = mouseOverObject;
                 break
         }
     }
 
-    menuSelector(menu){
+    mouseOverMenuItem(menu){
         menu.menuItems.forEach((menuItem) => {
             if(checkBoxCollision(this.Mouse, menuItem))
                 menuItem.text.enable(false);
             else {
                 menuItem.text.enable(true);
-                selectedObject = menuItem;
+                mouseOverObject = menuItem;
             }
         });
     }
 
-    towerSelector(towers){
+    mouseOverTower(towers){
         towers.forEach((tower) => {
             if(checkCircleCollision(this.Mouse, tower)){
                 tower.isSelected = true;
-                selectedObject = tower;
+                mouseOverObject = tower;
             }
             else 
                 tower.isSelected = false;
         });
     }
 
-    buildTower(tower, towers){
-        if(selectedObject.isOccupied)
+    mouseOverEnemy(enemies){
+        enemies.forEach((enemy) => {
+            if(checkCircleCollision(this.Mouse, enemy))
+                mouseOverObject = enemy;
+        });
+    }
+
+    selectEnemy(enemies){
+        enemies.forEach((enemy) => {
+            if(enemy.isSelected === true && enemy !== selectedObject)
+                enemy.isSelected = false;
+        });
+    }
+
+    buildTower(towers){
+        if(mouseOverObject.isOccupied)
             return
 
-        // if(!Screen.Hud.canAfford(buildThisTower.cost)){
-        //     addText(
-        //         "Not Enough Gold",
-        //         TEXT_COLOURS.RED,
-        //         mouseOverTower.center
-        //     );
-        //     return
-        // }
+        // if(!Screen.Hud.canAfford(buildThisTower.cost))
 
         let newTower = new SapphireTower({
-            position: tower.position,
+            position: selectedObject.position,
         })
 
-        towers[towers.findIndex(tower => tower === buildTowerHere)] = newTower;
-        buildTowerHere = null;
+        towers[towers.findIndex(tower => tower === selectedObject)] = newTower;
     }
 }   

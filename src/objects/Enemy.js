@@ -19,6 +19,7 @@ export class Enemy extends Sprite{
             scale: scale ?? 1.5,
             speed: speed ?? 1, 
         });
+        this.type = OBJECTS.TYPES.ENEMY;
 
         this.center.radius = this.width / 3;
 

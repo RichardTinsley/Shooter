@@ -55,32 +55,32 @@ export class Tower extends Sprite{
     }
 
     shootEnemy(enemies, projectiles){
-        // this.enemiesInRange = this.prioritiseEnemiesInTowerRange(enemies);//CLEAN THIS UP
-        // const selectedEnemy = this.enemiesInRange.find(enemy => enemy.isSelected);
-
         this.target = this.findEnemyTarget(enemies);
 
-        // if(selectedEnemy)
-        //     this.target = selectedEnemy;
-        // else
-        //     this.target = this.enemiesInRange[0];
-
-        if(this.shootTimer > this.cooldown && this.target){
-            projectiles.push(new SapphireProjectile({
-                position: this.muzzle, 
-                target: this.target, 
-                damage: this.damage
-            }));
-            this.shootTimer = 0;
-        }
+        // if(this.shootTimer > this.cooldown && this.target){
+        //     projectiles.push(new SapphireProjectile({
+        //         position: this.muzzle, 
+        //         target: this.target, 
+        //         damage: this.damage
+        //     }));
+        //     this.shootTimer = 0;
+        // }
     }
 
     findEnemyTarget(enemies){
-        //this.center.radius = this.range;
+        const towerRange = {
+            center: {
+                x: this.center.x,
+                y: this.center.y,
+                radius: this.range
+            },
+        };
         const enemiesInRange = enemies.filter(enemy => {
-            if(enemy.state === OBJECTS.STATES.WALKING || enemy.state === OBJECTS.STATES.RUNNING)
-                return checkCircleCollision(enemy, this);
+            if(enemy.sprite.row === OBJECTS.STATES.WALKING || enemy.sprite.row === OBJECTS.STATES.RUNNING)
+                return checkCircleCollision(enemy, towerRange);
         })
+        if(enemiesInRange.length > 0)
+            console.log(enemiesInRange);
 
         const selectedEnemy = enemiesInRange.find(enemy => enemy.isSelected);
 

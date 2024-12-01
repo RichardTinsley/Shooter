@@ -14,8 +14,7 @@ export class Objects{
 
     update(event){
         this.towers = this.towers.filter(tower => {
-            tower.update(event);
-            // tower.shootEnemy(this.enemies, this.projectiles);
+            tower.update(event, this.enemies, this.projectiles);
             return tower.state === ANIMATION.ANIMATING;
         });
 

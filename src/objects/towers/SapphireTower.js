@@ -33,10 +33,11 @@ export class SapphireTower extends Tower{
         }
     }
 
-    update(event){
+    update(event, enemies, projectiles){
         switch(this.state){
             case OBJECTS.ANIMATION.ANIMATING:
                 super.update(event);
+                this.shootEnemy(enemies, projectiles);
                 break
             case OBJECTS.ANIMATION.FINISHED:
                 break

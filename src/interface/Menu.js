@@ -1,6 +1,6 @@
 import { TEXT_COLOURS } from "../constants/colours.js";
 import * as INTERFACE from "../constants/interface.js"
-import { MenuItemText } from "./components/MenuItemText.js";
+import { MenuItemText } from "../components/MenuItemText.js";
 
 export class Menu{
     constructor(){
