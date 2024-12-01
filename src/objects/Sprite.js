@@ -3,15 +3,16 @@ import * as OBJECTS from "../constants/objects.js"
 export class Sprite {
     constructor({
         image,
-        size,
+        width,
+        height,
         position,
         scale,
         speed,
     }){
         this.sprite = {
             image: image,
-            width: size ?? 32,
-            height: size ?? 32,
+            width: width ?? 32,
+            height: height ?? 32,
             frame: 0,
             row: 0,
         };
@@ -40,6 +41,7 @@ export class Sprite {
             y: 0
         }; 
 
+        this.isSelected = false;
         this.state = OBJECTS.ANIMATION.ANIMATING;
     }
 

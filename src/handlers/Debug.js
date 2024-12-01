@@ -22,7 +22,7 @@ export class Debug{
             this.levelDebugInfoGrid(ctx);
             this.towerDebugInfo(ctx, Screen.Objects.towers);
             this.enemyDebugInfo(ctx, Screen.Objects.enemies);
-        // this.projectileDebugInfo(ctx, projectiles);
+            this.projectileDebugInfo(ctx, Screen.Objects.projectiles);
         }
 
         if(Screen.menu)
@@ -86,8 +86,9 @@ export class Debug{
     
     projectileDebugInfo(ctx, projectiles){
         projectiles.forEach(projectile => {
-            // this.drawCircleHitbox(ctx, projectile);
-            // this.drawPositionDot(ctx, projectile);
+            this.drawCircleHitbox(ctx, projectile);
+            this.drawDot(ctx, projectile.position, COLOURS.BLUE);
+            // this.drawDot(ctx, projectile.center, COLOURS.GREEN);
         });
     }
     menuDebugInfo(ctx, menu){

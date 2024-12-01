@@ -10,7 +10,7 @@ export async function loadAssets(switchScreens, assetLoaded){
     })
     .then(() => {
         console.log(`Asset loading complete. A total of ${assets.size} assets have been loaded.`);
-        switchScreens(GAME.STATES.MAINMENU);
+        switchScreens(GAME.STATES.BATTLE);
     });
 }
 

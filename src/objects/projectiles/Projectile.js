@@ -1,59 +1,34 @@
-import * as OBJECTS from "../constants/objects.js"
-import { Sprite } from "./Sprite.js";
-import { findAngleOfDirection, giveDirection, checkCollision } from "../utilities/math.js";
+import * as OBJECTS from "../../constants/objects.js"
+import { Sprite } from "../Sprite.js";
+import { findAngleOfDirection, giveDirection, checkCircleCollision } from "../../utilities/math.js";
 
 export class Projectile extends Sprite{
-    constructor({ 
+    constructor({
+        image, 
+        position,
         width,
         height,
         damage,
         enemy,
-        origin,
     }){
         super({
+            image,
+            position,
             width,
             height,
             damage,
             enemy,
         })
-        this.sprite.width = width;
-        this.sprite.height = height;
 
-        this.origin = origin;
-        this.position = origin;
-        this.center = {
-            x: this.position.x,
-            y: this.position.y - this.halfHeight,
-            radius: this.halfWidth / 2,
-        };
-
+        this.origin = this.position;
         this.damage = damage;       
         this.enemy = enemy;
+        this.threeQuarterWidth = this.width * .75;
     }
 
     draw(ctx){
-        switch(this.state){
-            case OBJECTS.ANIMATION.ANIMATING:
-                
-                break
-            case OBJECTS.ANIMATION.FINISHED:
-                break
-        }
-    }
-
-    update(event){
-        switch(this.state){
-            case OBJECTS.ANIMATION.ANIMATING:
-            
-                break
-            case OBJECTS.ANIMATION.FINISHED:
-                break
-        }
-    }
-
-    drawProjectile(ctx){
         ctx.save();
-        ctx.translate(this.center.x, this.center.y);
+        ctx.translate(this.center.x , this.center.y);
         ctx.rotate(this.angle);
         ctx.drawImage(
             this.sprite.image,
@@ -61,12 +36,26 @@ export class Projectile extends Sprite{
             this.sprite.row * this.sprite.height,
             this.sprite.width,
             this.sprite.height,
-            0,
-            0,
+            0 - this.threeQuarterWidth,
+            0 - this.halfHeight - 5,
             this.width,
             this.height
         );
         ctx.restore();
+    }
+
+    update(event){
+        console.log(this.state);
+        switch(this.state){
+            case OBJECTS.ANIMATION.ANIMATING:
+                super.update(event);
+                this.updateProjectileMovement();
+                this.checkProjectileEnemyCollision();
+                this.updateProjectileHitbox();
+                break
+            case OBJECTS.ANIMATION.FINISHED:
+                break
+        }
     }
 
     updateProjectileMovement() {
@@ -75,30 +64,35 @@ export class Projectile extends Sprite{
 
         this.velocity.x = Math.cos(this.angle) * this.speed;
         this.velocity.y = Math.sin(this.angle) * this.speed;
-        this.center.x += this.velocity.x;
-        this.center.y += this.velocity.y;
+        this.position.x += this.velocity.x;
+        this.position.y += this.velocity.y;
     }    
+
+    updateProjectileHitbox(){
+        this.center.x = this.position.x;
+        this.center.y = this.position.y - this.height / 3;
+    }
 
     checkProjectileEnemyCollision(){//PASSARRAYS EFFECTS ARRAY, TEXT ARRAY, ADD COINS AND EXP // HANDLE 
         if(this.state !== OBJECTS.ANIMATION.ANIMATING)
             return;
 
-        if (checkCollision(this.enemy, this)){
-            this.state = OBJECTS.ANIMATION.FINISHED
+        if (checkCircleCollision(this.enemy, this)){
+            this.state = OBJECTS.ANIMATION.FINISHED;
             this.enemy.health -= this.damage;
-            this.addExplosion();
+            // this.addExplosion();
 
-            if(this.enemy.health <= 0 && this.enemy.state !== ENEMY_STATES.DYING){
-                const coinString = this.addCoins();
-                this.addText(coinString, TEXT_COLOURS.GOLD, this.enemy.position);
+            // if(this.enemy.health <= 0 && this.enemy.state !== ENEMY_STATES.DYING){
+            //     const coinString = this.addCoins();
+            //     this.addText(coinString, TEXT_COLOURS.GOLD, this.enemy.position);
 
-                const experienceString = this.addExperience();
-                this.addText(experienceString, TEXT_COLOURS.GREEN, this.position);
-                this.addBlood();
-            }
+            //     const experienceString = this.addExperience();
+            //     this.addText(experienceString, TEXT_COLOURS.GREEN, this.position);
+            //     this.addBlood();
+            // }
             
-            if(this.enemy.state === ENEMY_STATES.DYING)
-                this.addBlood();
+            // if(this.enemy.state === ENEMY_STATES.DYING)
+            //     this.addBlood();
         }   
     }
 }

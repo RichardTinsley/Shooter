@@ -40,7 +40,7 @@ export const COLOURS = {
 
 export const ANIMATION = {
     ANIMATING: 0,
-    FINISHED: 1,
+    FINISHED: 2,
     LEFT: -1,
     RIGHT: 1,
 };

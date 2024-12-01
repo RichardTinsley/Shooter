@@ -9,8 +9,8 @@ export class Screen {
     draw(ctx){
         if(this.globalAlpha < 1){
             // ctx.clearRect(0, 0, GAME_SIZES.GAME_WIDTH,  GAME_SIZES.GAME_HEIGHT);
+            ctx.globalAlpha = this.globalAlpha;
         }
-        ctx.globalAlpha = this.globalAlpha;
 
         if(this.title)
             this.title.draw(ctx);

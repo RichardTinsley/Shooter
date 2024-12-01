@@ -6,31 +6,33 @@ import { Sprite } from "../Sprite.js";
 export class Tower extends Sprite{
     constructor({
         image,
-        size,
+        width,
+        height,
         position,
         scale,
         isOccupied,
     }){
         super({ 
             image: image ?? assets.get('towerSpot'),
-            size: size ?? OBJECTS.SIZES.TOWER,
+            width: width ?? OBJECTS.SIZES.TOWER,
+            height: height ?? OBJECTS.SIZES.TOWER,
             position,
             scale: scale ?? 1, 
         });
         
-        this.type = OBJECTS.TYPES.TOWER;
-        this.isOccupied = isOccupied ?? false;
-        // this.isSelected = false;
-
+        this.center.radius = this.halfWidth;
+        
         this.muzzle = {
             x: this.position.x,
             y: this.position.y - this.height
         };       
-        this.enemiesInRange = [];
-        this.target;
-        this.shootTimer = 0;
 
-        this.center.radius = this.halfWidth;
+        this.enemiesInRange = [];
+        this.target = null;
+        
+        
+        this.type = OBJECTS.TYPES.TOWER;
+        this.isOccupied = isOccupied ?? false;
     }
 
     draw(ctx){
@@ -53,35 +55,23 @@ export class Tower extends Sprite{
             ctx.setLineDash([0, 0]);
         } 
     }
-
-    shootEnemy(enemies, projectiles){
-        this.target = this.findEnemyTarget(enemies);
-
-        // if(this.shootTimer > this.cooldown && this.target){
-        //     projectiles.push(new SapphireProjectile({
-        //         position: this.muzzle, 
-        //         target: this.target, 
-        //         damage: this.damage
-        //     }));
-        //     this.shootTimer = 0;
-        // }
+    incrementShootTimer(event){
+        if(event)
+            this.shootTimer++
     }
 
+    targetEnemy(enemies){
+        if(this.shootTimer >= this.cooldown){
+            this.target = this.findEnemyTarget(enemies);
+        }
+    }
+    
     findEnemyTarget(enemies){
-        const towerRange = {
-            center: {
-                x: this.center.x,
-                y: this.center.y,
-                radius: this.range
-            },
-        };
         const enemiesInRange = enemies.filter(enemy => {
             if(enemy.sprite.row === OBJECTS.STATES.WALKING || enemy.sprite.row === OBJECTS.STATES.RUNNING)
-                return checkCircleCollision(enemy, towerRange);
+                return checkCircleCollision(enemy, this.towerRange);
         })
-        if(enemiesInRange.length > 0)
-            console.log(enemiesInRange);
-
+        
         const selectedEnemy = enemiesInRange.find(enemy => enemy.isSelected);
 
         if(selectedEnemy)
@@ -96,6 +86,5 @@ export class Tower extends Sprite{
         });
         return enemiesInRange[0];
     }
-
 }
 

@@ -1,12 +1,13 @@
-import * as OBJECTS from "../constants/objects.js"
-import { checkCircleCollision, findAngleOfDirection, giveDirection, randomPositiveFloat } from "../utilities/math.js";
-import { Sprite } from "./Sprite.js";
-import { assets } from "../utilities/assets.js";
+import * as OBJECTS from "../../constants/objects.js"
+import { checkCircleCollision, findAngleOfDirection, giveDirection, randomPositiveFloat } from "../../utilities/math.js";
+import { Sprite } from "../Sprite.js";
+import { assets } from "../../utilities/assets.js";
 
 export class Enemy extends Sprite{
     constructor({
         image,
-        size,
+        width,
+        height,
         position,
         scale,
         speed,
@@ -14,7 +15,8 @@ export class Enemy extends Sprite{
     }){
         super({
             image: image ?? assets.get(OBJECTS.COLOURS.TOPAZ), 
-            size: size ?? OBJECTS.SIZES.ENEMY,
+            width: width ?? OBJECTS.SIZES.ENEMY,
+            height: height ?? OBJECTS.SIZES.ENEMY,
             position,
             scale: scale ?? 1.5,
             speed: speed ?? 1, 
@@ -32,7 +34,6 @@ export class Enemy extends Sprite{
         this.currentDestination = this.waypoints[this.waypointIndex];
 
         this.sprite.row = this.speed < 0.8 ? OBJECTS.STATES.WALKING : OBJECTS.STATES.RUNNING;
-        this.isSelected = false;
         this.maxHealth = randomPositiveFloat(100);
         this.health = this.maxHealth;
     }
@@ -43,17 +44,6 @@ export class Enemy extends Sprite{
                 this.drawShadow(ctx);
                 this.contextSave(ctx);
                 super.draw(ctx);
-                // ctx.drawImage(
-                //     this.sprite.image,
-                //     this.sprite.width * this.sprite.frame,
-                //     this.sprite.height * this.sprite.row,
-                //     this.sprite.width,
-                //     this.sprite.height,
-                //     0 - this.halfWidth,//this.drawPositionX
-                //     0 - this.height,//this.drawPositionY
-                //     this.width,
-                //     this.height
-                // );
                 this.contextRestore(ctx);
                 this.drawHealthBar(ctx);
                 break
@@ -65,7 +55,6 @@ export class Enemy extends Sprite{
     contextSave(ctx){
         if(this.direction === OBJECTS.ANIMATION.LEFT){
             ctx.save();
-            // ctx.translate(this.position.x, this.position.y);
             ctx.scale(this.direction, 1);
             this.position.x *= -1;
         }
@@ -81,14 +70,16 @@ export class Enemy extends Sprite{
     update(event){
         switch(this.state){
             case OBJECTS.ANIMATION.ANIMATING:
-                this.updateEnemyDirection()
-                this.updatePriorityDistance() 
-                this.updateMovement();
-                this.updateEnemyHitbox();
-                this.checkWaypointArrival();
-                this.checkEnemyHealth();
-                this.updateDeathAnimation();
-                super.update(event);
+                if(this.sprite.row !== OBJECTS.STATES.DYING){
+                    super.update(event);
+                    this.updateMovement();
+                    this.updateEnemyDirection();
+                    this.updatePriorityDistance(); 
+                    this.updateEnemyHitbox();
+                    this.checkWaypointArrival();
+                    this.checkEnemyHealth();
+                }
+                this.updateDeathAnimation(event);
                 break
             case OBJECTS.ANIMATION.FINISHED:
                 break
@@ -112,9 +103,12 @@ export class Enemy extends Sprite{
         this.center.y = this.position.y - this.height / 3;
     }
 
-    updateDeathAnimation(){
+    updateDeathAnimation(event){
+        if(!event) 
+            return
+
         if(this.sprite.row === OBJECTS.STATES.DYING){
-            if(this.sprite.frame < this.maxFrame) 
+            if(this.sprite.frame < this.maxFrame)
                 this.sprite.frame++; 
             else 
                 this.sprite.frame = this.maxFrame;
@@ -140,8 +134,10 @@ export class Enemy extends Sprite{
     }
 
     checkEnemyHealth(){
-        if(this.health <= 0) {
-            this.sprite.row = OBJECTS.ENEMY.DYING;
+        if(this.health <= 0 && this.sprite.row !== OBJECTS.STATES.DYING) {
+            this.sprite.row = OBJECTS.STATES.DYING;
+            this.center.y = this.position.y;
+            this.center.radius /= 4;
             this.isSelected = false;
             this.sprite.frame = 0;
         }

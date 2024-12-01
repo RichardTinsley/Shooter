@@ -1,18 +1,21 @@
 import * as OBJECTS from "../../constants/objects.js"
 import { Tower } from "./Tower.js";
 import { assets } from "../../utilities/assets.js";
+import { SapphireProjectile } from "../projectiles/SapphireProjectile.js";
 
 export class SapphireTower extends Tower{
     constructor({
         image,
-        size,
+        width,
+        height,
         position,
         scale,
         isOccupied
     }){
         super({ 
             image: image ?? assets.get(`${OBJECTS.COLOURS.SAPPHIRE}${OBJECTS.TYPES.TOWER}1`),
-            size: size ?? OBJECTS.SIZES.TOWER,
+            width: width ?? OBJECTS.SIZES.TOWER,
+            height: height ?? OBJECTS.SIZES.TOWER,
             position,
             scale: scale ?? 1, 
             isOccupied: isOccupied ?? true
@@ -20,7 +23,16 @@ export class SapphireTower extends Tower{
 
         this.damage = 50;
         this.range = 150;
-        this.cooldown = 10;
+        this.cooldown = 40;
+        this.shootTimer = this.cooldown;
+
+        this.towerRange = {
+            center: {
+                x: this.center.x,
+                y: this.center.y,
+                radius: this.range
+            },
+        };
     }
 
     draw(ctx){
@@ -37,10 +49,26 @@ export class SapphireTower extends Tower{
         switch(this.state){
             case OBJECTS.ANIMATION.ANIMATING:
                 super.update(event);
-                this.shootEnemy(enemies, projectiles);
+                this.incrementShootTimer(event);
+                this.targetEnemy(enemies);
+                this.shootEnemy(projectiles);
                 break
             case OBJECTS.ANIMATION.FINISHED:
                 break
+        }
+    }
+
+    shootEnemy(projectiles){
+        if(this.shootTimer >= this.cooldown && this.target){
+            projectiles.push(new SapphireProjectile({
+                width: 50,
+                height: 25,
+                damage: this.damage,
+                enemy: this.target, 
+                position: {...this.muzzle}, 
+            }));
+            this.shootTimer = 0;
+            this.target = null;
         }
     }
 }
