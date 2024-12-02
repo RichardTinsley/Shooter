@@ -34,16 +34,16 @@ export class Projectile extends Sprite{
         ctx.restore();
     }
 
-    update(event){
-        console.log(this.state);
+    update(event, effects){
         switch(this.state){
             case OBJECTS.ANIMATION.ANIMATING:
                 super.update(event);
                 this.updateProjectileMovement();
-                this.checkProjectileEnemyCollision();
+                this.checkProjectileEnemyCollision(effects);
                 this.updateProjectileHitbox();
                 break
             case OBJECTS.ANIMATION.FINISHED:
+                console.log("SUPERORJECTILE", this.state)
                 break
         }
     }
@@ -63,14 +63,14 @@ export class Projectile extends Sprite{
         this.center.y = this.position.y - this.height / 3;
     }
 
-    checkProjectileEnemyCollision(){//PASSARRAYS EFFECTS ARRAY, TEXT ARRAY, ADD COINS AND EXP // HANDLE 
+    checkProjectileEnemyCollision(effects){//PASSARRAYS EFFECTS ARRAY, TEXT ARRAY, ADD COINS AND EXP // HANDLE 
         if(this.state !== OBJECTS.ANIMATION.ANIMATING)
             return;
-
+        
         if (checkCircleCollision(this.enemy, this)){
             this.state = OBJECTS.ANIMATION.FINISHED;
             this.enemy.health -= this.damage;
-            // this.addExplosion();
+            this.addExplosion(effects);
 
             // if(this.enemy.health <= 0 && this.enemy.state !== ENEMY_STATES.DYING){
             //     const coinString = this.addCoins();

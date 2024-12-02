@@ -1,3 +1,4 @@
+import * as OBJECTS from "../../constants/objects.js"
 import { Sprite } from "../Sprite.js"
 
 export class Effect extends Sprite{
@@ -7,16 +8,17 @@ export class Effect extends Sprite{
         height,
         position,
         scale,
-        speed,
     }){
         super({ 
             image,
             width,
             height,
             position,
-            scale: scale ?? 1,
-            speed, 
+            scale,
         });
+
+        this.drawPositionX = this.position.x - this.halfWidth;
+        this.drawPositionY = this.position.y - this.halfHeight;
     }
 
     draw(ctx){
@@ -24,7 +26,15 @@ export class Effect extends Sprite{
     }
 
     update(event){
-        super.update(event)
+        if(!event) 
+            return
+        this.animateEffect();
     }
 
+    animateEffect(){
+        if(this.sprite.frame < this.maxFrame) 
+            this.sprite.frame++; 
+        else 
+            this.state = OBJECTS.ANIMATION.FINISHED;
+    }
 }

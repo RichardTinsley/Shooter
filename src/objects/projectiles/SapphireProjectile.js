@@ -1,21 +1,22 @@
 import * as OBJECTS from "../../constants/objects.js"
 import { assets } from "../../utilities/assets.js";
+import { SapphireExplosion } from "../effects/SapphireExplosion.js";
 import { Projectile } from "./Projectile.js";
 
 export class SapphireProjectile extends Projectile{
     constructor({
         image, 
-        position,
         width,
         height,
+        position,
         damage,
         enemy,
     }){
         super({
             image: image ?? assets.get('sapphireProjectile'),
-            position,
             width: width ?? 50,
             height: height ?? 25,
+            position,
             damage,
             enemy,
         });
@@ -41,13 +42,19 @@ export class SapphireProjectile extends Projectile{
         }
     }
 
-    update(event){
+    update(event, effects){
         switch(this.state){
             case OBJECTS.ANIMATION.ANIMATING:
-                super.update(event);
+                super.update(event, effects);
                 break
             case OBJECTS.ANIMATION.FINISHED:
                 break
         }
+    }
+
+    addExplosion(effects){
+        effects.push(new SapphireExplosion({
+            position: this.center,
+        }));
     }
 }

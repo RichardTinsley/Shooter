@@ -1,18 +1,19 @@
 import { ANIMATION } from "../constants/objects.js";
-import { SapphireProjectile } from "../objects/projectiles/SapphireProjectile.js";
 
 export class Objects{
     constructor(emptyTowerSpots){
         this.towers = emptyTowerSpots();
         this.enemies = [];
         this.projectiles = [];
+        this.effects = [];
     }
 
     draw(ctx){
-        this.towers.forEach(tower => tower.draw(ctx));
         this.enemies.sort((a, b) => a.position.y - b.position.y);   
         this.enemies.forEach(enemy => enemy.draw(ctx));
+        this.towers.forEach(tower => tower.draw(ctx));
         this.projectiles.forEach(projectile => projectile.draw(ctx));
+        this.effects.forEach(effect => effect.draw(ctx));
     }
 
     update(event){
@@ -27,8 +28,13 @@ export class Objects{
         });
 
         this.projectiles = this.projectiles.filter(projectile => {
-            projectile.update(event);
+            projectile.update(event, this.effects);
             return projectile.state === ANIMATION.ANIMATING;
+        });
+
+        this.effects = this.effects.filter(effect => {
+            effect.update(event);
+            return effect.state === ANIMATION.ANIMATING;
         });
     }
 }
