@@ -1,7 +1,7 @@
-import * as OBJECTS from "../../constants/objects.js"
-import { assets } from "../../utilities/assets.js";
-import { checkCircleCollision } from "../../utilities/math.js";
-import { Sprite } from "../Sprite.js";
+import * as OBJECTS from "../constants/objects.js"
+import { assets } from "../utilities/assets.js";
+import { checkCircleCollision } from "../utilities/math.js";
+import { Sprite } from "./Sprite.js";
 
 export class Tower extends Sprite{
     constructor({

@@ -1,4 +1,4 @@
-import * as OBJECTS from "../../constants/objects.js"
+import * as OBJECTS from "../constants/objects.js"
 
 export class Text {
     constructor({

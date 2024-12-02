@@ -1,5 +1,5 @@
-import * as OBJECTS from "../../constants/objects.js"
-import { Sprite } from "../Sprite.js"
+import * as OBJECTS from "../constants/objects.js"
+import { Sprite } from "./Sprite.js"
 
 export class Effect extends Sprite{
     constructor({

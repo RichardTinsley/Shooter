@@ -1,7 +1,8 @@
-import * as OBJECTS from "../../constants/objects.js"
-import { checkCircleCollision, findAngleOfDirection, giveDirection, randomPositiveFloat } from "../../utilities/math.js";
-import { Sprite } from "../Sprite.js";
-import { assets } from "../../utilities/assets.js";
+import * as OBJECTS from "../constants/objects.js"
+import { checkCircleCollision, findAngleOfDirection, giveDirection, randomPositiveFloat } from "../utilities/math.js";
+import { Sprite } from "./Sprite.js";
+import { assets } from "../utilities/assets.js";
+import { Blood } from "./effects/Blood.js";
 
 export class Enemy extends Sprite{
     constructor({
@@ -16,14 +17,14 @@ export class Enemy extends Sprite{
         super({
             image: image ?? assets.get(OBJECTS.COLOURS.TOPAZ), 
             width: width ?? OBJECTS.SIZES.ENEMY,
-            height: height ?? OBJECTS.SIZES.ENEMY,
+            height: height ?? OBJECTS.SIZES.ENEMY + .1, // +.1 REMOVES UPPER SPRITE PIXEL OVERLAP
             position,
             scale: scale ?? 1.5,
             speed: speed ?? 1, 
         });
         this.type = OBJECTS.TYPES.ENEMY;
 
-        this.center.radius = this.width / 3;
+        this.center.radius = this.width / 4;
 
         this.quarterWidth = this.width / 4;
         this.shadowHeight = this.height / 12;
@@ -50,21 +51,6 @@ export class Enemy extends Sprite{
                 break
             case OBJECTS.ANIMATION.FINISHED:
                 break
-        }
-    }
-
-    contextSave(ctx){
-        if(this.direction === OBJECTS.ANIMATION.LEFT){
-            ctx.save();
-            ctx.scale(this.direction, 1);
-            this.position.x *= -1;
-        }
-    }
-
-    contextRestore(ctx){
-        if(this.direction === OBJECTS.ANIMATION.LEFT){
-            this.position.x *= -1;
-            ctx.restore();
         }
     }
 
@@ -129,9 +115,14 @@ export class Enemy extends Sprite{
                 radius: 1
             },
         };
+
+        this.center.radius = this.width / 3;
+
         if (checkCircleCollision(this, waypointCenter) && 
             this.waypointIndex < this.waypoints.length - 1)
                 this.waypointIndex++;
+
+        this.center.radius = this.width / 4;
     }
 
     checkEnemyHealth(){
@@ -179,5 +170,12 @@ export class Enemy extends Sprite{
             ctx.stroke();
             ctx.setLineDash([0, 0]);
         }   
+    }
+
+    addBlood(effects){
+        effects.push(new Blood({
+            position: this.position,
+            scale: this.scale * .5,
+        }));
     }
 }

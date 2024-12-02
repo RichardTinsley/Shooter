@@ -2,7 +2,7 @@ import * as GAME from "../constants/game.js";
 import { ASSET_LIST } from "../constants/assets.js";
 import { TEXT_COLOURS } from "../constants/colours.js";
 import { loadAssets } from "../utilities/assets.js";
-import { Text } from "../objects/texts/Text.js";
+import { Text } from "../objects/Text.js";
 import { FadeText } from "../objects/texts/FadeText.js";
 import { Screen } from "./Screen.js";
 

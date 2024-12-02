@@ -2,7 +2,7 @@ import * as OBJECTS from "../../constants/objects.js"
 import { Effect } from "../Effect.js";
 import { assets } from "../../utilities/assets.js";
 
-export class SapphireExplosion extends Effect{
+export class Blood extends Effect{
     constructor({
         image,
         width,
@@ -11,12 +11,19 @@ export class SapphireExplosion extends Effect{
         scale,
     }){
         super({ 
-            image: image ?? assets.get('blueExplosion'),
-            width: width ?? 256,
-            height: height ?? 256,
-            position,
-            scale: scale ?? 0.5,
+            image: image ?? assets.get('blood'),
+            width: width ?? 110,
+            height: height ?? 110,
+            position: {
+                x: position.x,
+                y: position.y
+            },
+            scale: scale ?? 1,
         });
+
+        this.drawPositionY = this.position.y - this.height;
+        this.sprite.row = Math.floor(Math.random() * 9);
+        // this.sprite.row = 0;
     }
 
     draw(ctx){

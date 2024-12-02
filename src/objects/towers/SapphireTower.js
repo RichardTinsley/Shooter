@@ -1,5 +1,5 @@
 import * as OBJECTS from "../../constants/objects.js"
-import { Tower } from "./Tower.js";
+import { Tower } from "../Tower.js";
 import { assets } from "../../utilities/assets.js";
 import { SapphireProjectile } from "../projectiles/SapphireProjectile.js";
 

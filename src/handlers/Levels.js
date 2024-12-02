@@ -1,7 +1,7 @@
 import * as GAME from "../constants/game.js";
 import { WASTELANDS_TILEMAP } from "../constants/levels.js";
 import { assets } from "../utilities/assets.js";
-import { Tower } from "../objects/towers/Tower.js"
+import { Tower } from "../objects/Tower.js"
 
 const levelImage = new OffscreenCanvas(GAME.SIZES.GAME_WIDTH, GAME.SIZES.GAME_HEIGHT);
 const context = levelImage.getContext('2d');

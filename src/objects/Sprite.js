@@ -82,5 +82,20 @@ export class Sprite {
         if(event)
         this.sprite.frame < this.maxFrame ? this.sprite.frame++ : this.sprite.frame = 0;
     }
+
+    contextSave(ctx){
+        if(this.direction === OBJECTS.ANIMATION.LEFT){
+            ctx.save();
+            ctx.scale(this.direction, 1);
+            this.position.x *= -1;
+        }
+    }
+
+    contextRestore(ctx){
+        if(this.direction === OBJECTS.ANIMATION.LEFT){
+            this.position.x *= -1;
+            ctx.restore();
+        }
+    }
 }
 

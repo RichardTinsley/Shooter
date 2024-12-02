@@ -1,5 +1,5 @@
 import * as OBJECTS from "../../constants/objects.js"
-import { Text } from "./Text.js";
+import { Text } from "../Text.js";
 
 export class GameText extends Text {
     constructor({

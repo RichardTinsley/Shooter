@@ -1,6 +1,6 @@
-import * as OBJECTS from "../../constants/objects.js"
-import { Sprite } from "../Sprite.js";
-import { findAngleOfDirection, giveDirection, checkCircleCollision } from "../../utilities/math.js";
+import * as OBJECTS from "../constants/objects.js"
+import { Sprite } from "./Sprite.js";
+import { findAngleOfDirection, giveDirection, checkCircleCollision } from "../utilities/math.js";
 
 export class Projectile extends Sprite{
     constructor({
@@ -63,7 +63,7 @@ export class Projectile extends Sprite{
         this.center.y = this.position.y - this.height / 3;
     }
 
-    checkProjectileEnemyCollision(effects){//PASSARRAYS EFFECTS ARRAY, TEXT ARRAY, ADD COINS AND EXP // HANDLE 
+    checkProjectileEnemyCollision(effects){
         if(this.state !== OBJECTS.ANIMATION.ANIMATING)
             return;
         
@@ -71,18 +71,18 @@ export class Projectile extends Sprite{
             this.state = OBJECTS.ANIMATION.FINISHED;
             this.enemy.health -= this.damage;
             this.addExplosion(effects);
-
-            // if(this.enemy.health <= 0 && this.enemy.state !== ENEMY_STATES.DYING){
-            //     const coinString = this.addCoins();
-            //     this.addText(coinString, TEXT_COLOURS.GOLD, this.enemy.position);
-
-            //     const experienceString = this.addExperience();
-            //     this.addText(experienceString, TEXT_COLOURS.GREEN, this.position);
-            //     this.addBlood();
-            // }
             
-            // if(this.enemy.state === ENEMY_STATES.DYING)
-            //     this.addBlood();
+            if(this.enemy.health <= 0 && this.enemy.state !== OBJECTS.STATES.DYING){
+                // const coinString = this.addCoins();
+                // this.addText(coinString, TEXT_COLOURS.GOLD, this.enemy.position);
+
+                // const experienceString = this.addExperience();
+                // this.addText(experienceString, TEXT_COLOURS.GREEN, this.position);
+                this.enemy.addBlood(effects);
+            }
+            
+            if(this.enemy.state === OBJECTS.STATES.DYING)
+                this.enemy.addBlood(effects);
         }   
     }
 }

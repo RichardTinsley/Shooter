@@ -1,5 +1,5 @@
 import * as OBJECTS from "../../constants/objects.js"
-import { Text } from "./Text.js";
+import { Text } from "../Text.js";
 
 export class GlowText extends Text {
     constructor({
@@ -14,7 +14,6 @@ export class GlowText extends Text {
             position, 
             size
         });
-
 
         this.enabled = false;
         this.alpha = 1;

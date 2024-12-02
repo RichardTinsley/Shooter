@@ -1,7 +1,7 @@
 import * as GAME from "../constants/game.js"
 import { WASTELANDS_WAYPOINTS } from "../constants/levels.js";
 import { randomPositiveFloat } from "../utilities/math.js";
-import { Enemy } from "../objects/enemies/Enemy.js";
+import { Enemy } from "../objects/Enemy.js";
 
 const enemySpeedMinimum = 0.4; 
 const enemySpeedRange = 1.0;
@@ -39,7 +39,7 @@ export class Wave{
             enemies.push(new Enemy({
                 position: waypoints[0],
                 speed: speed,
-                waypoints: waypoints
+                waypoints: waypoints,
             }));
         }
     }

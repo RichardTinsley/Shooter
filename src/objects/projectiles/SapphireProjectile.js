@@ -1,7 +1,7 @@
 import * as OBJECTS from "../../constants/objects.js"
 import { assets } from "../../utilities/assets.js";
 import { SapphireExplosion } from "../effects/SapphireExplosion.js";
-import { Projectile } from "./Projectile.js";
+import { Projectile } from "../Projectile.js";
 
 export class SapphireProjectile extends Projectile{
     constructor({
