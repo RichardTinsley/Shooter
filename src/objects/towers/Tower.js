@@ -10,7 +10,6 @@ export class Tower extends Sprite{
         height,
         position,
         scale,
-        isOccupied,
     }){
         super({ 
             image: image ?? assets.get('towerSpot'),
@@ -30,9 +29,8 @@ export class Tower extends Sprite{
         this.enemiesInRange = [];
         this.target = null;
         
-        
         this.type = OBJECTS.TYPES.TOWER;
-        this.isOccupied = isOccupied ?? false;
+        this.isOccupied = false;
     }
 
     draw(ctx){
@@ -56,7 +54,9 @@ export class Tower extends Sprite{
         } 
     }
     incrementShootTimer(event){
-        if(event)
+        if(!event)
+            return
+        if(this.shootTimer < this.cooldown)
             this.shootTimer++
     }
 

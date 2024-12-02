@@ -20,7 +20,10 @@ export class SapphireProjectile extends Projectile{
             enemy,
         });
 
-        this.speed = 2;
+        this.drawPositionX = 0 - this.threeQuarterWidth;
+        this.drawPositionY = 0 - this.halfHeight - 5;
+
+        this.speed = 3;
         this.center = {
             x: this.position.x,
             y: this.position.y - this.halfHeight,

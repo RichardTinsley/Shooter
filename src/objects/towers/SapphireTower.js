@@ -10,7 +10,6 @@ export class SapphireTower extends Tower{
         height,
         position,
         scale,
-        isOccupied
     }){
         super({ 
             image: image ?? assets.get(`${OBJECTS.COLOURS.SAPPHIRE}${OBJECTS.TYPES.TOWER}1`),
@@ -18,8 +17,8 @@ export class SapphireTower extends Tower{
             height: height ?? OBJECTS.SIZES.TOWER,
             position,
             scale: scale ?? 1, 
-            isOccupied: isOccupied ?? true
         });
+        this.isOccupied = true;
 
         this.damage = 50;
         this.range = 150;

@@ -43,6 +43,7 @@ export class Enemy extends Sprite{
             case OBJECTS.ANIMATION.ANIMATING:
                 this.drawShadow(ctx);
                 this.contextSave(ctx);
+                this.updateSpriteDrawPosition();
                 super.draw(ctx);
                 this.contextRestore(ctx);
                 this.drawHealthBar(ctx);

@@ -30,17 +30,7 @@ export class Projectile extends Sprite{
         ctx.save();
         ctx.translate(this.center.x , this.center.y);
         ctx.rotate(this.angle);
-        ctx.drawImage(
-            this.sprite.image,
-            this.sprite.frame * this.sprite.width,
-            this.sprite.row * this.sprite.height,
-            this.sprite.width,
-            this.sprite.height,
-            0 - this.threeQuarterWidth,
-            0 - this.halfHeight - 5,
-            this.width,
-            this.height
-        );
+        super.draw(ctx);
         ctx.restore();
     }
 

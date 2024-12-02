@@ -31,7 +31,10 @@ export class Sprite {
             x: this.position.x,
             y: this.position.y - this.halfHeight,
             radius: this.halfWidth / 2,
-        }
+        };
+
+        this.drawPositionX = this.position.x - this.halfWidth;
+        this.drawPositionY = this.position.y - this.height;
         
         this.speed = speed ?? 1;
         this.angle = 0;
@@ -52,8 +55,8 @@ export class Sprite {
             this.sprite.height * this.sprite.row,
             this.sprite.width,
             this.sprite.height,
-            this.position.x - this.halfWidth,//this.drawPositionX
-            this.position.y - this.height,//this.drawPositionY
+            this.drawPositionX,
+            this.drawPositionY,
             this.width,
             this.height
         );
@@ -61,6 +64,11 @@ export class Sprite {
 
     update(event){ 
         this.animate(event);
+    }
+
+    updateSpriteDrawPosition(){
+        this.drawPositionX = this.position.x - this.halfWidth;
+        this.drawPositionY = this.position.y - this.height;
     }
 
     updateMovement(){
