@@ -1,4 +1,5 @@
-import * as OBJECTS from "../constants/objects.js"
+import * as OBJECTS from "../constants/objects.js";
+import * as INTERFACE from "../constants/interface.js";
 import { checkCircleCollision, findAngleOfDirection, giveDirection, randomPositiveFloat } from "../utilities/math.js";
 import { Sprite } from "./Sprite.js";
 import { assets } from "../utilities/assets.js";
@@ -22,6 +23,8 @@ export class Enemy extends Sprite{
             scale: scale ?? 1.5,
             speed: speed ?? 1, 
         });
+        this.speed = 5//!!!!
+
         this.type = OBJECTS.TYPES.ENEMY;
 
         this.center.radius = this.width / 4;
@@ -32,7 +35,7 @@ export class Enemy extends Sprite{
         this.waypoints = waypoints;
         this.waypointIndex = 0;
         this.priorityDistance = 0;
-        this.currentDestination = this.waypoints[this.waypointIndex];
+        this.currentDestination = {...this.waypoints[this.waypointIndex]};
 
         this.sprite.row = this.speed < 0.8 ? OBJECTS.STATES.WALKING : OBJECTS.STATES.RUNNING;
         this.maxHealth = randomPositiveFloat(100);
@@ -54,7 +57,7 @@ export class Enemy extends Sprite{
         }
     }
 
-    update(event){
+    update(event, playerStats){
         switch(this.state){
             case OBJECTS.ANIMATION.ANIMATING:
                 if(this.sprite.row !== OBJECTS.STATES.DYING){
@@ -64,6 +67,7 @@ export class Enemy extends Sprite{
                     this.updatePriorityDistance(); 
                     this.updateEnemyHitbox();
                     this.checkWaypointArrival();
+                    this.checkEndpointArrival(playerStats)
                     this.checkEnemyHealth();
                 }
                 this.updateDeathAnimation(event);
@@ -74,7 +78,7 @@ export class Enemy extends Sprite{
     }
 
     updateEnemyDirection(){
-        this.currentDestination = this.waypoints[this.waypointIndex];
+        this.currentDestination = {...this.waypoints[this.waypointIndex]};
         this.angle = findAngleOfDirection(this.currentDestination, this.position);
         this.direction = giveDirection(this.angle);
     }
@@ -107,6 +111,22 @@ export class Enemy extends Sprite{
         }
     }
 
+    checkEndpointArrival(playerStats){
+        // if (this.position.x - this.halfWidth > canvas.width ){ //|| this.position.y > canvas.height
+        //     this.waypointIndex = 0;
+        //     this.position = this.waypoints[this.waypointIndex];
+        //     // this.position = {... this.waypoints[this.waypointIndex]};
+        // }
+        console.log(this.waypoints);
+        if(this.waypointIndex === this.waypoints.length){
+            playerStats.removeLives();
+            this.waypointIndex = 0;
+            // this.position = {... this.waypoints[0]};
+            // this.currentDestination = {... this.waypoints[0]}
+            console.log(this.position.x, this.waypoints[0].x)
+        }
+    }
+
     checkWaypointArrival(){
         const waypointCenter = {
             center: {
@@ -118,8 +138,7 @@ export class Enemy extends Sprite{
 
         this.center.radius = this.width / 3;
 
-        if (checkCircleCollision(this, waypointCenter) && 
-            this.waypointIndex < this.waypoints.length - 1)
+        if (checkCircleCollision(this, waypointCenter))
                 this.waypointIndex++;
 
         this.center.radius = this.width / 4;
@@ -140,13 +159,13 @@ export class Enemy extends Sprite{
             const healthBarX = this.position.x - this.quarterWidth;
             const healthBarY = this.position.y - this.height + this.shadowHeight;
             const healthBarLength = this.quarterWidth * 2;
-            const healthBarThickness = 4;
+            const healthBarThickness = 5;
             ctx.beginPath();
-            ctx.fillStyle = 'red';
+            ctx.fillStyle = INTERFACE.COLOURS.RED;
             ctx.lineWidth = 1;
-            ctx.strokeStyle = 'black'
+            ctx.strokeStyle = INTERFACE.COLOURS.BLACK;
             ctx.fillRect(healthBarX, healthBarY, healthBarLength, healthBarThickness);
-            ctx.fillStyle = 'rgb(85, 255, 0)';
+            ctx.fillStyle = INTERFACE.COLOURS.BRIGHT_GREEN;
             ctx.fillRect(healthBarX, healthBarY, healthBarLength * (this.health / this.maxHealth), healthBarThickness);
             ctx.strokeRect(healthBarX, healthBarY, healthBarLength, healthBarThickness);
         }
@@ -156,7 +175,7 @@ export class Enemy extends Sprite{
         if(this.health > 0){
             ctx.beginPath();
             ctx.ellipse(this.position.x, this.position.y, this.shadowHeight, this.quarterWidth, Math.PI / 2, 0, 2 * Math.PI);
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
+            ctx.fillStyle = INTERFACE.COLOURS.SHADOW;
             ctx.fill();  
             this.drawSelection(ctx);    
         }
@@ -166,7 +185,7 @@ export class Enemy extends Sprite{
         if(this.isSelected){
             ctx.setLineDash([this.quarterWidth / 2, this.quarterWidth / 2]);
             ctx.lineWidth = 5;
-            ctx.strokeStyle = 'rgba(255, 30, 30, 1)'
+            ctx.strokeStyle = INTERFACE.COLOURS.RED
             ctx.stroke();
             ctx.setLineDash([0, 0]);
         }   

@@ -21,6 +21,7 @@ export const COLOURS = {
     BLUE: "rgba(0, 0, 250, 1)",
     BLUE_ALPHA: "rgba(0, 0, 250, 0.3)",
     GREEN: "rgba(0, 250, 0, 1)",
+    BRIGHT_GREEN: "rgba(85, 255, 0, 1)",
     GREEN_ALPHA: "rgba(0, 250, 0, 0.3)",
     YELLOW: "rgba(250, 250, 0, 1)",
     WHITE: "rgba(250, 250, 250, 1)",

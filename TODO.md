@@ -1,20 +1,12 @@
-Build tower modal with animated SPRITEs.
+Build tower modal with animated SPRITEs. / scale modals? / 
+See through options menu so game can keep running in background 
+Web Audio API and JavaScript
 SCREEN SHRINKER FROM SHEZZOR
-scale modals?
-
 DELTA TIME * ENEMY MOVIE, (EVENT) on all entiry UPDATE methods UPDATE !event return
 MERGE UPDATE MOVEMENT FOR ENEMY AND PROJECTILE / GIVE DIRECTION/FIND ANGLE
-
-AUDIO SOUND FX
 enemy collisions, push each other away
-animate enemy selection
-
-See through options menu so game can keep running in background 
 RESEARCH: ASYNC, AWAIT, PROMISES,  SCOPE/CLOSURE,  OBJECT.() PROTOTYPES, JS PERFORMANCE, WINDOW DOCUMENT
-https://www.basedash.com/blog/overview-the-double-question-mark-in-javascript
-
 PASS SWITCH SCREENS RECURSIVELY FOR GAMEOVER?
-
 
 // LASER LINES        
 // ctx.beginPath();

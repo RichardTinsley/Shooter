@@ -17,7 +17,8 @@ export class GameText extends Text {
         });
         this.size = size ?? INTERFACE.SIZES.GAMETEXT;
 
-        this.colour === INTERFACE.TEXT_COLOURS.GOLD ? this.offsetX = OBJECTS.SIZES.ENEMY : this.offsetX = OBJECTS.SIZES.TOWER / 2;
+        this.lineWidth = 6;
+        this.colour === INTERFACE.TEXT_COLOURS.GOLD ? this.offsetX = OBJECTS.SIZES.ENEMY / 2 : this.offsetX = OBJECTS.SIZES.TOWER / 2;
         this.colour === INTERFACE.TEXT_COLOURS.GOLD ? this.offsetY = OBJECTS.SIZES.ENEMY : this.offsetY = 0;
 
         this.position.x += randomPositiveOrNegativeNumber(this.offsetX);

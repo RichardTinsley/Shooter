@@ -53,6 +53,7 @@ export class Tower extends Sprite{
             ctx.setLineDash([0, 0]);
         } 
     }
+
     incrementShootTimer(event){
         if(!event)
             return
@@ -61,9 +62,8 @@ export class Tower extends Sprite{
     }
 
     targetEnemy(enemies){
-        if(this.shootTimer >= this.cooldown){
+        if(this.shootTimer >= this.cooldown)
             this.target = this.findEnemyTarget(enemies);
-        }
     }
     
     findEnemyTarget(enemies){

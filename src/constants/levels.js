@@ -32,7 +32,7 @@ export const WASTELANDS_TILEMAP = [
 
 export const WASTELANDS_WAYPOINTS = [
     {
-        "x":-100,
+        "x":100, //-100
         "y":685
     }, 
     {
@@ -68,7 +68,7 @@ export const WASTELANDS_WAYPOINTS = [
         "y":175
     }, 
     {
-        "x":1350,
+        "x":1200, //1350
         "y":175
     }
 ]

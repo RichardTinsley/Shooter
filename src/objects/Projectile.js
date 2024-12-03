@@ -36,16 +36,14 @@ export class Projectile extends Sprite{
         ctx.restore();
     }
 
-    update(event, effects, texts){
+    update(event){
         switch(this.state){
             case OBJECTS.ANIMATION.ANIMATING:
                 super.update(event);
                 this.updateProjectileMovement();
                 this.updateProjectileHitbox();
-                this.checkProjectileEnemyCollision(effects, texts);
                 break
             case OBJECTS.ANIMATION.FINISHED:
-                console.log("SUPERORJECTILE", this.state)
                 break
         }
     }
@@ -65,7 +63,7 @@ export class Projectile extends Sprite{
         this.center.y = this.position.y - this.height / 3;
     }
 
-    checkProjectileEnemyCollision(effects, texts){
+    checkProjectileEnemyCollision(effects, texts, playerStats){
         if(this.state !== OBJECTS.ANIMATION.ANIMATING)
             return;
 
@@ -74,24 +72,34 @@ export class Projectile extends Sprite{
             this.enemy.health -= this.damage;
             this.addExplosion(effects);
             
-            if(this.enemy.health <= 0 && this.enemy.state !== OBJECTS.STATES.DYING){
-                texts.push(new GameText({
-                    text: 20,// playerStats.addCoins(), 
-                    colour: INTERFACE.TEXT_COLOURS.GOLD, 
-                    position: {...this.enemy.position},
-                }));
-
-                texts.push(new GameText({
-                    text: 10,//playerStats.addExperience(),
-                    colour: INTERFACE.TEXT_COLOURS.GREEN,
-                    position: {...this.origin},
-                }));
-
+            if(this.enemy.health <= 0 && this.enemy.sprite.row !== OBJECTS.STATES.DYING){
+                this.addGold(texts, playerStats);
+                this.addExperience(texts, playerStats);
                 this.enemy.addBlood(effects);
             }
             
             if(this.enemy.state === OBJECTS.STATES.DYING)
                 this.enemy.addBlood(effects);
         }   
+    }
+    
+    addGold(texts, playerStats){
+        texts.push(new GameText({
+            text: playerStats.addCoins(), 
+            colour: INTERFACE.TEXT_COLOURS.GOLD, 
+            position: {...this.enemy.position},
+        }));
+    }
+
+    addExperience(texts, playerStats){
+        const experienceText = playerStats.addExperience();
+        if(experienceText === 0)
+            return
+
+        texts.push(new GameText({
+            text: experienceText,
+            colour: INTERFACE.TEXT_COLOURS.GREEN,
+            position: {...this.origin},
+        }));
     }
 }

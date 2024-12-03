@@ -20,7 +20,20 @@ export class PlayerStats{
     }
     
     update(event){
-        this.playerLivesCheck();
+
+    }
+
+    newWaveCheck(enemies){
+        if (enemies.length === 0 && isWaveActive) {
+            this.stats.waves++;
+            isWaveActive = false;
+        }
+    }
+
+    removeLives = () =>{
+        this.stats.lives -= 1;
+        // if(this.stats.lives <= 0)
+        //     this.switchScreens(GAME_STATES.GAMEOVER);
     }
 
     canAfford(tower){
@@ -40,11 +53,6 @@ export class PlayerStats{
         const experience = Math.floor(Math.random() * this.stats.waves + 1);
         this.stats.experience += experience;
         return experience + 'exp'
-    }
-
-    playerLivesCheck(){
-        if(this.stats.lives <= 0)
-            this.switchScreens(GAME_STATES.GAMEOVER);
     }
 
     waveText(){

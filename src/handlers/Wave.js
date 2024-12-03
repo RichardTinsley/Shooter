@@ -5,7 +5,7 @@ import { Enemy } from "../objects/Enemy.js";
 
 const enemySpeedMinimum = 0.4; 
 const enemySpeedRange = 1.0;
-const enemyCount = 10;
+const enemyCount = 0;
 let enemySpawnTimer = 0;
 let isWaveActive = false; 
 
@@ -23,8 +23,6 @@ export class Wave{
 
         enemySpawnTimer++;
         this.spawnEnemy(enemies, playerStats);
-        this.newWaveCheck(enemies, playerStats);
-        this.playerLivesCheck(enemies, playerStats);
     }
 
     spawnEnemy(enemies, playerStats){ // 2% Health and Armour increase depending on round?
@@ -42,23 +40,6 @@ export class Wave{
                 waypoints: waypoints,
             }));
         }
-    }
-
-    newWaveCheck(enemies, playerStats){
-        if (enemies.length === 0 && isWaveActive) {
-            playerStats.waves++;
-            isWaveActive = false;
-        }
-    }
-
-    playerLivesCheck(enemies, playerStats){
-        enemies.forEach(enemy =>{
-            if (enemy.position.x > canvas.width || enemy.position.y > canvas.height){
-                playerStats.hearts -= 1;
-                enemy.waypointIndex = 0;
-                enemy.position = {... enemy.waypoints[enemy.waypointIndex]}; 
-            }
-        });
     }
 
     setEnemySpeed(){
