@@ -23,12 +23,10 @@ export class Enemy extends Sprite{
             scale: scale ?? 1.5,
             speed: speed ?? 1, 
         });
-        this.speed = 5//!!!!
 
         this.type = OBJECTS.TYPES.ENEMY;
 
         this.center.radius = this.width / 4;
-
         this.quarterWidth = this.width / 4;
         this.shadowHeight = this.height / 12;
 
@@ -112,35 +110,23 @@ export class Enemy extends Sprite{
     }
 
     checkEndpointArrival(playerStats){
-        // if (this.position.x - this.halfWidth > canvas.width ){ //|| this.position.y > canvas.height
-        //     this.waypointIndex = 0;
-        //     this.position = this.waypoints[this.waypointIndex];
-        //     // this.position = {... this.waypoints[this.waypointIndex]};
-        // }
-        console.log(this.waypoints);
         if(this.waypointIndex === this.waypoints.length){
             playerStats.removeLives();
             this.waypointIndex = 0;
-            // this.position = {... this.waypoints[0]};
-            // this.currentDestination = {... this.waypoints[0]}
-            console.log(this.position.x, this.waypoints[0].x)
+            this.position = {...this.waypoints[0]};
         }
     }
 
     checkWaypointArrival(){
-        const waypointCenter = {
-            center: {
-                x: this.waypoints[this.waypointIndex].x,
-                y: this.waypoints[this.waypointIndex].y,
-                radius: 1
-            },
-        };
+        const waypointCenter = {};
+        waypointCenter.center = {...this.waypoints[this.waypointIndex]};
+        waypointCenter.center.radius = 1;
 
         this.center.radius = this.width / 3;
 
         if (checkCircleCollision(this, waypointCenter))
-                this.waypointIndex++;
-
+            this.waypointIndex++;
+        
         this.center.radius = this.width / 4;
     }
 

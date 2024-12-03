@@ -26,16 +26,17 @@ export class Wave{
     }
 
     spawnEnemy(enemies, playerStats){ // 2% Health and Armour increase depending on round?
-        if(enemies.length >= playerStats.waves + enemyCount)
+        if(enemies.length >= playerStats.waves + enemyCount){
+            isWaveActive = true;
             return
+        }
 
         if (enemySpawnTimer % Math.floor(Math.random() * 100) === 0){
-            isWaveActive = true;
             const waypoints = this.generateEnemyWaypoints();
             const speed = this.setEnemySpeed();
 
             enemies.push(new Enemy({
-                position: waypoints[0],
+                position: {...waypoints[0]},
                 speed: speed,
                 waypoints: waypoints,
             }));
@@ -48,6 +49,7 @@ export class Wave{
 
     generateEnemyWaypoints(){
         return WASTELANDS_WAYPOINTS.map(waypoint => {
+
             return { 
                     x: (waypoint.x - GAME.SIZES.TILE) + Math.round(Math.random() * (GAME.SIZES.TILE * 2)),
                     y: (waypoint.y - GAME.SIZES.TILE) + Math.round(Math.random() * (GAME.SIZES.TILE * 2))
