@@ -1,20 +1,24 @@
 import * as OBJECTS from "../constants/objects.js"
+import * as INTERFACE from "../constants/interface.js"
+
 
 export class Text {
     constructor({
         text,
         colour,
         position,
-        size
+        size,
+        align,
+        baseline,
     }){
 
         this.text = text;
-        this.colour = colour;
+        this.colour = colour ?? INTERFACE.TEXT_COLOURS.WHITE;
         this.position = position;
-        this.size = size;
+        this.size = size ?? INTERFACE.SIZES.MENUITEMTEXT;
         
-        this.align = "center";
-        this.baseline = "middle";
+        this.align = align ?? "center";
+        this.baseline = baseline ?? "middle";
         this.lineWidth = Math.floor(this.size / 6);
         this.alpha = 1;
         

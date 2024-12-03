@@ -42,10 +42,10 @@ export class SapphireProjectile extends Projectile{
         }
     }
 
-    update(event, effects){
+    update(event, effects, texts){
         switch(this.state){
             case OBJECTS.ANIMATION.ANIMATING:
-                super.update(event, effects);
+                super.update(event, effects, texts);
                 break
             case OBJECTS.ANIMATION.FINISHED:
                 break

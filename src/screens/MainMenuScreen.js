@@ -1,5 +1,4 @@
 import * as GAME from "../constants/game.js";
-import { TEXT_COLOURS } from "../constants/colours.js";
 import { Screen } from "./Screen.js";
 import { MainMenu } from "../interface/MainMenu.js";
 import { GlowText } from "../objects/texts/GlowText.js";
@@ -13,7 +12,6 @@ export class MainMenuScreen extends Screen {
         
         this.title = new GlowText({
             text: "Death   Sorcery",
-            colour: TEXT_COLOURS.WHITE, 
             position: {
                 x: GAME.SIZES.GAME_WIDTH_HALF,
                 y: 170, 

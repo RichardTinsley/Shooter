@@ -1,4 +1,4 @@
-import { COLOURS } from "../constants/colours.js";
+import { COLOURS } from "../constants/interface.js";
 import * as GAME from "../constants/game.js";
 import { BattleScreen } from "../screens/BattleScreen.js";
 import { drawText } from "../utilities/textRender.js";

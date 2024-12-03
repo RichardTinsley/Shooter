@@ -1,22 +1,10 @@
-SCREEN CLASS, ALL SCREENS INHERIT FROM THIS / FADE TRANSITIONS ctx.globalalpha?
 Build tower modal with animated SPRITEs.
 SCREEN SHRINKER FROM SHEZZOR
-let result = value1 ?? value2; FOR TEXTS AND MENUS
 scale modals?
 
 DELTA TIME * ENEMY MOVIE, (EVENT) on all entiry UPDATE methods UPDATE !event return
 MERGE UPDATE MOVEMENT FOR ENEMY AND PROJECTILE / GIVE DIRECTION/FIND ANGLE
-DEATH AND BATTLE HANDLERS MERGE, PUT SHOOT() BACK IN TOWER, BUT ITS HANDLED BY BIG BATTLE HANDLER
-WITHIN BATTLE HANDLER CALL THESE.
-PROJECTILE.ADD EFFECT (internally for each projectile type)  ENEMY.ADD EFFECT(BLOOD)
-CLEAN UP SHOOT()/ MERGE target enemies and prioritise enemies in tower range.
-if tower not an instanceof Empty tower // shoot
-enemiesInRange[]
-if enemySelect = enemiesInRange.find(enemy => enemy.isSelected); // return
-else enemies in range.sort // return
-CHECKCOLLISION WITH MOUSE WITHIN EACH ENTITY?
 
-FIX PROJECTILE TRANSLATE/ROTATE/CENTER
 AUDIO SOUND FX
 enemy collisions, push each other away
 animate enemy selection
@@ -27,3 +15,34 @@ https://www.basedash.com/blog/overview-the-double-question-mark-in-javascript
 
 PASS SWITCH SCREENS RECURSIVELY FOR GAMEOVER?
 
+
+// LASER LINES        
+// ctx.beginPath();
+// ctx.moveTo(this.position.x, this.position.y);
+// ctx.lineTo(this.center.x, this.center.y);
+// ctx.strokeStyle = "red";
+// ctx.stroke();
+
+// FOR SPRITE SHEETS WITH MULTIPLE ROWS
+// animate(event){
+//     if(!event || this.maxFrame === 0)
+//         return
+
+//     if(this.maxRow === 0)
+//         this.sprite.frame < this.maxFrame ? this.sprite.frame++ : this.sprite.frame = 0;
+//     else
+//         this.animateRows();
+// }
+
+// animateRows(){
+//     if(this.sprite.frame < this.maxFrame)
+//         this.sprite.frame++;
+//     else{
+//         this.sprite.row++;
+//         this.sprite.frame = 0;
+//     }
+//     if(this.sprite.row === this.maxRow && this.sprite.frame < this.maxFrame){
+//         this.sprite.row = 0;
+//         this.sprite.frame = 0;
+//     }
+// }

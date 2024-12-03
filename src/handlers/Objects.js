@@ -6,6 +6,7 @@ export class Objects{
         this.enemies = [];
         this.projectiles = [];
         this.effects = [];
+        this.texts = [];
     }
 
     draw(ctx){
@@ -14,6 +15,7 @@ export class Objects{
         this.towers.forEach(tower => tower.draw(ctx));
         this.projectiles.forEach(projectile => projectile.draw(ctx));
         this.effects.forEach(effect => effect.draw(ctx));
+        this.texts.forEach(text => text.draw(ctx));
     }
 
     update(event){
@@ -28,13 +30,18 @@ export class Objects{
         });
 
         this.projectiles = this.projectiles.filter(projectile => {
-            projectile.update(event, this.effects);
+            projectile.update(event, this.effects, this.texts);
             return projectile.state === ANIMATION.ANIMATING;
         });
 
         this.effects = this.effects.filter(effect => {
             effect.update(event);
             return effect.state === ANIMATION.ANIMATING;
+        });
+
+        this.texts = this.texts.filter(text => {
+            text.update(event);
+            return text.state === ANIMATION.ANIMATING;
         });
     }
 }

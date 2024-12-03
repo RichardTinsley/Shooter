@@ -1,5 +1,4 @@
 import * as OBJECTS from "../../constants/objects.js"
-
 import { Text } from "../Text.js";
 
 export class FadeText extends Text {

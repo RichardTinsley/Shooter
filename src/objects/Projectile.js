@@ -1,4 +1,6 @@
-import * as OBJECTS from "../constants/objects.js"
+import * as OBJECTS from "../constants/objects.js";
+import * as INTERFACE from "../constants/interface.js";
+import { GameText } from "./texts/GameText.js";
 import { Sprite } from "./Sprite.js";
 import { findAngleOfDirection, giveDirection, checkCircleCollision } from "../utilities/math.js";
 
@@ -20,7 +22,7 @@ export class Projectile extends Sprite{
             enemy,
         })
 
-        this.origin = this.position;
+        this.origin = {...this.position};
         this.damage = damage;       
         this.enemy = enemy;
         this.threeQuarterWidth = this.width * .75;
@@ -34,13 +36,13 @@ export class Projectile extends Sprite{
         ctx.restore();
     }
 
-    update(event, effects){
+    update(event, effects, texts){
         switch(this.state){
             case OBJECTS.ANIMATION.ANIMATING:
                 super.update(event);
                 this.updateProjectileMovement();
-                this.checkProjectileEnemyCollision(effects);
                 this.updateProjectileHitbox();
+                this.checkProjectileEnemyCollision(effects, texts);
                 break
             case OBJECTS.ANIMATION.FINISHED:
                 console.log("SUPERORJECTILE", this.state)
@@ -63,21 +65,28 @@ export class Projectile extends Sprite{
         this.center.y = this.position.y - this.height / 3;
     }
 
-    checkProjectileEnemyCollision(effects){
+    checkProjectileEnemyCollision(effects, texts){
         if(this.state !== OBJECTS.ANIMATION.ANIMATING)
             return;
-        
+
         if (checkCircleCollision(this.enemy, this)){
             this.state = OBJECTS.ANIMATION.FINISHED;
             this.enemy.health -= this.damage;
             this.addExplosion(effects);
             
             if(this.enemy.health <= 0 && this.enemy.state !== OBJECTS.STATES.DYING){
-                // const coinString = this.addCoins();
-                // this.addText(coinString, TEXT_COLOURS.GOLD, this.enemy.position);
+                texts.push(new GameText({
+                    text: 20,// playerStats.addCoins(), 
+                    colour: INTERFACE.TEXT_COLOURS.GOLD, 
+                    position: {...this.enemy.position},
+                }));
 
-                // const experienceString = this.addExperience();
-                // this.addText(experienceString, TEXT_COLOURS.GREEN, this.position);
+                texts.push(new GameText({
+                    text: 10,//playerStats.addExperience(),
+                    colour: INTERFACE.TEXT_COLOURS.GREEN,
+                    position: {...this.origin},
+                }));
+
                 this.enemy.addBlood(effects);
             }
             
@@ -86,34 +95,3 @@ export class Projectile extends Sprite{
         }   
     }
 }
-
-// LASER LINES        
-// ctx.beginPath();
-// ctx.moveTo(this.position.x, this.position.y);
-// ctx.lineTo(this.center.x, this.center.y);
-// ctx.strokeStyle = "red";
-// ctx.stroke();
-
-// FOR SPRITE SHEETS WITH MULTIPLE ROWS
-// animate(event){
-//     if(!event || this.maxFrame === 0)
-//         return
-
-//     if(this.maxRow === 0)
-//         this.sprite.frame < this.maxFrame ? this.sprite.frame++ : this.sprite.frame = 0;
-//     else
-//         this.animateRows();
-// }
-
-// animateRows(){
-//     if(this.sprite.frame < this.maxFrame)
-//         this.sprite.frame++;
-//     else{
-//         this.sprite.row++;
-//         this.sprite.frame = 0;
-//     }
-//     if(this.sprite.row === this.maxRow && this.sprite.frame < this.maxFrame){
-//         this.sprite.row = 0;
-//         this.sprite.frame = 0;
-//     }
-// }

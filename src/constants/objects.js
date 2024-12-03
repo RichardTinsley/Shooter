@@ -45,9 +45,6 @@ export const ANIMATION = {
     RIGHT: 1,
 };
 
-
-
-
 //TOWER COSTS? TOWER TYPES FOR ASSET RETRIEVAL?
 /* 
 Ruby		Splash damage / flame thrower

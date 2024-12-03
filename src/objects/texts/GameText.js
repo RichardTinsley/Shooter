@@ -1,4 +1,6 @@
 import * as OBJECTS from "../../constants/objects.js"
+import * as INTERFACE from "../../constants/interface.js"
+import { randomPositiveOrNegativeNumber } from "../../utilities/math.js";
 import { Text } from "../Text.js";
 
 export class GameText extends Text {
@@ -12,11 +14,18 @@ export class GameText extends Text {
             text, 
             colour, 
             position, 
-            size
         });
-        
+        this.size = size ?? INTERFACE.SIZES.GAMETEXT;
+
+        this.colour === INTERFACE.TEXT_COLOURS.GOLD ? this.offsetX = OBJECTS.SIZES.ENEMY : this.offsetX = OBJECTS.SIZES.TOWER / 2;
+        this.colour === INTERFACE.TEXT_COLOURS.GOLD ? this.offsetY = OBJECTS.SIZES.ENEMY : this.offsetY = 0;
+
+        this.position.x += randomPositiveOrNegativeNumber(this.offsetX);
+        this.position.y -= this.offsetY;
+
+        this.speed = Math.random() * 1 + 0.3;
         this.alpha = 10;
-        this.delta = 0.6;
+        this.delta = 0.3;
     }
 
     draw(ctx){
@@ -42,7 +51,7 @@ export class GameText extends Text {
     
     moveAndFadeText(){
         this.alpha -= this.delta;
-        this.position.y -= this.movementSpeed;
+        this.position.y -= this.speed;
         
         if(this.alpha <= 0)
             this.state = OBJECTS.ANIMATION.FINISHED;

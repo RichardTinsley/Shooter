@@ -1,4 +1,3 @@
-import { TEXT_COLOURS } from "../constants/colours.js";
 import * as INTERFACE from "../constants/interface.js"
 import { MenuItemText } from "../components/MenuItemText.js";
 
@@ -19,12 +18,11 @@ export class Menu{
         menuList.forEach((menuItem, index) => {
             const newMenuItemText = new MenuItemText({
                 text: menuItem.text,
-                colour: TEXT_COLOURS.WHITE,
                 position: {
                     x: menuPosition.x,
-                    y: menuPosition.y + (INTERFACE.SIZES.textSize + INTERFACE.SIZES.spacing) * index
+                    y: menuPosition.y + (INTERFACE.SIZES.MENUITEMTEXT + INTERFACE.SIZES.SPACING) * index
                 },
-                size: INTERFACE.SIZES.textSize,
+                size: INTERFACE.SIZES.MENUITEMTEXT,
                 option: menuItem.option
             });
 

@@ -1,4 +1,4 @@
-export class GameOverScreen {
+export class PauseScreen {
     constructor() {
 
     }

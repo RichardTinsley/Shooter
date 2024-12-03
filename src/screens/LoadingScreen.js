@@ -1,6 +1,5 @@
 import * as GAME from "../constants/game.js";
 import { ASSET_LIST } from "../constants/assets.js";
-import { TEXT_COLOURS } from "../constants/colours.js";
 import { loadAssets } from "../utilities/assets.js";
 import { Text } from "../objects/Text.js";
 import { FadeText } from "../objects/texts/FadeText.js";
@@ -16,7 +15,6 @@ export class LoadingScreen extends Screen {
 
         this.title = new Text({
             text: "Death Sorcery",
-            colour: TEXT_COLOURS.WHITE, 
             position: {
                 x: GAME.SIZES.GAME_WIDTH_HALF,
                 y: 150, 
@@ -26,12 +24,10 @@ export class LoadingScreen extends Screen {
         
         this.summoningText = new FadeText({
             text: "Summoning",
-            colour: TEXT_COLOURS.WHITE, 
             position: {
                 x: GAME.SIZES.GAME_WIDTH_HALF,
                 y: GAME.SIZES.GAME_HEIGHT - 100, 
             },
-            size: 60,
         });
     }
     
