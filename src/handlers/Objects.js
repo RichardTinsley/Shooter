@@ -25,8 +25,8 @@ export class Objects{
         });
 
         this.enemies = this.enemies.filter(enemy => {
-            // enemy.checkEndpointArrival(playerStats);
-            enemy.update(event, playerStats);
+            enemy.update(event);
+            enemy.checkEndpointArrival(playerStats);
             return enemy.state === ANIMATION.ANIMATING;
         });
 

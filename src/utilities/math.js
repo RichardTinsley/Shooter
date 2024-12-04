@@ -39,3 +39,8 @@ export function randomPositiveOrNegativeNumber(range){
     const positiveOrNegative = Math.ceil((Math.random() - 0.5) * 2) < 1 ? -1 : 1
     return Math.floor(Math.random() * range) * positiveOrNegative;
 }
+
+export function generateEnemySpeed(enemySpeedMaximum){
+    const enemySpeedMinimum = 0.5; 
+    return randomPositiveFloat(enemySpeedMaximum) + enemySpeedMinimum;
+}

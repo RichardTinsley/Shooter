@@ -7,7 +7,6 @@ let totalRuntimeSeconds = 0;
 export class Time{
     constructor(){
         this.event = false;
-        this.inGameTimer = 0; 
         this.startTime = performance.now();
     }
     
@@ -31,7 +30,7 @@ export class Time{
     }
 
     timerUpdate(){
-        const totalSeconds = Math.floor((performance.now() - this.startTime) / GAME.TIME.SECOND); // + 8000 at the end to add over 2 hours for debugging purposes
+        const totalSeconds = Math.floor((performance.now() - this.startTime) / GAME.TIME.SECOND); // +8000s for over 2 hours
         let seconds = totalSeconds % 60;
         let minutes = Math.floor(totalSeconds / 60) % 60;
         const hours = Math.floor((totalSeconds / 60) / 60);

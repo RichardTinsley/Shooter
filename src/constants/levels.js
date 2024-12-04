@@ -80,7 +80,7 @@ export const WASTELANDS_WAYPOINTS = [
         "y":175
     }, 
     {
-        "x":1350,
+        "x":1300,
         "y":175
     }
 ]

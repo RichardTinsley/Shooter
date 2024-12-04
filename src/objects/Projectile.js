@@ -78,21 +78,21 @@ export class Projectile extends Sprite{
                 this.enemy.addBlood(effects);
             }
             
-            if(this.enemy.state === OBJECTS.STATES.DYING)
+            if(this.enemy.sprite.row === OBJECTS.STATES.DYING)
                 this.enemy.addBlood(effects);
         }   
     }
     
     addGold(texts, playerStats){
         texts.push(new GameText({
-            text: playerStats.addCoins(), 
+            text: playerStats.setCoins(), 
             colour: INTERFACE.TEXT_COLOURS.GOLD, 
             position: {...this.enemy.position},
         }));
     }
 
     addExperience(texts, playerStats){
-        const experienceText = playerStats.addExperience();
+        const experienceText = playerStats.setExperience();
         if(experienceText === 0)
             return
 

@@ -7,70 +7,70 @@ export class PlayerStats{
         this.backgroundImage = assets.get('hudBackgroundImage');
         this.Timer = new Time();
 
-        this.stats = {
-            lives: 2, 
-            coins: 100,
-            experience: 0,
-            waves: 1,
-            timer: 0,
-            mana: 0
-        };
+        this.lives = 2; 
+        this.coins = 100;
+        this.experience = 0;
+        this.mana = 0;
+        this.waves = 1;
+        this.timer = 0;
     }
     
     draw(ctx){
         ctx.drawImage(this.backgroundImage, 0, 0);
-        this.drawStats(ctx);
+        this.drawPlayerStats(ctx);
     }
     
     update(event){
-        // if(!event)
-        //     return
-        this.stats.timer = this.Timer.timerUpdate();
+        this.timer = this.Timer.timerUpdate();
     }
 
-    removeLives = () =>{
-        this.stats.lives -= 1;
-        // if(this.stats.lives <= 0)
+    setLives = () =>{
+        this.lives -= 1;
+        // if(this.lives <= 0)
         //     this.switchScreens(GAME_STATES.GAMEOVER);
     }
 
     getCoins(){
-        return this.stats.coins;
+        return this.coins;
     }
 
-    addCoins = () => {//ENEMY TYPE in parameter affect gold.  BOSS or GoldEnemy etc
-        const coins = Math.floor(Math.random() * this.stats.waves + 1);
-        this.stats.coins += coins;
+    setCoins = () => {//ENEMY TYPE in parameter affect gold.  BOSS or GoldEnemy etc
+        const coins = Math.floor(Math.random() * this.waves + 1);
+        this.coins += coins;
         return '$' + coins
     }
 
-    addExperience = () => {//ENEMY TYPE in parameter affect experience.  BOSS or EmeraldEnemy etc
+    getExperience(){
+        return this.experience;
+    }
+
+    setExperience = () => {//ENEMY TYPE in parameter affect experience.  BOSS or EmeraldEnemy etc
         if (Math.random() * 10 > 1)
             return 0
 
-        const experience = Math.floor(Math.random() * this.stats.waves + 1);
-        this.stats.experience += experience;
+        const experience = Math.floor(Math.random() * this.waves + 1);
+        this.experience += experience;
         return experience + 'exp'
     }
-
-    setWaves(){
-        this.stats.waves++;
+    
+    getWave(){
+        return this.waves;
     }
 
-    getWaves(){
-        return this.stats.waves;
+    setWave(){
+        this.waves++;
     }
 
     waveText(){
-        if(this.stats.waves === 1)
+        if(this.waves === 1)
         {}
     }
 
-    drawStats(ctx){
-        drawText(ctx, "white", this.stats.lives, 70, 39, 20, 'left', 'top');
-        drawText(ctx, "white", this.stats.coins, 230, 39, 20, 'left', 'top');
-        drawText(ctx, "white", this.stats.experience, 520, 39, 20, 'left', 'top');
-        drawText(ctx, "white", this.stats.waves, 810, 39, 20, 'left', 'top');
-        drawText(ctx, "white", this.stats.timer, 1160, 39, 20, 'left', 'top');
+    drawPlayerStats(ctx){
+        drawText(ctx, "white", this.lives, 70, 39, 20, 'left', 'top');
+        drawText(ctx, "white", this.coins, 230, 39, 20, 'left', 'top');
+        drawText(ctx, "white", this.experience, 520, 39, 20, 'left', 'top');
+        drawText(ctx, "white", this.waves, 810, 39, 20, 'left', 'top');
+        drawText(ctx, "white", this.timer, 1160, 39, 20, 'left', 'top');
     }
 }

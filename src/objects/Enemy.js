@@ -55,7 +55,7 @@ export class Enemy extends Sprite{
         }
     }
 
-    update(event, playerStats){
+    update(event){
         switch(this.state){
             case OBJECTS.ANIMATION.ANIMATING:
                 if(this.sprite.row !== OBJECTS.STATES.DYING){
@@ -65,7 +65,6 @@ export class Enemy extends Sprite{
                     this.updatePriorityDistance(); 
                     this.updateEnemyHitbox();
                     this.checkWaypointArrival();
-                    this.checkEndpointArrival(playerStats)
                     this.checkEnemyHealth();
                 }
                 this.updateDeathAnimation(event);
@@ -111,7 +110,7 @@ export class Enemy extends Sprite{
 
     checkEndpointArrival(playerStats){
         if(this.waypointIndex === this.waypoints.length){
-            playerStats.removeLives();
+            playerStats.setLives();
             this.waypointIndex = 0;
             this.position = {...this.waypoints[0]};
         }
