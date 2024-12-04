@@ -24,6 +24,6 @@ export class BattleScreen extends Screen {
         super.update(event);
         this.Objects.update(event, this.PlayerStats);
         this.PlayerStats.update(event);
-        this.Wave.update(event, this.Objects.enemies, this.PlayerStats.stats);
+        this.Wave.update(event, this.Objects.enemies, this.PlayerStats);
     }
 }

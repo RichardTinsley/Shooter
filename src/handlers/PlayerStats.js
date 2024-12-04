@@ -1,8 +1,12 @@
+import { Time } from "./Time.js";
 import { assets } from "../utilities/assets.js";
 import { drawText } from "../utilities/textRender.js";
 
 export class PlayerStats{
     constructor(){
+        this.backgroundImage = assets.get('hudBackgroundImage');
+        this.Timer = new Time();
+
         this.stats = {
             lives: 2, 
             coins: 100,
@@ -11,7 +15,6 @@ export class PlayerStats{
             timer: 0,
             mana: 0
         };
-        this.backgroundImage = assets.get('hudBackgroundImage');
     }
     
     draw(ctx){
@@ -20,14 +23,9 @@ export class PlayerStats{
     }
     
     update(event){
-
-    }
-
-    newWaveCheck(enemies){
-        if (enemies.length === 0 && isWaveActive) {
-            this.stats.waves++;
-            isWaveActive = false;
-        }
+        // if(!event)
+        //     return
+        this.stats.timer = this.Timer.timerUpdate();
     }
 
     removeLives = () =>{
@@ -36,8 +34,8 @@ export class PlayerStats{
         //     this.switchScreens(GAME_STATES.GAMEOVER);
     }
 
-    canAfford(tower){
-        return tower.cost >= this.stats.coins;
+    getCoins(){
+        return this.stats.coins;
     }
 
     addCoins = () => {//ENEMY TYPE in parameter affect gold.  BOSS or GoldEnemy etc
@@ -53,6 +51,14 @@ export class PlayerStats{
         const experience = Math.floor(Math.random() * this.stats.waves + 1);
         this.stats.experience += experience;
         return experience + 'exp'
+    }
+
+    setWaves(){
+        this.stats.waves++;
+    }
+
+    getWaves(){
+        return this.stats.waves;
     }
 
     waveText(){

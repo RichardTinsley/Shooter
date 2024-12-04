@@ -7,21 +7,18 @@ let totalRuntimeSeconds = 0;
 export class Time{
     constructor(){
         this.event = false;
-        this.timerDisplay; 
+        this.inGameTimer = 0; 
+        this.startTime = performance.now();
     }
     
     update(time){
         this.eventUpdate(time)
-        // this.timerUpdate();
     }
 
     eventUpdate(time){
-        // console.log(Math.floor(performance.now() / GAME.TIME.SECOND));
         totalRuntimeSeconds = Math.floor(time / GAME.TIME.SECOND);
-
         const deltaTime = time - previousTime;
         // const deltaTimeMultiplier = deltaTime / GAME.TIME.FRAMES; FOR OBJECT MOVEMENT
-
         previousTime = time;
 
         if (eventTimer < GAME.TIME.FRAMES){
@@ -34,14 +31,12 @@ export class Time{
     }
 
     timerUpdate(){
-        if(!this.event) 
-            return;
-        //OR EVENT... Seconds++
-        const seconds = Math.floor(performance.now() / GAME.TIME.SECOND);
-        const minutes = Math.floor(seconds / 60) % 60;
-        const hours = Math.floor((seconds / 60) / 60);
+        const totalSeconds = Math.floor((performance.now() - this.startTime) / GAME.TIME.SECOND); // + 8000 at the end to add over 2 hours for debugging purposes
+        let seconds = totalSeconds % 60;
+        let minutes = Math.floor(totalSeconds / 60) % 60;
+        const hours = Math.floor((totalSeconds / 60) / 60);
         minutes = minutes < 10 ? "0" + minutes : minutes;
         seconds = seconds < 10 ? "0" + seconds : seconds;
-        this.timerDisplay = hours + ':' + minutes + ':' + seconds;
+        return hours + ':' + minutes + ':' + seconds;
     }
 }

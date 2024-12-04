@@ -28,7 +28,7 @@ export class SapphireProjectile extends Projectile{
         this.center = {
             x: this.position.x,
             y: this.position.y - this.halfHeight,
-            radius: this.halfHeight - 5,
+            radius: this.halfHeight / 2,
         };
     }
 

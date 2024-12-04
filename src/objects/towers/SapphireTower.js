@@ -22,7 +22,7 @@ export class SapphireTower extends Tower{
 
         this.damage = 50;
         this.range = 150;
-        this.cooldown = 40;
+        this.cooldown = 20;
         this.shootTimer = this.cooldown;
 
         this.towerRange = {

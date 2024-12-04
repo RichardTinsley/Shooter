@@ -123,10 +123,8 @@ export class Enemy extends Sprite{
         waypointCenter.center.radius = 1;
 
         this.center.radius = this.width / 3;
-
         if (checkCircleCollision(this, waypointCenter))
             this.waypointIndex++;
-        
         this.center.radius = this.width / 4;
     }
 

@@ -1,6 +1,18 @@
+import * as GAME from "./game.js";
+
 export const LEVELS = {
     TERRA_HAUTE: 0,
     WASTELANDS: 1,
+}
+
+export function generateEnemyWaypoints(waypoints){
+    return waypoints.map(waypoint => {
+        return { 
+                x: (waypoint.x - GAME.SIZES.TILE) + Math.round(Math.random() * (GAME.SIZES.TILE * 2)),
+                y: (waypoint.y - GAME.SIZES.TILE) + Math.round(Math.random() * (GAME.SIZES.TILE * 2))
+            }
+        }
+    );
 }
 
 export const WASTELANDS_TILEMAP = [
