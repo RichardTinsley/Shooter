@@ -28,8 +28,8 @@ export const COLOURS = {
     BLACK: "rgba(0, 0, 0, 1)",
     LINES: "rgba(0, 0, 0, 0.5)",
     SHADOW: "rgba(0, 0, 0, 0.3)",
-    BLACKOUT: "rgba(0, 0, 0, 0.5)",
-    REDOUT: "rgba(250, 0, 0, 0.8)",
+    BLACKOUT: "rgba(0, 0, 0, 0.7)",
+    REDOUT: "rgba(250, 0, 0, 0.7)",
 }
 
 export function verticallyAlignedMenu(menuPosition, index){
@@ -66,4 +66,13 @@ export const PAUSE_MENU = [
     }, 
 ];
 
-
+export const GAME_OVER_MENU = [
+    {
+        text: "Restart",
+        option: GAME.STATES.RESTART,
+    }, 
+    {
+        text: "Quit",
+        option: GAME.STATES.MAINMENU,
+    }, 
+];

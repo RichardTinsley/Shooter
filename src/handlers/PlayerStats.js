@@ -1,9 +1,12 @@
+import * as GAME from "../constants/game.js"
 import { Time } from "./Time.js";
 import { assets } from "../utilities/assets.js";
 import { drawText } from "../utilities/textRender.js";
 
 export class PlayerStats{
-    constructor(){
+    constructor(switchScreens){
+        this.switchScreens = switchScreens;
+
         this.backgroundImage = assets.get('hudBackgroundImage');
         this.Timer = new Time();
 
@@ -26,8 +29,8 @@ export class PlayerStats{
 
     setLives = () =>{
         this.lives -= 1;
-        // if(this.lives <= 0)
-        //     this.switchScreens(GAME_STATES.GAMEOVER);
+        if(this.lives <= 0)
+            this.switchScreens(GAME.STATES.GAMEOVER);
     }
 
     getCoins(){

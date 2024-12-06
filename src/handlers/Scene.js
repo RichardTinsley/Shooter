@@ -7,11 +7,10 @@ import { BattleScreen } from "../screens/BattleScreen.js";
 import { GameOverScreen } from "../screens/GameOverScreen.js";
 import { PauseScreen } from "../screens/PauseScreen.js";
 
-let resume = null;
-
 export class Scene {
     constructor(){
         this.PlayerStats;
+        this.resume = null;
         this.Screen = new LoadingScreen(this.switchScreens);
         this.Music = new Music();
     }
@@ -27,33 +26,36 @@ export class Scene {
     switchScreens = (option) => {
         switch(option){
             case GAME.STATES.MAINMENU:
+                this.PlayerStats = null;
+                this.resume = null;
                 this.Screen = new MainMenuScreen();
                 break
             case GAME.STATES.RESTART:
             case GAME.STATES.BATTLE:
-                this.PlayerStats = new PlayerStats();
-                this.Screen = new BattleScreen(this.PlayerStats);
+                this.PlayerStats = new PlayerStats(this.switchScreens);
+                this.Screen = new BattleScreen(this.PlayerStats, this.switchScreens);
                 break
+            case GAME.STATES.RESUME:
             case GAME.STATES.PAUSED:
                 this.pauseGame();
                 break
             case GAME.STATES.GAMEOVER:
-                this.Screen = new GameOverScreen();
+                this.Screen = new GameOverScreen(this.Screen);
                 break
         }
         this.Music.switchMusic(option);
     }
 
     pauseGame(){
-        if(!this.Screen instanceof BattleScreen)
-            return
-        if(!resume){
-            resume = this.Screen;
-            this.Screen = new PauseScreen(this.Screen);
+        if(this.Screen instanceof BattleScreen || this.Screen instanceof PauseScreen){
+            if(!this.resume){
+                this.resume = this.Screen;
+                this.Screen = new PauseScreen(this.Screen);
+            } else {
+                this.Screen = this.resume;
+                this.resume = null;
+            }  
         }
-        else {
-            this.Screen = resume;
-            resume = null;
-        }  
+
     }
 }

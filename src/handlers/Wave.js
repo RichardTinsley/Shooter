@@ -10,7 +10,6 @@ let allEnemiesActive = false;
 
 export class Wave{
     constructor(){
-        
     }
 
     draw(ctx){

@@ -8,7 +8,8 @@ export class PauseScreen extends Screen {
     constructor(Screen) {
         super();
         
-        this.Screen = Screen
+        this.Screen = Screen;
+
         this.title = new GlowText({
             text: "Game Paused",
             position: {
@@ -25,7 +26,8 @@ export class PauseScreen extends Screen {
     draw(ctx){
         this.Screen.draw(ctx);
         this.drawScreenTransparency(ctx, INTERFACE.COLOURS.BLACKOUT);
-        super.draw(ctx);
+        this.title.draw(ctx);
+        this.menu.forEach(menuItem => menuItem.draw(ctx));
     }
 
     update(event){

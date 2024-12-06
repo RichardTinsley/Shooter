@@ -29,6 +29,7 @@ export const STATES = {
     MAINMENU: 'MAINMENU',
     BATTLE: 'BATTLE',
     PAUSED: 'PAUSED',
+    RESUME: 'RESUME',
     RESTART: 'RESTART',
     GAMEOVER: 'GAMEOVER',
     DEBUG: 'DEBUG',
