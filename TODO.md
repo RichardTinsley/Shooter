@@ -1,12 +1,16 @@
+Default parameters on constructors
+
+PASS SWITCH SCREENS RECURSIVELY FOR GAMEOVER?
+SCREEN SHRINKER FROM SHEZZOR
+Web Audio API and JavaScript
+
 Build tower modal with animated SPRITEs. / scale modals? / 
 See through options menu so game can keep running in background 
-Web Audio API and JavaScript
-SCREEN SHRINKER FROM SHEZZOR
 DELTA TIME * ENEMY MOVIE, (EVENT) on all entiry UPDATE methods UPDATE !event return
 MERGE UPDATE MOVEMENT FOR ENEMY AND PROJECTILE / GIVE DIRECTION/FIND ANGLE
-enemy collisions, push each other away
 RESEARCH: ASYNC, AWAIT, PROMISES,  SCOPE/CLOSURE,  OBJECT.() PROTOTYPES, JS PERFORMANCE, WINDOW DOCUMENT
-PASS SWITCH SCREENS RECURSIVELY FOR GAMEOVER?
+
+enemy collisions, push each other away
 
 // LASER LINES        
 // ctx.beginPath();

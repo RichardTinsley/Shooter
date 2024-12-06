@@ -1,4 +1,4 @@
-import * as GAME from "./game.js"
+import * as GAME from "./game.js";
 
 export const SIZES = {
     GAMETEXT: 25,
@@ -28,12 +28,17 @@ export const COLOURS = {
     BLACK: "rgba(0, 0, 0, 1)",
     LINES: "rgba(0, 0, 0, 0.5)",
     SHADOW: "rgba(0, 0, 0, 0.3)",
+    BLACKOUT: "rgba(0, 0, 0, 0.5)",
+    REDOUT: "rgba(250, 0, 0, 0.8)",
 }
 
-export const MENU_POSITION = {
-    x: GAME.SIZES.GAME_WIDTH_HALF,
-    y: GAME.SIZES.GAME_HEIGHT_HALF + 100,
-} 
+export function verticallyAlignedMenu(menuPosition, index){
+    return menuPosition + (SIZES.MENUITEMTEXT + SIZES.SPACING) * index;
+}
+
+export function horizontallyAlignedMenu(index){
+    return GAME.SIZES.GAME_WIDTH / 3 * (index + 1);
+}
 
 export const MAIN_MENU = [
     {
@@ -49,3 +54,16 @@ export const MAIN_MENU = [
         option: GAME.STATES.ABOUT,
     }, 
 ];
+
+export const PAUSE_MENU = [
+    {
+        text: "Resume",
+        option: GAME.STATES.RESUME,
+    }, 
+    {
+        text: "Quit",
+        option: GAME.STATES.MAINMENU,
+    }, 
+];
+
+

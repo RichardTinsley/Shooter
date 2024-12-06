@@ -5,8 +5,9 @@ import { LoadingScreen } from "../screens/LoadingScreen.js";
 import { MainMenuScreen } from "../screens/MainMenuScreen.js";
 import { BattleScreen } from "../screens/BattleScreen.js";
 import { GameOverScreen } from "../screens/GameOverScreen.js";
+import { PauseScreen } from "../screens/PauseScreen.js";
 
-let isPaused = false;
+let resume = null;
 
 export class Scene {
     constructor(){
@@ -46,12 +47,13 @@ export class Scene {
     pauseGame(){
         if(!this.Screen instanceof BattleScreen)
             return
-        // if(!isPaused)
-            // this.Screen = new PauseScreen(this.Screen.Objects, this.Screen.BattleHud);
-        // else    
-            // this.Screen = new BattleScreen(this.Screen)
-        isPaused = !isPaused;
+        if(!resume){
+            resume = this.Screen;
+            this.Screen = new PauseScreen(this.Screen);
+        }
+        else {
+            this.Screen = resume;
+            resume = null;
+        }  
     }
-
-
 }

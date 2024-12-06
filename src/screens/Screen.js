@@ -1,3 +1,5 @@
+import * as GAME from "../constants/game.js";
+
 export class Screen {
     constructor(){ 
         this.title = null;
@@ -16,7 +18,7 @@ export class Screen {
             this.title.draw(ctx);
 
         if(this.menu)
-            this.menu.draw(ctx);
+            this.menu.forEach(menuItem => menuItem.draw(ctx));
     }
     
     update(event){
@@ -29,6 +31,11 @@ export class Screen {
             this.title.update(event);
 
         if(this.menu)
-            this.menu.update(event);
+            this.menu.forEach(menuItem => menuItem.update(event));
+    }
+
+    drawScreenTransparency(ctx, colour){
+        ctx.fillStyle = colour;
+        ctx.fillRect(0, 0, GAME.SIZES.GAME_WIDTH, GAME.SIZES.GAME_HEIGHT);
     }
 }

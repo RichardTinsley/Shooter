@@ -47,6 +47,9 @@ export class Objects{
         });
     }
 }
-// this.entities = [...this.towers, ...this.enemies, ...this.effects, ...this.projectiles, ...this.texts];
-// this.entities.forEach(entity => entity.draw(ctx));
+
+    // this.entities = [...this.towers, ...this.enemies, ...this.effects, ...this.projectiles, ...this.texts];
+    // this.entities.sort((a, b) => a.position.y - b.position.y); 
+    // this.entities.forEach(entity => entity.draw(ctx));
+
 

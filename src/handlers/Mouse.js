@@ -68,7 +68,7 @@ export class Mouse {
     }
 
     mouseOverMenuItem(menu){
-        menu.menuItems.forEach((menuItem) => {
+        menu.forEach(menuItem => {
             if(checkBoxCollision(this.Mouse, menuItem))
                 menuItem.text.enable(false);
             else {

@@ -1,7 +1,6 @@
 import * as OBJECTS from "../constants/objects.js"
 import * as INTERFACE from "../constants/interface.js"
 
-
 export class Text {
     constructor({
         text,
