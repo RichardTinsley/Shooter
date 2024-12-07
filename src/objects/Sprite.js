@@ -1,4 +1,5 @@
 import * as OBJECTS from "../constants/objects.js"
+import { findAngleOfDirection, giveDirection, } from "../utilities/math.js";
 
 export class Sprite {
     constructor({
@@ -36,6 +37,7 @@ export class Sprite {
         this.drawPositionX = this.position.x - this.halfWidth;
         this.drawPositionY = this.position.y - this.height;
         
+        this.destination = null;
         this.speed = speed ?? 1;
         this.angle = 0;
         this.direction;
@@ -66,9 +68,23 @@ export class Sprite {
         this.animate(event);
     }
 
+    animate(event){
+        if(event)
+            this.sprite.frame < this.maxFrame ? this.sprite.frame++ : this.sprite.frame = 0;
+    }
+
     updateSpriteDrawPosition(){
         this.drawPositionX = this.position.x - this.halfWidth;
         this.drawPositionY = this.position.y - this.height;
+    }
+
+    updateDestination(destination){
+        this.destination = destination;
+    }
+
+    updateDirection(location){
+        this.angle = findAngleOfDirection(this.destination, location);
+        this.direction = giveDirection(this.angle);
     }
 
     updateMovement(){
@@ -78,9 +94,9 @@ export class Sprite {
         this.position.y += this.velocity.y;
     }
 
-    animate(event){
-        if(event)
-        this.sprite.frame < this.maxFrame ? this.sprite.frame++ : this.sprite.frame = 0;
+    updateHitbox(){
+        this.center.x = this.position.x;
+        this.center.y = this.position.y - this.height / 3;
     }
 
     contextSave(ctx){

@@ -1,6 +1,6 @@
 import * as OBJECTS from "../constants/objects.js";
 import * as INTERFACE from "../constants/interface.js";
-import { checkCircleCollision, findAngleOfDirection, giveDirection, randomPositiveFloat } from "../utilities/math.js";
+import { checkCircleCollision, randomPositiveFloat } from "../utilities/math.js";
 import { Sprite } from "./Sprite.js";
 import { assets } from "../utilities/assets.js";
 import { Blood } from "./effects/Blood.js";
@@ -33,8 +33,7 @@ export class Enemy extends Sprite{
         this.waypoints = waypoints;
         this.waypointIndex = 0;
         this.priorityDistance = 0;
-        this.currentDestination = {...this.waypoints[this.waypointIndex]};
-
+        
         this.sprite.row = this.speed < 0.8 ? OBJECTS.STATES.WALKING : OBJECTS.STATES.RUNNING;
         this.maxHealth = randomPositiveFloat(100);
         this.health = this.maxHealth;
@@ -60,10 +59,11 @@ export class Enemy extends Sprite{
             case OBJECTS.ANIMATION.ANIMATING:
                 if(this.sprite.row !== OBJECTS.STATES.DYING){
                     super.update(event);
+                    this.updateDestination({...this.waypoints[this.waypointIndex]});
+                    this.updateDirection(this.position);
                     this.updateMovement();
-                    this.updateEnemyDirection();
                     this.updatePriorityDistance(); 
-                    this.updateEnemyHitbox();
+                    this.updateHitbox();
                     this.checkWaypointArrival();
                     this.checkEnemyHealth();
                 }
@@ -73,22 +73,11 @@ export class Enemy extends Sprite{
                 break
         }
     }
-
-    updateEnemyDirection(){
-        this.currentDestination = {...this.waypoints[this.waypointIndex]};
-        this.angle = findAngleOfDirection(this.currentDestination, this.position);
-        this.direction = giveDirection(this.angle);
-    }
     
     updatePriorityDistance(){  
-        const yDistance = this.currentDestination.y - this.position.y;
-        const xDistance = this.currentDestination.x - this.position.x;
+        const yDistance = this.destination.y - this.position.y;
+        const xDistance = this.destination.x - this.position.x;
         this.priorityDistance = Math.round(Math.abs(xDistance) + Math.abs(yDistance));
-    }
-
-    updateEnemyHitbox(){
-        this.center.x = this.position.x;
-        this.center.y = this.position.y - this.height / 3;
     }
 
     updateDeathAnimation(event){

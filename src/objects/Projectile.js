@@ -2,7 +2,7 @@ import * as OBJECTS from "../constants/objects.js";
 import * as INTERFACE from "../constants/interface.js";
 import { GameText } from "./texts/GameText.js";
 import { Sprite } from "./Sprite.js";
-import { findAngleOfDirection, giveDirection, checkCircleCollision } from "../utilities/math.js";
+import { checkCircleCollision } from "../utilities/math.js";
 
 export class Projectile extends Sprite{
     constructor({
@@ -40,27 +40,14 @@ export class Projectile extends Sprite{
         switch(this.state){
             case OBJECTS.ANIMATION.ANIMATING:
                 super.update(event);
-                this.updateProjectileMovement();
-                this.updateProjectileHitbox();
+                this.updateDestination(this.enemy.center);
+                this.updateDirection(this.center);
+                this.updateMovement();
+                this.updateHitbox();
                 break
             case OBJECTS.ANIMATION.FINISHED:
                 break
         }
-    }
-
-    updateProjectileMovement() {
-        this.angle = findAngleOfDirection(this.enemy.center, this.center);
-        this.direction = giveDirection(this.angle);
-
-        this.velocity.x = Math.cos(this.angle) * this.speed;
-        this.velocity.y = Math.sin(this.angle) * this.speed;
-        this.position.x += this.velocity.x;
-        this.position.y += this.velocity.y;
-    }    
-
-    updateProjectileHitbox(){
-        this.center.x = this.position.x;
-        this.center.y = this.position.y - this.height / 3;
     }
 
     checkProjectileEnemyCollision(effects, texts, playerStats){
