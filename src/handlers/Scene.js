@@ -52,6 +52,5 @@ export class Scene {
                 this.resume = null;
             }  
         }
-
     }
 }
