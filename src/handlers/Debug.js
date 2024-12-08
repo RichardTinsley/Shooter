@@ -120,7 +120,7 @@ export class Debug{
     
     drawSquareHitBox(ctx, menuItem){
         ctx.fillStyle = COLOURS.RED_ALPHA;
-        ctx.fillRect(menuItem.position.x, menuItem.position.y, menuItem.width, menuItem.height);
+        ctx.fillRect(menuItem.position.x, menuItem.position.y, menuItem.position.width, menuItem.position.height);
     }
 }
 

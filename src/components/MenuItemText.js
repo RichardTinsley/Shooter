@@ -19,14 +19,13 @@ export class MenuItemText{
         //MENU ITEM HITBOX FOR MOUSE CLICK
         this.type = OBJECTS.TYPES.MENUITEM;
         this.option = option;
-        this.height = size;
-        this.width = text.length * (size / 1.75);
-
+        
+        this.width = text.length * (size / 1.75)
         this.position = {
             x: position.x - this.width / 2,
             y: position.y - (size / 2),
             width: this.width,
-            height: this.height,
+            height: size,
         };
     }
 
