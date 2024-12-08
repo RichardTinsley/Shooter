@@ -1,8 +1,8 @@
 import * as OBJECTS from "../constants/objects.js";
 import * as INTERFACE from "../constants/interface.js";
 import { checkCircleCollision, randomPositiveFloat } from "../utilities/math.js";
-import { Sprite } from "./Sprite.js";
 import { assets } from "../utilities/assets.js";
+import { Sprite } from "./Sprite.js";
 import { Blood } from "./effects/Blood.js";
 
 export class Enemy extends Sprite{
@@ -53,7 +53,7 @@ export class Enemy extends Sprite{
     update(event){
         switch(this.state){
             case OBJECTS.ANIMATION.ANIMATING:
-                if(this.sprite.row !== OBJECTS.STATES.DYING){
+                if(!this.isDying()){
                     super.update(event);
                     this.updateDestination({...this.waypoints[this.waypointIndex]});
                     this.updateDirection(this.position);
@@ -70,7 +70,7 @@ export class Enemy extends Sprite{
     }
 
     updateDeathAnimation(event){
-        if(event && this.sprite.row === OBJECTS.STATES.DYING){
+        if(event && this.isDying()){
             if(this.sprite.frame < this.maxFrame)
                 this.sprite.frame++; 
             else 
@@ -103,12 +103,8 @@ export class Enemy extends Sprite{
     }
 
     setHealth(damage){
-        if(damage > this.health)
-            this.health = 0
-        else
-            this.health -= damage;
-
-        if(this.health <= 0) {
+        this.health -= damage;
+        if(this.health <= 0 && !this.isDying()){
             this.sprite.row = OBJECTS.STATES.DYING;
             this.sprite.frame = 0;
             this.center.y = this.position.y;
@@ -122,7 +118,7 @@ export class Enemy extends Sprite{
     }
 
     drawHealthBar(ctx){
-        if(this.health > 0){
+        if(!this.isDying()){
             const healthBarX = this.position.x - this.quarterWidth;
             const healthBarY = this.position.y - this.height + this.shadowHeight;
             const healthBarLength = this.halfWidth;
@@ -140,7 +136,7 @@ export class Enemy extends Sprite{
 
     addBlood(effects){
         effects.push(new Blood({
-            position: this.position,
+            position: {...this.position},
             scale: this.scale * .5,
         }));
     }
