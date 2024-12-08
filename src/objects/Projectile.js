@@ -56,14 +56,13 @@ export class Projectile extends Sprite{
             this.addExplosion(effects);      
             this.enemy.setHealth(this.damage);
             
-            if(this.enemy.isDying()){
-                if(!this.enemy.isPillaged){
-                    this.addGold(texts, playerStats);
-                    this.addExperience(texts, playerStats);
-                    this.enemy.isPillaged = true;
-                }
-                this.enemy.addBlood(effects);
+            if(!this.enemy.isPillaged && this.enemy.isDying()){
+                this.addGold(texts, playerStats);
+                this.addExperience(texts, playerStats);
+                this.enemy.isPillaged = true;
             }
+            if(this.enemy.isDying())
+                this.enemy.addBlood(effects);
         }   
     }
     

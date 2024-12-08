@@ -53,17 +53,16 @@ export class LoadingScreen extends Screen {
         const loadBarY = GAME.SIZES.GAME_HEIGHT - 50;
         const loadBarLength = GAME.SIZES.GAME_WIDTH / 3;
         const loadBarX = GAME.SIZES.GAME_WIDTH_HALF - loadBarLength / 2 ;
-        const loadBarThickness = 5;
+        const loadBarThickness = 10;
         const LoadBarMaxWidth = (this.assetsLoadedCounter / ASSET_LIST.length);
         ctx.beginPath();
-        
-        ctx.fillStyle = 'white';
-        ctx.fillRect(loadBarX, loadBarY, loadBarLength * LoadBarMaxWidth, loadBarThickness);
-        
+
         ctx.lineWidth = 3;
         ctx.lineJoin = "bevel";
         ctx.strokeStyle = 'white'
-        ctx.strokeRect(loadBarX - 5, loadBarY - 5, loadBarLength + 10, loadBarThickness + 10);
+        ctx.strokeRect(loadBarX, loadBarY, loadBarLength, loadBarThickness);
         
+        ctx.fillStyle = 'white';
+        ctx.fillRect(loadBarX, loadBarY, loadBarLength * LoadBarMaxWidth, loadBarThickness);
     }
 }

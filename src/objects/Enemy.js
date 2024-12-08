@@ -122,15 +122,19 @@ export class Enemy extends Sprite{
             const healthBarX = this.position.x - this.quarterWidth;
             const healthBarY = this.position.y - this.height + this.shadowHeight;
             const healthBarLength = this.halfWidth;
-            const healthBarThickness = 5;
+            const healthBarThickness = 3;
             ctx.beginPath();
-            ctx.fillStyle = INTERFACE.COLOURS.RED;
-            ctx.lineWidth = 1;
+            ctx.lineWidth = 2;
+            ctx.lineJoin = "bevel";
+            ctx.strokeStyle = INTERFACE.COLOURS.WHITE;
+            ctx.strokeRect(healthBarX - 2, healthBarY - 2, healthBarLength + 4, healthBarThickness + 4);
             ctx.strokeStyle = INTERFACE.COLOURS.BLACK;
+            ctx.strokeRect(healthBarX - 1, healthBarY - 1, healthBarLength + 2, healthBarThickness + 2);
+
+            ctx.fillStyle = INTERFACE.COLOURS.BLACK;
             ctx.fillRect(healthBarX, healthBarY, healthBarLength, healthBarThickness);
-            ctx.fillStyle = INTERFACE.COLOURS.BRIGHT_GREEN;
+            this.health > (this.maxHealth * .33) ? ctx.fillStyle = INTERFACE.COLOURS.BRIGHT_GREEN : ctx.fillStyle = INTERFACE.COLOURS.RED;
             ctx.fillRect(healthBarX, healthBarY, healthBarLength * (this.health / this.maxHealth), healthBarThickness);
-            ctx.strokeRect(healthBarX, healthBarY, healthBarLength, healthBarThickness);
         }
     }
 
