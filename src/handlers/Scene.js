@@ -7,7 +7,8 @@ import { GameOverScreen } from "../screens/GameOverScreen.js";
 import { PauseScreen } from "../screens/PauseScreen.js";
 
 export class Scene {
-    constructor(){
+    constructor(Time){
+        this.Time = Time;
         this.resume = null;
         this.Screen = new LoadingScreen(this.switchScreens);
         this.Music = new Music();
@@ -27,9 +28,9 @@ export class Scene {
                 this.resume = null;
                 this.Screen = new MainMenuScreen();
                 break
-            case GAME.STATES.RESTART:
+            case GAME.STATES.RESTART://RESTART SCREEN
             case GAME.STATES.BATTLE:
-                this.Screen = new BattleScreen(this.switchScreens);
+                this.Screen = new BattleScreen(this.switchScreens, this.Time);
                 break
             case GAME.STATES.RESUME:
             case GAME.STATES.PAUSED:
@@ -46,9 +47,11 @@ export class Scene {
         if(this.Screen instanceof BattleScreen || this.Screen instanceof PauseScreen){
             if(!this.resume){
                 this.resume = this.Screen;
+                this.Time.pauseTimer();
                 this.Screen = new PauseScreen(this.Screen);
             } else {
                 this.Screen = this.resume;
+                this.Time.startTimer();
                 this.resume = null;
             }  
         }

@@ -5,8 +5,11 @@ import { Objects } from "../handlers/Objects.js";
 import { Wave } from "../handlers/Wave.js";
 
 export class BattleScreen extends Screen {
-    constructor(switchScreens){
+    constructor(switchScreens, Time){
         super();
+        this.Time = Time;
+        this.Time.resetTimer();
+
         this.PlayerStats = new PlayerStats(switchScreens);
         this.Levels = new Levels();
         this.Objects = new Objects(this.Levels.emptyTowerSpots);
@@ -24,7 +27,7 @@ export class BattleScreen extends Screen {
     update(event){
         super.update(event);
         this.Objects.update(event, this.PlayerStats);
-        this.PlayerStats.update(event);
+        this.PlayerStats.update(event, this.Time.displayTimer);
         this.Wave.update(event, this.Objects.enemies, this.PlayerStats);
     }
 }

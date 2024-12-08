@@ -7,7 +7,7 @@ import { Time } from "./handlers/Time.js";
 export class Game{
     constructor(){
         this.Time       = new Time();
-        this.Scene      = new Scene();
+        this.Scene      = new Scene(this.Time);
         this.Mouse      = new Mouse(this.Scene.switchScreens);
         this.Debug      = new Debug(this.Mouse.Mouse);
         this.Keyboard   = new Keyboard(this.Scene.switchScreens, this.Debug.switchDebugMode);
