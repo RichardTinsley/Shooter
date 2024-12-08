@@ -24,19 +24,15 @@ export class Enemy extends Sprite{
             speed: speed ?? 1, 
         });
 
-        this.type = OBJECTS.TYPES.ENEMY;
-
-        this.center.radius = this.width / 4;
-        this.quarterWidth = this.width / 4;
-        this.shadowHeight = this.height / 12;
-
         this.waypoints = waypoints;
         this.waypointIndex = 0;
-        this.priorityDistance = 0;
         
-        this.sprite.row = this.speed < 0.8 ? OBJECTS.STATES.WALKING : OBJECTS.STATES.RUNNING;
         this.maxHealth = randomPositiveFloat(100);
         this.health = this.maxHealth;
+        
+        this.isPillaged = false;
+        this.sprite.row = this.speed < 0.8 ? OBJECTS.STATES.WALKING : OBJECTS.STATES.RUNNING;
+        this.type = OBJECTS.TYPES.ENEMY;
     }
 
     draw(ctx){
@@ -65,7 +61,6 @@ export class Enemy extends Sprite{
                     this.updatePriorityDistance(); 
                     this.updateHitbox();
                     this.checkWaypointArrival();
-                    this.checkEnemyHealth();
                 }
                 this.updateDeathAnimation(event);
                 break
@@ -73,18 +68,9 @@ export class Enemy extends Sprite{
                 break
         }
     }
-    
-    updatePriorityDistance(){  
-        const yDistance = this.destination.y - this.position.y;
-        const xDistance = this.destination.x - this.position.x;
-        this.priorityDistance = Math.round(Math.abs(xDistance) + Math.abs(yDistance));
-    }
 
     updateDeathAnimation(event){
-        if(!event) 
-            return
-
-        if(this.sprite.row === OBJECTS.STATES.DYING){
+        if(event && this.sprite.row === OBJECTS.STATES.DYING){
             if(this.sprite.frame < this.maxFrame)
                 this.sprite.frame++; 
             else 
@@ -116,21 +102,30 @@ export class Enemy extends Sprite{
         this.center.radius = this.width / 4;
     }
 
-    checkEnemyHealth(){
-        if(this.health <= 0 && this.sprite.row !== OBJECTS.STATES.DYING) {
+    setHealth(damage){
+        if(damage > this.health)
+            this.health = 0
+        else
+            this.health -= damage;
+
+        if(this.health <= 0) {
             this.sprite.row = OBJECTS.STATES.DYING;
+            this.sprite.frame = 0;
             this.center.y = this.position.y;
             this.center.radius /= 4;
             this.isSelected = false;
-            this.sprite.frame = 0;
         }
+    }
+
+    isDying(){
+        return this.sprite.row === OBJECTS.STATES.DYING;
     }
 
     drawHealthBar(ctx){
         if(this.health > 0){
             const healthBarX = this.position.x - this.quarterWidth;
             const healthBarY = this.position.y - this.height + this.shadowHeight;
-            const healthBarLength = this.quarterWidth * 2;
+            const healthBarLength = this.halfWidth;
             const healthBarThickness = 5;
             ctx.beginPath();
             ctx.fillStyle = INTERFACE.COLOURS.RED;
@@ -141,26 +136,6 @@ export class Enemy extends Sprite{
             ctx.fillRect(healthBarX, healthBarY, healthBarLength * (this.health / this.maxHealth), healthBarThickness);
             ctx.strokeRect(healthBarX, healthBarY, healthBarLength, healthBarThickness);
         }
-    }
-
-    drawShadow(ctx){
-        if(this.health > 0){
-            ctx.beginPath();
-            ctx.ellipse(this.position.x, this.position.y, this.shadowHeight, this.quarterWidth, Math.PI / 2, 0, 2 * Math.PI);
-            ctx.fillStyle = INTERFACE.COLOURS.SHADOW;
-            ctx.fill();  
-            this.drawSelection(ctx);    
-        }
-    }
-
-    drawSelection(ctx){
-        if(this.isSelected){
-            ctx.setLineDash([this.quarterWidth / 2, this.quarterWidth / 2]);
-            ctx.lineWidth = 5;
-            ctx.strokeStyle = INTERFACE.COLOURS.RED
-            ctx.stroke();
-            ctx.setLineDash([0, 0]);
-        }   
     }
 
     addBlood(effects){

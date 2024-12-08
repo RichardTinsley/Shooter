@@ -1,4 +1,5 @@
 import * as OBJECTS from "../constants/objects.js"
+import * as INTERFACE from "../constants/interface.js";
 import { findAngleOfDirection, giveDirection, } from "../utilities/math.js";
 
 export class Sprite {
@@ -23,6 +24,8 @@ export class Sprite {
         this.height = Math.round(this.sprite.height * this.scale * 100) / 100; 
         this.halfWidth = this.width / 2;
         this.halfHeight = this.height / 2;
+        this.quarterWidth = this.width / 4;
+        this.shadowHeight = this.height / 12;
 
         this.maxFrame = Math.floor(this.sprite.image.width / this.sprite.width) - 1;
         this.maxRow = Math.floor(this.sprite.image.height / this.sprite.height) - 1;
@@ -31,13 +34,14 @@ export class Sprite {
         this.center = {
             x: this.position.x,
             y: this.position.y - this.halfHeight,
-            radius: this.halfWidth / 2,
+            radius: this.quarterWidth,
         };
 
         this.drawPositionX = this.position.x - this.halfWidth;
         this.drawPositionY = this.position.y - this.height;
         
         this.destination = null;
+        this.priorityDistance = 0;
         this.speed = speed ?? 1;
         this.angle = 0;
         this.direction;
@@ -66,6 +70,41 @@ export class Sprite {
 
     update(event){ 
         this.animate(event);
+    }
+
+    contextSave(ctx){
+        if(this.direction === OBJECTS.ANIMATION.LEFT){
+            ctx.save();
+            ctx.scale(this.direction, 1);
+            this.position.x *= -1;
+        }
+    }
+
+    contextRestore(ctx){
+        if(this.direction === OBJECTS.ANIMATION.LEFT){
+            this.position.x *= -1;
+            ctx.restore();
+        }
+    }
+
+    drawShadow(ctx){
+        if(this.health > 0){
+            ctx.beginPath();
+            ctx.ellipse(this.position.x, this.position.y, this.shadowHeight, this.quarterWidth, Math.PI / 2, 0, 2 * Math.PI);
+            ctx.fillStyle = INTERFACE.COLOURS.SHADOW;
+            ctx.fill();  
+            this.drawSelection(ctx);    
+        }
+    }
+
+    drawSelection(ctx){
+        if(this.isSelected){
+            ctx.setLineDash([this.quarterWidth / 2, this.quarterWidth / 2]);
+            ctx.lineWidth = 5;
+            ctx.strokeStyle = INTERFACE.COLOURS.RED
+            ctx.stroke();
+            ctx.setLineDash([0, 0]);
+        }   
     }
 
     animate(event){
@@ -99,19 +138,10 @@ export class Sprite {
         this.center.y = this.position.y - this.height / 3;
     }
 
-    contextSave(ctx){
-        if(this.direction === OBJECTS.ANIMATION.LEFT){
-            ctx.save();
-            ctx.scale(this.direction, 1);
-            this.position.x *= -1;
-        }
-    }
-
-    contextRestore(ctx){
-        if(this.direction === OBJECTS.ANIMATION.LEFT){
-            this.position.x *= -1;
-            ctx.restore();
-        }
+    updatePriorityDistance(){  
+        const yDistance = this.destination.y - this.position.y;
+        const xDistance = this.destination.x - this.position.x;
+        this.priorityDistance = Math.round(Math.abs(xDistance) + Math.abs(yDistance));
     }
 }
 

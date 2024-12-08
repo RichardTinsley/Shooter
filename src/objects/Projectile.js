@@ -51,22 +51,19 @@ export class Projectile extends Sprite{
     }
 
     checkProjectileEnemyCollision(effects, texts, playerStats){
-        if(this.state !== OBJECTS.ANIMATION.ANIMATING)
-            return;
-
-        if (checkCircleCollision(this.enemy, this)){
+        if(checkCircleCollision(this.enemy, this)){
             this.state = OBJECTS.ANIMATION.FINISHED;
-            this.enemy.health -= this.damage;
-            this.addExplosion(effects);
+            this.addExplosion(effects);      
+            this.enemy.setHealth(this.damage);
             
-            if(this.enemy.health <= 0 && this.enemy.sprite.row !== OBJECTS.STATES.DYING){
-                this.addGold(texts, playerStats);
-                this.addExperience(texts, playerStats);
+            if(this.enemy.isDying()){
+                if(!this.enemy.isPillaged){
+                    this.addGold(texts, playerStats);
+                    this.addExperience(texts, playerStats);
+                    this.enemy.isPillaged = true;
+                }
                 this.enemy.addBlood(effects);
             }
-            
-            if(this.enemy.sprite.row === OBJECTS.STATES.DYING)
-                this.enemy.addBlood(effects);
         }   
     }
     
