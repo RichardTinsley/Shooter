@@ -26,11 +26,9 @@ export class SapphireTower extends Tower{
         this.shootTimer = this.cooldown;
 
         this.towerRange = {
-            center: {
-                x: this.center.x,
-                y: this.center.y,
-                radius: this.range
-            },
+            x: this.center.x,
+            y: this.center.y,
+            radius: this.range
         };
     }
 

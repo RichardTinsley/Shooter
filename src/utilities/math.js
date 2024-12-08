@@ -1,19 +1,19 @@
 import * as OBJECTS from "../constants/objects.js"
 // LINE COLLISION??
 export function checkCircleCollision(a, b){
-    const dx = a.center.x - b.center.x;
-    const dy = a.center.y - b.center.y;
+    const dx = a.x - b.x;
+    const dy = a.y - b.y;
     const distance = Math.hypot(dx, dy);
-    const sumOfRadii = a.center.radius + b.center.radius;
+    const sumOfRadii = a.radius + b.radius;
     return distance < sumOfRadii; 
 }
 
 export function checkBoxCollision(a, b){ // a = MOUSE
     return(
-        a.center.x > b.position.x + b.width ||
-        a.center.x + a.width < b.position.x ||
-        a.center.y > b.position.y + b.height ||
-        a.center.y + a.height < b.position.y
+        a.x > b.x + b.width ||
+        a.x + a.width < b.x ||
+        a.y > b.y + b.height ||
+        a.y + a.height < b.y
     );
 }
 

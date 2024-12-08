@@ -26,6 +26,7 @@ export class Enemy extends Sprite{
 
         this.waypoints = waypoints;
         this.waypointIndex = 0;
+        this.position.radius = this.width / 3;
         
         this.maxHealth = randomPositiveFloat(100);
         this.health = this.maxHealth;
@@ -91,15 +92,12 @@ export class Enemy extends Sprite{
         }
     }
 
-    checkWaypointArrival(){
-        const waypointCenter = {};
-        waypointCenter.center = {...this.waypoints[this.waypointIndex]};
-        waypointCenter.center.radius = 1;
+    checkWaypointArrival(){   
+        let waypointCenter = {...this.waypoints[this.waypointIndex]};
+        waypointCenter.radius = 1;
 
-        this.center.radius = this.width / 3;
-        if (checkCircleCollision(this, waypointCenter))
+        if (checkCircleCollision(this.position, waypointCenter))
             this.waypointIndex++;
-        this.center.radius = this.width / 4;
     }
 
     setHealth(damage){

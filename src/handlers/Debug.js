@@ -71,7 +71,7 @@ export class Debug{
         enemies.forEach(enemy => {
             this.drawDot(ctx, enemy.position, COLOURS.BLUE);
             this.drawDot(ctx, enemy.center, COLOURS.GREEN);
-            this.drawCircleHitbox(ctx, enemy);
+            this.drawCircleHitbox(ctx, enemy.center);
         });
     }
     
@@ -80,13 +80,13 @@ export class Debug{
             this.drawDot(ctx, tower.position, COLOURS.BLUE);
             this.drawDot(ctx, tower.center, COLOURS.GREEN);
             this.drawDot(ctx, tower.muzzle, COLOURS.YELLOW);
-            this.drawCircleHitbox(ctx, tower);
+            this.drawCircleHitbox(ctx, tower.center);
         });
     }
     
     projectileDebugInfo(ctx, projectiles){
         projectiles.forEach(projectile => {
-            this.drawCircleHitbox(ctx, projectile);
+            this.drawCircleHitbox(ctx, projectile.center);
             this.drawDot(ctx, projectile.position, COLOURS.BLUE);
             // this.drawDot(ctx, projectile.center, COLOURS.GREEN);
         });
@@ -111,11 +111,11 @@ export class Debug{
     
     drawCircleHitbox(ctx, entity){
         ctx.beginPath();
-        ctx.arc(entity.center.x, entity.center.y, entity.center.radius, 0, Math.PI * 2);
+        ctx.arc(entity.x, entity.y, entity.radius, 0, Math.PI * 2);
         ctx.fillStyle = COLOURS.RED_ALPHA;
         ctx.fill();
     
-        this.drawDot(ctx, entity.center, COLOURS.RED);
+        this.drawDot(ctx, entity, COLOURS.RED);
     }
     
     drawSquareHitBox(ctx, menuItem){

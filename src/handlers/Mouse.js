@@ -9,19 +9,17 @@ let selectedObject = null;
 export class Mouse {
     constructor(switchScreens){  
         this.Mouse = {
-            center: {
-                x: 0,
-                y: 0,
-                radius: INPUT.SIZE,
-            },
+            x: 0,
+            y: 0,
+            radius: INPUT.SIZE,
             width: INPUT.SIZE,
             height: INPUT.SIZE,
             style: document.getElementById("canvas").style,
         };
         
         window.addEventListener('mousemove', e => {
-            this.Mouse.center.x = e.offsetX;
-            this.Mouse.center.y = e.offsetY;
+            this.Mouse.x = e.offsetX;
+            this.Mouse.y = e.offsetY;
             mouseOverObject = INPUT.NULL_OBJECT;
         });
 
@@ -69,7 +67,7 @@ export class Mouse {
 
     mouseOverMenuItem(menu){
         menu.forEach(menuItem => {
-            if(checkBoxCollision(this.Mouse, menuItem))
+            if(checkBoxCollision(this.Mouse, menuItem.position))
                 menuItem.text.enable(false);
             else {
                 menuItem.text.enable(true);
@@ -80,7 +78,7 @@ export class Mouse {
 
     mouseOverTower(towers){
         towers.forEach((tower) => {
-            if(checkCircleCollision(this.Mouse, tower)){
+            if(checkCircleCollision(this.Mouse, tower.center)){
                 tower.isSelected = true;
                 mouseOverObject = tower;
             }
@@ -91,7 +89,7 @@ export class Mouse {
 
     mouseOverEnemy(enemies){
         enemies.forEach((enemy) => {
-            if(checkCircleCollision(this.Mouse, enemy))
+            if(checkCircleCollision(this.Mouse, enemy.center))
                 mouseOverObject = enemy;
         });
     }

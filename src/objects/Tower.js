@@ -54,22 +54,24 @@ export class Tower extends Sprite{
         } 
     }
 
+    readyToShoot(){
+        return this.shootTimer >= this.cooldown;
+    }	
+    
     incrementShootTimer(event){
-        if(!event)
-            return
-        if(this.shootTimer < this.cooldown)
-            this.shootTimer++
+        if(event && !this.readyToShoot())
+            this.shootTimer++;
     }
 
     targetEnemy(enemies){
-        if(this.shootTimer >= this.cooldown)
+        if(this.readyToShoot())
             this.target = this.findEnemyTarget(enemies);
     }
-    
+
     findEnemyTarget(enemies){
         const enemiesInRange = enemies.filter(enemy => {
-            if(enemy.sprite.row === OBJECTS.STATES.WALKING || enemy.sprite.row === OBJECTS.STATES.RUNNING)
-                return checkCircleCollision(enemy, this.towerRange);
+            if(!enemy.isDying())
+                return checkCircleCollision(enemy.center, this.towerRange);
         })
         
         const selectedEnemy = enemiesInRange.find(enemy => enemy.isSelected);

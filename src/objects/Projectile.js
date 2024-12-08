@@ -51,7 +51,7 @@ export class Projectile extends Sprite{
     }
 
     checkProjectileEnemyCollision(effects, texts, playerStats){
-        if(checkCircleCollision(this.enemy, this)){
+        if(checkCircleCollision(this.enemy.center, this.center)){
             this.state = OBJECTS.ANIMATION.FINISHED;
             this.addExplosion(effects);      
             this.enemy.setHealth(this.damage);
