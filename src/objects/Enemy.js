@@ -26,7 +26,7 @@ export class Enemy extends Sprite{
 
         this.waypoints = waypoints;
         this.waypointIndex = 0;
-        this.position.radius = this.width / 3;
+        this.position.radius = this.width / 3; // CHANGE SIZE AND DRAW IN DEBUGGER
         
         this.maxHealth = randomPositiveFloat(100);
         this.health = this.maxHealth;
@@ -70,6 +70,38 @@ export class Enemy extends Sprite{
         }
     }
 
+    checkWaypointArrival(){   
+        let waypointCenter = {...this.waypoints[this.waypointIndex]};
+        waypointCenter.radius = 1;
+
+        if (checkCircleCollision(this.position, waypointCenter))
+            this.waypointIndex++;
+    }
+
+    checkEndpointArrival(playerStats){
+        if(this.waypointIndex === this.waypoints.length){
+            playerStats.setLives();
+            this.waypointIndex = 0;
+            this.position = {...this.waypoints[0]};
+        }
+    }
+
+    setHealth(damage){
+        this.health -= damage;
+        if(this.health <= 0 && !this.isDying()){
+	    this.health = 0;
+            this.sprite.row = OBJECTS.STATES.DYING;
+            this.sprite.frame = 0;
+            this.center.y = this.position.y;
+            this.center.radius /= 4;
+            this.isSelected = false;
+        }
+    }
+
+    isDying(){
+        return this.sprite.row === OBJECTS.STATES.DYING;
+    }
+
     updateDeathAnimation(event){
         if(event && this.isDying()){
             if(this.sprite.frame < this.maxFrame)
@@ -84,36 +116,6 @@ export class Enemy extends Sprite{
         }
     }
 
-    checkEndpointArrival(playerStats){
-        if(this.waypointIndex === this.waypoints.length){
-            playerStats.setLives();
-            this.waypointIndex = 0;
-            this.position = {...this.waypoints[0]};
-        }
-    }
-
-    checkWaypointArrival(){   
-        let waypointCenter = {...this.waypoints[this.waypointIndex]};
-        waypointCenter.radius = 1;
-
-        if (checkCircleCollision(this.position, waypointCenter))
-            this.waypointIndex++;
-    }
-
-    setHealth(damage){
-        this.health -= damage;
-        if(this.health <= 0 && !this.isDying()){
-            this.sprite.row = OBJECTS.STATES.DYING;
-            this.sprite.frame = 0;
-            this.center.y = this.position.y;
-            this.center.radius /= 4;
-            this.isSelected = false;
-        }
-    }
-
-    isDying(){
-        return this.sprite.row === OBJECTS.STATES.DYING;
-    }
 
     drawHealthBar(ctx){
         if(!this.isDying()){

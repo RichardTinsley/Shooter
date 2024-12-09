@@ -54,17 +54,17 @@ export class Tower extends Sprite{
         } 
     }
 
-    readyToShoot(){
+    isReadyToShoot(){
         return this.shootTimer >= this.cooldown;
     }	
     
     incrementShootTimer(event){
-        if(event && !this.readyToShoot())
+        if(event && !this.isReadyToShoot())
             this.shootTimer++;
     }
 
     targetEnemy(enemies){
-        if(this.readyToShoot())
+        if(this.isReadyToShoot())
             this.target = this.findEnemyTarget(enemies);
     }
 
@@ -89,4 +89,13 @@ export class Tower extends Sprite{
         return enemiesInRange[0];
     }
 }
+
+//CHAIN METHODS
+
+// getEnemiesInRange(enemies){
+// 	return enemies.filter(enemy => {
+//             if(!enemy.isDying())
+//                 return checkCircleCollision(enemy.center, this.towerRange);
+//         })
+// }
 

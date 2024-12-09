@@ -8,13 +8,12 @@ let startTime = performance.now();
 let FPSNormal = 0;
 
 export class Debug{
-    constructor(Mouse) {
-        this.Mouse = Mouse;
+    constructor() {
         this.isDebugMode = true;  
         //TODO NEW TEXT OBJECT // UPDATE AND DRAW FPS
     }
 
-    draw(ctx, Screen){
+    draw(ctx, Screen, mouse){
         if(!this.isDebugMode) 
             return
 
@@ -30,7 +29,7 @@ export class Debug{
         
         this.calculateFPSNormal();
         this.performanceDebugInfo(ctx);
-        this.mouseDebugInfo(ctx, this.Mouse);
+        this.mouseDebugInfo(ctx, mouse);
     }
 
     switchDebugMode = () => {

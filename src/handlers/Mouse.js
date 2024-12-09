@@ -28,21 +28,14 @@ export class Mouse {
         });
     }
 
-    update(Screen){
-        if(Screen.menu)
-            this.mouseOverMenuItem(Screen.menu);
-
-        if(Screen.Objects){
-            this.mouseOverTower(Screen.Objects.towers);
-            this.mouseOverEnemy(Screen.Objects.enemies);
-        }
-
+    update(screen){
+        this.mouseOverObject(screen);
         if(selectedObject){
             if(selectedObject.type === OBJECTS.TYPES.ENEMY)
-                this.selectEnemy(Screen.Objects.enemies);
+                this.selectEnemy(screen.Objects.enemies);
     
             if(selectedObject.type === OBJECTS.TYPES.TOWER)
-                this.buildTower(Screen.Objects.towers);
+                this.buildTower(screen.Objects.towers);
 
             selectedObject = null;
         }
@@ -62,6 +55,16 @@ export class Mouse {
             case OBJECTS.TYPES.TOWER:
                 selectedObject = mouseOverObject;
                 break
+        }
+    }
+
+    mouseOverObject(screen){
+        if(screen.menu)
+            this.mouseOverMenuItem(screen.menu);
+
+        if(screen.Objects){
+            this.mouseOverTower(screen.Objects.towers);
+            this.mouseOverEnemy(screen.Objects.enemies);
         }
     }
 
@@ -87,6 +90,19 @@ export class Mouse {
         });
     }
 
+    buildTower(towers){
+        if(mouseOverObject.isOccupied)
+            return
+
+        // if(!Screen.Hud.canAfford(buildThisTower.cost))
+
+        let newTower = new SapphireTower({
+            position: selectedObject.position,
+        })
+
+        towers[towers.findIndex(tower => tower === selectedObject)] = newTower;
+    }
+
     mouseOverEnemy(enemies){
         enemies.forEach((enemy) => {
             if(checkCircleCollision(this.Mouse, enemy.center))
@@ -99,18 +115,5 @@ export class Mouse {
             if(enemy.isSelected === true && enemy !== selectedObject)
                 enemy.isSelected = false;
         });
-    }
-
-    buildTower(towers){
-        if(mouseOverObject.isOccupied)
-            return
-
-        // if(!Screen.Hud.canAfford(buildThisTower.cost))
-
-        let newTower = new SapphireTower({
-            position: selectedObject.position,
-        })
-
-        towers[towers.findIndex(tower => tower === selectedObject)] = newTower;
     }
 }   

@@ -62,6 +62,4 @@ export class Time{
         this.startTimer();
         // totalSeconds = 8000; //+8000s for over 2 hours
     }
-
-    
 }

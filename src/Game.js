@@ -9,13 +9,13 @@ export class Game{
         this.Time       = new Time();
         this.Scene      = new Scene(this.Time);
         this.Mouse      = new Mouse(this.Scene.switchScreens);
-        this.Debug      = new Debug(this.Mouse.Mouse);
+        this.Debug      = new Debug();
         this.Keyboard   = new Keyboard(this.Scene.switchScreens, this.Debug.switchDebugMode);
     }
     
     draw(ctx){
         this.Scene.draw(ctx);
-        this.Debug.draw(ctx, this.Scene.Screen);
+        this.Debug.draw(ctx, this.Scene.Screen, this.Mouse.Mouse);
     }
 
     update(time){
