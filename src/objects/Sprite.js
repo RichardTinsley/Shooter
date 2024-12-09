@@ -88,7 +88,7 @@ export class Sprite {
     }
 
     drawShadow(ctx){
-        if(this.health > 0){
+        if(!this.isDying()){
             ctx.beginPath();
             ctx.ellipse(this.position.x, this.position.y, this.shadowHeight, this.quarterWidth, Math.PI / 2, 0, 2 * Math.PI);
             ctx.fillStyle = INTERFACE.COLOURS.SHADOW;

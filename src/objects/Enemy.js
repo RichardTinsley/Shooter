@@ -1,6 +1,6 @@
 import * as OBJECTS from "../constants/objects.js";
-import * as INTERFACE from "../constants/interface.js";
-import { checkCircleCollision, randomPositiveFloat } from "../utilities/math.js";
+import { HealthBar } from "../components/HealthBar.js";
+import { checkCircleCollision } from "../utilities/math.js";
 import { assets } from "../utilities/assets.js";
 import { Sprite } from "./Sprite.js";
 import { Blood } from "./effects/Blood.js";
@@ -24,12 +24,13 @@ export class Enemy extends Sprite{
             speed: speed ?? 1, 
         });
 
+        this.health = new HealthBar({
+            length: this.halfWidth,
+        })
+
         this.waypoints = waypoints;
         this.waypointIndex = 0;
         this.position.radius = this.width / 3; // CHANGE SIZE AND DRAW IN DEBUGGER
-        
-        this.maxHealth = randomPositiveFloat(100);
-        this.health = this.maxHealth;
         
         this.isPillaged = false;
         this.sprite.row = this.speed < 0.8 ? OBJECTS.STATES.WALKING : OBJECTS.STATES.RUNNING;
@@ -44,7 +45,7 @@ export class Enemy extends Sprite{
                 this.updateSpriteDrawPosition();
                 super.draw(ctx);
                 this.contextRestore(ctx);
-                this.drawHealthBar(ctx);
+                this.health.draw(ctx);
                 break
             case OBJECTS.ANIMATION.FINISHED:
                 break
@@ -62,6 +63,7 @@ export class Enemy extends Sprite{
                     this.updatePriorityDistance(); 
                     this.updateHitbox();
                     this.checkWaypointArrival();
+                    this.health.update(this.updateHealthBarPosition());
                 }
                 this.updateDeathAnimation(event);
                 break
@@ -86,10 +88,15 @@ export class Enemy extends Sprite{
         }
     }
 
-    setHealth(damage){
-        this.health -= damage;
-        if(this.health <= 0 && !this.isDying()){
-	    this.health = 0;
+    updateHealthBarPosition(){
+        return {
+            x: this.position.x - this.quarterWidth,
+            y: this.position.y - this.height + this.shadowHeight
+        }
+    }
+
+    isAlive(){
+        if(!this.health.getHealth() && !this.isDying()){
             this.sprite.row = OBJECTS.STATES.DYING;
             this.sprite.frame = 0;
             this.center.y = this.position.y;
@@ -113,28 +120,6 @@ export class Enemy extends Sprite{
                 this.height -= 2;
             else
                 this.state = OBJECTS.ANIMATION.FINISHED;
-        }
-    }
-
-
-    drawHealthBar(ctx){
-        if(!this.isDying()){
-            const healthBarX = this.position.x - this.quarterWidth;
-            const healthBarY = this.position.y - this.height + this.shadowHeight;
-            const healthBarLength = this.halfWidth;
-            const healthBarThickness = 3;
-            ctx.beginPath();
-            ctx.lineWidth = 2;
-            ctx.lineJoin = "bevel";
-            ctx.strokeStyle = INTERFACE.COLOURS.WHITE;
-            ctx.strokeRect(healthBarX - 2, healthBarY - 2, healthBarLength + 4, healthBarThickness + 4);
-            ctx.strokeStyle = INTERFACE.COLOURS.BLACK;
-            ctx.strokeRect(healthBarX - 1, healthBarY - 1, healthBarLength + 2, healthBarThickness + 2);
-
-            ctx.fillStyle = INTERFACE.COLOURS.BLACK;
-            ctx.fillRect(healthBarX, healthBarY, healthBarLength, healthBarThickness);
-            this.health > (this.maxHealth * .33) ? ctx.fillStyle = INTERFACE.COLOURS.BRIGHT_GREEN : ctx.fillStyle = INTERFACE.COLOURS.RED;
-            ctx.fillRect(healthBarX, healthBarY, healthBarLength * (this.health / this.maxHealth), healthBarThickness);
         }
     }
 
