@@ -101,6 +101,7 @@ export class Debug{
         ctx.fillRect(0, GAME.SIZES.TILE * 3, GAME.SIZES.TILE * 4, GAME.SIZES.TILE * 2);
         const FPS = Math.round(FPSNormal * 1000) / 1000;
         drawText(ctx, 'white', `f p s: ${FPS}`, 10, GAME.SIZES.TILE * 4, GAME.SIZES.TILE_HALF, 'left', 'middle');
+        this.logMemory();
     }
     
     drawDot(ctx, entity, colour){
@@ -120,6 +121,15 @@ export class Debug{
     drawSquareHitBox(ctx, menuItem){
         ctx.fillStyle = COLOURS.RED_ALPHA;
         ctx.fillRect(menuItem.position.x, menuItem.position.y, menuItem.position.width, menuItem.position.height);
+    }
+
+    logMemory() {
+        if (typeof process != 'undefined')
+            console.log(`Node: ${process.memoryUsage().heapUsed / Math.pow(1000, 2)} MB`);
+
+        if (typeof performance.memory != 'undefined')
+            console.log(`Browser: ${performance.memory.usedJSHeapSize / Math.pow(1000, 2)} MB`);
+
     }
 }
 
