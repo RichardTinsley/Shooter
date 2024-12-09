@@ -7,17 +7,17 @@ import { checkCircleCollision } from "../utilities/math.js";
 export class Projectile extends Sprite{
     constructor({
         image, 
-        position,
         width,
         height,
+        position,
         damage,
         enemy,
     }){
         super({
             image,
-            position,
             width,
             height,
+            position,
             damage,
             enemy,
         })
@@ -41,7 +41,7 @@ export class Projectile extends Sprite{
             case OBJECTS.ANIMATION.ANIMATING:
                 super.update(event);
                 this.updateDestination(this.enemy.center);
-                this.updateDirection(this.center);
+                this.updateDirection();
                 this.updateMovement();
                 this.updateHitbox();
                 break

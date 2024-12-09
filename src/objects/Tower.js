@@ -19,8 +19,10 @@ export class Tower extends Sprite{
             scale: scale ?? 1, 
         });
         
-        this.center.radius = this.halfWidth;
+        this.type = OBJECTS.TYPES.TOWER;
+        this.isOccupied = false;
         
+        this.center.radius = this.halfWidth;
         this.muzzle = {
             x: this.position.x,
             y: this.position.y - this.height
@@ -28,9 +30,6 @@ export class Tower extends Sprite{
 
         this.enemiesInRange = [];
         this.target = null;
-        
-        this.type = OBJECTS.TYPES.TOWER;
-        this.isOccupied = false;
     }
 
     draw(ctx){

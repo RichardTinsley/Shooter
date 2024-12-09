@@ -23,6 +23,10 @@ export class Enemy extends Sprite{
             scale: scale ?? 1.5,
             speed: speed ?? 1, 
         });
+        
+        this.isPillaged = false;
+        this.sprite.row = this.speed < 0.8 ? OBJECTS.STATES.WALKING : OBJECTS.STATES.RUNNING;
+        this.type = OBJECTS.TYPES.ENEMY;
 
         this.health = new HealthBar({
             length: this.halfWidth,
@@ -31,10 +35,6 @@ export class Enemy extends Sprite{
         this.waypoints = waypoints;
         this.waypointIndex = 0;
         this.position.radius = this.width / 3; // CHANGE SIZE AND DRAW IN DEBUGGER
-        
-        this.isPillaged = false;
-        this.sprite.row = this.speed < 0.8 ? OBJECTS.STATES.WALKING : OBJECTS.STATES.RUNNING;
-        this.type = OBJECTS.TYPES.ENEMY;
     }
 
     draw(ctx){
@@ -58,7 +58,7 @@ export class Enemy extends Sprite{
                 if(!this.isDying()){
                     super.update(event);
                     this.updateDestination({...this.waypoints[this.waypointIndex]});
-                    this.updateDirection(this.position);
+                    this.updateDirection();
                     this.updateMovement();
                     this.updatePriorityDistance(); 
                     this.updateHitbox();

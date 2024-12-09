@@ -8,5 +8,4 @@ DELTA TIME * ENEMY MOVE, (EVENT) on all entiry UPDATE methods UPDATE !event retu
 RESEARCH: ASYNC, AWAIT, PROMISES,  SCOPE/CLOSURE,  OBJECT.() PROTOTYPES, JS PERFORMANCE, WINDOW DOCUMENT. STATIC METHODS
 PROTOYTYPE CHAIN
 
-healthbar class?
 enemy collisions, push each other away

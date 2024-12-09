@@ -23,7 +23,6 @@ export class Blood extends Effect{
 
         this.drawPositionY = this.position.y - this.height;
         this.sprite.row = Math.floor(Math.random() * 9);
-        // this.sprite.row = 0;
     }
 
     draw(ctx){

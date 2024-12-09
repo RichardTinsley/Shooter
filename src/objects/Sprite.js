@@ -121,8 +121,8 @@ export class Sprite {
         this.destination = destination;
     }
 
-    updateDirection(location){
-        this.angle = findAngleOfDirection(this.destination, location);
+    updateDirection(){
+        this.angle = findAngleOfDirection(this.destination, this.position);
         this.direction = giveDirection(this.angle);
     }
 
