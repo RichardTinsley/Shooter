@@ -6,21 +6,21 @@ import { Time } from "./handlers/Time.js";
 
 export class Game{
     constructor(){
-        this.Time       = new Time();
-        this.Scene      = new Scene(this.Time);
-        this.Mouse      = new Mouse(this.Scene.switchScreens);
-        this.Debug      = new Debug();
-        this.Keyboard   = new Keyboard(this.Scene.switchScreens, this.Debug.switchDebugMode);
+        this.time       = new Time();
+        this.scene      = new Scene(this.time);
+        this.mouse      = new Mouse(this.scene.switchScreens);
+        this.debug      = new Debug();
+        this.keyboard   = new Keyboard(this.scene.switchScreens, this.debug.switchDebugMode);
     }
     
     draw(ctx){
-        this.Scene.draw(ctx);
-        this.Debug.draw(ctx, this.Scene.Screen, this.Mouse.Mouse);
+        this.scene.draw(ctx);
+        this.debug.draw(ctx, this.scene.screen, this.mouse.mouse);
     }
 
     update(time){
-        this.Time.update(time);
-        this.Scene.update(this.Time.event);
-        this.Mouse.update(this.Scene.Screen);
+        this.time.update(time);
+        this.scene.update(this.time.event);
+        this.mouse.update(this.scene.screen);
     }
 }

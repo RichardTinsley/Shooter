@@ -7,51 +7,51 @@ import { GameOverScreen } from "../screens/GameOverScreen.js";
 import { PauseScreen } from "../screens/PauseScreen.js";
 
 export class Scene {
-    constructor(Time){
-        this.Time = Time;
+    constructor(time){
+        this.time = time;
         this.resume = null;
-        this.Screen = new LoadingScreen(this.switchScreens);
-        this.Music = new Music();
+        this.screen = new LoadingScreen(this.switchScreens);
+        this.music = new Music();
     }
 
     draw(ctx){
-        this.Screen.draw(ctx);
+        this.screen.draw(ctx);
     }
 
     update(event){
-        this.Screen.update(event);
+        this.screen.update(event);
     }
 
     switchScreens = (option) => {
         switch(option){
             case GAME.STATES.MAINMENU:
                 this.resume = null;
-                this.Screen = new MainMenuScreen();
+                this.screen = new MainMenuScreen();
                 break
             case GAME.STATES.RESTART://RESTART SCREEN
             case GAME.STATES.BATTLE:
-                this.Screen = new BattleScreen(this.switchScreens, this.Time);
+                this.screen = new BattleScreen(this.switchScreens, this.time);
                 break
             case GAME.STATES.RESUME:
             case GAME.STATES.PAUSED:
                 this.pauseGame();
                 break
             case GAME.STATES.GAMEOVER:
-                this.Screen = new GameOverScreen(this.Screen);
+                this.screen = new GameOverScreen(this.screen);
                 break
         }
-        this.Music.switchMusic(option);
+        this.music.switchMusic(option);
     }
 
     pauseGame(){
-        if(this.Screen instanceof BattleScreen || this.Screen instanceof PauseScreen){
+        if(this.screen instanceof BattleScreen || this.screen instanceof PauseScreen){
             if(!this.resume){
-                this.resume = this.Screen;
-                this.Time.pauseTimer();
-                this.Screen = new PauseScreen(this.Screen);
+                this.resume = this.screen;
+                this.time.pauseTimer();
+                this.screen = new PauseScreen(this.screen);
             } else {
-                this.Screen = this.resume;
-                this.Time.startTimer();
+                this.screen = this.resume;
+                this.time.startTimer();
                 this.resume = null;
             }  
         }

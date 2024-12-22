@@ -19,9 +19,9 @@ export class Debug{
 
         if(Screen instanceof BattleScreen){
             this.levelDebugInfoGrid(ctx);
-            this.towerDebugInfo(ctx, Screen.Objects.towers);
-            this.enemyDebugInfo(ctx, Screen.Objects.enemies);
-            this.projectileDebugInfo(ctx, Screen.Objects.projectiles);
+            this.towerDebugInfo(ctx, Screen.objects.towers);
+            this.enemyDebugInfo(ctx, Screen.objects.enemies);
+            this.projectileDebugInfo(ctx, Screen.objects.projectiles);
         }
 
         if(Screen.menu)

@@ -8,7 +8,7 @@ let selectedObject = null;
 
 export class Mouse {
     constructor(switchScreens){  
-        this.Mouse = {
+        this.mouse = {
             x: 0,
             y: 0,
             radius: INPUT.SIZE,
@@ -18,8 +18,8 @@ export class Mouse {
         };
         
         window.addEventListener('mousemove', e => {
-            this.Mouse.x = e.offsetX;
-            this.Mouse.y = e.offsetY;
+            this.mouse.x = e.offsetX;
+            this.mouse.y = e.offsetY;
             mouseOverObject = INPUT.NULL_OBJECT;
         });
 
@@ -32,15 +32,15 @@ export class Mouse {
         this.mouseOverObject(screen);
         if(selectedObject){
             if(selectedObject.type === OBJECTS.TYPES.ENEMY)
-                this.selectEnemy(screen.Objects.enemies);
+                this.selectEnemy(screen.objects.enemies);
     
             if(selectedObject.type === OBJECTS.TYPES.TOWER)
-                this.buildTower(screen.Objects.towers);
+                this.buildTower(screen.objects.towers);
 
             selectedObject = null;
         }
         
-        this.Mouse.style.cursor = `url(../../images/cursors/${mouseOverObject.type}.cur), auto`;
+        this.mouse.style.cursor = `url(../../images/cursors/${mouseOverObject.type}.cur), auto`;
     }
 
     onMouseClick(switchScreens){
@@ -62,15 +62,15 @@ export class Mouse {
         if(screen.menu)
             this.mouseOverMenuItem(screen.menu);
 
-        if(screen.Objects){
-            this.mouseOverTower(screen.Objects.towers);
-            this.mouseOverEnemy(screen.Objects.enemies);
+        if(screen.objects){
+            this.mouseOverTower(screen.objects.towers);
+            this.mouseOverEnemy(screen.objects.enemies);
         }
     }
 
     mouseOverMenuItem(menu){
         menu.forEach(menuItem => {
-            if(checkBoxCollision(this.Mouse, menuItem.position))
+            if(checkBoxCollision(this.mouse, menuItem.position))
                 menuItem.text.enable(false);
             else {
                 menuItem.text.enable(true);
@@ -81,7 +81,7 @@ export class Mouse {
 
     mouseOverTower(towers){
         towers.forEach((tower) => {
-            if(checkCircleCollision(this.Mouse, tower.center)){
+            if(checkCircleCollision(this.mouse, tower.center)){
                 tower.isSelected = true;
                 mouseOverObject = tower;
             }
@@ -105,7 +105,7 @@ export class Mouse {
 
     mouseOverEnemy(enemies){
         enemies.forEach((enemy) => {
-            if(checkCircleCollision(this.Mouse, enemy.center))
+            if(checkCircleCollision(this.mouse, enemy.center))
                 mouseOverObject = enemy;
         });
     }
