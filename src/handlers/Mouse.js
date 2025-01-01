@@ -95,6 +95,7 @@ export class Mouse {
             return
 
         // if(!Screen.Hud.canAfford(buildThisTower.cost))
+        //DRAW TOWER BUILDER MODAL HERE
 
         let newTower = new SapphireTower({
             position: selectedObject.position,
