@@ -59,8 +59,33 @@ export class Scene {
         return this.currentState;
     }
 
-    setCurrentState = (state) => {
-        this.currentState = state;
+    setSceneReset(){
+        this.title = null;
+        this.menu = null;
+        this.overLayAlpha = 0;
+    }
+
+    switchSceneState(time, option){
+        if(this.getCurrentState() === GAME.STATES.PAUSED && option === GAME.STATES.PAUSED)
+            option = GAME.STATES.RESUME;
+
+        this.setSceneReset();
+
+        switch(option){
+            case GAME.STATES.RESUME:
+                time.startTimer();
+                this.currentState = GAME.STATES.RESUME;
+                break
+            case GAME.STATES.PAUSED:
+                time.pauseTimer();
+                this.currentState = GAME.STATES.PAUSED;
+                this.initialiseOverlayScreen("Paused", INTERFACE.PAUSE_MENU);    
+                break
+            case GAME.STATES.GAMEOVER:
+                time.pauseTimer();
+                this.initialiseOverlayScreen("Game Over", INTERFACE.GAME_OVER_MENU);    
+                break
+        }
     }
 
     initialiseHorizontalMenu(menu){
@@ -101,12 +126,6 @@ export class Scene {
     updateOverlayScreen(){
         if(this.overLayAlpha < 0.7)
             this.overLayAlpha += this.delta;
-    }
-
-    setSceneReset(){
-        this.title = null;
-        this.menu = null;
-        this.overLayAlpha = 0;
     }
 
     initialiseOverlayScreen(title, menu){
