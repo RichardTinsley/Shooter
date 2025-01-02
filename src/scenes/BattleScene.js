@@ -16,6 +16,7 @@ export class BattleScene extends Scene {
     }
 
     draw(ctx){
+        super.draw(ctx);
         this.levels.draw(ctx);
         this.playerStats.draw(ctx);
         this.objects.draw(ctx);
@@ -28,10 +29,10 @@ export class BattleScene extends Scene {
                 this.drawOverlayScreen(ctx, INTERFACE.COLOURS.REDOUT);
                 break
         }
-        super.draw(ctx);
     }
 
     update(event){
+        super.update(event);
         switch(this.currentState){
             case GAME.STATES.RESUME:
                 this.objects.update(event, this.playerStats);
@@ -43,6 +44,5 @@ export class BattleScene extends Scene {
                 this.updateOverlayScreen()
                 break
         }
-        super.update(event);
     }
 }
