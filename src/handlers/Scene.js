@@ -14,43 +14,19 @@ export class Scene {
     }
 
     draw(ctx){
-        this.drawScreenFade(ctx);
-        this.drawTitle(ctx);
-        this.drawMenu(ctx);
-    }
-
-    update(event){
-        this.updateScreenFade();
-        this.updateTitle(event);
-        this.updateMenu(event);
-    }
-
-    drawScreenFade(ctx){
-        if(this.globalAlpha < 1)
+        if(this.globalAlpha < 1) 
             ctx.globalAlpha = this.globalAlpha;
-    }
-
-    drawTitle(ctx){
-        if(this.title)
+        if(this.title) 
             this.title.draw(ctx);
-    }
-
-    drawMenu(ctx){
-        if(this.menu)
+        if(this.menu) 
             this.menu.forEach(menuItem => menuItem.draw(ctx));
     }
 
-    updateScreenFade(){
+    update(event){
         if(this.globalAlpha < 1)
             this.globalAlpha += this.delta;
-    }
-
-    updateTitle(event){
         if(this.title)
             this.title.update(event);
-    }
-
-    updateMenu(event){
         if(this.menu)
             this.menu.forEach(menuItem => menuItem.update(event));
     }
@@ -59,17 +35,13 @@ export class Scene {
         return this.currentState;
     }
 
-    setSceneReset(){
-        this.title = null;
-        this.menu = null;
-        this.overLayAlpha = 0;
-    }
-
     switchSceneState(time, option){
         if(this.getCurrentState() === GAME.STATES.PAUSED && option === GAME.STATES.PAUSED)
             option = GAME.STATES.RESUME;
 
-        this.setSceneReset();
+        this.title = null;
+        this.menu = null;
+        this.overLayAlpha = 0;
 
         switch(option){
             case GAME.STATES.RESUME:
