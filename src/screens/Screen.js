@@ -25,8 +25,8 @@ export class Screen {
     }
     
     update(event){
-        if(!event) 
-            return;
+        // if(!event) 
+        //     return;
         if(this.globalAlpha < 1)
             this.globalAlpha += this.delta;
 

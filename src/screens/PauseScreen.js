@@ -10,10 +10,10 @@ export class PauseScreen extends Screen {
     }
 
     draw(ctx){
-        ctx.globalAlpha = 1;
         this.screen.draw(ctx);
-        this.drawOverlay(ctx, INTERFACE.COLOURS.BLACKOUT);
         super.draw(ctx);
+        // ctx.globalAlpha = 1;
+        this.drawOverlay(ctx, INTERFACE.COLOURS.BLACKOUT);
     }
 
     update(event){

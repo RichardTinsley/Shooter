@@ -10,10 +10,9 @@ export class GameOverScreen extends Screen {
     }
 
     draw(ctx){
-        ctx.globalAlpha = 1;
         this.screen.draw(ctx);
-        this.drawOverlay(ctx, INTERFACE.COLOURS.REDOUT);
         super.draw(ctx);
+        this.drawOverlay(ctx, INTERFACE.COLOURS.REDOUT);
     }
 
     update(event){
