@@ -51,11 +51,13 @@ export class Game{
     }
 
     switchSceneState(option){
+        if(!(this.scene instanceof BattleScene))
+            return
+
         if(this.scene.getCurrentState() === GAME.STATES.PAUSED && option === GAME.STATES.PAUSED)
             option = GAME.STATES.RESUME;
 
-        this.scene.title = null;
-        this.scene.menu = null;
+        this.scene.setSceneReset();
         switch(option){
             case GAME.STATES.RESUME:
                 this.time.startTimer();

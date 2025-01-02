@@ -22,17 +22,16 @@ export class BattleScene extends Scene {
         this.wave.draw(ctx);
         switch(this.currentState){
             case GAME.STATES.PAUSED:
-                this.drawOverlayScreens(ctx, INTERFACE.COLOURS.BLACKOUT);
+                this.drawOverlayScreen(ctx, INTERFACE.COLOURS.BLACKOUT);
                 break
             case GAME.STATES.GAMEOVER:
-                this.drawOverlayScreens(ctx, INTERFACE.COLOURS.REDOUT);
+                this.drawOverlayScreen(ctx, INTERFACE.COLOURS.REDOUT);
                 break
         }
         super.draw(ctx);
     }
 
     update(event){
-        super.update(event);
         switch(this.currentState){
             case GAME.STATES.RESUME:
                 this.objects.update(event, this.playerStats);
@@ -41,7 +40,9 @@ export class BattleScene extends Scene {
                 break
             case GAME.STATES.PAUSED:
             case GAME.STATES.GAMEOVER:
+                this.updateOverlayScreen()
                 break
         }
+        super.update(event);
     }
 }

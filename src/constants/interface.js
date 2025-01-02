@@ -28,8 +28,8 @@ export const COLOURS = {
     BLACK: "rgba(0, 0, 0, 1)",
     LINES: "rgba(0, 0, 0, 0.5)",
     SHADOW: "rgba(0, 0, 0, 0.3)",
-    BLACKOUT: "rgba(0, 0, 0, 0.7)",
-    REDOUT: "rgba(250, 0, 0, 0.7)",
+    BLACKOUT: '0, 0, 0, ',
+    REDOUT: '250, 0, 0, ',
 }
 
 export function verticallyAlignedMenu(menuPosition, index){

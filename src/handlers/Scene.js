@@ -9,6 +9,7 @@ export class Scene {
         this.title = null;
         this.menu = null;
         this.globalAlpha = 0;
+        this.overLayAlpha = 0;
         this.delta = 0.1;
     }
 
@@ -90,13 +91,24 @@ export class Scene {
         });
     }
 
-    drawOverlayScreens(ctx, colour){
-        ctx.fillStyle = colour;
+    drawOverlayScreen(ctx, colour){
+        ctx.fillStyle = `rgba(${colour}${this.overLayAlpha})`;
         ctx.fillRect(0, 0, GAME.SIZES.GAME_WIDTH, GAME.SIZES.GAME_HEIGHT);
     }
 
+    updateOverlayScreen(){
+        if(this.overLayAlpha < 0.7)
+            this.overLayAlpha += this.delta;
+    }
+
+    setSceneReset(){
+        this.title = null;
+        this.menu = null;
+        this.overLayAlpha = 0;
+    }
+
     initialiseOverlayScreen(title, menu){
-        // this.globalAlpha = 0;
+        this.globalAlpha = 0;
         this.title = new GlowText({
             text: title,
             position: {
