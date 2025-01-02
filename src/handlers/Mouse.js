@@ -7,7 +7,7 @@ let mouseOverObject = INPUT.NULL_OBJECT;
 let selectedObject = null;
 
 export class Mouse {
-    constructor(switchScreens){  
+    constructor(switchScenes){  
         this.mouse = {
             x: 0,
             y: 0,
@@ -24,18 +24,18 @@ export class Mouse {
         });
 
         window.addEventListener('click', () => {
-            this.onMouseClick(switchScreens);
+            this.onMouseClick(switchScenes);
         });
     }
 
-    update(screen){
-        this.mouseOverObject(screen);
+    update(scene){
+        this.mouseOverObject(scene);
         if(selectedObject){
             if(selectedObject.type === OBJECTS.TYPES.ENEMY)
-                this.selectEnemy(screen.objects.enemies);
+                this.selectEnemy(scene.objects.enemies);
     
             if(selectedObject.type === OBJECTS.TYPES.TOWER)
-                this.buildTower(screen.objects.towers);
+                this.buildTower(scene.objects.towers);
 
             selectedObject = null;
         }
@@ -43,14 +43,14 @@ export class Mouse {
         this.mouse.style.cursor = `url(../../images/cursors/${mouseOverObject.type}.cur), auto`;
     }
 
-    onMouseClick(switchScreens){
+    onMouseClick(switchScenes){
         switch(mouseOverObject.type){
             case OBJECTS.TYPES.ENEMY:
                 selectedObject = mouseOverObject;
                 selectedObject.isSelected = true;
                 break
             case OBJECTS.TYPES.MENUITEM:
-                switchScreens(mouseOverObject.option);
+                switchScenes(mouseOverObject.option);
                 break
             case OBJECTS.TYPES.TOWER:
                 selectedObject = mouseOverObject;
@@ -58,13 +58,13 @@ export class Mouse {
         }
     }
 
-    mouseOverObject(screen){
-        if(screen.menu)
-            this.mouseOverMenuItem(screen.menu);
+    mouseOverObject(scene){
+        if(scene.menu)
+            this.mouseOverMenuItem(scene.menu);
 
-        if(screen.objects){
-            this.mouseOverTower(screen.objects.towers);
-            this.mouseOverEnemy(screen.objects.enemies);
+        if(scene.objects){
+            this.mouseOverTower(scene.objects.towers);
+            this.mouseOverEnemy(scene.objects.enemies);
         }
     }
 

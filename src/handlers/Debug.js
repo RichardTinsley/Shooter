@@ -1,7 +1,7 @@
 import { COLOURS } from "../constants/interface.js";
 import * as GAME from "../constants/game.js";
-import { BattleScreen } from "../screens/BattleScreen.js";
 import { drawText } from "../utilities/textRender.js";
+import { BattleScene } from "../scenes/BattleScene.js";
 
 let frames = 0;
 let startTime = performance.now();
@@ -13,19 +13,19 @@ export class Debug{
         //TODO NEW TEXT OBJECT // UPDATE AND DRAW FPS
     }
 
-    draw(ctx, Screen, mouse){
+    draw(ctx, scene, mouse){
         if(!this.isDebugMode) 
             return
 
-        if(Screen instanceof BattleScreen){
+        if(scene instanceof BattleScene){
             this.levelDebugInfoGrid(ctx);
-            this.towerDebugInfo(ctx, Screen.objects.towers);
-            this.enemyDebugInfo(ctx, Screen.objects.enemies);
-            this.projectileDebugInfo(ctx, Screen.objects.projectiles);
+            this.towerDebugInfo(ctx, scene.objects.towers);
+            this.enemyDebugInfo(ctx, scene.objects.enemies);
+            this.projectileDebugInfo(ctx, scene.objects.projectiles);
         }
 
-        if(Screen.menu)
-            this.menuDebugInfo(ctx, Screen.menu);
+        if(scene.menu)
+            this.menuDebugInfo(ctx, scene.menu);
         
         this.calculateFPSNormal();
         this.performanceDebugInfo(ctx);

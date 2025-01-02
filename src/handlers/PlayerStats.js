@@ -1,6 +1,7 @@
 import * as GAME from "../constants/game.js"
 import { assets } from "../utilities/assets.js";
 import { drawText } from "../utilities/textRender.js";
+import { Time } from "./Time.js";
 
 export class PlayerStats{
     constructor(switchScreens){
@@ -20,8 +21,8 @@ export class PlayerStats{
         this.drawPlayerStats(ctx);
     }
     
-    update(event, displayTimer){
-        this.timer = displayTimer();
+    update(event){
+        this.timer = Time.displayTimer();
     }
 
     setLives = () =>{

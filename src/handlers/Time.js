@@ -30,7 +30,7 @@ export class Time{
         }
     }
 
-    displayTimer(){
+    static displayTimer(){
         let seconds = totalSeconds % 60; 
         let minutes = Math.floor(totalSeconds / 60) % 60;
         let hours   = Math.floor(totalSeconds / 60 / 60);

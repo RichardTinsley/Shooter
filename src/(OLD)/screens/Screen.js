@@ -1,7 +1,7 @@
-import * as GAME from "../constants/game.js";
-import * as INTERFACE from "../constants/interface.js";
-import { MenuItemText } from "../components/MenuItemText.js";
-import { GlowText } from "../objects/texts/GlowText.js";
+import * as GAME from "../../constants/game.js";
+import * as INTERFACE from "../../constants/interface.js";
+import { MenuItemText } from "../../components/MenuItemText.js";
+import { GlowText } from "../../objects/texts/GlowText.js";
 
 export class Screen {
     constructor(){ 

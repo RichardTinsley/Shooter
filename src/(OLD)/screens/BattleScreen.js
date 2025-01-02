@@ -1,8 +1,8 @@
 import { Screen } from "./Screen.js";
-import { PlayerStats } from "../handlers/PlayerStats.js";
-import { Levels } from "../handlers/Levels.js";
-import { Objects } from "../handlers/Objects.js";
-import { Wave } from "../handlers/Wave.js";
+import { PlayerStats } from "../../handlers/PlayerStats.js";
+import { Levels } from "../../handlers/Levels.js";
+import { Objects } from "../../handlers/Objects.js";
+import { Wave } from "../../handlers/Wave.js";
 
 export class BattleScreen extends Screen {
     constructor(switchScreens, time){

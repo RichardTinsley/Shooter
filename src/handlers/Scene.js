@@ -1,59 +1,103 @@
 import * as GAME from "../constants/game.js";
-import { Music } from "./Music.js";
-import { LoadingScreen } from "../screens/LoadingScreen.js";
-import { MainMenuScreen } from "../screens/MainMenuScreen.js";
-import { BattleScreen } from "../screens/BattleScreen.js";
-import { GameOverScreen } from "../screens/GameOverScreen.js";
-import { PauseScreen } from "../screens/PauseScreen.js";
+import * as INTERFACE from "../constants/interface.js"
+import { MenuItemText } from "../components/MenuItemText.js";
+// import { GlowText } from "../../objects/texts/GlowText.js";
 
 export class Scene {
-    constructor(time){
-        this.time = time;
-        this.resume = null;
-        this.screen = new LoadingScreen(this.switchScreens);
-        this.music = new Music();
+    constructor(){
+        this.title = null;
+        this.menu = null;
+        this.globalAlpha = 0;
+        this.delta = 0.1;
     }
 
     draw(ctx){
-        this.screen.draw(ctx);
+        this.drawScreenFade(ctx);
+        this.drawTitle(ctx);
+        this.drawMenu(ctx);
     }
 
     update(event){
-        this.screen.update(event);
+        this.updateScreenFade();
+        this.updateTitle(event);
+        this.updateMenu(event);
     }
 
-    switchScreens = (option) => {
-        switch(option){
-            case GAME.STATES.MAINMENU:
-                this.resume = null;
-                this.screen = new MainMenuScreen();
-                break
-            case GAME.STATES.RESTART://RESTART SCREEN
-            case GAME.STATES.BATTLE:
-                this.screen = new BattleScreen(this.switchScreens, this.time);
-                break
-            case GAME.STATES.RESUME:
-            case GAME.STATES.PAUSED:
-                this.pauseGame();
-                break
-            case GAME.STATES.GAMEOVER:
-                this.screen = new GameOverScreen(this.screen);
-                break
-        }
-        this.music.switchMusic(option);
+    drawScreenFade(ctx){
+        if(this.globalAlpha < 1)
+            ctx.globalAlpha = this.globalAlpha;
+        // ctx.clearRect(0, 0, GAME_SIZES.GAME_WIDTH,  GAME_SIZES.GAME_HEIGHT);
     }
 
-    pauseGame(){
-        if(this.screen instanceof BattleScreen || this.screen instanceof PauseScreen){
-            if(!this.resume){
-                this.resume = this.screen;
-                this.time.pauseTimer();
-                this.screen = new PauseScreen(this.screen);
-            } else {
-                this.screen = this.resume;
-                this.time.startTimer();
-                this.resume = null;
-            }  
-        }
+    drawTitle(ctx){
+        if(this.title)
+            this.title.draw(ctx);
     }
+
+    drawMenu(ctx){
+        if(this.menu)
+            this.menu.forEach(menuItem => menuItem.draw(ctx));
+    }
+
+    updateScreenFade(){
+        if(this.globalAlpha < 1)
+            this.globalAlpha += this.delta;
+    }
+
+    updateTitle(event){
+        if(this.title)
+            this.title.update(event);
+    }
+
+    updateMenu(event){
+        if(this.menu)
+            this.menu.forEach(menuItem => menuItem.update(event));
+    }
+
+    drawOverlay(ctx, colour){
+        ctx.fillStyle = colour;
+        ctx.fillRect(0, 0, GAME.SIZES.GAME_WIDTH, GAME.SIZES.GAME_HEIGHT);
+    }
+
+    initialiseHorizontalMenu(menu){
+        return menu.map((menuItem, index) => {
+            return new MenuItemText({
+                text: menuItem.text,
+                position: {
+                    x: INTERFACE.horizontallyAlignedMenu(index),
+                    y: GAME.SIZES.GAME_HEIGHT_HALF + 100
+                },
+                size: INTERFACE.SIZES.MENUITEMTEXT,
+                option: menuItem.option
+            });
+        });
+    }
+
+    initialiseVerticalMenu(menu){
+        return menu.map((menuItem, index) => {
+            return new MenuItemText({
+                text: menuItem.text,
+                position: {
+                    x: GAME.SIZES.GAME_WIDTH_HALF,
+                    y: INTERFACE.verticallyAlignedMenu(GAME.SIZES.GAME_HEIGHT_HALF + 100, index)
+                },
+                size: INTERFACE.SIZES.MENUITEMTEXT,
+                option: menuItem.option
+            });
+        });
+    }
+
+    // initialiseOverlay(title, menu){
+    //     this.title = new GlowText({
+    //         text: title,
+    //         position: {
+    //             x: GAME.SIZES.GAME_WIDTH_HALF,
+    //             y: GAME.SIZES.GAME_HEIGHT_HALF - 100, 
+    //         },
+    //         size: INTERFACE.SIZES.TITLETEXT,
+    //     });
+        
+    //     this.title.enable(true);
+    //     this.menu = this.initialiseMenu(menu);
+    // }
 }
