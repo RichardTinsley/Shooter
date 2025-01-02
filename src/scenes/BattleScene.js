@@ -1,3 +1,5 @@
+import * as GAME from "../constants/game.js";
+import * as INTERFACE from "../constants/interface.js";
 import { PlayerStats } from "../handlers/PlayerStats.js";
 import { Levels } from "../handlers/Levels.js";
 import { Objects } from "../handlers/Objects.js";
@@ -14,18 +16,32 @@ export class BattleScene extends Scene {
     }
 
     draw(ctx){
-        super.draw(ctx);
         this.levels.draw(ctx);
-        this.objects.draw(ctx);
         this.playerStats.draw(ctx);
+        this.objects.draw(ctx);
         this.wave.draw(ctx);
+        switch(this.currentState){
+            case GAME.STATES.PAUSED:
+                this.drawOverlayScreens(ctx, INTERFACE.COLOURS.BLACKOUT);
+                break
+            case GAME.STATES.GAMEOVER:
+                this.drawOverlayScreens(ctx, INTERFACE.COLOURS.REDOUT);
+                break
+        }
+        super.draw(ctx);
     }
 
     update(event){
         super.update(event);
-        this.objects.update(event, this.playerStats);
-        this.playerStats.update(event);
-        this.wave.update(event, this.objects.enemies, this.playerStats);
+        switch(this.currentState){
+            case GAME.STATES.RESUME:
+                this.objects.update(event, this.playerStats);
+                this.playerStats.update(event);
+                this.wave.update(event, this.objects.enemies, this.playerStats);
+                break
+            case GAME.STATES.PAUSED:
+            case GAME.STATES.GAMEOVER:
+                break
+        }
     }
-    
 }

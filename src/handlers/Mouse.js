@@ -1,5 +1,6 @@
-import * as INPUT from "../constants/input.js"
-import * as OBJECTS from "../constants/objects.js"
+import * as GAME from "../constants/game.js";
+import * as INPUT from "../constants/input.js";
+import * as OBJECTS from "../constants/objects.js";
 import { checkCircleCollision, checkBoxCollision } from "../utilities/math.js";
 import { SapphireTower } from "../objects/towers/SapphireTower.js";
 
@@ -62,7 +63,7 @@ export class Mouse {
         if(scene.menu)
             this.mouseOverMenuItem(scene.menu);
 
-        if(scene.objects){
+        if(scene.objects && scene.getCurrentState() === GAME.STATES.RESUME){
             this.mouseOverTower(scene.objects.towers);
             this.mouseOverEnemy(scene.objects.enemies);
         }

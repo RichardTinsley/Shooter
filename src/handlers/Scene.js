@@ -1,10 +1,11 @@
 import * as GAME from "../constants/game.js";
 import * as INTERFACE from "../constants/interface.js"
 import { MenuItemText } from "../components/MenuItemText.js";
-// import { GlowText } from "../../objects/texts/GlowText.js";
+import { GlowText } from "../objects/texts/GlowText.js";
 
 export class Scene {
     constructor(){
+        this.currentState = GAME.STATES.RESUME;
         this.title = null;
         this.menu = null;
         this.globalAlpha = 0;
@@ -26,7 +27,6 @@ export class Scene {
     drawScreenFade(ctx){
         if(this.globalAlpha < 1)
             ctx.globalAlpha = this.globalAlpha;
-        // ctx.clearRect(0, 0, GAME_SIZES.GAME_WIDTH,  GAME_SIZES.GAME_HEIGHT);
     }
 
     drawTitle(ctx){
@@ -54,9 +54,12 @@ export class Scene {
             this.menu.forEach(menuItem => menuItem.update(event));
     }
 
-    drawOverlay(ctx, colour){
-        ctx.fillStyle = colour;
-        ctx.fillRect(0, 0, GAME.SIZES.GAME_WIDTH, GAME.SIZES.GAME_HEIGHT);
+    getCurrentState = () => {
+        return this.currentState;
+    }
+
+    setCurrentState = (state) => {
+        this.currentState = state;
     }
 
     initialiseHorizontalMenu(menu){
@@ -87,17 +90,23 @@ export class Scene {
         });
     }
 
-    // initialiseOverlay(title, menu){
-    //     this.title = new GlowText({
-    //         text: title,
-    //         position: {
-    //             x: GAME.SIZES.GAME_WIDTH_HALF,
-    //             y: GAME.SIZES.GAME_HEIGHT_HALF - 100, 
-    //         },
-    //         size: INTERFACE.SIZES.TITLETEXT,
-    //     });
+    drawOverlayScreens(ctx, colour){
+        ctx.fillStyle = colour;
+        ctx.fillRect(0, 0, GAME.SIZES.GAME_WIDTH, GAME.SIZES.GAME_HEIGHT);
+    }
+
+    initialiseOverlayScreen(title, menu){
+        // this.globalAlpha = 0;
+        this.title = new GlowText({
+            text: title,
+            position: {
+                x: GAME.SIZES.GAME_WIDTH_HALF,
+                y: GAME.SIZES.GAME_HEIGHT_HALF - 100, 
+            },
+            size: INTERFACE.SIZES.TITLETEXT,
+        });
         
-    //     this.title.enable(true);
-    //     this.menu = this.initialiseMenu(menu);
-    // }
+        this.title.enable(true);
+        this.menu = this.initialiseHorizontalMenu(menu);
+    }
 }
