@@ -19,13 +19,13 @@ export class Sprite {
             row: 0,
         };
                 
-        this.scale = scale ?? 1;
-        this.width = Math.round(this.sprite.width * this.scale * 100) / 100; 
-        this.height = Math.round(this.sprite.height * this.scale * 100) / 100; 
-        this.halfWidth = this.width / 2;
-        this.halfHeight = this.height / 2;
-        this.quarterWidth = this.width / 4;
-        this.shadowHeight = this.height / 12;
+        this.scale          = scale ?? 1;
+        this.width          = Math.round(this.sprite.width * this.scale * 100) / 100; 
+        this.height         = Math.round(this.sprite.height * this.scale * 100) / 100; 
+        this.halfWidth      = this.width / 2;
+        this.halfHeight     = this.height / 2;
+        this.quarterWidth   = this.width / 4;
+        this.shadowHeight   = this.height / 12;
 
         this.maxFrame = Math.floor(this.sprite.image.width / this.sprite.width) - 1;
         this.maxRow = Math.floor(this.sprite.image.height / this.sprite.height) - 1;
@@ -40,10 +40,10 @@ export class Sprite {
         this.drawPositionX = this.position.x - this.halfWidth;
         this.drawPositionY = this.position.y - this.height;
         
-        this.destination = null;
-        this.priorityDistance = 0;
-        this.speed = speed ?? 1;
-        this.angle = 0;
+        this.destination        = null;
+        this.priorityDistance   = 0;
+        this.speed              = speed ?? 1;
+        this.angle              = 0;
         this.direction;
         this.velocity = { 
             x: 0, 
