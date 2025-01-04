@@ -59,7 +59,8 @@ export class Debug{
                     row * GAME.SIZES.TILE,
                     GAME.SIZES.TILE,
                     GAME.SIZES.TILE
-                );   
+                );  
+        ctx.closePath();
     }
     
     mouseDebugInfo(ctx, mouse){

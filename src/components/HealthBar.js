@@ -46,6 +46,7 @@ export class HealthBar{
             ctx.fillRect(this.position.x, this.position.y, this.length, this.height);
             this.health > (this.maxHealth * .33) ? ctx.fillStyle = INTERFACE.COLOURS.BRIGHT_GREEN : ctx.fillStyle = INTERFACE.COLOURS.RED;
             ctx.fillRect(this.position.x, this.position.y, this.length * (this.health / this.maxHealth), this.height);
+            ctx.closePath();
         }
     }
 }

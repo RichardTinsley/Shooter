@@ -64,5 +64,6 @@ export class LoadingScene extends Scene {
         
         ctx.fillStyle = 'white';
         ctx.fillRect(loadBarX, loadBarY, loadBarLength * LoadBarMaxWidth, loadBarThickness);
+        ctx.closePath();
     }
 }

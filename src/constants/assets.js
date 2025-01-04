@@ -30,7 +30,7 @@ export const ASSET_LIST = [
     ['menuLogo',    './images/logos/menuLogo.png'],
     ['wastelands',  './images/levels/wastelandsTilemap.png'],
     ['towerSpot',   './images/levels/towerSpot.png'],
-    ['boss',        './audio/boss.ogg'],
+    // ['boss',        './audio/boss.ogg'],
     ['menuMusic',   './audio/menuMusic.mp3'],
     ['blood',       `${EFFECTS_URL}blood_110x110.png`],
     ['blueExplosion',   `${EFFECTS_URL}blueExplosion_256x256.png`],

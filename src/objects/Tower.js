@@ -50,6 +50,8 @@ export class Tower extends Sprite{
             ctx.strokeStyle = 'white';
             ctx.stroke();
             ctx.setLineDash([0, 0]);
+            ctx.closePath();
+
         } 
     }
 
