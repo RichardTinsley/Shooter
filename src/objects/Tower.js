@@ -3,6 +3,7 @@ import { assets } from "../utilities/assets.js";
 import { checkCircleCollision } from "../utilities/math.js";
 import { Sprite } from "./Sprite.js";
 import { BuildTowerModal } from "../components/BuildTowerModal.js";
+import { Mouse } from "../handlers/Mouse.js";
 
 export class Tower extends Sprite{
     constructor({
@@ -97,8 +98,7 @@ export class Tower extends Sprite{
                 return checkCircleCollision(enemy.center, this.towerRange);
         })
         
-        const selectedEnemy = enemiesInRange.find(enemy => enemy.isSelected);
-
+        const selectedEnemy = enemiesInRange.find(enemy => enemy === Mouse.enemySelected);
         if(selectedEnemy)
             return selectedEnemy;
 

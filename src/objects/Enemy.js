@@ -5,6 +5,7 @@ import { checkCircleCollision } from "../utilities/math.js";
 import { assets } from "../utilities/assets.js";
 import { Sprite } from "./Sprite.js";
 import { Blood } from "./effects/Blood.js";
+import { PlayerStats } from "../handlers/PlayerStats.js";
 
 export class Enemy extends Sprite{
     constructor({
@@ -68,12 +69,12 @@ export class Enemy extends Sprite{
             case OBJECTS.STATES.WALKING:
             case OBJECTS.STATES.RUNNING:
                 super.update(event);
+                this.checkWaypointArrival();
                 this.updateDestination({...this.waypoints[this.waypointIndex]});
                 this.updateDirection();
                 this.updateMovement();
                 this.updatePriorityDistance(); 
                 this.updateHitbox();
-                this.checkWaypointArrival();
                 this.health.update(this.updateHealthBarPosition());
                 break
             case OBJECTS.STATES.DYING:
@@ -94,17 +95,17 @@ export class Enemy extends Sprite{
 
     checkWaypointArrival(){   
         let waypointCenter = {...this.waypoints[this.waypointIndex]};
-        waypointCenter.radius = 1;
+        waypointCenter.radius = 5;
 
-        if (checkCircleCollision(this.position, waypointCenter))
+        if (checkCircleCollision(this.center, waypointCenter))
             this.waypointIndex++;
     }
 
-    checkEndpointArrival(playerStats){
+    checkEndpointArrival(){
         if(this.waypointIndex === this.waypoints.length){
-            playerStats.setLives();
+            PlayerStats.setLives();
             this.waypointIndex = 0;
-            this.position = {...this.waypoints[0]};
+            this.position = {...this.waypoints[this.waypointIndex]};
         }
     }
 
@@ -115,13 +116,12 @@ export class Enemy extends Sprite{
         }
     }
 
-    isAlive(){
-        if(!this.health.isAlive()){
+    checkEnemyHealth(){
+        if(!this.health.isAlive() && !this.isEnemyDying()){
             this.sprite.row = OBJECTS.STATES.DYING;
             this.sprite.frame = 0;
             this.center.y = this.position.y;
             this.center.radius /= 4;
-            this.isSelected = false;
         }
     }
 

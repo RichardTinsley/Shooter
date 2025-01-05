@@ -15,10 +15,12 @@ const NULL_OBJECT = {
 
 let newTower = null;
 let mouseOverObject = NULL_OBJECT;
-let enemySelected = NULL_OBJECT;
-let towerSelected = NULL_OBJECT;
 
 export class Mouse {
+
+    static enemySelected = NULL_OBJECT;
+    static towerSelected = NULL_OBJECT;
+
     constructor(switchScenes){  
         this.mouse = {
             x: 0,
@@ -43,42 +45,42 @@ export class Mouse {
     onMouseClick(switchScenes){
         switch(mouseOverObject.type){
             case OBJECTS.TYPES.ENEMY:
-                if(enemySelected === mouseOverObject)
-                    enemySelected = NULL_OBJECT;
+                if(Mouse.enemySelected === mouseOverObject)
+                    Mouse.enemySelected = NULL_OBJECT;
                 else
-                    enemySelected = mouseOverObject;
+                    Mouse.enemySelected = mouseOverObject;
                 break
             case OBJECTS.TYPES.MENUITEM:
                 switchScenes(mouseOverObject.option);
                 this.towerFactory(mouseOverObject.option);
                 break
             case OBJECTS.TYPES.TOWER:
-                towerSelected = mouseOverObject;
-                towerSelected.createModal();
+                Mouse.towerSelected = mouseOverObject;
+                Mouse.towerSelected.createModal();
                 break
             case OBJECTS.TYPES.NORMAL:
-                towerSelected = NULL_OBJECT;
+                Mouse.towerSelected = NULL_OBJECT;
                 break
         }
     }
 
     draw(ctx){
-        if(enemySelected.type === OBJECTS.TYPES.ENEMY)
-            enemySelected.drawSelection(ctx);
+        if(Mouse.enemySelected.type === OBJECTS.TYPES.ENEMY)
+            Mouse.enemySelected.drawSelection(ctx);
 
-        if(towerSelected.type === OBJECTS.TYPES.TOWER)
-            towerSelected.drawSelection(ctx);
+        if(Mouse.towerSelected.type === OBJECTS.TYPES.TOWER)
+            Mouse.towerSelected.drawSelection(ctx);
     }
 
     update(event, scene){
-        if(enemySelected.type === OBJECTS.TYPES.ENEMY)
-            if(enemySelected.isEnemyDying())
-                enemySelected = NULL_OBJECT;
+        if(Mouse.enemySelected.type === OBJECTS.TYPES.ENEMY)
+            if(Mouse.enemySelected.isEnemyDying())
+                Mouse.enemySelected = NULL_OBJECT;
 
-        if(towerSelected.type === OBJECTS.TYPES.TOWER){
-            towerSelected.updateSelection(event);
-            if(towerSelected.modal)
-                this.mouseOverObject(towerSelected.modal.menu);
+        if(Mouse.towerSelected.type === OBJECTS.TYPES.TOWER){
+            Mouse.towerSelected.updateSelection(event);
+            if(Mouse.towerSelected.modal)
+                this.mouseOverObject(Mouse.towerSelected.modal.menu);
         }
 
         if(scene.menu)
@@ -106,14 +108,14 @@ export class Mouse {
 
     buildTower(towers){
         if(newTower){
-            towers[towers.findIndex(tower => tower === towerSelected)] = newTower;
+            towers[towers.findIndex(tower => tower === Mouse.towerSelected)] = newTower;
             newTower = null;
-            towerSelected = NULL_OBJECT;
+            Mouse.towerSelected = NULL_OBJECT;
         }
     }
 
     towerFactory(tower){
-        const tempPosition = {...towerSelected.position};
+        const tempPosition = {...Mouse.towerSelected.position};
         switch(tower){
             case OBJECTS.COLOURS.AMETHYST:
                 newTower = new AmethystTower({ position: {...tempPosition} });

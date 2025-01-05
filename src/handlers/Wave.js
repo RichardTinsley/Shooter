@@ -1,64 +1,64 @@
 import { WASTELANDS_WAYPOINTS, generateEnemyWaypoints } from "../constants/levels.js";
 import { generateEnemySpeed } from "../utilities/math.js";
 import { Enemy } from "../objects/Enemy.js";
-
-let enemySpawnTimer = 0;
-let enemyCounter = 0;   
-let maxEnemies = 10;
-let maxEnemySpeed = 2
-let allEnemiesActive = false; 
+import { PlayerStats } from "./PlayerStats.js";
 
 export class Wave{
     constructor(){
+        this.enemySpawnTimer = 0;
+        this.enemyCounter = 0;   
+        this.maxEnemies = 1;
+        this.maxEnemySpeed = 2
+        this.allEnemiesActive = false; 
     }
 
     draw(ctx){
     }
 
-    update(event, enemies, PlayerStats){
+    update(event, enemies){
         if(!event) 
             return
 
-        enemySpawnTimer++;
+        this.enemySpawnTimer++;
         this.allEnemiesActiveCheck();
-        this.spawnEnemy(enemies, PlayerStats);
-        this.newWaveCheck(enemies, PlayerStats);
+        this.spawnEnemy(enemies);
+        this.newWaveCheck(enemies);
     }
 
     allEnemiesActiveCheck(){
-        if(enemyCounter === maxEnemies)
-            allEnemiesActive = true;
+        if(this.enemyCounter === this.maxEnemies)
+            this.allEnemiesActive = true;
     }
 
-    newWaveCheck(enemies, PlayerStats){
-        if(enemies.length === 0 && allEnemiesActive) {
+    newWaveCheck(enemies){
+        if(enemies.length === 0 && this.allEnemiesActive) {
             PlayerStats.setWave();
-            maxEnemies++;
-            enemyCounter = 0;
-            allEnemiesActive = false;
+            this.maxEnemies++;
+            this.enemyCounter = 0;
+            this.allEnemiesActive = false;
         }
     }
 
-    spawnEnemy(enemies, PlayerStats){ // 2% Health and Armour increase depending on round?
+    spawnEnemy(enemies){ // 2% Health and Armour increase depending on round?
         if(enemies.length >= PlayerStats.getWave() + 10){
-            allEnemiesActive = true;
+            this.allEnemiesActive = true;
             return
         }
 
-        if(allEnemiesActive)
+        if(this.allEnemiesActive)
             return
 
-        if(enemySpawnTimer % Math.floor(Math.random() * 100) === 0){
+        if(this.enemySpawnTimer % Math.floor(Math.random() * 100) === 0){
             const waypoints = generateEnemyWaypoints(WASTELANDS_WAYPOINTS);
-            const speed = generateEnemySpeed(maxEnemySpeed);
+            const speed = generateEnemySpeed(this.maxEnemySpeed);
 
             enemies.push(new Enemy({
                 position: {...waypoints[0]},
-                speed: speed,
+                speed: 6,
                 waypoints: waypoints,
             }));
 
-            enemyCounter++;
+            this.enemyCounter++;
         }
     }
 }

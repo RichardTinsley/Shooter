@@ -18,7 +18,7 @@ export class Objects{
         this.texts.forEach(text => text.draw(ctx));
     }
 
-    update(event, playerStats){
+    update(event){
         this.towers = this.towers.filter(tower => {
             tower.update(event, this.enemies, this.projectiles);
             return tower.state === ANIMATION.ANIMATING;
@@ -26,13 +26,13 @@ export class Objects{
 
         this.enemies = this.enemies.filter(enemy => {
             enemy.update(event);
-            enemy.checkEndpointArrival(playerStats);
+            enemy.checkEndpointArrival();
             return enemy.state === ANIMATION.ANIMATING;
         });
 
         this.projectiles = this.projectiles.filter(projectile => {
             projectile.update(event);
-            projectile.checkProjectileEnemyCollision(this.effects, this.texts, playerStats)
+            projectile.checkProjectileEnemyCollision(this.effects, this.texts)
             return projectile.state === ANIMATION.ANIMATING;
         });
 

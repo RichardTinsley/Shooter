@@ -34,7 +34,7 @@ export class Sprite {
         this.center = {
             x: this.position.x,
             y: this.position.y - this.halfHeight,
-            radius: this.quarterWidth,
+            radius: this.width / 3.3,
         };
 
         this.drawPositionX = this.position.x - this.halfWidth;

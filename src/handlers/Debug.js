@@ -72,6 +72,9 @@ export class Debug{
             this.drawDot(ctx, enemy.position, COLOURS.BLUE);
             this.drawDot(ctx, enemy.center, COLOURS.GREEN);
             this.drawCircleHitbox(ctx, enemy.center);
+            enemy.waypoints.forEach(waypoint => {
+                this.drawDot(ctx, waypoint, COLOURS.BRIGHT_GREEN);
+            })
         });
     }
     
@@ -130,7 +133,6 @@ export class Debug{
 
         if (typeof performance.memory != 'undefined')
             console.log(`Browser: ${performance.memory.usedJSHeapSize / Math.pow(1000, 2)} MB`);
-
     }
 }
 

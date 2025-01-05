@@ -35,7 +35,7 @@ export class Scene {
         return this.currentState;
     }
 
-    switchSceneState(time, option){
+    switchSceneState = (time, option) =>{
         if(this.getCurrentState() === GAME.STATES.PAUSED && option === GAME.STATES.PAUSED)
             option = GAME.STATES.RESUME;
 
@@ -55,6 +55,7 @@ export class Scene {
                 break
             case GAME.STATES.GAMEOVER:
                 time.pauseTimer();
+                this.currentState = GAME.STATES.GAMEOVER;
                 this.initialiseOverlayScreen("Game Over", INTERFACE.GAME_OVER_MENU);    
                 break
         }

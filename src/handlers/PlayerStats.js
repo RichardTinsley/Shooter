@@ -3,17 +3,24 @@ import { assets } from "../utilities/assets.js";
 import { drawText } from "../utilities/textRender.js";
 import { Time } from "./Time.js";
 
-export class PlayerStats{
-    constructor(switchScreens){
-        this.switchScreens = switchScreens;
-        this.backgroundImage = assets.get('hudBackgroundImage');
+let lives; 
+let coins;
+let experience;
+let mana;
+let waves;
+let timer;
 
-        this.lives = 2; 
-        this.coins = 100;
-        this.experience = 0;
-        this.mana = 0;
-        this.waves = 1;
-        this.timer = 0;
+export class PlayerStats{
+    constructor(switchScenes){
+        this.switchScenes = switchScenes;
+        this.backgroundImage = assets.get('hudBackgroundImage');
+        
+        lives = 2;
+        coins = 100;
+        experience = 0;
+        mana = 0;
+        waves = 1;
+        timer = 0;
     }
     
     draw(ctx){
@@ -22,56 +29,56 @@ export class PlayerStats{
     }
     
     update(event){
-        this.timer = Time.displayTimer();
+        timer = Time.displayTimer();
+        if(lives <= 0)
+            this.switchScenes(GAME.STATES.GAMEOVER);
     }
 
-    setLives = () =>{
-        this.lives -= 1;
-        if(this.lives <= 0)
-            this.switchScreens(GAME.STATES.GAMEOVER);
+    static setLives(){
+        lives -= 1;
     }
 
     getCoins(){
-        return this.coins;
+        return coins;
     }
 
-    setCoins = () => {//ENEMY TYPE in parameter affect gold.  BOSS or GoldEnemy etc
-        const coins = Math.floor(Math.random() * this.waves + 1);
-        this.coins += coins;
-        return '$' + coins
+    static setCoins(){//ENEMY TYPE in parameter affect gold.  BOSS or GoldEnemy etc
+        const newCoins = Math.floor(Math.random() * waves + 1);
+        coins += newCoins;
+        return '$' + newCoins
     }
 
     getExperience(){
-        return this.experience;
+        return experience;
     }
 
-    setExperience = () => {//ENEMY TYPE in parameter affect experience.  BOSS or EmeraldEnemy etc
+    static setExperience(){//ENEMY TYPE in parameter affect experience.  BOSS or EmeraldEnemy etc
         if (Math.random() * 10 > 1)
             return 0
 
-        const experience = Math.floor(Math.random() * this.waves + 1);
-        this.experience += experience;
-        return experience + 'exp'
+        const newExperience = Math.floor(Math.random() * waves + 1);
+        experience += newExperience;
+        return newExperience + 'exp'
     }
     
-    getWave(){
-        return this.waves;
+    static getWave(){
+        return waves;
     }
 
-    setWave(){
-        this.waves++;
+    static setWave(){
+        waves++;
     }
 
     waveText(){
-        if(this.waves === 1)
+        if(waves === 1)
         {}
     }
 
     drawPlayerStats(ctx){
-        drawText(ctx, "white", this.lives, 70, 39, 20, 'left', 'top');
-        drawText(ctx, "white", this.coins, 230, 39, 20, 'left', 'top');
-        drawText(ctx, "white", this.experience, 520, 39, 20, 'left', 'top');
-        drawText(ctx, "white", this.waves, 810, 39, 20, 'left', 'top');
-        drawText(ctx, "white", this.timer, 1160, 39, 20, 'left', 'top');
+        drawText(ctx, "white", lives, 70, 39, 20, 'left', 'top');
+        drawText(ctx, "white", coins, 230, 39, 20, 'left', 'top');
+        drawText(ctx, "white", experience, 520, 39, 20, 'left', 'top');
+        drawText(ctx, "white", waves, 810, 39, 20, 'left', 'top');
+        drawText(ctx, "white", timer, 1160, 39, 20, 'left', 'top');
     }
 }

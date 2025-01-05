@@ -36,13 +36,13 @@ export class BattleScene extends Scene {
         super.update(event);
         switch(this.currentState){
             case GAME.STATES.RESUME:
-                this.objects.update(event, this.playerStats);
-                this.playerStats.update(event);
-                this.wave.update(event, this.objects.enemies, this.playerStats);
+                this.objects.update(event);
+                this.playerStats.update(event, this.currentState);
+                this.wave.update(event, this.objects.enemies);
                 break
             case GAME.STATES.PAUSED:
             case GAME.STATES.GAMEOVER:
-                this.updateOverlayScreen()
+                this.updateOverlayScreen();
                 break
         }
     }

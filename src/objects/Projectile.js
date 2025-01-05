@@ -3,6 +3,7 @@ import * as INTERFACE from "../constants/interface.js";
 import { GameText } from "./texts/GameText.js";
 import { Sprite } from "./Sprite.js";
 import { checkCircleCollision } from "../utilities/math.js";
+import { PlayerStats } from "../handlers/PlayerStats.js";
 
 export class Projectile extends Sprite{
     constructor({
@@ -50,17 +51,17 @@ export class Projectile extends Sprite{
         }
     }
 
-    checkProjectileEnemyCollision(effects, texts, playerStats){
+    checkProjectileEnemyCollision(effects, texts){
         if(checkCircleCollision(this.enemy.center, this.center)){
             this.state = OBJECTS.ANIMATION.FINISHED;
             this.addExplosion(effects);  
 
             this.enemy.health.setHealth(this.damage);
-            this.enemy.isAlive();
+            this.enemy.checkEnemyHealth();
                         
-            if(!this.enemy.isPillaged){
-                this.addGold(texts, playerStats);
-                this.addExperience(texts, playerStats);
+            if(!this.enemy.isPillaged && this.enemy.isEnemyDying()){
+                this.addGold(texts);
+                this.addExperience(texts);
                 this.enemy.isPillaged = true;
             }
             
@@ -68,7 +69,28 @@ export class Projectile extends Sprite{
                 this.enemy.addBlood(effects);
         }   
     }
+    
+    addGold(texts){
+        texts.push(new GameText({
+            text: PlayerStats.setCoins(), 
+            colour: INTERFACE.TEXT_COLOURS.GOLD, 
+            position: {...this.enemy.position},
+        }));
+    }
 
+    addExperience(texts){
+        const experienceText = PlayerStats.setExperience();
+        if(experienceText === 0)
+            return
+
+        texts.push(new GameText({
+            text: experienceText,
+            colour: INTERFACE.TEXT_COLOURS.GREEN,
+            position: {...this.origin},
+        }));
+    }
+
+    
     //FOR SPRITE SHEETS WITH MULTIPLE ROWS
     // animate(event){
     //     if(!event || this.maxFrame === 0)
@@ -92,24 +114,4 @@ export class Projectile extends Sprite{
     //         this.sprite.frame = 0;
     //     }
     // }
-    
-    addGold(texts, playerStats){
-        texts.push(new GameText({
-            text: playerStats.setCoins(), 
-            colour: INTERFACE.TEXT_COLOURS.GOLD, 
-            position: {...this.enemy.position},
-        }));
-    }
-
-    addExperience(texts, playerStats){
-        const experienceText = playerStats.setExperience();
-        if(experienceText === 0)
-            return
-
-        texts.push(new GameText({
-            text: experienceText,
-            colour: INTERFACE.TEXT_COLOURS.GREEN,
-            position: {...this.origin},
-        }));
-    }
 }
