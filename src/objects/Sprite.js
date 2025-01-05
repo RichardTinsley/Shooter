@@ -50,7 +50,6 @@ export class Sprite {
             y: 0
         }; 
 
-        this.isSelected = false;
         this.isMouseOver = false;
         this.state = OBJECTS.ANIMATION.ANIMATING;
     }
@@ -89,23 +88,10 @@ export class Sprite {
     }
 
     drawShadow(ctx){
-        if(!this.isDying()){
-            ctx.beginPath();
-            ctx.ellipse(this.position.x, this.position.y, this.shadowHeight, this.quarterWidth, Math.PI / 2, 0, 2 * Math.PI);
-            ctx.fillStyle = INTERFACE.COLOURS.SHADOW;
-            ctx.fill();  
-            this.drawSelection(ctx);    
-        }
-    }
-
-    drawSelection(ctx){
-        if(this.isSelected){
-            ctx.setLineDash([this.quarterWidth / 2, this.quarterWidth / 2]);
-            ctx.lineWidth = 5;
-            ctx.strokeStyle = INTERFACE.COLOURS.RED
-            ctx.stroke();
-            ctx.setLineDash([0, 0]);
-        }   
+        ctx.beginPath();
+        ctx.ellipse(this.position.x, this.position.y, this.shadowHeight, this.quarterWidth, Math.PI / 2, 0, 2 * Math.PI);
+        ctx.fillStyle = INTERFACE.COLOURS.SHADOW;
+        ctx.fill();  
     }
 
     animate(event){

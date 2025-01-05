@@ -36,44 +36,45 @@ export class Tower extends Sprite{
 
     draw(ctx){
         super.draw(ctx);
-        this.drawModal(ctx);
         this.drawIsMouseOver(ctx);
     }
 
     update(event){
         super.update(event);
-        this.updateModal(event);
     }
 
     createModal(){
-        this.modal = new BuildTowerModal({
-            position: {...this.center}
-        });
+        if(!this.isOccupied)
+            this.modal = new BuildTowerModal({position: {...this.center}});
     }
 
-    drawModal(ctx){
-        if(this.isSelected)
+    drawSelection(ctx){
+        if(!this.isOccupied)
             this.modal.draw(ctx);
+        else
+            this.drawDashedCircle(ctx, this.range);
     }
 
-    updateModal(event){
-        if(this.isSelected)
+    updateSelection(event){
+        if(!this.isOccupied)
             this.modal.update(event);
-        else
-            this.modal = null;
     }
 
     drawIsMouseOver(ctx){
         if(this.isMouseOver){
-            ctx.beginPath();
-            ctx.arc(this.center.x, this.center.y, this.center.radius, 0, Math.PI * 2);
-            ctx.setLineDash([5, 15]);
-            ctx.lineWidth = 2;
-            ctx.strokeStyle = 'white';
-            ctx.stroke();
-            ctx.setLineDash([0, 0]);
-            ctx.closePath();
+            this.drawDashedCircle(ctx, this.center.radius);
         }
+    }
+
+    drawDashedCircle(ctx, radius){
+        ctx.beginPath();
+        ctx.arc(this.center.x, this.center.y, radius, 0, Math.PI * 2);
+        ctx.setLineDash([5, 15]);
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = 'white';
+        ctx.stroke();
+        ctx.setLineDash([0, 0]);
+        ctx.closePath();
     }
 
     isReadyToShoot(){
@@ -92,7 +93,7 @@ export class Tower extends Sprite{
 
     findEnemyTarget(enemies){
         const enemiesInRange = enemies.filter(enemy => {
-            if(!enemy.isDying())
+            if(!enemy.isEnemyDying())
                 return checkCircleCollision(enemy.center, this.towerRange);
         })
         

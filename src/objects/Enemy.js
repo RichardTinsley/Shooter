@@ -1,4 +1,5 @@
 import * as OBJECTS from "../constants/objects.js";
+import * as INTERFACE from "../constants/interface.js";
 import { HealthBar } from "../components/HealthBar.js";
 import { checkCircleCollision } from "../utilities/math.js";
 import { assets } from "../utilities/assets.js";
@@ -55,21 +56,40 @@ export class Enemy extends Sprite{
     update(event){
         switch(this.state){
             case OBJECTS.ANIMATION.ANIMATING:
-                if(!this.isDying()){
-                    super.update(event);
-                    this.updateDestination({...this.waypoints[this.waypointIndex]});
-                    this.updateDirection();
-                    this.updateMovement();
-                    this.updatePriorityDistance(); 
-                    this.updateHitbox();
-                    this.checkWaypointArrival();
-                    this.health.update(this.updateHealthBarPosition());
-                }
-                this.updateDeathAnimation(event);
+                this.updateEnemy(event);
                 break
             case OBJECTS.ANIMATION.FINISHED:
                 break
         }
+    }
+
+    updateEnemy(event){
+        switch(this.sprite.row){
+            case OBJECTS.STATES.WALKING:
+            case OBJECTS.STATES.RUNNING:
+                super.update(event);
+                this.updateDestination({...this.waypoints[this.waypointIndex]});
+                this.updateDirection();
+                this.updateMovement();
+                this.updatePriorityDistance(); 
+                this.updateHitbox();
+                this.checkWaypointArrival();
+                this.health.update(this.updateHealthBarPosition());
+                break
+            case OBJECTS.STATES.DYING:
+                this.updateDeathAnimation(event);
+                break
+        }
+    }
+
+    drawSelection(ctx){
+        ctx.beginPath();
+        ctx.ellipse(this.position.x, this.position.y, this.shadowHeight, this.quarterWidth, Math.PI / 2, 0, 2 * Math.PI);
+        ctx.setLineDash([this.quarterWidth / 2, this.quarterWidth / 2]);
+        ctx.lineWidth = 5;
+        ctx.strokeStyle = INTERFACE.COLOURS.RED
+        ctx.stroke();
+        ctx.setLineDash([0, 0]);  
     }
 
     checkWaypointArrival(){   
@@ -96,7 +116,7 @@ export class Enemy extends Sprite{
     }
 
     isAlive(){
-        if(!this.health.getHealth() && !this.isDying()){
+        if(!this.health.isAlive()){
             this.sprite.row = OBJECTS.STATES.DYING;
             this.sprite.frame = 0;
             this.center.y = this.position.y;
@@ -105,12 +125,12 @@ export class Enemy extends Sprite{
         }
     }
 
-    isDying(){
+    isEnemyDying(){
         return this.sprite.row === OBJECTS.STATES.DYING;
     }
 
     updateDeathAnimation(event){
-        if(event && this.isDying()){
+        if(event){
             if(this.sprite.frame < this.maxFrame)
                 this.sprite.frame++; 
             else 
