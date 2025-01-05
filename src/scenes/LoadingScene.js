@@ -1,4 +1,5 @@
 import * as GAME from "../constants/game.js";
+import * as INTERFACE from "../constants/interface.js";
 import { ASSET_LIST } from "../constants/assets.js";
 import { loadAssets } from "../utilities/assets.js";
 import { Text } from "../objects/Text.js";
@@ -59,10 +60,10 @@ export class LoadingScene extends Scene {
 
         ctx.lineWidth = 3;
         ctx.lineJoin = "bevel";
-        ctx.strokeStyle = 'white'
+        ctx.strokeStyle = INTERFACE.COLOURS.WHITE;
         ctx.strokeRect(loadBarX, loadBarY, loadBarLength, loadBarThickness);
         
-        ctx.fillStyle = 'white';
+        ctx.fillStyle = INTERFACE.COLOURS.WHITE;
         ctx.fillRect(loadBarX, loadBarY, loadBarLength * LoadBarMaxWidth, loadBarThickness);
         ctx.closePath();
     }

@@ -25,6 +25,7 @@ export class Text {
     }
 
     draw(ctx){
+        ctx.beginPath(); 
         ctx.fillStyle = `rgba(${this.colour}${this.alpha})`;
         ctx.font = 'bold ' + this.size + 'px canterbury';
         ctx.textAlign = this.align;
@@ -33,6 +34,7 @@ export class Text {
         ctx.strokeStyle = `rgba(0, 0, 0, ${this.alpha})`;
         ctx.strokeText(this.text, this.position.x, this.position.y);
         ctx.fillText(this.text, this.position.x, this.position.y);
+        ctx.closePath();
     }
 
     update(event){

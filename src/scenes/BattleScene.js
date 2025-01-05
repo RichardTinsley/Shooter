@@ -17,8 +17,8 @@ export class BattleScene extends Scene {
         this.wave = new Wave();
 
         this.modal = new BuildTowerModal({position:{
-            x: 200,
-            y: 300,
+            x: 304,
+            y: 240,
         }})
     }
 
@@ -42,6 +42,7 @@ export class BattleScene extends Scene {
 
     update(event){
         super.update(event);
+        this.modal.update(event);
         switch(this.currentState){
             case GAME.STATES.RESUME:
                 this.objects.update(event, this.playerStats);
