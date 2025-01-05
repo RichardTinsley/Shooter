@@ -2,8 +2,12 @@ import * as GAME from "../constants/game.js";
 import * as INPUT from "../constants/input.js";
 import * as OBJECTS from "../constants/objects.js";
 
-let mouseOverObject = INPUT.NULL_OBJECT;
-let selectedObject = null;
+const NULL_OBJECT = {
+    type: OBJECTS.TYPES.NORMAL,
+};
+
+let mouseOverObject = NULL_OBJECT;
+let selectedObject = NULL_OBJECT;
 let currentModalMenu = null;
 
 export class Mouse {
@@ -24,7 +28,7 @@ export class Mouse {
         window.addEventListener('mousemove', e => {
             this.mouse.x = e.offsetX;
             this.mouse.y = e.offsetY;
-            mouseOverObject = INPUT.NULL_OBJECT;
+            mouseOverObject = NULL_OBJECT;
         });
     }
 
@@ -42,6 +46,10 @@ export class Mouse {
                 selectedObject.isSelected = true;
                 selectedObject.createModal();
                 break
+            case OBJECTS.TYPES.NORMAL:
+                selectedObject = NULL_OBJECT;
+                currentModalMenu = null;
+                break
         }
     }
 
@@ -52,6 +60,8 @@ export class Mouse {
         if(scene.objects && scene.getCurrentState() === GAME.STATES.RESUME){
             this.mouseOverObject(scene.objects.towers);
             this.mouseOverObject(scene.objects.enemies);
+            if(currentModalMenu === null && selectedObject.type === OBJECTS.TYPES.NORMAL)
+                this.selectObject(scene.objects.towers);
         }
 
         if(selectedObject && selectedObject.modal)  
@@ -66,9 +76,11 @@ export class Mouse {
             if(selectedObject.type === OBJECTS.TYPES.TOWER)
                 this.selectObject(scene.objects.towers);
 
-            selectedObject = null;
+            
+            selectedObject = NULL_OBJECT;
         }
-        
+
+
         this.mouse.style.cursor = `url(../../images/cursors/${mouseOverObject.type}.cur), auto`;
     }
 
