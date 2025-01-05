@@ -2,6 +2,13 @@ import * as OBJECTS from "../constants/objects.js";
 import { MenuItemTower } from "./MenuItemTower.js";
 import { assets } from "../utilities/assets.js";
 
+// import { AmethystTower } from "../objects/towers/AmethystTower.js";
+// import { DiamondTower } from "../objects/towers/DiamondTower.js";
+// import { EmeraldTower } from "../objects/towers/EmeraldTower.js";
+// import { RubyTower } from "../objects/towers/RubyTower.js";
+// import { SapphireTower } from "../objects/towers/SapphireTower.js";
+// import { TopazTower } from "../objects/towers/TopazTower.js";
+
 export class BuildTowerModal{
     constructor({
         position
@@ -70,4 +77,31 @@ export class BuildTowerModal{
         }
         return array;
     }
+
+    // towerFactory(tower,){
+    //     const tempPosition = {...this.position};
+    //     tempPosition.y += 32;
+    //     let newTower;
+    //     switch(tower){
+    //         case OBJECTS.COLOURS.AMETHYST:
+    //             newTower = new AmethystTower({ position: {...tempPosition} });
+    //             break
+    //         case OBJECTS.COLOURS.DIAMOND:
+    //             newTower = new DiamondTower({ position: {...tempPosition} });
+    //             break
+    //         case OBJECTS.COLOURS.EMERALD:
+    //             newTower = new EmeraldTower({ position: {...tempPosition} });
+    //             break
+    //         case OBJECTS.COLOURS.RUBY:
+    //             newTower = new RubyTower({ position: {...tempPosition} });
+    //             break
+    //         case OBJECTS.COLOURS.SAPPHIRE:
+    //             newTower = new SapphireTower({ position: {...tempPosition} });
+    //             break
+    //         case OBJECTS.COLOURS.TOPAZ:
+    //             newTower = new TopazTower({ position: {...tempPosition} });
+    //             break
+    //     }
+    //     return newTower
+    // }
 }
