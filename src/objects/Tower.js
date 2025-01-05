@@ -30,7 +30,6 @@ export class Tower extends Sprite{
         this.target = null;
 
         this.modal = null;
-        
         this.type = OBJECTS.TYPES.TOWER;
         this.isOccupied = false;
     }
@@ -48,7 +47,7 @@ export class Tower extends Sprite{
 
     createModal(){
         this.modal = new BuildTowerModal({
-            position: {...this.position}
+            position: {...this.center}
         });
     }
 
@@ -112,7 +111,6 @@ export class Tower extends Sprite{
         return enemiesInRange[0];
     }
 }
-
 //CHAIN METHODS
 
 // getEnemiesInRange(enemies){

@@ -13,27 +13,33 @@ export class BuildTowerModal{
         this.menuItemtower1 = new MenuItemTower({
             image: assets.get(`${OBJECTS.COLOURS.AMETHYST}${OBJECTS.TYPES.TOWER}1`),
             position: this.hexagonCorners[0],
-        })
+            option: OBJECTS.COLOURS.AMETHYST,
+        });
         this.menuItemtower2 = new MenuItemTower({
             image: assets.get(`${OBJECTS.COLOURS.DIAMOND}${OBJECTS.TYPES.TOWER}1`),
             position: this.hexagonCorners[1],
-        })
+            option: OBJECTS.COLOURS.DIAMOND,
+        });
         this.menuItemtower3 = new MenuItemTower({
             image: assets.get(`${OBJECTS.COLOURS.EMERALD}${OBJECTS.TYPES.TOWER}1`),
             position: this.hexagonCorners[2],
-        })
+            option: OBJECTS.COLOURS.EMERALD,
+        });
         this.menuItemtower4 = new MenuItemTower({
             image: assets.get(`${OBJECTS.COLOURS.RUBY}${OBJECTS.TYPES.TOWER}1`),
             position: this.hexagonCorners[3],
-        })
+            option: OBJECTS.COLOURS.RUBY,
+        });
         this.menuItemtower5 = new MenuItemTower({
             image: assets.get(`${OBJECTS.COLOURS.SAPPHIRE}${OBJECTS.TYPES.TOWER}1`),
             position: this.hexagonCorners[4],
-        })
+            option: OBJECTS.COLOURS.SAPPHIRE,
+        });
         this.menuItemtower6 = new MenuItemTower({
             image: assets.get(`${OBJECTS.COLOURS.TOPAZ}${OBJECTS.TYPES.TOWER}1`),
             position: this.hexagonCorners[5],
-        })
+            option: OBJECTS.COLOURS.TOPAZ,
+        });
 
         this.menu = [
             this.menuItemtower1,

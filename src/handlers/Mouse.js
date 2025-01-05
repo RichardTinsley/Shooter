@@ -2,13 +2,21 @@ import * as GAME from "../constants/game.js";
 import * as INPUT from "../constants/input.js";
 import * as OBJECTS from "../constants/objects.js";
 
+import { AmethystTower } from "../objects/towers/AmethystTower.js";
+import { DiamondTower } from "../objects/towers/DiamondTower.js";
+import { EmeraldTower } from "../objects/towers/EmeraldTower.js";
+import { RubyTower } from "../objects/towers/RubyTower.js";
+import { SapphireTower } from "../objects/towers/SapphireTower.js";
+import { TopazTower } from "../objects/towers/TopazTower.js";
+
 const NULL_OBJECT = {
     type: OBJECTS.TYPES.NORMAL,
 };
 
 let mouseOverObject = NULL_OBJECT;
 let selectedObject = NULL_OBJECT;
-let currentModalMenu = null;
+let currentModal = null;
+let newTower = null;
 
 export class Mouse {
     constructor(switchScenes){  
@@ -40,6 +48,7 @@ export class Mouse {
                 break
             case OBJECTS.TYPES.MENUITEM:
                 switchScenes(mouseOverObject.option);
+                this.towerFactory(mouseOverObject.option);
                 break
             case OBJECTS.TYPES.TOWER:
                 selectedObject = mouseOverObject;
@@ -48,7 +57,7 @@ export class Mouse {
                 break
             case OBJECTS.TYPES.NORMAL:
                 selectedObject = NULL_OBJECT;
-                currentModalMenu = null;
+                currentModal = null;
                 break
         }
     }
@@ -60,14 +69,15 @@ export class Mouse {
         if(scene.objects && scene.getCurrentState() === GAME.STATES.RESUME){
             this.mouseOverObject(scene.objects.towers);
             this.mouseOverObject(scene.objects.enemies);
-            if(currentModalMenu === null && selectedObject.type === OBJECTS.TYPES.NORMAL)
+            if(currentModal === null && selectedObject.type === OBJECTS.TYPES.NORMAL)
                 this.selectObject(scene.objects.towers);
+            this.buildTower(scene.objects.towers);
         }
 
         if(selectedObject && selectedObject.modal)  
-            currentModalMenu = selectedObject.modal.menu;
-        if(currentModalMenu)
-            this.mouseOverObject(currentModalMenu);
+            currentModal = selectedObject.modal;
+        if(currentModal)
+            this.mouseOverObject(currentModal.menu);
 
         if(selectedObject){
             if(selectedObject.type === OBJECTS.TYPES.ENEMY)
@@ -76,10 +86,8 @@ export class Mouse {
             if(selectedObject.type === OBJECTS.TYPES.TOWER)
                 this.selectObject(scene.objects.towers);
 
-            
-            selectedObject = NULL_OBJECT;
+            // selectedObject = NULL_OBJECT;
         }
-
 
         this.mouse.style.cursor = `url(../../images/cursors/${mouseOverObject.type}.cur), auto`;
     }
@@ -101,10 +109,37 @@ export class Mouse {
                 object.isMouseOver = false;
         });
     }
+
+    buildTower(towers){
+        if(newTower){
+            towers[towers.findIndex(tower => tower === selectedObject)] = newTower;
+            newTower = null;
+            currentModal = null
+        }
+    }
+
+    towerFactory(tower){
+        currentModal.position.y += 32;
+        switch(tower){
+            case OBJECTS.COLOURS.AMETHYST:
+                newTower = new AmethystTower({ position: {...currentModal.position} });
+                break
+            case OBJECTS.COLOURS.DIAMOND:
+                newTower = new DiamondTower({ position: {...currentModal.position} });
+                break
+            case OBJECTS.COLOURS.EMERALD:
+                newTower = new EmeraldTower({ position: {...currentModal.position} });
+                break
+            case OBJECTS.COLOURS.RUBY:
+                newTower = new RubyTower({ position: {...currentModal.position} });
+                break
+            case OBJECTS.COLOURS.SAPPHIRE:
+                newTower = new SapphireTower({ position: {...currentModal.position} });
+                break
+            case OBJECTS.COLOURS.TOPAZ:
+                newTower = new TopazTower({ position: {...currentModal.position} });
+                break
+        }
+    }
 }   
 
-        // let newTower = new SapphireTower({
-        //     position: selectedObject.position,
-        // })
-
-        // towers[towers.findIndex(tower => tower === selectedObject)] = newTower;

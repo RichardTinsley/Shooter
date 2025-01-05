@@ -7,6 +7,7 @@ export class MenuItemTower{
     constructor({
         image,
         position,
+        option,
     }){
         this.center = {
             x: position.x,
@@ -28,7 +29,7 @@ export class MenuItemTower{
 
         this.isMouseOver = false;
         this.type = OBJECTS.TYPES.MENUITEM;
-        // this.option = option;
+        this.option = option;
         this.colour = INTERFACE.COLOURS.WHITE;
     }
 
