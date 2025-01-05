@@ -91,8 +91,8 @@ export class Scene {
     drawOverlayScreen(ctx, colour){
         ctx.fillStyle = `rgba(${colour}${this.overLayAlpha})`;
         ctx.fillRect(0, 0, GAME.SIZES.GAME_WIDTH, GAME.SIZES.GAME_HEIGHT);
-        this.drawTitle(ctx);
-        this.drawMenu(ctx);
+        this.title.draw(ctx);
+        this.menu.forEach(menuItem => menuItem.draw(ctx));
     }
 
     updateOverlayScreen(){

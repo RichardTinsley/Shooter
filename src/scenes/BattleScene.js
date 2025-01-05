@@ -6,8 +6,6 @@ import { Objects } from "../handlers/Objects.js";
 import { Wave } from "../handlers/Wave.js";
 import { Scene } from "../handlers/Scene.js";
 
-import { BuildTowerModal } from "../components/BuildTowerModal.js";
-
 export class BattleScene extends Scene {
     constructor(switchScenes){
         super();
@@ -15,11 +13,6 @@ export class BattleScene extends Scene {
         this.levels = new Levels();
         this.objects = new Objects(this.levels.emptyTowerSpots);
         this.wave = new Wave();
-
-        this.modal = new BuildTowerModal({position:{
-            x: 304,
-            y: 240,
-        }})
     }
 
     draw(ctx){
@@ -28,7 +21,6 @@ export class BattleScene extends Scene {
         this.playerStats.draw(ctx);
         this.objects.draw(ctx);
         this.wave.draw(ctx);
-        this.modal.draw(ctx);
         switch(this.currentState){
             case GAME.STATES.PAUSED:
                 this.drawOverlayScreen(ctx, INTERFACE.COLOURS.BLACKOUT);
@@ -42,7 +34,6 @@ export class BattleScene extends Scene {
 
     update(event){
         super.update(event);
-        this.modal.update(event);
         switch(this.currentState){
             case GAME.STATES.RESUME:
                 this.objects.update(event, this.playerStats);

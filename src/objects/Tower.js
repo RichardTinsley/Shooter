@@ -2,6 +2,7 @@ import * as OBJECTS from "../constants/objects.js"
 import { assets } from "../utilities/assets.js";
 import { checkCircleCollision } from "../utilities/math.js";
 import { Sprite } from "./Sprite.js";
+import { BuildTowerModal } from "../components/BuildTowerModal.js";
 
 export class Tower extends Sprite{
     constructor({
@@ -19,30 +20,52 @@ export class Tower extends Sprite{
             scale: scale ?? 1, 
         });
         
-        this.type = OBJECTS.TYPES.TOWER;
-        this.isOccupied = false;
-        
         this.center.radius = this.halfWidth;
         this.muzzle = {
             x: this.position.x,
             y: this.position.y - this.height
         };       
-
+        
         this.enemiesInRange = [];
         this.target = null;
+
+        this.modal = null;
+        
+        this.type = OBJECTS.TYPES.TOWER;
+        this.isOccupied = false;
     }
 
     draw(ctx){
         super.draw(ctx);
-        this.drawSelection(ctx);
+        this.drawModal(ctx);
+        this.drawIsMouseOver(ctx);
     }
 
     update(event){
         super.update(event);
+        this.updateModal(event);
     }
 
-    drawSelection(ctx){
-        if(this.isSelected){
+    createModal(){
+        this.modal = new BuildTowerModal({
+            position: {...this.position}
+        });
+    }
+
+    drawModal(ctx){
+        if(this.isSelected)
+            this.modal.draw(ctx);
+    }
+
+    updateModal(event){
+        if(this.isSelected)
+            this.modal.update(event);
+        else
+            this.modal = null;
+    }
+
+    drawIsMouseOver(ctx){
+        if(this.isMouseOver){
             ctx.beginPath();
             ctx.arc(this.center.x, this.center.y, this.center.radius, 0, Math.PI * 2);
             ctx.setLineDash([5, 15]);
@@ -51,8 +74,7 @@ export class Tower extends Sprite{
             ctx.stroke();
             ctx.setLineDash([0, 0]);
             ctx.closePath();
-
-        } 
+        }
     }
 
     isReadyToShoot(){

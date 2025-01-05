@@ -1,5 +1,4 @@
 import * as OBJECTS from "../constants/objects.js";
-import * as INTERFACE from "../constants/interface.js";
 import { MenuItemTower } from "./MenuItemTower.js";
 import { assets } from "../utilities/assets.js";
 
@@ -7,11 +6,7 @@ export class BuildTowerModal{
     constructor({
         position
     }){
-        this.position = {
-            x: position.x,
-            y: position.y,
-        };
-
+        this.position = {...position};
         this.radius = 70;
         this.hexagonCorners = this.getHexagonCornerPositions();
 
@@ -39,47 +34,23 @@ export class BuildTowerModal{
             image: assets.get(`${OBJECTS.COLOURS.TOPAZ}${OBJECTS.TYPES.TOWER}1`),
             position: this.hexagonCorners[5],
         })
+
+        this.menu = [
+            this.menuItemtower1,
+            this.menuItemtower2,
+            this.menuItemtower3,
+            this.menuItemtower4,
+            this.menuItemtower5,
+            this.menuItemtower6,
+        ];
     }
 
     draw(ctx){
-        ctx.save();
-        ctx.translate(this.position.x, this.position.y);
-        this.drawHexagon(ctx);
-        this.drawMenuItems(ctx);
-        ctx.restore();
+        this.menu.forEach(item => item.draw(ctx));
     }
 
-    
     update(event){
-        this.menuItemtower1.update(event);
-        this.menuItemtower2.update(event);
-        this.menuItemtower3.update(event);
-        this.menuItemtower4.update(event);
-        this.menuItemtower5.update(event);
-        this.menuItemtower6.update(event);
-    }
-
-    drawHexagon(ctx){
-        ctx.beginPath();
-        ctx.strokeStyle = INTERFACE.COLOURS.WHITE;
-        ctx.lineWidth = 5;
-        ctx.lineJoin = "miter";
-        // this.hexagonCorners.forEach(corner => {
-        //     ctx.lineTo(corner.x, corner.y);
-        // });
-        ctx.closePath();
-        ctx.stroke();
-    }
-
-    drawMenuItems(ctx){
-        this.hexagonCorners.forEach(corner => {
-            this.menuItemtower1.draw(ctx);
-            this.menuItemtower2.draw(ctx);
-            this.menuItemtower3.draw(ctx);
-            this.menuItemtower4.draw(ctx);
-            this.menuItemtower5.draw(ctx);
-            this.menuItemtower6.draw(ctx);
-        });
+        this.menu.forEach(item => item.update(event));
     }
 
     getHexagonCornerPositions(){
@@ -87,8 +58,8 @@ export class BuildTowerModal{
         for (let i = 0; i < 6; i++){
             const rotation = (Math.PI / 3) * i;
             array.push({
-                x: this.radius * Math.cos(rotation),
-                y: this.radius * Math.sin(rotation)
+                x: (this.radius * Math.cos(rotation)) + this.position.x,
+                y: (this.radius * Math.sin(rotation)) + this.position.y
             });
         }
         return array;

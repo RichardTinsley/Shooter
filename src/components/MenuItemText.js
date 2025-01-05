@@ -1,4 +1,5 @@
 import * as OBJECTS from "../constants/objects.js";
+import { checkBoxCollision } from "../utilities/math.js";
 import { GlowText } from "../objects/texts/GlowText.js"
 
 export class MenuItemText{
@@ -16,10 +17,6 @@ export class MenuItemText{
             size: size,
         });
         
-        //MENU ITEM HITBOX FOR MOUSE CLICK
-        this.type = OBJECTS.TYPES.MENUITEM;
-        this.option = option;
-        
         this.width = text.length * (size / 1.75)
         this.position = {
             x: position.x - this.width / 2,
@@ -27,6 +24,10 @@ export class MenuItemText{
             width: this.width,
             height: size,
         };
+        
+        this.type = OBJECTS.TYPES.MENUITEM;
+        this.option = option;
+        this.isMouseOver
     }
 
     draw(ctx){
@@ -35,5 +36,17 @@ export class MenuItemText{
     
     update(event){
         this.text.update(event);
+        this.updateIsMouseOver();
+    }
+
+    updateIsMouseOver(){
+        if(this.isMouseOver)
+            this.text.enable(true);
+        else
+            this.text.enable(false);
+    }
+
+    collisionDetection(mouse){
+        return !checkBoxCollision(mouse, this.position);
     }
 }

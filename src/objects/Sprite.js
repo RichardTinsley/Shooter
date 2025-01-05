@@ -1,6 +1,6 @@
 import * as OBJECTS from "../constants/objects.js"
 import * as INTERFACE from "../constants/interface.js";
-import { findAngleOfDirection, giveDirection, } from "../utilities/math.js";
+import { findAngleOfDirection, giveDirection, checkCircleCollision } from "../utilities/math.js";
 
 export class Sprite {
     constructor({
@@ -51,6 +51,7 @@ export class Sprite {
         }; 
 
         this.isSelected = false;
+        this.isMouseOver = false;
         this.state = OBJECTS.ANIMATION.ANIMATING;
     }
 
@@ -142,6 +143,10 @@ export class Sprite {
         const yDistance = this.destination.y - this.position.y;
         const xDistance = this.destination.x - this.position.x;
         this.priorityDistance = Math.round(Math.abs(xDistance) + Math.abs(yDistance));
+    }
+
+    collisionDetection(mouse){
+        return checkCircleCollision(mouse, this.center);
     }
 }
 
