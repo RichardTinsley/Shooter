@@ -74,6 +74,16 @@ export class Enemy extends Sprite{
         }
     }
 
+    drawSelectionIcon(ctx){
+        ctx.beginPath();
+        ctx.ellipse(this.position.x, this.position.y, this.shadowHeight, this.quarterWidth, Math.PI / 2, 0, 2 * Math.PI);
+        ctx.setLineDash([this.quarterWidth / 2, this.quarterWidth / 2]);
+        ctx.lineWidth = 5;
+        ctx.strokeStyle = INTERFACE.COLOURS.RED;
+        ctx.stroke();
+        ctx.setLineDash([0, 0]);  
+    }
+
     checkWaypointArrival(){   
         let waypointCenter = {...this.waypoints[this.waypointIndex]};
         waypointCenter.radius = 5;

@@ -1,4 +1,5 @@
 import * as OBJECTS from "../constants/objects.js";
+import * as INTERFACE from "../constants/interface.js";
 import { assets } from "../utilities/assets.js";
 import { checkCircleCollision } from "../utilities/math.js";
 import { Sprite } from "./Sprite.js";
@@ -52,7 +53,14 @@ export class Tower extends Sprite{
                 break 
         }
     }
-    
+
+    drawSelectionIcon(ctx){
+        ctx.beginPath();
+        ctx.ellipse(this.position.x, this.position.y, this.quarterWidth, this.halfWidth, Math.PI / 2, 0, 2 * Math.PI);
+        ctx.lineWidth = 3;
+        ctx.strokeStyle = INTERFACE.COLOURS.GREEN
+        ctx.stroke();
+    }
 
     createModal(){
         return

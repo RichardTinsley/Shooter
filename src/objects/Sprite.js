@@ -58,7 +58,7 @@ export class Sprite {
         switch(this.state){
             case OBJECTS.ANIMATION.SELECTED:
                 this.drawSelectionIcon(ctx);
-                this.drawModal(ctx);
+                if(this.modal) this.modal.draw(ctx);
                 this.drawDashedCircle(ctx);
             case OBJECTS.ANIMATION.ANIMATING:
                 ctx.drawImage(
@@ -81,7 +81,7 @@ export class Sprite {
     update(event){
         switch(this.state){
             case OBJECTS.ANIMATION.SELECTED:
-                this.updateModal(event);
+                if(this.modal) this.modal.update(event);
             case OBJECTS.ANIMATION.ANIMATING:
                 this.animate(event);
                 break
@@ -105,34 +105,10 @@ export class Sprite {
         }
     }
 
-    drawModal(ctx){
-        if(this.modal)
-            this.modal.draw(ctx);
-    }
-
-    updateModal(event){
-        if(this.modal)
-            this.modal.update(event);
-    }
-
-    drawSelectionIcon(ctx){
-        ctx.beginPath();
-        ctx.ellipse(this.position.x, this.position.y, this.shadowHeight, this.quarterWidth, Math.PI / 2, 0, 2 * Math.PI);
-        if(this.type === OBJECTS.TYPES.ENEMY)
-            ctx.setLineDash([this.quarterWidth / 2, this.quarterWidth / 2]);
-        if(this.type === OBJECTS.TYPES.ENEMY)
-            ctx.strokeStyle = INTERFACE.COLOURS.RED;
-        else
-            ctx.strokeStyle = INTERFACE.COLOURS.GREEN
-        ctx.lineWidth = 5;
-        ctx.stroke();
-        ctx.setLineDash([0, 0]);  
-    }
-
     drawDashedCircle(ctx){
         if(this.type === OBJECTS.TYPES.TOWER){
             ctx.beginPath();
-            ctx.arc(this.center.x, this.center.y, this.range, 0, Math.PI * 2);
+            ctx.arc(this.center.x, this.center.y, this.towerRange.radius, 0, Math.PI * 2);
             ctx.setLineDash([5, 15]);
             ctx.lineWidth = 2;
             ctx.strokeStyle = INTERFACE.COLOURS.WHITE;
