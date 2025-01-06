@@ -55,21 +55,39 @@ export class Sprite {
     }
 
     draw(ctx){
-        ctx.drawImage(
-            this.sprite.image,
-            this.sprite.width * this.sprite.frame,
-            this.sprite.height * this.sprite.row,
-            this.sprite.width,
-            this.sprite.height,
-            this.drawPositionX,
-            this.drawPositionY,
-            this.width,
-            this.height
-        );
+        switch(this.state){
+            case OBJECTS.ANIMATION.SELECTED:
+                this.drawSelectionIcon(ctx);
+                this.drawModal(ctx);
+            case OBJECTS.ANIMATION.ANIMATING:
+                ctx.drawImage(
+                    this.sprite.image,
+                    this.sprite.width * this.sprite.frame,
+                    this.sprite.height * this.sprite.row,
+                    this.sprite.width,
+                    this.sprite.height,
+                    this.drawPositionX,
+                    this.drawPositionY,
+                    this.width,
+                    this.height
+                );
+                break
+            case OBJECTS.ANIMATION.FINISHED:
+                break
+        }
     }
 
-    update(event){ 
-        this.animate(event);
+    update(event){
+        switch(this.state){
+            case OBJECTS.ANIMATION.SELECTED:
+                this.updateModal(event);
+            case OBJECTS.ANIMATION.ANIMATING:
+                this.animate(event);
+                break
+            case OBJECTS.ANIMATION.FINISHED:
+                console.log("FINISHED")
+                break 
+        }
     }
 
     contextSave(ctx){
@@ -85,6 +103,20 @@ export class Sprite {
             this.position.x *= -1;
             ctx.restore();
         }
+    }
+
+    drawModal(ctx){
+        if(this.modal)
+            this.modal.draw(ctx);
+    }
+
+    updateModal(event){
+        if(this.modal)
+            this.modal.update(event);
+    }
+
+    drawSelectionIcon(ctx){
+        return
     }
 
     drawShadow(ctx){

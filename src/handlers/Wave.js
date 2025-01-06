@@ -7,7 +7,7 @@ export class Wave{
     constructor(){
         this.enemySpawnTimer = 0;
         this.enemyCounter = 0;   
-        this.maxEnemies = 1;
+        this.maxEnemies = 8;
         this.maxEnemySpeed = 2
         this.allEnemiesActive = false; 
     }
@@ -54,7 +54,7 @@ export class Wave{
 
             enemies.push(new Enemy({
                 position: {...waypoints[0]},
-                speed: 6,
+                speed: speed,
                 waypoints: waypoints,
             }));
 

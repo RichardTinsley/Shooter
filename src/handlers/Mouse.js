@@ -45,44 +45,30 @@ export class Mouse {
     onMouseClick(switchScenes){
         switch(mouseOverObject.type){
             case OBJECTS.TYPES.ENEMY:
-                if(Mouse.enemySelected === mouseOverObject)
-                    Mouse.enemySelected = NULL_OBJECT;
-                else
-                    Mouse.enemySelected = mouseOverObject;
+                this.clickOnEnemyAction();
                 break
             case OBJECTS.TYPES.MENUITEM:
                 switchScenes(mouseOverObject.option);
                 this.towerFactory(mouseOverObject.option);
                 break
             case OBJECTS.TYPES.TOWER:
-                Mouse.towerSelected = mouseOverObject;
-                Mouse.towerSelected.createModal();
+                this.clicOnTowerAction();
                 break
             case OBJECTS.TYPES.NORMAL:
+                Mouse.towerSelected.state = OBJECTS.ANIMATION.ANIMATING;
                 Mouse.towerSelected = NULL_OBJECT;
                 break
         }
     }
 
-    draw(ctx){
-        if(Mouse.enemySelected.type === OBJECTS.TYPES.ENEMY)
-            Mouse.enemySelected.drawSelection(ctx);
-
-        if(Mouse.towerSelected.type === OBJECTS.TYPES.TOWER)
-            Mouse.towerSelected.drawSelection(ctx);
-    }
-
-    update(event, scene){
+    update(scene){
         if(Mouse.enemySelected.type === OBJECTS.TYPES.ENEMY)
             if(Mouse.enemySelected.isEnemyDying())
                 Mouse.enemySelected = NULL_OBJECT;
 
-        if(Mouse.towerSelected.type === OBJECTS.TYPES.TOWER){
-            Mouse.towerSelected.updateSelection(event);
-            if(Mouse.towerSelected.modal)
-                this.mouseOverObject(Mouse.towerSelected.modal.menu);
-        }
-
+        if(Mouse.towerSelected.type === OBJECTS.TYPES.TOWER)
+            this.mouseOverObject(Mouse.towerSelected.modal.menu);
+        
         if(scene.menu)
             this.mouseOverObject(scene.menu);
 
@@ -104,6 +90,27 @@ export class Mouse {
             else 
                 object.isMouseOver = false;
         });
+    }
+
+    clickOnEnemyAction(){
+        if(Mouse.enemySelected === mouseOverObject){
+            Mouse.enemySelected.state = OBJECTS.ANIMATION.ANIMATING;
+            Mouse.enemySelected = NULL_OBJECT;
+        }
+        else{
+            Mouse.enemySelected.state = OBJECTS.ANIMATION.ANIMATING;
+            Mouse.enemySelected = mouseOverObject;
+            Mouse.enemySelected.state = OBJECTS.ANIMATION.SELECTED;
+        }
+    }
+
+    clicOnTowerAction(){
+        if(Mouse.towerSelected !== mouseOverObject){
+            Mouse.towerSelected.state = OBJECTS.ANIMATION.ANIMATING;
+            Mouse.towerSelected = mouseOverObject;
+            Mouse.towerSelected.state = OBJECTS.ANIMATION.SELECTED;
+            Mouse.towerSelected.createModal();
+        }
     }
 
     buildTower(towers){

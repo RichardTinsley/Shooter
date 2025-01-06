@@ -49,16 +49,11 @@ export class Tower extends Sprite{
             this.modal = new BuildTowerModal({position: {...this.center}});
     }
 
-    drawSelection(ctx){
+    drawSelectionIcon(ctx){
         if(!this.isOccupied)
             this.modal.draw(ctx);
         else
             this.drawDashedCircle(ctx, this.range);
-    }
-
-    updateSelection(event){
-        if(!this.isOccupied)
-            this.modal.update(event);
     }
 
     drawIsMouseOver(ctx){

@@ -40,36 +40,27 @@ export class Enemy extends Sprite{
     }
 
     draw(ctx){
-        switch(this.state){
-            case OBJECTS.ANIMATION.ANIMATING:
+        switch(this.sprite.row){
+            case OBJECTS.STATES.WALKING:
+            case OBJECTS.STATES.RUNNING:
                 this.drawShadow(ctx);
+                this.health.draw(ctx);
+            case OBJECTS.STATES.DYING:
                 this.contextSave(ctx);
                 this.updateSpriteDrawPosition();
                 super.draw(ctx);
                 this.contextRestore(ctx);
-                this.health.draw(ctx);
-                break
-            case OBJECTS.ANIMATION.FINISHED:
                 break
         }
     }
 
     update(event){
-        switch(this.state){
-            case OBJECTS.ANIMATION.ANIMATING:
-                this.updateEnemy(event);
-                break
-            case OBJECTS.ANIMATION.FINISHED:
-                break
-        }
-    }
-
-    updateEnemy(event){
         switch(this.sprite.row){
             case OBJECTS.STATES.WALKING:
             case OBJECTS.STATES.RUNNING:
                 super.update(event);
                 this.checkWaypointArrival();
+                this.checkEndpointArrival();
                 this.updateDestination({...this.waypoints[this.waypointIndex]});
                 this.updateDirection();
                 this.updateMovement();
@@ -83,7 +74,7 @@ export class Enemy extends Sprite{
         }
     }
 
-    drawSelection(ctx){
+    drawSelectionIcon(ctx){
         ctx.beginPath();
         ctx.ellipse(this.position.x, this.position.y, this.shadowHeight, this.quarterWidth, Math.PI / 2, 0, 2 * Math.PI);
         ctx.setLineDash([this.quarterWidth / 2, this.quarterWidth / 2]);

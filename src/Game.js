@@ -22,13 +22,12 @@ export class Game{
     draw(ctx){
         this.scene.draw(ctx);
         this.debug.draw(ctx, this.scene, this.mouse.mouse);
-        this.mouse.draw(ctx)
     }
 
     update(time){
         this.time.update(time);
         this.scene.update(this.time.event, this.time.displayTimer);
-        this.mouse.update(this.time.event, this.scene);
+        this.mouse.update(this.scene);
     }
 
     switchScenes = (option) => {

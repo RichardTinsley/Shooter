@@ -46,7 +46,7 @@ export class MenuItemTower{
     drawCircle(ctx){
         ctx.beginPath();
         ctx.strokeStyle = this.colour;
-        ctx.lineWidth = 3;
+        ctx.lineWidth = 5;
         ctx.fillStyle = INTERFACE.COLOURS.DARKSHADOW;
         ctx.arc(this.center.x, this.center.y, this.center.radius, 0, 2 * Math.PI);
         ctx.stroke();

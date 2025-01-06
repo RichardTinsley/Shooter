@@ -21,35 +21,30 @@ export class Objects{
     update(event){
         this.towers = this.towers.filter(tower => {
             tower.update(event, this.enemies, this.projectiles);
-            return tower.state === ANIMATION.ANIMATING;
+            return tower.state !== ANIMATION.FINISHED;
         });
 
         this.enemies = this.enemies.filter(enemy => {
             enemy.update(event);
-            enemy.checkEndpointArrival();
-            return enemy.state === ANIMATION.ANIMATING;
+            return enemy.state !== ANIMATION.FINISHED;
         });
 
         this.projectiles = this.projectiles.filter(projectile => {
             projectile.update(event);
             projectile.checkProjectileEnemyCollision(this.effects, this.texts)
-            return projectile.state === ANIMATION.ANIMATING;
+            return projectile.state !== ANIMATION.FINISHED;
         });
 
         this.effects = this.effects.filter(effect => {
             effect.update(event);
-            return effect.state === ANIMATION.ANIMATING;
+            return effect.state !== ANIMATION.FINISHED;
         });
 
         this.texts = this.texts.filter(text => {
             text.update(event);
-            return text.state === ANIMATION.ANIMATING;
+            return text.state !== ANIMATION.FINISHED;
         });
     }
 }
-
-    // this.entities = [...this.towers, ...this.enemies, ...this.effects, ...this.projectiles, ...this.texts];
-    // this.entities.sort((a, b) => a.position.y - b.position.y); 
-    // this.entities.forEach(entity => entity.draw(ctx));
 
 
