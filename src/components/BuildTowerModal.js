@@ -10,8 +10,6 @@ export class BuildTowerModal{
         this.radius = 70;
         this.hexagonCorners = this.getHexagonCornerPositions();
 
-        console.log(OBJECTS.TOWERINFORMATION)
-
         this.menuItemtower1 = new MenuItemTower({
             image: assets.get(`${OBJECTS.COLOURS.AMETHYST}${OBJECTS.TYPES.TOWER}1`),
             position: this.hexagonCorners[0],

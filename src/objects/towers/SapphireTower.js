@@ -5,31 +5,24 @@ import { SapphireProjectile } from "../projectiles/SapphireProjectile.js";
 
 export class SapphireTower extends Tower{
     constructor({
-        image,
-        width,
-        height,
         position,
-        scale,
+        image,
+        cost,
+        damage,
+        firerate,
+        range
     }){
         super({ 
             image: image ?? assets.get(`${OBJECTS.COLOURS.SAPPHIRE}${OBJECTS.TYPES.TOWER}1`),
-            width: width ?? OBJECTS.SIZES.TOWER,
-            height: height ?? OBJECTS.SIZES.TOWER,
+            width: OBJECTS.SIZES.TOWER,
+            height: OBJECTS.SIZES.TOWER,
             position,
-            scale: scale ?? 1, 
+            scale: 1, 
+            cost,
+            damage,
+            firerate,
+            range 
         });
-        this.isOccupied = true;
-
-        this.damage = 50;
-        this.range = 150;
-        this.cooldown = 20;
-        this.shootTimer = this.cooldown;
-
-        this.towerRange = {
-            x: this.center.x,
-            y: this.center.y,
-            radius: this.range
-        };
     }
 
     draw(ctx){

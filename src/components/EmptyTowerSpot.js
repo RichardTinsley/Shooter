@@ -4,6 +4,13 @@ import { checkCircleCollision } from "../utilities/math.js";
 import { assets } from "../utilities/assets.js";
 import { BuildTowerModal } from "./BuildTowerModal.js";
 
+import { AmethystTower } from "../objects/towers/AmethystTower.js";
+import { DiamondTower } from "../objects/towers/DiamondTower.js";
+import { EmeraldTower } from "../objects/towers/EmeraldTower.js";
+import { RubyTower } from "../objects/towers/RubyTower.js";
+import { SapphireTower } from "../objects/towers/SapphireTower.js";
+import { TopazTower } from "../objects/towers/TopazTower.js";
+
 export class EmptyTowerSpot{
     constructor({
         position,
@@ -85,6 +92,30 @@ export class EmptyTowerSpot{
 
     collisionDetection(mouse){
         return checkCircleCollision(mouse, this.center);
+    }
+
+    towerFactory(tower){
+        const newTowerStats = {
+            position: {...this.position},
+            cost: OBJECTS.TOWERINFORMATION[tower].cost,
+            damage: OBJECTS.TOWERINFORMATION[tower].damage,
+            firerate: OBJECTS.TOWERINFORMATION[tower].firerate,
+            range: OBJECTS.TOWERINFORMATION[tower].range,
+        }
+        switch(tower){
+            case OBJECTS.COLOURS.AMETHYST:
+                return new AmethystTower(newTowerStats);
+            case OBJECTS.COLOURS.DIAMOND:
+                return new DiamondTower(newTowerStats);
+            case OBJECTS.COLOURS.EMERALD:
+                return new EmeraldTower(newTowerStats);
+            case OBJECTS.COLOURS.RUBY:
+                return new RubyTower(newTowerStats);
+            case OBJECTS.COLOURS.SAPPHIRE:
+                return new SapphireTower(newTowerStats);
+            case OBJECTS.COLOURS.TOPAZ:
+                return new TopazTower(newTowerStats);
+        }
     }
 }
 

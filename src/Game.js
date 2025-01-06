@@ -36,7 +36,6 @@ export class Game{
                 this.scene = new MainMenuScene();
                 break
             case GAME.STATES.RESTART:
-                console.log(GAME.STATES.RESTART)
                 this.scene = GAME.STATES.RESUME;
             case GAME.STATES.BATTLE:
                 this.time.resetTimer();

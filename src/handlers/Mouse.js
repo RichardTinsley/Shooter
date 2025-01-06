@@ -2,13 +2,6 @@ import * as GAME from "../constants/game.js";
 import * as INPUT from "../constants/input.js";
 import * as OBJECTS from "../constants/objects.js";
 
-import { AmethystTower } from "../objects/towers/AmethystTower.js";
-import { DiamondTower } from "../objects/towers/DiamondTower.js";
-import { EmeraldTower } from "../objects/towers/EmeraldTower.js";
-import { RubyTower } from "../objects/towers/RubyTower.js";
-import { SapphireTower } from "../objects/towers/SapphireTower.js";
-import { TopazTower } from "../objects/towers/TopazTower.js";
-
 const NULL_OBJECT = {
     type: OBJECTS.TYPES.NORMAL,
 };
@@ -49,7 +42,8 @@ export class Mouse {
                 break
             case OBJECTS.TYPES.MENUITEM:
                 switchScenes(mouseOverObject.option);
-                this.towerFactory(mouseOverObject.option);
+                if(Mouse.towerSelected !== NULL_OBJECT)
+                    newTower = Mouse.towerSelected.towerFactory(mouseOverObject.option);
                 break
             case OBJECTS.TYPES.TOWER:
                 this.clicOnTowerAction();
@@ -120,29 +114,4 @@ export class Mouse {
             Mouse.towerSelected = NULL_OBJECT;
         }
     }
-
-    towerFactory(tower){
-        const tempPosition = {...Mouse.towerSelected.position};
-        switch(tower){
-            case OBJECTS.COLOURS.AMETHYST:
-                newTower = new AmethystTower({ position: {...tempPosition} });
-                break
-            case OBJECTS.COLOURS.DIAMOND:
-                newTower = new DiamondTower({ position: {...tempPosition} });
-                break
-            case OBJECTS.COLOURS.EMERALD:
-                newTower = new EmeraldTower({ position: {...tempPosition} });
-                break
-            case OBJECTS.COLOURS.RUBY:
-                newTower = new RubyTower({ position: {...tempPosition} });
-                break
-            case OBJECTS.COLOURS.SAPPHIRE:
-                newTower = new SapphireTower({ position: {...tempPosition} });
-                break
-            case OBJECTS.COLOURS.TOPAZ:
-                newTower = new TopazTower({ position: {...tempPosition} });
-                break
-        }
-    }
 }   
-

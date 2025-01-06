@@ -7,19 +7,33 @@ import { Mouse } from "../handlers/Mouse.js";
 
 export class Tower extends Sprite{
     constructor({
-        image,
-        width,
-        height,
         position,
-        scale,
+        image,
+        cost,
+        damage,
+        firerate,
+        range
     }){
         super({ 
             image: image ?? assets.get('towerSpot'),
-            width: width ?? OBJECTS.SIZES.TOWER,
-            height: height ?? OBJECTS.SIZES.TOWER,
+            width: OBJECTS.SIZES.TOWER,
+            height: OBJECTS.SIZES.TOWER,
             position,
-            scale: scale ?? 1, 
+            scale: 1,
         });
+        console.log(damage, range);
+        this.damage = damage;
+        this.range = range;
+        this.cost = cost;
+        this.range = range;
+        this.cooldown = 20;
+        this.shootTimer = this.cooldown;
+
+        this.towerRange = {
+            x: this.center.x,
+            y: this.center.y,
+            radius: this.range
+        };
         
         this.center.radius = this.halfWidth;
         this.muzzle = {
@@ -32,7 +46,6 @@ export class Tower extends Sprite{
 
         this.modal = null;
         this.type = OBJECTS.TYPES.TOWER;
-
         this.towerState = OBJECTS.STATES.RELOADING;
     }
 
