@@ -75,7 +75,7 @@ export const TOWERINFORMATION = {
     },
     [COLOURS.RUBY]: {
         name: COLOURS.RUBY[0].toUpperCase() + COLOURS.RUBY.substring(1),
-        cost: 500,
+        cost: 110, //500
         damage: 200,
         range: 150,
         firerate: 8,
@@ -83,7 +83,7 @@ export const TOWERINFORMATION = {
     },
     [COLOURS.SAPPHIRE]: {
         name: COLOURS.SAPPHIRE[0].toUpperCase() + COLOURS.SAPPHIRE.substring(1),
-        cost: 1000,
+        cost: 100,//1000
         damage: 100,
         range: 120,
         firerate: 3,

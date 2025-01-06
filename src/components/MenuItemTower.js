@@ -2,12 +2,14 @@ import * as INTERFACE from "../constants/interface.js";
 import * as OBJECTS from "../constants/objects.js";
 import { Sprite } from "../objects/Sprite.js";
 import { checkCircleCollision } from "../utilities/math.js";
+import { PlayerStats } from "../handlers/PlayerStats.js";
 
 export class MenuItemTower{
     constructor({
         image,
         position,
         option,
+        cost,
     }){
         this.center = {
             x: position.x,
@@ -31,16 +33,34 @@ export class MenuItemTower{
         this.type = OBJECTS.TYPES.MENUITEM;
         this.option = option;
         this.colour = INTERFACE.COLOURS.WHITE;
+        this.cost = cost;
+
+        this.state = this.canAfford();
     }
 
     draw(ctx){
-        this.drawCircle(ctx);
-        this.sprite.draw(ctx);
+        switch(this.state){
+            case OBJECTS.ANIMATION.ANIMATING:
+                this.drawCircle(ctx);
+                this.sprite.draw(ctx);
+                break
+            case OBJECTS.ANIMATION.FINISHED:
+                this.sprite.draw(ctx);
+                this.drawCircle(ctx);
+                break
+        }
     }
     
     update(event){
-        this.sprite.update(event);
-        this.updateMouseOver();
+        this.state = this.canAfford();
+        switch(this.state){
+            case OBJECTS.ANIMATION.ANIMATING:
+                this.sprite.update(event);
+                this.updateMouseOver();
+                break
+            case OBJECTS.ANIMATION.FINISHED:
+                break
+        }
     }
 
     drawCircle(ctx){
@@ -63,5 +83,12 @@ export class MenuItemTower{
 
     collisionDetection(mouse){
         return checkCircleCollision(mouse, this.center);
+    }
+
+    canAfford(){
+        if(PlayerStats.getCoins() >= this.cost)
+            return OBJECTS.ANIMATION.ANIMATING;
+        else
+            return OBJECTS.ANIMATION.FINISHED;
     }
 }

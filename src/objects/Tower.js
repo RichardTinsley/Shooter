@@ -21,7 +21,7 @@ export class Tower extends Sprite{
             position,
             scale: 1,
         });
-        console.log(damage, range);
+        
         this.damage = damage;
         this.range = range;
         this.cost = cost;

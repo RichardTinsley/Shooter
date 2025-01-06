@@ -38,8 +38,12 @@ export class PlayerStats{
         lives -= 1;
     }
 
-    getCoins(){
+    static getCoins(){
         return coins;
+    }
+
+    static buy(cost){
+        coins -= cost;
     }
 
     static setCoins(){//ENEMY TYPE in parameter affect gold.  BOSS or GoldEnemy etc
