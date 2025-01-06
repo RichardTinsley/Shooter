@@ -1,6 +1,6 @@
 import * as GAME from "../constants/game.js";
 import * as INTERFACE from "../constants/interface.js";
-import { GlowText } from "../objects/texts/GlowText.js";
+import { Text } from "../objects/Text.js";
 import { assets } from "../utilities/assets.js";
 import { Scene } from "../handlers/Scene.js";
 
@@ -8,17 +8,16 @@ export class MainMenuScene extends Scene {
     constructor() {
         super();
         
-        this.title = new GlowText({
-            text: "Death   Sorcery",
+        this.title = new Text({
+            text: "Death  Sorcery",
             position: {
                 x: GAME.SIZES.GAME_WIDTH_HALF,
                 y: INTERFACE.SIZES.TITLETEXT, 
             },
-            size: INTERFACE.SIZES.TITLETEXT,
+            size: INTERFACE.SIZES.TITLETEXT + 10,
         });
         
-        this.title.enable(true);
-        this.menu = this.initialiseVerticalMenu(INTERFACE.MAIN_MENU);
+        this.menu = this.initialiseVerticalMenu(INTERFACE.MAIN_MENU, 120);
     }
 
     draw(ctx){

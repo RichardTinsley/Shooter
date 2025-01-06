@@ -2,7 +2,7 @@ import * as GAME from "./game.js";
 
 export const SIZES = {
     GAMETEXT: 25,
-    TITLETEXT: 170,
+    TITLETEXT: 150,
     MENUITEMTEXT: 60,
     SPACING: 15,
 };

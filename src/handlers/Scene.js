@@ -75,13 +75,13 @@ export class Scene {
         });
     }
 
-    initialiseVerticalMenu(menu){
+    initialiseVerticalMenu(menu, offset){
         return menu.map((menuItem, index) => {
             return new MenuItemText({
                 text: menuItem.text,
                 position: {
                     x: GAME.SIZES.GAME_WIDTH_HALF,
-                    y: INTERFACE.verticallyAlignedMenu(GAME.SIZES.GAME_HEIGHT_HALF + 100, index)
+                    y: INTERFACE.verticallyAlignedMenu(GAME.SIZES.GAME_HEIGHT_HALF + offset, index)
                 },
                 size: INTERFACE.SIZES.MENUITEMTEXT,
                 option: menuItem.option

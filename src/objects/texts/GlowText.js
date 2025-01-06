@@ -17,7 +17,7 @@ export class GlowText extends Text {
 
         this.enabled = false;
         this.alpha = 1;
-        this.delta = 0.3;
+        this.delta = 0.05;
         this.textShadowBlur = 1;
     }
 
@@ -61,7 +61,7 @@ export class GlowText extends Text {
             return
 
         this.textShadowBlur += this.delta;
-        if (this.textShadowBlur <= 1 || this.textShadowBlur >= 15)
+        if (this.textShadowBlur <= 1 || this.textShadowBlur >= 10)
             this.delta = -this.delta;
     }
 }
