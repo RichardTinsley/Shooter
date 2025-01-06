@@ -1,8 +1,7 @@
-import * as OBJECTS from "../constants/objects.js"
+import * as OBJECTS from "../constants/objects.js";
 import { assets } from "../utilities/assets.js";
 import { checkCircleCollision } from "../utilities/math.js";
 import { Sprite } from "./Sprite.js";
-import { BuildTowerModal } from "../components/BuildTowerModal.js";
 import { Mouse } from "../handlers/Mouse.js";
 
 export class Tower extends Sprite{
@@ -32,7 +31,8 @@ export class Tower extends Sprite{
 
         this.modal = null;
         this.type = OBJECTS.TYPES.TOWER;
-        this.isOccupied = false;
+
+        this.towerState = OBJECTS.STATES.RELOADING;
     }
 
     draw(ctx){
@@ -40,51 +40,39 @@ export class Tower extends Sprite{
         this.drawIsMouseOver(ctx);
     }
 
-    update(event){
+    update(event, enemies, projectiles){
         super.update(event);
+        switch(this.towerState){
+            case OBJECTS.STATES.SHOOTING:
+                this.targetEnemy(enemies);
+                this.shootEnemy(projectiles);
+                break
+            case OBJECTS.STATES.RELOADING:
+                this.incrementShootTimer(event);
+                break 
+        }
     }
+    
 
     createModal(){
-        if(!this.isOccupied)
-            this.modal = new BuildTowerModal({position: {...this.center}});
-    }
-
-    drawSelectionIcon(ctx){
-        if(!this.isOccupied)
-            this.modal.draw(ctx);
-        else
-            this.drawDashedCircle(ctx, this.range);
+        return
     }
 
     drawIsMouseOver(ctx){
-        if(this.isMouseOver){
-            this.drawDashedCircle(ctx, this.center.radius);
-        }
+        if(this.isMouseOver)
+            this.drawSelectionIcon(ctx);
     }
 
-    drawDashedCircle(ctx, radius){
-        ctx.beginPath();
-        ctx.arc(this.center.x, this.center.y, radius, 0, Math.PI * 2);
-        ctx.setLineDash([5, 15]);
-        ctx.lineWidth = 2;
-        ctx.strokeStyle = 'white';
-        ctx.stroke();
-        ctx.setLineDash([0, 0]);
-        ctx.closePath();
-    }
-
-    isReadyToShoot(){
-        return this.shootTimer >= this.cooldown;
-    }	
-    
     incrementShootTimer(event){
-        if(event && !this.isReadyToShoot())
+        if(event)
             this.shootTimer++;
+
+        if(this.shootTimer >= this.cooldown)
+            this.towerState = OBJECTS.STATES.SHOOTING;
     }
 
     targetEnemy(enemies){
-        if(this.isReadyToShoot())
-            this.target = this.findEnemyTarget(enemies);
+        this.target = this.findEnemyTarget(enemies);
     }
 
     findEnemyTarget(enemies){
@@ -107,12 +95,4 @@ export class Tower extends Sprite{
         return enemiesInRange[0];
     }
 }
-//CHAIN METHODS
-
-// getEnemiesInRange(enemies){
-// 	return enemies.filter(enemy => {
-//             if(!enemy.isDying())
-//                 return checkCircleCollision(enemy.center, this.towerRange);
-//         })
-// }
 

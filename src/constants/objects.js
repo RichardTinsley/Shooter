@@ -30,6 +30,7 @@ export const STATES = {
     DYING: 5,
     DEAD: 6,
     SHOOTING: 7,
+    RELOADING: 8,
 };
 
 export const COLOURS = {

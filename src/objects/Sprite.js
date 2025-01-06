@@ -59,6 +59,7 @@ export class Sprite {
             case OBJECTS.ANIMATION.SELECTED:
                 this.drawSelectionIcon(ctx);
                 this.drawModal(ctx);
+                this.drawDashedCircle(ctx);
             case OBJECTS.ANIMATION.ANIMATING:
                 ctx.drawImage(
                     this.sprite.image,
@@ -85,7 +86,6 @@ export class Sprite {
                 this.animate(event);
                 break
             case OBJECTS.ANIMATION.FINISHED:
-                console.log("FINISHED")
                 break 
         }
     }
@@ -116,7 +116,30 @@ export class Sprite {
     }
 
     drawSelectionIcon(ctx){
-        return
+        ctx.beginPath();
+        ctx.ellipse(this.position.x, this.position.y, this.shadowHeight, this.quarterWidth, Math.PI / 2, 0, 2 * Math.PI);
+        if(this.type === OBJECTS.TYPES.ENEMY)
+            ctx.setLineDash([this.quarterWidth / 2, this.quarterWidth / 2]);
+        if(this.type === OBJECTS.TYPES.ENEMY)
+            ctx.strokeStyle = INTERFACE.COLOURS.RED;
+        else
+            ctx.strokeStyle = INTERFACE.COLOURS.GREEN
+        ctx.lineWidth = 5;
+        ctx.stroke();
+        ctx.setLineDash([0, 0]);  
+    }
+
+    drawDashedCircle(ctx){
+        if(this.type === OBJECTS.TYPES.TOWER){
+            ctx.beginPath();
+            ctx.arc(this.center.x, this.center.y, this.range, 0, Math.PI * 2);
+            ctx.setLineDash([5, 15]);
+            ctx.lineWidth = 2;
+            ctx.strokeStyle = INTERFACE.COLOURS.WHITE;
+            ctx.stroke();
+            ctx.setLineDash([0, 0]);
+            ctx.closePath();
+        }
     }
 
     drawShadow(ctx){

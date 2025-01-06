@@ -82,7 +82,8 @@ export class Debug{
         towers.forEach(tower => {
             this.drawDot(ctx, tower.position, COLOURS.BLUE);
             this.drawDot(ctx, tower.center, COLOURS.GREEN);
-            this.drawDot(ctx, tower.muzzle, COLOURS.YELLOW);
+            if(tower.muzzle)
+                this.drawDot(ctx, tower.muzzle, COLOURS.YELLOW);
             this.drawCircleHitbox(ctx, tower.center);
         });
     }

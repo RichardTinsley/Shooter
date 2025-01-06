@@ -1,7 +1,7 @@
 import * as GAME from "../constants/game.js";
 import { WASTELANDS_TILEMAP } from "../constants/levels.js";
 import { assets } from "../utilities/assets.js";
-import { Tower } from "../objects/Tower.js"
+import { EmptyTowerSpot } from "../components/EmptyTowerSpot.js";
 
 const levelImage = new OffscreenCanvas(GAME.SIZES.GAME_WIDTH, GAME.SIZES.GAME_HEIGHT);
 const context = levelImage.getContext('2d');
@@ -48,7 +48,7 @@ export class Levels {
         this.tileMap2D.forEach((row, y) => {
             row.forEach((symbol, x) => {
                 if (symbol === 19)
-                    emptyTowerSpots.push(new Tower({
+                    emptyTowerSpots.push(new EmptyTowerSpot({
                         position: { 
                             x: x * GAME.SIZES.TILE + GAME.SIZES.TILE_HALF, 
                             y: y * GAME.SIZES.TILE + GAME.SIZES.TILE_HALF 

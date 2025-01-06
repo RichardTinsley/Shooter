@@ -33,30 +33,15 @@ export class SapphireTower extends Tower{
     }
 
     draw(ctx){
-        switch(this.state){
-            case OBJECTS.ANIMATION.ANIMATING:
-                super.draw(ctx);
-                break
-            case OBJECTS.ANIMATION.FINISHED:
-                break
-        }
+        super.draw(ctx);
     }
 
     update(event, enemies, projectiles){
-        switch(this.state){
-            case OBJECTS.ANIMATION.ANIMATING:
-                super.update(event);
-                this.incrementShootTimer(event);
-                this.targetEnemy(enemies);
-                this.shootEnemy(projectiles);
-                break
-            case OBJECTS.ANIMATION.FINISHED:
-                break
-        }
+        super.update(event, enemies, projectiles);
     }
 
     shootEnemy(projectiles){
-        if(this.shootTimer >= this.cooldown && this.target){
+        if(this.target){
             projectiles.push(new SapphireProjectile({
                 width: 50,
                 height: 25,
@@ -67,5 +52,6 @@ export class SapphireTower extends Tower{
             this.shootTimer = 0;
             this.target = null;
         }
+        this.towerState = OBJECTS.STATES.RELOADING;
     }
 }
