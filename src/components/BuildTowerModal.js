@@ -16,12 +16,13 @@ export class BuildTowerModal{
         position
     }){
         this.position = {...position};
-        this.radius = 10;
-        this.hexagonCorners = this.getHexagonCornerPositions();
+        this.radius = 0;
 
         this.menu = this.initialiseMenu();
+
         this.globalAlpha = 0;
-        this.delta = 0.035;
+        this.delta = 0.045;
+        this.speed = 5
     }
 
     draw(ctx){
@@ -47,21 +48,8 @@ export class BuildTowerModal{
                         y: (this.radius * Math.sin(rotation)) + this.position.y
                 });
             }
-            this.radius += 3;
+            this.radius += this.speed;
         }
-    }
-
-
-    getHexagonCornerPositions(){
-        const array = [];
-        for (let i = 0; i < 6; i++){
-            const rotation = (Math.PI / 3) * i;
-            array.push({
-                x: (this.radius * Math.cos(rotation)) + this.position.x,
-                y: (this.radius * Math.sin(rotation)) + this.position.y
-            });
-        }
-        return array;
     }
 
     initialiseMenu(){
@@ -69,7 +57,7 @@ export class BuildTowerModal{
         for (let i = 0; i < 6; i++){
             array.push(new MenuItemImage({
                 image: assets.get(`${towerIcons[i]}${OBJECTS.TYPES.TOWER}1`),
-                position: this.hexagonCorners[i],
+                position: {...this.position},
                 option: towerIcons[i],
                 cost: OBJECTS.TOWERINFORMATION[towerIcons[i]].cost,
                 scale: 0.65,
