@@ -8,5 +8,3 @@ RESEARCH: ASYNC, AWAIT, PROMISES,  SCOPE/CLOSURE,  OBJECT.() PROTOTYPES, JS PERF
 PROTOYTYPE CHAIN
 
 enemy collisions, push each other away / DYKSTRA collision and non collision tiles
-
-update
