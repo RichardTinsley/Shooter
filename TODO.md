@@ -10,4 +10,4 @@ PROTOYTYPE CHAIN
 enemy collisions, push each other away / DYKSTRA collision and non collision tiles
 
 
-before enemy array for effects
+before enemy array for effects thoon
