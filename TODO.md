@@ -11,3 +11,6 @@ enemy collisions, push each other away / DYKSTRA collision and non collision til
 
 move effects array into enemy
 before enemy array for effects
+
+
+hello
