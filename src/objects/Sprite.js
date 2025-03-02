@@ -45,10 +45,6 @@ export class Sprite {
         this.speed              = speed ?? 1;
         this.angle              = 0;
         this.direction;
-        this.velocity = { 
-            x: 0, 
-            y: 0
-        }; 
 
         this.isMouseOver = false;
         this.state = OBJECTS.ANIMATION.ANIMATING;
@@ -145,10 +141,8 @@ export class Sprite {
     }
 
     updateMovement(){
-        this.velocity.x = Math.cos(this.angle) * this.speed;
-        this.velocity.y = Math.sin(this.angle) * this.speed;
-        this.position.x += this.velocity.x;
-        this.position.y += this.velocity.y;
+        this.position.x += Math.cos(this.angle) * this.speed;
+        this.position.y += Math.sin(this.angle) * this.speed;
     }
 
     updateHitbox(){
