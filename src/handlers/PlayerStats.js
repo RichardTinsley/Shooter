@@ -1,7 +1,7 @@
 import * as GAME from "../constants/game.js"
-import { assets } from "../utilities/assets.js";
 import { drawText } from "../utilities/textRender.js";
 import { Time } from "./Time.js";
+import { HUDItem } from "../components/HUDItem.js"
 
 let lives; 
 let coins;
@@ -13,7 +13,6 @@ let timer;
 export class PlayerStats{
     constructor(switchScenes){
         this.switchScenes = switchScenes;
-        this.backgroundImage = assets.get('hudBackgroundImage');
         
         lives = 2;
         coins = 100;
@@ -21,11 +20,18 @@ export class PlayerStats{
         mana = 0;
         waves = 1;
         timer = 0;
+        this.lives = new HUDItem({
+            text: lives,
+            position: {
+                x: 32,
+                y: 32,
+            },
+            icon: "life",
+        })
     }
     
     draw(ctx){
-        ctx.drawImage(this.backgroundImage, 0, 0);
-        this.drawPlayerStats(ctx);
+        this.lives.draw(ctx);
     }
     
     update(event){
@@ -78,11 +84,11 @@ export class PlayerStats{
         {}
     }
 
-    drawPlayerStats(ctx){
-        drawText(ctx, "white", lives, 70, 39, 20, 'left', 'top');
-        drawText(ctx, "white", coins, 230, 39, 20, 'left', 'top');
-        drawText(ctx, "white", experience, 520, 39, 20, 'left', 'top');
-        drawText(ctx, "white", waves, 810, 39, 20, 'left', 'top');
-        drawText(ctx, "white", timer, 1160, 39, 20, 'left', 'top');
-    }
+    // drawPlayerStats(ctx){
+    //     drawText(ctx, "white", lives, 70, 39, 20, 'left', 'top');
+    //     drawText(ctx, "white", coins, 230, 39, 20, 'left', 'top');
+    //     drawText(ctx, "white", experience, 520, 39, 20, 'left', 'top');
+    //     drawText(ctx, "white", waves, 810, 39, 20, 'left', 'top');
+    //     drawText(ctx, "white", timer, 1160, 39, 20, 'left', 'top');
+    // }
 }

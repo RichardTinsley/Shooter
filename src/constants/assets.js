@@ -4,6 +4,7 @@ const EFFECTS_URL = './images/effects/';
 const ENEMIES_URL = './images/enemies/';
 const PROJECTILES_URL = './images/projectiles/';
 const TOWERS_URL = './images/towers/';
+const ICONS_URL = './images/icons/';
 
 export const URL_NUMBER = {
     ONE: ' (1)',
@@ -26,15 +27,20 @@ export const ASSET_TYPE_LOOKUP = {
 }
 
 export const ASSET_LIST = [
-    ['hudBackgroundImage',  './images/hudBackgroundImage.png'],
     ['menuLogo',    './images/logos/menuLogo.png'],
-    ['wastelands',  './images/levels/wastelandsTilemap.png'],
+    ['hellwortica',  './images/levels/hellwortica/hellwortica.png'],
     ['towerSpot',   './images/levels/towerSpot.png'],
     ['bossWave',    './audio/bossWave.ogg'],
     ['menuMusic',   './audio/menuMusic.mp3'],
     ['blood',       `${EFFECTS_URL}blood_110x110.png`],
     ['blueExplosion',   `${EFFECTS_URL}blueExplosion_256x256.png`],
     ['sapphireProjectile',    `${PROJECTILES_URL}sapphireProjectile_50x25.png`],
+    //GUI
+    ['life',        `${ICONS_URL}life.png`],
+    ['gold',        `${ICONS_URL}gold.png`],
+    ['experience',  `${ICONS_URL}experience.png`],
+    ['wave',        `${ICONS_URL}wave.png`],
+    ['time',        `${ICONS_URL}time.png`],
     //ENEMIES
     [`${OBJECTS.COLOURS.AMETHYST}`, `${ENEMIES_URL}${OBJECTS.COLOURS.AMETHYST}.png`],
     [`${OBJECTS.COLOURS.CITRINE}`,  `${ENEMIES_URL}${OBJECTS.COLOURS.CITRINE}.png`],

@@ -3,19 +3,14 @@ import { WASTELANDS_TILEMAP } from "../constants/levels.js";
 import { assets } from "../utilities/assets.js";
 import { EmptyTowerSpot } from "../components/EmptyTowerSpot.js";
 
-const levelImage = new OffscreenCanvas(GAME.SIZES.GAME_WIDTH, GAME.SIZES.GAME_HEIGHT);
-const context = levelImage.getContext('2d');
-
 export class Levels {
     constructor(){
         this.tileMap2D = this.create2DTileMapArray(WASTELANDS_TILEMAP);
-        this.tilesetImage = assets.get('wastelands');
-        this.tilesetImageWidth = Math.floor(this.tilesetImage.width / GAME.SIZES.TILE);
-        this.buildMap();
+        this.levelImage = assets.get('hellwortica');
     }
 
     draw(ctx){
-        ctx.drawImage(levelImage, 0, 0);
+        ctx.drawImage(this.levelImage, 0, 0);
     }
     
     create2DTileMapArray(tileMap){
@@ -25,24 +20,6 @@ export class Levels {
         return TileMapArray;
     }
     
-    buildMap(){
-        for (let rowIndex = 0; rowIndex < this.tileMap2D.length; rowIndex++)
-            for(let columnIndex = 0; columnIndex < this.tileMap2D[rowIndex].length; columnIndex++){
-                const tile = this.tileMap2D[rowIndex][columnIndex];
-                this.drawTile(context, tile - 1, columnIndex * GAME.SIZES.TILE, rowIndex * GAME.SIZES.TILE); // -1 to zero index
-            }
-    }
-
-    drawTile(context, tile, x, y){    
-        context.drawImage(
-            this.tilesetImage,
-            (tile % this.tilesetImageWidth) * GAME.SIZES.TILE,
-            Math.floor(tile / this.tilesetImageWidth) * GAME.SIZES.TILE,
-            GAME.SIZES.TILE, GAME.SIZES.TILE,
-            x, y, GAME.SIZES.TILE, GAME.SIZES.TILE,
-        );
-    }
-
     emptyTowerSpots = () => {
         const emptyTowerSpots = [];   
         this.tileMap2D.forEach((row, y) => {

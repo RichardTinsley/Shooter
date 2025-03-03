@@ -129,11 +129,11 @@ export class Debug{
     }
 
     logMemory() {
-        if (typeof process != 'undefined')
-            console.log(`Node: ${process.memoryUsage().heapUsed / Math.pow(1000, 2)} MB`);
+        // if (typeof process != 'undefined')
+            // console.log(`Node: ${process.memoryUsage().heapUsed / Math.pow(1000, 2)} MB`);
 
-        if (typeof performance.memory != 'undefined')
-            console.log(`Browser: ${performance.memory.usedJSHeapSize / Math.pow(1000, 2)} MB`);
+        // if (typeof performance.memory != 'undefined')
+            // console.log(`Browser: ${performance.memory.usedJSHeapSize / Math.pow(1000, 2)} MB`);
     }
 }
 

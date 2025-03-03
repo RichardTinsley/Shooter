@@ -5,7 +5,7 @@ export const TIME = {
 
 export const SIZES = {
     COLUMNS: 40,
-    ROWS: 24,
+    ROWS: 20,
     TILE: 32,
     get TILE_HALF(){
         return this.TILE / 2;

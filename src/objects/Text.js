@@ -10,7 +10,6 @@ export class Text {
         align,
         baseline,
     }){
-
         this.text = text;
         this.colour = colour ?? INTERFACE.TEXT_COLOURS.WHITE;
         this.position = position;
