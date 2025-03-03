@@ -11,7 +11,7 @@ export class HUDItem{
             text: text,
             position: {
                 x: position.x + 64,
-                y: position,
+                y: position.y,
             },
             size: 20,
         });

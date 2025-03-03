@@ -13,6 +13,7 @@ export class Text {
         this.text = text;
         this.colour = colour ?? INTERFACE.TEXT_COLOURS.WHITE;
         this.position = position;
+        
         this.size = size ?? INTERFACE.SIZES.MENUITEMTEXT;
         
         this.align = align ?? "center";
