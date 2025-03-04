@@ -20,7 +20,6 @@ export class HUD{
         waves = 1;
         timer = 0;
 
-
         this.HUDLives = new HUDItem({
             position: {
                 x: 16,
