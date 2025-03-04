@@ -24,7 +24,7 @@ export class Levels {
         const emptyTowerSpots = [];   
         this.tileMap2D.forEach((row, y) => {
             row.forEach((symbol, x) => {
-                if (symbol === 19)
+                if (symbol !== 0)
                     emptyTowerSpots.push(new EmptyTowerSpot({
                         position: { 
                             x: x * GAME.SIZES.TILE + GAME.SIZES.TILE_HALF, 
