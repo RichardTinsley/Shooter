@@ -3,7 +3,7 @@ import * as INTERFACE from "../constants/interface.js";
 import { GameText } from "./texts/GameText.js";
 import { Sprite } from "./Sprite.js";
 import { checkCircleCollision } from "../utilities/math.js";
-import { PlayerStats } from "../handlers/PlayerStats.js";
+import { HUD } from "../handlers/HUD.js";
 
 export class Projectile extends Sprite{
     constructor({
@@ -72,14 +72,14 @@ export class Projectile extends Sprite{
     
     addGold(texts){
         texts.push(new GameText({
-            text: PlayerStats.setCoins(), 
+            text: HUD.setCoins(), 
             colour: INTERFACE.TEXT_COLOURS.GOLD, 
             position: {...this.enemy.position},
         }));
     }
 
     addExperience(texts){
-        const experienceText = PlayerStats.setExperience();
+        const experienceText = HUD.setExperience();
         if(experienceText === 0)
             return
 

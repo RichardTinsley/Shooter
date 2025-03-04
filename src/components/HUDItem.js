@@ -1,5 +1,6 @@
-import { Text } from "../objects/Text.js";
+import * as INTERFACE from "../constants/interface.js";
 import { assets } from "../utilities/assets.js";
+import { drawText } from "../utilities/textRender.js";
 
 export class HUDItem{
     constructor({
@@ -7,21 +8,9 @@ export class HUDItem{
         position,
         icon,
     }){
-        this.text = new Text({
-            text: text,
-            position: {
-                x: position.x + 64,
-                y: position.y,
-            },
-            size: 20,
-        });
-        
+        this.text = text;      
         this.icon = assets.get(icon);
-
-        this.position = {
-            x: position.x,
-            y: position.y,
-        };
+        this.position = position;
     }
 
     draw(ctx){
@@ -32,10 +21,28 @@ export class HUDItem{
             32,
             32,
         );
-        this.text.draw(ctx);
+
+        drawText(
+            ctx, 
+            INTERFACE.COLOURS.WHITE, 
+            this.text, 
+            this.position.x + 42, 
+            this.position.y + 16, 
+            24, 
+            "left", 
+            "middle"
+        ); 
     }
     
     update(event){
         this.text.update(event);
+    }
+
+    setText(newText){
+        this.text = newText;
+    }
+
+    getText(){
+        return this.text;
     }
 }

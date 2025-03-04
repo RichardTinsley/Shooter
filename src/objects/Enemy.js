@@ -5,7 +5,7 @@ import { checkCircleCollision } from "../utilities/math.js";
 import { assets } from "../utilities/assets.js";
 import { Sprite } from "./Sprite.js";
 import { Blood } from "./effects/Blood.js";
-import { PlayerStats } from "../handlers/PlayerStats.js";
+import { HUD } from "../handlers/HUD.js";
 
 export class Enemy extends Sprite{
     constructor({
@@ -94,7 +94,7 @@ export class Enemy extends Sprite{
 
     checkEndpointArrival(){
         if(this.waypointIndex === this.waypoints.length){
-            PlayerStats.setLives();
+            HUD.setLives();
             this.waypointIndex = 0;
             this.position = {...this.waypoints[this.waypointIndex]};
         }

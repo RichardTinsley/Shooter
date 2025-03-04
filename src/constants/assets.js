@@ -37,7 +37,7 @@ export const ASSET_LIST = [
     ['sapphireProjectile',    `${PROJECTILES_URL}sapphireProjectile_50x25.png`],
     //GUI
     ['life',        `${ICONS_URL}life.png`],
-    ['gold',        `${ICONS_URL}gold.png`],
+    ['coin',        `${ICONS_URL}coin.png`],
     ['experience',  `${ICONS_URL}experience.png`],
     ['wave',        `${ICONS_URL}wave.png`],
     ['time',        `${ICONS_URL}time.png`],

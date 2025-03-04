@@ -13,7 +13,6 @@ export class Text {
         this.text = text;
         this.colour = colour ?? INTERFACE.TEXT_COLOURS.WHITE;
         this.position = position;
-        
         this.size = size ?? INTERFACE.SIZES.MENUITEMTEXT;
         
         this.align = align ?? "center";
@@ -25,20 +24,25 @@ export class Text {
     }
 
     draw(ctx){
-        ctx.beginPath(); 
-        ctx.fillStyle = `rgba(${this.colour}${this.alpha})`;
-        ctx.font = 'bold ' + this.size + 'px canterbury';
-        ctx.textAlign = this.align;
-        ctx.textBaseline = this.baseline;
-        ctx.lineWidth = this.lineWidth;
-        ctx.strokeStyle = `rgba(0, 0, 0, ${this.alpha})`;
-        ctx.strokeText(this.text, this.position.x, this.position.y);
-        ctx.fillText(this.text, this.position.x, this.position.y);
-        ctx.closePath();
+        switch(this.state){
+            case OBJECTS.ANIMATION.ANIMATING:
+                ctx.beginPath(); 
+                ctx.fillStyle = `rgba(${this.colour}${this.alpha})`;
+                ctx.font = 'bold ' + this.size + 'px canterbury';
+                ctx.textAlign = this.align;
+                ctx.textBaseline = this.baseline;
+                ctx.lineWidth = this.lineWidth;
+                ctx.strokeStyle = `rgba(0, 0, 0, ${this.alpha})`;
+                ctx.strokeText(this.text, this.position.x, this.position.y);
+                ctx.fillText(this.text, this.position.x, this.position.y);
+                ctx.closePath();
+                break
+            case OBJECTS.ANIMATION.FINISHED:
+                break
+        }
     }
 
     update(event){
-        if(!event) 
-            return;
+
     }
 }

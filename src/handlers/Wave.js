@@ -1,7 +1,7 @@
 import { WASTELANDS_WAYPOINTS, generateEnemyWaypoints } from "../constants/levels.js";
 import { generateEnemySpeed } from "../utilities/math.js";
 import { Enemy } from "../objects/Enemy.js";
-import { PlayerStats } from "./PlayerStats.js";
+import { HUD } from "./HUD.js";
 
 export class Wave{
     constructor(){
@@ -32,7 +32,7 @@ export class Wave{
 
     newWaveCheck(enemies){
         if(enemies.length === 0 && this.allEnemiesActive) {
-            PlayerStats.setWave();
+            HUD.setWave();
             this.maxEnemies++;
             this.enemyCounter = 0;
             this.allEnemiesActive = false;
@@ -40,7 +40,7 @@ export class Wave{
     }
 
     spawnEnemy(enemies){ // 2% Health and Armour increase depending on round?
-        if(enemies.length >= PlayerStats.getWave() + 10){
+        if(enemies.length >= HUD.getWave() + 10){
             this.allEnemiesActive = true;
             return
         }

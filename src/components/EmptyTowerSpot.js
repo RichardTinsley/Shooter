@@ -3,7 +3,7 @@ import * as OBJECTS from "../constants/objects.js";
 import { checkCircleCollision } from "../utilities/math.js";
 import { assets } from "../utilities/assets.js";
 import { BuildTowerModal } from "./BuildTowerModal.js";
-import { PlayerStats } from "../handlers/PlayerStats.js";
+import { HUD } from "../handlers/HUD.js";
 
 import { AmethystTower } from "../objects/towers/AmethystTower.js";
 import { DiamondTower } from "../objects/towers/DiamondTower.js";
@@ -96,10 +96,10 @@ export class EmptyTowerSpot{
     }
 
     towerFactory(tower){
-        if(PlayerStats.getCoins() < OBJECTS.TOWERINFORMATION[tower].cost)
+        if(HUD.getCoins() < OBJECTS.TOWERINFORMATION[tower].cost)
             return null;
 
-        PlayerStats.buy(OBJECTS.TOWERINFORMATION[tower].cost);
+        HUD.buy(OBJECTS.TOWERINFORMATION[tower].cost);
 
         const newTowerStats = {
             position: {...this.position},

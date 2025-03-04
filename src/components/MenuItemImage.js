@@ -1,7 +1,7 @@
 import * as INTERFACE from "../constants/interface.js";
 import * as OBJECTS from "../constants/objects.js";
 import { checkCircleCollision } from "../utilities/math.js";
-import { PlayerStats } from "../handlers/PlayerStats.js";
+import { HUD } from "../handlers/HUD.js";
 
 export class MenuItemImage {
     constructor({
@@ -113,7 +113,7 @@ export class MenuItemImage {
     }
 
     canAfford(){
-        if(PlayerStats.getCoins() >= this.cost)
+        if(HUD.getCoins() >= this.cost)
             return OBJECTS.ANIMATION.ANIMATING;
         else
             return OBJECTS.ANIMATION.FINISHED;
