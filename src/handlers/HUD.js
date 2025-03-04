@@ -3,57 +3,72 @@ import * as INTERFACE from "../constants/interface.js";
 import { Time } from "./Time.js";
 import { HUDItem } from "../components/HUDItem.js";
 
-let lives; 
-let coins;
-let experience;
-let mana;
-let waves;
-let timer;
+let lives = 2;
+let coins = 100;
+let experience = 0;
+let mana = 0;
+let waves = 1;
+let timer = 0;
 
 export class HUD{
     constructor(switchScenes){
         this.switchScenes = switchScenes;
-        
         lives = 2;
-        coins = 1000;
+        coins = 100;
         experience = 0;
         mana = 0;
         waves = 1;
         timer = 0;
 
+
         this.HUDLives = new HUDItem({
-            text: lives,
             position: {
                 x: 16,
                 y: 16,
             },
-            icon: "life",
+            icon: "lives",
         });
 
         this.HUDCoins = new HUDItem({
-            text: coins,
             position: {
                 x: 112,
                 y: 16,
             },
-            icon: "coin",
+            icon: "coins",
         });
 
         this.HUDExperience = new HUDItem({
-            text: experience,
             position: {
                 x: 240,
                 y: 16,
             },
             icon: "experience",
         });
+
+        this.HUDWaves = new HUDItem({
+            position: {
+                x: 368,
+                y: 16,
+            },
+            icon: "waves",
+        });
+
+        this.HUDTimer = new HUDItem({
+            position: {
+                x: 496,
+                y: 16,
+            },
+            icon: "timer",
+        });
     }
     
     draw(ctx){
         this.drawHUDBackground(ctx);
-        this.HUDLives.draw(ctx);
-        this.HUDCoins.draw(ctx);
-        this.HUDExperience.draw(ctx);
+        this.HUDLives.draw(ctx, lives);
+        this.HUDCoins.draw(ctx, coins);
+        this.HUDExperience.draw(ctx, experience);
+        this.HUDWaves.draw(ctx, waves)
+        this.HUDTimer.draw(ctx, timer);
     }
     
     update(event){
@@ -63,8 +78,7 @@ export class HUD{
     }
 
     static setLives(){
-
-        // HUDLives.text.setText(HUDLives.text.getText() -1);
+        lives--;
     }
 
     static getCoins(){

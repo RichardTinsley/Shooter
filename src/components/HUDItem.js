@@ -4,16 +4,14 @@ import { drawText } from "../utilities/textRender.js";
 
 export class HUDItem{
     constructor({
-        text,
         position,
         icon,
-    }){
-        this.text = text;      
+    }){    
         this.icon = assets.get(icon);
         this.position = position;
     }
 
-    draw(ctx){
+    draw(ctx, text){
         ctx.drawImage(
             this.icon,
             this.position.x,
@@ -25,7 +23,7 @@ export class HUDItem{
         drawText(
             ctx, 
             INTERFACE.COLOURS.WHITE, 
-            this.text, 
+            text, 
             this.position.x + 42, 
             this.position.y + 16, 
             24, 
@@ -36,13 +34,5 @@ export class HUDItem{
     
     update(event){
         this.text.update(event);
-    }
-
-    setText(newText){
-        this.text = newText;
-    }
-
-    getText(){
-        return this.text;
     }
 }
