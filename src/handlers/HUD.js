@@ -137,7 +137,7 @@ export class HUD{
     drawHUDBackground(ctx){
         ctx.beginPath();
         ctx.fillStyle = INTERFACE.COLOURS.DARKSHADOW;
-        ctx.fillRect(this.position.x + 4, this.position.y + 4, GAME.SIZES.TILE * 26 - 8, GAME.SIZES.TILE * 2 - 8);
+        ctx.fillRect(this.position.x + 2, this.position.y + 2, GAME.SIZES.TILE * 26 - 4, GAME.SIZES.TILE * 2 - 4);
         ctx.closePath();
     }
 }

@@ -2,10 +2,11 @@ import * as GAME from "../constants/game.js";
 import { WASTELANDS_TILEMAP } from "../constants/levels.js";
 import { assets } from "../utilities/assets.js";
 import { EmptyTowerSpot } from "../components/EmptyTowerSpot.js";
+import { create2DArray } from "../utilities/array.js";
 
 export class Levels {
     constructor(){
-        this.tileMap2D = this.create2DTileMapArray(WASTELANDS_TILEMAP);
+        this.tileMap = create2DArray(WASTELANDS_TILEMAP, GAME.SIZES.COLUMNS);
         this.levelImage = assets.get('hellwortica');
     }
 
@@ -13,16 +14,9 @@ export class Levels {
         ctx.drawImage(this.levelImage, 0, 0);
     }
     
-    create2DTileMapArray(tileMap){
-        const TileMapArray = [];
-        for (let i = 0; i < tileMap.length; i+= GAME.SIZES.COLUMNS)
-            TileMapArray.push(tileMap.slice(i, i + GAME.SIZES.COLUMNS));
-        return TileMapArray;
-    }
-    
     emptyTowerSpots = () => {
         const emptyTowerSpots = [];   
-        this.tileMap2D.forEach((row, y) => {
+        this.tileMap.forEach((row, y) => {
             row.forEach((symbol, x) => {
                 if (symbol !== 0)
                     emptyTowerSpots.push(new EmptyTowerSpot({
