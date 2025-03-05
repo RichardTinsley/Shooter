@@ -77,3 +77,8 @@ export const GAME_OVER_MENU = [
         option: GAME.STATES.MAINMENU,
     }, 
 ];
+
+export const HUD_MAP = [
+    1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3,
+    7, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 9
+];

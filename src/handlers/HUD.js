@@ -2,6 +2,7 @@ import * as GAME from "../constants/game.js";
 import * as INTERFACE from "../constants/interface.js";
 import { Time } from "./Time.js";
 import { HUDItem } from "../components/HUDItem.js";
+import { MenuBox } from "../components/MenuBox.js";
 
 let lives = 2;
 let coins = 100;
@@ -20,42 +21,54 @@ export class HUD{
         waves = 1;
         timer = 0;
 
+        this.position = {
+            x: 16,
+            y: 16,
+        }
+
+        this.HUDBox = new MenuBox({
+            position: {
+                x: this.position.x,
+                y: this.position.y,
+            }
+        })
+
         this.HUDLives = new HUDItem({
             position: {
-                x: 16,
-                y: 16,
+                x: this.position.x + 16,
+                y: this.position.y + 16,
             },
             icon: "lives",
         });
 
         this.HUDCoins = new HUDItem({
             position: {
-                x: 112,
-                y: 16,
+                x: this.position.x + 112,
+                y: this.position.y + 16,
             },
             icon: "coins",
         });
 
         this.HUDExperience = new HUDItem({
             position: {
-                x: 240,
-                y: 16,
+                x: this.position.x + 240,
+                y: this.position.y + 16,
             },
             icon: "experience",
         });
 
         this.HUDWaves = new HUDItem({
             position: {
-                x: 368,
-                y: 16,
+                x: this.position.x + 368,
+                y: this.position.y + 16,
             },
             icon: "waves",
         });
 
         this.HUDTimer = new HUDItem({
             position: {
-                x: 496,
-                y: 16,
+                x: this.position.x + 496,
+                y: this.position.y + 16,
             },
             icon: "timer",
         });
@@ -63,6 +76,7 @@ export class HUD{
     
     draw(ctx){
         this.drawHUDBackground(ctx);
+        this.HUDBox.draw(ctx);
         this.HUDLives.draw(ctx, lives);
         this.HUDCoins.draw(ctx, coins);
         this.HUDExperience.draw(ctx, experience);
@@ -122,12 +136,8 @@ export class HUD{
 
     drawHUDBackground(ctx){
         ctx.beginPath();
-        ctx.lineWidth = 3;
-        ctx.lineJoin = "bevel";
         ctx.fillStyle = INTERFACE.COLOURS.DARKSHADOW;
-        ctx.fillRect(12, 12, 500, GAME.SIZES.TILE + 8);
-        ctx.strokeStyle = INTERFACE.COLOURS.WHITE;
-        ctx.strokeRect(12, 12, 500, GAME.SIZES.TILE + 8);
+        ctx.fillRect(this.position.x + 4, this.position.y + 4, GAME.SIZES.TILE * 26 - 8, GAME.SIZES.TILE * 2 - 8);
         ctx.closePath();
     }
 }

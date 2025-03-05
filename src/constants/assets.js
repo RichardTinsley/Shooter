@@ -36,11 +36,12 @@ export const ASSET_LIST = [
     ['blueExplosion',   `${EFFECTS_URL}blueExplosion_256x256.png`],
     ['sapphireProjectile',    `${PROJECTILES_URL}sapphireProjectile_50x25.png`],
     //GUI
-    ['lives',        `${ICONS_URL}lives.png`],
-    ['coins',        `${ICONS_URL}coins.png`],
+    ['menuBox',     `./images/interface/menuBox.png`],
+    ['lives',       `${ICONS_URL}lives.png`],
+    ['coins',       `${ICONS_URL}coins.png`],
     ['experience',  `${ICONS_URL}experience.png`],
-    ['waves',        `${ICONS_URL}waves.png`],
-    ['timer',        `${ICONS_URL}timer.png`],
+    ['waves',       `${ICONS_URL}waves.png`],
+    ['timer',       `${ICONS_URL}timer.png`],
     //ENEMIES
     [`${OBJECTS.COLOURS.AMETHYST}`, `${ENEMIES_URL}${OBJECTS.COLOURS.AMETHYST}.png`],
     [`${OBJECTS.COLOURS.CITRINE}`,  `${ENEMIES_URL}${OBJECTS.COLOURS.CITRINE}.png`],
