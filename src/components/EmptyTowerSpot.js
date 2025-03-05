@@ -17,9 +17,8 @@ export class EmptyTowerSpot{
         position,
     }){
         this.image = assets.get('towerSpot');
-        this.sprite = 
-        this.width = OBJECTS.SIZES.TOWER;
-        this.height = OBJECTS.SIZES.TOWER;
+        this.width = 32;
+        this.height = 32;
         this.position = position;
 
         this.center = {
