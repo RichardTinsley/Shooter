@@ -17,8 +17,8 @@ export class EmptyTowerSpot{
         position,
     }){
         this.image = assets.get('towerSpot');
-        this.width = 32;
-        this.height = 32;
+        this.width = OBJECTS.SIZES.TOWER;
+        this.height = OBJECTS.SIZES.TOWER;
         this.position = position;
 
         this.center = {
@@ -41,6 +41,7 @@ export class EmptyTowerSpot{
             case OBJECTS.ANIMATION.SELECTED:
                 this.modal.draw(ctx);
             case OBJECTS.ANIMATION.ANIMATING:
+                this.drawMouseOver(ctx);
                 ctx.drawImage(
                     this.image, 
                     this.drawPositionX, 
@@ -48,7 +49,6 @@ export class EmptyTowerSpot{
                     this.width,
                     this.height
                 );
-                this.drawMouseOver(ctx);
                 break
             case OBJECTS.ANIMATION.FINISHED:
                 break 
@@ -72,7 +72,7 @@ export class EmptyTowerSpot{
 
     drawMouseOver(ctx){
         if(this.isMouseOver)
-            this.drawSelectionCircle(ctx);
+            this.drawSelectionIcon(ctx);
     }
 
     setIsMouseOver(){
@@ -82,13 +82,12 @@ export class EmptyTowerSpot{
             this.isMouseOver = true;
     }
 
-    drawSelectionCircle(ctx){
+    drawSelectionIcon(ctx){
         ctx.beginPath();
-        ctx.arc(this.center.x, this.center.y, this.center.radius, 0, Math.PI * 2);
-        ctx.lineWidth = 4;
+        ctx.ellipse(this.position.x, this.position.y, this.width / 4, this.width / 2, Math.PI / 2, 0, 2 * Math.PI);
+        ctx.lineWidth = 3;
         ctx.strokeStyle = INTERFACE.COLOURS.GREEN;
         ctx.stroke();
-        ctx.closePath();
     }
 
     collisionDetection(mouse){
