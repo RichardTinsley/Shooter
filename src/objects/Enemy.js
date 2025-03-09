@@ -1,5 +1,6 @@
 import * as OBJECTS from "../constants/objects.js";
 import * as INTERFACE from "../constants/interface.js";
+import { URL_NUMBER } from "../constants/assets.js";
 import { HealthBar } from "../components/HealthBar.js";
 import { checkCircleCollision } from "../utilities/math.js";
 import { assets } from "../utilities/assets.js";
@@ -18,16 +19,16 @@ export class Enemy extends Sprite{
         waypoints
     }){
         super({
-            image: image ?? assets.get(OBJECTS.COLOURS.TOPAZ), 
-            width: width ?? OBJECTS.SIZES.ENEMY,
-            height: height ?? OBJECTS.SIZES.ENEMY + .1, // +.1 REMOVES UPPER SPRITE PIXEL OVERLAP
+            image: image ?? assets.get(`${OBJECTS.TYPES.ENEMY}${URL_NUMBER.ONE}`), 
+            width: width ?? OBJECTS.SIZES.TOWER,
+            height: height ?? OBJECTS.SIZES.TOWER,
             position,
             scale: scale ?? 1.5,
             speed: speed ?? 1, 
         });
         
         this.isPillaged = false;
-        this.sprite.row = this.speed < 0.8 ? OBJECTS.STATES.WALKING : OBJECTS.STATES.RUNNING;
+        this.sprite.row = OBJECTS.STATES.WALKING;
         this.type = OBJECTS.TYPES.ENEMY;
 
         this.health = new HealthBar({

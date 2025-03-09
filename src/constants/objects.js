@@ -22,16 +22,28 @@ export const ANIMATION = {
 };
 
 export const STATES = {
-    IDLE: 0,
-    WALKING: 1,
-    RUNNING: 2,
+    WALKING: 0,
+    IDLE: 1,
+    DYING: 2,
+    // RUNNING: 2,
     ATTACK: 3,
     INJURED: 4,
-    DYING: 5,
     DEAD: 6,
     SHOOTING: 7,
     RELOADING: 8,
 };
+
+// export const STATES = {
+//     IDLE: 0,
+//     WALKING: 1,
+//     RUNNING: 2,
+//     ATTACK: 3,
+//     INJURED: 4,
+//     DYING: 5,
+//     DEAD: 6,
+//     SHOOTING: 7,
+//     RELOADING: 8,
+// };
 
 export const COLOURS = {
     TOPAZ: 'topaz',
