@@ -1,5 +1,4 @@
 import { WASTELANDS_WAYPOINTS, generateEnemyWaypoints } from "../constants/levels.js";
-import { } from "../constants/assets.js"; 
 import { generateEnemySpeed } from "../utilities/math.js";
 import { Enemy } from "../objects/Enemy.js";
 import { HUD } from "./HUD.js";
