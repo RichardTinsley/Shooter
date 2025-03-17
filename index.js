@@ -1,5 +1,5 @@
-import { Main } from './src/Main.js';
+import { Main } from "./src/Main.js";
 
-window.addEventListener('load', () => {
-	new Main();
+window.addEventListener("load", () => {
+  new Main();
 });
