@@ -12,7 +12,7 @@ class Main {
   }
 
   frame = (time: number) => {
-    this.Game.draw();
+    this.Game.draw(ctx);
     this.Game.update();
     requestAnimationFrame(this.frame);
   };

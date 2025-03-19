@@ -1,7 +1,7 @@
 export class Game {
   constructor() {}
 
-  draw() {}
+  draw(ctx) {}
 
   update() {}
 }
