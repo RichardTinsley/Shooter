@@ -1,8 +1,6 @@
 export class Game {
     constructor() { }
-    draw() {
-        console.log("RUNNINGS");
-    }
+    draw() { }
     update() { }
 }
 //# sourceMappingURL=Game.js.map
