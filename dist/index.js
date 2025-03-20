@@ -12,7 +12,5 @@ class Main {
         requestAnimationFrame(this.frame);
     }
 }
-window.addEventListener("load", () => {
-    new Main();
-});
+new Main();
 //# sourceMappingURL=index.js.map

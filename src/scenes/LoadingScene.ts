@@ -1,6 +1,6 @@
 import { Scene } from "./Scene.js";
 import { loadingBar } from "../components/loadingBar.js";
-import { Text } from "../text/text.js";
+import { Text } from "../text/Text.js";
 import { SIZES } from "../constants/sizes.js";
 
 export class LoadingScene extends Scene {

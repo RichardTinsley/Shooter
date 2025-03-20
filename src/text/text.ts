@@ -10,7 +10,7 @@ export class Text {
   private align: CanvasTextAlign = "center";
   private baseline: CanvasTextBaseline = "middle";
   private lineWidth: number = Math.floor(this.size / 6);
-  private state: number = ANIMATION.ANIMATING;
+  protected state: number = ANIMATION.ANIMATING;
 
   constructor(private text: string, private position: Position) {}
 
