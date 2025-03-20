@@ -4,14 +4,13 @@ import { Game } from "./Game.js";
 const ctx: CanvasRenderingContext2D = context();
 
 class Main {
-  private Game: Game;
+  private Game: Game = new Game();
 
-  constructor() {
-    this.Game = new Game();
+  public constructor() {
     requestAnimationFrame(this.frame);
   }
 
-  frame = (time: number) => {
+  private frame = (time: number): void => {
     this.Game.draw(ctx);
     this.Game.update();
     requestAnimationFrame(this.frame);

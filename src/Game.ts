@@ -1,7 +1,14 @@
+import { Scene } from "./scenes/Scene.js";
+import { LoadingScene } from "./scenes/LoadingScene.js";
+
 export class Game {
-  constructor() {}
+  private scene: Scene = new LoadingScene();
 
-  draw(ctx) {}
+  public constructor() {}
 
-  update() {}
+  public draw(ctx: CanvasRenderingContext2D): void {
+    this.scene.draw(ctx);
+  }
+
+  public update(): void {}
 }

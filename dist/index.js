@@ -3,12 +3,12 @@ import { Game } from "./Game.js";
 const ctx = context();
 class Main {
     constructor() {
+        this.Game = new Game();
         this.frame = (time) => {
-            this.Game.draw();
+            this.Game.draw(ctx);
             this.Game.update();
             requestAnimationFrame(this.frame);
         };
-        this.Game = new Game();
         requestAnimationFrame(this.frame);
     }
 }

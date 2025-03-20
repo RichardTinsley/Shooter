@@ -1,0 +1,19 @@
+export const COLOURS = {
+    RED: "rgba(250, 0, 0, 1)",
+    RED_ALPHA: "rgba(250, 0, 0, 0.3)",
+    BLUE: "rgba(0, 0, 250, 1)",
+    BLUE_ALPHA: "rgba(0, 0, 250, 0.3)",
+    GREEN: "rgba(50, 205, 50, 1)",
+    GREEN_ALPHA: "rgba(0, 250, 0, 0.3)",
+    BRIGHT_GREEN: "rgba(85, 255, 0, 1)",
+    YELLOW: "rgba(250, 250, 0, 1)",
+    GOLD: "rgba(255, 217, 0, 1)",
+    WHITE: "rgba(250, 250, 250, 1)",
+    BLACK: "rgba(0, 0, 0, 1)",
+    LINES: "rgba(0, 0, 0, 0.5)",
+    SHADOW: "rgba(0, 0, 0, 0.3)",
+    DARKSHADOW: "rgba(0, 0, 0, 0.9)",
+    BLACKOUT: "0, 0, 0, ",
+    REDOUT: "250, 0, 0, ",
+};
+//# sourceMappingURL=colours.js.map
