@@ -6,6 +6,8 @@ export class Game {
     draw(ctx) {
         this.scene.draw(ctx);
     }
-    update() { }
+    update() {
+        this.scene.update();
+    }
 }
 //# sourceMappingURL=Game.js.map

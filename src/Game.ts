@@ -10,5 +10,7 @@ export class Game {
     this.scene.draw(ctx);
   }
 
-  public update(): void {}
+  public update(): void {
+    this.scene.update();
+  }
 }

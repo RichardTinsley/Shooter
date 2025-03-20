@@ -1,7 +1,9 @@
 import { Scene } from "./Scene.js";
 import { loadingBar } from "../components/loadingBar.js";
-import { Text } from "../text/text.js";
+import { Text } from "../text/Text.js";
+import { FadeText } from "../text/FadeText.js";
 import { SIZES } from "../constants/sizes.js";
+import { TEXT_SIZES } from "../constants/text.js";
 export class LoadingScene extends Scene {
     constructor() {
         super();
@@ -15,13 +17,20 @@ export class LoadingScene extends Scene {
         this.title = new Text("Death Sorcery", {
             x: SIZES.GAME_WIDTH_HALF,
             y: 100,
-        }).setSize(120);
+        }).setSize(TEXT_SIZES.TITLE_TEXT);
+        this.summoning = new FadeText("Summoning...", {
+            x: SIZES.GAME_WIDTH_HALF,
+            y: SIZES.GAME_HEIGHT - 150,
+        }).setSize(TEXT_SIZES.MENUITEM_TEXT);
     }
     draw(ctx) {
         ctx.clearRect(0, 0, SIZES.GAME_WIDTH, SIZES.GAME_HEIGHT);
         this.loadingBar.draw(ctx);
         this.title.draw(ctx);
+        this.summoning.draw(ctx);
     }
-    update() { }
+    update() {
+        this.summoning.update();
+    }
 }
 //# sourceMappingURL=LoadingScene.js.map

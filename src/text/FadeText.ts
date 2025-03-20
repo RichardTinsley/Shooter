@@ -1,36 +1,23 @@
-import { ANIMATION } from "../constants/animation.js";
+import { Position } from "../types/position.js";
 import { Text } from "./Text.js";
 
 export class FadeText extends Text {
-  private alpha: number = 0;
-  private delta: number = 0.05;
-  constructor() {
-    super();
+  alpha: number = 0;
+  delta: number = 0.01;
+  constructor(text: string, position: Position) {
+    super(text, position);
   }
 
-  public draw(ctx: CanvasRenderingContext2D) {
-    switch (this.state) {
-      case ANIMATION.ANIMATING:
-        super.draw(ctx);
-        break;
-      case ANIMATION.FINISHED:
-        break;
-    }
+  draw(ctx: CanvasRenderingContext2D) {
+    super.draw(ctx);
   }
 
-  public update() {
-    super.update();
-    switch (this.state) {
-      case ANIMATION.ANIMATING:
-        this.oscillateAlpha();
-        break;
-      case ANIMATION.FINISHED:
-        break;
-    }
+  update() {
+    this.oscillateAlpha();
   }
 
-  private oscillateAlpha() {
+  oscillateAlpha() {
     this.alpha += this.delta;
-    if (this.alpha <= -0.5 || this.alpha >= 2) this.delta = -this.delta;
+    if (this.alpha <= -0.5 || this.alpha >= 2.0) this.delta = -this.delta;
   }
 }
