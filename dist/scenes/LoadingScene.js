@@ -4,6 +4,7 @@ import { Text } from "../text/Text.js";
 import { FadeText } from "../text/FadeText.js";
 import { SIZES } from "../constants/sizes.js";
 import { TEXT_SIZES } from "../constants/text.js";
+import { loadAssets, assetListLength } from "../utilities/assetLoaders.js";
 export class LoadingScene extends Scene {
     constructor() {
         super();
@@ -12,7 +13,7 @@ export class LoadingScene extends Scene {
                 x: SIZES.GAME_WIDTH_HALF,
                 y: SIZES.GAME_HEIGHT - 100,
             },
-            assetListLength: 40,
+            assetListLength: assetListLength,
         });
         this.title = new Text("Death Sorcery", {
             x: SIZES.GAME_WIDTH_HALF,
@@ -22,6 +23,12 @@ export class LoadingScene extends Scene {
             x: SIZES.GAME_WIDTH_HALF,
             y: SIZES.GAME_HEIGHT - 150,
         }).setSize(TEXT_SIZES.MENUITEM_TEXT);
+        this.assetsLoadedCounter = 0;
+        this.assetLoaded = (fileName) => {
+            console.log(`${fileName.fileName} Loaded.`);
+            this.assetsLoadedCounter++;
+        };
+        loadAssets(this.assetLoaded, this.assetLoaded);
     }
     draw(ctx) {
         ctx.clearRect(0, 0, SIZES.GAME_WIDTH, SIZES.GAME_HEIGHT);

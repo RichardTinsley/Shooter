@@ -4,6 +4,7 @@ import { Text } from "../text/Text.js";
 import { FadeText } from "../text/FadeText.js";
 import { SIZES } from "../constants/sizes.js";
 import { TEXT_SIZES } from "../constants/text.js";
+import { loadAssets, assetListLength } from "../utilities/assetLoaders.js";
 
 export class LoadingScene extends Scene {
   private loadingBar: loadingBar = new loadingBar({
@@ -11,7 +12,7 @@ export class LoadingScene extends Scene {
       x: SIZES.GAME_WIDTH_HALF,
       y: SIZES.GAME_HEIGHT - 100,
     },
-    assetListLength: 40,
+    assetListLength: assetListLength,
   });
 
   private title: Text = new Text("Death Sorcery", {
@@ -24,8 +25,11 @@ export class LoadingScene extends Scene {
     y: SIZES.GAME_HEIGHT - 150,
   }).setSize(TEXT_SIZES.MENUITEM_TEXT);
 
+  private assetsLoadedCounter: number = 0;
+
   constructor() {
     super();
+    loadAssets(this.assetLoaded, this.assetLoaded);
   }
 
   draw(ctx: CanvasRenderingContext2D): void {
@@ -38,4 +42,9 @@ export class LoadingScene extends Scene {
   update(): void {
     this.summoning.update();
   }
+
+  assetLoaded = (fileName: any) => {
+    console.log(`${fileName.fileName} Loaded.`);
+    this.assetsLoadedCounter++;
+  };
 }
