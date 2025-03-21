@@ -3,6 +3,11 @@ import * as ASSETS from "../constants/assets.js";
 export const assets = new Map();
 export const assetListLength: number = ASSETS.ASSET_LIST.length;
 
+type Asset = {
+  key: string;
+  asset: HTMLImageElement | HTMLAudioElement;
+};
+
 export async function loadAssets(
   switchScreens: Function,
   assetLoaded: Function
@@ -20,9 +25,9 @@ export async function loadAssets(
 }
 
 async function load(assetArray: string[][], onComplete: Function) {
-  const promises: Promise<unknown>[] = assetArray.map(([key, fileName]) => {
-    // const extension: string = fileName
-    const extension: keyof typeof ASSETS.ASSET_TYPE_LOOKUP = fileName
+  const promises: Promise<Asset>[] = assetArray.map(([key, fileName]) => {
+    const extension: string = fileName
+      // const extension: keyof typeof ASSETS.ASSET_TYPE_LOOKUP = fileName
       .substring(fileName.lastIndexOf(".") + 1)
       .toLowerCase();
 
@@ -38,17 +43,14 @@ async function load(assetArray: string[][], onComplete: Function) {
   });
 
   return Promise.all(promises).then((loadedAssets) => {
-    for (const assetT of loadedAssets) {
-      console.log(assetT);
+    for (const { key, asset } of loadedAssets) {
+      assets.set(key, asset);
     }
-    // for (const { key, asset } of loadedAssets) {
-    //   assets.set(key, asset);
-    // }
   });
 }
 
 function loadImage(key: string, fileName: string, onComplete: Function) {
-  return new Promise((resolve, reject) => {
+  return new Promise<Asset>((resolve, reject) => {
     const image: HTMLImageElement = new Image();
 
     image.addEventListener(
@@ -60,17 +62,14 @@ function loadImage(key: string, fileName: string, onComplete: Function) {
       { once: true }
     );
 
-    image.addEventListener("error", (event) => {
-      reject({ fileName, event });
-      console.log("OMGFAIL");
-    });
+    image.addEventListener("error", (event) => reject({ fileName, event }));
 
     image.src = fileName;
   });
 }
 
-function loadSound(key: String, fileName: string, onComplete: Function) {
-  return new Promise((resolve, reject) => {
+function loadSound(key: string, fileName: string, onComplete: Function) {
+  return new Promise<Asset>((resolve, reject) => {
     const sound: HTMLAudioElement = new Audio();
 
     sound.addEventListener(

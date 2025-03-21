@@ -5,9 +5,10 @@ import { Position } from "../types/position.js";
 export class loadingBar {
   private readonly loadBarThickness: number = 14;
   private readonly loadBarLength: number = SIZES.GAME_WIDTH / 3;
-  private loadBarMaxWidth = 0;
+  private loadBarMaxWidth: number = 0;
   private position: Position;
   private assetListLength: number;
+  private assetsLoaded: number = 0;
 
   constructor(opts: { position: Position; assetListLength: number }) {
     this.position = opts.position;
@@ -15,7 +16,7 @@ export class loadingBar {
     this.assetListLength = opts.assetListLength;
   }
 
-  public draw(ctx: CanvasRenderingContext2D): void {
+  draw(ctx: CanvasRenderingContext2D): void {
     ctx.beginPath();
     ctx.lineWidth = 3;
     ctx.lineJoin = "bevel";
@@ -39,7 +40,8 @@ export class loadingBar {
     ctx.closePath();
   }
 
-  public update(newLength: number): void {
-    this.loadBarMaxWidth = newLength / this.assetListLength;
+  setAssetsLoaded(): void {
+    this.assetsLoaded++;
+    this.loadBarMaxWidth = this.assetsLoaded / this.assetListLength;
   }
 }

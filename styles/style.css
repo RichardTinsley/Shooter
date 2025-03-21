@@ -19,6 +19,10 @@ body {
   /* cursor: url(../images/cursors/Plain.cur), auto; */
 }
 
+.assets {
+  display: none;
+}
+
 @keyframes arrow-spin {
   100% {
     transform: rotate(179deg);

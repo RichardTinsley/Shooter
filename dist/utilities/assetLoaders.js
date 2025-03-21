@@ -39,8 +39,8 @@ function load(assetArray, onComplete) {
             }
         });
         return Promise.all(promises).then((loadedAssets) => {
-            for (const assetT of loadedAssets) {
-                console.log(assetT);
+            for (const { key, asset } of loadedAssets) {
+                assets.set(key, asset);
             }
         });
     });
@@ -53,10 +53,7 @@ function loadImage(key, fileName, onComplete) {
             if (typeof onComplete === "function")
                 onComplete({ fileName, image });
         }, { once: true });
-        image.addEventListener("error", (event) => {
-            reject({ fileName, event });
-            console.log("OMGFAIL");
-        });
+        image.addEventListener("error", (event) => reject({ fileName, event }));
         image.src = fileName;
     });
 }

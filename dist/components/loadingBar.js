@@ -5,6 +5,7 @@ export class loadingBar {
         this.loadBarThickness = 14;
         this.loadBarLength = SIZES.GAME_WIDTH / 3;
         this.loadBarMaxWidth = 0;
+        this.assetsLoaded = 0;
         this.position = opts.position;
         this.position.x -= this.loadBarLength / 2;
         this.assetListLength = opts.assetListLength;
@@ -19,8 +20,9 @@ export class loadingBar {
         ctx.fillRect(this.position.x, this.position.y, this.loadBarLength * this.loadBarMaxWidth, this.loadBarThickness);
         ctx.closePath();
     }
-    update(newLength) {
-        this.loadBarMaxWidth = newLength / this.assetListLength;
+    setAssetsLoaded() {
+        this.assetsLoaded++;
+        this.loadBarMaxWidth = this.assetsLoaded / this.assetListLength;
     }
 }
 //# sourceMappingURL=loadingBar.js.map

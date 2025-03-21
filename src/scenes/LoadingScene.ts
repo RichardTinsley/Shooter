@@ -1,7 +1,7 @@
 import { Scene } from "./Scene.js";
 import { loadingBar } from "../components/loadingBar.js";
-import { Text } from "../text/Text.js";
-import { FadeText } from "../text/FadeText.js";
+import { Text } from "../texts/Text.js";
+import { FadeText } from "../texts/FadeText.js";
 import { SIZES } from "../constants/sizes.js";
 import { TEXT_SIZES } from "../constants/text.js";
 import { loadAssets, assetListLength } from "../utilities/assetLoaders.js";
@@ -25,7 +25,7 @@ export class LoadingScene extends Scene {
     y: SIZES.GAME_HEIGHT - 150,
   }).setSize(TEXT_SIZES.MENUITEM_TEXT);
 
-  private assetsLoadedCounter: number = 0;
+  private dslogo = document.getElementById("dslogo") as HTMLImageElement;
 
   constructor() {
     super();
@@ -34,8 +34,13 @@ export class LoadingScene extends Scene {
 
   draw(ctx: CanvasRenderingContext2D): void {
     ctx.clearRect(0, 0, SIZES.GAME_WIDTH, SIZES.GAME_HEIGHT);
-    this.loadingBar.draw(ctx);
     this.title.draw(ctx);
+    ctx.drawImage(
+      this.dslogo,
+      SIZES.GAME_WIDTH_HALF - this.dslogo.width / 2,
+      SIZES.GAME_HEIGHT_HALF - this.dslogo.height / 2
+    );
+    this.loadingBar.draw(ctx);
     this.summoning.draw(ctx);
   }
 
@@ -45,6 +50,6 @@ export class LoadingScene extends Scene {
 
   assetLoaded = (fileName: any) => {
     console.log(`${fileName.fileName} Loaded.`);
-    this.assetsLoadedCounter++;
+    this.loadingBar.setAssetsLoaded();
   };
 }

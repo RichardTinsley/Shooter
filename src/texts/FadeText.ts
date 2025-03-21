@@ -18,6 +18,6 @@ export class FadeText extends Text implements IFadeText {
 
   oscillateAlpha() {
     this.alpha += this.delta;
-    if (this.alpha <= -0.5 || this.alpha >= 2.0) this.delta = -this.delta;
+    if (this.alpha <= -0.5 || this.alpha >= 1.0) this.delta = -this.delta;
   }
 }
