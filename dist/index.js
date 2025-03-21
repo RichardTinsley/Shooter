@@ -12,5 +12,9 @@ class Main {
         requestAnimationFrame(this.frame);
     }
 }
-new Main();
+window.addEventListener("load", () => {
+    var _a;
+    new Main();
+    (_a = document.getElementById("positioning")) === null || _a === void 0 ? void 0 : _a.remove();
+});
 //# sourceMappingURL=index.js.map

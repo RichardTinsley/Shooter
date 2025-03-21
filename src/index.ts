@@ -17,6 +17,7 @@ class Main {
   };
 }
 
-// window.addEventListener("load", () => {
-new Main();
-// });
+window.addEventListener("load", () => {
+  new Main();
+  document.getElementById("positioning")?.remove();
+});
