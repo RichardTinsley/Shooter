@@ -3,7 +3,7 @@ import { SIZES } from "../constants/sizes.js";
 import { Position } from "../types/position.js";
 
 export class loadingBar {
-  private readonly loadBarThickness: number = 14;
+  private readonly loadBarHeight: number = 14;
   private readonly loadBarLength: number = SIZES.GAME_WIDTH / 3;
   private loadBarMaxWidth: number = 0;
   private position: Position;
@@ -26,7 +26,7 @@ export class loadingBar {
       this.position.x,
       this.position.y,
       this.loadBarLength,
-      this.loadBarThickness
+      this.loadBarHeight
     );
 
     ctx.fillStyle = COLOURS.WHITE;
@@ -35,7 +35,7 @@ export class loadingBar {
       this.position.x,
       this.position.y,
       this.loadBarLength * this.loadBarMaxWidth,
-      this.loadBarThickness
+      this.loadBarHeight
     );
     ctx.closePath();
   }
