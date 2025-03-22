@@ -1,10 +1,10 @@
 import { COLOURS } from "../constants/colours.js";
-import { SIZES } from "../constants/sizes.js";
-export class loadingBar {
+import { SIZES } from "../constants/game.js";
+export class LoadingBar {
     constructor(opts) {
-        this.loadBarThickness = 14;
+        this.loadBarHeight = 14;
         this.loadBarLength = SIZES.GAME_WIDTH / 3;
-        this.loadBarMaxWidth = 0;
+        this.loadBar = 0;
         this.assetsLoaded = 0;
         this.position = opts.position;
         this.position.x -= this.loadBarLength / 2;
@@ -15,14 +15,14 @@ export class loadingBar {
         ctx.lineWidth = 3;
         ctx.lineJoin = "bevel";
         ctx.strokeStyle = COLOURS.WHITE;
-        ctx.strokeRect(this.position.x, this.position.y, this.loadBarLength, this.loadBarThickness);
+        ctx.strokeRect(this.position.x, this.position.y, this.loadBarLength, this.loadBarHeight);
         ctx.fillStyle = COLOURS.WHITE;
-        ctx.fillRect(this.position.x, this.position.y, this.loadBarLength * this.loadBarMaxWidth, this.loadBarThickness);
+        ctx.fillRect(this.position.x, this.position.y, this.loadBarLength * this.loadBar, this.loadBarHeight);
         ctx.closePath();
     }
     setAssetsLoaded() {
         this.assetsLoaded++;
-        this.loadBarMaxWidth = this.assetsLoaded / this.assetListLength;
+        this.loadBar = this.assetsLoaded / this.assetListLength;
     }
 }
-//# sourceMappingURL=loadingBar.js.map
+//# sourceMappingURL=LoadingBar.js.map

@@ -1,4 +1,4 @@
-import { SIZES } from "../constants/sizes.js";
+import { SIZES } from "../constants/game.js";
 
 export function context() {
   const canvas = document.getElementById("canvas") as HTMLCanvasElement;

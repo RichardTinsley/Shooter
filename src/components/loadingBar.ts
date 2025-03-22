@@ -2,10 +2,10 @@ import { COLOURS } from "../constants/colours.js";
 import { SIZES } from "../constants/game.js";
 import { Position } from "../constants/types.js";
 
-export class loadingBar {
+export class LoadingBar {
   private readonly loadBarHeight: number = 14;
   private readonly loadBarLength: number = SIZES.GAME_WIDTH / 3;
-  private loadBarMaxWidth: number = 0;
+  private loadBar: number = 0;
   private position: Position;
   private assetListLength: number;
   private assetsLoaded: number = 0;
@@ -34,7 +34,7 @@ export class loadingBar {
     ctx.fillRect(
       this.position.x,
       this.position.y,
-      this.loadBarLength * this.loadBarMaxWidth,
+      this.loadBarLength * this.loadBar,
       this.loadBarHeight
     );
     ctx.closePath();
@@ -42,6 +42,6 @@ export class loadingBar {
 
   setAssetsLoaded(): void {
     this.assetsLoaded++;
-    this.loadBarMaxWidth = this.assetsLoaded / this.assetListLength;
+    this.loadBar = this.assetsLoaded / this.assetListLength;
   }
 }

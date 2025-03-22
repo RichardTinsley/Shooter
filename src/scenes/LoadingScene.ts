@@ -1,5 +1,5 @@
 import { Scene } from "./Scene.js";
-import { loadingBar } from "../components/loadingBar.js";
+import { LoadingBar } from "../components/LoadingBar.js";
 import { Text } from "../texts/Text.js";
 import { FadeText } from "../texts/FadeText.js";
 import { SIZES } from "../constants/game.js";
@@ -7,7 +7,7 @@ import { TEXT_SIZES } from "../constants/text.js";
 import { loadAssets, assetListLength } from "../utilities/assetLoaders.js";
 
 export class LoadingScene extends Scene {
-  private loadingBar: loadingBar = new loadingBar({
+  private loadingBar: LoadingBar = new LoadingBar({
     position: {
       x: SIZES.GAME_WIDTH_HALF,
       y: SIZES.GAME_HEIGHT - 100,

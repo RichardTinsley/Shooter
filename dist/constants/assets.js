@@ -38,7 +38,6 @@ const URL_NUMBER = {
 };
 export const ASSET_LIST = [
     [`${FILE_NAMES.DsShieldLogo}`, `${UI_URL}${FILE_NAMES.DsShieldLogo}`],
-    [`${FILE_NAMES.DsShieldLogo}`, `${UI_URL}${FILE_NAMES.DsShieldLogo}`],
     [
         `${TOWERS.AMETHYST}${TYPES.TOWER}1`,
         `${TOWERS_URL}${TOWERS.AMETHYST}${TYPES.TOWER}${URL_NUMBER.ONE}.png`,
