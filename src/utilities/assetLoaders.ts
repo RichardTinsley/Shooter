@@ -8,39 +8,25 @@ type Asset = {
   asset: HTMLImageElement | HTMLAudioElement;
 };
 
-export async function loadAssets(
-  switchScreens: Function,
-  assetLoaded: Function
-) {
-  await load(ASSETS.ASSET_LIST, assetLoaded)
-    .catch((error) => {
-      console.error(`Error: Unable to load asset "${error.fileName}"`);
-    })
-    .then(() => {
-      console.log(
-        `Asset loading complete. A total of ${assets.size} assets have been loaded.`
-      );
-      // switchScreens(GAME.STATES.MAINMENU);
-    });
-}
+export async function load(assetLoaded: Function) {
+  const promises: Promise<Asset>[] = ASSETS.ASSET_LIST.map(
+    ([key, fileName]) => {
+      const extension: string = fileName
+        // const extension: keyof typeof ASSETS.ASSET_TYPE_LOOKUP = fileName
+        .substring(fileName.lastIndexOf(".") + 1)
+        .toLowerCase();
 
-async function load(assetArray: string[][], onComplete: Function) {
-  const promises: Promise<Asset>[] = assetArray.map(([key, fileName]) => {
-    const extension: string = fileName
-      // const extension: keyof typeof ASSETS.ASSET_TYPE_LOOKUP = fileName
-      .substring(fileName.lastIndexOf(".") + 1)
-      .toLowerCase();
+      const type: string = ASSETS.ASSET_TYPE_LOOKUP[extension];
 
-    const type: string = ASSETS.ASSET_TYPE_LOOKUP[extension];
-
-    if (type === ASSETS.ASSET_TYPE.IMAGE) {
-      return loadImage(key, fileName.toString(), onComplete);
-    } else if (type === ASSETS.ASSET_TYPE.SOUND) {
-      return loadSound(key, String(fileName), onComplete);
-    } else {
-      throw new TypeError("Error unknown type");
+      if (type === ASSETS.ASSET_TYPE.IMAGE) {
+        return loadImage(key, fileName.toString(), assetLoaded);
+      } else if (type === ASSETS.ASSET_TYPE.SOUND) {
+        return loadSound(key, fileName.toString(), assetLoaded);
+      } else {
+        throw new TypeError("Error unknown type");
+      }
     }
-  });
+  );
 
   return Promise.all(promises).then((loadedAssets) => {
     for (const { key, asset } of loadedAssets) {
@@ -49,7 +35,7 @@ async function load(assetArray: string[][], onComplete: Function) {
   });
 }
 
-function loadImage(key: string, fileName: string, onComplete: Function) {
+function loadImage(key: string, fileName: string, assetLoaded: Function) {
   return new Promise<Asset>((resolve, reject) => {
     const image: HTMLImageElement = new Image();
 
@@ -57,7 +43,7 @@ function loadImage(key: string, fileName: string, onComplete: Function) {
       "load",
       () => {
         resolve({ key, asset: image });
-        if (typeof onComplete === "function") onComplete({ fileName, image });
+        if (typeof assetLoaded === "function") assetLoaded({ fileName, image });
       },
       { once: true }
     );
@@ -68,7 +54,7 @@ function loadImage(key: string, fileName: string, onComplete: Function) {
   });
 }
 
-function loadSound(key: string, fileName: string, onComplete: Function) {
+function loadSound(key: string, fileName: string, assetLoaded: Function) {
   return new Promise<Asset>((resolve, reject) => {
     const sound: HTMLAudioElement = new Audio();
 
@@ -76,7 +62,7 @@ function loadSound(key: string, fileName: string, onComplete: Function) {
       "canplay",
       () => {
         resolve({ key, asset: sound });
-        if (typeof onComplete === "function") onComplete({ fileName, sound });
+        if (typeof assetLoaded === "function") assetLoaded({ fileName, sound });
       },
       { once: true }
     );

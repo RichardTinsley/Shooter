@@ -1,11 +1,20 @@
-import { Scene } from "./Scene.js";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+import { SceneBase } from "./SceneBase.js";
 import { LoadingBar } from "../components/LoadingBar.js";
 import { Text } from "../texts/Text.js";
 import { FadeText } from "../texts/FadeText.js";
 import { SIZES } from "../constants/game.js";
 import { TEXT_SIZES } from "../constants/text.js";
-import { loadAssets, assetListLength } from "../utilities/assetLoaders.js";
-export class LoadingScene extends Scene {
+import { load, assetListLength, assets } from "../utilities/assetLoaders.js";
+export class LoadingScene extends SceneBase {
     constructor() {
         super();
         this.loadingBar = new LoadingBar({
@@ -25,7 +34,7 @@ export class LoadingScene extends Scene {
             console.log(`${fileName.fileName} Loaded.`);
             this.loadingBar.setAssetsLoaded();
         };
-        loadAssets(this.assetLoaded, this.assetLoaded);
+        this.loadAssets();
     }
     draw(ctx) {
         ctx.clearRect(0, 0, SIZES.GAME_WIDTH, SIZES.GAME_HEIGHT);
@@ -36,6 +45,17 @@ export class LoadingScene extends Scene {
     }
     update() {
         this.summoning.update();
+    }
+    loadAssets() {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield load(this.assetLoaded)
+                .catch((error) => {
+                console.error(`Error: Unable to load asset "${error.fileName}"`);
+            })
+                .then(() => {
+                console.log(`Asset loading complete. A total of ${assets.size} assets have been loaded.`);
+            });
+        });
     }
 }
 //# sourceMappingURL=LoadingScene.js.map

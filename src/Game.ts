@@ -1,8 +1,8 @@
-import { Scene } from "./scenes/Scene.js";
+import { SceneBase } from "./scenes/SceneBase.js";
 import { LoadingScene } from "./scenes/LoadingScene.js";
 
 export class Game {
-  private scene: Scene = new LoadingScene();
+  private scene: SceneBase = new LoadingScene();
 
   constructor() {}
 

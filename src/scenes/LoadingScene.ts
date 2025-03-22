@@ -1,12 +1,12 @@
-import { Scene } from "./Scene.js";
+import { SceneBase } from "./SceneBase.js";
 import { LoadingBar } from "../components/LoadingBar.js";
 import { Text } from "../texts/Text.js";
 import { FadeText } from "../texts/FadeText.js";
 import { SIZES } from "../constants/game.js";
 import { TEXT_SIZES } from "../constants/text.js";
-import { loadAssets, assetListLength } from "../utilities/assetLoaders.js";
+import { load, assetListLength, assets } from "../utilities/assetLoaders.js";
 
-export class LoadingScene extends Scene {
+export class LoadingScene extends SceneBase {
   private loadingBar: LoadingBar = new LoadingBar(
     {
       x: SIZES.GAME_WIDTH_HALF,
@@ -29,7 +29,7 @@ export class LoadingScene extends Scene {
 
   constructor() {
     super();
-    loadAssets(this.assetLoaded, this.assetLoaded);
+    this.loadAssets();
   }
 
   draw(ctx: CanvasRenderingContext2D): void {
@@ -52,4 +52,16 @@ export class LoadingScene extends Scene {
     console.log(`${fileName.fileName} Loaded.`);
     this.loadingBar.setAssetsLoaded();
   };
+
+  async loadAssets() {
+    await load(this.assetLoaded)
+      .catch((error) => {
+        console.error(`Error: Unable to load asset "${error.fileName}"`);
+      })
+      .then(() => {
+        console.log(
+          `Asset loading complete. A total of ${assets.size} assets have been loaded.`
+        );
+      });
+  }
 }
