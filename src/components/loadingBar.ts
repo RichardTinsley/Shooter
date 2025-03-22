@@ -6,14 +6,10 @@ export class LoadingBar {
   private readonly loadBarHeight: number = 14;
   private readonly loadBarLength: number = SIZES.GAME_WIDTH / 3;
   private loadBar: number = 0;
-  private position: Position;
-  private assetListLength: number;
   private assetsLoaded: number = 0;
 
-  constructor(opts: { position: Position; assetListLength: number }) {
-    this.position = opts.position;
+  constructor(private position: Position, private assetListLength: number) {
     this.position.x -= this.loadBarLength / 2;
-    this.assetListLength = opts.assetListLength;
   }
 
   draw(ctx: CanvasRenderingContext2D): void {

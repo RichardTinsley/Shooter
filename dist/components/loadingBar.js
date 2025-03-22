@@ -1,14 +1,14 @@
 import { COLOURS } from "../constants/colours.js";
 import { SIZES } from "../constants/game.js";
 export class LoadingBar {
-    constructor(opts) {
+    constructor(position, assetListLength) {
+        this.position = position;
+        this.assetListLength = assetListLength;
         this.loadBarHeight = 14;
         this.loadBarLength = SIZES.GAME_WIDTH / 3;
         this.loadBar = 0;
         this.assetsLoaded = 0;
-        this.position = opts.position;
         this.position.x -= this.loadBarLength / 2;
-        this.assetListLength = opts.assetListLength;
     }
     draw(ctx) {
         ctx.beginPath();

@@ -9,12 +9,9 @@ export class LoadingScene extends Scene {
     constructor() {
         super();
         this.loadingBar = new LoadingBar({
-            position: {
-                x: SIZES.GAME_WIDTH_HALF,
-                y: SIZES.GAME_HEIGHT - 100,
-            },
-            assetListLength: assetListLength,
-        });
+            x: SIZES.GAME_WIDTH_HALF,
+            y: SIZES.GAME_HEIGHT - 100,
+        }, assetListLength);
         this.title = new Text("Death Sorcery", {
             x: SIZES.GAME_WIDTH_HALF,
             y: 100,

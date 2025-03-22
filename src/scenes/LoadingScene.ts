@@ -7,13 +7,13 @@ import { TEXT_SIZES } from "../constants/text.js";
 import { loadAssets, assetListLength } from "../utilities/assetLoaders.js";
 
 export class LoadingScene extends Scene {
-  private loadingBar: LoadingBar = new LoadingBar({
-    position: {
+  private loadingBar: LoadingBar = new LoadingBar(
+    {
       x: SIZES.GAME_WIDTH_HALF,
       y: SIZES.GAME_HEIGHT - 100,
     },
-    assetListLength: assetListLength,
-  });
+    assetListLength
+  );
 
   private title: Text = new Text("Death Sorcery", {
     x: SIZES.GAME_WIDTH_HALF,
