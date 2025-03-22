@@ -1,7 +1,6 @@
-import { COLOURS } from "../constants/colours.js";
 import { TEXT_SIZES } from "../constants/text.js";
 import { ANIMATION } from "../constants/animation.js";
-import { Position } from "../types/position.js";
+import { Position } from "../constants/types.js";
 
 export class Text {
   private size: number = TEXT_SIZES.MENUITEM_TEXT;
@@ -9,6 +8,7 @@ export class Text {
   private lineWidth: number = Math.floor(this.size / 6);
   protected state: number = ANIMATION.ANIMATING;
   protected alpha: number = 1;
+
   constructor(protected text: string, protected position: Position) {}
 
   draw(ctx: CanvasRenderingContext2D): void {

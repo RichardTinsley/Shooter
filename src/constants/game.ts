@@ -1,3 +1,17 @@
+export const enum STATES {
+  LOADING,
+  MAIN_MENU,
+  ABOUT,
+  OPTIONS,
+  BATTLE,
+  PAUSED,
+  RESUME,
+  RESTART,
+  GAME_OVER,
+  MUSIC,
+  DEBUG,
+}
+
 export const SIZES = {
   COLUMNS: 40,
   ROWS: 20,

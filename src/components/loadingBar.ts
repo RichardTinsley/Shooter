@@ -1,6 +1,6 @@
 import { COLOURS } from "../constants/colours.js";
-import { SIZES } from "../constants/sizes.js";
-import { Position } from "../types/position.js";
+import { SIZES } from "../constants/game.js";
+import { Position } from "../constants/types.js";
 
 export class loadingBar {
   private readonly loadBarHeight: number = 14;

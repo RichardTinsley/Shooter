@@ -2,7 +2,7 @@ import { Scene } from "./Scene.js";
 import { loadingBar } from "../components/loadingBar.js";
 import { Text } from "../texts/Text.js";
 import { FadeText } from "../texts/FadeText.js";
-import { SIZES } from "../constants/sizes.js";
+import { SIZES } from "../constants/game.js";
 import { TEXT_SIZES } from "../constants/text.js";
 import { loadAssets, assetListLength } from "../utilities/assetLoaders.js";
 

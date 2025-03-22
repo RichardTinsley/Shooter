@@ -1,9 +1,10 @@
-import { Position } from "../types/position.js";
+import { Position } from "../constants/types.js";
 import { Text } from "./Text.js";
 
 export class FadeText extends Text implements IFadeText {
   alpha: number = 0;
   delta: number = 0.01;
+
   constructor(text: string, position: Position) {
     super(text, position);
   }

@@ -6,7 +6,7 @@ const ctx: CanvasRenderingContext2D = context();
 class Main {
   private Game: Game = new Game();
 
-  public constructor() {
+  constructor() {
     requestAnimationFrame(this.frame);
   }
 

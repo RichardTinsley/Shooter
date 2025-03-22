@@ -44,7 +44,6 @@ const URL_NUMBER = {
 export const ASSET_LIST: string[][] = [
   //GUI
   [`${FILE_NAMES.DsShieldLogo}`, `${UI_URL}${FILE_NAMES.DsShieldLogo}`],
-  [`${FILE_NAMES.DsShieldLogo}`, `${UI_URL}${FILE_NAMES.DsShieldLogo}`],
   // ['hellwortica',  './images/levels/hellwortica/hellwortica.png'],
   // ['towerSpot',   './images/levels/towerSpot.png'],
   // ['bossWave',    './audio/bossWave.ogg'],
