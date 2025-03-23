@@ -1,12 +1,13 @@
 import { Position } from "../constants/types.js";
-import { Text } from "./Text.js";
+import { TextBase } from "./TextBase.js";
+import { oscillate } from "../utilities/math.js";
 
-export class FadeText extends Text implements IFadeText {
-  alpha: number = 0;
+export class FadeText extends TextBase {
+  alpha: number = -0.5;
   delta: number = 0.01;
 
-  constructor(text: string, position: Position) {
-    super(text, position);
+  constructor(position: Position) {
+    super(position);
   }
 
   draw(ctx: CanvasRenderingContext2D) {
@@ -14,11 +15,6 @@ export class FadeText extends Text implements IFadeText {
   }
 
   update() {
-    this.oscillateAlpha();
-  }
-
-  oscillateAlpha() {
-    this.alpha += this.delta;
-    if (this.alpha <= -0.5 || this.alpha >= 1.0) this.delta = -this.delta;
+    [this.alpha, this.delta] = oscillate(this.alpha, this.delta, -0.5, 1.0);
   }
 }

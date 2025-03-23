@@ -1,16 +1,15 @@
-import { SceneBase } from "./scenes/SceneBase.js";
-import { LoadingScene } from "./scenes/LoadingScene.js";
+import { LoadingState } from "./states/LoadingState.js";
 
 export class Game {
-  private scene: SceneBase = new LoadingScene();
+  private state = new LoadingState();
 
   constructor() {}
 
   draw(ctx: CanvasRenderingContext2D): void {
-    this.scene.draw(ctx);
+    this.state.draw(ctx);
   }
 
   update(): void {
-    this.scene.update();
+    this.state.update();
   }
 }

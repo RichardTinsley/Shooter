@@ -7,8 +7,9 @@ export class LoadingBar {
   private readonly loadBarLength: number = SIZES.GAME_WIDTH / 3;
   private loadBar: number = 0;
   private assetsLoaded: number = 0;
+  private assetListLength: number = 0;
 
-  constructor(private position: Position, private assetListLength: number) {
+  constructor(private position: Position) {
     this.position.x -= this.loadBarLength / 2;
   }
 
@@ -39,5 +40,10 @@ export class LoadingBar {
   setAssetsLoaded(): void {
     this.assetsLoaded++;
     this.loadBar = this.assetsLoaded / this.assetListLength;
+  }
+
+  setAssetsListLength(assetListLength: number): LoadingBar {
+    this.assetListLength = assetListLength;
+    return this;
   }
 }

@@ -1,19 +1,19 @@
 import { SceneBase } from "../scenes/SceneBase.js";
 
-export default abstract class StateBase {
-  //   private scene: SceneBase;
+export abstract class StateBase {
+  protected abstract scene: SceneBase;
   //MUSIC
-  //
+  //MENU
 
   constructor() {}
 
-  draw() {}
+  abstract draw(ctx: CanvasRenderingContext2D): void;
 
-  update() {}
+  abstract update(): void;
 
-  resume() {}
+  abstract resume(): void;
 
-  pause() {}
+  abstract pause(): void;
 
   //MUTE()??
 }

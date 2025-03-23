@@ -1,4 +1,4 @@
-interface IFadeText {
+export interface IFadeText {
   delta: number;
   oscillateAlpha(): void;
 }

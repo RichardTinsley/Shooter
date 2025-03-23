@@ -1,13 +1,13 @@
-import { LoadingScene } from "./scenes/LoadingScene.js";
+import { LoadingState } from "./states/LoadingState.js";
 export class Game {
     constructor() {
-        this.scene = new LoadingScene();
+        this.state = new LoadingState();
     }
     draw(ctx) {
-        this.scene.draw(ctx);
+        this.state.draw(ctx);
     }
     update() {
-        this.scene.update();
+        this.state.update();
     }
 }
 //# sourceMappingURL=Game.js.map

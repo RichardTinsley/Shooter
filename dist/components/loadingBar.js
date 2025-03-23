@@ -1,13 +1,13 @@
 import { COLOURS } from "../constants/colours.js";
 import { SIZES } from "../constants/game.js";
 export class LoadingBar {
-    constructor(position, assetListLength) {
+    constructor(position) {
         this.position = position;
-        this.assetListLength = assetListLength;
         this.loadBarHeight = 14;
         this.loadBarLength = SIZES.GAME_WIDTH / 3;
         this.loadBar = 0;
         this.assetsLoaded = 0;
+        this.assetListLength = 0;
         this.position.x -= this.loadBarLength / 2;
     }
     draw(ctx) {
@@ -23,6 +23,10 @@ export class LoadingBar {
     setAssetsLoaded() {
         this.assetsLoaded++;
         this.loadBar = this.assetsLoaded / this.assetListLength;
+    }
+    setAssetsListLength(assetListLength) {
+        this.assetListLength = assetListLength;
+        return this;
     }
 }
 //# sourceMappingURL=LoadingBar.js.map
