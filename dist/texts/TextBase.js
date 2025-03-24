@@ -19,6 +19,15 @@ export class TextBase {
         ctx.strokeText(this.text, this.position.x, this.position.y);
         ctx.fillText(this.text, this.position.x, this.position.y);
     }
+    setPosition(x = 0, y = 0) {
+        if (x)
+            this.position.x = x;
+        if (y)
+            this.position.y = y;
+    }
+    getPosition() {
+        return this.position;
+    }
     setText(text) {
         this.text = text;
         return this;

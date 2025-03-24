@@ -8,11 +8,12 @@ export const enum OSCILLATIONS {
 
 export function oscillate(
   waveType: number,
-  frequency: number = 1,
-  amplitude: number = 1
+  frequency: number,
+  amplitude: number
 ): number {
   const time: number = Date.now() / 1000;
   const x = time * frequency;
+  const adj = x < 0 ? amplitude : -amplitude;
 
   switch (waveType) {
     case OSCILLATIONS.SIN:
@@ -22,12 +23,10 @@ export function oscillate(
     case OSCILLATIONS.SQUARE:
       return Math.floor(Math.sin(2 * Math.PI * x)) * amplitude * 2 + amplitude;
     case OSCILLATIONS.SAWTOOTH:
-      const adj = x < 0 ? amplitude : -amplitude;
       return ((x % frequency) / frequency) * amplitude * 2 + adj;
     case OSCILLATIONS.TRIANGLE:
-      const adjTri = x < 0 ? amplitude : -amplitude;
       return (
-        (Math.abs(((x % frequency) / frequency) * amplitude * 2 + adjTri) -
+        (Math.abs(((x % frequency) / frequency) * amplitude * 2 + adj) -
           amplitude / 2) *
         2
       );

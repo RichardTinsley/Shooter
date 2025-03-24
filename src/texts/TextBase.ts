@@ -24,6 +24,15 @@ export abstract class TextBase {
 
   abstract update(): void;
 
+  setPosition(x: number = 0, y: number = 0): void {
+    if (x) this.position.x = x;
+    if (y) this.position.y = y;
+  }
+
+  getPosition(): Position {
+    return this.position;
+  }
+
   setText(text: string): TextBase {
     this.text = text;
     return this;
