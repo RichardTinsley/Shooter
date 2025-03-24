@@ -13,8 +13,9 @@ export class StatusBar {
     draw(ctx) {
         ctx.beginPath();
         ctx.lineJoin = "bevel";
-        drawRectangle(ctx, this.position, this.statusBarLength, this.statusBarHeight, 5, COLOURS.BLACK, COLOURS.WHITE);
-        drawRectangle(ctx, this.position, this.statusBarLength * (this.currentStatus / this.maxStatus), this.statusBarHeight, 5, COLOURS.WHITE, COLOURS.WHITE);
+        ctx.lineWidth = 5;
+        drawRectangle(ctx, this.position, this.statusBarLength, this.statusBarHeight, COLOURS.BLACK, COLOURS.WHITE);
+        drawRectangle(ctx, this.position, this.statusBarLength * (this.currentStatus / this.maxStatus), this.statusBarHeight, COLOURS.WHITE, COLOURS.WHITE);
         ctx.closePath();
     }
     setCurrentStatus(currentStatus) {

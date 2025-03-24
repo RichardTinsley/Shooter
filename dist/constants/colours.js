@@ -13,6 +13,7 @@ export const COLOURS = {
     LINES: "rgba(0, 0, 0, 0.5)",
     SHADOW: "rgba(0, 0, 0, 0.3)",
     DARKSHADOW: "rgba(0, 0, 0, 0.9)",
+    NONE: "",
     BLACKOUT: "0, 0, 0, ",
     REDOUT: "250, 0, 0, ",
 };

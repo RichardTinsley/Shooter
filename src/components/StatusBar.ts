@@ -16,13 +16,13 @@ export class StatusBar {
   draw(ctx: CanvasRenderingContext2D): void {
     ctx.beginPath();
     ctx.lineJoin = "bevel";
+    ctx.lineWidth = 5;
 
     drawRectangle(
       ctx,
       this.position,
       this.statusBarLength,
       this.statusBarHeight,
-      5,
       COLOURS.BLACK,
       COLOURS.WHITE
     );
@@ -32,7 +32,6 @@ export class StatusBar {
       this.position,
       this.statusBarLength * (this.currentStatus / this.maxStatus),
       this.statusBarHeight,
-      5,
       COLOURS.WHITE,
       COLOURS.WHITE
     );
