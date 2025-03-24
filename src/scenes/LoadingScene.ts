@@ -1,12 +1,12 @@
 import { SceneBase } from "./SceneBase.js";
-import { StatusBar } from "../components/StatusBar.js";
+import { LoadingBar } from "../components/LoadingBar.js";
 import { PlainText } from "../texts/PlainText.js";
 import { FadeText } from "../texts/FadeText.js";
 import { SIZES } from "../constants/game.js";
 import { load, assetListLength, assets } from "../utilities/assetLoaders.js";
 
 export class LoadingScene extends SceneBase {
-  private loadingBar = new StatusBar({
+  private loadingBar = new LoadingBar({
     x: SIZES.GAME_WIDTH_HALF,
     y: SIZES.GAME_HEIGHT - 100,
   }).setMaxStatus(assetListLength);

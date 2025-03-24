@@ -4,39 +4,34 @@ import { Position } from "../constants/types.js";
 import { drawRectangle } from "../utilities/drawShapes.js";
 
 export class StatusBar {
-  private readonly statusBarHeight: number = 14;
-  private readonly statusBarLength: number = SIZES.GAME_WIDTH / 3;
-  private currentStatus: number = 0;
-  private maxStatus: number = 0;
+  protected readonly statusBarHeight: number = 0;
+  protected readonly statusBarLength: number = 0;
+  protected currentStatus: number = 0;
+  protected maxStatus: number = 0;
 
-  constructor(private position: Position) {
-    this.position.x -= this.statusBarLength / 2;
-  }
+  protected lineJoin: CanvasLineJoin = "bevel";
+  protected lineWidth: number = 4;
+  protected backgroundFillColour: string = COLOURS.BLACK;
+  protected backgroundStrokeColour: string = COLOURS.WHITE;
+
+  constructor(protected position: Position) {}
 
   draw(ctx: CanvasRenderingContext2D): void {
-    ctx.beginPath();
-    ctx.lineJoin = "bevel";
-    ctx.lineWidth = 5;
+    ctx.lineJoin = this.lineJoin;
+    ctx.lineWidth = this.lineWidth;
 
     drawRectangle(
       ctx,
       this.position,
       this.statusBarLength,
       this.statusBarHeight,
-      COLOURS.BLACK,
-      COLOURS.WHITE
+      this.backgroundFillColour,
+      this.backgroundStrokeColour
     );
+  }
 
-    drawRectangle(
-      ctx,
-      this.position,
-      this.statusBarLength * (this.currentStatus / this.maxStatus),
-      this.statusBarHeight,
-      COLOURS.WHITE,
-      COLOURS.WHITE
-    );
-
-    ctx.closePath();
+  getCurrentStatus(): number {
+    return this.currentStatus;
   }
 
   setCurrentStatus(currentStatus: number): void {

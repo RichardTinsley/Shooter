@@ -1,7 +1,7 @@
 export function oscillate(effect, delta, min, max) {
-    effect += delta;
-    if (effect <= min || effect >= max)
+    if (effect <= min || effect > max)
         delta = -delta;
+    effect += delta;
     return [effect, delta];
 }
 //# sourceMappingURL=math.js.map

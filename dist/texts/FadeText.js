@@ -3,7 +3,7 @@ import { oscillate } from "../utilities/math.js";
 export class FadeText extends TextBase {
     constructor(position) {
         super(position);
-        this.alpha = -0.5;
+        this.alpha = 1.0;
         this.delta = 0.01;
     }
     draw(ctx) {

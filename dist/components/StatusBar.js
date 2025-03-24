@@ -1,22 +1,24 @@
 import { COLOURS } from "../constants/colours.js";
-import { SIZES } from "../constants/game.js";
 import { drawRectangle } from "../utilities/drawShapes.js";
 export class StatusBar {
     constructor(position) {
         this.position = position;
-        this.statusBarHeight = 14;
-        this.statusBarLength = SIZES.GAME_WIDTH / 3;
+        this.statusBarHeight = 0;
+        this.statusBarLength = 0;
         this.currentStatus = 0;
         this.maxStatus = 0;
-        this.position.x -= this.statusBarLength / 2;
+        this.lineJoin = "bevel";
+        this.lineWidth = 4;
+        this.backgroundFillColour = COLOURS.BLACK;
+        this.backgroundStrokeColour = COLOURS.WHITE;
     }
     draw(ctx) {
-        ctx.beginPath();
-        ctx.lineJoin = "bevel";
-        ctx.lineWidth = 5;
-        drawRectangle(ctx, this.position, this.statusBarLength, this.statusBarHeight, COLOURS.BLACK, COLOURS.WHITE);
-        drawRectangle(ctx, this.position, this.statusBarLength * (this.currentStatus / this.maxStatus), this.statusBarHeight, COLOURS.WHITE, COLOURS.WHITE);
-        ctx.closePath();
+        ctx.lineJoin = this.lineJoin;
+        ctx.lineWidth = this.lineWidth;
+        drawRectangle(ctx, this.position, this.statusBarLength, this.statusBarHeight, this.backgroundFillColour, this.backgroundStrokeColour);
+    }
+    getCurrentStatus() {
+        return this.currentStatus;
     }
     setCurrentStatus(currentStatus) {
         this.currentStatus += currentStatus;

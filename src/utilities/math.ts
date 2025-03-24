@@ -4,9 +4,8 @@ export function oscillate(
   min: number,
   max: number
 ): [number, number] {
+  if (effect <= min || effect > max) delta = -delta;
+
   effect += delta;
-
-  if (effect <= min || effect >= max) delta = -delta;
-
   return [effect, delta];
 }
