@@ -5,8 +5,8 @@ import { drawRectangle } from "../utilities/drawShapes.js";
 import { StatusBar } from "./StatusBar.js";
 
 export class LoadingBar extends StatusBar {
-  protected readonly statusBarHeight: number = 14;
-  protected readonly statusBarLength: number = SIZES.GAME_WIDTH / 3;
+  readonly statusBarHeight: number = 14;
+  readonly statusBarLength: number = SIZES.GAME_WIDTH / 3;
 
   constructor(protected position: Position) {
     super(position);
