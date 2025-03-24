@@ -3,14 +3,15 @@ import { oscillate } from "../utilities/math.js";
 export class FadeText extends TextBase {
     constructor(position) {
         super(position);
-        this.alpha = 1.0;
-        this.delta = 0.01;
+        this.frequency = 0.1;
+        this.amplitude = 0.6;
     }
     draw(ctx) {
         super.draw(ctx);
     }
     update() {
-        [this.alpha, this.delta] = oscillate(this.alpha, this.delta, -0.5, 1.0);
+        this.alpha = oscillate(1, this.frequency, this.amplitude);
+        this.alpha += 0.5;
     }
 }
 //# sourceMappingURL=FadeText.js.map

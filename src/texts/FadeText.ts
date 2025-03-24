@@ -1,10 +1,10 @@
 import { Position } from "../constants/types.js";
 import { TextBase } from "./TextBase.js";
-import { oscillate } from "../utilities/math.js";
+import { oscillate, OSCILLATIONS } from "../utilities/math.js";
 
 export class FadeText extends TextBase {
-  alpha: number = 1.0;
-  delta: number = 0.01;
+  private frequency: number = 0.1;
+  private amplitude: number = 0.6;
 
   constructor(position: Position) {
     super(position);
@@ -15,6 +15,7 @@ export class FadeText extends TextBase {
   }
 
   update() {
-    [this.alpha, this.delta] = oscillate(this.alpha, this.delta, -0.5, 1.0);
+    this.alpha = oscillate(OSCILLATIONS.COSINE, this.frequency, this.amplitude);
+    this.alpha += 0.5;
   }
 }

@@ -1,27 +1,17 @@
-export function oscillate(effect, delta, min, max) {
-    if (effect <= min || effect > max)
-        delta = -delta;
-    effect += delta;
-    return [effect, delta];
-}
-export function oscillate2(waveType, frequency, amplitude, time) {
-    waveType = waveType || "cos";
-    frequency = frequency || 1;
-    amplitude = amplitude || 1;
-    time = time || Date.now() / 1000;
-    waveType = waveType.toLowerCase();
+export function oscillate(waveType, frequency = 1, amplitude = 1) {
+    const time = Date.now() / 1000;
     const x = time * frequency;
     switch (waveType) {
-        case "sin":
+        case 0:
             return Math.sin(2 * Math.PI * x) * amplitude;
-        case "cos":
+        case 1:
             return Math.cos(2 * Math.PI * x) * amplitude;
-        case "square":
+        case 2:
             return Math.floor(Math.sin(2 * Math.PI * x)) * amplitude * 2 + amplitude;
-        case "sawtooth":
+        case 3:
             const adj = x < 0 ? amplitude : -amplitude;
             return ((x % frequency) / frequency) * amplitude * 2 + adj;
-        case "triangle":
+        case 4:
             const adjTri = x < 0 ? amplitude : -amplitude;
             return ((Math.abs(((x % frequency) / frequency) * amplitude * 2 + adjTri) -
                 amplitude / 2) *

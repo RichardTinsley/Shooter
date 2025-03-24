@@ -1,39 +1,30 @@
-export function oscillate(
-  effect: number,
-  delta: number,
-  min: number,
-  max: number
-): [number, number] {
-  if (effect <= min || effect > max) delta = -delta;
-
-  effect += delta;
-  return [effect, delta];
+export const enum OSCILLATIONS {
+  SIN,
+  COSINE,
+  SQUARE,
+  SAWTOOTH,
+  TRIANGLE,
 }
 
-export function oscillate2(
-  waveType: string,
-  frequency: number,
-  amplitude: number,
-  time: number
+export function oscillate(
+  waveType: number,
+  frequency: number = 1,
+  amplitude: number = 1
 ): number {
-  waveType = waveType || "cos";
-  frequency = frequency || 1;
-  amplitude = amplitude || 1;
-  time = time || Date.now() / 1000;
-  waveType = waveType.toLowerCase();
+  const time: number = Date.now() / 1000;
   const x = time * frequency;
 
   switch (waveType) {
-    case "sin":
+    case OSCILLATIONS.SIN:
       return Math.sin(2 * Math.PI * x) * amplitude;
-    case "cos":
+    case OSCILLATIONS.COSINE:
       return Math.cos(2 * Math.PI * x) * amplitude;
-    case "square":
+    case OSCILLATIONS.SQUARE:
       return Math.floor(Math.sin(2 * Math.PI * x)) * amplitude * 2 + amplitude;
-    case "sawtooth":
+    case OSCILLATIONS.SAWTOOTH:
       const adj = x < 0 ? amplitude : -amplitude;
       return ((x % frequency) / frequency) * amplitude * 2 + adj;
-    case "triangle":
+    case OSCILLATIONS.TRIANGLE:
       const adjTri = x < 0 ? amplitude : -amplitude;
       return (
         (Math.abs(((x % frequency) / frequency) * amplitude * 2 + adjTri) -

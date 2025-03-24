@@ -1,12 +1,13 @@
 import { TextBase } from "./TextBase.js";
 import { Position } from "../constants/types.js";
 import { ANIMATION } from "../constants/animation.js";
-import { oscillate } from "../utilities/math.js";
+import { oscillate, OSCILLATIONS } from "../utilities/math.js";
 
 export class GlowText extends TextBase {
-  private glow: number = -0.5;
-  private delta: number = 0.1;
-  protected lineWidth: number = 3;
+  lineWidth: number = 3;
+  private glow: number = 13;
+  private frequency: number = 0.7;
+  private amplitude: number = 0.2;
 
   constructor(protected position: Position) {
     super(position);
@@ -22,7 +23,11 @@ export class GlowText extends TextBase {
   update() {
     switch (this.state) {
       case ANIMATION.ANIMATING:
-        [this.glow, this.delta] = oscillate(this.glow, this.delta, -0.5, 8);
+        this.glow += oscillate(
+          OSCILLATIONS.COSINE,
+          this.frequency,
+          this.amplitude
+        );
         break;
       case ANIMATION.FINISHED:
         break;
