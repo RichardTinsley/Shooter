@@ -1,5 +1,6 @@
 import { COLOURS } from "../constants/colours.js";
 import { SIZES } from "../constants/game.js";
+import { drawRectangle } from "../utilities/drawShapes.js";
 export class StatusBar {
     constructor(position) {
         this.position = position;
@@ -11,14 +12,9 @@ export class StatusBar {
     }
     draw(ctx) {
         ctx.beginPath();
-        ctx.lineWidth = 3;
         ctx.lineJoin = "bevel";
-        ctx.fillStyle = COLOURS.BLACK;
-        ctx.fillRect(this.position.x, this.position.y, this.statusBarLength, this.statusBarHeight);
-        ctx.strokeStyle = COLOURS.WHITE;
-        ctx.strokeRect(this.position.x, this.position.y, this.statusBarLength, this.statusBarHeight);
-        ctx.fillStyle = COLOURS.WHITE;
-        ctx.fillRect(this.position.x, this.position.y, this.statusBarLength * (this.currentStatus / this.maxStatus), this.statusBarHeight);
+        drawRectangle(ctx, this.position, this.statusBarLength, this.statusBarHeight, 5, COLOURS.BLACK, COLOURS.WHITE);
+        drawRectangle(ctx, this.position, this.statusBarLength * (this.currentStatus / this.maxStatus), this.statusBarHeight, 5, COLOURS.WHITE, COLOURS.WHITE);
         ctx.closePath();
     }
     setCurrentStatus(currentStatus) {
