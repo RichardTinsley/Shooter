@@ -8,20 +8,18 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import { SceneBase } from "./SceneBase.js";
-import { LoadingBar } from "../components/LoadingBar.js";
+import { StatusBar } from "../components/StatusBar.js";
 import { PlainText } from "../texts/PlainText.js";
 import { FadeText } from "../texts/FadeText.js";
 import { SIZES } from "../constants/game.js";
 import { load, assetListLength, assets } from "../utilities/assetLoaders.js";
-import { GlowText } from "../texts/GlowText.js";
 export class LoadingScene extends SceneBase {
     constructor() {
         super();
-        this.allAssetsLoaded = false;
-        this.loadingBar = new LoadingBar({
+        this.loadingBar = new StatusBar({
             x: SIZES.GAME_WIDTH_HALF,
             y: SIZES.GAME_HEIGHT - 100,
-        }).setAssetsListLength(assetListLength);
+        }).setMaxStatus(assetListLength);
         this.title = new PlainText({
             x: SIZES.GAME_WIDTH_HALF,
             y: 100,
@@ -34,16 +32,10 @@ export class LoadingScene extends SceneBase {
         })
             .setText("Summoning...")
             .setSize(50);
-        this.beginGame = new GlowText({
-            x: SIZES.GAME_WIDTH_HALF,
-            y: SIZES.GAME_HEIGHT - 100,
-        })
-            .setText("Begin Battle!")
-            .setSize(70);
         this.dslogo = document.getElementById("dslogo");
         this.assetLoaded = (fileName) => {
             console.log(`${fileName.fileName} Loaded.`);
-            this.loadingBar.setAssetsLoaded();
+            this.loadingBar.setCurrentStatus(1);
         };
         this.loadAssets();
     }
@@ -51,19 +43,11 @@ export class LoadingScene extends SceneBase {
         ctx.clearRect(0, 0, SIZES.GAME_WIDTH, SIZES.GAME_HEIGHT);
         this.title.draw(ctx);
         ctx.drawImage(this.dslogo, SIZES.GAME_WIDTH_HALF - this.dslogo.width / 2, SIZES.GAME_HEIGHT_HALF - this.dslogo.height / 2);
-        if (this.allAssetsLoaded) {
-            this.beginGame.draw(ctx);
-        }
-        else {
-            this.loadingBar.draw(ctx);
-            this.summoning.draw(ctx);
-        }
+        this.summoning.draw(ctx);
+        this.loadingBar.draw(ctx);
     }
     update() {
-        if (this.allAssetsLoaded)
-            this.beginGame.update();
-        else
-            this.summoning.update();
+        this.summoning.update();
     }
     loadAssets() {
         return __awaiter(this, void 0, void 0, function* () {
@@ -73,7 +57,6 @@ export class LoadingScene extends SceneBase {
             })
                 .then(() => {
                 console.log(`A total of ${assets.size} assets have been loaded.`);
-                this.allAssetsLoaded = true;
             });
         });
     }

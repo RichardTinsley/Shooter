@@ -1,6 +1,6 @@
 import { COLOURS } from "../constants/colours.js";
 import { SIZES } from "../constants/game.js";
-export class LoadingBar {
+export class StatusBar {
     constructor(position) {
         this.position = position;
         this.statusBarHeight = 14;
@@ -29,4 +29,4 @@ export class LoadingBar {
         return this;
     }
 }
-//# sourceMappingURL=LoadingBar.js.map
+//# sourceMappingURL=StatusBar.js.map
