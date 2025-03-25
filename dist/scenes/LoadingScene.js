@@ -9,8 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 import { SceneBase } from "./SceneBase.js";
 import { LoadingBar } from "../components/LoadingBar.js";
-import { PlainText } from "../texts/PlainText.js";
-import { FadeText } from "../texts/FadeText.js";
+import { Text } from "../texts/Text.js";
 import { SIZES } from "../constants/game.js";
 import { load, assetListLength, assets } from "../utilities/assetLoaders.js";
 export class LoadingScene extends SceneBase {
@@ -20,18 +19,19 @@ export class LoadingScene extends SceneBase {
             x: SIZES.GAME_WIDTH_HALF,
             y: SIZES.GAME_HEIGHT - 100,
         }).setMaxStatus(assetListLength);
-        this.title = new PlainText({
+        this.title = new Text({
             x: SIZES.GAME_WIDTH_HALF,
             y: 100,
         })
             .setText("Death Sorcery")
             .setSize(120);
-        this.summoning = new FadeText({
+        this.summoning = new Text({
             x: SIZES.GAME_WIDTH_HALF,
             y: SIZES.GAME_HEIGHT - 150,
         })
             .setText("Summoning...")
-            .setSize(50);
+            .setSize(50)
+            .setFade();
         this.dslogo = document.getElementById("dslogo");
         this.assetLoaded = (fileName) => {
             console.log(`${fileName.fileName} Loaded.`);

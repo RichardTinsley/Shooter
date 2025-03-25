@@ -1,14 +1,14 @@
-import { Position } from "../constants/types.js";
-import { TextBase } from "./TextBase.js";
+// import { Position } from "../constants/types.js";
+// import { TextBase } from "./Text.js";
 
-export class PlainText extends TextBase {
-  constructor(position: Position) {
-    super(position);
-  }
+// export class PlainText extends TextBase {
+//   constructor(position: Position) {
+//     super(position);
+//   }
 
-  draw(ctx: CanvasRenderingContext2D) {
-    super.draw(ctx);
-  }
+//   draw(ctx: CanvasRenderingContext2D) {
+//     super.draw(ctx);
+//   }
 
-  update() {}
-}
+//   update() {}
+// }

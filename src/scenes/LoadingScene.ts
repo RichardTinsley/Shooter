@@ -1,7 +1,6 @@
 import { SceneBase } from "./SceneBase.js";
 import { LoadingBar } from "../components/LoadingBar.js";
-import { PlainText } from "../texts/PlainText.js";
-import { FadeText } from "../texts/FadeText.js";
+import { Text } from "../texts/Text.js";
 import { SIZES } from "../constants/game.js";
 import { load, assetListLength, assets } from "../utilities/assetLoaders.js";
 
@@ -11,19 +10,20 @@ export class LoadingScene extends SceneBase {
     y: SIZES.GAME_HEIGHT - 100,
   }).setMaxStatus(assetListLength);
 
-  private title = new PlainText({
+  private title = new Text({
     x: SIZES.GAME_WIDTH_HALF,
     y: 100,
   })
     .setText("Death Sorcery")
     .setSize(120);
 
-  private summoning = new FadeText({
+  private summoning = new Text({
     x: SIZES.GAME_WIDTH_HALF,
     y: SIZES.GAME_HEIGHT - 150,
   })
     .setText("Summoning...")
-    .setSize(50);
+    .setSize(50)
+    .setFade();
 
   private dslogo = document.getElementById("dslogo") as HTMLImageElement;
 
