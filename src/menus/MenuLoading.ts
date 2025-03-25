@@ -1,9 +1,9 @@
-import { MenuBase } from "./MenuBase.js";
+import { Menu } from "./Menu.js";
 import { TextFactory, TEXTS } from "../texts/TextFactory.js";
 import { SIZES } from "../constants/game.js";
 import { Text } from "../texts/Text";
 
-export class MenuLoading extends MenuBase {
+export class MenuLoading extends Menu {
   menuItems: Text[] = [];
   private title: any = TextFactory.createText(TEXTS.TITLE);
   private summoning: any = TextFactory.createText(TEXTS.SUMMONING);

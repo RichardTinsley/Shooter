@@ -7,12 +7,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { SceneBase } from "./SceneBase.js";
+import { Scene } from "./Scene.js";
 import { LoadingBar } from "../components/LoadingBar.js";
 import { SIZES } from "../constants/game.js";
 import { load, assetListLength, assets } from "../utilities/assetLoaders.js";
 import { MenuLoading } from "../menus/MenuLoading.js";
-export class SceneLoading extends SceneBase {
+export class SceneLoading extends Scene {
     constructor() {
         super();
         this.menu = new MenuLoading();

@@ -1,7 +1,7 @@
-import { MenuBase } from "./MenuBase.js";
+import { Menu } from "./Menu.js";
 import { TextFactory, TEXTS } from "../texts/TextFactory.js";
 import { SIZES } from "../constants/game.js";
-export class MenuLoading extends MenuBase {
+export class MenuLoading extends Menu {
     constructor() {
         super();
         this.menuItems = [];

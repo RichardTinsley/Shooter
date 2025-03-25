@@ -1,7 +1,7 @@
 import { SceneLoaded } from "../scenes/SceneLoaded.js";
-import { StateBase } from "./StateBase.js";
+import { State } from "./State.js";
 
-export class StateLoaded extends StateBase {
+export class StateLoaded extends State {
   protected scene = new SceneLoaded();
 
   constructor() {

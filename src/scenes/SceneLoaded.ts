@@ -1,8 +1,8 @@
-import { SceneBase } from "./SceneBase.js";
+import { Scene } from "./Scene.js";
 import { SIZES } from "../constants/game.js";
 import { TextFactory, TEXTS } from "../texts/TextFactory.js";
 
-export class SceneLoaded extends SceneBase {
+export class SceneLoaded extends Scene {
   private title: any = TextFactory.createText(TEXTS.TITLE);
   private dslogo = document.getElementById("dslogo") as HTMLImageElement;
 

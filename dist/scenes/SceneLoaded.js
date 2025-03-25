@@ -1,7 +1,7 @@
-import { SceneBase } from "./SceneBase.js";
+import { Scene } from "./Scene.js";
 import { SIZES } from "../constants/game.js";
 import { TextFactory, TEXTS } from "../texts/TextFactory.js";
-export class SceneLoaded extends SceneBase {
+export class SceneLoaded extends Scene {
     constructor() {
         super();
         this.title = TextFactory.createText(TEXTS.TITLE);

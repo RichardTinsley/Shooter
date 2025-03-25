@@ -1,7 +1,7 @@
-import { SceneBase } from "../scenes/SceneBase.js";
+import { Scene } from "../scenes/Scene.js";
 
-export abstract class StateBase {
-  protected abstract scene: SceneBase;
+export abstract class State {
+  protected abstract scene: Scene;
   //MUSIC
   //MENU
 

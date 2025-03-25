@@ -1,10 +1,10 @@
-import { SceneBase } from "./SceneBase.js";
+import { Scene } from "./Scene.js";
 import { LoadingBar } from "../components/LoadingBar.js";
 import { SIZES } from "../constants/game.js";
 import { load, assetListLength, assets } from "../utilities/assetLoaders.js";
 import { MenuLoading } from "../menus/MenuLoading.js";
 
-export class SceneLoading extends SceneBase {
+export class SceneLoading extends Scene {
   private menu = new MenuLoading();
 
   private loadingBar = new LoadingBar({
