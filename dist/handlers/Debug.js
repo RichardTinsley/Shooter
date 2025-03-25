@@ -21,6 +21,8 @@ export class Debug {
         this.FPS.draw(ctx);
     }
     update() {
+        if (!this.isDebugMode)
+            return;
         this.calculateFPSNormal();
         this.performanceDebugInfo();
     }

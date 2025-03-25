@@ -23,6 +23,8 @@ export class Debug {
   }
 
   update() {
+    if (!this.isDebugMode) return;
+
     this.calculateFPSNormal();
     this.performanceDebugInfo();
   }

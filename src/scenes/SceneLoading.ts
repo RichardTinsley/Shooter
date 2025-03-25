@@ -2,12 +2,10 @@ import { SceneBase } from "./SceneBase.js";
 import { LoadingBar } from "../components/LoadingBar.js";
 import { SIZES } from "../constants/game.js";
 import { load, assetListLength, assets } from "../utilities/assetLoaders.js";
-import { TextFactory, TEXTS } from "../texts/TextFactory.js";
+import { MenuLoading } from "../menus/MenuLoading.js";
 
 export class SceneLoading extends SceneBase {
-  private title: any = TextFactory.createText(TEXTS.TITLE);
-  private summoning: any = TextFactory.createText(TEXTS.SUMMONING);
-  private dslogo = document.getElementById("dslogo") as HTMLImageElement;
+  private menu = new MenuLoading();
 
   private loadingBar = new LoadingBar({
     x: SIZES.GAME_WIDTH_HALF,
@@ -21,20 +19,12 @@ export class SceneLoading extends SceneBase {
 
   draw(ctx: CanvasRenderingContext2D): void {
     ctx.clearRect(0, 0, SIZES.GAME_WIDTH, SIZES.GAME_HEIGHT);
-    this.title.draw(ctx);
-
-    ctx.drawImage(
-      this.dslogo,
-      SIZES.GAME_WIDTH_HALF - this.dslogo.width / 2,
-      SIZES.GAME_HEIGHT_HALF - this.dslogo.height / 2
-    );
-
-    this.summoning.draw(ctx);
+    this.menu.draw(ctx);
     this.loadingBar.draw(ctx);
   }
 
   update(): void {
-    this.summoning.update();
+    this.menu.update();
   }
 
   assetLoaded = (fileName: any) => {
