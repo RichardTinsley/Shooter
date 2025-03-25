@@ -24,7 +24,7 @@ export class Text {
 
   update(): void {}
 
-  setPosition(x: number = 0, y: number = 0): void {
+  setPosition(x: number, y: number): void {
     if (x) this.position.x = x;
     if (y) this.position.y = y;
   }

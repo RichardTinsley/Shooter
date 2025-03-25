@@ -19,7 +19,7 @@ export class Text {
         ctx.fillText(this.text, this.position.x, this.position.y);
     }
     update() { }
-    setPosition(x = 0, y = 0) {
+    setPosition(x, y) {
         if (x)
             this.position.x = x;
         if (y)

@@ -9,30 +9,19 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 import { SceneBase } from "./SceneBase.js";
 import { LoadingBar } from "../components/LoadingBar.js";
-import { Text } from "../texts/Text.js";
 import { SIZES } from "../constants/game.js";
 import { load, assetListLength, assets } from "../utilities/assetLoaders.js";
-import { TextFade } from "../texts/TextFade.js";
+import { TextFactory, TEXTS } from "../texts/TextFactory.js";
 export class LoadingScene extends SceneBase {
     constructor() {
         super();
+        this.title = TextFactory.factory(TEXTS.TITLE);
+        this.summoning = TextFactory.factory(TEXTS.SUMMONING);
+        this.dslogo = document.getElementById("dslogo");
         this.loadingBar = new LoadingBar({
             x: SIZES.GAME_WIDTH_HALF,
-            y: SIZES.GAME_HEIGHT - 100,
+            y: SIZES.GAME_HEIGHT - 80,
         }).setMaxStatus(assetListLength);
-        this.title = new Text({
-            x: SIZES.GAME_WIDTH_HALF,
-            y: 100,
-        })
-            .setText("Death Sorcery")
-            .setSize(SIZES.TEXT_TITLE);
-        this.summoning = new TextFade({
-            x: SIZES.GAME_WIDTH_HALF,
-            y: SIZES.GAME_HEIGHT - 150,
-        })
-            .setText("Summoning...")
-            .setSize(SIZES.TEXT_MENUITEM);
-        this.dslogo = document.getElementById("dslogo");
         this.assetLoaded = (fileName) => {
             console.log(`${fileName.fileName} Loaded.`);
             this.loadingBar.setCurrentStatus(1);

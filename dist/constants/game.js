@@ -19,7 +19,7 @@ export const SIZES = {
     },
     TEXT_IN_GAME: 25,
     TEXT_TITLE: 120,
-    TEXT_MENUITEM: 60,
+    TEXT_MENUITEM: 50,
     TEXT_SPACING: 15,
 };
 //# sourceMappingURL=game.js.map

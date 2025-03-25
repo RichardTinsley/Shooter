@@ -12,18 +12,21 @@ export type Sprite = {
 };
 
 export interface IEntity {
-  sprite: Sprite;
   position: Position;
   draw(ctx: CanvasRenderingContext2D): void;
+  update(event: number): void;
   setPosition(x: number, y: number): void;
   getPosition(): Position;
 }
 
-// export interface IText{
-//     setText()
-// }
+export interface ISprite extends IEntity {
+  sprite: Sprite;
+}
 
-export interface IAnimate extends IEntity {
-  update(event: number): void;
+export interface IAnimatedSprite extends ISprite {
   animate(): void;
+}
+
+export interface IMovingSprite extends IAnimatedSprite {
+  move(): void;
 }

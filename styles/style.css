@@ -16,6 +16,7 @@ body {
   left: 0;
   image-rendering: crisp-edges;
   image-rendering: pixelated;
+  /* border: medium solid green; */
   /* cursor: url(../images/cursors/Plain.cur), auto; */
 }
 

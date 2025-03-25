@@ -1,31 +1,19 @@
 import { SceneBase } from "./SceneBase.js";
 import { LoadingBar } from "../components/LoadingBar.js";
-import { Text } from "../texts/Text.js";
 import { SIZES } from "../constants/game.js";
 import { load, assetListLength, assets } from "../utilities/assetLoaders.js";
-import { TextFade } from "../texts/TextFade.js";
+import { TextFactory, TEXTS } from "../texts/TextFactory.js";
 
 export class LoadingScene extends SceneBase {
-  private loadingBar = new LoadingBar({
-    x: SIZES.GAME_WIDTH_HALF,
-    y: SIZES.GAME_HEIGHT - 100,
-  }).setMaxStatus(assetListLength);
-
-  private title = new Text({
-    x: SIZES.GAME_WIDTH_HALF,
-    y: 100,
-  })
-    .setText("Death Sorcery")
-    .setSize(SIZES.TEXT_TITLE);
-
-  private summoning = new TextFade({
-    x: SIZES.GAME_WIDTH_HALF,
-    y: SIZES.GAME_HEIGHT - 150,
-  })
-    .setText("Summoning...")
-    .setSize(SIZES.TEXT_MENUITEM);
+  private title: any = TextFactory.factory(TEXTS.TITLE);
+  private summoning: any = TextFactory.factory(TEXTS.SUMMONING);
 
   private dslogo = document.getElementById("dslogo") as HTMLImageElement;
+
+  private loadingBar = new LoadingBar({
+    x: SIZES.GAME_WIDTH_HALF,
+    y: SIZES.GAME_HEIGHT - 80,
+  }).setMaxStatus(assetListLength);
 
   constructor() {
     super();
