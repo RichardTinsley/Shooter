@@ -4,10 +4,9 @@ import { SIZES } from "../constants/game.js";
 import { load, assetListLength, assets } from "../utilities/assetLoaders.js";
 import { TextFactory, TEXTS } from "../texts/TextFactory.js";
 
-export class LoadingScene extends SceneBase {
-  private title: any = TextFactory.factory(TEXTS.TITLE);
-  private summoning: any = TextFactory.factory(TEXTS.SUMMONING);
-
+export class SceneLoading extends SceneBase {
+  private title: any = TextFactory.createText(TEXTS.TITLE);
+  private summoning: any = TextFactory.createText(TEXTS.SUMMONING);
   private dslogo = document.getElementById("dslogo") as HTMLImageElement;
 
   private loadingBar = new LoadingBar({

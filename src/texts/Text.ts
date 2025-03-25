@@ -1,15 +1,13 @@
-import { Position } from "../constants/types.js";
+import { IText, Position } from "../interfaces/IEntity.js";
 
-export class Text {
+export class Text implements IText {
   protected text: string = "";
   protected size: number = 0;
   protected align: CanvasTextAlign = "center";
   protected lineWidth: number = 0;
   protected alpha: number = 1;
-
   protected state: number = 0;
-
-  constructor(protected position: Position) {}
+  protected position: Position = { x: 0, y: 0 };
 
   draw(ctx: CanvasRenderingContext2D): void {
     ctx.strokeStyle = `rgba(0, 0, 0, ${this.alpha})`;
@@ -24,31 +22,32 @@ export class Text {
 
   update(): void {}
 
-  setPosition(x: number, y: number): void {
+  setPosition(x: number, y: number): this {
     if (x) this.position.x = x;
     if (y) this.position.y = y;
+    return this;
   }
 
   getPosition(): Position {
     return this.position;
   }
 
-  setText(text: string): Text {
+  setText(text: string): this {
     this.text = text;
     return this;
   }
 
-  setSize(size: number): Text {
+  setSize(size: number): this {
     this.size = size;
     return this;
   }
 
-  setAlignment(alignment: CanvasTextAlign): Text {
+  setAlignment(alignment: CanvasTextAlign): this {
     this.align = alignment;
     return this;
   }
 
-  setState(state: number): Text {
+  setState(state: number): this {
     this.state = state;
     return this;
   }

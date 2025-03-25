@@ -1,8 +1,8 @@
 import { Text } from "./Text.js";
 import { oscillate } from "../utilities/math.js";
 export class TextFade extends Text {
-    constructor(position) {
-        super(position);
+    constructor() {
+        super();
         this.frequency = 0.1;
         this.amplitude = 0.6;
     }

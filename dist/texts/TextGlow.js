@@ -2,9 +2,8 @@ import { Text } from "./Text.js";
 import { ANIMATION } from "../constants/animation.js";
 import { oscillate } from "../utilities/math.js";
 export class TextGlow extends Text {
-    constructor(position) {
-        super(position);
-        this.position = position;
+    constructor() {
+        super();
         this.lineWidth = 3;
         this.glow = 13;
         this.frequency = 0.7;

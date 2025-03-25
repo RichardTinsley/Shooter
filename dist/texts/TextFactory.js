@@ -5,24 +5,23 @@ export var TEXTS;
 (function (TEXTS) {
     TEXTS[TEXTS["TITLE"] = 0] = "TITLE";
     TEXTS[TEXTS["SUMMONING"] = 1] = "SUMMONING";
+    TEXTS[TEXTS["PLAIN"] = 2] = "PLAIN";
 })(TEXTS || (TEXTS = {}));
 export class TextFactory {
-    static factory(selector) {
+    static createText(selector, text = "") {
         switch (selector) {
             case TEXTS.TITLE:
-                return new Text({
-                    x: SIZES.GAME_WIDTH_HALF,
-                    y: 100,
-                })
+                return new Text()
+                    .setPosition(SIZES.GAME_WIDTH_HALF, 100)
                     .setText("Death Sorcery")
                     .setSize(SIZES.TEXT_TITLE);
             case TEXTS.SUMMONING:
-                return new TextFade({
-                    x: SIZES.GAME_WIDTH_HALF,
-                    y: SIZES.GAME_HEIGHT - 130,
-                })
+                return new TextFade()
+                    .setPosition(SIZES.GAME_WIDTH_HALF, SIZES.GAME_HEIGHT - 130)
                     .setText("Summoning...")
                     .setSize(SIZES.TEXT_MENUITEM);
+            case TEXTS.PLAIN:
+                return new Text().setSize(SIZES.TEXT_IN_GAME).setAlignment("left");
         }
     }
 }

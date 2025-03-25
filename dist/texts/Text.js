@@ -1,12 +1,12 @@
 export class Text {
-    constructor(position) {
-        this.position = position;
+    constructor() {
         this.text = "";
         this.size = 0;
         this.align = "center";
         this.lineWidth = 0;
         this.alpha = 1;
         this.state = 0;
+        this.position = { x: 0, y: 0 };
     }
     draw(ctx) {
         ctx.strokeStyle = `rgba(0, 0, 0, ${this.alpha})`;
@@ -24,6 +24,7 @@ export class Text {
             this.position.x = x;
         if (y)
             this.position.y = y;
+        return this;
     }
     getPosition() {
         return this.position;

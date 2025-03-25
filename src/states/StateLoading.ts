@@ -1,9 +1,9 @@
-import { LoadingScene } from "../scenes/LoadingScene.js";
+import { SceneLoading } from "../scenes/SceneLoading.js";
 import { SceneBase } from "../scenes/SceneBase.js";
 import { StateBase } from "./StateBase.js";
 
-export class LoadingState extends StateBase {
-  protected scene: SceneBase = new LoadingScene();
+export class StateLoading extends StateBase {
+  protected scene: SceneBase = new SceneLoading();
 
   constructor() {
     super();

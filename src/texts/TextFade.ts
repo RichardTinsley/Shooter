@@ -6,8 +6,8 @@ export class TextFade extends Text {
   private frequency: number = 0.1;
   private amplitude: number = 0.6;
 
-  constructor(position: Position) {
-    super(position);
+  constructor() {
+    super();
   }
 
   draw(ctx: CanvasRenderingContext2D) {

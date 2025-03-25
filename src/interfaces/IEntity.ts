@@ -12,10 +12,10 @@ export type Sprite = {
 };
 
 export interface IEntity {
-  position: Position;
+  // position: Position;
   draw(ctx: CanvasRenderingContext2D): void;
   update(event: number): void;
-  setPosition(x: number, y: number): void;
+  setPosition(x: number, y: number): this;
   getPosition(): Position;
 }
 
@@ -29,4 +29,19 @@ export interface IAnimatedSprite extends ISprite {
 
 export interface IMovingSprite extends IAnimatedSprite {
   move(): void;
+}
+
+export interface IText extends IEntity {
+  // text: string;
+  // size: number;
+  // align: CanvasTextAlign;
+  // lineWidth: number;
+  // alpha: number;
+  // state: number;
+  // position: Position;
+
+  setText(text: string): this;
+  setSize(size: number): this;
+  setAlignment(alignment: CanvasTextAlign): this;
+  setState(state: number): this;
 }

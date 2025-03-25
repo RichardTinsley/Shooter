@@ -12,11 +12,9 @@ import { LoadingBar } from "../components/LoadingBar.js";
 import { SIZES } from "../constants/game.js";
 import { load, assetListLength, assets } from "../utilities/assetLoaders.js";
 import { TextFactory, TEXTS } from "../texts/TextFactory.js";
-import { LoadedState } from "../states/LoadedState.js";
-export class LoadingScene extends SceneBase {
-    constructor(state) {
+export class SceneLoading extends SceneBase {
+    constructor() {
         super();
-        this.state = state;
         this.title = TextFactory.createText(TEXTS.TITLE);
         this.summoning = TextFactory.createText(TEXTS.SUMMONING);
         this.dslogo = document.getElementById("dslogo");
@@ -48,10 +46,8 @@ export class LoadingScene extends SceneBase {
             })
                 .then(() => {
                 console.log(`A total of ${assets.size} assets have been loaded.`);
-                console.log(this.state);
-                this.state = new LoadedState();
             });
         });
     }
 }
-//# sourceMappingURL=LoadingScene.js.map
+//# sourceMappingURL=SceneLoading.js.map

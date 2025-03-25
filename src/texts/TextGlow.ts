@@ -9,8 +9,8 @@ export class TextGlow extends Text {
   private frequency: number = 0.7;
   private amplitude: number = 0.2;
 
-  constructor(protected position: Position) {
-    super(position);
+  constructor() {
+    super();
   }
 
   draw(ctx: CanvasRenderingContext2D) {

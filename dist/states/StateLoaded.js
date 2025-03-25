@@ -1,9 +1,9 @@
-import { LoadingScene } from "../scenes/LoadingScene.js";
+import { SceneLoaded } from "../scenes/SceneLoaded.js";
 import { StateBase } from "./StateBase.js";
-export class LoadingState extends StateBase {
+export class StateLoaded extends StateBase {
     constructor() {
         super();
-        this.scene = new LoadingScene(this);
+        this.scene = new SceneLoaded();
     }
     draw(ctx) {
         this.scene.draw(ctx);
@@ -18,4 +18,4 @@ export class LoadingState extends StateBase {
         throw new Error("Method not implemented.");
     }
 }
-//# sourceMappingURL=LoadingState.js.map
+//# sourceMappingURL=StateLoaded.js.map
