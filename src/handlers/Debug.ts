@@ -46,15 +46,11 @@ export class Debug {
   performanceDebugInfo() {
     const FPS = Math.round(this.FPSNormal * 1000) / 1000;
     this.FPS.setText(`fps: ${FPS}`);
-    this.logMemory();
   }
 
-  logMemory() {
-    // if (typeof process != 'undefined')
-    // console.log(`Node: ${process.memoryUsage().heapUsed / Math.pow(1000, 2)} MB`);
-    // if (typeof performance.memory != 'undefined')
-    // console.log(
-    //   `Browser: ${performance.memory.usedJSHeapSize / Math.pow(1000, 2)} MB`
-    // );
-  }
+  //   async function measureMemory() {
+  //     const memorySample = await performance.measureUserAgentSpecificMemory();
+  //     console.log(memorySample);
+  //     runMemoryMeasurements();
+  //   }
 }

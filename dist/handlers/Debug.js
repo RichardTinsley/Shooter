@@ -37,9 +37,6 @@ export class Debug {
     performanceDebugInfo() {
         const FPS = Math.round(this.FPSNormal * 1000) / 1000;
         this.FPS.setText(`fps: ${FPS}`);
-        this.logMemory();
-    }
-    logMemory() {
     }
 }
 //# sourceMappingURL=Debug.js.map
