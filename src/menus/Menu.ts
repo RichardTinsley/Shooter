@@ -27,7 +27,6 @@ export class Menu {
 //           x: INTERFACE.horizontallyAlignedMenu(index),
 //           y: GAME.SIZES.GAME_HEIGHT_HALF + 100,
 //         },
-//         size: INTERFACE.SIZES.MENUITEMTEXT,
 //         option: menuItem.option,
 //       });
 //     });
@@ -44,7 +43,6 @@ export class Menu {
 //             index
 //           ),
 //         },
-//         size: INTERFACE.SIZES.MENUITEMTEXT,
 //         option: menuItem.option,
 //       });
 //     });
