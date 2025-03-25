@@ -17,5 +17,9 @@ export const SIZES = {
     get GAME_HEIGHT_HALF() {
         return this.GAME_HEIGHT / 2;
     },
+    TEXT_IN_GAME: 25,
+    TEXT_TITLE: 120,
+    TEXT_MENUITEM: 60,
+    TEXT_SPACING: 15,
 };
 //# sourceMappingURL=game.js.map

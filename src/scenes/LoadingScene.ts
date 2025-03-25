@@ -3,6 +3,7 @@ import { LoadingBar } from "../components/LoadingBar.js";
 import { Text } from "../texts/Text.js";
 import { SIZES } from "../constants/game.js";
 import { load, assetListLength, assets } from "../utilities/assetLoaders.js";
+import { TextFade } from "../texts/TextFade.js";
 
 export class LoadingScene extends SceneBase {
   private loadingBar = new LoadingBar({
@@ -15,15 +16,14 @@ export class LoadingScene extends SceneBase {
     y: 100,
   })
     .setText("Death Sorcery")
-    .setSize(120);
+    .setSize(SIZES.TEXT_TITLE);
 
-  private summoning = new Text({
+  private summoning = new TextFade({
     x: SIZES.GAME_WIDTH_HALF,
     y: SIZES.GAME_HEIGHT - 150,
   })
     .setText("Summoning...")
-    .setSize(50)
-    .setFade();
+    .setSize(SIZES.TEXT_MENUITEM);
 
   private dslogo = document.getElementById("dslogo") as HTMLImageElement;
 

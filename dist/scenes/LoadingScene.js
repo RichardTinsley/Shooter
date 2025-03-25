@@ -12,6 +12,7 @@ import { LoadingBar } from "../components/LoadingBar.js";
 import { Text } from "../texts/Text.js";
 import { SIZES } from "../constants/game.js";
 import { load, assetListLength, assets } from "../utilities/assetLoaders.js";
+import { TextFade } from "../texts/TextFade.js";
 export class LoadingScene extends SceneBase {
     constructor() {
         super();
@@ -24,14 +25,13 @@ export class LoadingScene extends SceneBase {
             y: 100,
         })
             .setText("Death Sorcery")
-            .setSize(120);
-        this.summoning = new Text({
+            .setSize(SIZES.TEXT_TITLE);
+        this.summoning = new TextFade({
             x: SIZES.GAME_WIDTH_HALF,
             y: SIZES.GAME_HEIGHT - 150,
         })
             .setText("Summoning...")
-            .setSize(50)
-            .setFade();
+            .setSize(SIZES.TEXT_MENUITEM);
         this.dslogo = document.getElementById("dslogo");
         this.assetLoaded = (fileName) => {
             console.log(`${fileName.fileName} Loaded.`);
