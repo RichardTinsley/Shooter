@@ -15,5 +15,8 @@ export abstract class State {
 
   abstract pause(): void;
 
+  making(): void {
+    console.log("OMG");
+  }
   //MUTE()??
 }
