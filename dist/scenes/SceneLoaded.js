@@ -1,17 +1,20 @@
-import { Scene } from "./Scene.js";
 import { SIZES } from "../constants/game.js";
-import { TextFactory, TEXTS } from "../texts/TextFactory.js";
-export class SceneLoaded extends Scene {
-    constructor() {
-        super();
-        this.title = TextFactory.createText(TEXTS.TITLE);
-        this.dslogo = document.getElementById("dslogo");
+export class SceneLoaded {
+    constructor(scene) {
+        this.scene = scene;
     }
     draw(ctx) {
         ctx.clearRect(0, 0, SIZES.GAME_WIDTH, SIZES.GAME_HEIGHT);
-        this.title.draw(ctx);
-        ctx.drawImage(this.dslogo, SIZES.GAME_WIDTH_HALF - this.dslogo.width / 2, SIZES.GAME_HEIGHT_HALF - this.dslogo.height / 2);
+        this.scene.menu.draw(ctx);
     }
-    update() { }
+    update() {
+        this.scene.menu.update();
+    }
+    loadingScene() {
+        return;
+    }
+    loadedScene() {
+        return;
+    }
 }
 //# sourceMappingURL=SceneLoaded.js.map

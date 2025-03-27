@@ -1,25 +1,27 @@
-import { Scene } from "./Scene.js";
 import { SIZES } from "../constants/game.js";
-import { TextFactory, TEXTS } from "../texts/TextFactory.js";
+import { Scene, State } from "./Scene.js";
 
-export class SceneLoaded extends Scene {
-  private title: any = TextFactory.createText(TEXTS.TITLE);
-  private dslogo = document.getElementById("dslogo") as HTMLImageElement;
+export class SceneLoaded implements State {
+  scene: Scene;
 
-  constructor() {
-    super();
+  constructor(scene: Scene) {
+    this.scene = scene;
   }
 
   draw(ctx: CanvasRenderingContext2D): void {
     ctx.clearRect(0, 0, SIZES.GAME_WIDTH, SIZES.GAME_HEIGHT);
-    this.title.draw(ctx);
-
-    ctx.drawImage(
-      this.dslogo,
-      SIZES.GAME_WIDTH_HALF - this.dslogo.width / 2,
-      SIZES.GAME_HEIGHT_HALF - this.dslogo.height / 2
-    );
+    this.scene.menu.draw(ctx);
   }
 
-  update(): void {}
+  update(): void {
+    this.scene.menu.update();
+  }
+
+  loadingScene() {
+    return;
+  }
+
+  loadedScene() {
+    return;
+  }
 }

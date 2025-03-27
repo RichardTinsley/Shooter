@@ -1,18 +1,19 @@
 import { Debug } from "./handlers/Debug.js";
+import { Scene } from "./scenes/Scene.js";
 
 export class Game {
-  private state = new StateLoading();
+  private scene = new Scene();
   private debug = new Debug();
 
   constructor() {}
 
   draw(ctx: CanvasRenderingContext2D): void {
-    this.state.draw(ctx);
+    this.scene.getCurrentState().draw(ctx);
     this.debug.draw(ctx);
   }
 
   update(): void {
-    this.state.update();
+    this.scene.getCurrentState().update();
     this.debug.update();
   }
 }

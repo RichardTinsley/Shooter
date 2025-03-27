@@ -1,19 +1,21 @@
-import { Scene } from "./Scene.js";
 import { LoadingBar } from "../components/LoadingBar.js";
 import { SIZES } from "../constants/game.js";
-import { load, assetListLength, assets } from "../utilities/assetLoaders.js";
 import { MenuLoading } from "../menus/MenuLoading.js";
+import { assetListLength, load, assets } from "../utilities/assetLoaders.js";
+import { Scene, State } from "./Scene.js";
 
-export class SceneLoading extends Scene {
-  private menu = new MenuLoading();
+export class SceneLoading implements State {
+  scene: Scene;
+  menu = new MenuLoading();
 
   private loadingBar = new LoadingBar({
     x: SIZES.GAME_WIDTH_HALF,
     y: SIZES.GAME_HEIGHT - 80,
   }).setMaxStatus(assetListLength);
 
-  constructor() {
-    super();
+  constructor(scene: Scene) {
+    this.scene = scene;
+    this.scene.menu = new MenuLoading();
     this.loadAssets();
   }
 
@@ -25,6 +27,14 @@ export class SceneLoading extends Scene {
 
   update(): void {
     this.menu.update();
+  }
+
+  loadingScene() {
+    return;
+  }
+
+  loadedScene() {
+    this.scene.setState(this.scene.loadedState);
   }
 
   assetLoaded = (fileName: any) => {
@@ -39,6 +49,7 @@ export class SceneLoading extends Scene {
       })
       .then(() => {
         console.log(`A total of ${assets.size} assets have been loaded.`);
+        this.scene.getCurrentState().loadedScene();
       });
   }
 }

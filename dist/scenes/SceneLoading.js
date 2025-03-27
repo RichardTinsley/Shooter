@@ -7,14 +7,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { Scene } from "./Scene.js";
 import { LoadingBar } from "../components/LoadingBar.js";
 import { SIZES } from "../constants/game.js";
-import { load, assetListLength, assets } from "../utilities/assetLoaders.js";
 import { MenuLoading } from "../menus/MenuLoading.js";
-export class SceneLoading extends Scene {
-    constructor() {
-        super();
+import { assetListLength, load, assets } from "../utilities/assetLoaders.js";
+export class SceneLoading {
+    constructor(scene) {
         this.menu = new MenuLoading();
         this.loadingBar = new LoadingBar({
             x: SIZES.GAME_WIDTH_HALF,
@@ -24,6 +22,8 @@ export class SceneLoading extends Scene {
             console.log(`${fileName.fileName} Loaded.`);
             this.loadingBar.setCurrentStatus(1);
         };
+        this.scene = scene;
+        this.scene.menu = new MenuLoading();
         this.loadAssets();
     }
     draw(ctx) {
@@ -34,6 +34,12 @@ export class SceneLoading extends Scene {
     update() {
         this.menu.update();
     }
+    loadingScene() {
+        return;
+    }
+    loadedScene() {
+        this.scene.setState(this.scene.loadedState);
+    }
     loadAssets() {
         return __awaiter(this, void 0, void 0, function* () {
             yield load(this.assetLoaded)
@@ -42,6 +48,7 @@ export class SceneLoading extends Scene {
             })
                 .then(() => {
                 console.log(`A total of ${assets.size} assets have been loaded.`);
+                this.scene.getCurrentState().loadedScene();
             });
         });
     }

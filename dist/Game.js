@@ -1,16 +1,16 @@
-import { StateLoading } from "./states/StateLoading.js";
 import { Debug } from "./handlers/Debug.js";
+import { Scene } from "./scenes/Scene.js";
 export class Game {
     constructor() {
-        this.state = new StateLoading();
+        this.scene = new Scene();
         this.debug = new Debug();
     }
     draw(ctx) {
-        this.state.draw(ctx);
+        this.scene.getCurrentState().draw(ctx);
         this.debug.draw(ctx);
     }
     update() {
-        this.state.update();
+        this.scene.getCurrentState().update();
         this.debug.update();
     }
 }
