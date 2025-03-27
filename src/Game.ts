@@ -1,19 +1,19 @@
 import { Debug } from "./handlers/Debug.js";
+import { Keyboard } from "./handlers/Keyboard.js";
 import { Scene } from "./scenes/Scene.js";
 
 export class Game {
   private scene = new Scene();
   private debug = new Debug();
-
-  constructor() {}
+  private keyboard = new Keyboard(this.scene);
 
   draw(ctx: CanvasRenderingContext2D): void {
-    this.scene.getCurrentState().draw(ctx);
+    this.scene.getState().draw(ctx);
     this.debug.draw(ctx);
   }
 
   update(): void {
-    this.scene.getCurrentState().update();
+    this.scene.getState().update();
     this.debug.update();
   }
 }

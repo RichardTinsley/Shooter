@@ -4,12 +4,12 @@ export class Scene {
     constructor() {
         this.loadingState = new SceneLoading(this);
         this.loadedState = new SceneLoaded(this);
-        this.setState(this.loadingState);
+        this.currentState = this.loadingState;
     }
     setState(state) {
         this.currentState = state;
     }
-    getCurrentState() {
+    getState() {
         return this.currentState;
     }
 }

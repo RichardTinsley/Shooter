@@ -12,33 +12,20 @@ export interface State {
 }
 
 export class Scene {
-  public loadingState: State;
-  public loadedState: State;
+  public loadingState = new SceneLoading(this);
+  public loadedState = new SceneLoaded(this);
 
-  public currentState!: State;
+  public currentState: State = this.loadingState;
 
   public menu!: Menu;
-
-  constructor() {
-    this.loadingState = new SceneLoading(this);
-    this.loadedState = new SceneLoaded(this);
-
-    this.setState(this.loadingState);
-  }
 
   public setState(state: State) {
     this.currentState = state;
   }
 
-  public getCurrentState(): State {
+  public getState(): State {
     return this.currentState;
   }
 }
-
-// let order = new Order();
-
-// order.getCurrentState().verifyPayment();
-// order.getCurrentState().shipOrder();
-// order.getCurrentState().cancelOrder();
 
 // console.log("Order state: " + (<any>order.getCurrentState()).constructor.name);

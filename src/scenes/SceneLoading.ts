@@ -5,7 +5,6 @@ import { assetListLength, load, assets } from "../utilities/assetLoaders.js";
 import { Scene, State } from "./Scene.js";
 
 export class SceneLoading implements State {
-  scene: Scene;
   menu = new MenuLoading();
 
   private loadingBar = new LoadingBar({
@@ -13,8 +12,7 @@ export class SceneLoading implements State {
     y: SIZES.GAME_HEIGHT - 80,
   }).setMaxStatus(assetListLength);
 
-  constructor(scene: Scene) {
-    this.scene = scene;
+  constructor(public scene: Scene) {
     this.scene.menu = new MenuLoading();
     this.loadAssets();
   }
@@ -49,7 +47,7 @@ export class SceneLoading implements State {
       })
       .then(() => {
         console.log(`A total of ${assets.size} assets have been loaded.`);
-        this.scene.getCurrentState().loadedScene();
+        this.scene.getState().loadedScene();
       });
   }
 }

@@ -13,6 +13,7 @@ import { MenuLoading } from "../menus/MenuLoading.js";
 import { assetListLength, load, assets } from "../utilities/assetLoaders.js";
 export class SceneLoading {
     constructor(scene) {
+        this.scene = scene;
         this.menu = new MenuLoading();
         this.loadingBar = new LoadingBar({
             x: SIZES.GAME_WIDTH_HALF,
@@ -22,7 +23,6 @@ export class SceneLoading {
             console.log(`${fileName.fileName} Loaded.`);
             this.loadingBar.setCurrentStatus(1);
         };
-        this.scene = scene;
         this.scene.menu = new MenuLoading();
         this.loadAssets();
     }
@@ -48,7 +48,7 @@ export class SceneLoading {
             })
                 .then(() => {
                 console.log(`A total of ${assets.size} assets have been loaded.`);
-                this.scene.getCurrentState().loadedScene();
+                this.scene.getState().loadedScene();
             });
         });
     }

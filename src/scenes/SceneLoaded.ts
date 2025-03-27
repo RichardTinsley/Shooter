@@ -2,11 +2,7 @@ import { SIZES } from "../constants/game.js";
 import { Scene, State } from "./Scene.js";
 
 export class SceneLoaded implements State {
-  scene: Scene;
-
-  constructor(scene: Scene) {
-    this.scene = scene;
-  }
+  constructor(public scene: Scene) {}
 
   draw(ctx: CanvasRenderingContext2D): void {
     ctx.clearRect(0, 0, SIZES.GAME_WIDTH, SIZES.GAME_HEIGHT);
