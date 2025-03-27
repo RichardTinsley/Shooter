@@ -1,4 +1,3 @@
-import { StateLoading } from "./states/StateLoading.js";
 import { Debug } from "./handlers/Debug.js";
 
 export class Game {
