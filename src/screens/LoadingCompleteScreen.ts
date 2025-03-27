@@ -1,8 +1,8 @@
 import { TextFactory } from "../texts/TextFactory.js";
-import { LoadScreenBase } from "./LoadScreenBase.js";
+import { LoadingScreenBase } from "./LoadingScreenBase.js";
 
-export class LoadedScreen extends LoadScreenBase {
-  begin = TextFactory.createBeginText();
+export class LoadingCompleteScreen extends LoadingScreenBase {
+  private begin = TextFactory.createBeginText();
 
   constructor() {
     super();

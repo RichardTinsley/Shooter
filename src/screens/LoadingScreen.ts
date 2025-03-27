@@ -1,10 +1,10 @@
 import { TextFactory } from "../texts/TextFactory.js";
 import { SIZES } from "../constants/game.js";
-import { LoadScreenBase } from "./LoadScreenBase.js";
+import { LoadingScreenBase } from "./LoadingScreenBase.js";
 import { assetListLength } from "../utilities/assetLoaders.js";
 import { LoadingBar } from "../components/LoadingBar.js";
 
-export class LoadingScreen extends LoadScreenBase {
+export class LoadingScreen extends LoadingScreenBase {
   private summoning: any = TextFactory.createSummongText();
   loadingBar = new LoadingBar({
     x: SIZES.GAME_WIDTH_HALF,

@@ -1,24 +1,18 @@
-import { LoadingScreen } from "../screens/LoadingScreen.js";
-import { SceneLoaded } from "./SceneLoaded.js";
-import { SceneLoading } from "./SceneLoading.js";
+import { LoadingComplete } from "./LoadingComplete.js";
+import { Loading } from "./Loading.js";
+import { ScreenBase } from "../screens/ScreenBase.js";
 
 export interface State {
   scene: Scene;
+  screen: ScreenBase;
 
-  draw(ctx: CanvasRenderingContext2D): void;
-  update(): void;
-}
-
-export interface ScreenBase {
   draw(ctx: CanvasRenderingContext2D): void;
   update(): void;
 }
 
 export class Scene {
-  public screen: any = new LoadingScreen();
-
-  public loadingState = new SceneLoading(this);
-  public loadedState = new SceneLoaded(this);
+  public loadingState = new Loading(this);
+  public loadedState = new LoadingComplete(this);
 
   public currentState: State = this.loadingState;
 

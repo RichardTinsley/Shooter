@@ -2,7 +2,7 @@ import { TextFactory } from "../texts/TextFactory.js";
 import { SIZES } from "../constants/game.js";
 import { ScreenBase } from "./ScreenBase.js";
 
-export class LoadScreenBase extends ScreenBase {
+export class LoadingScreenBase extends ScreenBase {
   private title: any = TextFactory.createTitleText();
   private dslogo = document.getElementById("dslogo") as HTMLImageElement;
 

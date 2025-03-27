@@ -1,24 +1,26 @@
-import { LoadedScreen } from "../screens/LoadedScreen.js";
 import { LoadingScreen } from "../screens/LoadingScreen.js";
-import { load, assets, assetListLength } from "../utilities/assetLoaders.js";
+import { ScreenFactory } from "../screens/ScreenFactory.js";
+import { load, assets } from "../utilities/assetLoaders.js";
 import { Scene, State } from "./Scene.js";
 
-export class SceneLoading implements State {
+export class Loading implements State {
+  screen = ScreenFactory.createLoadingScene();
+
   constructor(public scene: Scene) {
     this.loadAssets();
   }
 
   draw(ctx: CanvasRenderingContext2D): void {
-    this.scene.screen.draw(ctx);
+    this.screen.draw(ctx);
   }
 
   update(): void {
-    this.scene.screen.update();
+    this.screen.update();
   }
 
   assetLoaded = (fileName: any) => {
     console.log(`${fileName.fileName} Loaded.`);
-    this.scene.screen.loadingBar.setCurrentStatus(1);
+    this.screen.loadingBar.setCurrentStatus(1);
   };
 
   async loadAssets() {
@@ -28,7 +30,6 @@ export class SceneLoading implements State {
       })
       .then(() => {
         console.log(`A total of ${assets.size} assets have been loaded.`);
-        this.scene.screen = new LoadedScreen();
         this.scene.setState(this.scene.loadedState);
       });
   }
