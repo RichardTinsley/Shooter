@@ -1,43 +1,24 @@
-import { LoadingBar } from "../components/LoadingBar.js";
-import { SIZES } from "../constants/game.js";
-import { MenuLoading } from "../menus/MenuLoading.js";
-import { assetListLength, load, assets } from "../utilities/assetLoaders.js";
+import { LoadedScreen } from "../screens/LoadedScreen.js";
+import { LoadingScreen } from "../screens/LoadingScreen.js";
+import { load, assets, assetListLength } from "../utilities/assetLoaders.js";
 import { Scene, State } from "./Scene.js";
 
 export class SceneLoading implements State {
-  menu = new MenuLoading();
-
-  private loadingBar = new LoadingBar({
-    x: SIZES.GAME_WIDTH_HALF,
-    y: SIZES.GAME_HEIGHT - 80,
-  }).setMaxStatus(assetListLength);
-
   constructor(public scene: Scene) {
-    this.scene.menu = new MenuLoading();
     this.loadAssets();
   }
 
   draw(ctx: CanvasRenderingContext2D): void {
-    ctx.clearRect(0, 0, SIZES.GAME_WIDTH, SIZES.GAME_HEIGHT);
-    this.menu.draw(ctx);
-    this.loadingBar.draw(ctx);
+    this.scene.screen.draw(ctx);
   }
 
   update(): void {
-    this.menu.update();
-  }
-
-  loadingScene() {
-    return;
-  }
-
-  loadedScene() {
-    this.scene.setState(this.scene.loadedState);
+    this.scene.screen.update();
   }
 
   assetLoaded = (fileName: any) => {
     console.log(`${fileName.fileName} Loaded.`);
-    this.loadingBar.setCurrentStatus(1);
+    this.scene.screen.loadingBar.setCurrentStatus(1);
   };
 
   async loadAssets() {
@@ -47,7 +28,8 @@ export class SceneLoading implements State {
       })
       .then(() => {
         console.log(`A total of ${assets.size} assets have been loaded.`);
-        this.scene.getState().loadedScene();
+        this.scene.screen = new LoadedScreen();
+        this.scene.setState(this.scene.loadedState);
       });
   }
 }

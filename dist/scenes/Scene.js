@@ -1,7 +1,9 @@
+import { LoadingScreen } from "../screens/LoadingScreen.js";
 import { SceneLoaded } from "./SceneLoaded.js";
 import { SceneLoading } from "./SceneLoading.js";
 export class Scene {
     constructor() {
+        this.screen = new LoadingScreen();
         this.loadingState = new SceneLoading(this);
         this.loadedState = new SceneLoaded(this);
         this.currentState = this.loadingState;

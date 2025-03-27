@@ -5,16 +5,10 @@ export class SceneLoaded {
     }
     draw(ctx) {
         ctx.clearRect(0, 0, SIZES.GAME_WIDTH, SIZES.GAME_HEIGHT);
-        this.scene.menu.draw(ctx);
+        this.scene.screen.draw(ctx);
     }
     update() {
-        this.scene.menu.update();
-    }
-    loadingScene() {
-        return;
-    }
-    loadedScene() {
-        return;
+        this.scene.screen.update();
     }
 }
 //# sourceMappingURL=SceneLoaded.js.map

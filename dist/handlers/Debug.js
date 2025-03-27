@@ -1,13 +1,13 @@
 import { SIZES } from "../constants/game.js";
 import { COLOURS } from "../constants/colours.js";
-import { TextFactory, TEXTS } from "../texts/TextFactory.js";
+import { TextFactory } from "../texts/TextFactory.js";
 export class Debug {
     constructor() {
         this.isDebugMode = true;
         this.frames = 0;
         this.startTime = performance.now();
         this.FPSNormal = 0;
-        this.FPS = TextFactory.createText(TEXTS.PLAIN);
+        this.FPS = TextFactory.createTextPlain();
         this.switchDebugMode = () => {
             this.isDebugMode = !this.isDebugMode;
         };

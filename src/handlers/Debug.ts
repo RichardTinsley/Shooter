@@ -1,6 +1,6 @@
 import { SIZES } from "../constants/game.js";
 import { COLOURS } from "../constants/colours.js";
-import { TextFactory, TEXTS } from "../texts/TextFactory.js";
+import { TextFactory } from "../texts/TextFactory.js";
 
 export class Debug {
   private isDebugMode: Boolean = true;
@@ -8,7 +8,7 @@ export class Debug {
   private startTime: DOMHighResTimeStamp = performance.now();
   private FPSNormal: number = 0;
 
-  private FPS: any = TextFactory.createText(TEXTS.PLAIN);
+  private FPS: any = TextFactory.createTextPlain();
 
   constructor() {
     this.FPS.setPosition(16, 64);

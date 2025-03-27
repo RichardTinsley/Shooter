@@ -1,5 +1,4 @@
 import { Text } from "./Text.js";
-import { Position } from "../constants/types.js";
 import { ANIMATION } from "../constants/animation.js";
 import { oscillate, OSCILLATIONS } from "../utilities/math.js";
 

@@ -1,9 +1,9 @@
 import { Text } from "./Text.js";
 import { oscillate, OSCILLATIONS } from "../utilities/math.js";
 
-export class TextFade extends Text {
-  private frequency: number = 0.1;
-  private amplitude: number = 0.6;
+export class TextPulsate extends Text {
+  private frequency: number = 2;
+  private amplitude: number = 5;
 
   constructor() {
     super();
@@ -14,7 +14,7 @@ export class TextFade extends Text {
   }
 
   update() {
-    this.alpha = oscillate(OSCILLATIONS.COSINE, this.frequency, this.amplitude);
-    this.alpha += 0.5;
+    this.size = oscillate(OSCILLATIONS.COSINE, this.frequency, this.amplitude);
+    this.size += 80;
   }
 }
