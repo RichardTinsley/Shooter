@@ -1,8 +1,10 @@
 import { SIZES } from "../constants/game.js";
 export class MenuButtonBase {
-    constructor(text, x, y) {
+    constructor(menuItem, text, x, y) {
+        this.menuItem = menuItem;
         this.text = text;
         this.size = SIZES.TEXT_MENUITEM;
+        this.menuItem.setText(this.text).setPosition(x, y);
         this.width = this.text.length * (this.size / 1.75);
         this.position = { x: x, y: y };
         this.hitBox = {

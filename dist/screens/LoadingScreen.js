@@ -1,11 +1,13 @@
 import { TextFactory } from "../texts/TextFactory.js";
 import { SIZES } from "../constants/game.js";
-import { LoadingScreenBase } from "./LoadingScreenBase.js";
 import { assetListLength } from "../utilities/assetLoaders.js";
 import { LoadingBar } from "../components/LoadingBar.js";
-export class LoadingScreen extends LoadingScreenBase {
+import { Screen } from "./Screen.js";
+export class LoadingScreen extends Screen {
     constructor() {
-        super();
+        super(...arguments);
+        this.title = TextFactory.createTitleText();
+        this.dslogo = document.getElementById("dslogo");
         this.summoning = TextFactory.createSummongText();
         this.loadingBar = new LoadingBar({
             x: SIZES.GAME_WIDTH_HALF,
@@ -13,12 +15,17 @@ export class LoadingScreen extends LoadingScreenBase {
         }).setMaxStatus(assetListLength);
     }
     draw(ctx) {
-        super.draw(ctx);
+        drawIntroLogo(ctx, this.title, this.dslogo);
         this.summoning.draw(ctx);
         this.loadingBar.draw(ctx);
     }
     update() {
         this.summoning.update();
     }
+}
+export function drawIntroLogo(ctx, title, dslogo) {
+    ctx.clearRect(0, 0, SIZES.GAME_WIDTH, SIZES.GAME_HEIGHT);
+    title.draw(ctx);
+    ctx.drawImage(dslogo, SIZES.GAME_WIDTH_HALF - dslogo.width / 2, SIZES.GAME_HEIGHT_HALF - dslogo.height / 2);
 }
 //# sourceMappingURL=LoadingScreen.js.map

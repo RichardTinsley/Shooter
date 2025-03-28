@@ -1,11 +1,11 @@
-import { LoadingCompleteScreen } from "./LoadingCompleteScreen.js";
+import { BeginScreen } from "./BeginScreen.js";
 import { LoadingScreen } from "./LoadingScreen.js";
 export class ScreenFactory {
     static createLoadingScreen() {
         return new LoadingScreen();
     }
-    static createLoadingCompleteScreen() {
-        return new LoadingCompleteScreen();
+    static createBeginScreen() {
+        return new BeginScreen();
     }
 }
 //# sourceMappingURL=ScreenFactory.js.map

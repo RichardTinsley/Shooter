@@ -1,11 +1,11 @@
-import { LoadingCompleteScreen } from "./LoadingCompleteScreen.js";
+import { BeginScreen } from "./BeginScreen.js";
 import { LoadingScreen } from "./LoadingScreen.js";
 
 export class ScreenFactory {
   static createLoadingScreen(): LoadingScreen {
     return new LoadingScreen();
   }
-  static createLoadingCompleteScreen(): LoadingCompleteScreen {
-    return new LoadingCompleteScreen();
+  static createBeginScreen(): BeginScreen {
+    return new BeginScreen();
   }
 }

@@ -1,10 +1,10 @@
-import { LoadingComplete } from "./LoadingComplete.js";
-import { Loading } from "./Loading.js";
-import { ScreenBase } from "../screens/ScreenBase.js";
+import { BeginState } from "./BeginState.js";
+import { LoadingState } from "./LoadingState.js";
+import { Screen } from "../screens/Screen.js";
 
 export interface IState {
   state: State;
-  screen: ScreenBase;
+  screen: Screen;
 
   draw(ctx: CanvasRenderingContext2D): void;
   update(): void;
@@ -12,9 +12,9 @@ export interface IState {
 }
 
 export class State {
-  public loadedState = new LoadingComplete(this);
+  public beginState = new BeginState(this);
 
-  public currentState: IState = new Loading(this);
+  public currentState: IState = new LoadingState(this);
 
   public setState(state: IState) {
     this.currentState = state;

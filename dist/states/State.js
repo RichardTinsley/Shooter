@@ -1,9 +1,9 @@
-import { LoadingComplete } from "./LoadingComplete.js";
-import { Loading } from "./Loading.js";
+import { BeginState } from "./BeginState.js";
+import { LoadingState } from "./LoadingState.js";
 export class State {
     constructor() {
-        this.loadedState = new LoadingComplete(this);
-        this.currentState = new Loading(this);
+        this.beginState = new BeginState(this);
+        this.currentState = new LoadingState(this);
     }
     setState(state) {
         this.currentState = state;

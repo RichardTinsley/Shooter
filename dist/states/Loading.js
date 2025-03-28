@@ -19,14 +19,14 @@ export class Loading {
         };
         this.loadAssets();
     }
-    mouseOver() {
-        throw new Error("Method not implemented.");
-    }
     draw(ctx) {
         this.screen.draw(ctx);
     }
     update() {
         this.screen.update();
+    }
+    mouseOver() {
+        throw new Error("Method not implemented.");
     }
     loadAssets() {
         return __awaiter(this, void 0, void 0, function* () {

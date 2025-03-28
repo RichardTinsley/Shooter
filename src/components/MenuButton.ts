@@ -1,14 +1,20 @@
 import { SIZES } from "../constants/game.js";
 import { Position, HitBox } from "../constants/types.js";
 
-export class MenuButtonBase {
-  public menuItem: any;
+export class MenuButton {
   public size = SIZES.TEXT_MENUITEM;
   public width: number;
   public hitBox!: HitBox;
   public position: Position;
 
-  constructor(public text: string, x: number, y: number) {
+  constructor(
+    public menuButton: any,
+    public text: string,
+    x: number,
+    y: number
+  ) {
+    this.menuButton.setText(this.text).setPosition(x, y);
+
     this.width = this.text.length * (this.size / 1.75);
 
     this.position = { x: x, y: y };
@@ -22,11 +28,11 @@ export class MenuButtonBase {
   }
 
   draw(ctx: CanvasRenderingContext2D): void {
-    this.menuItem.draw(ctx);
+    this.menuButton.draw(ctx);
   }
 
   update(): void {
-    this.menuItem.update();
+    this.menuButton.update();
   }
   //   collisionDetection(mouse) {
   //     return !checkBoxCollision(mouse, this.hitBox);

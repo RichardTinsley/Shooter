@@ -1,9 +1,11 @@
-import { MenuButtonTextPulsate } from "../components/MenuButtonTextPulsate.js";
+import { MenuButton } from "../components/MenuButton.js";
+import { SIZES } from "../constants/game.js";
+import { TextFactory } from "../texts/TextFactory.js";
 import { Menu } from "./Menu.js";
 export class LoadingCompleteMenu extends Menu {
     constructor() {
         super();
-        this.beginButton = new MenuButtonTextPulsate("Begin!", 100, 100);
+        this.beginButton = new MenuButton(TextFactory.createMenuItemGlow(), "Begin!", SIZES.GAME_WIDTH_HALF, SIZES.GAME_HEIGHT - 120);
         this.menuItems.push(this.beginButton);
     }
     draw(ctx) {
