@@ -4,7 +4,7 @@ import { Cursor } from "../constants/types.js";
 const mouseSize: number = 3;
 
 export class Mouse {
-  cursor: Cursor = {
+  private cursor: Cursor = {
     x: 0,
     y: 0,
     radius: mouseSize,
@@ -23,6 +23,4 @@ export class Mouse {
       state.getState().screen;
     });
   }
-
-  onMouseClick() {}
 }

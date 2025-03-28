@@ -7,10 +7,10 @@ const KEYBOARD = {
   RESTART: "r",
 };
 
-const keys: Set<any> = new Set();
+const keys: Set<string> = new Set();
 
 export class Keyboard {
-  constructor(state: State) {
+  constructor(public state: State) {
     window.addEventListener("keydown", (e) => {
       keys.add(e.key.toLowerCase());
     });

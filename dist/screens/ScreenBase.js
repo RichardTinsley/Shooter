@@ -1,6 +1,10 @@
 export class ScreenBase {
     constructor() { }
-    draw(ctx) { }
-    update() { }
+    draw(ctx) {
+        this.menu.draw(ctx);
+    }
+    update() {
+        this.menu.update();
+    }
 }
 //# sourceMappingURL=ScreenBase.js.map

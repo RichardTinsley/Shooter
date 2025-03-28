@@ -1,4 +1,4 @@
-import { IText, Position, Sprite } from "../interfaces/IEntity.js";
+import { IText, Position } from "../interfaces/IEntity.js";
 
 export class Text implements IText {
   protected text: string = "";
@@ -22,9 +22,12 @@ export class Text implements IText {
 
   update(): void {}
 
-  setPosition(x: number, y: number): this {
-    if (x) this.position.x = x;
-    if (y) this.position.y = y;
+  getText(): string {
+    return this.text;
+  }
+
+  setText(text: string): this {
+    this.text = text;
     return this;
   }
 
@@ -32,8 +35,9 @@ export class Text implements IText {
     return this.position;
   }
 
-  setText(text: string): this {
-    this.text = text;
+  setPosition(x: number, y: number): this {
+    if (x) this.position.x = x;
+    if (y) this.position.y = y;
     return this;
   }
 

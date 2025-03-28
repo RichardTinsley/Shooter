@@ -17,6 +17,5 @@ export class Mouse {
             state.getState().screen;
         });
     }
-    onMouseClick() { }
 }
 //# sourceMappingURL=Mouse.js.map

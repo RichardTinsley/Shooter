@@ -2,7 +2,7 @@ import { ScreenFactory } from "../screens/ScreenFactory.js";
 import { State, IState } from "./State.js";
 
 export class LoadingComplete implements IState {
-  screen = ScreenFactory.createLoadingCompleteScene();
+  screen = ScreenFactory.createLoadingCompleteScreen();
   constructor(public state: State) {}
 
   draw(ctx: CanvasRenderingContext2D): void {

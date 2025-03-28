@@ -12,7 +12,7 @@ import { load, assets } from "../utilities/assetLoaders.js";
 export class Loading {
     constructor(state) {
         this.state = state;
-        this.screen = ScreenFactory.createLoadingScene();
+        this.screen = ScreenFactory.createLoadingScreen();
         this.assetLoaded = (fileName) => {
             console.log(`${fileName.fileName} Loaded.`);
             this.screen.loadingBar.setCurrentStatus(1);

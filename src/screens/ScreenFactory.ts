@@ -2,10 +2,10 @@ import { LoadingCompleteScreen } from "./LoadingCompleteScreen.js";
 import { LoadingScreen } from "./LoadingScreen.js";
 
 export class ScreenFactory {
-  static createLoadingScene(): LoadingScreen {
+  static createLoadingScreen(): LoadingScreen {
     return new LoadingScreen();
   }
-  static createLoadingCompleteScene(): LoadingCompleteScreen {
+  static createLoadingCompleteScreen(): LoadingCompleteScreen {
     return new LoadingCompleteScreen();
   }
 }

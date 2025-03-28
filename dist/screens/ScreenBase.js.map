@@ -1,1 +1,1 @@
-{"version":3,"file":"ScreenBase.js","sourceRoot":"","sources":["../../src/screens/ScreenBase.ts"],"names":[],"mappings":"AAAA,MAAM,OAAO,UAAU;IACrB,gBAAe,CAAC;IAChB,IAAI,CAAC,GAA6B,IAAS,CAAC;IAC5C,MAAM,KAAU,CAAC;CAClB"}
+{"version":3,"file":"ScreenBase.js","sourceRoot":"","sources":["../../src/screens/ScreenBase.ts"],"names":[],"mappings":"AAEA,MAAM,OAAO,UAAU;IAErB,gBAAe,CAAC;IAChB,IAAI,CAAC,GAA6B;QAChC,IAAI,CAAC,IAAI,CAAC,IAAI,CAAC,GAAG,CAAC,CAAC;IACtB,CAAC;IACD,MAAM;QACJ,IAAI,CAAC,IAAI,CAAC,MAAM,EAAE,CAAC;IACrB,CAAC;CACF"}

@@ -7,6 +7,7 @@ const KEYBOARD = {
 const keys = new Set();
 export class Keyboard {
     constructor(state) {
+        this.state = state;
         window.addEventListener("keydown", (e) => {
             keys.add(e.key.toLowerCase());
         });

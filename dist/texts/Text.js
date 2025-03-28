@@ -19,18 +19,21 @@ export class Text {
         ctx.fillText(this.text, this.position.x, this.position.y);
     }
     update() { }
-    setPosition(x, y) {
-        if (x)
-            this.position.x = x;
-        if (y)
-            this.position.y = y;
+    getText() {
+        return this.text;
+    }
+    setText(text) {
+        this.text = text;
         return this;
     }
     getPosition() {
         return this.position;
     }
-    setText(text) {
-        this.text = text;
+    setPosition(x, y) {
+        if (x)
+            this.position.x = x;
+        if (y)
+            this.position.y = y;
         return this;
     }
     setSize(size) {

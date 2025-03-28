@@ -2,7 +2,7 @@ import { ScreenFactory } from "../screens/ScreenFactory.js";
 export class LoadingComplete {
     constructor(state) {
         this.state = state;
-        this.screen = ScreenFactory.createLoadingCompleteScene();
+        this.screen = ScreenFactory.createLoadingCompleteScreen();
     }
     draw(ctx) {
         this.screen.draw(ctx);

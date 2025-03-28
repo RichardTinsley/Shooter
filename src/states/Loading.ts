@@ -3,7 +3,7 @@ import { load, assets } from "../utilities/assetLoaders.js";
 import { State, IState } from "./State.js";
 
 export class Loading implements IState {
-  screen = ScreenFactory.createLoadingScene();
+  screen = ScreenFactory.createLoadingScreen();
 
   constructor(public state: State) {
     this.loadAssets();

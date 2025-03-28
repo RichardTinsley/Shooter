@@ -11,3 +11,10 @@ export type Cursor = {
   height: number;
   style: CSSStyleDeclaration;
 };
+
+export type HitBox = {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+};

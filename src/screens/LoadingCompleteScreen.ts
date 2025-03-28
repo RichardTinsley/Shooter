@@ -1,18 +1,18 @@
-import { TextFactory } from "../texts/TextFactory.js";
+import { LoadingCompleteMenu } from "../menus/LoadingCompleteMenu.js";
 import { LoadingScreenBase } from "./LoadingScreenBase.js";
 
 export class LoadingCompleteScreen extends LoadingScreenBase {
-  private begin = TextFactory.createBeginText();
-
   constructor() {
     super();
+    this.menu = new LoadingCompleteMenu();
   }
 
   draw(ctx: CanvasRenderingContext2D): void {
     super.draw(ctx);
-    this.begin.draw(ctx);
+    this.menu.draw(ctx);
   }
   update(): void {
-    this.begin.update();
+    super.update();
+    this.menu.update();
   }
 }
