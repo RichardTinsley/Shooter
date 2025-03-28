@@ -5,7 +5,7 @@ export class GUI {
   protected menu: Array<MenuButton> = [];
 
   constructor(public state: State) {
-    this.initialiseMenu();
+    this.initialiseMenu(state);
   }
 
   draw(ctx: CanvasRenderingContext2D): void {
@@ -23,7 +23,7 @@ export class GUI {
     return this.menu;
   }
 
-  initialiseMenu() {
+  initialiseMenu(state: State) {
     return;
   }
 }

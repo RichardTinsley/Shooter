@@ -11,6 +11,7 @@ export class BeginGUI extends GUI {
 
   constructor(public state: State) {
     super(state);
+    this.initialiseMenu(state);
   }
 
   draw(ctx: CanvasRenderingContext2D): void {
@@ -21,10 +22,10 @@ export class BeginGUI extends GUI {
     super.update();
   }
 
-  initialiseMenu() {
+  initialiseMenu(state: State) {
     const beginButton = new MenuButton(
       TextFactory.createMenuItemPulsate(),
-      this.state,
+      state,
       "Begin!",
       SIZES.GAME_WIDTH_HALF,
       SIZES.GAME_HEIGHT - 120

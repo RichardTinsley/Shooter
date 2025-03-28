@@ -9,6 +9,7 @@ export class BeginGUI extends GUI {
         this.state = state;
         this.title = TextFactory.createTitleText();
         this.dslogo = document.getElementById("dslogo");
+        this.initialiseMenu(state);
     }
     draw(ctx) {
         drawIntroLogo(ctx, this.title, this.dslogo);
@@ -17,8 +18,8 @@ export class BeginGUI extends GUI {
     update() {
         super.update();
     }
-    initialiseMenu() {
-        const beginButton = new MenuButton(TextFactory.createMenuItemPulsate(), this.state, "Begin!", SIZES.GAME_WIDTH_HALF, SIZES.GAME_HEIGHT - 120);
+    initialiseMenu(state) {
+        const beginButton = new MenuButton(TextFactory.createMenuItemPulsate(), state, "Begin!", SIZES.GAME_WIDTH_HALF, SIZES.GAME_HEIGHT - 120);
         this.menu.push(beginButton);
     }
 }

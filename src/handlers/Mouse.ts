@@ -32,7 +32,7 @@ export class Mouse {
       .gui.getMenu()
       .forEach((item: MenuButton) => {
         if (!checkHitBoxCollision(this.cursor, item.hitBox))
-          item.setState(state.mainMenuState);
+          item.changeState(state.mainMenuState);
       });
   }
 }

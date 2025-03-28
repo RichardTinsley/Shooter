@@ -2,7 +2,7 @@ export class GUI {
     constructor(state) {
         this.state = state;
         this.menu = [];
-        this.initialiseMenu();
+        this.initialiseMenu(state);
     }
     draw(ctx) {
         this.menu.forEach((item) => {
@@ -17,7 +17,7 @@ export class GUI {
     getMenu() {
         return this.menu;
     }
-    initialiseMenu() {
+    initialiseMenu(state) {
         return;
     }
 }

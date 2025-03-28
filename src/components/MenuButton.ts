@@ -7,6 +7,7 @@ export class MenuButton {
   public width: number;
   public hitBox!: HitBox;
   public position: Position;
+  public assignedState!: IState;
 
   constructor(
     public menuButton: any,
@@ -37,7 +38,7 @@ export class MenuButton {
     this.menuButton.update();
   }
 
-  setState(state: IState) {
+  changeState(state: IState): void {
     this.state.setState(state);
   }
 }

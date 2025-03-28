@@ -21,7 +21,7 @@ export class MenuButton {
     update() {
         this.menuButton.update();
     }
-    setState(state) {
+    changeState(state) {
         this.state.setState(state);
     }
 }
