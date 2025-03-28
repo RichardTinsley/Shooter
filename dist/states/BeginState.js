@@ -1,14 +1,14 @@
-import { ScreenFactory } from "../screens/ScreenFactory.js";
+import { GUIFactory } from "../GUI/GUIFactory.js";
 export class BeginState {
     constructor(state) {
         this.state = state;
-        this.screen = ScreenFactory.createBeginScreen();
+        this.gui = GUIFactory.createBeginGUI(this.state);
     }
     draw(ctx) {
-        this.screen.draw(ctx);
+        this.gui.draw(ctx);
     }
     update() {
-        this.screen.update();
+        this.gui.update();
     }
 }
 //# sourceMappingURL=BeginState.js.map

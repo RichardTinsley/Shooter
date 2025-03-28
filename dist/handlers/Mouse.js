@@ -13,15 +13,18 @@ export class Mouse {
         window.addEventListener("mousemove", (e) => {
             this.cursor.x = e.offsetX;
             this.cursor.y = e.offsetY;
-            state
-                .getState()
-                .screen.getMenu()
-                .forEach((item) => {
-                if (!checkHitBoxCollision(this.cursor, item.hitBox))
-                    console.log("OMG");
-            });
+            this.mouseOverMenuButton(state);
         });
         window.addEventListener("click", () => { });
+    }
+    mouseOverMenuButton(state) {
+        state
+            .getState()
+            .gui.getMenu()
+            .forEach((item) => {
+            if (!checkHitBoxCollision(this.cursor, item.hitBox))
+                item.setState(state.mainMenuState);
+        });
     }
 }
 //# sourceMappingURL=Mouse.js.map

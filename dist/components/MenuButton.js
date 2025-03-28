@@ -1,7 +1,8 @@
 import { SIZES } from "../constants/game.js";
 export class MenuButton {
-    constructor(menuButton, text, x, y) {
+    constructor(menuButton, state, text, x, y) {
         this.menuButton = menuButton;
+        this.state = state;
         this.text = text;
         this.size = SIZES.TEXT_MENUITEM;
         this.menuButton.setText(this.text).setPosition(x, y);
@@ -19,6 +20,9 @@ export class MenuButton {
     }
     update() {
         this.menuButton.update();
+    }
+    setState(state) {
+        this.state.setState(state);
     }
 }
 //# sourceMappingURL=MenuButton.js.map

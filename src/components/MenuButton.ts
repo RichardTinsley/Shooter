@@ -1,5 +1,6 @@
 import { SIZES } from "../constants/game.js";
 import { Position, HitBox } from "../constants/types.js";
+import { State, IState } from "../states/State.js";
 
 export class MenuButton {
   public size = SIZES.TEXT_MENUITEM;
@@ -9,6 +10,7 @@ export class MenuButton {
 
   constructor(
     public menuButton: any,
+    public state: State,
     public text: string,
     x: number,
     y: number
@@ -34,7 +36,8 @@ export class MenuButton {
   update(): void {
     this.menuButton.update();
   }
-  //   collisionDetection(mouse) {
-  //     return !checkBoxCollision(mouse, this.hitBox);
-  //   }
+
+  setState(state: IState) {
+    this.state.setState(state);
+  }
 }

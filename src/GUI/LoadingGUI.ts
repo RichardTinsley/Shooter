@@ -2,9 +2,9 @@ import { TextFactory } from "../texts/TextFactory.js";
 import { SIZES } from "../constants/game.js";
 import { assetListLength } from "../utilities/assetLoaders.js";
 import { LoadingBar } from "../components/LoadingBar.js";
-import { Screen } from "./Screen.js";
+import { GUI } from "./GUI.js";
 
-export class LoadingScreen extends Screen {
+export class LoadingGUI extends GUI {
   private title: any = TextFactory.createTitleText();
   private dslogo = document.getElementById("dslogo") as HTMLImageElement;
   private summoning: any = TextFactory.createSummongText();

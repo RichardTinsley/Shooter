@@ -1,8 +1,8 @@
-import { Screen } from "./Screen.js";
+import { GUI as GUI } from "./GUI.js";
 import { TextFactory } from "../texts/TextFactory.js";
-import { drawIntroLogo } from "./LoadingScreen.js";
+import { drawIntroLogo } from "./LoadingGUI.js";
 import { BeginMenu } from "../GUI/BeginMenu.js";
-export class BeginGUI extends Screen {
+export class BeginGUI extends GUI {
     constructor() {
         super();
         this.title = TextFactory.createTitleText();
@@ -17,4 +17,4 @@ export class BeginGUI extends Screen {
         super.update();
     }
 }
-//# sourceMappingURL=BeginScreen.js.map
+//# sourceMappingURL=BeginGUI.js.map

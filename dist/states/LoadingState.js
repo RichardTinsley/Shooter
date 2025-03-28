@@ -7,23 +7,23 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { ScreenFactory } from "../screens/ScreenFactory.js";
+import { GUIFactory } from "../GUI/GUIFactory.js";
 import { load, assets } from "../utilities/assetLoaders.js";
 export class LoadingState {
     constructor(state) {
         this.state = state;
-        this.screen = ScreenFactory.createLoadingScreen();
+        this.gui = GUIFactory.createLoadingGUI(this.state);
         this.assetLoaded = (fileName) => {
             console.log(`${fileName.fileName} Loaded.`);
-            this.screen.loadingBar.setCurrentStatus(1);
+            this.gui.loadingBar.setCurrentStatus(1);
         };
         this.loadAssets();
     }
     draw(ctx) {
-        this.screen.draw(ctx);
+        this.gui.draw(ctx);
     }
     update() {
-        this.screen.update();
+        this.gui.update();
     }
     loadAssets() {
         return __awaiter(this, void 0, void 0, function* () {

@@ -1,7 +1,12 @@
 import { MenuButton } from "../components/MenuButton.js";
+import { State } from "../states/State.js";
 
-export class Screen {
+export class GUI {
   protected menu: Array<MenuButton> = [];
+
+  constructor(public state: State) {
+    this.initialiseMenu();
+  }
 
   draw(ctx: CanvasRenderingContext2D): void {
     this.menu.forEach((item: any) => {
@@ -16,5 +21,9 @@ export class Screen {
 
   getMenu(): Array<MenuButton> {
     return this.menu;
+  }
+
+  initialiseMenu() {
+    return;
   }
 }

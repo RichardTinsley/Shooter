@@ -1,20 +1,20 @@
-import { ScreenFactory } from "../screens/ScreenFactory.js";
+import { GUIFactory } from "../GUI/GUIFactory.js";
 import { load, assets } from "../utilities/assetLoaders.js";
 import { State, IState } from "./State.js";
 
 export class LoadingState implements IState {
-  screen = ScreenFactory.createLoadingScreen();
+  gui = GUIFactory.createLoadingGUI(this.state);
 
   constructor(public state: State) {
     this.loadAssets();
   }
 
   draw(ctx: CanvasRenderingContext2D): void {
-    this.screen.draw(ctx);
+    this.gui.draw(ctx);
   }
 
   update(): void {
-    this.screen.update();
+    this.gui.update();
   }
 
   async loadAssets() {
@@ -30,6 +30,6 @@ export class LoadingState implements IState {
 
   assetLoaded = (fileName: any) => {
     console.log(`${fileName.fileName} Loaded.`);
-    this.screen.loadingBar.setCurrentStatus(1);
+    this.gui.loadingBar.setCurrentStatus(1);
   };
 }

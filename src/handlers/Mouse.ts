@@ -1,6 +1,7 @@
 import { State } from "../states/State.js";
 import { Cursor } from "../constants/types.js";
 import { checkHitBoxCollision } from "../utilities/collisionDetection.js";
+import { MenuButton } from "../components/MenuButton.js";
 
 const mouseSize: number = 3;
 
@@ -19,15 +20,19 @@ export class Mouse {
       this.cursor.x = e.offsetX;
       this.cursor.y = e.offsetY;
 
-      state
-        .getState()
-        .screen.getMenu()
-        .forEach((item) => {
-          if (!checkHitBoxCollision(this.cursor, item.hitBox))
-            console.log("OMG");
-        });
+      this.mouseOverMenuButton(state);
     });
 
     window.addEventListener("click", () => {});
+  }
+
+  mouseOverMenuButton(state: State) {
+    state
+      .getState()
+      .gui.getMenu()
+      .forEach((item: MenuButton) => {
+        if (!checkHitBoxCollision(this.cursor, item.hitBox))
+          item.setState(state.mainMenuState);
+      });
   }
 }
