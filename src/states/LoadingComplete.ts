@@ -1,17 +1,19 @@
-import { SIZES } from "../constants/game.js";
 import { ScreenFactory } from "../screens/ScreenFactory.js";
-import { Scene, State } from "./Scene.js";
+import { State, IState } from "./State.js";
 
-export class LoadingComplete implements State {
+export class LoadingComplete implements IState {
   screen = ScreenFactory.createLoadingCompleteScene();
-  constructor(public scene: Scene) {}
+  constructor(public state: State) {}
 
   draw(ctx: CanvasRenderingContext2D): void {
-    ctx.clearRect(0, 0, SIZES.GAME_WIDTH, SIZES.GAME_HEIGHT);
     this.screen.draw(ctx);
   }
 
   update(): void {
     this.screen.update();
+  }
+
+  mouseOver() {
+    throw new Error("Method not implemented.");
   }
 }

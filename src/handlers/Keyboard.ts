@@ -1,4 +1,4 @@
-import { Scene } from "../scenes/Scene.js";
+import { State } from "../states/State.js";
 
 const KEYBOARD = {
   PAUSE: "p",
@@ -10,7 +10,7 @@ const KEYBOARD = {
 const keys: Set<any> = new Set();
 
 export class Keyboard {
-  constructor(scene: Scene) {
+  constructor(state: State) {
     window.addEventListener("keydown", (e) => {
       keys.add(e.key.toLowerCase());
     });
@@ -18,7 +18,7 @@ export class Keyboard {
     window.addEventListener("keyup", (e) => {
       if (keys.has(KEYBOARD.PAUSE)) console.log(KEYBOARD.PAUSE);
 
-      if (keys.has(KEYBOARD.RESTART)) scene.setState(scene.loadingState);
+      if (keys.has(KEYBOARD.RESTART)) console.log(KEYBOARD.RESTART);
 
       if (keys.has(KEYBOARD.DEBUG)) console.log(KEYBOARD.DEBUG);
 

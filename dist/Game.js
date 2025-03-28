@@ -1,18 +1,20 @@
 import { Debug } from "./handlers/Debug.js";
 import { Keyboard } from "./handlers/Keyboard.js";
-import { Scene } from "./scenes/Scene.js";
+import { Mouse } from "./handlers/Mouse.js";
+import { State } from "./states/State.js";
 export class Game {
     constructor() {
-        this.scene = new Scene();
+        this.state = new State();
         this.debug = new Debug();
-        this.keyboard = new Keyboard(this.scene);
+        this.keyboard = new Keyboard(this.state);
+        this.mouse = new Mouse(this.state);
     }
     draw(ctx) {
-        this.scene.getState().draw(ctx);
+        this.state.getState().draw(ctx);
         this.debug.draw(ctx);
     }
     update() {
-        this.scene.getState().update();
+        this.state.getState().update();
         this.debug.update();
     }
 }

@@ -1,4 +1,4 @@
-import { IText, Position } from "../interfaces/IEntity.js";
+import { IText, Position, Sprite } from "../interfaces/IEntity.js";
 
 export class Text implements IText {
   protected text: string = "";
@@ -7,7 +7,7 @@ export class Text implements IText {
   protected lineWidth: number = 0;
   protected alpha: number = 1;
   protected state: number = 0;
-  protected position: Position = { x: 0, y: 0 };
+  position: Position = { x: 0, y: 0 };
 
   draw(ctx: CanvasRenderingContext2D): void {
     ctx.strokeStyle = `rgba(0, 0, 0, ${this.alpha})`;

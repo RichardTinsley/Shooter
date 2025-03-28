@@ -1,13 +1,15 @@
-import { LoadingScreen } from "../screens/LoadingScreen.js";
 import { ScreenFactory } from "../screens/ScreenFactory.js";
 import { load, assets } from "../utilities/assetLoaders.js";
-import { Scene, State } from "./Scene.js";
+import { State, IState } from "./State.js";
 
-export class Loading implements State {
+export class Loading implements IState {
   screen = ScreenFactory.createLoadingScene();
 
-  constructor(public scene: Scene) {
+  constructor(public state: State) {
     this.loadAssets();
+  }
+  mouseOver() {
+    throw new Error("Method not implemented.");
   }
 
   draw(ctx: CanvasRenderingContext2D): void {
@@ -30,7 +32,7 @@ export class Loading implements State {
       })
       .then(() => {
         console.log(`A total of ${assets.size} assets have been loaded.`);
-        this.scene.setState(this.scene.loadedState);
+        this.state.setState(this.state.loadedState);
       });
   }
 }

@@ -1,9 +1,9 @@
 import { TextFactory } from "../texts/TextFactory.js";
 import { SIZES } from "../constants/game.js";
-import { LoadScreenBase } from "./LoadScreenBase.js";
+import { LoadingScreenBase } from "./LoadingScreenBase.js";
 import { assetListLength } from "../utilities/assetLoaders.js";
 import { LoadingBar } from "../components/LoadingBar.js";
-export class LoadingScreen extends LoadScreenBase {
+export class LoadingScreen extends LoadingScreenBase {
     constructor() {
         super();
         this.summoning = TextFactory.createSummongText();
