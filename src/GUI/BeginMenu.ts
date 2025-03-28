@@ -2,11 +2,11 @@ import { MenuButton } from "../components/MenuButton.js";
 import { SIZES } from "../constants/game.js";
 import { TextFactory } from "../texts/TextFactory.js";
 
-export function BeginMenu(): Array<any> {
-  const menuItems: Array<any> = [];
+export function BeginMenu(): Array<MenuButton> {
+  const menuItems: Array<MenuButton> = [];
 
   const beginButton = new MenuButton(
-    TextFactory.createMenuItemGlow(),
+    TextFactory.createMenuItemPulsate(),
     "Begin!",
     SIZES.GAME_WIDTH_HALF,
     SIZES.GAME_HEIGHT - 120

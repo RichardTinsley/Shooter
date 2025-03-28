@@ -10,8 +10,5 @@ export class BeginState {
     update() {
         this.screen.update();
     }
-    mouseOver() {
-        throw new Error("Method not implemented.");
-    }
 }
 //# sourceMappingURL=BeginState.js.map

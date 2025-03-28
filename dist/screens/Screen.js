@@ -12,5 +12,8 @@ export class Screen {
             item.update();
         });
     }
+    getMenu() {
+        return this.menu;
+    }
 }
 //# sourceMappingURL=Screen.js.map

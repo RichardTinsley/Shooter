@@ -1,5 +1,7 @@
+import { MenuButton } from "../components/MenuButton.js";
+
 export class Screen {
-  protected menu: Array<any> = [];
+  protected menu: Array<MenuButton> = [];
 
   draw(ctx: CanvasRenderingContext2D): void {
     this.menu.forEach((item: any) => {
@@ -10,5 +12,9 @@ export class Screen {
     this.menu.forEach((item: any) => {
       item.update();
     });
+  }
+
+  getMenu(): Array<MenuButton> {
+    return this.menu;
   }
 }

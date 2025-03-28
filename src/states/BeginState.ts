@@ -12,8 +12,4 @@ export class BeginState implements IState {
   update(): void {
     this.screen.update();
   }
-
-  mouseOver() {
-    throw new Error("Method not implemented.");
-  }
 }

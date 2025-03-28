@@ -8,7 +8,6 @@ export interface IState {
 
   draw(ctx: CanvasRenderingContext2D): void;
   update(): void;
-  mouseOver(): any;
 }
 
 export class State {

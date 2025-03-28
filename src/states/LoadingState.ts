@@ -17,10 +17,6 @@ export class LoadingState implements IState {
     this.screen.update();
   }
 
-  mouseOver() {
-    throw new Error("Method not implemented.");
-  }
-
   async loadAssets() {
     await load(this.assetLoaded)
       .catch((error) => {

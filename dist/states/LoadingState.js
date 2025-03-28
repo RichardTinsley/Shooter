@@ -25,9 +25,6 @@ export class LoadingState {
     update() {
         this.screen.update();
     }
-    mouseOver() {
-        throw new Error("Method not implemented.");
-    }
     loadAssets() {
         return __awaiter(this, void 0, void 0, function* () {
             yield load(this.assetLoaded)
