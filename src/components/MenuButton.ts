@@ -1,33 +1,27 @@
 import { SIZES } from "../constants/game.js";
 import { Position, HitBox } from "../constants/types.js";
-import { State, IState } from "../states/State.js";
+import { State } from "../states/State.js";
+
+export enum LABELS {
+  BEGIN = "Begin!",
+  NEWGAME = "New Game",
+  OPTIONS = "Options",
+  ABOUT = "About",
+}
 
 export class MenuButton {
   public size = SIZES.TEXT_MENUITEM;
   public width: number;
   public hitBox!: HitBox;
-  public position: Position;
-  public assignedState!: IState;
+  public position!: Position;
 
   constructor(
     public menuButton: any,
     public state: State,
-    public text: string,
-    x: number,
-    y: number
+    public text: string
   ) {
-    this.menuButton.setText(this.text).setPosition(x, y);
-
+    this.menuButton.setText(this.text);
     this.width = this.text.length * (this.size / 1.75);
-
-    this.position = { x: x, y: y };
-
-    this.hitBox = {
-      x: this.position.x - this.width / 2,
-      y: this.position.y - this.size / 2,
-      width: this.width,
-      height: this.size,
-    };
   }
 
   draw(ctx: CanvasRenderingContext2D): void {
@@ -38,7 +32,25 @@ export class MenuButton {
     this.menuButton.update();
   }
 
-  changeState(state: IState): void {
-    this.state.setState(state);
+  setPosition(x: number, y: number): this {
+    this.menuButton.setPosition(x, y);
+    this.position = { x: x, y: y };
+
+    this.hitBox = {
+      x: this.position.x - this.width / 2,
+      y: this.position.y - this.size / 2,
+      width: this.width,
+      height: this.size,
+    };
+
+    return this;
+  }
+
+  changeState(): void {
+    switch (this.text) {
+      case LABELS.BEGIN:
+        this.state.setState(this.state.mainMenuState);
+        break;
+    }
   }
 }

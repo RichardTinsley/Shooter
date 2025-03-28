@@ -1,7 +1,7 @@
 import { GUI } from "./GUI.js";
 import { TextFactory } from "../texts/TextFactory.js";
 import { drawIntroLogo } from "./LoadingGUI.js";
-import { MenuButton } from "../components/MenuButton.js";
+import { MenuButton, LABELS } from "../components/MenuButton.js";
 import { SIZES } from "../constants/game.js";
 export class BeginGUI extends GUI {
     constructor(state) {
@@ -9,7 +9,6 @@ export class BeginGUI extends GUI {
         this.state = state;
         this.title = TextFactory.createTitleText();
         this.dslogo = document.getElementById("dslogo");
-        this.initialiseMenu(state);
     }
     draw(ctx) {
         drawIntroLogo(ctx, this.title, this.dslogo);
@@ -19,7 +18,7 @@ export class BeginGUI extends GUI {
         super.update();
     }
     initialiseMenu(state) {
-        const beginButton = new MenuButton(TextFactory.createMenuItemPulsate(), state, "Begin!", SIZES.GAME_WIDTH_HALF, SIZES.GAME_HEIGHT - 120);
+        const beginButton = new MenuButton(TextFactory.createMenuItemPulsate(), state, LABELS.BEGIN).setPosition(SIZES.GAME_WIDTH_HALF, SIZES.GAME_HEIGHT - 120);
         this.menu.push(beginButton);
     }
 }

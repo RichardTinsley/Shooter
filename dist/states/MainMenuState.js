@@ -1,13 +1,14 @@
-import { MainMenuGUI } from "../GUI/MainMenuGUI.js";
+import { GUIFactory } from "../GUI/GUIFactory.js";
 export class MainMenuState {
     constructor(state) {
         this.state = state;
-        this.gui = new MainMenuGUI(this.state);
+        this.gui = GUIFactory.createMainMenuGUI(this.state);
     }
     draw(ctx) {
-        console.log("MAINMENUSTATE");
+        this.gui.draw(ctx);
     }
     update() {
+        this.gui.update();
     }
 }
 //# sourceMappingURL=MainMenuState.js.map

@@ -1,7 +1,7 @@
 import { GUI } from "./GUI.js";
 import { TextFactory } from "../texts/TextFactory.js";
 import { drawIntroLogo } from "./LoadingGUI.js";
-import { MenuButton } from "../components/MenuButton.js";
+import { MenuButton, LABELS } from "../components/MenuButton.js";
 import { SIZES } from "../constants/game.js";
 import { State } from "../states/State.js";
 
@@ -11,7 +11,6 @@ export class BeginGUI extends GUI {
 
   constructor(public state: State) {
     super(state);
-    this.initialiseMenu(state);
   }
 
   draw(ctx: CanvasRenderingContext2D): void {
@@ -26,10 +25,8 @@ export class BeginGUI extends GUI {
     const beginButton = new MenuButton(
       TextFactory.createMenuItemPulsate(),
       state,
-      "Begin!",
-      SIZES.GAME_WIDTH_HALF,
-      SIZES.GAME_HEIGHT - 120
-    );
+      LABELS.BEGIN
+    ).setPosition(SIZES.GAME_WIDTH_HALF, SIZES.GAME_HEIGHT - 120);
 
     this.menu.push(beginButton);
   }
