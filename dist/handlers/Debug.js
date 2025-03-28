@@ -2,8 +2,9 @@ import { SIZES } from "../constants/game.js";
 import { COLOURS } from "../constants/colours.js";
 import { TextFactory } from "../texts/TextFactory.js";
 export class Debug {
-    constructor(state) {
+    constructor(state, mouse) {
         this.state = state;
+        this.mouse = mouse;
         this.isDebugMode = true;
         this.frames = 0;
         this.startTime = performance.now();
@@ -18,6 +19,7 @@ export class Debug {
         if (!this.isDebugMode)
             return;
         this.drawPerformanceDebugInfo(ctx);
+        this.drawMouseDebugInfo(ctx);
         this.drawMenuDebugInfo(ctx, this.state.getState().gui.getMenu());
     }
     update() {
@@ -49,6 +51,20 @@ export class Debug {
         menu.forEach((item) => {
             this.drawSquareHitBox(ctx, item.hitBox);
         });
+    }
+    drawMouseDebugInfo(ctx) {
+        this.drawDot(ctx, this.mouse.getCursor(), COLOURS.RED);
+    }
+    drawDot(ctx, item, colour) {
+        ctx.fillStyle = colour;
+        ctx.fillRect(item.x - 2, item.y - 2, 4, 4);
+    }
+    drawCircleHitbox(ctx, item) {
+        ctx.beginPath();
+        ctx.arc(item.x, item.y, item.radius, 0, Math.PI * 2);
+        ctx.fillStyle = COLOURS.RED_ALPHA;
+        ctx.fill();
+        this.drawDot(ctx, item, COLOURS.RED);
     }
     drawSquareHitBox(ctx, item) {
         ctx.fillStyle = COLOURS.RED_ALPHA;

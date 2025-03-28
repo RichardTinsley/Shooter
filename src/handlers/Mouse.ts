@@ -34,4 +34,8 @@ export class Mouse {
         if (!checkHitBoxCollision(this.cursor, item.hitBox)) item.changeState();
       });
   }
+
+  getCursor(): Cursor {
+    return this.cursor;
+  }
 }

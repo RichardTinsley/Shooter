@@ -26,5 +26,8 @@ export class Mouse {
                 item.changeState();
         });
     }
+    getCursor() {
+        return this.cursor;
+    }
 }
 //# sourceMappingURL=Mouse.js.map

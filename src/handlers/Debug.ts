@@ -3,6 +3,8 @@ import { COLOURS } from "../constants/colours.js";
 import { TextFactory } from "../texts/TextFactory.js";
 import { MenuButton } from "../components/MenuButton.js";
 import { State } from "../states/State.js";
+import { Cursor } from "../constants/types.js";
+import { Mouse } from "./Mouse.js";
 
 export class Debug {
   private isDebugMode: Boolean = true;
@@ -12,7 +14,7 @@ export class Debug {
 
   private FPS: any = TextFactory.createTextPlain();
 
-  constructor(public state: State) {
+  constructor(public state: State, public mouse: Mouse) {
     this.FPS.setPosition(16, 64);
   }
 
@@ -20,6 +22,7 @@ export class Debug {
     if (!this.isDebugMode) return;
 
     this.drawPerformanceDebugInfo(ctx);
+    this.drawMouseDebugInfo(ctx);
     this.drawMenuDebugInfo(ctx, this.state.getState().gui.getMenu());
   }
 
@@ -61,6 +64,24 @@ export class Debug {
     menu.forEach((item) => {
       this.drawSquareHitBox(ctx, item.hitBox);
     });
+  }
+
+  drawMouseDebugInfo(ctx: CanvasRenderingContext2D) {
+    this.drawDot(ctx, this.mouse.getCursor(), COLOURS.RED);
+  }
+
+  drawDot(ctx: CanvasRenderingContext2D, item: any, colour: string) {
+    ctx.fillStyle = colour;
+    ctx.fillRect(item.x - 2, item.y - 2, 4, 4);
+  }
+
+  drawCircleHitbox(ctx: CanvasRenderingContext2D, item: any) {
+    ctx.beginPath();
+    ctx.arc(item.x, item.y, item.radius, 0, Math.PI * 2);
+    ctx.fillStyle = COLOURS.RED_ALPHA;
+    ctx.fill();
+
+    this.drawDot(ctx, item, COLOURS.RED);
   }
 
   drawSquareHitBox(ctx: CanvasRenderingContext2D, item: any) {

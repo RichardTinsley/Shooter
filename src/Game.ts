@@ -5,9 +5,9 @@ import { State } from "./states/State.js";
 
 export class Game {
   private state = new State();
-  private debug = new Debug(this.state);
   private keyboard = new Keyboard(this.state);
   private mouse = new Mouse(this.state);
+  private debug = new Debug(this.state, this.mouse);
 
   draw(ctx: CanvasRenderingContext2D): void {
     this.state.getState().draw(ctx);
