@@ -1,3 +1,4 @@
+import { SIZES } from "../constants/game.js";
 export class GUI {
     constructor(state) {
         this.state = state;
@@ -5,6 +6,7 @@ export class GUI {
         this.initialiseMenu(state);
     }
     draw(ctx) {
+        ctx.clearRect(0, 0, SIZES.GAME_WIDTH, SIZES.GAME_HEIGHT);
         this.menu.forEach((item) => {
             item.draw(ctx);
         });

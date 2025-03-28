@@ -14,8 +14,8 @@ export class BeginGUI extends GUI {
   }
 
   draw(ctx: CanvasRenderingContext2D): void {
-    drawIntroLogo(ctx, this.title, this.dslogo);
     super.draw(ctx);
+    drawIntroLogo(ctx, this.title, this.dslogo);
   }
   update(): void {
     super.update();

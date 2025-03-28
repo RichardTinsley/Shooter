@@ -11,8 +11,8 @@ export class BeginGUI extends GUI {
         this.dslogo = document.getElementById("dslogo");
     }
     draw(ctx) {
-        drawIntroLogo(ctx, this.title, this.dslogo);
         super.draw(ctx);
+        drawIntroLogo(ctx, this.title, this.dslogo);
     }
     update() {
         super.update();

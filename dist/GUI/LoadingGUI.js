@@ -24,7 +24,6 @@ export class LoadingGUI extends GUI {
     }
 }
 export function drawIntroLogo(ctx, title, dslogo) {
-    ctx.clearRect(0, 0, SIZES.GAME_WIDTH, SIZES.GAME_HEIGHT);
     title.draw(ctx);
     ctx.drawImage(dslogo, SIZES.GAME_WIDTH_HALF - dslogo.width / 2, SIZES.GAME_HEIGHT_HALF - dslogo.height / 2);
 }

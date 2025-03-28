@@ -1,4 +1,5 @@
 import { MenuButton } from "../components/MenuButton.js";
+import { SIZES } from "../constants/game.js";
 import { State } from "../states/State.js";
 
 export class GUI {
@@ -9,6 +10,7 @@ export class GUI {
   }
 
   draw(ctx: CanvasRenderingContext2D): void {
+    ctx.clearRect(0, 0, SIZES.GAME_WIDTH, SIZES.GAME_HEIGHT);
     this.menu.forEach((item: any) => {
       item.draw(ctx);
     });

@@ -5,7 +5,7 @@ import { State } from "./states/State.js";
 export class Game {
     constructor() {
         this.state = new State();
-        this.debug = new Debug();
+        this.debug = new Debug(this.state);
         this.keyboard = new Keyboard(this.state);
         this.mouse = new Mouse(this.state);
     }

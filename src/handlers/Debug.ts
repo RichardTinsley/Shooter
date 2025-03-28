@@ -1,6 +1,8 @@
 import { SIZES } from "../constants/game.js";
 import { COLOURS } from "../constants/colours.js";
 import { TextFactory } from "../texts/TextFactory.js";
+import { MenuButton } from "../components/MenuButton.js";
+import { State } from "../states/State.js";
 
 export class Debug {
   private isDebugMode: Boolean = true;
@@ -10,16 +12,15 @@ export class Debug {
 
   private FPS: any = TextFactory.createTextPlain();
 
-  constructor() {
+  constructor(public state: State) {
     this.FPS.setPosition(16, 64);
   }
 
   draw(ctx: CanvasRenderingContext2D): void {
     if (!this.isDebugMode) return;
 
-    ctx.fillStyle = COLOURS.SHADOW;
-    ctx.fillRect(0, SIZES.TILE * 3, SIZES.TILE * 4, SIZES.TILE * 2);
-    this.FPS.draw(ctx);
+    this.drawPerformanceDebugInfo(ctx);
+    this.drawMenuDebugInfo(ctx, this.state.getState().gui.getMenu());
   }
 
   update() {
@@ -48,6 +49,23 @@ export class Debug {
   performanceDebugInfo() {
     const FPS = Math.round(this.FPSNormal * 1000) / 1000;
     this.FPS.setText(`fps: ${FPS}`);
+  }
+
+  drawPerformanceDebugInfo(ctx: CanvasRenderingContext2D) {
+    ctx.fillStyle = COLOURS.SHADOW;
+    ctx.fillRect(0, SIZES.TILE * 3, SIZES.TILE * 4, SIZES.TILE * 2);
+    this.FPS.draw(ctx);
+  }
+
+  drawMenuDebugInfo(ctx: CanvasRenderingContext2D, menu: Array<MenuButton>) {
+    menu.forEach((item) => {
+      this.drawSquareHitBox(ctx, item.hitBox);
+    });
+  }
+
+  drawSquareHitBox(ctx: CanvasRenderingContext2D, item: any) {
+    ctx.fillStyle = COLOURS.RED_ALPHA;
+    ctx.fillRect(item.x, item.y, item.width, item.height);
   }
 
   //   async function measureMemory() {
