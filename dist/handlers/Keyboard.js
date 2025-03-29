@@ -6,8 +6,9 @@ const KEYBOARD = {
 };
 const keys = new Set();
 export class Keyboard {
-    constructor(state) {
+    constructor(state, debug) {
         this.state = state;
+        this.debug = debug;
         window.addEventListener("keydown", (e) => {
             keys.add(e.key.toLowerCase());
         });
@@ -17,7 +18,7 @@ export class Keyboard {
             if (keys.has(KEYBOARD.RESTART))
                 console.log(KEYBOARD.RESTART);
             if (keys.has(KEYBOARD.DEBUG))
-                console.log(KEYBOARD.DEBUG);
+                debug.switchDebugMode();
             if (keys.has(KEYBOARD.MUTE))
                 console.log(KEYBOARD.MUTE);
             keys.clear();

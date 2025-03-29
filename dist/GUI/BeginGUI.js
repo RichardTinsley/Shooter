@@ -9,6 +9,7 @@ export class BeginGUI extends GUI {
         this.state = state;
         this.title = TextFactory.createTitleText();
         this.dslogo = document.getElementById("dslogo");
+        this.initialiseMenu();
     }
     draw(ctx) {
         super.draw(ctx);

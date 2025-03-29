@@ -1,12 +1,16 @@
 import { GUI } from "./GUI.js";
 import { State } from "../states/State.js";
-import { MenuButton, LABELS } from "./components/MenuButton.js";
-import { TextFactory } from "../texts/TextFactory.js";
-import { menuVertical } from "../utilities/menuUtil.js";
+import { LABELS } from "./components/MenuButton.js";
 
 export class MainMenuGUI extends GUI {
+  private menuTemplate = [
+    { state: this.state.setNewGameState, label: LABELS.NEWGAME },
+    { state: this.state.setOptionsState, label: LABELS.OPTIONS },
+    { state: this.state.setAboutState, label: LABELS.ABOUT },
+  ];
   constructor(public state: State) {
     super(state);
+    this.menu = this.initialiseVerticalMenu(this.menuTemplate, 400);
   }
 
   draw(ctx: CanvasRenderingContext2D): void {
@@ -14,29 +18,5 @@ export class MainMenuGUI extends GUI {
   }
   update(): void {
     super.update();
-  }
-
-  initialiseMenu() {
-    const newGame = new MenuButton(
-      TextFactory.createMenuItemGlow(),
-      this.state,
-      this.state.setNewGameState,
-      LABELS.NEWGAME
-    );
-    const options = new MenuButton(
-      TextFactory.createMenuItemGlow(),
-      this.state,
-      this.state.setOptionsState,
-      LABELS.OPTIONS
-    );
-    const about = new MenuButton(
-      TextFactory.createMenuItemGlow(),
-      this.state,
-      this.state.setAboutState,
-      LABELS.ABOUT
-    );
-
-    this.menu.push(newGame, options, about);
-    menuVertical(this.menu, 400);
   }
 }

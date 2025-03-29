@@ -1,24 +1,21 @@
 import { GUI } from "./GUI.js";
-import { MenuButton, LABELS } from "./components/MenuButton.js";
-import { TextFactory } from "../texts/TextFactory.js";
-import { menuVertical } from "../utilities/menuUtil.js";
+import { LABELS } from "./components/MenuButton.js";
 export class MainMenuGUI extends GUI {
     constructor(state) {
         super(state);
         this.state = state;
+        this.menuTemplate = [
+            { state: this.state.setNewGameState, label: LABELS.NEWGAME },
+            { state: this.state.setOptionsState, label: LABELS.OPTIONS },
+            { state: this.state.setAboutState, label: LABELS.ABOUT },
+        ];
+        this.menu = this.initialiseVerticalMenu(this.menuTemplate, 400);
     }
     draw(ctx) {
         super.draw(ctx);
     }
     update() {
         super.update();
-    }
-    initialiseMenu() {
-        const newGame = new MenuButton(TextFactory.createMenuItemGlow(), this.state, this.state.setNewGameState, LABELS.NEWGAME);
-        const options = new MenuButton(TextFactory.createMenuItemGlow(), this.state, this.state.setOptionsState, LABELS.OPTIONS);
-        const about = new MenuButton(TextFactory.createMenuItemGlow(), this.state, this.state.setAboutState, LABELS.ABOUT);
-        this.menu.push(newGame, options, about);
-        menuVertical(this.menu, 400);
     }
 }
 //# sourceMappingURL=MainMenuGUI.js.map

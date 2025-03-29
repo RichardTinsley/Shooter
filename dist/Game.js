@@ -5,9 +5,9 @@ import { State } from "./states/State.js";
 export class Game {
     constructor() {
         this.state = new State();
-        this.keyboard = new Keyboard(this.state);
         this.mouse = new Mouse(this.state);
         this.debug = new Debug(this.state, this.mouse);
+        this.keyboard = new Keyboard(this.state, this.debug);
     }
     draw(ctx) {
         this.state.getCurrentState().draw(ctx);

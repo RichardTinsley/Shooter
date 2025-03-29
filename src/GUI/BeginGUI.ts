@@ -11,6 +11,7 @@ export class BeginGUI extends GUI {
 
   constructor(public state: State) {
     super(state);
+    this.initialiseMenu();
   }
 
   draw(ctx: CanvasRenderingContext2D): void {

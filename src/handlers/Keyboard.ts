@@ -1,4 +1,5 @@
 import { State } from "../states/State.js";
+import { Debug } from "./Debug.js";
 
 const KEYBOARD = {
   PAUSE: "p",
@@ -10,7 +11,7 @@ const KEYBOARD = {
 const keys: Set<string> = new Set();
 
 export class Keyboard {
-  constructor(public state: State) {
+  constructor(public state: State, public debug: Debug) {
     window.addEventListener("keydown", (e) => {
       keys.add(e.key.toLowerCase());
     });
@@ -20,7 +21,7 @@ export class Keyboard {
 
       if (keys.has(KEYBOARD.RESTART)) console.log(KEYBOARD.RESTART);
 
-      if (keys.has(KEYBOARD.DEBUG)) console.log(KEYBOARD.DEBUG);
+      if (keys.has(KEYBOARD.DEBUG)) debug.switchDebugMode();
 
       if (keys.has(KEYBOARD.MUTE)) console.log(KEYBOARD.MUTE);
 
