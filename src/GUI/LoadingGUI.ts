@@ -1,8 +1,9 @@
 import { TextFactory } from "../texts/TextFactory.js";
 import { SIZES } from "../constants/game.js";
 import { assetListLength } from "../utilities/assetLoaders.js";
-import { LoadingBar } from "../components/LoadingBar.js";
+import { LoadingBar } from "./components/LoadingBar.js";
 import { GUI } from "./GUI.js";
+import { State } from "../states/State.js";
 
 export class LoadingGUI extends GUI {
   private title: any = TextFactory.createTitleText();
@@ -13,6 +14,10 @@ export class LoadingGUI extends GUI {
     x: SIZES.GAME_WIDTH_HALF,
     y: SIZES.GAME_HEIGHT - 80,
   }).setMaxStatus(assetListLength);
+
+  constructor(public state: State) {
+    super(state);
+  }
 
   draw(ctx: CanvasRenderingContext2D): void {
     drawIntroLogo(ctx, this.title, this.dslogo);

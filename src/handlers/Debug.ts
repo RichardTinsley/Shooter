@@ -1,9 +1,8 @@
 import { SIZES } from "../constants/game.js";
 import { COLOURS } from "../constants/colours.js";
 import { TextFactory } from "../texts/TextFactory.js";
-import { MenuButton } from "../components/MenuButton.js";
+import { MenuButton } from "../GUI/components/MenuButton.js";
 import { State } from "../states/State.js";
-import { Cursor } from "../constants/types.js";
 import { Mouse } from "./Mouse.js";
 
 export class Debug {
@@ -23,7 +22,7 @@ export class Debug {
 
     this.drawPerformanceDebugInfo(ctx);
     this.drawMouseDebugInfo(ctx);
-    this.drawMenuDebugInfo(ctx, this.state.getState().gui.getMenu());
+    this.drawMenuDebugInfo(ctx, this.state.getCurrentState().gui.getMenu());
   }
 
   update() {

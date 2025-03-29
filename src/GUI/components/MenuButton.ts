@@ -1,6 +1,6 @@
-import { SIZES } from "../constants/game.js";
-import { Position, HitBox } from "../constants/types.js";
-import { State } from "../states/State.js";
+import { SIZES } from "../../constants/game.js";
+import { Position, HitBox } from "../../constants/types.js";
+import { State } from "../../states/State.js";
 
 export enum LABELS {
   BEGIN = "Begin!",
@@ -18,6 +18,7 @@ export class MenuButton {
   constructor(
     public menuButton: any,
     public state: State,
+    public setState: Function,
     public text: string
   ) {
     this.menuButton.setText(this.text);
@@ -47,10 +48,6 @@ export class MenuButton {
   }
 
   changeState(): void {
-    switch (this.text) {
-      case LABELS.BEGIN:
-        this.state.setState(this.state.mainMenuState);
-        break;
-    }
+    this.setState();
   }
 }

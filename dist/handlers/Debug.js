@@ -20,7 +20,7 @@ export class Debug {
             return;
         this.drawPerformanceDebugInfo(ctx);
         this.drawMouseDebugInfo(ctx);
-        this.drawMenuDebugInfo(ctx, this.state.getState().gui.getMenu());
+        this.drawMenuDebugInfo(ctx, this.state.getCurrentState().gui.getMenu());
     }
     update() {
         if (!this.isDebugMode)

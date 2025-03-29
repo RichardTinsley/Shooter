@@ -1,6 +1,6 @@
-import { COLOURS } from "../constants/colours.js";
-import { Position } from "../constants/types.js";
-import { drawRectangle } from "../utilities/drawShapes.js";
+import { COLOURS } from "../../constants/colours.js";
+import { Position } from "../../constants/types.js";
+import { drawRectangle } from "../../utilities/drawShapes.js";
 
 export class StatusBar {
   protected readonly statusBarHeight: number = 0;

@@ -1,6 +1,6 @@
 import { GUI } from "./GUI.js";
 import { State } from "../states/State.js";
-import { MenuButton, LABELS } from "../components/MenuButton.js";
+import { MenuButton, LABELS } from "./components/MenuButton.js";
 import { TextFactory } from "../texts/TextFactory.js";
 import { menuVertical } from "../utilities/menuUtil.js";
 
@@ -16,21 +16,23 @@ export class MainMenuGUI extends GUI {
     super.update();
   }
 
-  initialiseMenu(state: State) {
+  initialiseMenu() {
     const newGame = new MenuButton(
       TextFactory.createMenuItemGlow(),
-      state,
+      this.state,
+      this.state.setNewGameState,
       LABELS.NEWGAME
     );
-
     const options = new MenuButton(
       TextFactory.createMenuItemGlow(),
-      state,
+      this.state,
+      this.state.setOptionsState,
       LABELS.OPTIONS
     );
     const about = new MenuButton(
       TextFactory.createMenuItemGlow(),
-      state,
+      this.state,
+      this.state.setAboutState,
       LABELS.ABOUT
     );
 

@@ -3,15 +3,28 @@ import { LoadingState } from "./LoadingState.js";
 import { MainMenuState } from "./MainMenuState.js";
 export class State {
     constructor() {
-        this.beginState = new BeginState(this);
-        this.mainMenuState = new MainMenuState(this);
         this.currentState = new LoadingState(this);
+        this.setMainMenuState = () => {
+            this.currentState = new MainMenuState(this);
+        };
+        this.setNewGameState = () => {
+            this.currentState = new BeginState(this);
+        };
+        this.setOptionsState = () => {
+            this.currentState = new BeginState(this);
+        };
+        this.setAboutState = () => {
+            this.currentState = new BeginState(this);
+        };
     }
-    setState(state) {
+    setCurrentState(state) {
         this.currentState = state;
     }
-    getState() {
+    getCurrentState() {
         return this.currentState;
+    }
+    setBeginState() {
+        this.currentState = new BeginState(this);
     }
 }
 //# sourceMappingURL=State.js.map

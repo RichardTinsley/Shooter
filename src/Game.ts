@@ -10,12 +10,12 @@ export class Game {
   private debug = new Debug(this.state, this.mouse);
 
   draw(ctx: CanvasRenderingContext2D): void {
-    this.state.getState().draw(ctx);
+    this.state.getCurrentState().draw(ctx);
     this.debug.draw(ctx);
   }
 
   update(): void {
-    this.state.getState().update();
+    this.state.getCurrentState().update();
     this.debug.update();
   }
 }

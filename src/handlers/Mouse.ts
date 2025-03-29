@@ -1,7 +1,7 @@
 import { State } from "../states/State.js";
 import { Cursor } from "../constants/types.js";
 import { checkHitBoxCollision } from "../utilities/collisionDetection.js";
-import { MenuButton } from "../components/MenuButton.js";
+import { MenuButton } from "../GUI/components/MenuButton.js";
 
 const mouseSize: number = 3;
 
@@ -28,7 +28,7 @@ export class Mouse {
 
   mouseOverMenuButton(state: State) {
     state
-      .getState()
+      .getCurrentState()
       .gui.getMenu()
       .forEach((item: MenuButton) => {
         if (!checkHitBoxCollision(this.cursor, item.hitBox)) item.changeState();

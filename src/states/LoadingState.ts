@@ -1,10 +1,9 @@
 import { GUIFactory } from "../GUI/GUIFactory.js";
-import { load, assets } from "../utilities/assetLoaders.js";
+import { load, assets, assetListLength } from "../utilities/assetLoaders.js";
 import { State, IState } from "./State.js";
 
 export class LoadingState implements IState {
   gui = GUIFactory.createLoadingGUI(this.state);
-
   constructor(public state: State) {
     this.loadAssets();
   }
@@ -24,12 +23,13 @@ export class LoadingState implements IState {
       })
       .then(() => {
         console.log(`A total of ${assets.size} assets have been loaded.`);
-        this.state.setState(this.state.beginState);
       });
   }
 
   assetLoaded = (fileName: any) => {
-    console.log(`${fileName.fileName} Loaded.`);
     this.gui.loadingBar.setCurrentStatus(1);
+    if (this.gui.loadingBar.getCurrentStatus() === assetListLength)
+      // this.state.setCurrentState(this.state.beginState);
+      this.state.setBeginState();
   };
 }

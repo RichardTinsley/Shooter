@@ -1,7 +1,7 @@
 import { GUI } from "./GUI.js";
 import { TextFactory } from "../texts/TextFactory.js";
 import { drawIntroLogo } from "./LoadingGUI.js";
-import { MenuButton, LABELS } from "../components/MenuButton.js";
+import { MenuButton, LABELS } from "./components/MenuButton.js";
 import { SIZES } from "../constants/game.js";
 import { State } from "../states/State.js";
 
@@ -21,10 +21,11 @@ export class BeginGUI extends GUI {
     super.update();
   }
 
-  initialiseMenu(state: State) {
+  initialiseMenu() {
     const beginButton = new MenuButton(
       TextFactory.createMenuItemPulsate(),
-      state,
+      this.state,
+      this.state.setMainMenuState,
       LABELS.BEGIN
     ).setPosition(SIZES.GAME_WIDTH_HALF, SIZES.GAME_HEIGHT - 120);
 

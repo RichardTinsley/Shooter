@@ -1,4 +1,4 @@
-import { MenuButton } from "../components/MenuButton.js";
+import { MenuButton } from "./components/MenuButton.js";
 import { SIZES } from "../constants/game.js";
 import { State } from "../states/State.js";
 
@@ -15,6 +15,7 @@ export class GUI {
       item.draw(ctx);
     });
   }
+
   update(): void {
     this.menu.forEach((item: any) => {
       item.update();

@@ -8,14 +8,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import { GUIFactory } from "../GUI/GUIFactory.js";
-import { load, assets } from "../utilities/assetLoaders.js";
+import { load, assets, assetListLength } from "../utilities/assetLoaders.js";
 export class LoadingState {
     constructor(state) {
         this.state = state;
         this.gui = GUIFactory.createLoadingGUI(this.state);
         this.assetLoaded = (fileName) => {
-            console.log(`${fileName.fileName} Loaded.`);
             this.gui.loadingBar.setCurrentStatus(1);
+            if (this.gui.loadingBar.getCurrentStatus() === assetListLength)
+                this.state.setBeginState();
         };
         this.loadAssets();
     }
@@ -33,7 +34,6 @@ export class LoadingState {
             })
                 .then(() => {
                 console.log(`A total of ${assets.size} assets have been loaded.`);
-                this.state.setState(this.state.beginState);
             });
         });
     }

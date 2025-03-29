@@ -1,4 +1,4 @@
-import { MenuButton } from "../components/MenuButton.js";
+import { MenuButton } from "../GUI/components/MenuButton.js";
 import { SIZES } from "../constants/game.js";
 
 // export function horizontallyAlignedMenu(index){

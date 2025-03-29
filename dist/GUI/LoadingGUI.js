@@ -1,11 +1,12 @@
 import { TextFactory } from "../texts/TextFactory.js";
 import { SIZES } from "../constants/game.js";
 import { assetListLength } from "../utilities/assetLoaders.js";
-import { LoadingBar } from "../components/LoadingBar.js";
+import { LoadingBar } from "./components/LoadingBar.js";
 import { GUI } from "./GUI.js";
 export class LoadingGUI extends GUI {
-    constructor() {
-        super(...arguments);
+    constructor(state) {
+        super(state);
+        this.state = state;
         this.title = TextFactory.createTitleText();
         this.dslogo = document.getElementById("dslogo");
         this.summoning = TextFactory.createSummongText();

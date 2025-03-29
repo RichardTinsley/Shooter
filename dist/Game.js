@@ -10,11 +10,11 @@ export class Game {
         this.debug = new Debug(this.state, this.mouse);
     }
     draw(ctx) {
-        this.state.getState().draw(ctx);
+        this.state.getCurrentState().draw(ctx);
         this.debug.draw(ctx);
     }
     update() {
-        this.state.getState().update();
+        this.state.getCurrentState().update();
         this.debug.update();
     }
 }
