@@ -1,9 +1,10 @@
 import { GUI } from "./GUI.js";
 import { State } from "../states/State.js";
 import { LABELS } from "./components/MenuButton.js";
+import { MenuTemplate } from "../constants/types.js";
 
 export class MainMenuGUI extends GUI {
-  private menuTemplate = [
+  private menuTemplate: Array<MenuTemplate> = [
     { state: this.state.setNewGameState, label: LABELS.NEWGAME },
     { state: this.state.setOptionsState, label: LABELS.OPTIONS },
     { state: this.state.setAboutState, label: LABELS.ABOUT },

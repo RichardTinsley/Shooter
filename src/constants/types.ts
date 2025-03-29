@@ -18,3 +18,8 @@ export type HitBox = {
   width: number;
   height: number;
 };
+
+export type MenuTemplate = {
+  state: Function;
+  label: string;
+};

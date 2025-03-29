@@ -20,12 +20,10 @@ export class GUI {
     getMenu() {
         return this.menu;
     }
-    initialiseVerticalMenu(menu, menuPosition) {
-        const newMenu = [];
-        menu.forEach((item, index) => {
-            newMenu.push(new MenuButton(TextFactory.createMenuItemGlow(), this.state, item.state, item.label).setPosition(SIZES.GAME_WIDTH_HALF, menuPosition + index * (SIZES.TEXT_MENUITEM + SIZES.TEXT_SPACING)));
+    initialiseVerticalMenu(menuTemplate, menuPosition) {
+        return menuTemplate.map((item, index) => {
+            return new MenuButton(TextFactory.createMenuItemGlow(), this.state, item.state, item.label).setPosition(SIZES.GAME_WIDTH_HALF, menuPosition + index * (SIZES.TEXT_MENUITEM + SIZES.TEXT_SPACING));
         });
-        return newMenu;
     }
 }
 //# sourceMappingURL=GUI.js.map
