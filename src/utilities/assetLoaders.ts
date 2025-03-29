@@ -1,7 +1,17 @@
-import * as ASSETS from "../constants/assets.js";
+import { ASSET_LIST, ALL_ASSETS } from "../constants/assets.js";
 
-export const assets = new Map();
-export const assetListLength: number = ASSETS.ASSET_LIST.length;
+export const assetListLength: number = ASSET_LIST.length;
+
+export const ASSET_TYPE: { IMAGE: string; SOUND: string } = {
+  IMAGE: "image",
+  SOUND: "sound",
+};
+
+export const ASSET_TYPE_LOOKUP: Record<string, string> = {
+  png: ASSET_TYPE.IMAGE,
+  mp3: ASSET_TYPE.SOUND,
+  ogg: ASSET_TYPE.SOUND,
+};
 
 type Asset = {
   key: string;
@@ -9,28 +19,26 @@ type Asset = {
 };
 
 export async function load(assetLoaded: Function) {
-  const promises: Promise<Asset>[] = ASSETS.ASSET_LIST.map(
-    ([key, fileName]) => {
-      const extension: string = fileName
-        // const extension: keyof typeof ASSETS.ASSET_TYPE_LOOKUP = fileName
-        .substring(fileName.lastIndexOf(".") + 1)
-        .toLowerCase();
+  const promises: Promise<Asset>[] = ASSET_LIST.map(([key, fileName]) => {
+    const extension: string = fileName
+      // const extension: keyof typeof ASSETS.ASSET_TYPE_LOOKUP = fileName
+      .substring(fileName.lastIndexOf(".") + 1)
+      .toLowerCase();
 
-      const type: string = ASSETS.ASSET_TYPE_LOOKUP[extension];
+    const type: string = ASSET_TYPE_LOOKUP[extension];
 
-      if (type === ASSETS.ASSET_TYPE.IMAGE) {
-        return loadImage(key, fileName.toString(), assetLoaded);
-      } else if (type === ASSETS.ASSET_TYPE.SOUND) {
-        return loadSound(key, fileName.toString(), assetLoaded);
-      } else {
-        throw new TypeError("Error unknown type");
-      }
+    if (type === ASSET_TYPE.IMAGE) {
+      return loadImage(key, fileName.toString(), assetLoaded);
+    } else if (type === ASSET_TYPE.SOUND) {
+      return loadSound(key, fileName.toString(), assetLoaded);
+    } else {
+      throw new TypeError("Error unknown type");
     }
-  );
+  });
 
   return Promise.all(promises).then((loadedAssets) => {
     for (const { key, asset } of loadedAssets) {
-      assets.set(key, asset);
+      ALL_ASSETS.set(key, asset);
     }
   });
 }

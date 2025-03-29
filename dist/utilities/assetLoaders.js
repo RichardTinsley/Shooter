@@ -7,20 +7,28 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import * as ASSETS from "../constants/assets.js";
-export const assets = new Map();
-export const assetListLength = ASSETS.ASSET_LIST.length;
+import { ASSET_LIST, ALL_ASSETS } from "../constants/assets.js";
+export const assetListLength = ASSET_LIST.length;
+export const ASSET_TYPE = {
+    IMAGE: "image",
+    SOUND: "sound",
+};
+export const ASSET_TYPE_LOOKUP = {
+    png: ASSET_TYPE.IMAGE,
+    mp3: ASSET_TYPE.SOUND,
+    ogg: ASSET_TYPE.SOUND,
+};
 export function load(assetLoaded) {
     return __awaiter(this, void 0, void 0, function* () {
-        const promises = ASSETS.ASSET_LIST.map(([key, fileName]) => {
+        const promises = ASSET_LIST.map(([key, fileName]) => {
             const extension = fileName
                 .substring(fileName.lastIndexOf(".") + 1)
                 .toLowerCase();
-            const type = ASSETS.ASSET_TYPE_LOOKUP[extension];
-            if (type === ASSETS.ASSET_TYPE.IMAGE) {
+            const type = ASSET_TYPE_LOOKUP[extension];
+            if (type === ASSET_TYPE.IMAGE) {
                 return loadImage(key, fileName.toString(), assetLoaded);
             }
-            else if (type === ASSETS.ASSET_TYPE.SOUND) {
+            else if (type === ASSET_TYPE.SOUND) {
                 return loadSound(key, fileName.toString(), assetLoaded);
             }
             else {
@@ -29,7 +37,7 @@ export function load(assetLoaded) {
         });
         return Promise.all(promises).then((loadedAssets) => {
             for (const { key, asset } of loadedAssets) {
-                assets.set(key, asset);
+                ALL_ASSETS.set(key, asset);
             }
         });
     });

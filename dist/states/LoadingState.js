@@ -8,7 +8,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import { GUIFactory } from "../GUI/GUIFactory.js";
-import { load, assets, assetListLength } from "../utilities/assetLoaders.js";
+import { load, assetListLength } from "../utilities/assetLoaders.js";
+import { ALL_ASSETS } from "../constants/assets.js";
 export class LoadingState {
     constructor(state) {
         this.state = state;
@@ -33,7 +34,7 @@ export class LoadingState {
                 console.error(`Error: Unable to load asset "${error.fileName}"`);
             })
                 .then(() => {
-                console.log(`A total of ${assets.size} assets have been loaded.`);
+                console.log(`A total of ${ALL_ASSETS.size} assets have been loaded.`);
             });
         });
     }

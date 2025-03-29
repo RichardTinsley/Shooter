@@ -4,6 +4,8 @@ const PROJECTILES_URL: string = "./images/projectiles/";
 const TOWERS_URL: string = "./images/towers/";
 const UI_URL: string = "./images/UI/";
 
+export const ALL_ASSETS = new Map();
+
 export const TYPES = {
   NORMAL: "Plain",
   MENUITEM: "MenuItem",
@@ -28,10 +30,6 @@ export const TOWERS = {
   URANIUM: "uranium",
 };
 
-export const FILE_NAMES: Record<string, string> = {
-  DsShieldLogo: "DsShieldLogo.png",
-};
-
 const URL_NUMBER = {
   ONE: " (1)",
   TWO: " (2)",
@@ -41,9 +39,15 @@ const URL_NUMBER = {
   SIX: " (6)",
 };
 
+// prettier-ignore
+export const FILE_NAMES: Record<string, string> = {
+  DSLOGO: "DsShieldLogo.png",
+  TOWER_AMETHYST_1: `${TOWERS.AMETHYST}${TYPES.TOWER}${URL_NUMBER.ONE}`,
+};
+
 export const ASSET_LIST: string[][] = [
   //GUI
-  [`${FILE_NAMES.DsShieldLogo}`, `${UI_URL}${FILE_NAMES.DsShieldLogo}`],
+  [`${FILE_NAMES.DSLOGO}`, `${UI_URL}${FILE_NAMES.DSLOGO}`],
   // ['hellwortica',  './images/levels/hellwortica/hellwortica.png'],
   // ['towerSpot',   './images/levels/towerSpot.png'],
   // ['bossWave',    './audio/bossWave.ogg'],
@@ -57,104 +61,7 @@ export const ASSET_LIST: string[][] = [
   // [`${TYPES.ENEMY}${URL_NUMBER.TWO}`, `${ENEMIES_URL}${TYPES.ENEMY}${URL_NUMBER.TWO}.png`],
   //TOWERS
   [
-    `${TOWERS.AMETHYST}${TYPES.TOWER}1`,
-    `${TOWERS_URL}${TOWERS.AMETHYST}${TYPES.TOWER}${URL_NUMBER.ONE}.png`,
+    `${FILE_NAMES.TOWER_AMETHYST_1}`,
+    `${TOWERS_URL}${FILE_NAMES.TOWER_AMETHYST_1}.png`,
   ],
-  // [`${TOWERS.CITRINE}${TYPES.TOWER}1`,  `${TOWERS_URL}${TOWERS.CITRINE}${TYPES.TOWER}${URL_NUMBER.ONE}.png`],
-  [
-    `${TOWERS.DIAMOND}${TYPES.TOWER}1`,
-    `${TOWERS_URL}${TOWERS.DIAMOND}${TYPES.TOWER}${URL_NUMBER.ONE}.png`,
-  ],
-  [
-    `${TOWERS.EMERALD}${TYPES.TOWER}1`,
-    `${TOWERS_URL}${TOWERS.EMERALD}${TYPES.TOWER}${URL_NUMBER.ONE}.png`,
-  ],
-  // [`${TOWERS.GOLD}${TYPES.TOWER}1`,     `${TOWERS_URL}${TOWERS.GOLD}${TYPES.TOWER}${URL_NUMBER.ONE}.png`],
-  // [`${TOWERS.OBSIDIAN}${TYPES.TOWER}1`, `${TOWERS_URL}${TOWERS.OBSIDIAN}${TYPES.TOWER}${URL_NUMBER.ONE}.png`],
-  // [`${TOWERS.OPAL}${TYPES.TOWER}1`,     `${TOWERS_URL}${TOWERS.OPAL}${TYPES.TOWER}${URL_NUMBER.ONE}.png`],
-  [
-    `${TOWERS.RUBY}${TYPES.TOWER}1`,
-    `${TOWERS_URL}${TOWERS.RUBY}${TYPES.TOWER}${URL_NUMBER.ONE}.png`,
-  ],
-  [
-    `${TOWERS.SAPPHIRE}${TYPES.TOWER}1`,
-    `${TOWERS_URL}${TOWERS.SAPPHIRE}${TYPES.TOWER}${URL_NUMBER.ONE}.png`,
-  ],
-  // [`${TOWERS.SILVER}${TYPES.TOWER}1`,   `${TOWERS_URL}${TOWERS.SILVER}${TYPES.TOWER}${URL_NUMBER.ONE}.png`],
-  [
-    `${TOWERS.TOPAZ}${TYPES.TOWER}1`,
-    `${TOWERS_URL}${TOWERS.TOPAZ}${TYPES.TOWER}${URL_NUMBER.ONE}.png`,
-  ],
-  // [`${TOWERS.URANIUM}${TYPES.TOWER}1`,  `${TOWERS_URL}${TOWERS.URANIUM}${TYPES.TOWER}${URL_NUMBER.ONE}.png`],
-  [
-    `${TOWERS.AMETHYST}${TYPES.TOWER}2`,
-    `${TOWERS_URL}${TOWERS.AMETHYST}${TYPES.TOWER}${URL_NUMBER.TWO}.png`,
-  ],
-  // [`${TOWERS.CITRINE}${TYPES.TOWER}2`,  `${TOWERS_URL}${TOWERS.CITRINE}${TYPES.TOWER}${URL_NUMBER.TWO}.png`],
-  [
-    `${TOWERS.DIAMOND}${TYPES.TOWER}2`,
-    `${TOWERS_URL}${TOWERS.DIAMOND}${TYPES.TOWER}${URL_NUMBER.TWO}.png`,
-  ],
-  [
-    `${TOWERS.EMERALD}${TYPES.TOWER}2`,
-    `${TOWERS_URL}${TOWERS.EMERALD}${TYPES.TOWER}${URL_NUMBER.TWO}.png`,
-  ],
-  // [`${TOWERS.GOLD}${TYPES.TOWER}2`,     `${TOWERS_URL}${TOWERS.GOLD}${TYPES.TOWER}${URL_NUMBER.TWO}.png`],
-  // [`${TOWERS.OBSIDIAN}${TYPES.TOWER}2`, `${TOWERS_URL}${TOWERS.OBSIDIAN}${TYPES.TOWER}${URL_NUMBER.TWO}.png`],
-  // [`${TOWERS.OPAL}${TYPES.TOWER}2`,     `${TOWERS_URL}${TOWERS.OPAL}${TYPES.TOWER}${URL_NUMBER.TWO}.png`],
-  [
-    `${TOWERS.RUBY}${TYPES.TOWER}2`,
-    `${TOWERS_URL}${TOWERS.RUBY}${TYPES.TOWER}${URL_NUMBER.TWO}.png`,
-  ],
-  [
-    `${TOWERS.SAPPHIRE}${TYPES.TOWER}2`,
-    `${TOWERS_URL}${TOWERS.SAPPHIRE}${TYPES.TOWER}${URL_NUMBER.TWO}.png`,
-  ],
-  // [`${TOWERS.SILVER}${TYPES.TOWER}2`,   `${TOWERS_URL}${TOWERS.SILVER}${TYPES.TOWER}${URL_NUMBER.TWO}.png`],
-  [
-    `${TOWERS.TOPAZ}${TYPES.TOWER}2`,
-    `${TOWERS_URL}${TOWERS.TOPAZ}${TYPES.TOWER}${URL_NUMBER.TWO}.png`,
-  ],
-  // [`${TOWERS.URANIUM}${TYPES.TOWER}2`,  `${TOWERS_URL}${TOWERS.URANIUM}${TYPES.TOWER}${URL_NUMBER.TWO}.png`],
-  [
-    `${TOWERS.AMETHYST}${TYPES.TOWER}3`,
-    `${TOWERS_URL}${TOWERS.AMETHYST}${TYPES.TOWER}${URL_NUMBER.THREE}.png`,
-  ],
-  // [`${TOWERS.CITRINE}${TYPES.TOWER}3`,  `${TOWERS_URL}${TOWERS.CITRINE}${TYPES.TOWER}${URL_NUMBER.THREE}.png`],
-  [
-    `${TOWERS.DIAMOND}${TYPES.TOWER}3`,
-    `${TOWERS_URL}${TOWERS.DIAMOND}${TYPES.TOWER}${URL_NUMBER.THREE}.png`,
-  ],
-  [
-    `${TOWERS.EMERALD}${TYPES.TOWER}3`,
-    `${TOWERS_URL}${TOWERS.EMERALD}${TYPES.TOWER}${URL_NUMBER.THREE}.png`,
-  ],
-  // [`${TOWERS.GOLD}${TYPES.TOWER}3`,     `${TOWERS_URL}${TOWERS.GOLD}${TYPES.TOWER}${URL_NUMBER.THREE}.png`],
-  // [`${TOWERS.OBSIDIAN}${TYPES.TOWER}3`, `${TOWERS_URL}${TOWERS.OBSIDIAN}${TYPES.TOWER}${URL_NUMBER.THREE}.png`],
-  // [`${TOWERS.OPAL}${TYPES.TOWER}3`,     `${TOWERS_URL}${TOWERS.OPAL}${TYPES.TOWER}${URL_NUMBER.THREE}.png`],
-  [
-    `${TOWERS.RUBY}${TYPES.TOWER}3`,
-    `${TOWERS_URL}${TOWERS.RUBY}${TYPES.TOWER}${URL_NUMBER.THREE}.png`,
-  ],
-  [
-    `${TOWERS.SAPPHIRE}${TYPES.TOWER}3`,
-    `${TOWERS_URL}${TOWERS.SAPPHIRE}${TYPES.TOWER}${URL_NUMBER.THREE}.png`,
-  ],
-  // [`${TOWERS.SILVER}${TYPES.TOWER}3`,   `${TOWERS_URL}${TOWERS.SILVER}${TYPES.TOWER}${URL_NUMBER.THREE}.png`],
-  [
-    `${TOWERS.TOPAZ}${TYPES.TOWER}3`,
-    `${TOWERS_URL}${TOWERS.TOPAZ}${TYPES.TOWER}${URL_NUMBER.THREE}.png`,
-  ],
-  // [`${TOWERS.URANIUM}${TYPES.TOWER}3`,  `${TOWERS_URL}${TOWERS.URANIUM}${TYPES.TOWER}${URL_NUMBER.THREE}.png`],
 ];
-
-export const ASSET_TYPE: { IMAGE: string; SOUND: string } = {
-  IMAGE: "image",
-  SOUND: "sound",
-};
-
-export const ASSET_TYPE_LOOKUP: Record<string, string> = {
-  png: ASSET_TYPE.IMAGE,
-  mp3: ASSET_TYPE.SOUND,
-  ogg: ASSET_TYPE.SOUND,
-};
