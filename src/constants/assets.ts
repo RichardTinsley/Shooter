@@ -42,9 +42,11 @@ const URL_NUMBER = {
 // prettier-ignore
 export const FILE_NAMES: Record<string, string> = {
   DSLOGO: "DsShieldLogo.png",
-  TOWER_AMETHYST_1: `${TOWERS.AMETHYST}${TYPES.TOWER}${URL_NUMBER.ONE}`,
+  TOWER_AMETHYST_1: `${TOWERS.AMETHYST}${TYPES.TOWER}${URL_NUMBER.ONE}.png`,
+  PROJECTILE_SAPPHIRE_1: "Iceball_84x9.png",
 };
 
+// prettier-ignore
 export const ASSET_LIST: string[][] = [
   //GUI
   [`${FILE_NAMES.DSLOGO}`, `${UI_URL}${FILE_NAMES.DSLOGO}`],
@@ -60,8 +62,8 @@ export const ASSET_LIST: string[][] = [
   // [`${TYPES.ENEMY}${URL_NUMBER.ONE}`, `${ENEMIES_URL}${TYPES.ENEMY}${URL_NUMBER.ONE}.png`],
   // [`${TYPES.ENEMY}${URL_NUMBER.TWO}`, `${ENEMIES_URL}${TYPES.ENEMY}${URL_NUMBER.TWO}.png`],
   //TOWERS
-  [
-    `${FILE_NAMES.TOWER_AMETHYST_1}`,
-    `${TOWERS_URL}${FILE_NAMES.TOWER_AMETHYST_1}.png`,
-  ],
+  [`${FILE_NAMES.TOWER_AMETHYST_1}`, `${TOWERS_URL}${FILE_NAMES.TOWER_AMETHYST_1}`],
+
+  //PROJECTILES
+  [`${FILE_NAMES.PROJECTILE_SAPPHIRE_1}`, `${PROJECTILES_URL}${FILE_NAMES.PROJECTILE_SAPPHIRE_1}`],
 ];

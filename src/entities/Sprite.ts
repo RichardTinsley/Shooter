@@ -1,6 +1,11 @@
 import { ALL_ASSETS, FILE_NAMES } from "../constants/assets.js";
 import { IAnimatedSprite, Position } from "../interfaces/IEntity.js";
 
+const enum SPRITE_STATE {
+  ANIMATE_FRAMES,
+  ANIMATE_ROWS,
+}
+
 export class Sprite {
   private image!: any;
 
@@ -14,6 +19,7 @@ export class Sprite {
   private animationRow = 0;
   private maxAnimationFrame!: number;
   private maxAnimationRow!: number;
+  private state!: number;
 
   position: Position = { x: 100, y: 100 };
 
@@ -27,7 +33,10 @@ export class Sprite {
       Math.floor(this.image.width / this.spriteWidth) - 1;
     this.maxAnimationRow =
       Math.floor(this.image.height / this.spriteHeight) - 1;
-    console.log(this.maxAnimationFrame, this.maxAnimationRow);
+
+    this.maxAnimationRow === 0
+      ? (this.state = SPRITE_STATE.ANIMATE_FRAMES)
+      : (this.state = SPRITE_STATE.ANIMATE_ROWS);
   }
 
   draw(ctx: CanvasRenderingContext2D) {
@@ -45,14 +54,35 @@ export class Sprite {
   }
 
   update() {
-    // if(event)
-    this.animationFrame < this.maxAnimationFrame
-      ? this.animationFrame++
-      : (this.animationFrame = 0);
+    switch (this.state) {
+      case SPRITE_STATE.ANIMATE_FRAMES:
+        this.animateFrames();
+        break;
+      case SPRITE_STATE.ANIMATE_ROWS:
+        this.animateRows();
+        break;
+    }
   }
 
-  animate(): void {
-    throw new Error("Method not implemented.");
+  animateFrames(): void {
+    if (this.animationFrame < this.maxAnimationFrame) this.animationFrame++;
+    else this.animationFrame = 0;
+  }
+
+  animateRows() {
+    if (this.animationFrame < this.maxAnimationFrame) {
+      this.animationFrame++;
+    } else {
+      this.animationRow++;
+      this.animationFrame = 0;
+    }
+    if (
+      this.animationRow === this.maxAnimationRow &&
+      this.animationFrame < this.maxAnimationFrame
+    ) {
+      this.animationRow = 0;
+      this.animationFrame = 0;
+    }
   }
 
   setPosition(x: number, y: number): this {
@@ -65,33 +95,10 @@ export class Sprite {
     return this.position;
   }
 
-  setScale(scale: number): void {
-    // this.scale = scale;
-    // this.width = Math.round(this.image.width * this.scale * 100) / 100;
-    // this.height = Math.round(this.image.height * this.scale * 100) / 100;
+  setScale(scale: number): this {
+    this.scale = scale;
+    this.width = Math.round(this.spriteWidth * this.scale * 100) / 100;
+    this.height = Math.round(this.spriteHeight * this.scale * 100) / 100;
+    return this;
   }
-
-  //FOR SPRITE SHEETS WITH MULTIPLE ROWS
-  // animate(event){
-  //     if(!event || this.maxFrame === 0)
-  //         return
-
-  //     if(this.maxRow === 0)
-  //         this.sprite.frame < this.maxFrame ? this.sprite.frame++ : this.sprite.frame = 0;
-  //     else
-  //         this.animateRows();
-  // }
-
-  // animateRows(){
-  //     if(this.sprite.frame < this.maxFrame)
-  //         this.sprite.frame++;
-  //     else{
-  //         this.sprite.row++;
-  //         this.sprite.frame = 0;
-  //     }
-  //     if(this.sprite.row === this.maxRow && this.sprite.frame < this.maxFrame){
-  //         this.sprite.row = 0;
-  //         this.sprite.frame = 0;
-  //     }
-  // }
 }
