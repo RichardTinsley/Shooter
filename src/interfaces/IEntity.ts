@@ -9,12 +9,12 @@ export interface IDrawable {
   getPosition(): Position;
 }
 
-export interface ISprite extends IDrawable {
+export interface IAnimatedSprite extends IDrawable {
   animateFrames(): void;
   animateRows(): void;
 }
 
-export interface IMovingSprite extends ISprite {
+export interface IMovingSprite extends IAnimatedSprite {
   updateMovement(): void;
   setSpeed(speed: number): this;
   setDestination(position: Position): this;

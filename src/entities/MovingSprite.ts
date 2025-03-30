@@ -1,14 +1,9 @@
 import { Position } from "../constants/types.js";
 import { IMovingSprite } from "../interfaces/IEntity.js";
-import { giveAngle, giveDirection } from "../utilities/math.js";
-import { Sprite } from "./Sprite.js";
+import { giveAngle, giveDirection, DIRECTION } from "../utilities/math.js";
+import { AnimatedSprite } from "./AnimatedSprite.js";
 
-const enum ANIMATION {
-  LEFT = -1,
-  RIGHT = 1,
-}
-
-export class MovingSprite extends Sprite implements IMovingSprite {
+export class MovingSprite extends AnimatedSprite implements IMovingSprite {
   protected destination!: Position;
   protected speed: number = 1;
   protected angle!: number;
@@ -46,13 +41,8 @@ export class MovingSprite extends Sprite implements IMovingSprite {
     this.position.y += Math.sin(this.angle) * this.speed;
   }
 
-  updateSpriteDrawPosition() {
-    this.drawPositionX = this.position.x - this.halfWidth;
-    this.drawPositionY = this.position.y - this.height;
-  }
-
   contextSave(ctx: CanvasRenderingContext2D) {
-    if (this.direction === ANIMATION.LEFT) {
+    if (this.direction === DIRECTION.LEFT) {
       ctx.save();
       ctx.scale(this.direction, 1);
       this.position.x *= -1;
@@ -60,7 +50,7 @@ export class MovingSprite extends Sprite implements IMovingSprite {
   }
 
   contextRestore(ctx: CanvasRenderingContext2D) {
-    if (this.direction === ANIMATION.LEFT) {
+    if (this.direction === DIRECTION.LEFT) {
       this.position.x *= -1;
       ctx.restore();
     }

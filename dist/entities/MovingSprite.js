@@ -1,6 +1,6 @@
-import { giveAngle, giveDirection } from "../utilities/math.js";
-import { Sprite } from "./Sprite.js";
-export class MovingSprite extends Sprite {
+import { giveAngle, giveDirection, DIRECTION } from "../utilities/math.js";
+import { AnimatedSprite } from "./AnimatedSprite.js";
+export class MovingSprite extends AnimatedSprite {
     constructor(fileName, spriteWidth, spriteHeight) {
         super(fileName, spriteWidth, spriteHeight);
         this.speed = 1;
@@ -27,19 +27,15 @@ export class MovingSprite extends Sprite {
         this.position.x += Math.cos(this.angle) * this.speed;
         this.position.y += Math.sin(this.angle) * this.speed;
     }
-    updateSpriteDrawPosition() {
-        this.drawPositionX = this.position.x - this.halfWidth;
-        this.drawPositionY = this.position.y - this.height;
-    }
     contextSave(ctx) {
-        if (this.direction === -1) {
+        if (this.direction === DIRECTION.LEFT) {
             ctx.save();
             ctx.scale(this.direction, 1);
             this.position.x *= -1;
         }
     }
     contextRestore(ctx) {
-        if (this.direction === -1) {
+        if (this.direction === DIRECTION.LEFT) {
             this.position.x *= -1;
             ctx.restore();
         }

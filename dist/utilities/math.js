@@ -24,11 +24,16 @@ export function giveAngle(a, b) {
     const dx = a.x - b.x;
     return Math.atan2(dy, dx);
 }
+export var DIRECTION;
+(function (DIRECTION) {
+    DIRECTION[DIRECTION["LEFT"] = -1] = "LEFT";
+    DIRECTION[DIRECTION["RIGHT"] = 1] = "RIGHT";
+})(DIRECTION || (DIRECTION = {}));
 export function giveDirection(angle) {
     if (angle < 1.57 && angle > -1.57)
-        return 1;
+        return DIRECTION.RIGHT;
     else
-        return -1;
+        return DIRECTION.LEFT;
 }
 export function randomNumber(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);

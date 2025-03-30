@@ -41,9 +41,14 @@ export function giveAngle(a: any, b: any): number {
   return Math.atan2(dy, dx);
 }
 
+export enum DIRECTION {
+  LEFT = -1,
+  RIGHT = 1,
+}
+
 export function giveDirection(angle: number): number {
-  if (angle < 1.57 && angle > -1.57) return 1;
-  else return -1;
+  if (angle < 1.57 && angle > -1.57) return DIRECTION.RIGHT;
+  else return DIRECTION.LEFT;
 }
 
 export function randomNumber(min: number, max: number) {

@@ -1,13 +1,8 @@
 import { ALL_ASSETS } from "../constants/assets.js";
-import { ISprite } from "../interfaces/IEntity.js";
 import { Position } from "../constants/types.js";
+import { IDrawable } from "../interfaces/IEntity.js";
 
-const enum SPRITE_STATE {
-  ANIMATE_FRAMES,
-  ANIMATE_ROWS,
-}
-
-export class Sprite implements ISprite {
+export class Sprite implements IDrawable {
   protected image!: HTMLImageElement;
 
   protected scale: number = 1;
@@ -16,15 +11,12 @@ export class Sprite implements ISprite {
 
   protected halfWidth = this.width / 2;
 
-  protected animationFrame = 0;
-  protected animationRow = 0;
-  protected maxAnimationFrame!: number;
-  protected maxAnimationRow!: number;
-  protected state!: number;
-
   position!: Position;
   protected drawPositionX!: number;
   protected drawPositionY!: number;
+
+  protected animationFrame = 0;
+  protected animationRow = 0;
 
   constructor(
     fileName: string,
@@ -32,20 +24,6 @@ export class Sprite implements ISprite {
     protected spriteHeight: number
   ) {
     this.image = ALL_ASSETS.get(fileName);
-
-    this.maxAnimationFrame = this.getSpriteSheetDimensions(
-      this.image.width,
-      this.spriteWidth
-    );
-
-    this.maxAnimationRow = this.getSpriteSheetDimensions(
-      this.image.height,
-      this.spriteHeight
-    );
-
-    this.maxAnimationRow === 0
-      ? (this.state = SPRITE_STATE.ANIMATE_FRAMES)
-      : (this.state = SPRITE_STATE.ANIMATE_ROWS);
   }
 
   draw(ctx: CanvasRenderingContext2D) {
@@ -62,46 +40,19 @@ export class Sprite implements ISprite {
     );
   }
 
-  update() {
-    switch (this.state) {
-      case SPRITE_STATE.ANIMATE_FRAMES:
-        this.animateFrames();
-        break;
-      case SPRITE_STATE.ANIMATE_ROWS:
-        this.animateRows();
-        break;
-    }
-  }
-
-  animateFrames(): void {
-    if (this.animationFrame < this.maxAnimationFrame) {
-      this.animationFrame++;
-    } else {
-      this.animationFrame = 0;
-    }
-  }
-
-  animateRows() {
-    if (this.animationFrame < this.maxAnimationFrame) {
-      this.animationFrame++;
-    } else {
-      this.animationRow++;
-      this.animationFrame = 0;
-    }
-    if (
-      this.animationRow === this.maxAnimationRow &&
-      this.animationFrame < this.maxAnimationFrame
-    ) {
-      this.animationRow = 0;
-      this.animationFrame = 0;
-    }
+  update(event: number): void {
+    return;
   }
 
   setPosition(position: Position): this {
     this.position = { ...position };
+    this.updateSpriteDrawPosition();
+    return this;
+  }
+
+  updateSpriteDrawPosition() {
     this.drawPositionX = this.position.x - this.halfWidth;
     this.drawPositionY = this.position.y - this.height;
-    return this;
   }
 
   getPosition(): Position {
@@ -114,9 +65,5 @@ export class Sprite implements ISprite {
     this.height = Math.round(this.spriteHeight * this.scale * 100) / 100;
     this.halfWidth = this.width / 2;
     return this;
-  }
-
-  getSpriteSheetDimensions(sheet: number, sprite: number): number {
-    return Math.floor(sheet / sprite) - 1;
   }
 }
