@@ -7,7 +7,10 @@ export class BeginGUI extends GUI {
     constructor(state) {
         super(state);
         this.state = state;
-        this.title = TextFactory.createTitleText();
+        this.title = TextFactory.text()
+            .setPosition({ x: SIZES.GAME_WIDTH_HALF, y: 100 })
+            .setText("Death Sorcery")
+            .setSize(SIZES.TEXT_TITLE);
         this.dslogo = document.getElementById("dslogo");
         this.initialiseMenu();
     }
@@ -19,7 +22,7 @@ export class BeginGUI extends GUI {
         super.update();
     }
     initialiseMenu() {
-        const beginButton = new MenuButton(TextFactory.createMenuItemPulsate(), this.state, this.state.setMainMenuState, LABELS.BEGIN).setPosition({ x: SIZES.GAME_WIDTH_HALF, y: SIZES.GAME_HEIGHT - 120 });
+        const beginButton = new MenuButton(TextFactory.textPulsate().setSize(SIZES.TEXT_MENUITEM), this.state, this.state.setMainMenuState, LABELS.BEGIN).setPosition({ x: SIZES.GAME_WIDTH_HALF, y: SIZES.GAME_HEIGHT - 120 });
         this.menu.push(beginButton);
     }
 }

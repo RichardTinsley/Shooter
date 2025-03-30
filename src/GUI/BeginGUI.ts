@@ -6,7 +6,10 @@ import { SIZES } from "../constants/game.js";
 import { State } from "../states/State.js";
 
 export class BeginGUI extends GUI {
-  private title: any = TextFactory.createTitleText();
+  private title: any = TextFactory.text()
+    .setPosition({ x: SIZES.GAME_WIDTH_HALF, y: 100 })
+    .setText("Death Sorcery")
+    .setSize(SIZES.TEXT_TITLE);
   private dslogo = document.getElementById("dslogo") as HTMLImageElement;
 
   constructor(public state: State) {
@@ -24,7 +27,7 @@ export class BeginGUI extends GUI {
 
   initialiseMenu() {
     const beginButton = new MenuButton(
-      TextFactory.createMenuItemPulsate(),
+      TextFactory.textPulsate().setSize(SIZES.TEXT_MENUITEM),
       this.state,
       this.state.setMainMenuState,
       LABELS.BEGIN

@@ -37,7 +37,7 @@ export class GUI {
   ): Array<MenuButton> {
     return menuTemplate.map((item: MenuTemplate, index: number) => {
       return new MenuButton(
-        TextFactory.createMenuItemGlow(),
+        TextFactory.textGlow().setSize(SIZES.TEXT_MENUITEM),
         this.state,
         item.state,
         item.label

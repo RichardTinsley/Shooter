@@ -7,9 +7,15 @@ export class LoadingGUI extends GUI {
     constructor(state) {
         super(state);
         this.state = state;
-        this.title = TextFactory.createTitleText();
+        this.title = TextFactory.text()
+            .setPosition({ x: SIZES.GAME_WIDTH_HALF, y: 100 })
+            .setText("Death Sorcery")
+            .setSize(SIZES.TEXT_TITLE);
         this.dslogo = document.getElementById("dslogo");
-        this.summoning = TextFactory.createSummongText();
+        this.summoning = TextFactory.textFade()
+            .setPosition({ x: SIZES.GAME_WIDTH_HALF, y: SIZES.GAME_HEIGHT - 130 })
+            .setText("Summoning...")
+            .setSize(SIZES.TEXT_MENUITEM);
         this.loadingBar = new LoadingBar()
             .setPosition({ x: SIZES.GAME_WIDTH_HALF, y: SIZES.GAME_HEIGHT - 80 })
             .setMaxStatus(assetListLength);

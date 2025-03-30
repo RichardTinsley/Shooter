@@ -6,9 +6,17 @@ import { GUI } from "./GUI.js";
 import { State } from "../states/State.js";
 
 export class LoadingGUI extends GUI {
-  private title: any = TextFactory.createTitleText();
+  private title: any = TextFactory.text()
+    .setPosition({ x: SIZES.GAME_WIDTH_HALF, y: 100 })
+    .setText("Death Sorcery")
+    .setSize(SIZES.TEXT_TITLE);
+
   private dslogo = document.getElementById("dslogo") as HTMLImageElement;
-  private summoning: any = TextFactory.createSummongText();
+
+  private summoning: any = TextFactory.textFade()
+    .setPosition({ x: SIZES.GAME_WIDTH_HALF, y: SIZES.GAME_HEIGHT - 130 })
+    .setText("Summoning...")
+    .setSize(SIZES.TEXT_MENUITEM);
 
   loadingBar = new LoadingBar()
     .setPosition({ x: SIZES.GAME_WIDTH_HALF, y: SIZES.GAME_HEIGHT - 80 })
