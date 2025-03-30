@@ -2,7 +2,7 @@ import { GUI } from "./GUI.js";
 import { LABELS } from "./components/MenuButton.js";
 import { FILE_NAMES } from "../constants/assets.js";
 import { Sprite } from "../entities/Sprite.js";
-import { MovingSprite } from "../entities/MovingSprite.js";
+import { Projectile } from "../entities/projectiles/Projectile.js";
 export class MainMenuGUI extends GUI {
     constructor(state) {
         super(state);
@@ -15,26 +15,27 @@ export class MainMenuGUI extends GUI {
         this.tower = new Sprite(FILE_NAMES.TOWER_AMETHYST_1, 64, 64)
             .setPosition(200, 200)
             .setScale(5);
-        this.logo = new Sprite(FILE_NAMES.DSLOGO, 302, 293)
-            .setPosition(200, 600)
-            .setScale(2);
-        this.projectile = new MovingSprite(FILE_NAMES.PROJECTILE_SAPPHIRE_1, 84, 9)
+        this.projectile = new Projectile(FILE_NAMES.PROJECTILE_SAPPHIRE_1, 84, 9)
             .setPosition(20, 20)
             .setDestination(1000, 1000)
+            .setScale(2);
+        this.projectile2 = new Projectile(FILE_NAMES.PROJECTILE_SAPPHIRE_1, 84, 9)
+            .setPosition(600, 600)
+            .setDestination(10, 10)
             .setScale(2);
         this.menu = this.initialiseVerticalMenu(this.menuTemplate, 400);
     }
     draw(ctx) {
         super.draw(ctx);
-        this.logo.draw(ctx);
         this.tower.draw(ctx);
         this.projectile.draw(ctx);
+        this.projectile2.draw(ctx);
     }
     update() {
         super.update();
-        this.logo.update();
         this.tower.update();
         this.projectile.update();
+        this.projectile2.update();
     }
 }
 //# sourceMappingURL=MainMenuGUI.js.map

@@ -41,11 +41,10 @@ export function giveAngle(a: any, b: any) {
   return Math.atan2(dy, dx);
 }
 
-// export function giveDirection(angle){
-//   if(angle < 1.57 && angle > -1.57)
-//       return OBJECTS.ANIMATION.RIGHT;
-//   else
-//       return OBJECTS.ANIMATION.LEFT;
+export function giveDirection(angle: number) {
+  if (angle < 1.57 && angle > -1.57) return 1;
+  else return -1;
+}
 
 export function randomNumber(min: number, max: number) {
   return Math.floor(Math.random() * (max - min + 1) + min);

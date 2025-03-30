@@ -4,7 +4,7 @@ import { LABELS } from "./components/MenuButton.js";
 import { MenuTemplate } from "../constants/types.js";
 import { FILE_NAMES } from "../constants/assets.js";
 import { Sprite } from "../entities/Sprite.js";
-import { MovingSprite } from "../entities/MovingSprite.js";
+import { Projectile } from "../entities/projectiles/Projectile.js";
 
 export class MainMenuGUI extends GUI {
   private menuTemplate: Array<MenuTemplate> = [
@@ -17,13 +17,14 @@ export class MainMenuGUI extends GUI {
     .setPosition(200, 200)
     .setScale(5);
 
-  private logo = new Sprite(FILE_NAMES.DSLOGO, 302, 293)
-    .setPosition(200, 600)
-    .setScale(2);
-
-  private projectile = new MovingSprite(FILE_NAMES.PROJECTILE_SAPPHIRE_1, 84, 9)
+  private projectile = new Projectile(FILE_NAMES.PROJECTILE_SAPPHIRE_1, 84, 9)
     .setPosition(20, 20)
     .setDestination(1000, 1000)
+    .setScale(2);
+
+  private projectile2 = new Projectile(FILE_NAMES.PROJECTILE_SAPPHIRE_1, 84, 9)
+    .setPosition(600, 600)
+    .setDestination(10, 10)
     .setScale(2);
 
   constructor(public state: State) {
@@ -33,14 +34,14 @@ export class MainMenuGUI extends GUI {
 
   draw(ctx: CanvasRenderingContext2D): void {
     super.draw(ctx);
-    this.logo.draw(ctx);
     this.tower.draw(ctx);
     this.projectile.draw(ctx);
+    this.projectile2.draw(ctx);
   }
   update(): void {
     super.update();
-    this.logo.update();
     this.tower.update();
     this.projectile.update();
+    this.projectile2.update();
   }
 }
