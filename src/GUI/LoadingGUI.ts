@@ -1,4 +1,4 @@
-import { TextFactory } from "../texts/TextFactory.js";
+import { TextFactory } from "../entities/texts/TextFactory.js";
 import { SIZES } from "../constants/game.js";
 import { assetListLength } from "../utilities/assetLoaders.js";
 import { LoadingBar } from "./components/LoadingBar.js";

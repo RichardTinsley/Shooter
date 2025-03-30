@@ -1,5 +1,5 @@
 import { GUI } from "./GUI.js";
-import { TextFactory } from "../texts/TextFactory.js";
+import { TextFactory } from "../entities/texts/TextFactory.js";
 import { drawIntroLogo } from "./LoadingGUI.js";
 import { MenuButton, LABELS } from "./components/MenuButton.js";
 import { SIZES } from "../constants/game.js";

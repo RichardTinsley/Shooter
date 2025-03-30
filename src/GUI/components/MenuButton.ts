@@ -1,6 +1,7 @@
 import { SIZES } from "../../constants/game.js";
 import { Position, HitBox } from "../../constants/types.js";
 import { State } from "../../states/State.js";
+import { Text } from "../../entities/texts/Text.js";
 
 export enum LABELS {
   BEGIN = "Begin!",
@@ -16,25 +17,25 @@ export class MenuButton {
   public position!: Position;
 
   constructor(
-    public menuButton: any,
+    public menuLabel: Text,
     public state: State,
     public setState: Function,
     public text: string
   ) {
-    this.menuButton.setText(this.text);
+    this.menuLabel.setText(this.text);
     this.width = this.text.length * (this.size / 1.75);
   }
 
   draw(ctx: CanvasRenderingContext2D): void {
-    this.menuButton.draw(ctx);
+    this.menuLabel.draw(ctx);
   }
 
   update(): void {
-    this.menuButton.update();
+    this.menuLabel.update();
   }
 
   setPosition(x: number, y: number): this {
-    this.menuButton.setPosition(x, y);
+    this.menuLabel.setPosition(x, y);
     this.position = { x: x, y: y };
 
     this.hitBox = {

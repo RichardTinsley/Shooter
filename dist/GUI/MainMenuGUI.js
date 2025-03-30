@@ -2,6 +2,7 @@ import { GUI } from "./GUI.js";
 import { LABELS } from "./components/MenuButton.js";
 import { FILE_NAMES } from "../constants/assets.js";
 import { Sprite } from "../entities/Sprite.js";
+import { MovingSprite } from "../entities/MovingSprite.js";
 export class MainMenuGUI extends GUI {
     constructor(state) {
         super(state);
@@ -17,8 +18,9 @@ export class MainMenuGUI extends GUI {
         this.logo = new Sprite(FILE_NAMES.DSLOGO, 302, 293)
             .setPosition(200, 600)
             .setScale(2);
-        this.projectile = new Sprite(FILE_NAMES.PROJECTILE_SAPPHIRE_1, 84, 9)
-            .setPosition(400, 600)
+        this.projectile = new MovingSprite(FILE_NAMES.PROJECTILE_SAPPHIRE_1, 84, 9)
+            .setPosition(20, 20)
+            .setDestination(1000, 1000)
             .setScale(2);
         this.menu = this.initialiseVerticalMenu(this.menuTemplate, 400);
     }

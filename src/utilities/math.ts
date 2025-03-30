@@ -34,3 +34,38 @@ export function oscillate(
       return 0;
   }
 }
+
+export function giveAngle(a: any, b: any) {
+  const dy = a.y - b.y;
+  const dx = a.x - b.x;
+  return Math.atan2(dy, dx);
+}
+
+// export function giveDirection(angle){
+//   if(angle < 1.57 && angle > -1.57)
+//       return OBJECTS.ANIMATION.RIGHT;
+//   else
+//       return OBJECTS.ANIMATION.LEFT;
+
+export function randomNumber(min: number, max: number) {
+  return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+export function randomPositiveNegavtiveNumberNEW(neg: number, pos: number) {
+  return Math.ceil(Math.random() * (pos + neg)) - neg;
+}
+
+// export function randomPositiveFloat(range){
+//   const randomNumber = Math.random() * range;
+//   return Math.round(randomNumber * 100) / 100
+// }
+
+// export function randomPositiveOrNegativeNumber(range){
+//   const positiveOrNegative = Math.ceil((Math.random() - 0.5) * 2) < 1 ? -1 : 1
+//   return Math.floor(Math.random() * range) * positiveOrNegative;
+// }
+
+// export function generateEnemySpeed(enemySpeedMaximum){
+//   const enemySpeedMinimum = 0.5;
+//   return randomPositiveFloat(enemySpeedMaximum) + enemySpeedMinimum;
+// }

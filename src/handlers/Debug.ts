@@ -1,6 +1,6 @@
 import { SIZES } from "../constants/game.js";
 import { COLOURS } from "../constants/colours.js";
-import { TextFactory } from "../texts/TextFactory.js";
+import { TextFactory } from "../entities/texts/TextFactory.js";
 import { MenuButton } from "../GUI/components/MenuButton.js";
 import { State } from "../states/State.js";
 import { Mouse } from "./Mouse.js";

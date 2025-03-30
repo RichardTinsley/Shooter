@@ -9,7 +9,6 @@ export class Sprite {
         this.halfWidth = this.width / 2;
         this.animationFrame = 0;
         this.animationRow = 0;
-        this.position = { x: 100, y: 100 };
         this.image = ALL_ASSETS.get(fileName);
         this.maxAnimationFrame =
             Math.floor(this.image.width / this.spriteWidth) - 1;
@@ -33,10 +32,12 @@ export class Sprite {
         }
     }
     animateFrames() {
-        if (this.animationFrame < this.maxAnimationFrame)
+        if (this.animationFrame < this.maxAnimationFrame) {
             this.animationFrame++;
-        else
+        }
+        else {
             this.animationFrame = 0;
+        }
     }
     animateRows() {
         if (this.animationFrame < this.maxAnimationFrame) {
@@ -53,10 +54,7 @@ export class Sprite {
         }
     }
     setPosition(x, y) {
-        if (x)
-            this.position.x = x;
-        if (y)
-            this.position.y = y;
+        this.position = { x: x, y: y };
         return this;
     }
     getPosition() {

@@ -7,23 +7,23 @@ export var LABELS;
     LABELS["ABOUT"] = "About";
 })(LABELS || (LABELS = {}));
 export class MenuButton {
-    constructor(menuButton, state, setState, text) {
-        this.menuButton = menuButton;
+    constructor(menuLabel, state, setState, text) {
+        this.menuLabel = menuLabel;
         this.state = state;
         this.setState = setState;
         this.text = text;
         this.size = SIZES.TEXT_MENUITEM;
-        this.menuButton.setText(this.text);
+        this.menuLabel.setText(this.text);
         this.width = this.text.length * (this.size / 1.75);
     }
     draw(ctx) {
-        this.menuButton.draw(ctx);
+        this.menuLabel.draw(ctx);
     }
     update() {
-        this.menuButton.update();
+        this.menuLabel.update();
     }
     setPosition(x, y) {
-        this.menuButton.setPosition(x, y);
+        this.menuLabel.setPosition(x, y);
         this.position = { x: x, y: y };
         this.hitBox = {
             x: this.position.x - this.width / 2,

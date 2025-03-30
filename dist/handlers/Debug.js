@@ -1,6 +1,6 @@
 import { SIZES } from "../constants/game.js";
 import { COLOURS } from "../constants/colours.js";
-import { TextFactory } from "../texts/TextFactory.js";
+import { TextFactory } from "../entities/texts/TextFactory.js";
 export class Debug {
     constructor(state, mouse) {
         this.state = state;

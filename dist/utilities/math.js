@@ -19,4 +19,15 @@ export function oscillate(waveType, frequency, amplitude) {
             return 0;
     }
 }
+export function giveAngle(a, b) {
+    const dy = a.y - b.y;
+    const dx = a.x - b.x;
+    return Math.atan2(dy, dx);
+}
+export function randomNumber(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+}
+export function randomPositiveNegavtiveNumberNEW(neg, pos) {
+    return Math.ceil(Math.random() * (pos + neg)) - neg;
+}
 //# sourceMappingURL=math.js.map

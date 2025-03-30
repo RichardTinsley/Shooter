@@ -1,13 +1,14 @@
-import { ALL_ASSETS, FILE_NAMES } from "../constants/assets.js";
-import { IAnimatedSprite, Position } from "../interfaces/IEntity.js";
+import { ALL_ASSETS } from "../constants/assets.js";
+import { ISprite } from "../interfaces/IEntity.js";
+import { Position } from "../constants/types.js";
 
 const enum SPRITE_STATE {
   ANIMATE_FRAMES,
   ANIMATE_ROWS,
 }
 
-export class Sprite {
-  private image!: any;
+export class Sprite implements ISprite {
+  private image!: HTMLImageElement;
 
   private scale: number = 1;
   private width: number = this.spriteWidth;
@@ -21,10 +22,10 @@ export class Sprite {
   private maxAnimationRow!: number;
   private state!: number;
 
-  position: Position = { x: 100, y: 100 };
+  position!: Position;
 
   constructor(
-    fileName: any,
+    fileName: string,
     private spriteWidth: number,
     private spriteHeight: number
   ) {
@@ -65,8 +66,11 @@ export class Sprite {
   }
 
   animateFrames(): void {
-    if (this.animationFrame < this.maxAnimationFrame) this.animationFrame++;
-    else this.animationFrame = 0;
+    if (this.animationFrame < this.maxAnimationFrame) {
+      this.animationFrame++;
+    } else {
+      this.animationFrame = 0;
+    }
   }
 
   animateRows() {
@@ -86,8 +90,7 @@ export class Sprite {
   }
 
   setPosition(x: number, y: number): this {
-    if (x) this.position.x = x;
-    if (y) this.position.y = y;
+    this.position = { x: x, y: y };
     return this;
   }
 

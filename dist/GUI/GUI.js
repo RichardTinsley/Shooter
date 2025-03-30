@@ -1,6 +1,6 @@
 import { MenuButton } from "./components/MenuButton.js";
 import { SIZES } from "../constants/game.js";
-import { TextFactory } from "../texts/TextFactory.js";
+import { TextFactory } from "../entities/texts/TextFactory.js";
 export class GUI {
     constructor(state) {
         this.state = state;

@@ -1,6 +1,6 @@
 import { Text } from "./Text.js";
-import { ANIMATION } from "../constants/animation.js";
-import { oscillate, OSCILLATIONS } from "../utilities/math.js";
+import { ANIMATION } from "../../constants/animation.js";
+import { oscillate, OSCILLATIONS } from "../../utilities/math.js";
 
 export class TextGlow extends Text {
   lineWidth: number = 3;

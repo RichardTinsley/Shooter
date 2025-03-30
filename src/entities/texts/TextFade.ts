@@ -1,5 +1,5 @@
 import { Text } from "./Text.js";
-import { oscillate, OSCILLATIONS } from "../utilities/math.js";
+import { oscillate, OSCILLATIONS } from "../../utilities/math.js";
 
 export class TextFade extends Text {
   private frequency: number = 0.1;
