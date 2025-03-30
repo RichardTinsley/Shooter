@@ -6,6 +6,7 @@ import { MenuTemplate } from "../constants/types.js";
 
 export class GUI {
   protected menu: Array<MenuButton> = [];
+  protected entities: Array<any> = [];
 
   constructor(public state: State) {}
 
@@ -24,6 +25,10 @@ export class GUI {
 
   getMenu(): Array<MenuButton> {
     return this.menu;
+  }
+
+  getEntities(): Array<any> {
+    return this.entities;
   }
 
   initialiseVerticalMenu(

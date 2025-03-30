@@ -30,18 +30,15 @@ export class MainMenuGUI extends GUI {
   constructor(public state: State) {
     super(state);
     this.menu = this.initialiseVerticalMenu(this.menuTemplate, 400);
+    this.entities.push(this.tower, this.projectile, this.projectile2);
   }
 
   draw(ctx: CanvasRenderingContext2D): void {
     super.draw(ctx);
-    this.tower.draw(ctx);
-    this.projectile.draw(ctx);
-    this.projectile2.draw(ctx);
+    this.entities.forEach((entity) => entity.draw(ctx));
   }
   update(): void {
     super.update();
-    this.tower.update();
-    this.projectile.update();
-    this.projectile2.update();
+    this.entities.forEach((entity) => entity.update());
   }
 }

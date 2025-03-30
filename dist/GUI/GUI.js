@@ -5,6 +5,7 @@ export class GUI {
     constructor(state) {
         this.state = state;
         this.menu = [];
+        this.entities = [];
     }
     draw(ctx) {
         ctx.clearRect(0, 0, SIZES.GAME_WIDTH, SIZES.GAME_HEIGHT);
@@ -19,6 +20,9 @@ export class GUI {
     }
     getMenu() {
         return this.menu;
+    }
+    getEntities() {
+        return this.entities;
     }
     initialiseVerticalMenu(menuTemplate, menuPosition) {
         return menuTemplate.map((item, index) => {

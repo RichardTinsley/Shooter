@@ -102,6 +102,7 @@ export class Sprite implements ISprite {
     this.scale = scale;
     this.width = Math.round(this.spriteWidth * this.scale * 100) / 100;
     this.height = Math.round(this.spriteHeight * this.scale * 100) / 100;
+    this.halfWidth = this.width / 2;
     return this;
   }
 }

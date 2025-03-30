@@ -23,6 +23,10 @@ export class Debug {
     this.drawPerformanceDebugInfo(ctx);
     this.drawMouseDebugInfo(ctx);
     this.drawMenuDebugInfo(ctx, this.state.getCurrentState().gui.getMenu());
+    this.drawEntitiesDebugInfo(
+      ctx,
+      this.state.getCurrentState().gui.getEntities()
+    );
   }
 
   update() {
@@ -67,6 +71,18 @@ export class Debug {
 
   drawMouseDebugInfo(ctx: CanvasRenderingContext2D) {
     this.drawDot(ctx, this.mouse.getCursor(), COLOURS.RED);
+  }
+
+  drawEntitiesDebugInfo(ctx: CanvasRenderingContext2D, entities: Array<any>) {
+    entities.forEach((entity) => {
+      this.drawDot(ctx, entity.position, COLOURS.BLUE);
+      // this.drawCircleHitbox(ctx, entity.center);
+      if (entity.waypoint)
+        entity.waypoints.forEach((waypoint: any) => {
+          this.drawDot(ctx, waypoint, COLOURS.BRIGHT_GREEN);
+        });
+      if (entity.muzzle) this.drawDot(ctx, entity.muzzle, COLOURS.YELLOW);
+    });
   }
 
   drawDot(ctx: CanvasRenderingContext2D, item: any, colour: string) {

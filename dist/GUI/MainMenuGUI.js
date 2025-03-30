@@ -24,18 +24,15 @@ export class MainMenuGUI extends GUI {
             .setDestination(10, 10)
             .setScale(2);
         this.menu = this.initialiseVerticalMenu(this.menuTemplate, 400);
+        this.entities.push(this.tower, this.projectile, this.projectile2);
     }
     draw(ctx) {
         super.draw(ctx);
-        this.tower.draw(ctx);
-        this.projectile.draw(ctx);
-        this.projectile2.draw(ctx);
+        this.entities.forEach((entity) => entity.draw(ctx));
     }
     update() {
         super.update();
-        this.tower.update();
-        this.projectile.update();
-        this.projectile2.update();
+        this.entities.forEach((entity) => entity.update());
     }
 }
 //# sourceMappingURL=MainMenuGUI.js.map
