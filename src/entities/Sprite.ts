@@ -8,26 +8,26 @@ const enum SPRITE_STATE {
 }
 
 export class Sprite implements ISprite {
-  private image!: HTMLImageElement;
+  protected image!: HTMLImageElement;
 
-  private scale: number = 1;
-  private width: number = this.spriteWidth;
-  private height: number = this.spriteHeight;
+  protected scale: number = 1;
+  protected width: number = this.spriteWidth;
+  protected height: number = this.spriteHeight;
 
-  private halfWidth = this.width / 2;
+  protected halfWidth = this.width / 2;
 
-  private animationFrame = 0;
-  private animationRow = 0;
-  private maxAnimationFrame!: number;
-  private maxAnimationRow!: number;
-  private state!: number;
+  protected animationFrame = 0;
+  protected animationRow = 0;
+  protected maxAnimationFrame!: number;
+  protected maxAnimationRow!: number;
+  protected state!: number;
 
   position!: Position;
 
   constructor(
     fileName: string,
-    private spriteWidth: number,
-    private spriteHeight: number
+    protected spriteWidth: number,
+    protected spriteHeight: number
   ) {
     this.image = ALL_ASSETS.get(fileName);
     this.maxAnimationFrame =

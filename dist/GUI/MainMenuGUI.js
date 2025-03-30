@@ -14,7 +14,7 @@ export class MainMenuGUI extends GUI {
         ];
         this.tower = new Sprite(FILE_NAMES.TOWER_AMETHYST_1, 64, 64)
             .setPosition(200, 200)
-            .setScale(5);
+            .setScale(2);
         this.projectile = new Projectile(FILE_NAMES.PROJECTILE_SAPPHIRE_1, 84, 9)
             .setPosition(20, 20)
             .setDestination(1000, 1000)
@@ -23,8 +23,16 @@ export class MainMenuGUI extends GUI {
             .setPosition(600, 600)
             .setDestination(10, 10)
             .setScale(2);
+        this.projectile3 = new Projectile(FILE_NAMES.PROJECTILE_SAPPHIRE_1, 84, 9)
+            .setPosition(600, 200)
+            .setDestination(600, 800)
+            .setScale(2);
+        this.projectile4 = new Projectile(FILE_NAMES.PROJECTILE_SAPPHIRE_1, 84, 9)
+            .setPosition(200, 200)
+            .setDestination(200, 200)
+            .setScale(2);
         this.menu = this.initialiseVerticalMenu(this.menuTemplate, 400);
-        this.entities.push(this.tower, this.projectile, this.projectile2);
+        this.entities.push(this.tower, this.projectile, this.projectile2, this.projectile3, this.projectile4);
     }
     draw(ctx) {
         super.draw(ctx);

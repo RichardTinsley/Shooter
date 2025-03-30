@@ -10,10 +10,9 @@ export class LoadingGUI extends GUI {
   private dslogo = document.getElementById("dslogo") as HTMLImageElement;
   private summoning: any = TextFactory.createSummongText();
 
-  loadingBar = new LoadingBar({
-    x: SIZES.GAME_WIDTH_HALF,
-    y: SIZES.GAME_HEIGHT - 80,
-  }).setMaxStatus(assetListLength);
+  loadingBar = new LoadingBar()
+    .setPosition(SIZES.GAME_WIDTH_HALF, SIZES.GAME_HEIGHT - 80)
+    .setMaxStatus(assetListLength);
 
   constructor(public state: State) {
     super(state);

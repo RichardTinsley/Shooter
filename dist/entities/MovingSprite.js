@@ -6,9 +6,7 @@ export class MovingSprite extends Sprite {
         this.speed = 1;
     }
     draw(ctx) {
-        this.contextSave(ctx);
         super.draw(ctx);
-        this.contextRestore(ctx);
     }
     update() {
         super.update();

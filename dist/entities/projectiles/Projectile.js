@@ -5,7 +5,12 @@ export class Projectile extends MovingSprite {
         this.origin = Object.assign({}, this.position);
     }
     draw(ctx) {
+        ctx.save();
+        ctx.translate(this.position.x, this.position.y - this.height / 2);
+        ctx.rotate(this.angle);
+        console.log(this.halfWidth);
         super.draw(ctx);
+        ctx.restore();
     }
     update() {
         super.update();

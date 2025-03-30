@@ -1,8 +1,7 @@
 import { COLOURS } from "../../constants/colours.js";
 import { drawRectangle } from "../../utilities/drawShapes.js";
 export class StatusBar {
-    constructor(position) {
-        this.position = position;
+    constructor() {
         this.statusBarHeight = 0;
         this.statusBarLength = 0;
         this.currentStatus = 0;
@@ -16,6 +15,16 @@ export class StatusBar {
         ctx.lineJoin = this.lineJoin;
         ctx.lineWidth = this.lineWidth;
         drawRectangle(ctx, this.position, this.statusBarLength, this.statusBarHeight, this.backgroundFillColour, this.backgroundStrokeColour);
+    }
+    update(event) {
+        return;
+    }
+    setPosition(x, y) {
+        this.position = { x: x, y: y };
+        return this;
+    }
+    getPosition() {
+        return this.position;
     }
     getCurrentStatus() {
         return this.currentStatus;

@@ -10,10 +10,9 @@ export class LoadingGUI extends GUI {
         this.title = TextFactory.createTitleText();
         this.dslogo = document.getElementById("dslogo");
         this.summoning = TextFactory.createSummongText();
-        this.loadingBar = new LoadingBar({
-            x: SIZES.GAME_WIDTH_HALF,
-            y: SIZES.GAME_HEIGHT - 80,
-        }).setMaxStatus(assetListLength);
+        this.loadingBar = new LoadingBar()
+            .setPosition(SIZES.GAME_WIDTH_HALF, SIZES.GAME_HEIGHT - 80)
+            .setMaxStatus(assetListLength);
     }
     draw(ctx) {
         drawIntroLogo(ctx, this.title, this.dslogo);

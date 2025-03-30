@@ -1,6 +1,5 @@
 import { COLOURS } from "../../constants/colours.js";
 import { SIZES } from "../../constants/game.js";
-import { Position } from "../../constants/types.js";
 import { drawRectangle } from "../../utilities/drawShapes.js";
 import { StatusBar } from "./StatusBar.js";
 
@@ -8,9 +7,8 @@ export class LoadingBar extends StatusBar {
   readonly statusBarHeight: number = 14;
   readonly statusBarLength: number = SIZES.GAME_WIDTH / 3;
 
-  constructor(protected position: Position) {
-    super(position);
-    this.position.x -= this.statusBarLength / 2;
+  constructor() {
+    super();
   }
 
   draw(ctx: CanvasRenderingContext2D): void {
@@ -24,5 +22,10 @@ export class LoadingBar extends StatusBar {
       COLOURS.WHITE,
       COLOURS.WHITE
     );
+  }
+  setPosition(x: number, y: number): this {
+    super.setPosition(x, y);
+    this.position.x -= this.statusBarLength / 2;
+    return this;
   }
 }

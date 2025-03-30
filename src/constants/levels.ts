@@ -1,26 +1,21 @@
-import * as GAME from "./game.js";
+import { SIZES } from "./game.js";
+import { Position } from "./types.js";
 
-export const LEVELS = {
-  TERRA_HAUTE: 0,
-  WASTELANDS: 1,
-};
+export enum LEVELS {
+  TERRA_HAUTE,
+  LAVONEY,
+}
 
-export function generateEnemyWaypoints(waypoints) {
+export function generateEnemyWaypoints(waypoints: Array<Position>) {
   return waypoints.map((waypoint) => {
     return {
-      x:
-        waypoint.x -
-        GAME.SIZES.TILE +
-        Math.round(Math.random() * (GAME.SIZES.TILE * 2)),
-      y:
-        waypoint.y -
-        GAME.SIZES.TILE +
-        Math.round(Math.random() * (GAME.SIZES.TILE * 2)),
+      x: waypoint.x - SIZES.TILE + Math.round(Math.random() * (SIZES.TILE * 2)),
+      y: waypoint.y - SIZES.TILE + Math.round(Math.random() * (SIZES.TILE * 2)),
     };
   });
 }
 
-export const WASTELANDS_TILEMAP = [
+export const LAVONEY_TILEMAP = [
   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -54,7 +49,7 @@ export const WASTELANDS_TILEMAP = [
   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 ];
 
-export const WASTELANDS_WAYPOINTS = [
+export const LAVONEY_WAYPOINTS = [
   {
     x: -52,
     y: 532,

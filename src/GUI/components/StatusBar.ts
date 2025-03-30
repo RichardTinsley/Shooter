@@ -1,8 +1,9 @@
 import { COLOURS } from "../../constants/colours.js";
 import { Position } from "../../constants/types.js";
+import { IDrawable } from "../../interfaces/IEntity.js";
 import { drawRectangle } from "../../utilities/drawShapes.js";
 
-export class StatusBar {
+export class StatusBar implements IDrawable {
   protected readonly statusBarHeight: number = 0;
   protected readonly statusBarLength: number = 0;
   protected currentStatus: number = 0;
@@ -12,8 +13,9 @@ export class StatusBar {
   protected lineWidth: number = 4;
   protected backgroundFillColour: string = COLOURS.BLACK;
   protected backgroundStrokeColour: string = COLOURS.WHITE;
+  position!: Position;
 
-  constructor(protected position: Position) {}
+  constructor() {}
 
   draw(ctx: CanvasRenderingContext2D): void {
     ctx.lineJoin = this.lineJoin;
@@ -27,6 +29,19 @@ export class StatusBar {
       this.backgroundFillColour,
       this.backgroundStrokeColour
     );
+  }
+
+  update(event: number): void {
+    return;
+  }
+
+  setPosition(x: number, y: number): this {
+    this.position = { x: x, y: y };
+    return this;
+  }
+
+  getPosition(): Position {
+    return this.position;
   }
 
   getCurrentStatus(): number {
