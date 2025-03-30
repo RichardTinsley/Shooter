@@ -10,16 +10,14 @@ export class Sprite {
         this.animationFrame = 0;
         this.animationRow = 0;
         this.image = ALL_ASSETS.get(fileName);
-        this.maxAnimationFrame =
-            Math.floor(this.image.width / this.spriteWidth) - 1;
-        this.maxAnimationRow =
-            Math.floor(this.image.height / this.spriteHeight) - 1;
+        this.maxAnimationFrame = this.getSpriteSheetDimensions(this.image.width, this.spriteWidth);
+        this.maxAnimationRow = this.getSpriteSheetDimensions(this.image.height, this.spriteHeight);
         this.maxAnimationRow === 0
             ? (this.state = 0)
             : (this.state = 1);
     }
     draw(ctx) {
-        ctx.drawImage(this.image, this.spriteWidth * this.animationFrame, this.spriteHeight * this.animationRow, this.spriteWidth, this.spriteHeight, this.position.x - this.halfWidth, this.position.y - this.height, this.width, this.height);
+        ctx.drawImage(this.image, this.spriteWidth * this.animationFrame, this.spriteHeight * this.animationRow, this.spriteWidth, this.spriteHeight, this.drawPositionX, this.drawPositionY, this.width, this.height);
     }
     update() {
         switch (this.state) {
@@ -55,6 +53,8 @@ export class Sprite {
     }
     setPosition(x, y) {
         this.position = { x: x, y: y };
+        this.drawPositionX = this.position.x - this.halfWidth;
+        this.drawPositionY = this.position.y - this.height;
         return this;
     }
     getPosition() {
@@ -66,6 +66,9 @@ export class Sprite {
         this.height = Math.round(this.spriteHeight * this.scale * 100) / 100;
         this.halfWidth = this.width / 2;
         return this;
+    }
+    getSpriteSheetDimensions(sheet, sprite) {
+        return Math.floor(sheet / sprite) - 1;
     }
 }
 //# sourceMappingURL=Sprite.js.map

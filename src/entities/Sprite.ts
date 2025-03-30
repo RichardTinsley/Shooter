@@ -23,6 +23,8 @@ export class Sprite implements ISprite {
   protected state!: number;
 
   position!: Position;
+  protected drawPositionX!: number;
+  protected drawPositionY!: number;
 
   constructor(
     fileName: string,
@@ -30,10 +32,16 @@ export class Sprite implements ISprite {
     protected spriteHeight: number
   ) {
     this.image = ALL_ASSETS.get(fileName);
-    this.maxAnimationFrame =
-      Math.floor(this.image.width / this.spriteWidth) - 1;
-    this.maxAnimationRow =
-      Math.floor(this.image.height / this.spriteHeight) - 1;
+
+    this.maxAnimationFrame = this.getSpriteSheetDimensions(
+      this.image.width,
+      this.spriteWidth
+    );
+
+    this.maxAnimationRow = this.getSpriteSheetDimensions(
+      this.image.height,
+      this.spriteHeight
+    );
 
     this.maxAnimationRow === 0
       ? (this.state = SPRITE_STATE.ANIMATE_FRAMES)
@@ -47,8 +55,8 @@ export class Sprite implements ISprite {
       this.spriteHeight * this.animationRow,
       this.spriteWidth,
       this.spriteHeight,
-      this.position.x - this.halfWidth,
-      this.position.y - this.height,
+      this.drawPositionX,
+      this.drawPositionY,
       this.width,
       this.height
     );
@@ -91,6 +99,8 @@ export class Sprite implements ISprite {
 
   setPosition(x: number, y: number): this {
     this.position = { x: x, y: y };
+    this.drawPositionX = this.position.x - this.halfWidth;
+    this.drawPositionY = this.position.y - this.height;
     return this;
   }
 
@@ -104,5 +114,9 @@ export class Sprite implements ISprite {
     this.height = Math.round(this.spriteHeight * this.scale * 100) / 100;
     this.halfWidth = this.width / 2;
     return this;
+  }
+
+  getSpriteSheetDimensions(sheet: number, sprite: number): number {
+    return Math.floor(sheet / sprite) - 1;
   }
 }

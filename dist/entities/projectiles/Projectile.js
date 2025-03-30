@@ -14,6 +14,7 @@ export class Projectile extends MovingSprite {
     }
     update() {
         super.update();
+        this.updateSpriteDrawPosition();
     }
 }
 //# sourceMappingURL=Projectile.js.map

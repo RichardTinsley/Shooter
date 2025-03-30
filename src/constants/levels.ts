@@ -50,10 +50,10 @@ export const LAVONEY_TILEMAP = [
 ];
 
 export const LAVONEY_WAYPOINTS = [
-  {
-    x: -52,
-    y: 532,
-  },
+  // {
+  //   x: -52,
+  //   y: 532,
+  // },
   {
     x: 276,
     y: 527,

@@ -25,6 +25,7 @@ export class MovingSprite extends Sprite implements IMovingSprite {
   update() {
     super.update();
     this.updateMovement();
+    this.updateSpriteDrawPosition();
   }
 
   setSpeed(speed: number): this {
@@ -44,10 +45,10 @@ export class MovingSprite extends Sprite implements IMovingSprite {
     this.position.y += Math.sin(this.angle) * this.speed;
   }
 
-  //   updateSpriteDrawPosition(){
-  //     this.drawPositionX = this.position.x - this.halfWidth;
-  //     this.drawPositionY = this.position.y - this.height;
-  // }
+  updateSpriteDrawPosition() {
+    this.drawPositionX = this.position.x - this.halfWidth;
+    this.drawPositionY = this.position.y - this.height;
+  }
 
   contextSave(ctx: CanvasRenderingContext2D) {
     if (this.direction === ANIMATION.LEFT) {

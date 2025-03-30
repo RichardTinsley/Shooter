@@ -11,6 +11,7 @@ export class MovingSprite extends Sprite {
     update() {
         super.update();
         this.updateMovement();
+        this.updateSpriteDrawPosition();
     }
     setSpeed(speed) {
         this.speed = speed;
@@ -25,6 +26,10 @@ export class MovingSprite extends Sprite {
         this.direction = giveDirection(this.angle);
         this.position.x += Math.cos(this.angle) * this.speed;
         this.position.y += Math.sin(this.angle) * this.speed;
+    }
+    updateSpriteDrawPosition() {
+        this.drawPositionX = this.position.x - this.halfWidth;
+        this.drawPositionY = this.position.y - this.height;
     }
     contextSave(ctx) {
         if (this.direction === -1) {

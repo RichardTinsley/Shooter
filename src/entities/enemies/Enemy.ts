@@ -1,3 +1,5 @@
+import { Position } from "../../constants/types.js";
+import { checkCircleCollision } from "../../utilities/collisionDetection.js";
 import { MovingSprite } from "../MovingSprite.js";
 
 export class Enemy extends MovingSprite {
@@ -7,12 +9,16 @@ export class Enemy extends MovingSprite {
   //     length: this.halfWidth,
   // })
 
-  // this.waypoints;
-  // this.waypointIndex = 0;
+  protected waypointIndex = 0;
 
-  //   constructor() {
-  //     super();
-  //   }
+  constructor(
+    fileName: string,
+    spriteWidth: number,
+    spriteHeight: number,
+    private waypoints: Array<Position>
+  ) {
+    super(fileName, spriteWidth, spriteHeight);
+  }
 
   draw(ctx: CanvasRenderingContext2D) {
     this.contextSave(ctx);
@@ -20,13 +26,14 @@ export class Enemy extends MovingSprite {
     this.contextRestore(ctx);
   }
 
-  update() {}
+  update() {
+    super.update();
+    this.checkWaypointArrival();
+  }
 
   checkWaypointArrival() {
-    // let waypointCenter = {...this.waypoints[this.waypointIndex]};
-    // waypointCenter.radius = 5;
-    // if (checkCircleCollision(this.center, waypointCenter))
-    //     this.waypointIndex++;
+    if (checkCircleCollision(this.position, this.destination, 5, 5))
+      this.destination = this.waypoints[(this.waypointIndex += 1)];
   }
 
   checkEndpointArrival() {
