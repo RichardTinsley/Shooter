@@ -1,6 +1,11 @@
 import { Position } from "../constants/types.js";
 import { IMovingSprite } from "../interfaces/IEntity.js";
-import { giveAngle, giveDirection, DIRECTION } from "../utilities/math.js";
+import {
+  giveAngle,
+  giveDirection,
+  DIRECTION,
+  randomFloat,
+} from "../utilities/math.js";
 import { AnimatedSprite } from "./AnimatedSprite.js";
 
 export class MovingSprite extends AnimatedSprite implements IMovingSprite {
@@ -21,10 +26,11 @@ export class MovingSprite extends AnimatedSprite implements IMovingSprite {
   update() {
     super.update();
     this.updateMovement();
+    console.log(randomFloat(-21, 20));
   }
 
   setSpeed(speed: number): this {
-    this.speed = speed;
+    this.speed = randomFloat(speed - 1, speed + 2);
     return this;
   }
 

@@ -44,6 +44,11 @@ export class Sprite implements IDrawable {
     return;
   }
 
+  setImage(fileName: String): this {
+    ALL_ASSETS.get(fileName);
+    return this;
+  }
+
   setPosition(position: Position): this {
     this.position = { ...position };
     this.updateSpriteDrawPosition();

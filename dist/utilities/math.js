@@ -38,7 +38,7 @@ export function giveDirection(angle) {
 export function randomNumber(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
-export function randomPositiveNegavtiveNumberNEW(neg, pos) {
-    return Math.ceil(Math.random() * (pos + neg)) - neg;
+export function randomFloat(min, max) {
+    return ~~((Math.random() * (max - min) + min) * 100) / 100;
 }
 //# sourceMappingURL=math.js.map

@@ -17,6 +17,10 @@ export class Sprite {
     update(event) {
         return;
     }
+    setImage(fileName) {
+        ALL_ASSETS.get(fileName);
+        return this;
+    }
     setPosition(position) {
         this.position = Object.assign({}, position);
         this.updateSpriteDrawPosition();

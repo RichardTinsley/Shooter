@@ -1,4 +1,4 @@
-import { giveAngle, giveDirection, DIRECTION } from "../utilities/math.js";
+import { giveAngle, giveDirection, DIRECTION, randomFloat, } from "../utilities/math.js";
 import { AnimatedSprite } from "./AnimatedSprite.js";
 export class MovingSprite extends AnimatedSprite {
     constructor(fileName, spriteWidth, spriteHeight) {
@@ -12,9 +12,10 @@ export class MovingSprite extends AnimatedSprite {
     update() {
         super.update();
         this.updateMovement();
+        console.log(randomFloat(-21, 20));
     }
     setSpeed(speed) {
-        this.speed = speed;
+        this.speed = randomFloat(speed - 1, speed + 2);
         return this;
     }
     setDestination(position) {
