@@ -19,13 +19,13 @@ export class MovingSprite extends Sprite implements IMovingSprite {
   }
 
   draw(ctx: CanvasRenderingContext2D) {
+    this.updateSpriteDrawPosition();
     super.draw(ctx);
   }
 
   update() {
     super.update();
     this.updateMovement();
-    this.updateSpriteDrawPosition();
   }
 
   setSpeed(speed: number): this {
@@ -33,14 +33,15 @@ export class MovingSprite extends Sprite implements IMovingSprite {
     return this;
   }
 
-  setDestination(x: number, y: number): this {
-    this.destination = { x: x, y: y };
+  setDestination(position: Position): this {
+    this.destination = { ...position };
     return this;
   }
 
   updateMovement() {
     this.angle = giveAngle(this.destination, this.position);
     this.direction = giveDirection(this.angle);
+
     this.position.x += Math.cos(this.angle) * this.speed;
     this.position.y += Math.sin(this.angle) * this.speed;
   }

@@ -51,8 +51,8 @@ export class Sprite {
             this.animationFrame = 0;
         }
     }
-    setPosition(x, y) {
-        this.position = { x: x, y: y };
+    setPosition(position) {
+        this.position = Object.assign({}, position);
         this.drawPositionX = this.position.x - this.halfWidth;
         this.drawPositionY = this.position.y - this.height;
         return this;

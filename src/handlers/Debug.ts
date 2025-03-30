@@ -77,7 +77,7 @@ export class Debug {
     entities.forEach((entity) => {
       this.drawDot(ctx, entity.position, COLOURS.BLUE);
       // this.drawCircleHitbox(ctx, entity.center);
-      if (entity.waypoint)
+      if (entity.waypoints)
         entity.waypoints.forEach((waypoint: any) => {
           this.drawDot(ctx, waypoint, COLOURS.BRIGHT_GREEN);
         });

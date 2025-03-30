@@ -14,12 +14,19 @@ export class Enemy extends MovingSprite {
     update() {
         super.update();
         this.checkWaypointArrival();
+        this.checkEndpointArrival();
     }
     checkWaypointArrival() {
-        if (checkCircleCollision(this.position, this.destination, 5, 5))
+        if (checkCircleCollision(this.position, this.destination, 2, 2)) {
             this.destination = this.waypoints[(this.waypointIndex += 1)];
+        }
     }
     checkEndpointArrival() {
+        if (this.waypointIndex === this.waypoints.length) {
+            this.waypointIndex = 0;
+            this.setPosition(this.waypoints[this.waypointIndex]);
+            this.setDestination(this.waypoints[this.waypointIndex]);
+        }
     }
     checkEnemyHealth() {
     }

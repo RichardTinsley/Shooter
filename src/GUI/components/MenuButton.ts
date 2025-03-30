@@ -34,9 +34,9 @@ export class MenuButton {
     this.menuLabel.update();
   }
 
-  setPosition(x: number, y: number): this {
-    this.menuLabel.setPosition(x, y);
-    this.position = { x: x, y: y };
+  setPosition(position: Position): this {
+    this.menuLabel.setPosition(position);
+    this.position = { ...position };
 
     this.hitBox = {
       x: this.position.x - this.width / 2,

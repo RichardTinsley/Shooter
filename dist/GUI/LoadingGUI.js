@@ -11,7 +11,7 @@ export class LoadingGUI extends GUI {
         this.dslogo = document.getElementById("dslogo");
         this.summoning = TextFactory.createSummongText();
         this.loadingBar = new LoadingBar()
-            .setPosition(SIZES.GAME_WIDTH_HALF, SIZES.GAME_HEIGHT - 80)
+            .setPosition({ x: SIZES.GAME_WIDTH_HALF, y: SIZES.GAME_HEIGHT - 80 })
             .setMaxStatus(assetListLength);
     }
     draw(ctx) {

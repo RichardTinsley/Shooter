@@ -25,13 +25,14 @@ export class MainMenuGUI extends GUI {
     9,
     this.waypoints
   )
-    .setPosition(this.waypoints[0].x, this.waypoints[0].y)
-    .setDestination(this.waypoints[0].x, this.waypoints[0].y)
+    .setPosition(this.waypoints[0])
+    .setDestination(this.waypoints[0])
     .setScale(1);
 
   private tower = new Enemy(FILE_NAMES.TOWER_AMETHYST_1, 64, 64, this.waypoints)
-    .setPosition(this.waypoints[0].x, this.waypoints[0].y)
-    .setDestination(this.waypoints[0].x, this.waypoints[0].y)
+    .setPosition(this.waypoints[0])
+    .setDestination(this.waypoints[0])
+    .setSpeed(8)
     .setScale(1);
 
   constructor(public state: State) {

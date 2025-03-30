@@ -41,10 +41,10 @@ export class GUI {
         this.state,
         item.state,
         item.label
-      ).setPosition(
-        SIZES.GAME_WIDTH_HALF,
-        menuPosition + index * (SIZES.TEXT_MENUITEM + SIZES.TEXT_SPACING)
-      );
+      ).setPosition({
+        x: SIZES.GAME_WIDTH_HALF,
+        y: menuPosition + index * (SIZES.TEXT_MENUITEM + SIZES.TEXT_SPACING),
+      });
     });
   }
 

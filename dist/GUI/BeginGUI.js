@@ -19,7 +19,7 @@ export class BeginGUI extends GUI {
         super.update();
     }
     initialiseMenu() {
-        const beginButton = new MenuButton(TextFactory.createMenuItemPulsate(), this.state, this.state.setMainMenuState, LABELS.BEGIN).setPosition(SIZES.GAME_WIDTH_HALF, SIZES.GAME_HEIGHT - 120);
+        const beginButton = new MenuButton(TextFactory.createMenuItemPulsate(), this.state, this.state.setMainMenuState, LABELS.BEGIN).setPosition({ x: SIZES.GAME_WIDTH_HALF, y: SIZES.GAME_HEIGHT - 120 });
         this.menu.push(beginButton);
     }
 }

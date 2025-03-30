@@ -59,7 +59,7 @@ export class Debug {
     drawEntitiesDebugInfo(ctx, entities) {
         entities.forEach((entity) => {
             this.drawDot(ctx, entity.position, COLOURS.BLUE);
-            if (entity.waypoint)
+            if (entity.waypoints)
                 entity.waypoints.forEach((waypoint) => {
                     this.drawDot(ctx, waypoint, COLOURS.BRIGHT_GREEN);
                 });

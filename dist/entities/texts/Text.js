@@ -25,8 +25,8 @@ export class Text {
     getPosition() {
         return this.position;
     }
-    setPosition(x, y) {
-        this.position = { x: x, y: y };
+    setPosition(position) {
+        this.position = Object.assign({}, position);
         return this;
     }
     setSize(size) {

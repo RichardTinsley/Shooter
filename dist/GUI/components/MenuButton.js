@@ -22,9 +22,9 @@ export class MenuButton {
     update() {
         this.menuLabel.update();
     }
-    setPosition(x, y) {
-        this.menuLabel.setPosition(x, y);
-        this.position = { x: x, y: y };
+    setPosition(position) {
+        this.menuLabel.setPosition(position);
+        this.position = Object.assign({}, position);
         this.hitBox = {
             x: this.position.x - this.width / 2,
             y: this.position.y - this.size / 2,

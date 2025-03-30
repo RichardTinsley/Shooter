@@ -11,7 +11,7 @@ export class LoadingGUI extends GUI {
   private summoning: any = TextFactory.createSummongText();
 
   loadingBar = new LoadingBar()
-    .setPosition(SIZES.GAME_WIDTH_HALF, SIZES.GAME_HEIGHT - 80)
+    .setPosition({ x: SIZES.GAME_WIDTH_HALF, y: SIZES.GAME_HEIGHT - 80 })
     .setMaxStatus(assetListLength);
 
   constructor(public state: State) {

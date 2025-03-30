@@ -19,8 +19,8 @@ export class StatusBar {
     update(event) {
         return;
     }
-    setPosition(x, y) {
-        this.position = { x: x, y: y };
+    setPosition(position) {
+        this.position = Object.assign({}, position);
         return this;
     }
     getPosition() {

@@ -1,5 +1,6 @@
 import { COLOURS } from "../../constants/colours.js";
 import { SIZES } from "../../constants/game.js";
+import { Position } from "../../constants/types.js";
 import { drawRectangle } from "../../utilities/drawShapes.js";
 import { StatusBar } from "./StatusBar.js";
 
@@ -23,8 +24,8 @@ export class LoadingBar extends StatusBar {
       COLOURS.WHITE
     );
   }
-  setPosition(x: number, y: number): this {
-    super.setPosition(x, y);
+  setPosition(position: Position): this {
+    super.setPosition(position);
     this.position.x -= this.statusBarLength / 2;
     return this;
   }

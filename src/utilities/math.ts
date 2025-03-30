@@ -35,13 +35,13 @@ export function oscillate(
   }
 }
 
-export function giveAngle(a: any, b: any) {
+export function giveAngle(a: any, b: any): number {
   const dy = a.y - b.y;
   const dx = a.x - b.x;
   return Math.atan2(dy, dx);
 }
 
-export function giveDirection(angle: number) {
+export function giveDirection(angle: number): number {
   if (angle < 1.57 && angle > -1.57) return 1;
   else return -1;
 }

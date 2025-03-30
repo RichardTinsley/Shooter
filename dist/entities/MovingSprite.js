@@ -6,19 +6,19 @@ export class MovingSprite extends Sprite {
         this.speed = 1;
     }
     draw(ctx) {
+        this.updateSpriteDrawPosition();
         super.draw(ctx);
     }
     update() {
         super.update();
         this.updateMovement();
-        this.updateSpriteDrawPosition();
     }
     setSpeed(speed) {
         this.speed = speed;
         return this;
     }
-    setDestination(x, y) {
-        this.destination = { x: x, y: y };
+    setDestination(position) {
+        this.destination = Object.assign({}, position);
         return this;
     }
     updateMovement() {

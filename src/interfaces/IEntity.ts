@@ -5,7 +5,7 @@ export interface IDrawable {
 
   draw(ctx: CanvasRenderingContext2D): void;
   update(event: number): void;
-  setPosition(x: number, y: number): this;
+  setPosition(position: Position): this;
   getPosition(): Position;
 }
 
@@ -17,7 +17,7 @@ export interface ISprite extends IDrawable {
 export interface IMovingSprite extends ISprite {
   updateMovement(): void;
   setSpeed(speed: number): this;
-  setDestination(x: number, y: number): this;
+  setDestination(position: Position): this;
 }
 
 export interface IText extends IDrawable {

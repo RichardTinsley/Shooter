@@ -26,7 +26,10 @@ export class GUI {
     }
     initialiseVerticalMenu(menuTemplate, menuPosition) {
         return menuTemplate.map((item, index) => {
-            return new MenuButton(TextFactory.createMenuItemGlow(), this.state, item.state, item.label).setPosition(SIZES.GAME_WIDTH_HALF, menuPosition + index * (SIZES.TEXT_MENUITEM + SIZES.TEXT_SPACING));
+            return new MenuButton(TextFactory.createMenuItemGlow(), this.state, item.state, item.label).setPosition({
+                x: SIZES.GAME_WIDTH_HALF,
+                y: menuPosition + index * (SIZES.TEXT_MENUITEM + SIZES.TEXT_SPACING),
+            });
         });
     }
 }

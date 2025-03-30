@@ -19,21 +19,21 @@ export class TextFactory {
 
   static createTitleText(): Text {
     return new Text()
-      .setPosition(SIZES.GAME_WIDTH_HALF, 100)
+      .setPosition({ x: SIZES.GAME_WIDTH_HALF, y: 100 })
       .setText("Death Sorcery")
       .setSize(SIZES.TEXT_TITLE);
   }
 
   static createSummongText(): TextFade {
     return new TextFade()
-      .setPosition(SIZES.GAME_WIDTH_HALF, SIZES.GAME_HEIGHT - 130)
+      .setPosition({ x: SIZES.GAME_WIDTH_HALF, y: SIZES.GAME_HEIGHT - 130 })
       .setText("Summoning...")
       .setSize(SIZES.TEXT_MENUITEM);
   }
 
   static createBeginText(): Text {
     return new TextPulsate()
-      .setPosition(SIZES.GAME_WIDTH_HALF, SIZES.GAME_HEIGHT - 110)
+      .setPosition({ x: SIZES.GAME_WIDTH_HALF, y: SIZES.GAME_HEIGHT - 110 })
       .setText("Begin!");
   }
 }

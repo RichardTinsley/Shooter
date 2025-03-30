@@ -15,7 +15,7 @@ export class Enemy extends MovingSprite {
     fileName: string,
     spriteWidth: number,
     spriteHeight: number,
-    private waypoints: Array<Position>
+    protected waypoints: Array<Position>
   ) {
     super(fileName, spriteWidth, spriteHeight);
   }
@@ -29,19 +29,22 @@ export class Enemy extends MovingSprite {
   update() {
     super.update();
     this.checkWaypointArrival();
+    this.checkEndpointArrival();
   }
 
   checkWaypointArrival() {
-    if (checkCircleCollision(this.position, this.destination, 5, 5))
+    if (checkCircleCollision(this.position, this.destination, 2, 2)) {
       this.destination = this.waypoints[(this.waypointIndex += 1)];
+    }
   }
 
   checkEndpointArrival() {
-    // if(this.waypointIndex === this.waypoints.length){
-    //     HUD.setLives();
-    //     this.waypointIndex = 0;
-    //     this.position = {...this.waypoints[this.waypointIndex]};
-    // }
+    if (this.waypointIndex === this.waypoints.length) {
+      // HUD.setLives();
+      this.waypointIndex = 0;
+      this.setPosition(this.waypoints[this.waypointIndex]);
+      this.setDestination(this.waypoints[this.waypointIndex]);
+    }
   }
 
   checkEnemyHealth() {
@@ -72,4 +75,8 @@ export class Enemy extends MovingSprite {
     //   Math.abs(xDistance) + Math.abs(yDistance)
     // );
   }
+
+  // getWaypoints(): Array<Position> {
+  //   return this.waypoints;
+  // }
 }

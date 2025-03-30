@@ -12,8 +12,8 @@ export class LoadingBar extends StatusBar {
         super.draw(ctx);
         drawRectangle(ctx, this.position, this.statusBarLength * (this.currentStatus / this.maxStatus), this.statusBarHeight, COLOURS.WHITE, COLOURS.WHITE);
     }
-    setPosition(x, y) {
-        super.setPosition(x, y);
+    setPosition(position) {
+        super.setPosition(position);
         this.position.x -= this.statusBarLength / 2;
         return this;
     }

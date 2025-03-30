@@ -97,8 +97,8 @@ export class Sprite implements ISprite {
     }
   }
 
-  setPosition(x: number, y: number): this {
-    this.position = { x: x, y: y };
+  setPosition(position: Position): this {
+    this.position = { ...position };
     this.drawPositionX = this.position.x - this.halfWidth;
     this.drawPositionY = this.position.y - this.height;
     return this;

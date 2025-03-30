@@ -36,8 +36,8 @@ export class Text implements IText {
     return this.position;
   }
 
-  setPosition(x: number, y: number): this {
-    this.position = { x: x, y: y };
+  setPosition(position: Position): this {
+    this.position = { ...position };
     return this;
   }
 

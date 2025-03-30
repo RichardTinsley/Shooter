@@ -28,7 +28,7 @@ export class BeginGUI extends GUI {
       this.state,
       this.state.setMainMenuState,
       LABELS.BEGIN
-    ).setPosition(SIZES.GAME_WIDTH_HALF, SIZES.GAME_HEIGHT - 120);
+    ).setPosition({ x: SIZES.GAME_WIDTH_HALF, y: SIZES.GAME_HEIGHT - 120 });
 
     this.menu.push(beginButton);
   }

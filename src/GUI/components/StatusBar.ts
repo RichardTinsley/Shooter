@@ -35,8 +35,8 @@ export class StatusBar implements IDrawable {
     return;
   }
 
-  setPosition(x: number, y: number): this {
-    this.position = { x: x, y: y };
+  setPosition(position: Position): this {
+    this.position = { ...position };
     return this;
   }
 
