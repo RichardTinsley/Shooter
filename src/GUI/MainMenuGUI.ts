@@ -8,6 +8,7 @@ import {
   LAVONEY_WAYPOINTS,
   generateEnemyWaypoints,
 } from "../constants/levels.js";
+import { Projectile } from "../entities/projectiles/Projectile.js";
 
 export class MainMenuGUI extends GUI {
   private menuTemplate: Array<MenuTemplate> = [
@@ -29,10 +30,10 @@ export class MainMenuGUI extends GUI {
     .setDestination(this.waypoints[0])
     .setScale(1);
 
-  private tower = new Enemy(FILE_NAMES.TOWER_AMETHYST_1, 64, 64, this.waypoints)
+  private tower = new Projectile(FILE_NAMES.TOWER_AMETHYST_1, 64, 64)
     .setPosition(this.waypoints[0])
-    .setDestination(this.waypoints[0])
-    .setSpeed(8)
+    .setDestination(this.waypoints[7])
+    .setSpeed(1)
     .setScale(1);
 
   constructor(public state: State) {
