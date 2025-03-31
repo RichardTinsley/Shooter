@@ -1,20 +1,12 @@
 import { SIZES } from "../../constants/game.js";
-export var LABELS;
-(function (LABELS) {
-    LABELS["BEGIN"] = "Begin!";
-    LABELS["NEWGAME"] = "New Game";
-    LABELS["OPTIONS"] = "Options";
-    LABELS["ABOUT"] = "About";
-})(LABELS || (LABELS = {}));
 export class MenuButton {
-    constructor(menuLabel, state, setState, text) {
+    constructor(menuLabel, state, setState) {
         this.menuLabel = menuLabel;
         this.state = state;
         this.setState = setState;
-        this.text = text;
         this.size = SIZES.TEXT_MENUITEM;
-        this.menuLabel.setText(this.text);
-        this.width = this.text.length * (this.size / 1.75);
+        this.menuLabel;
+        this.width = this.menuLabel.getText().length * (this.size / 1.75);
     }
     draw(ctx) {
         this.menuLabel.draw(ctx);

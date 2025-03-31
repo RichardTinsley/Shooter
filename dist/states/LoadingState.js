@@ -7,26 +7,37 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { GUIFactory } from "../GUI/GUIFactory.js";
 import { load, assetListLength } from "../utilities/assetLoaders.js";
 import { ALL_ASSETS } from "../constants/assets.js";
+import { SIZES } from "../constants/game.js";
+import { TextFactory } from "../entities/texts/TextFactory.js";
+import { LoadingBar } from "../GUI/components/LoadingBar.js";
+import { drawIntroScreen } from "../GUI/layouts/drawTitleScreen.js";
 export class LoadingState {
     constructor(state) {
         this.state = state;
-        this.gui = GUIFactory.createLoadingGUI(this.state);
+        this.summoning = TextFactory.textFade()
+            .setPosition({ x: SIZES.GAME_WIDTH_HALF, y: SIZES.GAME_HEIGHT - 130 })
+            .setText("Summoning...")
+            .setSize(SIZES.TEXT_MENUITEM);
+        this.loadingBar = new LoadingBar()
+            .setPosition({ x: SIZES.GAME_WIDTH_HALF, y: SIZES.GAME_HEIGHT - 80 })
+            .setMaxStatus(assetListLength);
         this.assetLoaded = (fileName) => {
-            this.gui.loadingBar.setCurrentStatus(1);
+            this.loadingBar.setCurrentStatus(1);
             console.log(`${fileName.fileName} Loaded.`);
-            if (this.gui.loadingBar.getCurrentStatus() === assetListLength)
+            if (this.loadingBar.getCurrentStatus() === assetListLength)
                 this.state.setBeginState();
         };
         this.loadAssets();
     }
     draw(ctx) {
-        this.gui.draw(ctx);
+        drawIntroScreen(ctx);
+        this.summoning.draw(ctx);
+        this.loadingBar.draw(ctx);
     }
     update() {
-        this.gui.update();
+        this.summoning.update();
     }
     loadAssets() {
         return __awaiter(this, void 0, void 0, function* () {
@@ -39,5 +50,8 @@ export class LoadingState {
             });
         });
     }
+}
+function drawIntroLogo(ctx, title) {
+    throw new Error("Function not implemented.");
 }
 //# sourceMappingURL=LoadingState.js.map

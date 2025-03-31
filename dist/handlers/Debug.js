@@ -16,12 +16,12 @@ export class Debug {
         this.FPS.setPosition(16, 64);
     }
     draw(ctx) {
+        var _a;
         if (!this.isDebugMode)
             return;
         this.drawPerformanceDebugInfo(ctx);
         this.drawMouseDebugInfo(ctx);
-        this.drawMenuDebugInfo(ctx, this.state.getCurrentState().gui.getMenu());
-        this.drawEntitiesDebugInfo(ctx, this.state.getCurrentState().gui.getEntities());
+        this.drawMenuDebugInfo(ctx, (_a = this.state.getCurrentState().menu) === null || _a === void 0 ? void 0 : _a.getMenu());
     }
     update() {
         if (!this.isDebugMode)
@@ -49,6 +49,8 @@ export class Debug {
         this.FPS.draw(ctx);
     }
     drawMenuDebugInfo(ctx, menu) {
+        if (!menu)
+            return;
         menu.forEach((item) => {
             this.drawSquareHitBox(ctx, item.hitBox);
         });

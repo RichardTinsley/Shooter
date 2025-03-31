@@ -30,15 +30,15 @@ export class Mouse {
   }
 
   update(state: State) {
-    this.mouseOverItem = this.mouseOverMenuButton(state.getCurrentState());
+    this.mouseOverMenuButton(state.getCurrentState());
     this.setCursor();
   }
 
-  mouseOverMenuButton(state: IState): MenuButton | undefined {
-    return state.gui.getMenu().find((item: MenuButton) => {
+  mouseOverMenuButton(state: IState) {
+    state.menu?.getMenu().find((item: MenuButton) => {
       if (checkHitBoxCollision(this.cursor, item.hitBox)) {
         item.mouseOver(ANIMATION.ANIMATING);
-        return item;
+        this.mouseOverItem = item;
       } else {
         item.mouseOver(ANIMATION.FINISHED);
         this.mouseOverItem = undefined;

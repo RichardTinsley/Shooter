@@ -22,11 +22,11 @@ export class Debug {
 
     this.drawPerformanceDebugInfo(ctx);
     this.drawMouseDebugInfo(ctx);
-    this.drawMenuDebugInfo(ctx, this.state.getCurrentState().gui.getMenu());
-    this.drawEntitiesDebugInfo(
-      ctx,
-      this.state.getCurrentState().gui.getEntities()
-    );
+    this.drawMenuDebugInfo(ctx, this.state.getCurrentState().menu?.getMenu());
+    // this.drawEntitiesDebugInfo(
+    //   ctx,
+    //   this.state.getCurrentState().gui.getEntities()
+    // );
   }
 
   update() {
@@ -64,6 +64,7 @@ export class Debug {
   }
 
   drawMenuDebugInfo(ctx: CanvasRenderingContext2D, menu: Array<MenuButton>) {
+    if (!menu) return;
     menu.forEach((item) => {
       this.drawSquareHitBox(ctx, item.hitBox);
     });

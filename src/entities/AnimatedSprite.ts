@@ -69,7 +69,7 @@ export class AnimatedSprite extends Sprite implements IAnimatedSprite {
 
     if (
       this.animationRow === this.maxAnimationRow &&
-      this.animationFrame < this.maxAnimationFrame
+      this.animationFrame <= this.maxAnimationFrame
     ) {
       this.animationRow = 0;
       this.animationFrame = 0;

@@ -1,16 +1,28 @@
-import { GUIFactory } from "../GUI/GUIFactory.js";
+import { SIZES } from "../constants/game.js";
+import { MenuTemplate } from "../constants/types.js";
+import { Menu } from "../GUI/Menu.js";
+import { LABELS } from "../GUI/MenuLabelBuilder.js";
+import { MenuVertical } from "../GUI/MenuVertical.js";
 import { State, IState } from "./State.js";
 
 export class MainMenuState implements IState {
-  gui = GUIFactory.createMainMenuGUI(this.state);
+  private menuTemplate: Array<MenuTemplate> = [
+    { state: this.state.setNewGameState, label: LABELS.NEWGAME },
+    { state: this.state.setOptionsState, label: LABELS.OPTIONS },
+    { state: this.state.setAboutState, label: LABELS.ABOUT },
+  ];
 
-  constructor(public state: State) {}
+  menu: Menu;
 
-  draw(ctx: CanvasRenderingContext2D): void {
-    this.gui.draw(ctx);
+  constructor(public state: State) {
+    this.menu = new MenuVertical(state, this.menuTemplate, 400);
   }
 
+  draw(ctx: CanvasRenderingContext2D): void {
+    ctx.clearRect(0, 0, SIZES.GAME_WIDTH, SIZES.GAME_HEIGHT);
+    this.menu.draw(ctx);
+  }
   update(): void {
-    this.gui.update();
+    this.menu.update();
   }
 }

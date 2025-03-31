@@ -1,11 +1,11 @@
+import { Menu } from "../GUI/Menu.js";
 import { BeginState } from "./BeginState.js";
 import { LoadingState } from "./LoadingState.js";
 import { MainMenuState } from "./MainMenuState.js";
-import { GUI } from "../GUI/GUI.js";
 
 export interface IState {
   state: State;
-  gui: GUI;
+  menu: Menu;
 
   draw(ctx: CanvasRenderingContext2D): void;
   update(): void;

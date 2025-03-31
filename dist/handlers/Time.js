@@ -2,6 +2,7 @@ const FRAMES = 60;
 let previousTime = 0;
 let eventTimer = 0;
 let timeout;
+let totalSeconds = 0;
 export class Time {
     constructor() {
         window.addEventListener("visibilitychange", () => {
@@ -20,9 +21,9 @@ export class Time {
         return Time.INSTANCE;
     }
     update() {
-        const deltaTime = Math.round(performance.now()) - previousTime;
+        const deltaTime = performance.now() - previousTime;
         Time.deltaTimeMultiplier = deltaTime / FRAMES;
-        previousTime = Math.round(performance.now());
+        previousTime = performance.now();
         if (eventTimer < FRAMES) {
             eventTimer += deltaTime;
             Time.eventUpdate = false;
@@ -33,28 +34,27 @@ export class Time {
         }
     }
     static displayTimer() {
-        let seconds = Time.totalSeconds % 60;
-        let minutes = Math.floor(Time.totalSeconds / 60) % 60;
-        let hours = Math.floor(Time.totalSeconds / 60 / 60);
+        let seconds = totalSeconds % 60;
+        let minutes = Math.floor(totalSeconds / 60) % 60;
+        let hours = Math.floor(totalSeconds / 60 / 60);
         const minuteString = String(minutes < 10 ? "0" + minutes : minutes);
         const secondString = String(seconds < 10 ? "0" + seconds : seconds);
         return `${hours} : ${minuteString} : ${secondString}`;
     }
     startTimer() {
         timeout = setInterval(() => {
-            Time.totalSeconds++;
+            totalSeconds++;
         }, 1000);
     }
     pauseTimer() {
         clearInterval(timeout);
     }
     resetTimer() {
-        Time.totalSeconds = 0;
+        totalSeconds = 0;
         clearInterval(timeout);
         this.startTimer();
     }
 }
-Time.totalSeconds = 0;
 Time.deltaTimeMultiplier = 0;
 Time.eventUpdate = false;
 //# sourceMappingURL=Time.js.map

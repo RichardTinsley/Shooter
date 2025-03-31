@@ -1,5 +1,4 @@
 import { Position } from "../../constants/types.js";
-import { Time } from "../../handlers/Time.js";
 import { checkCircleCollision } from "../../utilities/collisionDetection.js";
 import { MovingSprite } from "../MovingSprite.js";
 

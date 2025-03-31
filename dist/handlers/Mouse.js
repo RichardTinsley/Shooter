@@ -22,14 +22,15 @@ export class Mouse {
         });
     }
     update(state) {
-        this.mouseOverItem = this.mouseOverMenuButton(state.getCurrentState());
+        this.mouseOverMenuButton(state.getCurrentState());
         this.setCursor();
     }
     mouseOverMenuButton(state) {
-        return state.gui.getMenu().find((item) => {
+        var _a;
+        (_a = state.menu) === null || _a === void 0 ? void 0 : _a.getMenu().find((item) => {
             if (checkHitBoxCollision(this.cursor, item.hitBox)) {
                 item.mouseOver(ANIMATION.ANIMATING);
-                return item;
+                this.mouseOverItem = item;
             }
             else {
                 item.mouseOver(ANIMATION.FINISHED);
