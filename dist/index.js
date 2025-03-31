@@ -1,14 +1,12 @@
 import { context } from "./utilities/context.js";
 import { Game } from "./Game.js";
-import { Time } from "./handlers/Time.js";
 const ctx = context();
 class Main {
     constructor() {
-        this.time = Time.create();
         this.game = new Game();
         this.frame = (time) => {
             this.game.draw(ctx);
-            this.game.update(Time.update(time));
+            this.game.update(time);
             requestAnimationFrame(this.frame);
         };
         requestAnimationFrame(this.frame);

@@ -1,11 +1,9 @@
 import { context } from "./utilities/context.js";
 import { Game } from "./Game.js";
-import { Time } from "./handlers/Time.js";
 
 const ctx: CanvasRenderingContext2D = context();
 
 class Main {
-  private time: Time = Time.create();
   private game: Game = new Game();
 
   constructor() {
@@ -14,7 +12,7 @@ class Main {
 
   private frame = (time: number): void => {
     this.game.draw(ctx);
-    this.game.update(Time.update(time));
+    this.game.update(time);
     requestAnimationFrame(this.frame);
   };
 }

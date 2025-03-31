@@ -39,6 +39,7 @@ export class Text {
         return this;
     }
     setState(state) {
+        this.state = state;
         return this;
     }
 }

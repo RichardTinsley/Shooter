@@ -53,6 +53,7 @@ export class Text implements IText {
   }
 
   setState(state: number): this {
+    this.state = state;
     return this;
   }
 }

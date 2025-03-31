@@ -14,12 +14,16 @@ export class Mouse {
         };
         this.mouseOverItem = undefined;
         window.addEventListener("mousemove", (e) => {
-            this.setCursor(e);
-            this.mouseOverItem = this.mouseOverMenuButton(state.getCurrentState());
+            this.cursor.x = e.offsetX;
+            this.cursor.y = e.offsetY;
         });
         window.addEventListener("click", () => {
             this.mouseClick();
         });
+    }
+    update(state) {
+        this.mouseOverItem = this.mouseOverMenuButton(state.getCurrentState());
+        this.setCursor();
     }
     mouseOverMenuButton(state) {
         return state.gui.getMenu().find((item) => {
@@ -38,9 +42,7 @@ export class Mouse {
             this.mouseOverItem.changeState();
         }
     }
-    setCursor(e) {
-        this.cursor.x = e.offsetX;
-        this.cursor.y = e.offsetY;
+    setCursor() {
         let style = "Plain";
         if (this.mouseOverItem instanceof MenuButton)
             style = "MenuItem";

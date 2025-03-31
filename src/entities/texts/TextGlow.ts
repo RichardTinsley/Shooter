@@ -42,9 +42,4 @@ export class TextGlow extends Text {
       if (this.glow > 0) this.glow--;
     }
   }
-
-  setState(state: number): this {
-    this.state = state;
-    return this;
-  }
 }

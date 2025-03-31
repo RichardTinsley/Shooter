@@ -20,13 +20,20 @@ export class Mouse {
 
   constructor(state: State) {
     window.addEventListener("mousemove", (e) => {
-      this.setCursor(e);
-      this.mouseOverItem = this.mouseOverMenuButton(state.getCurrentState());
+      this.cursor.x = e.offsetX;
+      this.cursor.y = e.offsetY;
+      // this.setCursor(e);
+      // this.mouseOverItem = this.mouseOverMenuButton(state.getCurrentState());
     });
 
     window.addEventListener("click", () => {
       this.mouseClick();
     });
+  }
+
+  update(state: State) {
+    this.mouseOverItem = this.mouseOverMenuButton(state.getCurrentState());
+    this.setCursor();
   }
 
   mouseOverMenuButton(state: IState): MenuButton | undefined {
@@ -47,9 +54,10 @@ export class Mouse {
     }
   }
 
-  setCursor(e: MouseEvent): void {
-    this.cursor.x = e.offsetX;
-    this.cursor.y = e.offsetY;
+  setCursor() {
+    // setCursor(e: MouseEvent): void {
+    // this.cursor.x = e.offsetX;
+    // this.cursor.y = e.offsetY;
 
     let style = "Plain";
     if (this.mouseOverItem instanceof MenuButton) style = "MenuItem";

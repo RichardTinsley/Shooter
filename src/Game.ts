@@ -1,9 +1,11 @@
 import { Debug } from "./handlers/Debug.js";
 import { Keyboard } from "./handlers/Keyboard.js";
 import { Mouse } from "./handlers/Mouse.js";
+import { Time } from "./handlers/Time.js";
 import { State } from "./states/State.js";
 
 export class Game {
+  private time: Time = Time.create();
   private state = new State();
   private mouse = new Mouse(this.state);
   private debug = new Debug(this.state, this.mouse);
@@ -14,8 +16,9 @@ export class Game {
     this.debug.draw(ctx);
   }
 
-  update(event: { update: boolean; delta: number }): void {
-    this.state.getCurrentState().update(event);
+  update(time: number): void {
+    this.state.getCurrentState().update(Time.update(time));
     this.debug.update();
+    this.mouse.update(this.state);
   }
 }

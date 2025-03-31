@@ -36,9 +36,5 @@ export class TextGlow extends Text {
                 this.glow--;
         }
     }
-    setState(state) {
-        this.state = state;
-        return this;
-    }
 }
 //# sourceMappingURL=TextGlow.js.map
