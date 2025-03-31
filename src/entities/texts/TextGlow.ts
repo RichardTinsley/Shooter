@@ -4,7 +4,7 @@ import { oscillate, OSCILLATIONS } from "../../utilities/math.js";
 
 export class TextGlow extends Text {
   lineWidth: number = 3;
-  private glow: number = 13;
+  private glow: number = 0;
   private frequency: number = 0.7;
   private amplitude: number = 0.2;
 
@@ -22,6 +22,7 @@ export class TextGlow extends Text {
   update(event: { update: boolean; delta: number }) {
     switch (this.state) {
       case ANIMATION.ANIMATING:
+        this.glowChanger();
         this.glow += oscillate(
           OSCILLATIONS.COSINE,
           this.frequency,
@@ -29,7 +30,21 @@ export class TextGlow extends Text {
         );
         break;
       case ANIMATION.FINISHED:
+        this.glowChanger();
         break;
     }
+  }
+
+  glowChanger() {
+    if (this.state === ANIMATION.ANIMATING) {
+      if (this.glow < 13) this.glow++;
+    } else {
+      if (this.glow > 0) this.glow--;
+    }
+  }
+
+  setState(state: number): this {
+    this.state = state;
+    return this;
   }
 }

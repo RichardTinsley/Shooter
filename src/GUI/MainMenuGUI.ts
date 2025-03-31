@@ -30,12 +30,13 @@ export class MainMenuGUI extends GUI {
   )
     .setPosition(this.waypoints[0])
     .setDestination(this.waypoints[0])
+    .setSpeed(80)
     .setScale(1);
 
   private tower = new Projectile(FILE_NAMES.TOWER_AMETHYST_1, 64, 64)
     .setPosition(this.waypoints[0])
     .setDestination(this.waypoints[7])
-    .setSpeed(1)
+    .setSpeed(3)
     .setScale(1);
 
   music = new Music();

@@ -29,7 +29,7 @@ export class MovingSprite extends AnimatedSprite implements IMovingSprite {
   }
 
   setSpeed(speed: number): this {
-    this.speed = randomFloat(speed - 1, speed + 2);
+    this.speed = randomFloat(speed - speed * 0.1, speed + speed * 0.1);
     return this;
   }
 
@@ -42,8 +42,8 @@ export class MovingSprite extends AnimatedSprite implements IMovingSprite {
     this.angle = giveAngle(this.destination, this.position);
     this.direction = giveDirection(this.angle);
 
-    this.position.x += Math.cos(this.angle) * this.speed;
-    this.position.y += Math.sin(this.angle) * this.speed;
+    this.position.x += Math.cos(this.angle) * (this.speed * event.delta);
+    this.position.y += Math.sin(this.angle) * (this.speed * event.delta);
   }
 
   contextSave(ctx: CanvasRenderingContext2D) {

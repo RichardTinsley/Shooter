@@ -5,7 +5,7 @@ export class TextGlow extends Text {
     constructor() {
         super();
         this.lineWidth = 3;
-        this.glow = 13;
+        this.glow = 0;
         this.frequency = 0.7;
         this.amplitude = 0.2;
     }
@@ -18,11 +18,27 @@ export class TextGlow extends Text {
     update(event) {
         switch (this.state) {
             case ANIMATION.ANIMATING:
+                this.glowChanger();
                 this.glow += oscillate(1, this.frequency, this.amplitude);
                 break;
             case ANIMATION.FINISHED:
+                this.glowChanger();
                 break;
         }
+    }
+    glowChanger() {
+        if (this.state === ANIMATION.ANIMATING) {
+            if (this.glow < 13)
+                this.glow++;
+        }
+        else {
+            if (this.glow > 0)
+                this.glow--;
+        }
+    }
+    setState(state) {
+        this.state = state;
+        return this;
     }
 }
 //# sourceMappingURL=TextGlow.js.map

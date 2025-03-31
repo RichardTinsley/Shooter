@@ -1,5 +1,6 @@
 import { IText } from "../../interfaces/IEntity.js";
 import { Position } from "../../constants/types.js";
+import { ANIMATION } from "../../constants/animation.js";
 
 export class Text implements IText {
   protected text!: string;
@@ -7,7 +8,7 @@ export class Text implements IText {
   protected align: CanvasTextAlign = "center";
   protected lineWidth!: number;
   protected alpha: number = 1;
-  protected state: number = 0;
+  protected state: number = ANIMATION.FINISHED;
   position!: Position;
 
   draw(ctx: CanvasRenderingContext2D): void {
@@ -52,7 +53,6 @@ export class Text implements IText {
   }
 
   setState(state: number): this {
-    this.state = state;
     return this;
   }
 }

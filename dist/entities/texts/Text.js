@@ -1,8 +1,9 @@
+import { ANIMATION } from "../../constants/animation.js";
 export class Text {
     constructor() {
         this.align = "center";
         this.alpha = 1;
-        this.state = 0;
+        this.state = ANIMATION.FINISHED;
     }
     draw(ctx) {
         ctx.strokeStyle = `rgba(0, 0, 0, ${this.alpha})`;
@@ -38,7 +39,6 @@ export class Text {
         return this;
     }
     setState(state) {
-        this.state = state;
         return this;
     }
 }

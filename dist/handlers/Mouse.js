@@ -1,4 +1,5 @@
 import { checkHitBoxCollision } from "../utilities/collisionDetection.js";
+import { ANIMATION } from "../constants/animation.js";
 const mouseSize = 3;
 export class Mouse {
     constructor(state) {
@@ -22,7 +23,11 @@ export class Mouse {
     mouseOverMenuButton(state) {
         return state.gui.getMenu().find((item) => {
             if (checkHitBoxCollision(this.cursor, item.hitBox)) {
+                item.mouseOver(ANIMATION.ANIMATING);
                 return item;
+            }
+            else {
+                item.mouseOver(ANIMATION.FINISHED);
             }
         });
     }

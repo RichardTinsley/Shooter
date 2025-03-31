@@ -2,6 +2,7 @@ import { SIZES } from "../../constants/game.js";
 import { Position, HitBox } from "../../constants/types.js";
 import { State } from "../../states/State.js";
 import { Text } from "../../entities/texts/Text.js";
+import { ANIMATION } from "../../constants/animation.js";
 
 export enum LABELS {
   BEGIN = "Begin!",
@@ -50,5 +51,9 @@ export class MenuButton {
 
   changeState(): void {
     this.setState();
+  }
+
+  mouseOver(state: number): void {
+    this.menuLabel.setState(state);
   }
 }

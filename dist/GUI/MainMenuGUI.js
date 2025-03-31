@@ -19,11 +19,12 @@ export class MainMenuGUI extends GUI {
         this.projectile = new Enemy(FILE_NAMES.PROJECTILE_SAPPHIRE_1, 84, 9, this.waypoints)
             .setPosition(this.waypoints[0])
             .setDestination(this.waypoints[0])
+            .setSpeed(80)
             .setScale(1);
         this.tower = new Projectile(FILE_NAMES.TOWER_AMETHYST_1, 64, 64)
             .setPosition(this.waypoints[0])
             .setDestination(this.waypoints[7])
-            .setSpeed(1)
+            .setSpeed(3)
             .setScale(1);
         this.music = new Music();
         this.menu = this.initialiseVerticalMenu(this.menuTemplate, 400);

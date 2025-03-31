@@ -36,5 +36,8 @@ export class MenuButton {
     changeState() {
         this.setState();
     }
+    mouseOver(state) {
+        this.menuLabel.setState(state);
+    }
 }
 //# sourceMappingURL=MenuButton.js.map
