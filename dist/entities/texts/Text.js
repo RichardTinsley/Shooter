@@ -14,7 +14,7 @@ export class Text {
         ctx.strokeText(this.text, this.position.x, this.position.y);
         ctx.fillText(this.text, this.position.x, this.position.y);
     }
-    update() { }
+    update(event) { }
     getText() {
         return this.text;
     }

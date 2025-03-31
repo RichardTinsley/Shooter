@@ -15,7 +15,7 @@ export function checkCircleCollision(
 }
 
 export function checkHitBoxCollision(a: Cursor, b: HitBox) {
-  return (
+  return !(
     a.x > b.x + b.width ||
     a.x + a.width < b.x ||
     a.y > b.y + b.height ||

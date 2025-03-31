@@ -13,8 +13,8 @@ export class Game {
         this.state.getCurrentState().draw(ctx);
         this.debug.draw(ctx);
     }
-    update() {
-        this.state.getCurrentState().update();
+    update(event) {
+        this.state.getCurrentState().update(event);
         this.debug.update();
     }
 }

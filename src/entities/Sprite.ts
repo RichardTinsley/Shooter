@@ -40,7 +40,7 @@ export class Sprite implements IDrawable {
     );
   }
 
-  update(event: number): void {
+  update(event: [boolean, number]): void {
     return;
   }
 

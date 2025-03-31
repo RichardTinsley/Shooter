@@ -13,9 +13,9 @@ export class GUI {
             item.draw(ctx);
         });
     }
-    update() {
+    update(event) {
         this.menu.forEach((item) => {
-            item.update();
+            item.update(event);
         });
     }
     getMenu() {

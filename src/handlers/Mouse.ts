@@ -30,7 +30,7 @@ export class Mouse {
 
   mouseOverMenuButton(state: IState): MenuButton | undefined {
     return state.gui.getMenu().find((item: MenuButton) => {
-      if (!checkHitBoxCollision(this.cursor, item.hitBox)) {
+      if (checkHitBoxCollision(this.cursor, item.hitBox)) {
         return item;
       }
     });

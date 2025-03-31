@@ -1,5 +1,5 @@
 export class Singleton {
-  private static INSTANCE: any;
+  private static INSTANCE: Singleton;
 
   private constructor() {}
 

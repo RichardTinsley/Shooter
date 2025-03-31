@@ -32,8 +32,8 @@ export class LoadingGUI extends GUI {
     this.loadingBar.draw(ctx);
   }
 
-  update(): void {
-    this.summoning.update();
+  update(event: [boolean, number]): void {
+    this.summoning.update(event);
   }
 }
 

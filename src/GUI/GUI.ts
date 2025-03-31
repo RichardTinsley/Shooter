@@ -17,9 +17,9 @@ export class GUI {
     });
   }
 
-  update(): void {
+  update(event: [boolean, number]): void {
     this.menu.forEach((item: MenuButton) => {
-      item.update();
+      item.update(event);
     });
   }
 

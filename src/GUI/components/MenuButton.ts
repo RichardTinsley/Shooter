@@ -30,8 +30,8 @@ export class MenuButton {
     this.menuLabel.draw(ctx);
   }
 
-  update(): void {
-    this.menuLabel.update();
+  update(event: [boolean, number]): void {
+    this.menuLabel.update(event);
   }
 
   setPosition(position: Position): this {

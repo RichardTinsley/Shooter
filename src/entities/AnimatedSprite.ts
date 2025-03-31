@@ -37,18 +37,18 @@ export class AnimatedSprite extends Sprite implements IAnimatedSprite {
     super.draw(ctx);
   }
 
-  update() {
+  update(event: [boolean, number]) {
     switch (this.state) {
       case SPRITE_STATE.ANIMATE_FRAMES:
-        this.animateFrames();
+        this.animateFrames(event);
         break;
       case SPRITE_STATE.ANIMATE_ROWS:
-        this.animateRows();
+        this.animateRows(event);
         break;
     }
   }
 
-  animateFrames(): void {
+  animateFrames(event: [boolean, number]): void {
     if (this.animationFrame < this.maxAnimationFrame) {
       this.animationFrame++;
     } else {
@@ -56,7 +56,7 @@ export class AnimatedSprite extends Sprite implements IAnimatedSprite {
     }
   }
 
-  animateRows() {
+  animateRows(event: [boolean, number]) {
     if (this.animationFrame < this.maxAnimationFrame) {
       this.animationFrame++;
     } else {

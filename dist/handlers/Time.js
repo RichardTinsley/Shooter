@@ -7,44 +7,54 @@ let timeout;
 let deltaTimeMultiplier;
 export class Time {
     constructor() {
-        this.event = false;
         window.addEventListener("visibilitychange", () => this.visibilityStateTimer());
     }
-    update(time) {
-        this.eventUpdate(time);
+    static create() {
+        if (!Time.INSTANCE) {
+            Time.INSTANCE = new Time();
+        }
+        return Time.INSTANCE;
     }
-    eventUpdate(time) {
+    static update(time) {
+        let event = false;
         const deltaTime = time - previousTime;
         deltaTimeMultiplier = deltaTime / FRAMES;
         previousTime = time;
         if (eventTimer < FRAMES) {
             eventTimer += deltaTime;
-            this.event = false;
+            event = false;
         }
         else {
             eventTimer = 0;
-            this.event = true;
+            event = true;
         }
+        return [event, deltaTimeMultiplier];
     }
     static displayTimer() {
         let seconds = totalSeconds % 60;
         let minutes = Math.floor(totalSeconds / 60) % 60;
         let hours = Math.floor(totalSeconds / 60 / 60);
-        return hours + ":" + minutes + ":" + seconds;
+        const minuteString = String(minutes < 10 ? "0" + minutes : minutes);
+        const secondString = String(seconds < 10 ? "0" + seconds : seconds);
+        return `${hours} : ${minutes} : ${seconds}`;
     }
     visibilityStateTimer() {
-        if (document.visibilityState === "visible")
+        if (document.visibilityState === "visible") {
             this.startTimer();
-        else if (document.visibilityState === "hidden")
+        }
+        else if (document.visibilityState === "hidden") {
             this.pauseTimer();
+        }
     }
     startTimer() {
         timeout = setInterval(() => {
             totalSeconds++;
         }, 1000);
+        console.log("START");
     }
     pauseTimer() {
         clearInterval(timeout);
+        console.log("PAUSE");
     }
     resetTimer() {
         totalSeconds = 0;

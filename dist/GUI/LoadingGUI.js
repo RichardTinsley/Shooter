@@ -25,8 +25,8 @@ export class LoadingGUI extends GUI {
         this.summoning.draw(ctx);
         this.loadingBar.draw(ctx);
     }
-    update() {
-        this.summoning.update();
+    update(event) {
+        this.summoning.update(event);
     }
 }
 export function drawIntroLogo(ctx, title, dslogo) {

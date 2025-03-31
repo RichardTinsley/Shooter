@@ -9,9 +9,9 @@ export class MovingSprite extends AnimatedSprite {
         this.updateSpriteDrawPosition();
         super.draw(ctx);
     }
-    update() {
-        super.update();
-        this.updateMovement();
+    update(event) {
+        super.update(event);
+        this.updateMovement(event);
     }
     setSpeed(speed) {
         this.speed = randomFloat(speed - 1, speed + 2);
@@ -21,7 +21,7 @@ export class MovingSprite extends AnimatedSprite {
         this.destination = Object.assign({}, position);
         return this;
     }
-    updateMovement() {
+    updateMovement(event) {
         this.angle = giveAngle(this.destination, this.position);
         this.direction = giveDirection(this.angle);
         this.position.x += Math.cos(this.angle) * this.speed;

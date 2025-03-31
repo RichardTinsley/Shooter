@@ -21,7 +21,7 @@ export class Text implements IText {
     ctx.fillText(this.text, this.position.x, this.position.y);
   }
 
-  update(): void {}
+  update(event: [boolean, number]): void {}
 
   getText(): string {
     return this.text;

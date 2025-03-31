@@ -7,8 +7,8 @@ export class BeginState {
     draw(ctx) {
         this.gui.draw(ctx);
     }
-    update() {
-        this.gui.update();
+    update(event) {
+        this.gui.update(event);
     }
 }
 //# sourceMappingURL=BeginState.js.map

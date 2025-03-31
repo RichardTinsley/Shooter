@@ -15,7 +15,7 @@ export class TextGlow extends Text {
         super.draw(ctx);
         ctx.shadowBlur = 0;
     }
-    update() {
+    update(event) {
         switch (this.state) {
             case ANIMATION.ANIMATING:
                 this.glow += oscillate(1, this.frequency, this.amplitude);

@@ -8,53 +8,65 @@ let timeout: number;
 let deltaTimeMultiplier: number;
 
 export class Time {
-  private event: boolean = false;
-  constructor() {
+  private static INSTANCE: Time;
+
+  private constructor() {
     window.addEventListener("visibilitychange", () =>
       this.visibilityStateTimer()
     );
   }
 
-  update(time: number) {
-    this.eventUpdate(time);
+  static create() {
+    if (!Time.INSTANCE) {
+      Time.INSTANCE = new Time();
+    }
+    return Time.INSTANCE;
   }
 
-  eventUpdate(time: number) {
+  static update(time: number): [event: boolean, deltaTimeMultiplier: number] {
+    let event: boolean = false;
     const deltaTime: number = time - previousTime;
     deltaTimeMultiplier = deltaTime / FRAMES; // FOR OBJECT MOVEMENT
     previousTime = time;
 
     if (eventTimer < FRAMES) {
       eventTimer += deltaTime;
-      this.event = false;
+      event = false;
     } else {
       eventTimer = 0;
-      this.event = true;
+      event = true;
     }
+    return [event, deltaTimeMultiplier];
   }
 
   static displayTimer() {
     let seconds = totalSeconds % 60;
     let minutes = Math.floor(totalSeconds / 60) % 60;
     let hours = Math.floor(totalSeconds / 60 / 60);
-    // minutes = minutes < 10 ? "0" + minutes : minutes;
-    // seconds = seconds < 10 ? "0" + seconds : seconds;
-    return hours + ":" + minutes + ":" + seconds;
+    const minuteString: string = String(minutes < 10 ? "0" + minutes : minutes);
+    const secondString: string = String(seconds < 10 ? "0" + seconds : seconds);
+    return `${hours} : ${minutes} : ${seconds}`;
   }
 
   visibilityStateTimer() {
-    if (document.visibilityState === "visible") this.startTimer();
-    else if (document.visibilityState === "hidden") this.pauseTimer();
+    if (document.visibilityState === "visible") {
+      this.startTimer();
+    } else if (document.visibilityState === "hidden") {
+      this.pauseTimer();
+    }
   }
 
   startTimer() {
     timeout = setInterval(() => {
       totalSeconds++;
     }, 1000);
+
+    console.log("START");
   }
 
   pauseTimer() {
     clearInterval(timeout);
+    console.log("PAUSE");
   }
 
   resetTimer() {

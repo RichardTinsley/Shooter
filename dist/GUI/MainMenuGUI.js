@@ -34,9 +34,9 @@ export class MainMenuGUI extends GUI {
         this.entities.forEach((entity) => entity.draw(ctx));
         drawCircleRadialGradient(ctx);
     }
-    update() {
-        super.update();
-        this.entities.forEach((entity) => entity.update());
+    update(event) {
+        super.update(event);
+        this.entities.forEach((entity) => entity.update(event));
     }
 }
 //# sourceMappingURL=MainMenuGUI.js.map

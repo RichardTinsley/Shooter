@@ -25,8 +25,8 @@ export class LoadingState {
     draw(ctx) {
         this.gui.draw(ctx);
     }
-    update() {
-        this.gui.update();
+    update(event) {
+        this.gui.update(event);
     }
     loadAssets() {
         return __awaiter(this, void 0, void 0, function* () {

@@ -13,17 +13,17 @@ export class AnimatedSprite extends Sprite {
     draw(ctx) {
         super.draw(ctx);
     }
-    update() {
+    update(event) {
         switch (this.state) {
             case 0:
-                this.animateFrames();
+                this.animateFrames(event);
                 break;
             case 1:
-                this.animateRows();
+                this.animateRows(event);
                 break;
         }
     }
-    animateFrames() {
+    animateFrames(event) {
         if (this.animationFrame < this.maxAnimationFrame) {
             this.animationFrame++;
         }
@@ -31,7 +31,7 @@ export class AnimatedSprite extends Sprite {
             this.animationFrame = 0;
         }
     }
-    animateRows() {
+    animateRows(event) {
         if (this.animationFrame < this.maxAnimationFrame) {
             this.animationFrame++;
         }

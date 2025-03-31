@@ -10,7 +10,7 @@ export class MainMenuState implements IState {
     this.gui.draw(ctx);
   }
 
-  update(): void {
-    this.gui.update();
+  update(event: [boolean, number]): void {
+    this.gui.update(event);
   }
 }

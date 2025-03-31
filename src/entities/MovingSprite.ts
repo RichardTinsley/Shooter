@@ -23,9 +23,9 @@ export class MovingSprite extends AnimatedSprite implements IMovingSprite {
     super.draw(ctx);
   }
 
-  update() {
-    super.update();
-    this.updateMovement();
+  update(event: [boolean, number]) {
+    super.update(event);
+    this.updateMovement(event);
   }
 
   setSpeed(speed: number): this {
@@ -38,7 +38,7 @@ export class MovingSprite extends AnimatedSprite implements IMovingSprite {
     return this;
   }
 
-  updateMovement() {
+  updateMovement(event: [boolean, number]) {
     this.angle = giveAngle(this.destination, this.position);
     this.direction = giveDirection(this.angle);
 
