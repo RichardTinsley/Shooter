@@ -124,6 +124,7 @@ fire pit, landmines, net traps /air units to the ground
 
 Tower places obstacles, dragons teeth, landmines etc to obstruct enemies, which enemies have to attack to get through
 
+  // LINE GRADIENT!!!
     LASER LINES        
     ctx.beginPath();
     ctx.moveTo(this.position.x, this.position.y);

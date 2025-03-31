@@ -4,6 +4,8 @@ import { FILE_NAMES } from "../constants/assets.js";
 import { Enemy } from "../entities/enemies/Enemy.js";
 import { LAVONEY_WAYPOINTS, generateEnemyWaypoints, } from "../constants/levels.js";
 import { Projectile } from "../entities/projectiles/Projectile.js";
+import { Music } from "../handlers/Music.js";
+import { drawCircleRadialGradient } from "../utilities/drawShapes.js";
 export class MainMenuGUI extends GUI {
     constructor(state) {
         super(state);
@@ -23,12 +25,14 @@ export class MainMenuGUI extends GUI {
             .setDestination(this.waypoints[7])
             .setSpeed(1)
             .setScale(1);
+        this.music = new Music();
         this.menu = this.initialiseVerticalMenu(this.menuTemplate, 400);
         this.entities.push(this.projectile, this.tower);
     }
     draw(ctx) {
         super.draw(ctx);
         this.entities.forEach((entity) => entity.draw(ctx));
+        drawCircleRadialGradient(ctx);
     }
     update() {
         super.update();

@@ -56,6 +56,15 @@ export class Debug {
     drawMouseDebugInfo(ctx) {
         this.drawDot(ctx, this.mouse.getCursor(), COLOURS.RED);
     }
+    levelDebugInfoGrid(ctx) {
+        ctx.beginPath();
+        ctx.strokeStyle = COLOURS.LINES;
+        ctx.lineWidth = 1;
+        for (let row = 0; row < SIZES.ROWS; row++)
+            for (let column = 0; column < SIZES.COLUMNS; column++)
+                ctx.strokeRect(column * SIZES.TILE, row * SIZES.TILE, SIZES.TILE, SIZES.TILE);
+        ctx.closePath();
+    }
     drawEntitiesDebugInfo(ctx, entities) {
         entities.forEach((entity) => {
             this.drawDot(ctx, entity.position, COLOURS.BLUE);

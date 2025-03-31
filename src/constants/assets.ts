@@ -4,6 +4,8 @@ const PROJECTILES_URL: string = "./images/projectiles/";
 const TOWERS_URL: string = "./images/towers/";
 const UI_URL: string = "./images/UI/";
 
+const MUSIC_URL: string = "./audio/";
+
 export const ALL_ASSETS = new Map();
 
 export const TYPES = {
@@ -42,6 +44,9 @@ const URL_NUMBER = {
 // prettier-ignore
 export const FILE_NAMES: Record<string, string> = {
   DSLOGO: "DsShieldLogo.png",
+
+  MUSIC_MAIN_MENU: "mainMenu.mp3",
+
   TOWER_AMETHYST_1: `${TOWERS.AMETHYST}${TYPES.TOWER}${URL_NUMBER.ONE}.png`,
   PROJECTILE_SAPPHIRE_1: "Iceball_84x9.png",
 };
@@ -58,6 +63,8 @@ export const ASSET_LIST: string[][] = [
   // ['blueExplosion',   `${EFFECTS_URL}blueExplosion_256x256.png`],
   // ['sapphireProjectile',    `${PROJECTILES_URL}sapphireProjectile_50x25.png`],
 
+  //MUSIC 
+  [`${FILE_NAMES.MUSIC_MAIN_MENU}`, `${MUSIC_URL}${FILE_NAMES.MUSIC_MAIN_MENU}`],
   //ENEMIES
   // [`${TYPES.ENEMY}${URL_NUMBER.ONE}`, `${ENEMIES_URL}${TYPES.ENEMY}${URL_NUMBER.ONE}.png`],
   // [`${TYPES.ENEMY}${URL_NUMBER.TWO}`, `${ENEMIES_URL}${TYPES.ENEMY}${URL_NUMBER.TWO}.png`],

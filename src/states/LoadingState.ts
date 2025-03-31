@@ -29,6 +29,7 @@ export class LoadingState implements IState {
 
   assetLoaded = (fileName: any) => {
     this.gui.loadingBar.setCurrentStatus(1);
+    console.log(`${fileName.fileName} Loaded.`);
     if (this.gui.loadingBar.getCurrentStatus() === assetListLength)
       this.state.setBeginState();
   };

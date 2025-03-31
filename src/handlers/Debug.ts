@@ -73,6 +73,26 @@ export class Debug {
     this.drawDot(ctx, this.mouse.getCursor(), COLOURS.RED);
   }
 
+  levelDebugInfoGrid(ctx: CanvasRenderingContext2D) {
+    ctx.beginPath();
+    ctx.strokeStyle = COLOURS.LINES;
+    ctx.lineWidth = 1;
+    for (let row = 0; row < SIZES.ROWS; row++)
+      for (let column = 0; column < SIZES.COLUMNS; column++)
+        ctx.strokeRect(
+          column * SIZES.TILE,
+          row * SIZES.TILE,
+          SIZES.TILE,
+          SIZES.TILE
+        );
+    ctx.closePath();
+    //USE LINES TO DRAW GRID INSTEAD OF STROKE RECT
+    //     ctx.beginPath(); // Start a new path
+    // ctx.moveTo(30, 50); // Move the pen to (30, 50)
+    // ctx.lineTo(150, 100); // Draw a line to (150, 100)
+    // ctx.stroke(); // Render the path
+  }
+
   drawEntitiesDebugInfo(ctx: CanvasRenderingContext2D, entities: Array<any>) {
     entities.forEach((entity) => {
       this.drawDot(ctx, entity.position, COLOURS.BLUE);

@@ -26,7 +26,6 @@ export class MovingSprite extends AnimatedSprite implements IMovingSprite {
   update() {
     super.update();
     this.updateMovement();
-    console.log(randomFloat(-21, 20));
   }
 
   setSpeed(speed: number): this {

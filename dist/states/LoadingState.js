@@ -16,6 +16,7 @@ export class LoadingState {
         this.gui = GUIFactory.createLoadingGUI(this.state);
         this.assetLoaded = (fileName) => {
             this.gui.loadingBar.setCurrentStatus(1);
+            console.log(`${fileName.fileName} Loaded.`);
             if (this.gui.loadingBar.getCurrentStatus() === assetListLength)
                 this.state.setBeginState();
         };

@@ -12,7 +12,6 @@ export class MovingSprite extends AnimatedSprite {
     update() {
         super.update();
         this.updateMovement();
-        console.log(randomFloat(-21, 20));
     }
     setSpeed(speed) {
         this.speed = randomFloat(speed - 1, speed + 2);

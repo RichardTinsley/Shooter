@@ -9,6 +9,8 @@ import {
   generateEnemyWaypoints,
 } from "../constants/levels.js";
 import { Projectile } from "../entities/projectiles/Projectile.js";
+import { Music } from "../handlers/Music.js";
+import { drawCircleRadialGradient } from "../utilities/drawShapes.js";
 
 export class MainMenuGUI extends GUI {
   private menuTemplate: Array<MenuTemplate> = [
@@ -36,15 +38,20 @@ export class MainMenuGUI extends GUI {
     .setSpeed(1)
     .setScale(1);
 
+  music = new Music();
+
   constructor(public state: State) {
     super(state);
     this.menu = this.initialiseVerticalMenu(this.menuTemplate, 400);
     this.entities.push(this.projectile, this.tower);
+
+    // this.music.playTrack();
   }
 
   draw(ctx: CanvasRenderingContext2D): void {
     super.draw(ctx);
     this.entities.forEach((entity) => entity.draw(ctx));
+    drawCircleRadialGradient(ctx);
   }
   update(): void {
     super.update();

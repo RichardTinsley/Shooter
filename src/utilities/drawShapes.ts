@@ -31,9 +31,21 @@ export function drawDashedCircle(ctx: CanvasRenderingContext2D) {
   ctx.closePath();
 }
 
-export function drawShadow(ctx: CanvasRenderingContext2D) {
+export function drawEntityShadow(ctx: CanvasRenderingContext2D) {
   ctx.beginPath();
   // ctx.ellipse(this.position.x, this.position.y, this.shadowHeight, this.quarterWidth, Math.PI / 2, 0, 2 * Math.PI);
   ctx.fillStyle = COLOURS.SHADOW;
   ctx.fill();
+}
+
+export function drawCircleRadialGradient(ctx: CanvasRenderingContext2D) {
+  const radialGradient = ctx.createRadialGradient(200, 200, 50, 200, 200, 10);
+  radialGradient.addColorStop(0, "tomato");
+  radialGradient.addColorStop(1, "purple");
+
+  ctx.fillStyle = radialGradient;
+  ctx.beginPath();
+  ctx.arc(250, 150, 80, 0, 2 * Math.PI);
+  ctx.fill();
+  ctx.stroke();
 }
