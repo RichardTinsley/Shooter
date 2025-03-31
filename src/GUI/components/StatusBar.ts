@@ -31,7 +31,7 @@ export class StatusBar implements IDrawable {
     );
   }
 
-  update(): void {
+  update(event: { update: boolean; delta: number }): void {
     return;
   }
 

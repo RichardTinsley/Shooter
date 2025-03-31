@@ -24,6 +24,9 @@ export class AnimatedSprite extends Sprite {
         }
     }
     animateFrames(event) {
+        if (!event.update) {
+            return;
+        }
         if (this.animationFrame < this.maxAnimationFrame) {
             this.animationFrame++;
         }
@@ -32,6 +35,9 @@ export class AnimatedSprite extends Sprite {
         }
     }
     animateRows(event) {
+        if (!event.update) {
+            return;
+        }
         if (this.animationFrame < this.maxAnimationFrame) {
             this.animationFrame++;
         }

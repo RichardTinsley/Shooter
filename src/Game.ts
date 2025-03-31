@@ -14,7 +14,7 @@ export class Game {
     this.debug.draw(ctx);
   }
 
-  update(event: [boolean, number]): void {
+  update(event: { update: boolean; delta: number }): void {
     this.state.getCurrentState().update(event);
     this.debug.update();
   }

@@ -30,7 +30,7 @@ export class MenuButton {
     this.menuLabel.draw(ctx);
   }
 
-  update(event: [boolean, number]): void {
+  update(event: { update: boolean; delta: number }): void {
     this.menuLabel.update(event);
   }
 

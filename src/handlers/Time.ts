@@ -23,7 +23,7 @@ export class Time {
     return Time.INSTANCE;
   }
 
-  static update(time: number): [event: boolean, deltaTimeMultiplier: number] {
+  static update(time: number): { update: boolean; delta: number } {
     let event: boolean = false;
     const deltaTime: number = time - previousTime;
     deltaTimeMultiplier = deltaTime / FRAMES; // FOR OBJECT MOVEMENT
@@ -36,7 +36,7 @@ export class Time {
       eventTimer = 0;
       event = true;
     }
-    return [event, deltaTimeMultiplier];
+    return { update: event, delta: deltaTimeMultiplier };
   }
 
   static displayTimer() {

@@ -23,7 +23,7 @@ export class MovingSprite extends AnimatedSprite implements IMovingSprite {
     super.draw(ctx);
   }
 
-  update(event: [boolean, number]) {
+  update(event: { update: boolean; delta: number }) {
     super.update(event);
     this.updateMovement(event);
   }
@@ -38,7 +38,7 @@ export class MovingSprite extends AnimatedSprite implements IMovingSprite {
     return this;
   }
 
-  updateMovement(event: [boolean, number]) {
+  updateMovement(event: { update: boolean; delta: number }) {
     this.angle = giveAngle(this.destination, this.position);
     this.direction = giveDirection(this.angle);
 

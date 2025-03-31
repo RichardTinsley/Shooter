@@ -53,7 +53,7 @@ export class MainMenuGUI extends GUI {
     this.entities.forEach((entity) => entity.draw(ctx));
     drawCircleRadialGradient(ctx);
   }
-  update(event: [boolean, number]): void {
+  update(event: { update: boolean; delta: number }): void {
     super.update(event);
     this.entities.forEach((entity) => entity.update(event));
   }

@@ -28,7 +28,7 @@ export class Time {
             eventTimer = 0;
             event = true;
         }
-        return [event, deltaTimeMultiplier];
+        return { update: event, delta: deltaTimeMultiplier };
     }
     static displayTimer() {
         let seconds = totalSeconds % 60;

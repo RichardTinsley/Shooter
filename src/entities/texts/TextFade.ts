@@ -13,7 +13,7 @@ export class TextFade extends Text {
     super.draw(ctx);
   }
 
-  update(event: [boolean, number]) {
+  update(event: { update: boolean; delta: number }) {
     this.alpha = oscillate(OSCILLATIONS.COSINE, this.frequency, this.amplitude);
     this.alpha += 0.5;
   }

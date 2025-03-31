@@ -17,7 +17,7 @@ export class GUI {
     });
   }
 
-  update(event: [boolean, number]): void {
+  update(event: { update: boolean; delta: number }): void {
     this.menu.forEach((item: MenuButton) => {
       item.update(event);
     });

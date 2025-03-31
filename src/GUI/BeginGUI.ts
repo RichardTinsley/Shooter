@@ -21,7 +21,7 @@ export class BeginGUI extends GUI {
     super.draw(ctx);
     drawIntroLogo(ctx, this.title, this.dslogo);
   }
-  update(event: [boolean, number]): void {
+  update(event: { update: boolean; delta: number }): void {
     super.update(event);
   }
 

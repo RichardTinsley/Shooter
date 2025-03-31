@@ -9,7 +9,7 @@ export class BeginState implements IState {
     this.gui.draw(ctx);
   }
 
-  update(event: [boolean, number]): void {
+  update(event: { update: boolean; delta: number }): void {
     this.gui.update(event);
   }
 }

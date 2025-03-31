@@ -16,7 +16,7 @@ export class StatusBar {
         ctx.lineWidth = this.lineWidth;
         drawRectangle(ctx, this.position, this.statusBarLength, this.statusBarHeight, this.backgroundFillColour, this.backgroundStrokeColour);
     }
-    update() {
+    update(event) {
         return;
     }
     setPosition(position) {

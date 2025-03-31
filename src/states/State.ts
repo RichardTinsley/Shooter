@@ -8,7 +8,7 @@ export interface IState {
   gui: GUI;
 
   draw(ctx: CanvasRenderingContext2D): void;
-  update(event: [boolean, number]): void;
+  update(event: { update: boolean; delta: number }): void;
 }
 
 export class State {

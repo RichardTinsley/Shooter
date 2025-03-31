@@ -48,6 +48,7 @@ export const FILE_NAMES: Record<string, string> = {
   MUSIC_MAIN_MENU: "mainMenu.mp3",
 
   TOWER_AMETHYST_1: `${TOWERS.AMETHYST}${TYPES.TOWER}${URL_NUMBER.ONE}.png`,
+  
   PROJECTILE_SAPPHIRE_1: "Iceball_84x9.png",
 };
 
