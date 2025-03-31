@@ -14,7 +14,7 @@ export class Sprite {
     draw(ctx) {
         ctx.drawImage(this.image, this.spriteWidth * this.animationFrame, this.spriteHeight * this.animationRow, this.spriteWidth, this.spriteHeight, this.drawPositionX, this.drawPositionY, this.width, this.height);
     }
-    update(event) {
+    update() {
         return;
     }
     setImage(fileName) {

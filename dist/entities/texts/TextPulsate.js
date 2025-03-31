@@ -9,7 +9,7 @@ export class TextPulsate extends Text {
     draw(ctx) {
         super.draw(ctx);
     }
-    update(event) {
+    update() {
         this.size = oscillate(1, this.frequency, this.amplitude);
         this.size += 80;
     }

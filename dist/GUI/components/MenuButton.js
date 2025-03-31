@@ -19,8 +19,8 @@ export class MenuButton {
     draw(ctx) {
         this.menuLabel.draw(ctx);
     }
-    update(event) {
-        this.menuLabel.update(event);
+    update() {
+        this.menuLabel.update();
     }
     setPosition(position) {
         this.menuLabel.setPosition(position);

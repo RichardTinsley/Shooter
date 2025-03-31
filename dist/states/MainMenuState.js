@@ -7,8 +7,8 @@ export class MainMenuState {
     draw(ctx) {
         this.gui.draw(ctx);
     }
-    update(event) {
-        this.gui.update(event);
+    update() {
+        this.gui.update();
     }
 }
 //# sourceMappingURL=MainMenuState.js.map

@@ -11,8 +11,8 @@ export class Enemy extends MovingSprite {
         super.draw(ctx);
         this.contextRestore(ctx);
     }
-    update(event) {
-        super.update(event);
+    update() {
+        super.update();
         this.checkWaypointArrival();
         this.checkEndpointArrival();
     }

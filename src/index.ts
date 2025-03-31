@@ -12,7 +12,7 @@ class Main {
 
   private frame = (time: number): void => {
     this.game.draw(ctx);
-    this.game.update(time);
+    this.game.update();
     requestAnimationFrame(this.frame);
   };
 }

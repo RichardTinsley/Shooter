@@ -9,7 +9,7 @@ export class TextFade extends Text {
     draw(ctx) {
         super.draw(ctx);
     }
-    update(event) {
+    update() {
         this.alpha = oscillate(1, this.frequency, this.amplitude);
         this.alpha += 0.5;
     }

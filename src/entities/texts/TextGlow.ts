@@ -19,7 +19,7 @@ export class TextGlow extends Text {
     ctx.shadowBlur = 0;
   }
 
-  update(event: { update: boolean; delta: number }) {
+  update() {
     switch (this.state) {
       case ANIMATION.ANIMATING:
         this.glowChanger();

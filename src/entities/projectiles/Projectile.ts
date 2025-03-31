@@ -17,8 +17,8 @@ export class Projectile extends MovingSprite {
     ctx.restore();
   }
 
-  update(event: { update: boolean; delta: number }) {
-    super.update(event);
+  update() {
+    super.update();
     this.updateSpriteDrawPosition();
     // this.setDestination(this.enemy.center);
   }

@@ -15,7 +15,7 @@ export class TextGlow extends Text {
         super.draw(ctx);
         ctx.shadowBlur = 0;
     }
-    update(event) {
+    update() {
         switch (this.state) {
             case ANIMATION.ANIMATING:
                 this.glowChanger();

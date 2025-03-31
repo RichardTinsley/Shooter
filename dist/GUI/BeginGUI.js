@@ -18,8 +18,8 @@ export class BeginGUI extends GUI {
         super.draw(ctx);
         drawIntroLogo(ctx, this.title, this.dslogo);
     }
-    update(event) {
-        super.update(event);
+    update() {
+        super.update();
     }
     initialiseMenu() {
         const beginButton = new MenuButton(TextFactory.textPulsate().setSize(SIZES.TEXT_MENUITEM), this.state, this.state.setMainMenuState, LABELS.BEGIN).setPosition({ x: SIZES.GAME_WIDTH_HALF, y: SIZES.GAME_HEIGHT - 120 });

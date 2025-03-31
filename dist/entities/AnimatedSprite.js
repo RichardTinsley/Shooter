@@ -1,3 +1,4 @@
+import { Time } from "../handlers/Time.js";
 import { Sprite } from "./Sprite.js";
 export class AnimatedSprite extends Sprite {
     constructor(fileName, spriteWidth, spriteHeight) {
@@ -13,20 +14,19 @@ export class AnimatedSprite extends Sprite {
     draw(ctx) {
         super.draw(ctx);
     }
-    update(event) {
+    update() {
+        if (!Time.eventUpdate)
+            return;
         switch (this.state) {
             case 0:
-                this.animateFrames(event);
+                this.animateFrames();
                 break;
             case 1:
-                this.animateRows(event);
+                this.animateRows();
                 break;
         }
     }
-    animateFrames(event) {
-        if (!event.update) {
-            return;
-        }
+    animateFrames() {
         if (this.animationFrame < this.maxAnimationFrame) {
             this.animationFrame++;
         }
@@ -34,10 +34,7 @@ export class AnimatedSprite extends Sprite {
             this.animationFrame = 0;
         }
     }
-    animateRows(event) {
-        if (!event.update) {
-            return;
-        }
+    animateRows() {
         if (this.animationFrame < this.maxAnimationFrame) {
             this.animationFrame++;
         }

@@ -22,8 +22,6 @@ export class Mouse {
     window.addEventListener("mousemove", (e) => {
       this.cursor.x = e.offsetX;
       this.cursor.y = e.offsetY;
-      // this.setCursor(e);
-      // this.mouseOverItem = this.mouseOverMenuButton(state.getCurrentState());
     });
 
     window.addEventListener("click", () => {
@@ -55,10 +53,6 @@ export class Mouse {
   }
 
   setCursor() {
-    // setCursor(e: MouseEvent): void {
-    // this.cursor.x = e.offsetX;
-    // this.cursor.y = e.offsetY;
-
     let style = "Plain";
     if (this.mouseOverItem instanceof MenuButton) style = "MenuItem";
 

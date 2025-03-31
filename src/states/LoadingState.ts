@@ -13,8 +13,8 @@ export class LoadingState implements IState {
     this.gui.draw(ctx);
   }
 
-  update(event: { update: boolean; delta: number }): void {
-    this.gui.update(event);
+  update(): void {
+    this.gui.update();
   }
 
   async loadAssets() {

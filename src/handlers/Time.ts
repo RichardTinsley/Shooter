@@ -1,19 +1,23 @@
-const SECOND: number = 1000;
 const FRAMES: number = 60;
 
 let previousTime: number = 0;
 let eventTimer: number = 0;
-let totalSeconds: number;
 let timeout: number;
-let deltaTimeMultiplier: number;
 
 export class Time {
   private static INSTANCE: Time;
+  static totalSeconds: number = 0; //+8000s for over 2 hours
+  static deltaTimeMultiplier: number = 0;
+  static eventUpdate: boolean = false;
 
   private constructor() {
-    window.addEventListener("visibilitychange", () =>
-      this.visibilityStateTimer()
-    );
+    window.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "visible") {
+        this.startTimer();
+      } else if (document.visibilityState === "hidden") {
+        this.pauseTimer();
+      }
+    });
   }
 
   static create() {
@@ -23,56 +27,42 @@ export class Time {
     return Time.INSTANCE;
   }
 
-  static update(time: number): { update: boolean; delta: number } {
-    let event: boolean = false;
-    const deltaTime: number = time - previousTime;
-    deltaTimeMultiplier = deltaTime / FRAMES; // FOR OBJECT MOVEMENT
-    previousTime = time;
+  update() {
+    const deltaTime: number = Math.round(performance.now()) - previousTime;
+    Time.deltaTimeMultiplier = deltaTime / FRAMES;
+    previousTime = Math.round(performance.now());
 
     if (eventTimer < FRAMES) {
       eventTimer += deltaTime;
-      event = false;
+      Time.eventUpdate = false;
     } else {
       eventTimer = 0;
-      event = true;
+      Time.eventUpdate = true;
     }
-    return { update: event, delta: deltaTimeMultiplier };
   }
 
   static displayTimer() {
-    let seconds = totalSeconds % 60;
-    let minutes = Math.floor(totalSeconds / 60) % 60;
-    let hours = Math.floor(totalSeconds / 60 / 60);
+    let seconds = Time.totalSeconds % 60;
+    let minutes = Math.floor(Time.totalSeconds / 60) % 60;
+    let hours = Math.floor(Time.totalSeconds / 60 / 60);
     const minuteString: string = String(minutes < 10 ? "0" + minutes : minutes);
     const secondString: string = String(seconds < 10 ? "0" + seconds : seconds);
-    return `${hours} : ${minutes} : ${seconds}`;
-  }
-
-  visibilityStateTimer() {
-    if (document.visibilityState === "visible") {
-      this.startTimer();
-    } else if (document.visibilityState === "hidden") {
-      this.pauseTimer();
-    }
+    return `${hours} : ${minuteString} : ${secondString}`;
   }
 
   startTimer() {
     timeout = setInterval(() => {
-      totalSeconds++;
+      Time.totalSeconds++;
     }, 1000);
-
-    console.log("START");
   }
 
   pauseTimer() {
     clearInterval(timeout);
-    console.log("PAUSE");
   }
 
   resetTimer() {
-    totalSeconds = 0;
+    Time.totalSeconds = 0;
     clearInterval(timeout);
     this.startTimer();
-    // totalSeconds = 8000; //+8000s for over 2 hours
   }
 }

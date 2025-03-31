@@ -6,7 +6,7 @@ class Main {
         this.game = new Game();
         this.frame = (time) => {
             this.game.draw(ctx);
-            this.game.update(time);
+            this.game.update();
             requestAnimationFrame(this.frame);
         };
         requestAnimationFrame(this.frame);

@@ -1,4 +1,5 @@
 import { Position } from "../../constants/types.js";
+import { Time } from "../../handlers/Time.js";
 import { checkCircleCollision } from "../../utilities/collisionDetection.js";
 import { MovingSprite } from "../MovingSprite.js";
 
@@ -26,8 +27,8 @@ export class Enemy extends MovingSprite {
     this.contextRestore(ctx);
   }
 
-  update(event: { update: boolean; delta: number }) {
-    super.update(event);
+  update() {
+    super.update();
     this.checkWaypointArrival();
     this.checkEndpointArrival();
   }

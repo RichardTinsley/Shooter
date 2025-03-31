@@ -16,8 +16,9 @@ export class Game {
     this.debug.draw(ctx);
   }
 
-  update(time: number): void {
-    this.state.getCurrentState().update(Time.update(time));
+  update(): void {
+    this.time.update();
+    this.state.getCurrentState().update();
     this.debug.update();
     this.mouse.update(this.state);
   }

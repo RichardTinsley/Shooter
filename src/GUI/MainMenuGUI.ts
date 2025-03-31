@@ -30,13 +30,13 @@ export class MainMenuGUI extends GUI {
   )
     .setPosition(this.waypoints[0])
     .setDestination(this.waypoints[0])
-    .setSpeed(80)
+    .setSpeed(2)
     .setScale(1);
 
   private tower = new Projectile(FILE_NAMES.TOWER_AMETHYST_1, 64, 64)
     .setPosition(this.waypoints[0])
     .setDestination(this.waypoints[7])
-    .setSpeed(3)
+    .setSpeed(0.5)
     .setScale(1);
 
   music = new Music();
@@ -45,8 +45,6 @@ export class MainMenuGUI extends GUI {
     super(state);
     this.menu = this.initialiseVerticalMenu(this.menuTemplate, 400);
     this.entities.push(this.projectile, this.tower);
-
-    // this.music.playTrack();
   }
 
   draw(ctx: CanvasRenderingContext2D): void {
@@ -54,8 +52,8 @@ export class MainMenuGUI extends GUI {
     this.entities.forEach((entity) => entity.draw(ctx));
     drawCircleRadialGradient(ctx);
   }
-  update(event: { update: boolean; delta: number }): void {
-    super.update(event);
-    this.entities.forEach((entity) => entity.update(event));
+  update(): void {
+    super.update();
+    this.entities.forEach((entity) => entity.update());
   }
 }

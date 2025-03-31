@@ -1,3 +1,4 @@
+import { Time } from "../handlers/Time.js";
 import { IAnimatedSprite } from "../interfaces/IEntity.js";
 import { Sprite } from "./Sprite.js";
 
@@ -37,22 +38,20 @@ export class AnimatedSprite extends Sprite implements IAnimatedSprite {
     super.draw(ctx);
   }
 
-  update(event: { update: boolean; delta: number }) {
+  update() {
+    if (!Time.eventUpdate) return;
+
     switch (this.state) {
       case SPRITE_STATE.ANIMATE_FRAMES:
-        this.animateFrames(event);
+        this.animateFrames();
         break;
       case SPRITE_STATE.ANIMATE_ROWS:
-        this.animateRows(event);
+        this.animateRows();
         break;
     }
   }
 
-  animateFrames(event: { update: boolean; delta: number }): void {
-    if (!event.update) {
-      return;
-    }
-
+  animateFrames(): void {
     if (this.animationFrame < this.maxAnimationFrame) {
       this.animationFrame++;
     } else {
@@ -60,11 +59,7 @@ export class AnimatedSprite extends Sprite implements IAnimatedSprite {
     }
   }
 
-  animateRows(event: { update: boolean; delta: number }) {
-    if (!event.update) {
-      return;
-    }
-
+  animateRows() {
     if (this.animationFrame < this.maxAnimationFrame) {
       this.animationFrame++;
     } else {

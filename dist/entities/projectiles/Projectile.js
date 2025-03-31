@@ -11,8 +11,8 @@ export class Projectile extends MovingSprite {
         super.draw(ctx);
         ctx.restore();
     }
-    update(event) {
-        super.update(event);
+    update() {
+        super.update();
         this.updateSpriteDrawPosition();
     }
 }

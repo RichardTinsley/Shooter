@@ -22,7 +22,7 @@ export class Text implements IText {
     ctx.fillText(this.text, this.position.x, this.position.y);
   }
 
-  update(event: { update: boolean; delta: number }): void {}
+  update(): void {}
 
   getText(): string {
     return this.text;
