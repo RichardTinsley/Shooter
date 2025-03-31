@@ -1,4 +1,5 @@
 import { checkHitBoxCollision } from "../utilities/collisionDetection.js";
+import { MenuButton } from "../GUI/components/MenuButton.js";
 import { ANIMATION } from "../constants/animation.js";
 const mouseSize = 3;
 export class Mouse {
@@ -28,6 +29,7 @@ export class Mouse {
             }
             else {
                 item.mouseOver(ANIMATION.FINISHED);
+                this.mouseOverItem = undefined;
             }
         });
     }
@@ -39,6 +41,10 @@ export class Mouse {
     setCursor(e) {
         this.cursor.x = e.offsetX;
         this.cursor.y = e.offsetY;
+        let style = "Plain";
+        if (this.mouseOverItem instanceof MenuButton)
+            style = "MenuItem";
+        this.cursor.style.cursor = `url(../../images/cursors/${style}.cur), auto`;
     }
     getCursor() {
         return this.cursor;

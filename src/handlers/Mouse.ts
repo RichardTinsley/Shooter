@@ -36,6 +36,7 @@ export class Mouse {
         return item;
       } else {
         item.mouseOver(ANIMATION.FINISHED);
+        this.mouseOverItem = undefined;
       }
     });
   }
@@ -49,6 +50,11 @@ export class Mouse {
   setCursor(e: MouseEvent): void {
     this.cursor.x = e.offsetX;
     this.cursor.y = e.offsetY;
+
+    let style = "Plain";
+    if (this.mouseOverItem instanceof MenuButton) style = "MenuItem";
+
+    this.cursor.style.cursor = `url(../../images/cursors/${style}.cur), auto`;
   }
 
   getCursor(): Cursor {

@@ -33,8 +33,8 @@ export class Enemy extends MovingSprite {
   }
 
   checkWaypointArrival() {
-    if (checkCircleCollision(this.position, this.destination, 5, 5)) {
-      this.destination = this.waypoints[(this.waypointIndex += 1)];
+    if (checkCircleCollision(this.position, this.destination, 5, 10)) {
+      this.setDestination(this.waypoints[(this.waypointIndex += 1)]);
     }
   }
 
