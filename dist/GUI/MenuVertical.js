@@ -1,11 +1,14 @@
 import { MenuButton } from "./components/MenuButton.js";
 import { SIZES } from "../constants/game.js";
 import { Menu } from "./Menu.js";
-import { MenuLabelBuilder } from "./MenuLabelBuilder.js";
+import { LABELS, MenuLabelBuilder } from "./MenuLabelBuilder.js";
 export class MenuVertical extends Menu {
-    constructor(state, template, position) {
+    constructor(state, position) {
         super();
-        this.menuItems = this.initialiseVerticalMenu(state, template, position);
+        const menuTemplate = [
+            { state: state.setMainMenuState, label: LABELS.BEGIN },
+        ];
+        this.menuItems = this.initialiseVerticalMenu(state, menuTemplate, position);
     }
     initialiseVerticalMenu(state, menuTemplate, menuPosition) {
         return menuTemplate.map((item, index) => {

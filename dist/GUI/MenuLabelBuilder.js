@@ -23,12 +23,12 @@ export class MenuLabelBuilder {
                 break;
             case LABELS.OPTIONS:
                 text = TextFactory.textGlow()
-                    .setText(LABELS.NEWGAME)
+                    .setText(LABELS.OPTIONS)
                     .setSize(SIZES.TEXT_MENUITEM);
                 break;
             case LABELS.ABOUT:
                 text = TextFactory.textGlow()
-                    .setText(LABELS.NEWGAME)
+                    .setText(LABELS.ABOUT)
                     .setSize(SIZES.TEXT_MENUITEM);
                 break;
         }
