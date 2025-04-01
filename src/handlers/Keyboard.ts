@@ -1,4 +1,4 @@
-import { State } from "../states/State.js";
+import { Screen } from "../screens/Screen.js";
 import { Debug } from "./Debug.js";
 
 const KEYBOARD = {
@@ -11,7 +11,7 @@ const KEYBOARD = {
 const keys: Set<string> = new Set();
 
 export class Keyboard {
-  constructor(public state: State, public debug: Debug) {
+  constructor(public state: Screen, public debug: Debug) {
     window.addEventListener("keydown", (e) => {
       keys.add(e.key.toLowerCase());
     });

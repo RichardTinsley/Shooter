@@ -1,13 +1,13 @@
 import { load, assetListLength } from "../utilities/assetLoaders.js";
 import { ALL_ASSETS } from "../constants/assets.js";
-import { State, IState } from "./State.js";
+import { Screen, IScreenState } from "./Screen.js";
 import { SIZES } from "../constants/game.js";
 import { TextFactory } from "../entities/texts/TextFactory.js";
 import { LoadingBar } from "../GUI/components/LoadingBar.js";
 import { drawIntroScreen } from "../GUI/layouts/drawTitleScreen.js";
 import { Menu } from "../GUI/menus/Menu.js";
 
-export class LoadingState implements IState {
+export class LoadingScreen implements IScreenState {
   private summoning: any = TextFactory.textFade()
     .setPosition({ x: SIZES.GAME_WIDTH_HALF, y: SIZES.GAME_HEIGHT - 130 })
     .setText("Summoning...")
@@ -19,7 +19,7 @@ export class LoadingState implements IState {
 
   menu!: Menu;
 
-  constructor(public state: State) {
+  constructor(public screen: Screen) {
     this.loadAssets();
   }
 
@@ -47,7 +47,7 @@ export class LoadingState implements IState {
     this.loadingBar.setCurrentStatus(1);
     console.log(`${fileName.fileName} Loaded.`);
     if (this.loadingBar.getCurrentStatus() === assetListLength)
-      this.state.setBeginState();
+      this.screen.setBeginningScreen();
   };
 }
 function drawIntroLogo(ctx: CanvasRenderingContext2D, title: any) {

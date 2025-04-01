@@ -1,6 +1,6 @@
 import { MenuButton } from "./MenuButton.js";
 import { SIZES } from "../../constants/game.js";
-import { State } from "../../states/State.js";
+import { Screen } from "../../screens/Screen.js";
 import { Menu } from "./Menu.js";
 import { MenuLabelBuilder } from "./MenuLabelBuilder.js";
 import { MenuTemplate } from "../../constants/types.js";
@@ -11,7 +11,7 @@ export class VerticalMenu extends Menu {
   }
 
   initialiseVerticalMenu(
-    state: State,
+    state: Screen,
     menuTemplate: Array<MenuTemplate>,
     menuPosition: number
   ): Array<MenuButton> {

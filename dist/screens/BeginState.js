@@ -14,4 +14,4 @@ export class BeginningScreen {
         this.menu.update();
     }
 }
-//# sourceMappingURL=BeginScreen.js.map
+//# sourceMappingURL=BeginState.js.map

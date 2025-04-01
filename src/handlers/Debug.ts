@@ -2,7 +2,7 @@ import { SIZES } from "../constants/game.js";
 import { COLOURS } from "../constants/colours.js";
 import { TextFactory } from "../entities/texts/TextFactory.js";
 import { MenuButton } from "../GUI/menus/MenuButton.js";
-import { State } from "../states/State.js";
+import { Screen } from "../screens/Screen.js";
 import { Mouse } from "./Mouse.js";
 
 export class Debug {
@@ -13,7 +13,7 @@ export class Debug {
 
   private FPS: any = TextFactory.createTextPlain();
 
-  constructor(public state: State, public mouse: Mouse) {
+  constructor(public state: Screen, public mouse: Mouse) {
     this.FPS.setPosition(16, 64);
   }
 

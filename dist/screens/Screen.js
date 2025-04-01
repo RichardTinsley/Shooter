@@ -1,19 +1,17 @@
+import { BeginningScreen } from "./BeginScreen.js";
+import { LoadingScreen } from "./LoadingScreen.js";
+import { MainMenuScreen } from "./MainMenuScreen.js";
 export class Screen {
     constructor() {
-        this.menu = [];
+        this.currentScreen = new LoadingScreen(this);
+        this.setBeginningScreen = () => (this.currentScreen = new BeginningScreen(this));
+        this.setMainMenuScreen = () => (this.currentScreen = new MainMenuScreen(this));
+        this.setNewGameScreen = () => (this.currentScreen = new BeginningScreen(this));
+        this.setOptionsScreen = () => (this.currentScreen = new BeginningScreen(this));
+        this.setAboutScreen = () => (this.currentScreen = new BeginningScreen(this));
     }
-    draw(ctx) {
-        this.menu.forEach((item) => {
-            item.draw(ctx);
-        });
-    }
-    update() {
-        this.menu.forEach((item) => {
-            item.update();
-        });
-    }
-    getMenu() {
-        return this.menu;
+    getCurrentState() {
+        return this.currentScreen;
     }
 }
 //# sourceMappingURL=Screen.js.map

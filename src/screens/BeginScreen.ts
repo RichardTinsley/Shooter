@@ -2,13 +2,13 @@ import { SIZES } from "../constants/game.js";
 import { drawIntroScreen } from "../GUI/layouts/drawTitleScreen.js";
 import { BeginMenu } from "../GUI/menus/BeginMenu.js";
 import { Menu } from "../GUI/menus/Menu.js";
-import { State, IState } from "./State.js";
+import { Screen, IScreenState } from "./Screen.js";
 
-export class BeginState implements IState {
+export class BeginningScreen implements IScreenState {
   menu: Menu;
 
-  constructor(public state: State) {
-    this.menu = new BeginMenu(state, SIZES.GAME_HEIGHT - 120);
+  constructor(public screen: Screen) {
+    this.menu = new BeginMenu(screen, SIZES.GAME_HEIGHT - 120);
   }
 
   draw(ctx: CanvasRenderingContext2D): void {

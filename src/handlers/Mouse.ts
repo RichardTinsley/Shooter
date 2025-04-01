@@ -1,4 +1,4 @@
-import { IState, State } from "../states/State.js";
+import { IScreenState, Screen } from "../screens/Screen.js";
 import { Cursor } from "../constants/types.js";
 import { checkHitBoxCollision } from "../utilities/collisionDetection.js";
 import { MenuButton } from "../GUI/menus/MenuButton.js";
@@ -18,7 +18,7 @@ export class Mouse {
 
   mouseOverItem: MenuButton | undefined = undefined;
 
-  constructor(state: State) {
+  constructor(state: Screen) {
     window.addEventListener("mousemove", (e) => {
       this.cursor.x = e.offsetX;
       this.cursor.y = e.offsetY;
@@ -29,12 +29,12 @@ export class Mouse {
     });
   }
 
-  update(state: State) {
+  update(state: Screen) {
     this.mouseOverMenuButton(state.getCurrentState());
     this.setCursor();
   }
 
-  mouseOverMenuButton(state: IState) {
+  mouseOverMenuButton(state: IScreenState) {
     this.mouseOverItem = undefined;
     state.menu?.getMenu().forEach((item: MenuButton) => {
       if (checkHitBoxCollision(this.cursor, item.hitBox)) {

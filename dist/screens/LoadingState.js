@@ -54,4 +54,4 @@ export class LoadingScreen {
 function drawIntroLogo(ctx, title) {
     throw new Error("Function not implemented.");
 }
-//# sourceMappingURL=LoadingScreen.js.map
+//# sourceMappingURL=LoadingState.js.map

@@ -1,6 +1,6 @@
 import { SIZES } from "../../constants/game.js";
 import { Position, HitBox } from "../../constants/types.js";
-import { State } from "../../states/State.js";
+import { Screen } from "../../screens/Screen.js";
 import { Text } from "../../entities/texts/Text.js";
 
 export class MenuButton {
@@ -11,7 +11,7 @@ export class MenuButton {
 
   constructor(
     public menuLabel: Text,
-    public state: State,
+    public state: Screen,
     public setState: Function
   ) {
     this.width = this.menuLabel.getText().length * (this.size / 1.75);

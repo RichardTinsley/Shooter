@@ -1,13 +1,12 @@
 import { SIZES } from "../constants/game.js";
 import { MainMenu } from "../GUI/menus/MainMenu.js";
-import { State, IState } from "./State.js";
+import { Screen, IScreenState } from "./Screen.js";
 
-export class MainMenuState implements IState {
+export class MainMenuScreen implements IScreenState {
   menu;
 
-  constructor(public state: State) {
-    this.menu = new MainMenu(state, 400);
-    console.log(this.menu);
+  constructor(public screen: Screen) {
+    this.menu = new MainMenu(screen, 400);
   }
 
   draw(ctx: CanvasRenderingContext2D): void {
