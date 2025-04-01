@@ -5,7 +5,7 @@ import { SIZES } from "../constants/game.js";
 import { TextFactory } from "../entities/texts/TextFactory.js";
 import { LoadingBar } from "../GUI/components/LoadingBar.js";
 import { drawIntroScreen } from "../GUI/layouts/drawTitleScreen.js";
-import { Menu } from "../GUI/Menu.js";
+import { Menu } from "../GUI/menus/Menu.js";
 
 export class LoadingState implements IState {
   private summoning: any = TextFactory.textFade()

@@ -1,11 +1,11 @@
-import { MenuTemplate } from "../constants/types.js";
-import { State } from "../states/State.js";
+import { MenuTemplate } from "../../constants/types.js";
+import { State } from "../../states/State.js";
 import { LABELS } from "./MenuLabelBuilder.js";
-import { MenuVertical } from "./MenuVertical.js";
+import { VerticalMenu } from "./VerticalMenu.js";
 
-export class MainMenu extends MenuVertical {
+export class MainMenu extends VerticalMenu {
   constructor(state: State, position: number) {
-    super(state, position);
+    super();
 
     const menuTemplate: Array<MenuTemplate> = [
       { state: state.setNewGameState, label: LABELS.NEWGAME },

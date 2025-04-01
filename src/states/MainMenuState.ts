@@ -1,5 +1,5 @@
 import { SIZES } from "../constants/game.js";
-import { MainMenu } from "../GUI/MenuMainMenu.js";
+import { MainMenu } from "../GUI/menus/MainMenu.js";
 import { State, IState } from "./State.js";
 
 export class MainMenuState implements IState {
@@ -7,6 +7,7 @@ export class MainMenuState implements IState {
 
   constructor(public state: State) {
     this.menu = new MainMenu(state, 400);
+    console.log(this.menu);
   }
 
   draw(ctx: CanvasRenderingContext2D): void {

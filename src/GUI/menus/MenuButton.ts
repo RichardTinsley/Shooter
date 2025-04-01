@@ -14,7 +14,6 @@ export class MenuButton {
     public state: State,
     public setState: Function
   ) {
-    this.menuLabel;
     this.width = this.menuLabel.getText().length * (this.size / 1.75);
   }
 

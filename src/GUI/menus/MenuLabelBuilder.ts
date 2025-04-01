@@ -1,5 +1,5 @@
-import { SIZES } from "../constants/game.js";
-import { TextFactory } from "../entities/texts/TextFactory.js";
+import { SIZES } from "../../constants/game.js";
+import { TextFactory } from "../../entities/texts/TextFactory.js";
 
 export enum LABELS {
   BEGIN = "Begin!",

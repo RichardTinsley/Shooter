@@ -1,4 +1,4 @@
-import { MenuButton } from "./components/MenuButton.js";
+import { MenuButton } from "./MenuButton.js";
 
 export class Menu {
   protected menuItems: Array<MenuButton> = [];

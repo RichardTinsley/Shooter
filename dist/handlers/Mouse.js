@@ -1,5 +1,5 @@
 import { checkHitBoxCollision } from "../utilities/collisionDetection.js";
-import { MenuButton } from "../GUI/components/MenuButton.js";
+import { MenuButton } from "../GUI/menus/MenuButton.js";
 import { ANIMATION } from "../constants/animation.js";
 const mouseSize = 3;
 export class Mouse {
@@ -27,20 +27,21 @@ export class Mouse {
     }
     mouseOverMenuButton(state) {
         var _a;
-        (_a = state.menu) === null || _a === void 0 ? void 0 : _a.getMenu().find((item) => {
+        this.mouseOverItem = undefined;
+        (_a = state.menu) === null || _a === void 0 ? void 0 : _a.getMenu().forEach((item) => {
             if (checkHitBoxCollision(this.cursor, item.hitBox)) {
                 item.mouseOver(ANIMATION.ANIMATING);
                 this.mouseOverItem = item;
             }
             else {
                 item.mouseOver(ANIMATION.FINISHED);
-                this.mouseOverItem = undefined;
             }
         });
     }
     mouseClick() {
         if (this.mouseOverItem) {
             this.mouseOverItem.changeState();
+            this.mouseOverItem = undefined;
         }
     }
     setCursor() {

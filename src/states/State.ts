@@ -1,4 +1,4 @@
-import { Menu } from "../GUI/Menu.js";
+import { Menu } from "../GUI/menus/Menu.js";
 import { BeginState } from "./BeginState.js";
 import { LoadingState } from "./LoadingState.js";
 import { MainMenuState } from "./MainMenuState.js";

@@ -1,7 +1,7 @@
 import { IState, State } from "../states/State.js";
 import { Cursor } from "../constants/types.js";
 import { checkHitBoxCollision } from "../utilities/collisionDetection.js";
-import { MenuButton } from "../GUI/components/MenuButton.js";
+import { MenuButton } from "../GUI/menus/MenuButton.js";
 import { ANIMATION } from "../constants/animation.js";
 
 const mouseSize: number = 3;
@@ -35,13 +35,13 @@ export class Mouse {
   }
 
   mouseOverMenuButton(state: IState) {
-    state.menu?.getMenu().find((item: MenuButton) => {
+    this.mouseOverItem = undefined;
+    state.menu?.getMenu().forEach((item: MenuButton) => {
       if (checkHitBoxCollision(this.cursor, item.hitBox)) {
         item.mouseOver(ANIMATION.ANIMATING);
         this.mouseOverItem = item;
       } else {
         item.mouseOver(ANIMATION.FINISHED);
-        this.mouseOverItem = undefined;
       }
     });
   }
@@ -49,6 +49,7 @@ export class Mouse {
   mouseClick() {
     if (this.mouseOverItem) {
       this.mouseOverItem.changeState();
+      this.mouseOverItem = undefined;
     }
   }
 
