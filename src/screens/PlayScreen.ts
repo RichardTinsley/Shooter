@@ -31,4 +31,8 @@ export class PlayScreen implements IScreenState {
     this.level.update();
     this.entities.forEach((entity) => entity.update());
   }
+
+  getArray(): Array<any> {
+    return this.entities;
+  }
 }

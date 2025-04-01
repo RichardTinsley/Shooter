@@ -19,6 +19,12 @@ export type HitBox = {
   height: number;
 };
 
+export type HitCircle = {
+  x: number;
+  y: number;
+  radius: number;
+};
+
 export type MenuTemplate = {
   state: Function;
   label: string;

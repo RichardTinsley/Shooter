@@ -12,5 +12,8 @@ export class MainMenuScreen {
     update() {
         this.menu.update();
     }
+    getArray() {
+        return [];
+    }
 }
 //# sourceMappingURL=MainMenuScreen.js.map

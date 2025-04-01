@@ -10,6 +10,7 @@ export interface IScreenState {
 
   draw(ctx: CanvasRenderingContext2D): void;
   update(): void;
+  getArray(): Array<any>;
 }
 
 export class Screen {

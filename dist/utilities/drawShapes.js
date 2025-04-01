@@ -33,4 +33,19 @@ export function drawCircleRadialGradient(ctx) {
     ctx.fill();
     ctx.stroke();
 }
+export function drawDot(ctx, item, colour) {
+    ctx.fillStyle = colour;
+    ctx.fillRect(item.x - 2, item.y - 2, 4, 4);
+}
+export function drawCircleHitbox(ctx, item, drawDot) {
+    ctx.beginPath();
+    ctx.arc(item.x, item.y, item.radius, 0, Math.PI * 2);
+    ctx.fillStyle = COLOURS.RED_ALPHA;
+    ctx.fill();
+    drawDot(ctx, item, COLOURS.RED);
+}
+export function drawSquareHitBox(ctx, item) {
+    ctx.fillStyle = COLOURS.RED_ALPHA;
+    ctx.fillRect(item.x, item.y, item.width, item.height);
+}
 //# sourceMappingURL=drawShapes.js.map

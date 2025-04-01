@@ -1,6 +1,8 @@
 import { SIZES } from "../constants/game.js";
 import { COLOURS } from "../constants/colours.js";
 import { TextFactory } from "../entities/texts/TextFactory.js";
+import { PlayScreen } from "../screens/PlayScreen.js";
+import { drawDot, drawCircleHitbox, drawSquareHitBox, } from "../utilities/drawShapes.js";
 export class Debug {
     constructor(state, mouse) {
         this.state = state;
@@ -13,15 +15,18 @@ export class Debug {
         this.switchDebugMode = () => {
             this.isDebugMode = !this.isDebugMode;
         };
-        this.FPS.setPosition(16, 64);
+        this.FPS.setPosition({ x: SIZES.TILE_HALF / 2, y: SIZES.TILE * 4 });
     }
     draw(ctx) {
         var _a;
         if (!this.isDebugMode)
             return;
-        this.drawLevelDebugInfoGrid(ctx);
+        if (this.state.getCurrentState() instanceof PlayScreen) {
+            this.drawLevelDebugInfoGrid(ctx);
+            this.drawEntitiesDebugInfo(ctx, this.state.getCurrentState().getArray());
+        }
         this.drawMouseDebugInfo(ctx);
-        this.drawMenuDebugInfo(ctx, (_a = this.state.getCurrentState().menu) === null || _a === void 0 ? void 0 : _a.getMenu());
+        this.drawMenuDebugInfo(ctx, (_a = this.state.getCurrentState().menu) === null || _a === void 0 ? void 0 : _a.getMenuItemsArray());
         this.drawPerformanceDebugInfo(ctx);
     }
     update() {
@@ -53,11 +58,21 @@ export class Debug {
         if (!menu)
             return;
         menu.forEach((item) => {
-            this.drawSquareHitBox(ctx, item.hitBox);
+            drawSquareHitBox(ctx, item.hitBox);
         });
     }
     drawMouseDebugInfo(ctx) {
-        this.drawDot(ctx, this.mouse.getCursor(), COLOURS.RED);
+        drawDot(ctx, this.mouse.getCursor(), COLOURS.RED);
+    }
+    drawEntitiesDebugInfo(ctx, entities) {
+        entities.forEach((entity) => {
+            var _a;
+            drawDot(ctx, entity.position, COLOURS.BLUE);
+            drawCircleHitbox(ctx, entity.hitCircle, drawDot);
+            (_a = entity.waypoints) === null || _a === void 0 ? void 0 : _a.forEach((waypoint) => {
+                drawDot(ctx, waypoint, COLOURS.BRIGHT_GREEN);
+            });
+        });
     }
     drawLevelDebugInfoGrid(ctx) {
         ctx.strokeStyle = COLOURS.LINES;
@@ -76,32 +91,6 @@ export class Debug {
             ctx.stroke();
             ctx.closePath();
         }
-    }
-    drawEntitiesDebugInfo(ctx, entities) {
-        entities.forEach((entity) => {
-            this.drawDot(ctx, entity.position, COLOURS.BLUE);
-            if (entity.waypoints)
-                entity.waypoints.forEach((waypoint) => {
-                    this.drawDot(ctx, waypoint, COLOURS.BRIGHT_GREEN);
-                });
-            if (entity.muzzle)
-                this.drawDot(ctx, entity.muzzle, COLOURS.YELLOW);
-        });
-    }
-    drawDot(ctx, item, colour) {
-        ctx.fillStyle = colour;
-        ctx.fillRect(item.x - 2, item.y - 2, 4, 4);
-    }
-    drawCircleHitbox(ctx, item) {
-        ctx.beginPath();
-        ctx.arc(item.x, item.y, item.radius, 0, Math.PI * 2);
-        ctx.fillStyle = COLOURS.RED_ALPHA;
-        ctx.fill();
-        this.drawDot(ctx, item, COLOURS.RED);
-    }
-    drawSquareHitBox(ctx, item) {
-        ctx.fillStyle = COLOURS.RED_ALPHA;
-        ctx.fillRect(item.x, item.y, item.width, item.height);
     }
 }
 //# sourceMappingURL=Debug.js.map

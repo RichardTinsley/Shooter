@@ -47,4 +47,8 @@ export class LoadingScreen implements IScreenState {
     if (this.loadingBar.getCurrentStatus() === assetListLength)
       this.screen.setBeginningScreen();
   };
+
+  getArray(): Array<any> {
+    return [];
+  }
 }

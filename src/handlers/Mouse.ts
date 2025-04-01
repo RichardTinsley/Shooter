@@ -1,8 +1,13 @@
 import { IScreenState, Screen } from "../screens/Screen.js";
 import { Cursor } from "../constants/types.js";
-import { checkHitBoxCollision } from "../utilities/collisionDetection.js";
+import {
+  checkCircleCollision,
+  checkHitBoxCollision,
+} from "../utilities/collisionDetection.js";
 import { MenuButton } from "../GUI/menus/MenuButton.js";
 import { ANIMATION } from "../constants/animation.js";
+import { EmptyTowerSpot } from "../entities/towers/emptyTowerSpot.js";
+import { Enemy } from "../entities/enemies/Enemy.js";
 
 const mouseSize: number = 3;
 
@@ -31,17 +36,36 @@ export class Mouse {
 
   update(state: Screen) {
     this.mouseOverMenuButton(state.getCurrentState());
+    this.mouseOverEntity(state.getCurrentState());
     this.setCursor();
   }
 
   mouseOverMenuButton(state: IScreenState) {
     this.mouseOverItem = undefined;
-    state.menu?.getMenu().forEach((item: MenuButton) => {
+    state.menu?.getMenuItemsArray().forEach((item: MenuButton) => {
       if (checkHitBoxCollision(this.cursor, item.hitBox)) {
         item.mouseOver(ANIMATION.ANIMATING);
         this.mouseOverItem = item;
       } else {
         item.mouseOver(ANIMATION.FINISHED);
+      }
+    });
+  }
+
+  mouseOverEntity(state: IScreenState) {
+    state.getArray().forEach((item: any) => {
+      if (
+        checkCircleCollision(
+          this.cursor,
+          item.hitCircle,
+          this.cursor.radius,
+          item.hitCircle.radius
+        )
+      ) {
+        // item.mouseOver(ANIMATION.ANIMATING);
+        this.mouseOverItem = item;
+      } else {
+        // item.mouseOver(ANIMATION.FINISHED);
       }
     });
   }
@@ -56,7 +80,8 @@ export class Mouse {
   setCursor() {
     let style = "Plain";
     if (this.mouseOverItem instanceof MenuButton) style = "MenuItem";
-
+    if (this.mouseOverItem instanceof EmptyTowerSpot) style = "Tower";
+    if (this.mouseOverItem instanceof Enemy) style = "Enemy";
     this.cursor.style.cursor = `url(../../images/cursors/${style}.cur), auto`;
   }
 

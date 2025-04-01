@@ -50,6 +50,33 @@ export function drawCircleRadialGradient(ctx: CanvasRenderingContext2D) {
   ctx.stroke();
 }
 
+export function drawDot(
+  ctx: CanvasRenderingContext2D,
+  item: any,
+  colour: string
+) {
+  ctx.fillStyle = colour;
+  ctx.fillRect(item.x - 2, item.y - 2, 4, 4);
+}
+
+export function drawCircleHitbox(
+  ctx: CanvasRenderingContext2D,
+  item: any,
+  drawDot: Function
+) {
+  ctx.beginPath();
+  ctx.arc(item.x, item.y, item.radius, 0, Math.PI * 2);
+  ctx.fillStyle = COLOURS.RED_ALPHA;
+  ctx.fill();
+
+  drawDot(ctx, item, COLOURS.RED);
+}
+
+export function drawSquareHitBox(ctx: CanvasRenderingContext2D, item: any) {
+  ctx.fillStyle = COLOURS.RED_ALPHA;
+  ctx.fillRect(item.x, item.y, item.width, item.height);
+}
+
 // export function drawTowerSelection(ctx){
 //     ctx.beginPath();
 //     ctx.ellipse(this.position.x, this.position.y, this.width / 4, this.width / 2, Math.PI / 2, 0, 2 * Math.PI);

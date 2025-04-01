@@ -1,5 +1,5 @@
 import { ALL_ASSETS } from "../constants/assets.js";
-import { Position } from "../constants/types.js";
+import { HitCircle, Position } from "../constants/types.js";
 import { IDrawable } from "../interfaces/IEntity.js";
 
 export class Sprite implements IDrawable {
@@ -12,6 +12,7 @@ export class Sprite implements IDrawable {
   protected halfWidth = this.width / 2;
 
   position!: Position;
+  hitCircle: HitCircle = { x: 0, y: 0, radius: 0 };
   protected drawPositionX!: number;
   protected drawPositionY!: number;
 
@@ -40,9 +41,7 @@ export class Sprite implements IDrawable {
     );
   }
 
-  update(): void {
-    return;
-  }
+  update(): void {}
 
   setImage(fileName: String): this {
     ALL_ASSETS.get(fileName);
@@ -58,6 +57,11 @@ export class Sprite implements IDrawable {
   updateSpriteDrawPosition() {
     this.drawPositionX = this.position.x - this.halfWidth;
     this.drawPositionY = this.position.y - this.height;
+    this.hitCircle = {
+      x: this.drawPositionX,
+      y: this.drawPositionY,
+      radius: this.halfWidth,
+    };
   }
 
   getPosition(): Position {

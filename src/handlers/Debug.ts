@@ -4,6 +4,12 @@ import { TextFactory } from "../entities/texts/TextFactory.js";
 import { MenuButton } from "../GUI/menus/MenuButton.js";
 import { Screen } from "../screens/Screen.js";
 import { Mouse } from "./Mouse.js";
+import { PlayScreen } from "../screens/PlayScreen.js";
+import {
+  drawDot,
+  drawCircleHitbox,
+  drawSquareHitBox,
+} from "../utilities/drawShapes.js";
 
 export class Debug {
   private isDebugMode: Boolean = true;
@@ -14,20 +20,27 @@ export class Debug {
   private FPS: any = TextFactory.createTextPlain();
 
   constructor(public state: Screen, public mouse: Mouse) {
-    this.FPS.setPosition(16, 64);
+    this.FPS.setPosition({ x: SIZES.TILE_HALF / 2, y: SIZES.TILE * 4 });
   }
+
+  switchDebugMode = () => {
+    this.isDebugMode = !this.isDebugMode;
+  };
 
   draw(ctx: CanvasRenderingContext2D): void {
     if (!this.isDebugMode) return;
 
-    this.drawLevelDebugInfoGrid(ctx);
+    if (this.state.getCurrentState() instanceof PlayScreen) {
+      this.drawLevelDebugInfoGrid(ctx);
+      this.drawEntitiesDebugInfo(ctx, this.state.getCurrentState().getArray());
+    }
+
     this.drawMouseDebugInfo(ctx);
-    this.drawMenuDebugInfo(ctx, this.state.getCurrentState().menu?.getMenu());
+    this.drawMenuDebugInfo(
+      ctx,
+      this.state.getCurrentState().menu?.getMenuItemsArray()
+    );
     this.drawPerformanceDebugInfo(ctx);
-    // this.drawEntitiesDebugInfo(
-    //   ctx,
-    //   this.state.getCurrentState().gui.getEntities()
-    // );
   }
 
   update() {
@@ -36,10 +49,6 @@ export class Debug {
     this.updateCalculateFPSNormal();
     this.updatePerformanceDebugInfo();
   }
-
-  switchDebugMode = () => {
-    this.isDebugMode = !this.isDebugMode;
-  };
 
   updateCalculateFPSNormal() {
     const t: DOMHighResTimeStamp = performance.now();
@@ -67,12 +76,24 @@ export class Debug {
   drawMenuDebugInfo(ctx: CanvasRenderingContext2D, menu: Array<MenuButton>) {
     if (!menu) return;
     menu.forEach((item) => {
-      this.drawSquareHitBox(ctx, item.hitBox);
+      drawSquareHitBox(ctx, item.hitBox);
     });
   }
 
   drawMouseDebugInfo(ctx: CanvasRenderingContext2D) {
-    this.drawDot(ctx, this.mouse.getCursor(), COLOURS.RED);
+    drawDot(ctx, this.mouse.getCursor(), COLOURS.RED);
+  }
+
+  drawEntitiesDebugInfo(ctx: CanvasRenderingContext2D, entities: Array<any>) {
+    entities.forEach((entity) => {
+      drawDot(ctx, entity.position, COLOURS.BLUE);
+      drawCircleHitbox(ctx, entity.hitCircle, drawDot);
+
+      entity.waypoints?.forEach((waypoint: any) => {
+        drawDot(ctx, waypoint, COLOURS.BRIGHT_GREEN);
+      });
+      // drawDot(ctx, entity.muzzle, COLOURS.YELLOW);
+    });
   }
 
   drawLevelDebugInfoGrid(ctx: CanvasRenderingContext2D) {
@@ -94,41 +115,4 @@ export class Debug {
       ctx.closePath();
     }
   }
-
-  drawEntitiesDebugInfo(ctx: CanvasRenderingContext2D, entities: Array<any>) {
-    entities.forEach((entity) => {
-      this.drawDot(ctx, entity.position, COLOURS.BLUE);
-      // this.drawCircleHitbox(ctx, entity.center);
-      if (entity.waypoints)
-        entity.waypoints.forEach((waypoint: any) => {
-          this.drawDot(ctx, waypoint, COLOURS.BRIGHT_GREEN);
-        });
-      if (entity.muzzle) this.drawDot(ctx, entity.muzzle, COLOURS.YELLOW);
-    });
-  }
-
-  drawDot(ctx: CanvasRenderingContext2D, item: any, colour: string) {
-    ctx.fillStyle = colour;
-    ctx.fillRect(item.x - 2, item.y - 2, 4, 4);
-  }
-
-  drawCircleHitbox(ctx: CanvasRenderingContext2D, item: any) {
-    ctx.beginPath();
-    ctx.arc(item.x, item.y, item.radius, 0, Math.PI * 2);
-    ctx.fillStyle = COLOURS.RED_ALPHA;
-    ctx.fill();
-
-    this.drawDot(ctx, item, COLOURS.RED);
-  }
-
-  drawSquareHitBox(ctx: CanvasRenderingContext2D, item: any) {
-    ctx.fillStyle = COLOURS.RED_ALPHA;
-    ctx.fillRect(item.x, item.y, item.width, item.height);
-  }
-
-  //   async function measureMemory() {
-  //     const memorySample = await performance.measureUserAgentSpecificMemory();
-  //     console.log(memorySample);
-  //     runMemoryMeasurements();
-  //   }
 }

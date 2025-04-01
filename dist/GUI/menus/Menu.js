@@ -12,7 +12,7 @@ export class Menu {
             item.update();
         });
     }
-    getMenu() {
+    getMenuItemsArray() {
         return this.menuItems;
     }
 }

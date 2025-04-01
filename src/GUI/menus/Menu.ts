@@ -17,7 +17,7 @@ export class Menu {
     });
   }
 
-  getMenu(): Array<MenuButton> {
+  getMenuItemsArray(): Array<MenuButton> {
     return this.menuItems;
   }
 

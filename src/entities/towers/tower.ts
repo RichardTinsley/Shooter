@@ -1,10 +1,3 @@
-// import * as OBJECTS from "../constants/objects.js";
-// import * as INTERFACE from "../constants/interface.js";
-// import { assets } from "../utilities/assets.js";
-// import { checkCircleCollision } from "../utilities/math.js";
-// import { Sprite } from "./Sprite.js";
-// import { Mouse } from "../handlers/Mouse.js";
-
 // export class Tower extends Sprite{
 //     constructor({
 //         position,
@@ -14,13 +7,6 @@
 //         firerate,
 //         range
 //     }){
-//         super({
-//             image: image ?? assets.get('towerSpot'),
-//             width: OBJECTS.SIZES.TOWER,
-//             height: OBJECTS.SIZES.TOWER,
-//             position,
-//             scale: 1,
-//         });
 
 //         this.damage = damage;
 //         this.range = range;
@@ -44,44 +30,6 @@
 //         this.enemiesInRange = [];
 //         this.target = null;
 
-//         this.modal = null;
-//         this.type = OBJECTS.TYPES.TOWER;
-//         this.towerState = OBJECTS.STATES.RELOADING;
-//     }
-
-//     draw(ctx){
-//         super.draw(ctx);
-//         this.drawIsMouseOver(ctx);
-//     }
-
-//     update(event, enemies, projectiles){
-//         super.update(event);
-//         switch(this.towerState){
-//             case OBJECTS.STATES.SHOOTING:
-//                 this.targetEnemy(enemies);
-//                 this.shootEnemy(projectiles);
-//                 break
-//             case OBJECTS.STATES.RELOADING:
-//                 this.incrementShootTimer(event);
-//                 break
-//         }
-//     }
-
-//     drawSelectionIcon(ctx){
-//         ctx.beginPath();
-//         ctx.ellipse(this.position.x, this.position.y, this.quarterWidth, this.halfWidth, Math.PI / 2, 0, 2 * Math.PI);
-//         ctx.lineWidth = 3;
-//         ctx.strokeStyle = INTERFACE.COLOURS.GREEN
-//         ctx.stroke();
-//     }
-
-//     createModal(){
-//         return
-//     }
-
-//     drawIsMouseOver(ctx){
-//         if(this.isMouseOver)
-//             this.drawSelectionIcon(ctx);
 //     }
 
 //     incrementShootTimer(event){

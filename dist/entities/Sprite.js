@@ -7,6 +7,7 @@ export class Sprite {
         this.width = this.spriteWidth;
         this.height = this.spriteHeight;
         this.halfWidth = this.width / 2;
+        this.hitCircle = { x: 0, y: 0, radius: 0 };
         this.animationFrame = 0;
         this.animationRow = 0;
         this.image = ALL_ASSETS.get(fileName);
@@ -14,9 +15,7 @@ export class Sprite {
     draw(ctx) {
         ctx.drawImage(this.image, this.spriteWidth * this.animationFrame, this.spriteHeight * this.animationRow, this.spriteWidth, this.spriteHeight, this.drawPositionX, this.drawPositionY, this.width, this.height);
     }
-    update() {
-        return;
-    }
+    update() { }
     setImage(fileName) {
         ALL_ASSETS.get(fileName);
         return this;
@@ -29,6 +28,11 @@ export class Sprite {
     updateSpriteDrawPosition() {
         this.drawPositionX = this.position.x - this.halfWidth;
         this.drawPositionY = this.position.y - this.height;
+        this.hitCircle = {
+            x: this.drawPositionX,
+            y: this.drawPositionY,
+            radius: this.halfWidth,
+        };
     }
     getPosition() {
         return this.position;

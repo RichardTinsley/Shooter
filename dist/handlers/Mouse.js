@@ -1,6 +1,8 @@
-import { checkHitBoxCollision } from "../utilities/collisionDetection.js";
+import { checkCircleCollision, checkHitBoxCollision, } from "../utilities/collisionDetection.js";
 import { MenuButton } from "../GUI/menus/MenuButton.js";
 import { ANIMATION } from "../constants/animation.js";
+import { EmptyTowerSpot } from "../entities/towers/emptyTowerSpot.js";
+import { Enemy } from "../entities/enemies/Enemy.js";
 const mouseSize = 3;
 export class Mouse {
     constructor(state) {
@@ -23,18 +25,28 @@ export class Mouse {
     }
     update(state) {
         this.mouseOverMenuButton(state.getCurrentState());
+        this.mouseOverEntity(state.getCurrentState());
         this.setCursor();
     }
     mouseOverMenuButton(state) {
         var _a;
         this.mouseOverItem = undefined;
-        (_a = state.menu) === null || _a === void 0 ? void 0 : _a.getMenu().forEach((item) => {
+        (_a = state.menu) === null || _a === void 0 ? void 0 : _a.getMenuItemsArray().forEach((item) => {
             if (checkHitBoxCollision(this.cursor, item.hitBox)) {
                 item.mouseOver(ANIMATION.ANIMATING);
                 this.mouseOverItem = item;
             }
             else {
                 item.mouseOver(ANIMATION.FINISHED);
+            }
+        });
+    }
+    mouseOverEntity(state) {
+        state.getArray().forEach((item) => {
+            if (checkCircleCollision(this.cursor, item.hitCircle, this.cursor.radius, item.hitCircle.radius)) {
+                this.mouseOverItem = item;
+            }
+            else {
             }
         });
     }
@@ -48,6 +60,10 @@ export class Mouse {
         let style = "Plain";
         if (this.mouseOverItem instanceof MenuButton)
             style = "MenuItem";
+        if (this.mouseOverItem instanceof EmptyTowerSpot)
+            style = "Tower";
+        if (this.mouseOverItem instanceof Enemy)
+            style = "Enemy";
         this.cursor.style.cursor = `url(../../images/cursors/${style}.cur), auto`;
     }
     getCursor() {

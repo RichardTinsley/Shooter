@@ -47,5 +47,8 @@ export class LoadingScreen {
                 .then(() => console.log(`${ALL_ASSETS.size} assets have been loaded.`));
         });
     }
+    getArray() {
+        return [];
+    }
 }
 //# sourceMappingURL=LoadingScreen.js.map

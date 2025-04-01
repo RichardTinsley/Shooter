@@ -16,4 +16,8 @@ export class MainMenuScreen implements IScreenState {
   update(): void {
     this.menu.update();
   }
+
+  getArray(): Array<any> {
+    return [];
+  }
 }

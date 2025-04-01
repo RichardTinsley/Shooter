@@ -18,5 +18,8 @@ export class PlayScreen {
         this.level.update();
         this.entities.forEach((entity) => entity.update());
     }
+    getArray() {
+        return this.entities;
+    }
 }
 //# sourceMappingURL=PlayScreen.js.map
