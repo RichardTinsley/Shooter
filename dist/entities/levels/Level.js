@@ -24,7 +24,6 @@ export class Level {
     }
     emptyTowerSpots() {
         const emptyTowerSpots = [];
-        console.log(this.tileMap);
         this.tileMap.forEach((row, y) => {
             row.forEach((symbol, x) => {
                 if (symbol !== 0)
