@@ -12,10 +12,11 @@ import { ALL_ASSETS } from "../constants/assets.js";
 import { SIZES } from "../constants/game.js";
 import { TextFactory } from "../entities/texts/TextFactory.js";
 import { LoadingBar } from "../GUI/components/LoadingBar.js";
-import { drawIntroScreen } from "../GUI/layouts/drawTitleScreen.js";
+import { deathSorceryLogoLayout } from "../GUI/layouts/deathSorceryLogoLayout.js";
 export class LoadingScreen {
     constructor(screen) {
         this.screen = screen;
+        this.logo = new deathSorceryLogoLayout();
         this.summoning = TextFactory.textFade()
             .setPosition({ x: SIZES.GAME_WIDTH_HALF, y: SIZES.GAME_HEIGHT - 130 })
             .setText("Summoning...")
@@ -32,7 +33,7 @@ export class LoadingScreen {
         this.loadAssets();
     }
     draw(ctx) {
-        drawIntroScreen(ctx);
+        this.logo.draw(ctx);
         this.summoning.draw(ctx);
         this.loadingBar.draw(ctx);
     }
@@ -42,16 +43,9 @@ export class LoadingScreen {
     loadAssets() {
         return __awaiter(this, void 0, void 0, function* () {
             yield load(this.assetLoaded)
-                .catch((error) => {
-                console.error(`Error: Unable to load asset "${error.fileName}"`);
-            })
-                .then(() => {
-                console.log(`A total of ${ALL_ASSETS.size} assets have been loaded.`);
-            });
+                .catch((error) => console.error(`Error: "${error.fileName}"`))
+                .then(() => console.log(`${ALL_ASSETS.size} assets have been loaded.`));
         });
     }
-}
-function drawIntroLogo(ctx, title) {
-    throw new Error("Function not implemented.");
 }
 //# sourceMappingURL=LoadingScreen.js.map

@@ -3,6 +3,7 @@ const ENEMIES_URL: string = "./images/enemies/";
 const PROJECTILES_URL: string = "./images/projectiles/";
 const TOWERS_URL: string = "./images/towers/";
 const UI_URL: string = "./images/UI/";
+const LEVELS_URL: string = "./images/levels/";
 
 const MUSIC_URL: string = "./audio/";
 
@@ -44,6 +45,7 @@ const URL_NUMBER = {
 // prettier-ignore
 export const FILE_NAMES: Record<string, string> = {
   DSLOGO: "DsShieldLogo.png",
+  LEVEL_LAVONEY: "lavoney.png",
 
   MUSIC_MAIN_MENU: "mainMenu.mp3",
 
@@ -54,8 +56,11 @@ export const FILE_NAMES: Record<string, string> = {
 
 // prettier-ignore
 export const ASSET_LIST: string[][] = [
-  //GUI
+  //LEVELS
   [`${FILE_NAMES.DSLOGO}`, `${UI_URL}${FILE_NAMES.DSLOGO}`],
+  
+  //GUI
+  [`${FILE_NAMES.LEVEL_LAVONEY}`, `${LEVELS_URL}${FILE_NAMES.LEVEL_LAVONEY}`],
   // ['hellwortica',  './images/levels/hellwortica/hellwortica.png'],
   // ['towerSpot',   './images/levels/towerSpot.png'],
   // ['bossWave',    './audio/bossWave.ogg'],

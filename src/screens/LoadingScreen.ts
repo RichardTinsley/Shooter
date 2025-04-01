@@ -4,10 +4,12 @@ import { Screen, IScreenState } from "./Screen.js";
 import { SIZES } from "../constants/game.js";
 import { TextFactory } from "../entities/texts/TextFactory.js";
 import { LoadingBar } from "../GUI/components/LoadingBar.js";
-import { drawIntroScreen } from "../GUI/layouts/drawTitleScreen.js";
 import { Menu } from "../GUI/menus/Menu.js";
+import { deathSorceryLogoLayout } from "../GUI/layouts/deathSorceryLogoLayout.js";
 
 export class LoadingScreen implements IScreenState {
+  private logo = new deathSorceryLogoLayout();
+
   private summoning: any = TextFactory.textFade()
     .setPosition({ x: SIZES.GAME_WIDTH_HALF, y: SIZES.GAME_HEIGHT - 130 })
     .setText("Summoning...")
@@ -24,7 +26,7 @@ export class LoadingScreen implements IScreenState {
   }
 
   draw(ctx: CanvasRenderingContext2D): void {
-    drawIntroScreen(ctx);
+    this.logo.draw(ctx);
     this.summoning.draw(ctx);
     this.loadingBar.draw(ctx);
   }
@@ -35,12 +37,8 @@ export class LoadingScreen implements IScreenState {
 
   async loadAssets() {
     await load(this.assetLoaded)
-      .catch((error) => {
-        console.error(`Error: Unable to load asset "${error.fileName}"`);
-      })
-      .then(() => {
-        console.log(`A total of ${ALL_ASSETS.size} assets have been loaded.`);
-      });
+      .catch((error) => console.error(`Error: "${error.fileName}"`))
+      .then(() => console.log(`${ALL_ASSETS.size} assets have been loaded.`));
   }
 
   assetLoaded = (fileName: any) => {
@@ -49,7 +47,4 @@ export class LoadingScreen implements IScreenState {
     if (this.loadingBar.getCurrentStatus() === assetListLength)
       this.screen.setBeginningScreen();
   };
-}
-function drawIntroLogo(ctx: CanvasRenderingContext2D, title: any) {
-  throw new Error("Function not implemented.");
 }

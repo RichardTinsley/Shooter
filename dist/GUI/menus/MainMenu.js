@@ -4,7 +4,7 @@ export class MainMenu extends VerticalMenu {
     constructor(state, position) {
         super();
         const menuTemplate = [
-            { state: state.setNewGameScreen, label: LABELS.NEWGAME },
+            { state: state.setPlayScreen, label: LABELS.NEWGAME },
             { state: state.setOptionsScreen, label: LABELS.OPTIONS },
             { state: state.setAboutScreen, label: LABELS.ABOUT },
         ];
