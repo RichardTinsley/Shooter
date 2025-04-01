@@ -14,27 +14,28 @@ export abstract class Level {
   levelImage = ALL_ASSETS.get(FILE_NAMES.LEVEL_LAVONEY);
   tileMap = create2DArray(this.getTileMap(), SIZES.COLUMNS);
   doodads: Array<any> = [];
-  towerSpots: any;
 
-  constructor() {
-    this.towerSpots = this.emptyTowerSpots();
-  }
+  constructor() {}
 
   draw(ctx: CanvasRenderingContext2D) {
     ctx.drawImage(this.levelImage, 0, 0);
-    this.towerSpots.forEach((towerSpot: EmptyTowerSpot) => towerSpot.draw(ctx));
+    // this.doodads.forEach((towerSpot: EmptyTowerSpot) => towerSpot.draw(ctx));
   }
 
   update(): void {
-    this.towerSpots.forEach((towerSpot: EmptyTowerSpot) => towerSpot.update());
+    //this.doodads.forEach((towerSpot: EmptyTowerSpot) => towerSpot.update());
   }
 
   abstract getTileMap(): Array<number>;
 
   abstract getWaypoints(): Array<Position>;
 
-  emptyTowerSpots() {
-    const emptyTowerSpots: any = [];
+  getTowerSpots(): Array<EmptyTowerSpot> {
+    return this.emptyTowerSpots();
+  }
+
+  emptyTowerSpots(): Array<EmptyTowerSpot> {
+    const emptyTowerSpots: Array<EmptyTowerSpot> = [];
     this.tileMap.forEach((row, y) => {
       row.forEach((symbol, x) => {
         if (symbol !== 0)

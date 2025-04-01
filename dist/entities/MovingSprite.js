@@ -1,3 +1,4 @@
+import { Time } from "../handlers/Time.js";
 import { giveAngle, giveDirection, DIRECTION, randomFloat, } from "../utilities/math.js";
 import { AnimatedSprite } from "./AnimatedSprite.js";
 export class MovingSprite extends AnimatedSprite {
@@ -24,8 +25,10 @@ export class MovingSprite extends AnimatedSprite {
     updateMovement() {
         this.angle = giveAngle(this.destination, this.position);
         this.direction = giveDirection(this.angle);
-        this.position.x += Math.cos(this.angle) * this.speed;
-        this.position.y += Math.sin(this.angle) * this.speed;
+        this.position.x +=
+            Math.cos(this.angle) * this.speed * Time.deltaTimeMultiplier;
+        this.position.y +=
+            Math.sin(this.angle) * this.speed * Time.deltaTimeMultiplier;
     }
     contextSave(ctx) {
         if (this.direction === DIRECTION.LEFT) {

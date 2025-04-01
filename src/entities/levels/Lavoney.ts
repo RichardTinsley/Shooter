@@ -1,7 +1,4 @@
-import { ALL_ASSETS, FILE_NAMES } from "../../constants/assets.js";
-import { SIZES } from "../../constants/game.js";
 import { Position } from "../../constants/types.js";
-import { create2DArray } from "../../utilities/array.js";
 import { Level } from "./Level.js";
 
 export class Lavoney extends Level {

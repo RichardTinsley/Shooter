@@ -43,8 +43,10 @@ export class MovingSprite extends AnimatedSprite implements IMovingSprite {
     this.angle = giveAngle(this.destination, this.position);
     this.direction = giveDirection(this.angle);
 
-    this.position.x += Math.cos(this.angle) * this.speed;
-    this.position.y += Math.sin(this.angle) * this.speed;
+    this.position.x +=
+      Math.cos(this.angle) * this.speed * Time.deltaTimeMultiplier;
+    this.position.y +=
+      Math.sin(this.angle) * this.speed * Time.deltaTimeMultiplier;
   }
 
   contextSave(ctx: CanvasRenderingContext2D) {

@@ -19,17 +19,18 @@ export class Debug {
         var _a;
         if (!this.isDebugMode)
             return;
-        this.drawPerformanceDebugInfo(ctx);
+        this.drawLevelDebugInfoGrid(ctx);
         this.drawMouseDebugInfo(ctx);
         this.drawMenuDebugInfo(ctx, (_a = this.state.getCurrentState().menu) === null || _a === void 0 ? void 0 : _a.getMenu());
+        this.drawPerformanceDebugInfo(ctx);
     }
     update() {
         if (!this.isDebugMode)
             return;
-        this.calculateFPSNormal();
-        this.performanceDebugInfo();
+        this.updateCalculateFPSNormal();
+        this.updatePerformanceDebugInfo();
     }
-    calculateFPSNormal() {
+    updateCalculateFPSNormal() {
         const t = performance.now();
         const dt = t - this.startTime;
         if (dt > 1000) {
@@ -39,7 +40,7 @@ export class Debug {
         }
         this.frames++;
     }
-    performanceDebugInfo() {
+    updatePerformanceDebugInfo() {
         const FPS = Math.round(this.FPSNormal * 1000) / 1000;
         this.FPS.setText(`fps: ${FPS}`);
     }
@@ -58,14 +59,23 @@ export class Debug {
     drawMouseDebugInfo(ctx) {
         this.drawDot(ctx, this.mouse.getCursor(), COLOURS.RED);
     }
-    levelDebugInfoGrid(ctx) {
-        ctx.beginPath();
+    drawLevelDebugInfoGrid(ctx) {
         ctx.strokeStyle = COLOURS.LINES;
         ctx.lineWidth = 1;
-        for (let row = 0; row < SIZES.ROWS; row++)
-            for (let column = 0; column < SIZES.COLUMNS; column++)
-                ctx.strokeRect(column * SIZES.TILE, row * SIZES.TILE, SIZES.TILE, SIZES.TILE);
-        ctx.closePath();
+        for (let row = 0; row < SIZES.ROWS; row++) {
+            ctx.beginPath();
+            ctx.moveTo(0, row * SIZES.TILE);
+            ctx.lineTo(SIZES.GAME_WIDTH, row * SIZES.TILE);
+            ctx.stroke();
+            ctx.closePath();
+        }
+        for (let column = 0; column < SIZES.COLUMNS; column++) {
+            ctx.beginPath();
+            ctx.moveTo(column * SIZES.TILE, 0);
+            ctx.lineTo(column * SIZES.TILE, SIZES.GAME_HEIGHT);
+            ctx.stroke();
+            ctx.closePath();
+        }
     }
     drawEntitiesDebugInfo(ctx, entities) {
         entities.forEach((entity) => {

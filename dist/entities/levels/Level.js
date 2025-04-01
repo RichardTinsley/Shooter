@@ -13,14 +13,14 @@ export class Level {
         this.levelImage = ALL_ASSETS.get(FILE_NAMES.LEVEL_LAVONEY);
         this.tileMap = create2DArray(this.getTileMap(), SIZES.COLUMNS);
         this.doodads = [];
-        this.towerSpots = this.emptyTowerSpots();
     }
     draw(ctx) {
         ctx.drawImage(this.levelImage, 0, 0);
-        this.towerSpots.forEach((towerSpot) => towerSpot.draw(ctx));
     }
     update() {
-        this.towerSpots.forEach((towerSpot) => towerSpot.update());
+    }
+    getTowerSpots() {
+        return this.emptyTowerSpots();
     }
     emptyTowerSpots() {
         const emptyTowerSpots = [];

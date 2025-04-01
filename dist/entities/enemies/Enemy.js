@@ -28,9 +28,12 @@ export class Enemy extends MovingSprite {
             this.setDestination(this.waypoints[this.waypointIndex]);
         }
     }
-    checkEnemyHealth() {
+    setPosition(position) {
+        super.setPosition(position);
+        super.setDestination(position);
+        return this;
     }
-    updateDeathAnimation() {
+    checkEnemyHealth() {
     }
     updatePriorityDistance() {
     }

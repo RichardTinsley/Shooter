@@ -47,25 +47,18 @@ export class Enemy extends MovingSprite {
     }
   }
 
+  setPosition(position: Position): this {
+    super.setPosition(position);
+    super.setDestination(position);
+    return this;
+  }
+
   checkEnemyHealth() {
     // if(!this.health.isAlive() && !this.isEnemyDying()){
     // this.sprite.row = OBJECTS.STATES.DYING;
     // this.sprite.frame = 0;
     // this.center.y = this.position.y;
     // this.center.radius /= 4;
-  }
-
-  updateDeathAnimation() {
-    // if(event){
-    //     if(this.sprite.frame < this.maxFrame)
-    //         this.sprite.frame++;
-    //     else
-    //         this.sprite.frame = this.maxFrame;
-    //     if(this.height > 2)
-    //         this.height -= 2;
-    //     else
-    //         this.state = OBJECTS.ANIMATION.FINISHED;
-    // }
   }
 
   updatePriorityDistance() {
