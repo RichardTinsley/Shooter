@@ -15,7 +15,8 @@ export const FILE_NAMES: Record<string, string> = {
 
   MUSIC_MAIN_MENU: "mainMenu.mp3",
 
-  TOWER_AMETHYST_1: `amethystTower (1).png`,
+  TOWER_EMPTY_SPOT: "emptyTowerSpot.png",
+  TOWER_AMETHYST_1: "amethystTower (1).png",
   
   PROJECTILE_SAPPHIRE_1: "Iceball_84x9.png",
 };
@@ -36,6 +37,7 @@ export const ASSET_LIST: string[][] = [
   //ENEMIES
 
   //TOWERS
+  [`${FILE_NAMES.TOWER_EMPTY_SPOT}`, `${TOWERS_URL}${FILE_NAMES.TOWER_EMPTY_SPOT}`],
   [`${FILE_NAMES.TOWER_AMETHYST_1}`, `${TOWERS_URL}${FILE_NAMES.TOWER_AMETHYST_1}`],
 
   //PROJECTILES

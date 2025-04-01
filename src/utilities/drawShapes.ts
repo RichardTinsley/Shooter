@@ -49,3 +49,11 @@ export function drawCircleRadialGradient(ctx: CanvasRenderingContext2D) {
   ctx.fill();
   ctx.stroke();
 }
+
+// export function drawTowerSelection(ctx){
+//     ctx.beginPath();
+//     ctx.ellipse(this.position.x, this.position.y, this.width / 4, this.width / 2, Math.PI / 2, 0, 2 * Math.PI);
+//     ctx.lineWidth = 3;
+//     ctx.strokeStyle = INTERFACE.COLOURS.GREEN;
+//     ctx.stroke();
+// }

@@ -5,19 +5,17 @@ import { create2DArray } from "../../utilities/array.js";
 import { Level } from "./Level.js";
 
 export class Lavoney extends Level {
-  levelImage = ALL_ASSETS.get(FILE_NAMES.LEVEL_LAVONEY);
-  tileMap = create2DArray(this.getTileMap(), SIZES.COLUMNS);
-  doodads = [];
-
   constructor() {
     super();
   }
 
   draw(ctx: CanvasRenderingContext2D) {
-    ctx.drawImage(this.levelImage, 0, 0);
+    super.draw(ctx);
   }
 
-  update(): void {}
+  update(): void {
+    super.update();
+  }
 
   getTileMap(): Array<number> {
     const LAVONEY_TILEMAP = [

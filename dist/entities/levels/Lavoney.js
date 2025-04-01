@@ -1,18 +1,14 @@
-import { ALL_ASSETS, FILE_NAMES } from "../../constants/assets.js";
-import { SIZES } from "../../constants/game.js";
-import { create2DArray } from "../../utilities/array.js";
 import { Level } from "./Level.js";
 export class Lavoney extends Level {
     constructor() {
         super();
-        this.levelImage = ALL_ASSETS.get(FILE_NAMES.LEVEL_LAVONEY);
-        this.tileMap = create2DArray(this.getTileMap(), SIZES.COLUMNS);
-        this.doodads = [];
     }
     draw(ctx) {
-        ctx.drawImage(this.levelImage, 0, 0);
+        super.draw(ctx);
     }
-    update() { }
+    update() {
+        super.update();
+    }
     getTileMap() {
         const LAVONEY_TILEMAP = [
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
