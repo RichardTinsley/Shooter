@@ -1,9 +1,14 @@
 const FRAMES: number = 60;
+const SECOND: number = 1000;
 
 let previousTime: number = 0;
 let eventTimer: number = 0;
 let timeout: number;
 let totalSeconds: number = 0; //+8000s for over 2 hours
+
+let FPSNormal: number = 0;
+let frames: number = 0;
+let startTime: DOMHighResTimeStamp = performance.now();
 
 export class Time {
   private static INSTANCE: Time;
@@ -29,8 +34,9 @@ export class Time {
 
   update() {
     const deltaTime: number = performance.now() - previousTime;
-    Time.deltaTimeMultiplier = deltaTime / FRAMES;
     previousTime = performance.now();
+
+    Time.deltaTimeMultiplier = deltaTime / FRAMES;
 
     if (eventTimer < FRAMES) {
       eventTimer += deltaTime;
@@ -39,6 +45,19 @@ export class Time {
       eventTimer = 0;
       Time.eventUpdate = true;
     }
+  }
+
+  static calculateFPSNormal(): number {
+    const t: DOMHighResTimeStamp = performance.now();
+    const deltaTime: number = t - startTime;
+
+    if (deltaTime > SECOND) {
+      FPSNormal = (frames * SECOND) / deltaTime;
+      frames = 0;
+      startTime = t;
+    }
+    frames++;
+    return Math.round(FPSNormal * SECOND) / SECOND;
   }
 
   static displayTimer() {

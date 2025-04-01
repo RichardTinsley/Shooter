@@ -8,7 +8,7 @@ export class PlayScreen {
         this.level = new Lavoney();
         this.entities.push(...this.level.getTowerSpots());
         this.waypoints = this.level.getWaypoints();
-        this.entities.push(new Enemy(FILE_NAMES.TOWER_AMETHYST_1, 64, 64, this.level.getWaypoints()).setPosition(this.waypoints[0]));
+        this.entities.push(new Enemy(this.waypoints[0], FILE_NAMES.TOWER_AMETHYST_1, 64, 64, this.level.getWaypoints()));
     }
     draw(ctx) {
         this.level.draw(ctx);

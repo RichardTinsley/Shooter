@@ -20,36 +20,6 @@ export function drawRectangle(
   }
 }
 
-export function drawDashedCircle(ctx: CanvasRenderingContext2D) {
-  ctx.beginPath();
-  // ctx.arc(this.center.x, this.center.y, this.towerRange.radius, 0, Math.PI * 2);
-  ctx.setLineDash([5, 15]);
-  ctx.lineWidth = 2;
-  ctx.strokeStyle = COLOURS.WHITE;
-  ctx.stroke();
-  ctx.setLineDash([0, 0]);
-  ctx.closePath();
-}
-
-export function drawEntityShadow(ctx: CanvasRenderingContext2D) {
-  ctx.beginPath();
-  // ctx.ellipse(this.position.x, this.position.y, this.shadowHeight, this.quarterWidth, Math.PI / 2, 0, 2 * Math.PI);
-  ctx.fillStyle = COLOURS.SHADOW;
-  ctx.fill();
-}
-
-export function drawCircleRadialGradient(ctx: CanvasRenderingContext2D) {
-  const radialGradient = ctx.createRadialGradient(200, 200, 50, 200, 200, 10);
-  radialGradient.addColorStop(0, "tomato");
-  radialGradient.addColorStop(1, "purple");
-
-  ctx.fillStyle = radialGradient;
-  ctx.beginPath();
-  ctx.arc(250, 150, 80, 0, 2 * Math.PI);
-  ctx.fill();
-  ctx.stroke();
-}
-
 export function drawDot(
   ctx: CanvasRenderingContext2D,
   item: any,
@@ -77,10 +47,40 @@ export function drawSquareHitBox(ctx: CanvasRenderingContext2D, item: any) {
   ctx.fillRect(item.x, item.y, item.width, item.height);
 }
 
-// export function drawTowerSelection(ctx){
-//     ctx.beginPath();
-//     ctx.ellipse(this.position.x, this.position.y, this.width / 4, this.width / 2, Math.PI / 2, 0, 2 * Math.PI);
-//     ctx.lineWidth = 3;
-//     ctx.strokeStyle = INTERFACE.COLOURS.GREEN;
-//     ctx.stroke();
-// }
+//COMBINE GRADIENT AND ELLIPSE FOR ENEMY AND TOWER SELECTION
+//MAKE THIS A CLASS?
+export function drawEllipse(
+  ctx: CanvasRenderingContext2D,
+  position: Position,
+  height: number,
+  width: number,
+  fillStyle: string
+) {
+  ctx.beginPath();
+  ctx.ellipse(
+    position.x,
+    position.y,
+    height,
+    width,
+    Math.PI / 2,
+    0,
+    2 * Math.PI
+  );
+  ctx.fillStyle = fillStyle;
+  ctx.lineWidth = 3;
+  ctx.strokeStyle = COLOURS.GREEN;
+  ctx.fill();
+  ctx.stroke();
+}
+
+export function drawCircleRadialGradient(ctx: CanvasRenderingContext2D) {
+  const radialGradient = ctx.createRadialGradient(200, 200, 50, 200, 200, 10);
+  radialGradient.addColorStop(0, "tomato");
+  radialGradient.addColorStop(1, "purple");
+
+  ctx.fillStyle = radialGradient;
+  ctx.beginPath();
+  ctx.arc(250, 150, 80, 0, 2 * Math.PI);
+  ctx.fill();
+  ctx.stroke();
+}

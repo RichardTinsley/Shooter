@@ -15,11 +15,12 @@ export class PlayScreen implements IScreenState {
     this.waypoints = this.level.getWaypoints();
     this.entities.push(
       new Enemy(
+        this.waypoints[0],
         FILE_NAMES.TOWER_AMETHYST_1,
         64,
         64,
         this.level.getWaypoints()
-      ).setPosition(this.waypoints[0])
+      )
     );
   }
 

@@ -8,18 +8,22 @@ export class Sprite implements IDrawable {
   protected scale: number = 1;
   protected width: number = this.spriteWidth;
   protected height: number = this.spriteHeight;
-
   protected halfWidth = this.width / 2;
 
-  position!: Position;
-  hitCircle: HitCircle = { x: 0, y: 0, radius: 0 };
-  protected drawPositionX!: number;
-  protected drawPositionY!: number;
+  protected drawPositionX = this.position.x - this.halfWidth;
+  protected drawPositionY = this.position.y - this.height;
+
+  protected hitCircle: HitCircle = {
+    x: this.position.x,
+    y: this.position.y,
+    radius: this.halfWidth,
+  };
 
   protected animationFrame = 0;
   protected animationRow = 0;
 
   constructor(
+    public position: Position,
     fileName: string,
     protected spriteWidth: number,
     protected spriteHeight: number
@@ -50,22 +54,16 @@ export class Sprite implements IDrawable {
 
   setPosition(position: Position): this {
     this.position = { ...position };
-    this.updateSpriteDrawPosition();
     return this;
+  }
+
+  getPosition(): Position {
+    return this.position;
   }
 
   updateSpriteDrawPosition() {
     this.drawPositionX = this.position.x - this.halfWidth;
     this.drawPositionY = this.position.y - this.height;
-    this.hitCircle = {
-      x: this.drawPositionX,
-      y: this.drawPositionY,
-      radius: this.halfWidth,
-    };
-  }
-
-  getPosition(): Position {
-    return this.position;
   }
 
   setScale(scale: number): this {

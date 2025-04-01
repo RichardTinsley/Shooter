@@ -2,8 +2,8 @@ import { Time } from "../handlers/Time.js";
 import { giveAngle, giveDirection, DIRECTION, randomFloat, } from "../utilities/math.js";
 import { AnimatedSprite } from "./AnimatedSprite.js";
 export class MovingSprite extends AnimatedSprite {
-    constructor(fileName, spriteWidth, spriteHeight) {
-        super(fileName, spriteWidth, spriteHeight);
+    constructor(position, fileName, spriteWidth, spriteHeight) {
+        super(position, fileName, spriteWidth, spriteHeight);
         this.speed = 1;
     }
     draw(ctx) {
@@ -13,6 +13,7 @@ export class MovingSprite extends AnimatedSprite {
     update() {
         super.update();
         this.updateMovement();
+        this.updateHitCirclePosition();
     }
     setSpeed(speed) {
         this.speed = randomFloat(speed - speed * 0.2, speed + speed * 0.2);
@@ -29,6 +30,10 @@ export class MovingSprite extends AnimatedSprite {
             Math.cos(this.angle) * this.speed * Time.deltaTimeMultiplier;
         this.position.y +=
             Math.sin(this.angle) * this.speed * Time.deltaTimeMultiplier;
+    }
+    updateHitCirclePosition() {
+        this.hitCircle.x = this.position.x;
+        this.hitCircle.y = this.position.y;
     }
     contextSave(ctx) {
         if (this.direction === DIRECTION.LEFT) {

@@ -10,61 +10,35 @@ import {
   drawCircleHitbox,
   drawSquareHitBox,
 } from "../utilities/drawShapes.js";
+import { Time } from "./Time.js";
 
 export class Debug {
   private isDebugMode: Boolean = true;
-  private frames: number = 0;
-  private startTime: DOMHighResTimeStamp = performance.now();
-  private FPSNormal: number = 0;
-
   private FPS: any = TextFactory.createTextPlain();
 
   constructor(public state: Screen, public mouse: Mouse) {
     this.FPS.setPosition({ x: SIZES.TILE_HALF / 2, y: SIZES.TILE * 4 });
   }
 
-  switchDebugMode = () => {
-    this.isDebugMode = !this.isDebugMode;
-  };
+  switchDebugMode = () => (this.isDebugMode = !this.isDebugMode);
 
   draw(ctx: CanvasRenderingContext2D): void {
     if (!this.isDebugMode) return;
+    const currentState = this.state.getCurrentState();
 
-    if (this.state.getCurrentState() instanceof PlayScreen) {
+    if (currentState instanceof PlayScreen) {
       this.drawLevelDebugInfoGrid(ctx);
-      this.drawEntitiesDebugInfo(ctx, this.state.getCurrentState().getArray());
+      this.drawEntitiesDebugInfo(ctx, currentState.getArray());
     }
 
     this.drawMouseDebugInfo(ctx);
-    this.drawMenuDebugInfo(
-      ctx,
-      this.state.getCurrentState().menu?.getMenuItemsArray()
-    );
+    this.drawMenuDebugInfo(ctx, currentState.menu?.getMenuItemsArray());
     this.drawPerformanceDebugInfo(ctx);
   }
 
   update() {
     if (!this.isDebugMode) return;
-
-    this.updateCalculateFPSNormal();
-    this.updatePerformanceDebugInfo();
-  }
-
-  updateCalculateFPSNormal() {
-    const t: DOMHighResTimeStamp = performance.now();
-    const dt: number = t - this.startTime;
-
-    if (dt > 1000) {
-      this.FPSNormal = (this.frames * 1000) / dt;
-      this.frames = 0;
-      this.startTime = t;
-    }
-    this.frames++;
-  }
-
-  updatePerformanceDebugInfo() {
-    const FPS = Math.round(this.FPSNormal * 1000) / 1000;
-    this.FPS.setText(`fps: ${FPS}`);
+    this.FPS.setText(`fps: ${Time.calculateFPSNormal()}`);
   }
 
   drawPerformanceDebugInfo(ctx: CanvasRenderingContext2D) {
@@ -74,10 +48,7 @@ export class Debug {
   }
 
   drawMenuDebugInfo(ctx: CanvasRenderingContext2D, menu: Array<MenuButton>) {
-    if (!menu) return;
-    menu.forEach((item) => {
-      drawSquareHitBox(ctx, item.hitBox);
-    });
+    menu?.forEach((item) => drawSquareHitBox(ctx, item.hitBox));
   }
 
   drawMouseDebugInfo(ctx: CanvasRenderingContext2D) {

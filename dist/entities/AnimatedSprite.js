@@ -1,10 +1,8 @@
 import { Time } from "../handlers/Time.js";
 import { Sprite } from "./Sprite.js";
 export class AnimatedSprite extends Sprite {
-    constructor(fileName, spriteWidth, spriteHeight) {
-        super(fileName, spriteWidth, spriteHeight);
-        this.spriteWidth = spriteWidth;
-        this.spriteHeight = spriteHeight;
+    constructor(position, fileName, spriteWidth, spriteHeight) {
+        super(position, fileName, spriteWidth, spriteHeight);
         this.maxAnimationFrame = this.getSpriteSheetDimensions(this.image.width, this.spriteWidth);
         this.maxAnimationRow = this.getSpriteSheetDimensions(this.image.height, this.spriteHeight);
         this.maxAnimationRow === 0

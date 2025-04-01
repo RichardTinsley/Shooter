@@ -1,13 +1,20 @@
 import { ALL_ASSETS } from "../constants/assets.js";
 export class Sprite {
-    constructor(fileName, spriteWidth, spriteHeight) {
+    constructor(position, fileName, spriteWidth, spriteHeight) {
+        this.position = position;
         this.spriteWidth = spriteWidth;
         this.spriteHeight = spriteHeight;
         this.scale = 1;
         this.width = this.spriteWidth;
         this.height = this.spriteHeight;
         this.halfWidth = this.width / 2;
-        this.hitCircle = { x: 0, y: 0, radius: 0 };
+        this.drawPositionX = this.position.x - this.halfWidth;
+        this.drawPositionY = this.position.y - this.height;
+        this.hitCircle = {
+            x: this.position.x,
+            y: this.position.y,
+            radius: this.halfWidth,
+        };
         this.animationFrame = 0;
         this.animationRow = 0;
         this.image = ALL_ASSETS.get(fileName);
@@ -22,20 +29,14 @@ export class Sprite {
     }
     setPosition(position) {
         this.position = Object.assign({}, position);
-        this.updateSpriteDrawPosition();
         return this;
+    }
+    getPosition() {
+        return this.position;
     }
     updateSpriteDrawPosition() {
         this.drawPositionX = this.position.x - this.halfWidth;
         this.drawPositionY = this.position.y - this.height;
-        this.hitCircle = {
-            x: this.drawPositionX,
-            y: this.drawPositionY,
-            radius: this.halfWidth,
-        };
-    }
-    getPosition() {
-        return this.position;
     }
     setScale(scale) {
         this.scale = scale;

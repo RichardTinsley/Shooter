@@ -1,7 +1,7 @@
 import { AnimatedSprite } from "../AnimatedSprite.js";
 export class EmptyTowerSpot extends AnimatedSprite {
-    constructor(fileName, spriteWidth, spriteHeight) {
-        super(fileName, spriteWidth, spriteHeight);
+    constructor(position, fileName, spriteWidth, spriteHeight) {
+        super(position, fileName, spriteWidth, spriteHeight);
         this.spriteWidth = spriteWidth;
         this.spriteHeight = spriteHeight;
     }

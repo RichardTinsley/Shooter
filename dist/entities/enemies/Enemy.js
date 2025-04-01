@@ -1,10 +1,11 @@
 import { checkCircleCollision } from "../../utilities/collisionDetection.js";
 import { MovingSprite } from "../MovingSprite.js";
 export class Enemy extends MovingSprite {
-    constructor(fileName, spriteWidth, spriteHeight, waypoints) {
-        super(fileName, spriteWidth, spriteHeight);
+    constructor(position, fileName, spriteWidth, spriteHeight, waypoints) {
+        super(position, fileName, spriteWidth, spriteHeight);
         this.waypoints = waypoints;
         this.waypointIndex = 0;
+        this.destination = Object.assign({}, position);
     }
     draw(ctx) {
         this.contextSave(ctx);

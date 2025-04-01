@@ -12,12 +12,14 @@ export class Enemy extends MovingSprite {
   protected waypointIndex = 0;
 
   constructor(
+    position: Position,
     fileName: string,
     spriteWidth: number,
     spriteHeight: number,
     protected waypoints: Array<Position>
   ) {
-    super(fileName, spriteWidth, spriteHeight);
+    super(position, fileName, spriteWidth, spriteHeight);
+    this.destination = { ...position };
   }
 
   draw(ctx: CanvasRenderingContext2D) {

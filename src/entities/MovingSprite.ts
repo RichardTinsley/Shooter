@@ -15,8 +15,13 @@ export class MovingSprite extends AnimatedSprite implements IMovingSprite {
   protected angle!: number;
   protected direction!: number;
 
-  constructor(fileName: string, spriteWidth: number, spriteHeight: number) {
-    super(fileName, spriteWidth, spriteHeight);
+  constructor(
+    position: Position,
+    fileName: string,
+    spriteWidth: number,
+    spriteHeight: number
+  ) {
+    super(position, fileName, spriteWidth, spriteHeight);
   }
 
   draw(ctx: CanvasRenderingContext2D) {
@@ -27,6 +32,7 @@ export class MovingSprite extends AnimatedSprite implements IMovingSprite {
   update() {
     super.update();
     this.updateMovement();
+    this.updateHitCirclePosition();
   }
 
   setSpeed(speed: number): this {
@@ -47,6 +53,11 @@ export class MovingSprite extends AnimatedSprite implements IMovingSprite {
       Math.cos(this.angle) * this.speed * Time.deltaTimeMultiplier;
     this.position.y +=
       Math.sin(this.angle) * this.speed * Time.deltaTimeMultiplier;
+  }
+
+  updateHitCirclePosition() {
+    this.hitCircle.x = this.position.x;
+    this.hitCircle.y = this.position.y;
   }
 
   contextSave(ctx: CanvasRenderingContext2D) {

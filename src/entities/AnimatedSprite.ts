@@ -1,3 +1,4 @@
+import { Position } from "../constants/types.js";
 import { Time } from "../handlers/Time.js";
 import { IAnimatedSprite } from "../interfaces/IEntity.js";
 import { Sprite } from "./Sprite.js";
@@ -13,11 +14,12 @@ export class AnimatedSprite extends Sprite implements IAnimatedSprite {
   protected state!: number;
 
   constructor(
+    position: Position,
     fileName: string,
-    protected spriteWidth: number,
-    protected spriteHeight: number
+    spriteWidth: number,
+    spriteHeight: number
   ) {
-    super(fileName, spriteWidth, spriteHeight);
+    super(position, fileName, spriteWidth, spriteHeight);
 
     this.maxAnimationFrame = this.getSpriteSheetDimensions(
       this.image.width,

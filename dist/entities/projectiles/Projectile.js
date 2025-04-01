@@ -1,8 +1,7 @@
 import { MovingSprite } from "../MovingSprite.js";
 export class Projectile extends MovingSprite {
-    constructor(fileName, spriteWidth, spriteHeight) {
-        super(fileName, spriteWidth, spriteHeight);
-        this.origin = Object.assign({}, this.position);
+    constructor(position, fileName, spriteWidth, spriteHeight) {
+        super(position, fileName, spriteWidth, spriteHeight);
     }
     draw(ctx) {
         ctx.save();

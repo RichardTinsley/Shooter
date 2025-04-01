@@ -27,10 +27,10 @@ export class Level {
         this.tileMap.forEach((row, y) => {
             row.forEach((symbol, x) => {
                 if (symbol !== 0)
-                    emptyTowerSpots.push(new EmptyTowerSpot(FILE_NAMES.TOWER_EMPTY_SPOT, 64, 64).setPosition({
+                    emptyTowerSpots.push(new EmptyTowerSpot({
                         x: x * SIZES.TILE + SIZES.TILE_HALF,
                         y: y * SIZES.TILE + SIZES.TILE_HALF,
-                    }));
+                    }, FILE_NAMES.TOWER_EMPTY_SPOT, 64, 64));
             });
         });
         return emptyTowerSpots;

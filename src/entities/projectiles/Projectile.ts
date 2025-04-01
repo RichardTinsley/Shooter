@@ -1,12 +1,18 @@
+import { Position } from "../../constants/types.js";
 import { MovingSprite } from "../MovingSprite.js";
 
 export class Projectile extends MovingSprite {
-  private origin = { ...this.position };
+  // private origin = { ...this.position };
   // private damage = damage;
   // this.enemy = enemy;
 
-  constructor(fileName: string, spriteWidth: number, spriteHeight: number) {
-    super(fileName, spriteWidth, spriteHeight);
+  constructor(
+    position: Position,
+    fileName: string,
+    spriteWidth: number,
+    spriteHeight: number
+  ) {
+    super(position, fileName, spriteWidth, spriteHeight);
   }
 
   draw(ctx: CanvasRenderingContext2D) {
