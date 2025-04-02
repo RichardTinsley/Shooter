@@ -51,9 +51,4 @@ export class StatusBar implements IDrawable {
   setCurrentStatus(currentStatus: number): void {
     this.currentStatus += currentStatus;
   }
-
-  setMaxStatus(maxStatus: number): this {
-    this.maxStatus = maxStatus;
-    return this;
-  }
 }

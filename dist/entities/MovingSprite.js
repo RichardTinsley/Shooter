@@ -33,7 +33,7 @@ export class MovingSprite extends AnimatedSprite {
     }
     updateHitCirclePosition() {
         this.hitCircle.x = this.position.x;
-        this.hitCircle.y = this.position.y;
+        this.hitCircle.y = this.position.y - this.height / 2;
     }
     contextSave(ctx) {
         if (this.direction === DIRECTION.LEFT) {

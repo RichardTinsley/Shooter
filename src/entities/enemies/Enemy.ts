@@ -1,14 +1,10 @@
 import { Position } from "../../constants/types.js";
+import { HealthBar } from "../../GUI/components/HealthBar.js";
 import { checkCircleCollision } from "../../utilities/collisionDetection.js";
 import { MovingSprite } from "../MovingSprite.js";
 
 export class Enemy extends MovingSprite {
-  // this.isPillaged = false;
-
-  // this.health = new HealthBar({
-  //     length: this.halfWidth,
-  // })
-
+  private healthBar = new HealthBar(this.width);
   protected waypointIndex = 0;
 
   constructor(
@@ -20,18 +16,22 @@ export class Enemy extends MovingSprite {
   ) {
     super(position, fileName, spriteWidth, spriteHeight);
     this.destination = { ...position };
+    this.updateHealthBar();
+    this.healthBar.setCurrentStatus(80);
   }
 
   draw(ctx: CanvasRenderingContext2D) {
     this.contextSave(ctx);
     super.draw(ctx);
     this.contextRestore(ctx);
+    this.healthBar.draw(ctx);
   }
 
   update() {
     super.update();
     this.checkWaypointArrival();
     this.checkEndpointArrival();
+    this.updateHealthBar();
   }
 
   checkWaypointArrival() {
@@ -49,10 +49,11 @@ export class Enemy extends MovingSprite {
     }
   }
 
-  setPosition(position: Position): this {
-    super.setPosition(position);
-    super.setDestination(position);
-    return this;
+  updateHealthBar() {
+    this.healthBar.setPosition({
+      x: this.position.x,
+      y: this.position.y - this.height,
+    });
   }
 
   checkEnemyHealth() {
@@ -70,8 +71,4 @@ export class Enemy extends MovingSprite {
     //   Math.abs(xDistance) + Math.abs(yDistance)
     // );
   }
-
-  // getWaypoints(): Array<Position> {
-  //   return this.waypoints;
-  // }
 }

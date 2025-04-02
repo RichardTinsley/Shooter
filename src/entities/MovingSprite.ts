@@ -35,6 +35,12 @@ export class MovingSprite extends AnimatedSprite implements IMovingSprite {
     this.updateHitCirclePosition();
   }
 
+  // updateSpriteDrawPosition() {
+  //   //OVERRIDE FOR EACH ENEMY
+  //   // this.drawPositionX = this.position.x - this.halfWidth;
+  //   // this.drawPositionY = this.position.y - this.height - this.offsetY??;
+  // }
+
   setSpeed(speed: number): this {
     this.speed = randomFloat(speed - speed * 0.2, speed + speed * 0.2);
     return this;
@@ -57,7 +63,7 @@ export class MovingSprite extends AnimatedSprite implements IMovingSprite {
 
   updateHitCirclePosition() {
     this.hitCircle.x = this.position.x;
-    this.hitCircle.y = this.position.y;
+    this.hitCircle.y = this.position.y - this.height / 2;
   }
 
   contextSave(ctx: CanvasRenderingContext2D) {

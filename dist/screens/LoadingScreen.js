@@ -21,9 +21,10 @@ export class LoadingScreen {
             .setPosition({ x: SIZES.GAME_WIDTH_HALF, y: SIZES.GAME_HEIGHT - 130 })
             .setText("Summoning...")
             .setSize(SIZES.TEXT_MENUITEM);
-        this.loadingBar = new LoadingBar()
-            .setPosition({ x: SIZES.GAME_WIDTH_HALF, y: SIZES.GAME_HEIGHT - 80 })
-            .setMaxStatus(assetListLength);
+        this.loadingBar = new LoadingBar(assetListLength).setPosition({
+            x: SIZES.GAME_WIDTH_HALF,
+            y: SIZES.GAME_HEIGHT - 80,
+        });
         this.assetLoaded = (fileName) => {
             this.loadingBar.setCurrentStatus(1);
             console.log(`${fileName.fileName} Loaded.`);

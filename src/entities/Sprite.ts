@@ -10,8 +10,8 @@ export class Sprite implements IDrawable {
   protected height: number = this.spriteHeight;
   protected halfWidth = this.width / 2;
 
-  protected drawPositionX = this.position.x - this.halfWidth;
-  protected drawPositionY = this.position.y - this.height;
+  protected drawPositionX: number = this.position.x - this.halfWidth;
+  protected drawPositionY: number = this.position.y - this.height;
 
   protected hitCircle: HitCircle = {
     x: this.position.x,

@@ -3,8 +3,9 @@ import { SIZES } from "../../constants/game.js";
 import { drawRectangle } from "../../utilities/drawShapes.js";
 import { StatusBar } from "./StatusBar.js";
 export class LoadingBar extends StatusBar {
-    constructor() {
+    constructor(maxStatus) {
         super();
+        this.maxStatus = maxStatus;
         this.statusBarHeight = 14;
         this.statusBarLength = SIZES.GAME_WIDTH / 3;
     }

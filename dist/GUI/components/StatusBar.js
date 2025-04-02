@@ -32,9 +32,5 @@ export class StatusBar {
     setCurrentStatus(currentStatus) {
         this.currentStatus += currentStatus;
     }
-    setMaxStatus(maxStatus) {
-        this.maxStatus = maxStatus;
-        return this;
-    }
 }
 //# sourceMappingURL=StatusBar.js.map

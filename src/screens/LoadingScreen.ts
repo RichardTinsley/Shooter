@@ -15,9 +15,10 @@ export class LoadingScreen implements IScreenState {
     .setText("Summoning...")
     .setSize(SIZES.TEXT_MENUITEM);
 
-  private loadingBar = new LoadingBar()
-    .setPosition({ x: SIZES.GAME_WIDTH_HALF, y: SIZES.GAME_HEIGHT - 80 })
-    .setMaxStatus(assetListLength);
+  private loadingBar = new LoadingBar(assetListLength).setPosition({
+    x: SIZES.GAME_WIDTH_HALF,
+    y: SIZES.GAME_HEIGHT - 80,
+  });
 
   menu!: Menu;
 

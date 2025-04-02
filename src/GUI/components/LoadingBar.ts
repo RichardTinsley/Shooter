@@ -8,7 +8,7 @@ export class LoadingBar extends StatusBar {
   readonly statusBarHeight: number = 14;
   readonly statusBarLength: number = SIZES.GAME_WIDTH / 3;
 
-  constructor() {
+  constructor(protected maxStatus: number) {
     super();
   }
 
