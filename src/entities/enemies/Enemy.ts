@@ -19,7 +19,6 @@ export class Enemy extends MovingSprite {
     super(position, fileName, spriteWidth, spriteHeight);
     this.destination = { ...position };
     this.updateHealthBarPosition();
-    this.healthBar.setCurrentStatus(80);
   }
 
   draw(ctx: CanvasRenderingContext2D) {

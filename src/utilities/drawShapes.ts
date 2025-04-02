@@ -82,34 +82,15 @@ export function drawEntityShadow(
   width: number,
   height: number
 ): void {
-  // ctx.save();
-  // ctx.beginPath();
-  // const radialGradient = ctx.createRadialGradient(
-  //   position.x,
-  //   position.y,
-  //   width / 2,
-  //   position.x,
-  //   position.y,
-  //   width / 8
-  // );
-
-  // radialGradient.addColorStop(0, "#00000000");
-  // radialGradient.addColorStop(1, COLOURS.SHADOW);
-
-  // ctx.fillStyle = radialGradient;
-  // ctx.arc(position.x, position.y, width, 0, 2 * Math.PI, false);
-  // ctx.transform(1, 0, 0, 0.5, 0, 125);
-  // ctx.fill();
-  // ctx.restore();
-
   ctx.save();
   ctx.beginPath();
-  var gradient = ctx.createRadialGradient(300, 300, 0, 300, 300, 100);
-  gradient.addColorStop(0, COLOURS.SHADOW);
-  gradient.addColorStop(1, "rgba(0, 0, 0, 0)");
-  ctx.fillStyle = gradient;
-  ctx.arc(300, 300, 100, 0, 2 * Math.PI, false);
-  ctx.transform(1, 0, 0, 0.5, 0, 125);
+  ctx.translate(position.x, position.y);
+  const radialGradient = ctx.createRadialGradient(0, 0, 0, 0, 0, 100);
+  radialGradient.addColorStop(0, COLOURS.SHADOW);
+  radialGradient.addColorStop(1, "rgba(0, 0, 0, 0)");
+  ctx.fillStyle = radialGradient;
+  ctx.arc(0, 0, 100, 0, 2 * Math.PI, false);
+  ctx.transform(1, 0, 0, 0.2, 0, 0);
   ctx.fill();
   ctx.restore();
 }

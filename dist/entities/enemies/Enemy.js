@@ -11,7 +11,6 @@ export class Enemy extends MovingSprite {
         this.waypointIndex = 0;
         this.destination = Object.assign({}, position);
         this.updateHealthBarPosition();
-        this.healthBar.setCurrentStatus(80);
     }
     draw(ctx) {
         drawEntityShadow(ctx, this.position, this.width, this.height);
