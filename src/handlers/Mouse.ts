@@ -53,7 +53,7 @@ export class Mouse {
     if (this.mouseOverItem instanceof MenuButton)
       this.mouseOverItem.changeState();
     if (this.mouseOverItem instanceof Enemy) console.log("ENEM");
-    // commit
+
     // if (this.mouseOverItem instanceof Enemy && this.selectedItem instanceof Enemy )
     //if(this.mouseOverItem !== this.selectedItem)
     //create 'swap function' for selected and enemy
