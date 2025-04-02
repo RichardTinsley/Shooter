@@ -62,7 +62,7 @@ export class Mouse {
 
   setCursor() {
     let style = "Plain";
-    if (this.mouseOverItem instanceof MenuButton) style = "MenuItem";
+    if (this.mouseOverItem instanceof MenuButton) style = "MenuButton";
     if (this.mouseOverItem instanceof EmptyTowerSpot) style = "Tower";
     if (this.mouseOverItem instanceof Enemy) style = "Enemy";
     this.cursor.style.cursor = `url(../../images/cursors/${style}.cur), auto`;

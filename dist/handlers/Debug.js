@@ -2,7 +2,7 @@ import { SIZES } from "../constants/game.js";
 import { COLOURS } from "../constants/colours.js";
 import { TextFactory } from "../entities/texts/TextFactory.js";
 import { PlayScreen } from "../screens/PlayScreen.js";
-import { drawDot, } from "../utilities/drawShapes.js";
+import { drawDot, drawRectangle } from "../utilities/drawShapes.js";
 import { Time } from "./Time.js";
 export class Debug {
     constructor(state, mouse) {
@@ -11,7 +11,7 @@ export class Debug {
         this.isDebugMode = true;
         this.FPS = TextFactory.createTextPlain();
         this.switchDebugMode = () => (this.isDebugMode = !this.isDebugMode);
-        this.FPS.setPosition({ x: SIZES.TILE_HALF / 2, y: SIZES.TILE * 4 });
+        this.FPS.setPosition({ x: SIZES.TILE, y: SIZES.TILE * 4 });
     }
     draw(ctx) {
         if (!this.isDebugMode)
@@ -29,8 +29,8 @@ export class Debug {
         this.FPS.setText(`fps: ${Time.calculateFPSNormal()}`);
     }
     drawPerformanceDebugInfo(ctx) {
-        ctx.fillStyle = COLOURS.SHADOW;
-        ctx.fillRect(0, SIZES.TILE * 3, SIZES.TILE * 4, SIZES.TILE * 2);
+        ctx.lineWidth = 3;
+        drawRectangle(ctx, { x: SIZES.TILE_HALF, y: SIZES.TILE * 3 }, SIZES.TILE_HALF * 9, SIZES.TILE * 2, COLOURS.SHADOW, COLOURS.WHITE);
         this.FPS.draw(ctx);
     }
     drawMouseDebugInfo(ctx) {

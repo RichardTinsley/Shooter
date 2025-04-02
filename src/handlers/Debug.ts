@@ -1,15 +1,10 @@
 import { SIZES } from "../constants/game.js";
 import { COLOURS } from "../constants/colours.js";
 import { TextFactory } from "../entities/texts/TextFactory.js";
-import { MenuButton } from "../GUI/menus/MenuButton.js";
 import { Screen } from "../screens/Screen.js";
 import { Mouse } from "./Mouse.js";
 import { PlayScreen } from "../screens/PlayScreen.js";
-import {
-  drawDot,
-  drawCircleHitbox,
-  drawSquareHitBox,
-} from "../utilities/drawShapes.js";
+import { drawDot, drawRectangle } from "../utilities/drawShapes.js";
 import { Time } from "./Time.js";
 
 export class Debug {
@@ -17,7 +12,7 @@ export class Debug {
   private FPS: any = TextFactory.createTextPlain();
 
   constructor(public state: Screen, public mouse: Mouse) {
-    this.FPS.setPosition({ x: SIZES.TILE_HALF / 2, y: SIZES.TILE * 4 });
+    this.FPS.setPosition({ x: SIZES.TILE, y: SIZES.TILE * 4 });
   }
 
   switchDebugMode = () => (this.isDebugMode = !this.isDebugMode);
@@ -40,8 +35,15 @@ export class Debug {
   }
 
   drawPerformanceDebugInfo(ctx: CanvasRenderingContext2D) {
-    ctx.fillStyle = COLOURS.SHADOW;
-    ctx.fillRect(0, SIZES.TILE * 3, SIZES.TILE * 4, SIZES.TILE * 2);
+    ctx.lineWidth = 3;
+    drawRectangle(
+      ctx,
+      { x: SIZES.TILE_HALF, y: SIZES.TILE * 3 },
+      SIZES.TILE_HALF * 9,
+      SIZES.TILE * 2,
+      COLOURS.SHADOW,
+      COLOURS.WHITE
+    );
     this.FPS.draw(ctx);
   }
 
