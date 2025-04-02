@@ -1,4 +1,3 @@
-import { checkCircleCollision, checkHitBoxCollision, } from "../utilities/collisionDetection.js";
 import { MenuButton } from "../GUI/menus/MenuButton.js";
 import { ANIMATION } from "../constants/animation.js";
 import { EmptyTowerSpot } from "../entities/towers/emptyTowerSpot.js";
@@ -24,15 +23,17 @@ export class Mouse {
         });
     }
     update(state) {
-        this.mouseOverMenuButton(state.getCurrentState());
-        this.mouseOverEntity(state.getCurrentState());
+        const currentState = state.getCurrentState();
+        if (currentState.menu)
+            this.mouseOver(currentState.menu.getMenuItemsArray());
+        if (state.getCurrentState().getArray().length > 0)
+            this.mouseOver(state.getCurrentState().getArray());
         this.setCursor();
     }
-    mouseOverMenuButton(state) {
-        var _a;
+    mouseOver(array) {
         this.mouseOverItem = undefined;
-        (_a = state.menu) === null || _a === void 0 ? void 0 : _a.getMenuItemsArray().forEach((item) => {
-            if (checkHitBoxCollision(this.cursor, item.hitBox)) {
+        array.forEach((item) => {
+            if (item.checkCollision(this.cursor)) {
                 item.mouseOver(ANIMATION.ANIMATING);
                 this.mouseOverItem = item;
             }
@@ -41,20 +42,13 @@ export class Mouse {
             }
         });
     }
-    mouseOverEntity(state) {
-        state.getArray().forEach((item) => {
-            if (checkCircleCollision(this.cursor, item.hitCircle, this.cursor.radius, item.hitCircle.radius)) {
-                this.mouseOverItem = item;
-            }
-            else {
-            }
-        });
-    }
     mouseClick() {
-        if (this.mouseOverItem) {
+        if (!this.mouseOverItem)
+            return;
+        console.log(this.mouseOverItem);
+        if (this.mouseOverItem instanceof MenuButton)
             this.mouseOverItem.changeState();
-            this.mouseOverItem = undefined;
-        }
+        this.mouseOverItem = undefined;
     }
     setCursor() {
         let style = "Plain";

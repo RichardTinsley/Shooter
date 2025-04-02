@@ -1,4 +1,5 @@
 import { SIZES } from "../../constants/game.js";
+import { checkHitBoxCollision } from "../../utilities/collisionDetection.js";
 export class MenuButton {
     constructor(menuLabel, state, setState) {
         this.menuLabel = menuLabel;
@@ -29,6 +30,9 @@ export class MenuButton {
     }
     mouseOver(state) {
         this.menuLabel.setState(state);
+    }
+    checkCollision(cursor) {
+        return checkHitBoxCollision(cursor, this.hitBox);
     }
 }
 //# sourceMappingURL=MenuButton.js.map

@@ -1,7 +1,8 @@
 import { SIZES } from "../../constants/game.js";
-import { Position, HitBox } from "../../constants/types.js";
+import { Position, HitBox, Cursor } from "../../constants/types.js";
 import { Screen } from "../../screens/Screen.js";
 import { Text } from "../../entities/texts/Text.js";
+import { checkHitBoxCollision } from "../../utilities/collisionDetection.js";
 
 export class MenuButton {
   public size = SIZES.TEXT_MENUITEM;
@@ -45,5 +46,9 @@ export class MenuButton {
 
   mouseOver(state: number): void {
     this.menuLabel.setState(state);
+  }
+
+  checkCollision(cursor: Cursor): boolean {
+    return checkHitBoxCollision(cursor, this.hitBox);
   }
 }

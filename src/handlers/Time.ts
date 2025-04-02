@@ -19,7 +19,6 @@ export class Time {
     window.addEventListener("visibilitychange", () => {
       if (document.visibilityState === "visible") {
         this.startTimer();
-        console.log("STATRRTES");
       } else if (document.visibilityState === "hidden") {
         this.pauseTimer();
       }

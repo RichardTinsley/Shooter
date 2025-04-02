@@ -24,15 +24,6 @@ export function drawSquareHitBox(ctx, item) {
     ctx.fillStyle = COLOURS.RED_ALPHA;
     ctx.fillRect(item.x, item.y, item.width, item.height);
 }
-export function drawEllipse(ctx, position, height, width, fillStyle) {
-    ctx.beginPath();
-    ctx.ellipse(position.x, position.y, height, width, Math.PI / 2, 0, 2 * Math.PI);
-    ctx.fillStyle = fillStyle;
-    ctx.lineWidth = 3;
-    ctx.strokeStyle = COLOURS.GREEN;
-    ctx.fill();
-    ctx.stroke();
-}
 export function drawEntityShadow(ctx, position, width) {
     ctx.save();
     ctx.beginPath();
@@ -46,7 +37,16 @@ export function drawEntityShadow(ctx, position, width) {
     ctx.fill();
     ctx.restore();
 }
-export function drawCircleRadialGradient(ctx, position, radius) {
+export function drawEllipse(ctx, position, height, width, fillStyle) {
+    ctx.beginPath();
+    ctx.ellipse(position.x, position.y, height, width, Math.PI / 2, 0, 2 * Math.PI);
+    ctx.fillStyle = fillStyle;
+    ctx.lineWidth = 3;
+    ctx.strokeStyle = COLOURS.GREEN;
+    ctx.fill();
+    ctx.stroke();
+}
+export function drawMouseOverEntity(ctx, position, radius) {
     const radialGradient = ctx.createRadialGradient(position.x, position.y, radius - 10, position.x, position.y, radius / 4);
     radialGradient.addColorStop(0, "#00000000");
     radialGradient.addColorStop(1, COLOURS.SHADOW);

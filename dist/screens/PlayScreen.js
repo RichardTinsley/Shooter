@@ -3,11 +3,13 @@ import { AnimatedSprite } from "../entities/AnimatedSprite.js";
 import { Enemy } from "../entities/enemies/Enemy.js";
 import { Lavoney } from "../entities/levels/Lavoney.js";
 import { Sprite } from "../entities/Sprite.js";
+import { MainMenu } from "../GUI/menus/MainMenu.js";
 export class PlayScreen {
     constructor(screen) {
         this.screen = screen;
         this.entities = [];
         this.level = new Lavoney();
+        this.menu = new MainMenu(screen, 200);
         this.entities.push(...this.level.getTowerSpots());
         this.waypoints = this.level.getWaypoints();
         this.entities.push(new Enemy(this.waypoints[0], FILE_NAMES.TOWER_AMETHYST_1, 64, 64, this.level.getWaypoints()).setSpeed(10));
@@ -16,10 +18,12 @@ export class PlayScreen {
     }
     draw(ctx) {
         this.level.draw(ctx);
+        this.menu.draw(ctx);
         this.entities.forEach((entity) => entity.draw(ctx));
     }
     update() {
         this.level.update();
+        this.menu.update();
         this.entities.forEach((entity) => entity.update());
     }
     getArray() {

@@ -1,4 +1,5 @@
 import { ALL_ASSETS } from "../constants/assets.js";
+import { checkCircleCollision } from "../utilities/collisionDetection.js";
 export class Sprite {
     constructor(position, fileName, spriteWidth, spriteHeight) {
         this.position = position;
@@ -42,6 +43,12 @@ export class Sprite {
         this.height = Math.round(this.spriteHeight * this.scale * 100) / 100;
         this.halfWidth = this.width / 2;
         return this;
+    }
+    checkCollision(cursor) {
+        return checkCircleCollision(cursor, this.hitCircle, cursor.radius, this.hitCircle.radius);
+    }
+    mouseOver(state) {
+        return;
     }
 }
 //# sourceMappingURL=Sprite.js.map

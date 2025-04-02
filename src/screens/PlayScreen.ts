@@ -3,16 +3,19 @@ import { AnimatedSprite } from "../entities/AnimatedSprite.js";
 import { Enemy } from "../entities/enemies/Enemy.js";
 import { Lavoney } from "../entities/levels/Lavoney.js";
 import { Sprite } from "../entities/Sprite.js";
+import { MainMenu } from "../GUI/menus/MainMenu.js";
 import { Menu } from "../GUI/menus/Menu.js";
 import { IScreenState, Screen } from "./Screen.js";
 
 export class PlayScreen implements IScreenState {
   private entities: Array<any> = [];
   level = new Lavoney();
-  menu!: Menu;
+  menu: Menu;
   waypoints;
 
   constructor(public screen: Screen) {
+    this.menu = new MainMenu(screen, 200);
+
     this.entities.push(...this.level.getTowerSpots());
     this.waypoints = this.level.getWaypoints();
     this.entities.push(
@@ -41,10 +44,12 @@ export class PlayScreen implements IScreenState {
 
   draw(ctx: CanvasRenderingContext2D): void {
     this.level.draw(ctx);
+    this.menu.draw(ctx);
     this.entities.forEach((entity) => entity.draw(ctx));
   }
   update(): void {
     this.level.update();
+    this.menu.update();
     this.entities.forEach((entity) => entity.update());
   }
 

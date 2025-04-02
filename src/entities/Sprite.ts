@@ -1,6 +1,7 @@
 import { ALL_ASSETS } from "../constants/assets.js";
-import { HitCircle, Position } from "../constants/types.js";
+import { Cursor, HitCircle, Position } from "../constants/types.js";
 import { IDrawable } from "../interfaces/IEntity.js";
+import { checkCircleCollision } from "../utilities/collisionDetection.js";
 
 export class Sprite implements IDrawable {
   protected image!: HTMLImageElement;
@@ -71,5 +72,18 @@ export class Sprite implements IDrawable {
     this.height = Math.round(this.spriteHeight * this.scale * 100) / 100;
     this.halfWidth = this.width / 2;
     return this;
+  }
+
+  checkCollision(cursor: Cursor): boolean {
+    return checkCircleCollision(
+      cursor,
+      this.hitCircle,
+      cursor.radius,
+      this.hitCircle.radius
+    );
+  }
+
+  mouseOver(state: number) {
+    return;
   }
 }

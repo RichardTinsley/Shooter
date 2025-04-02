@@ -1,9 +1,5 @@
-import { IScreenState, Screen } from "../screens/Screen.js";
+import { Screen } from "../screens/Screen.js";
 import { Cursor } from "../constants/types.js";
-import {
-  checkCircleCollision,
-  checkHitBoxCollision,
-} from "../utilities/collisionDetection.js";
 import { MenuButton } from "../GUI/menus/MenuButton.js";
 import { ANIMATION } from "../constants/animation.js";
 import { EmptyTowerSpot } from "../entities/towers/emptyTowerSpot.js";
@@ -21,7 +17,7 @@ export class Mouse {
     style: document.getElementById("canvas")!.style,
   };
 
-  mouseOverItem: MenuButton | undefined = undefined;
+  mouseOverItem: any = undefined;
 
   constructor(state: Screen) {
     window.addEventListener("mousemove", (e) => {
@@ -35,15 +31,18 @@ export class Mouse {
   }
 
   update(state: Screen) {
-    this.mouseOverMenuButton(state.getCurrentState());
-    this.mouseOverEntity(state.getCurrentState());
+    const currentState = state.getCurrentState();
+    if (currentState.menu)
+      this.mouseOver(currentState.menu.getMenuItemsArray());
+    if (state.getCurrentState().getArray().length > 0)
+      this.mouseOver(state.getCurrentState().getArray());
     this.setCursor();
   }
 
-  mouseOverMenuButton(state: IScreenState) {
+  mouseOver(array: Array<any>) {
     this.mouseOverItem = undefined;
-    state.menu?.getMenuItemsArray().forEach((item: MenuButton) => {
-      if (checkHitBoxCollision(this.cursor, item.hitBox)) {
+    array.forEach((item: any) => {
+      if (item.checkCollision(this.cursor)) {
         item.mouseOver(ANIMATION.ANIMATING);
         this.mouseOverItem = item;
       } else {
@@ -52,29 +51,13 @@ export class Mouse {
     });
   }
 
-  mouseOverEntity(state: IScreenState) {
-    state.getArray().forEach((item: any) => {
-      if (
-        checkCircleCollision(
-          this.cursor,
-          item.hitCircle,
-          this.cursor.radius,
-          item.hitCircle.radius
-        )
-      ) {
-        // item.mouseOver(ANIMATION.ANIMATING);
-        this.mouseOverItem = item;
-      } else {
-        // item.mouseOver(ANIMATION.FINISHED);
-      }
-    });
-  }
-
   mouseClick() {
-    if (this.mouseOverItem) {
+    if (!this.mouseOverItem) return;
+    console.log(this.mouseOverItem);
+    if (this.mouseOverItem instanceof MenuButton)
       this.mouseOverItem.changeState();
-      this.mouseOverItem = undefined;
-    }
+
+    this.mouseOverItem = undefined;
   }
 
   setCursor() {

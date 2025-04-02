@@ -3,7 +3,6 @@ import { deathSorceryLogoLayout } from "../GUI/layouts/deathSorceryLogoLayout.js
 import { BeginMenu } from "../GUI/menus/BeginMenu.js";
 import { Menu } from "../GUI/menus/Menu.js";
 import { TowerModal } from "../GUI/TowerModal.js";
-import { drawCircleRadialGradient } from "../utilities/drawShapes.js";
 import { Screen, IScreenState } from "./Screen.js";
 
 export class BeginningScreen implements IScreenState {
