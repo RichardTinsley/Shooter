@@ -11,7 +11,7 @@ export class HealthBar extends StatusBar {
 
   constructor(length: number) {
     super();
-    this.statusBarLength = length / 1.75;
+    this.statusBarLength = length / 1.5;
     this.maxStatus = 100;
     this.currentStatus = 100;
     // this.maxStatus = randomFloat(HUB.wave());
@@ -20,9 +20,9 @@ export class HealthBar extends StatusBar {
   draw(ctx: CanvasRenderingContext2D): void {
     this.position.x -= this.statusBarLength / 2;
     ctx.lineJoin = this.lineJoin;
-    ctx.lineWidth = this.lineWidth;
 
     super.draw(ctx);
+
     ctx.lineWidth = 2;
     drawRectangle(
       ctx,

@@ -33,14 +33,18 @@ export function drawEllipse(ctx, position, height, width, fillStyle) {
     ctx.fill();
     ctx.stroke();
 }
-export function drawCircleRadialGradient(ctx) {
-    const radialGradient = ctx.createRadialGradient(200, 200, 50, 200, 200, 10);
-    radialGradient.addColorStop(0, "tomato");
-    radialGradient.addColorStop(1, "purple");
-    ctx.fillStyle = radialGradient;
+export function drawCircleRadialGradient(ctx, position, radius) {
+    const radialGradient = ctx.createRadialGradient(position.x, position.y, radius - 10, position.x, position.y, radius / 4);
+    radialGradient.addColorStop(0, COLOURS.TOWER_MODAL_ALPHA);
+    radialGradient.addColorStop(1, "#00000000");
     ctx.beginPath();
-    ctx.arc(250, 150, 80, 0, 2 * Math.PI);
+    ctx.fillStyle = radialGradient;
+    ctx.arc(position.x, position.y, radius - 5, 0, 2 * Math.PI);
     ctx.fill();
+    ctx.beginPath();
+    ctx.lineWidth = 2;
+    ctx.arc(position.x, position.y, radius, 0, 2 * Math.PI);
+    ctx.strokeStyle = COLOURS.TOWER_MODAL;
     ctx.stroke();
 }
 //# sourceMappingURL=drawShapes.js.map

@@ -73,14 +73,30 @@ export function drawEllipse(
   ctx.stroke();
 }
 
-export function drawCircleRadialGradient(ctx: CanvasRenderingContext2D) {
-  const radialGradient = ctx.createRadialGradient(200, 200, 50, 200, 200, 10);
-  radialGradient.addColorStop(0, "tomato");
-  radialGradient.addColorStop(1, "purple");
+export function drawCircleRadialGradient(
+  ctx: CanvasRenderingContext2D,
+  position: Position,
+  radius: number
+): void {
+  const radialGradient = ctx.createRadialGradient(
+    position.x,
+    position.y,
+    radius - 10,
+    position.x,
+    position.y,
+    radius / 4
+  );
+  radialGradient.addColorStop(0, COLOURS.TOWER_MODAL_ALPHA);
+  radialGradient.addColorStop(1, "#00000000");
 
-  ctx.fillStyle = radialGradient;
   ctx.beginPath();
-  ctx.arc(250, 150, 80, 0, 2 * Math.PI);
+  ctx.fillStyle = radialGradient;
+  ctx.arc(position.x, position.y, radius - 5, 0, 2 * Math.PI);
   ctx.fill();
+
+  ctx.beginPath();
+  ctx.lineWidth = 2;
+  ctx.arc(position.x, position.y, radius, 0, 2 * Math.PI);
+  ctx.strokeStyle = COLOURS.TOWER_MODAL;
   ctx.stroke();
 }

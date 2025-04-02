@@ -1,6 +1,7 @@
 import { Text } from "./Text.js";
 import { ANIMATION } from "../../constants/animation.js";
 import { oscillate, OSCILLATIONS } from "../../utilities/math.js";
+import { COLOURS } from "../../constants/colours.js";
 
 export class TextGlow extends Text {
   lineWidth: number = 3;
@@ -13,7 +14,7 @@ export class TextGlow extends Text {
   }
 
   draw(ctx: CanvasRenderingContext2D) {
-    ctx.shadowColor = "#d53";
+    ctx.shadowColor = COLOURS.GLOW;
     ctx.shadowBlur = this.glow;
     super.draw(ctx);
     ctx.shadowBlur = 0;

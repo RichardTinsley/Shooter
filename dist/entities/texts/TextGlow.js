@@ -1,6 +1,7 @@
 import { Text } from "./Text.js";
 import { ANIMATION } from "../../constants/animation.js";
 import { oscillate } from "../../utilities/math.js";
+import { COLOURS } from "../../constants/colours.js";
 export class TextGlow extends Text {
     constructor() {
         super();
@@ -10,7 +11,7 @@ export class TextGlow extends Text {
         this.amplitude = 0.2;
     }
     draw(ctx) {
-        ctx.shadowColor = "#d53";
+        ctx.shadowColor = COLOURS.GLOW;
         ctx.shadowBlur = this.glow;
         super.draw(ctx);
         ctx.shadowBlur = 0;
