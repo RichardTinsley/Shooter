@@ -27,7 +27,7 @@ export class PlayScreen {
         this.entities.forEach((entity) => entity.update());
     }
     getArray() {
-        return this.entities;
+        return [...this.menu.getMenuItemsArray(), ...this.entities];
     }
 }
 //# sourceMappingURL=PlayScreen.js.map

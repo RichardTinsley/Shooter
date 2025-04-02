@@ -18,6 +18,6 @@ export class MainMenuScreen implements IScreenState {
   }
 
   getArray(): Array<any> {
-    return [];
+    return this.menu.getMenuItemsArray();
   }
 }

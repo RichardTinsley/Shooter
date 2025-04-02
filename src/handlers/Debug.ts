@@ -26,13 +26,11 @@ export class Debug {
     if (!this.isDebugMode) return;
     const currentState = this.state.getCurrentState();
 
-    if (currentState instanceof PlayScreen) {
-      this.drawLevelDebugInfoGrid(ctx);
-      this.drawEntitiesDebugInfo(ctx, currentState.getArray());
-    }
+    if (currentState instanceof PlayScreen) this.drawLevelDebugInfoGrid(ctx);
+
+    this.drawEntitiesDebugInfo(ctx, currentState.getArray());
 
     this.drawMouseDebugInfo(ctx);
-    this.drawMenuDebugInfo(ctx, currentState.menu?.getMenuItemsArray());
     this.drawPerformanceDebugInfo(ctx);
   }
 
@@ -47,10 +45,6 @@ export class Debug {
     this.FPS.draw(ctx);
   }
 
-  drawMenuDebugInfo(ctx: CanvasRenderingContext2D, menu: Array<MenuButton>) {
-    menu?.forEach((item) => drawSquareHitBox(ctx, item.hitBox));
-  }
-
   drawMouseDebugInfo(ctx: CanvasRenderingContext2D) {
     drawDot(ctx, this.mouse.getCursor(), COLOURS.RED);
   }
@@ -58,7 +52,8 @@ export class Debug {
   drawEntitiesDebugInfo(ctx: CanvasRenderingContext2D, entities: Array<any>) {
     entities.forEach((entity) => {
       drawDot(ctx, entity.position, COLOURS.BLUE);
-      drawCircleHitbox(ctx, entity.hitCircle, drawDot);
+
+      entity.drawHitbox(ctx);
 
       entity.waypoints?.forEach((waypoint: any) => {
         drawDot(ctx, waypoint, COLOURS.BRIGHT_GREEN);

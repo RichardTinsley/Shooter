@@ -54,6 +54,6 @@ export class PlayScreen implements IScreenState {
   }
 
   getArray(): Array<any> {
-    return this.entities;
+    return [...this.menu.getMenuItemsArray(), ...this.entities];
   }
 }

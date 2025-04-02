@@ -1,5 +1,6 @@
 import { ALL_ASSETS } from "../constants/assets.js";
 import { checkCircleCollision } from "../utilities/collisionDetection.js";
+import { drawCircleHitbox, drawDot } from "../utilities/drawShapes.js";
 export class Sprite {
     constructor(position, fileName, spriteWidth, spriteHeight) {
         this.position = position;
@@ -46,6 +47,9 @@ export class Sprite {
     }
     checkCollision(cursor) {
         return checkCircleCollision(cursor, this.hitCircle, cursor.radius, this.hitCircle.radius);
+    }
+    drawHitbox(ctx) {
+        drawCircleHitbox(ctx, this.hitCircle, drawDot);
     }
     mouseOver(state) {
         return;

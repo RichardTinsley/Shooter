@@ -19,7 +19,7 @@ export class BeginningScreen {
         this.modal.update();
     }
     getArray() {
-        return [];
+        return this.menu.getMenuItemsArray();
     }
 }
 //# sourceMappingURL=BeginScreen.js.map

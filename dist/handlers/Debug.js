@@ -2,7 +2,7 @@ import { SIZES } from "../constants/game.js";
 import { COLOURS } from "../constants/colours.js";
 import { TextFactory } from "../entities/texts/TextFactory.js";
 import { PlayScreen } from "../screens/PlayScreen.js";
-import { drawDot, drawCircleHitbox, drawSquareHitBox, } from "../utilities/drawShapes.js";
+import { drawDot, } from "../utilities/drawShapes.js";
 import { Time } from "./Time.js";
 export class Debug {
     constructor(state, mouse) {
@@ -14,16 +14,13 @@ export class Debug {
         this.FPS.setPosition({ x: SIZES.TILE_HALF / 2, y: SIZES.TILE * 4 });
     }
     draw(ctx) {
-        var _a;
         if (!this.isDebugMode)
             return;
         const currentState = this.state.getCurrentState();
-        if (currentState instanceof PlayScreen) {
+        if (currentState instanceof PlayScreen)
             this.drawLevelDebugInfoGrid(ctx);
-            this.drawEntitiesDebugInfo(ctx, currentState.getArray());
-        }
+        this.drawEntitiesDebugInfo(ctx, currentState.getArray());
         this.drawMouseDebugInfo(ctx);
-        this.drawMenuDebugInfo(ctx, (_a = currentState.menu) === null || _a === void 0 ? void 0 : _a.getMenuItemsArray());
         this.drawPerformanceDebugInfo(ctx);
     }
     update() {
@@ -36,9 +33,6 @@ export class Debug {
         ctx.fillRect(0, SIZES.TILE * 3, SIZES.TILE * 4, SIZES.TILE * 2);
         this.FPS.draw(ctx);
     }
-    drawMenuDebugInfo(ctx, menu) {
-        menu === null || menu === void 0 ? void 0 : menu.forEach((item) => drawSquareHitBox(ctx, item.hitBox));
-    }
     drawMouseDebugInfo(ctx) {
         drawDot(ctx, this.mouse.getCursor(), COLOURS.RED);
     }
@@ -46,7 +40,7 @@ export class Debug {
         entities.forEach((entity) => {
             var _a;
             drawDot(ctx, entity.position, COLOURS.BLUE);
-            drawCircleHitbox(ctx, entity.hitCircle, drawDot);
+            entity.drawHitbox(ctx);
             (_a = entity.waypoints) === null || _a === void 0 ? void 0 : _a.forEach((waypoint) => {
                 drawDot(ctx, waypoint, COLOURS.BRIGHT_GREEN);
             });

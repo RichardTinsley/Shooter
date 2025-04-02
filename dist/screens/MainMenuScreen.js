@@ -13,7 +13,7 @@ export class MainMenuScreen {
         this.menu.update();
     }
     getArray() {
-        return [];
+        return this.menu.getMenuItemsArray();
     }
 }
 //# sourceMappingURL=MainMenuScreen.js.map

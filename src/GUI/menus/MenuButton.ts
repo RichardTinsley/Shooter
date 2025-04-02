@@ -3,6 +3,7 @@ import { Position, HitBox, Cursor } from "../../constants/types.js";
 import { Screen } from "../../screens/Screen.js";
 import { Text } from "../../entities/texts/Text.js";
 import { checkHitBoxCollision } from "../../utilities/collisionDetection.js";
+import { drawSquareHitBox } from "../../utilities/drawShapes.js";
 
 export class MenuButton {
   public size = SIZES.TEXT_MENUITEM;
@@ -50,5 +51,9 @@ export class MenuButton {
 
   checkCollision(cursor: Cursor): boolean {
     return checkHitBoxCollision(cursor, this.hitBox);
+  }
+
+  drawHitbox(ctx: CanvasRenderingContext2D) {
+    drawSquareHitBox(ctx, this.hitBox);
   }
 }

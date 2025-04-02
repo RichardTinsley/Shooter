@@ -23,11 +23,7 @@ export class Mouse {
         });
     }
     update(state) {
-        const currentState = state.getCurrentState();
-        if (currentState.menu)
-            this.mouseOver(currentState.menu.getMenuItemsArray());
-        if (state.getCurrentState().getArray().length > 0)
-            this.mouseOver(state.getCurrentState().getArray());
+        this.mouseOver(state.getCurrentState().getArray());
         this.setCursor();
     }
     mouseOver(array) {
@@ -45,7 +41,6 @@ export class Mouse {
     mouseClick() {
         if (!this.mouseOverItem)
             return;
-        console.log(this.mouseOverItem);
         if (this.mouseOverItem instanceof MenuButton)
             this.mouseOverItem.changeState();
         this.mouseOverItem = undefined;
