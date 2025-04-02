@@ -10,6 +10,8 @@ export class Sprite {
         this.halfWidth = this.width / 2;
         this.drawPositionX = this.position.x - this.halfWidth;
         this.drawPositionY = this.position.y - this.height;
+        this.drawOffsetY = 0;
+        this.hitCircleOffsetX = 0;
         this.hitCircle = {
             x: this.position.x,
             y: this.position.y - this.height / 2,

@@ -22,7 +22,7 @@ export class Enemy extends MovingSprite {
   }
 
   draw(ctx: CanvasRenderingContext2D) {
-    drawEntityShadow(ctx, this.position, this.width, this.height);
+    drawEntityShadow(ctx, this.position, this.width);
     this.contextSave(ctx);
     super.draw(ctx);
     this.contextRestore(ctx);

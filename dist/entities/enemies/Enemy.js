@@ -13,7 +13,7 @@ export class Enemy extends MovingSprite {
         this.updateHealthBarPosition();
     }
     draw(ctx) {
-        drawEntityShadow(ctx, this.position, this.width, this.height);
+        drawEntityShadow(ctx, this.position, this.width);
         this.contextSave(ctx);
         super.draw(ctx);
         this.contextRestore(ctx);

@@ -33,16 +33,16 @@ export function drawEllipse(ctx, position, height, width, fillStyle) {
     ctx.fill();
     ctx.stroke();
 }
-export function drawEntityShadow(ctx, position, width, height) {
+export function drawEntityShadow(ctx, position, width) {
     ctx.save();
     ctx.beginPath();
     ctx.translate(position.x, position.y);
-    const radialGradient = ctx.createRadialGradient(0, 0, 0, 0, 0, 100);
+    const radialGradient = ctx.createRadialGradient(0, 0, 0, 0, 0, width / 2);
     radialGradient.addColorStop(0, COLOURS.SHADOW);
     radialGradient.addColorStop(1, "rgba(0, 0, 0, 0)");
     ctx.fillStyle = radialGradient;
-    ctx.arc(0, 0, 100, 0, 2 * Math.PI, false);
-    ctx.transform(1, 0, 0, 0.2, 0, 0);
+    ctx.arc(0, 0, width, 0, 2 * Math.PI, false);
+    ctx.transform(1, 0, 0, 0.3, 0, 0);
     ctx.fill();
     ctx.restore();
 }

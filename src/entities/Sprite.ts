@@ -13,6 +13,10 @@ export class Sprite implements IDrawable {
   protected drawPositionX: number = this.position.x - this.halfWidth;
   protected drawPositionY: number = this.position.y - this.height;
 
+  //OFFSETS FOR DIFFERENT ENEMIES AND TOWERS
+  protected drawOffsetY: number = 0;
+  protected hitCircleOffsetX: number = 0;
+
   protected hitCircle: HitCircle = {
     x: this.position.x,
     y: this.position.y - this.height / 2,

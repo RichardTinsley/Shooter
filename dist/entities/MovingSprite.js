@@ -25,11 +25,12 @@ export class MovingSprite extends AnimatedSprite {
     }
     updateSpriteDrawPosition() {
         this.drawPositionX = this.position.x - this.halfWidth;
-        this.drawPositionY = this.position.y - this.height;
+        this.drawPositionY = this.position.y - this.height - this.drawOffsetY;
     }
     updateHitCirclePosition() {
         this.hitCircle.x = this.position.x;
-        this.hitCircle.y = this.position.y - this.height / 2;
+        this.hitCircle.y =
+            this.position.y - this.height / 2 - this.hitCircleOffsetX;
     }
     setSpeed(speed) {
         this.speed = randomFloat(speed - speed * 0.2, speed + speed * 0.2);
