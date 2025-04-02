@@ -23,7 +23,7 @@ export class TowerModal implements IDrawable {
       this.radius - this.offset,
       this.position.x,
       this.position.y,
-      this.radius / 4
+      this.radius / 1.75
     );
 
     radialGradient.addColorStop(0, COLOURS.TOWER_MODAL_ALPHA);

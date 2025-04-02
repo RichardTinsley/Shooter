@@ -28,8 +28,6 @@ export class LoadingScreen {
         this.assetLoaded = (fileName) => {
             this.loadingBar.setCurrentStatus(1);
             console.log(`${fileName.fileName} Loaded.`);
-            if (this.loadingBar.getCurrentStatus() === assetListLength)
-                this.screen.setBeginningScreen();
         };
         this.loadAssets();
     }
@@ -40,6 +38,8 @@ export class LoadingScreen {
     }
     update() {
         this.summoning.update();
+        if (this.loadingBar.getCurrentStatus() === assetListLength)
+            this.screen.setBeginningScreen();
     }
     loadAssets() {
         return __awaiter(this, void 0, void 0, function* () {

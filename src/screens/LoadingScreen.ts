@@ -34,6 +34,8 @@ export class LoadingScreen implements IScreenState {
 
   update(): void {
     this.summoning.update();
+    if (this.loadingBar.getCurrentStatus() === assetListLength)
+      this.screen.setBeginningScreen();
   }
 
   async loadAssets() {
@@ -45,8 +47,6 @@ export class LoadingScreen implements IScreenState {
   assetLoaded = (fileName: any) => {
     this.loadingBar.setCurrentStatus(1);
     console.log(`${fileName.fileName} Loaded.`);
-    if (this.loadingBar.getCurrentStatus() === assetListLength)
-      this.screen.setBeginningScreen();
   };
 
   getArray(): Array<any> {

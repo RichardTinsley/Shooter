@@ -14,7 +14,7 @@ export class TowerModal {
             this.radius += this.offset * 2;
     }
     drawCircleGradient(ctx) {
-        const radialGradient = ctx.createRadialGradient(this.position.x, this.position.y, this.radius - this.offset, this.position.x, this.position.y, this.radius / 4);
+        const radialGradient = ctx.createRadialGradient(this.position.x, this.position.y, this.radius - this.offset, this.position.x, this.position.y, this.radius / 1.75);
         radialGradient.addColorStop(0, COLOURS.TOWER_MODAL_ALPHA);
         radialGradient.addColorStop(1, "#00000000");
         ctx.beginPath();
