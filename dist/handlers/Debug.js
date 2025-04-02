@@ -64,5 +64,7 @@ export class Debug {
             ctx.closePath();
         }
     }
+    logMemory() {
+    }
 }
 //# sourceMappingURL=Debug.js.map
