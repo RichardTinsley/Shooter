@@ -33,10 +33,22 @@ export function drawEllipse(ctx, position, height, width, fillStyle) {
     ctx.fill();
     ctx.stroke();
 }
+export function drawEntityShadow(ctx, position, width, height) {
+    ctx.save();
+    ctx.beginPath();
+    var gradient = ctx.createRadialGradient(300, 300, 0, 300, 300, 100);
+    gradient.addColorStop(0, COLOURS.SHADOW);
+    gradient.addColorStop(1, "rgba(0, 0, 0, 0)");
+    ctx.fillStyle = gradient;
+    ctx.arc(300, 300, 100, 0, 2 * Math.PI, false);
+    ctx.transform(1, 0, 0, 0.5, 0, 125);
+    ctx.fill();
+    ctx.restore();
+}
 export function drawCircleRadialGradient(ctx, position, radius) {
     const radialGradient = ctx.createRadialGradient(position.x, position.y, radius - 10, position.x, position.y, radius / 4);
-    radialGradient.addColorStop(0, COLOURS.TOWER_MODAL_ALPHA);
-    radialGradient.addColorStop(1, "#00000000");
+    radialGradient.addColorStop(0, "#00000000");
+    radialGradient.addColorStop(1, COLOURS.SHADOW);
     ctx.beginPath();
     ctx.fillStyle = radialGradient;
     ctx.arc(position.x, position.y, radius - 5, 0, 2 * Math.PI);

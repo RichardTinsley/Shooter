@@ -8,7 +8,7 @@ export function drawRectangle(
   height: number,
   fillStyle: string,
   strokeStyle: string = COLOURS.NONE
-) {
+): void {
   if (strokeStyle !== COLOURS.NONE) {
     ctx.strokeStyle = strokeStyle;
     ctx.strokeRect(position.x, position.y, length, height);
@@ -24,7 +24,7 @@ export function drawDot(
   ctx: CanvasRenderingContext2D,
   item: any,
   colour: string
-) {
+): void {
   ctx.fillStyle = colour;
   ctx.fillRect(item.x - 2, item.y - 2, 4, 4);
 }
@@ -33,7 +33,7 @@ export function drawCircleHitbox(
   ctx: CanvasRenderingContext2D,
   item: any,
   drawDot: Function
-) {
+): void {
   ctx.beginPath();
   ctx.arc(item.x, item.y, item.radius, 0, Math.PI * 2);
   ctx.fillStyle = COLOURS.RED_ALPHA;
@@ -42,7 +42,10 @@ export function drawCircleHitbox(
   drawDot(ctx, item, COLOURS.RED);
 }
 
-export function drawSquareHitBox(ctx: CanvasRenderingContext2D, item: any) {
+export function drawSquareHitBox(
+  ctx: CanvasRenderingContext2D,
+  item: any
+): void {
   ctx.fillStyle = COLOURS.RED_ALPHA;
   ctx.fillRect(item.x, item.y, item.width, item.height);
 }
@@ -55,7 +58,7 @@ export function drawEllipse(
   height: number,
   width: number,
   fillStyle: string
-) {
+): void {
   ctx.beginPath();
   ctx.ellipse(
     position.x,
@@ -73,6 +76,44 @@ export function drawEllipse(
   ctx.stroke();
 }
 
+export function drawEntityShadow(
+  ctx: CanvasRenderingContext2D,
+  position: Position,
+  width: number,
+  height: number
+): void {
+  // ctx.save();
+  // ctx.beginPath();
+  // const radialGradient = ctx.createRadialGradient(
+  //   position.x,
+  //   position.y,
+  //   width / 2,
+  //   position.x,
+  //   position.y,
+  //   width / 8
+  // );
+
+  // radialGradient.addColorStop(0, "#00000000");
+  // radialGradient.addColorStop(1, COLOURS.SHADOW);
+
+  // ctx.fillStyle = radialGradient;
+  // ctx.arc(position.x, position.y, width, 0, 2 * Math.PI, false);
+  // ctx.transform(1, 0, 0, 0.5, 0, 125);
+  // ctx.fill();
+  // ctx.restore();
+
+  ctx.save();
+  ctx.beginPath();
+  var gradient = ctx.createRadialGradient(300, 300, 0, 300, 300, 100);
+  gradient.addColorStop(0, COLOURS.SHADOW);
+  gradient.addColorStop(1, "rgba(0, 0, 0, 0)");
+  ctx.fillStyle = gradient;
+  ctx.arc(300, 300, 100, 0, 2 * Math.PI, false);
+  ctx.transform(1, 0, 0, 0.5, 0, 125);
+  ctx.fill();
+  ctx.restore();
+}
+
 export function drawCircleRadialGradient(
   ctx: CanvasRenderingContext2D,
   position: Position,
@@ -86,8 +127,8 @@ export function drawCircleRadialGradient(
     position.y,
     radius / 4
   );
-  radialGradient.addColorStop(0, COLOURS.TOWER_MODAL_ALPHA);
-  radialGradient.addColorStop(1, "#00000000");
+  radialGradient.addColorStop(0, "#00000000");
+  radialGradient.addColorStop(1, COLOURS.SHADOW);
 
   ctx.beginPath();
   ctx.fillStyle = radialGradient;

@@ -12,7 +12,7 @@ export class Sprite {
         this.drawPositionY = this.position.y - this.height;
         this.hitCircle = {
             x: this.position.x,
-            y: this.position.y,
+            y: this.position.y - this.height / 2,
             radius: this.halfWidth,
         };
         this.animationFrame = 0;
@@ -33,10 +33,6 @@ export class Sprite {
     }
     getPosition() {
         return this.position;
-    }
-    updateSpriteDrawPosition() {
-        this.drawPositionX = this.position.x - this.halfWidth;
-        this.drawPositionY = this.position.y - this.height;
     }
     setScale(scale) {
         this.scale = scale;

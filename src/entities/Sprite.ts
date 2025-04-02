@@ -15,7 +15,7 @@ export class Sprite implements IDrawable {
 
   protected hitCircle: HitCircle = {
     x: this.position.x,
-    y: this.position.y,
+    y: this.position.y - this.height / 2,
     radius: this.halfWidth,
   };
 
@@ -59,11 +59,6 @@ export class Sprite implements IDrawable {
 
   getPosition(): Position {
     return this.position;
-  }
-
-  updateSpriteDrawPosition() {
-    this.drawPositionX = this.position.x - this.halfWidth;
-    this.drawPositionY = this.position.y - this.height;
   }
 
   setScale(scale: number): this {

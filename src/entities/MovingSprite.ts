@@ -1,12 +1,7 @@
 import { Position } from "../constants/types.js";
 import { Time } from "../handlers/Time.js";
 import { IMovingSprite } from "../interfaces/IEntity.js";
-import {
-  giveAngle,
-  giveDirection,
-  DIRECTION,
-  randomFloat,
-} from "../utilities/math.js";
+import { giveAngle, giveDirection, randomFloat } from "../utilities/math.js";
 import { AnimatedSprite } from "./AnimatedSprite.js";
 
 export class MovingSprite extends AnimatedSprite implements IMovingSprite {
@@ -35,11 +30,25 @@ export class MovingSprite extends AnimatedSprite implements IMovingSprite {
     this.updateHitCirclePosition();
   }
 
-  // updateSpriteDrawPosition() {
-  //   //OVERRIDE FOR EACH ENEMY
-  //   // this.drawPositionX = this.position.x - this.halfWidth;
-  //   // this.drawPositionY = this.position.y - this.height - this.offsetY??;
-  // }
+  updateMovement() {
+    this.angle = giveAngle(this.destination, this.position);
+    this.direction = giveDirection(this.angle);
+
+    this.position.x +=
+      Math.cos(this.angle) * this.speed * Time.deltaTimeMultiplier;
+    this.position.y +=
+      Math.sin(this.angle) * this.speed * Time.deltaTimeMultiplier;
+  }
+
+  updateSpriteDrawPosition() {
+    this.drawPositionX = this.position.x - this.halfWidth;
+    this.drawPositionY = this.position.y - this.height;
+  }
+
+  updateHitCirclePosition() {
+    this.hitCircle.x = this.position.x;
+    this.hitCircle.y = this.position.y - this.height / 2;
+  }
 
   setSpeed(speed: number): this {
     this.speed = randomFloat(speed - speed * 0.2, speed + speed * 0.2);
@@ -51,33 +60,9 @@ export class MovingSprite extends AnimatedSprite implements IMovingSprite {
     return this;
   }
 
-  updateMovement() {
-    this.angle = giveAngle(this.destination, this.position);
-    this.direction = giveDirection(this.angle);
-
-    this.position.x +=
-      Math.cos(this.angle) * this.speed * Time.deltaTimeMultiplier;
-    this.position.y +=
-      Math.sin(this.angle) * this.speed * Time.deltaTimeMultiplier;
-  }
-
-  updateHitCirclePosition() {
-    this.hitCircle.x = this.position.x;
-    this.hitCircle.y = this.position.y - this.height / 2;
-  }
-
-  contextSave(ctx: CanvasRenderingContext2D) {
-    if (this.direction === DIRECTION.LEFT) {
-      ctx.save();
-      ctx.scale(this.direction, 1);
-      this.position.x *= -1;
-    }
-  }
-
-  contextRestore(ctx: CanvasRenderingContext2D) {
-    if (this.direction === DIRECTION.LEFT) {
-      this.position.x *= -1;
-      ctx.restore();
-    }
-  }
+  // updateSpriteDrawPosition() {
+  //   //OVERRIDE FOR EACH ENEMY
+  //   // this.drawPositionX = this.position.x - this.halfWidth;
+  //   // this.drawPositionY = this.position.y - this.height - this.offsetY??;
+  // }
 }

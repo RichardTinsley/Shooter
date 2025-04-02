@@ -1,6 +1,8 @@
 import { FILE_NAMES } from "../constants/assets.js";
+import { AnimatedSprite } from "../entities/AnimatedSprite.js";
 import { Enemy } from "../entities/enemies/Enemy.js";
 import { Lavoney } from "../entities/levels/Lavoney.js";
+import { Sprite } from "../entities/Sprite.js";
 import { Menu } from "../GUI/menus/Menu.js";
 import { IScreenState, Screen } from "./Screen.js";
 
@@ -20,6 +22,19 @@ export class PlayScreen implements IScreenState {
         64,
         64,
         this.level.getWaypoints()
+      ).setSpeed(10)
+    );
+
+    this.entities.push(
+      new Sprite({ x: 500, y: 400 }, FILE_NAMES.TOWER_AMETHYST_1, 64, 64)
+    );
+
+    this.entities.push(
+      new AnimatedSprite(
+        { x: 600, y: 400 },
+        FILE_NAMES.TOWER_AMETHYST_1,
+        64,
+        64
       )
     );
   }
