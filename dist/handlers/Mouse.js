@@ -43,6 +43,8 @@ export class Mouse {
             return;
         if (this.mouseOverItem instanceof MenuButton)
             this.mouseOverItem.changeState();
+        if (this.mouseOverItem instanceof Enemy)
+            console.log("ENEM");
         this.mouseOverItem = undefined;
     }
     setCursor() {
