@@ -44,16 +44,12 @@ export function drawMouseOverEntity(ctx, position, radius) {
     ctx.translate(position.x, position.y);
     ctx.transform(1, 0, 0, 0.3, 0, 0);
     const radialGradient = ctx.createRadialGradient(0, 0, radius - 20, 0, 0, radius);
-    radialGradient.addColorStop(0, "#00000000");
-    radialGradient.addColorStop(1, COLOURS.GLOW);
+    radialGradient.addColorStop(0.3, `#00000000`);
+    radialGradient.addColorStop(0.6, `${COLOURS.RED_ALPHA}`);
+    radialGradient.addColorStop(0.9, `#00000000`);
     ctx.fillStyle = radialGradient;
     ctx.arc(0, 0, radius, 0, 2 * Math.PI, false);
     ctx.fill();
-    ctx.beginPath();
-    ctx.lineWidth = 2;
-    ctx.arc(0, 0, radius + 5, 0, 2 * Math.PI);
-    ctx.strokeStyle = COLOURS.GLOW;
-    ctx.stroke();
     ctx.restore();
 }
 //# sourceMappingURL=drawShapes.js.map

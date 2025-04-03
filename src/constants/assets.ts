@@ -18,7 +18,7 @@ export const FILE_NAMES: Record<string, string> = {
   TOWER_EMPTY_SPOT: "emptyTowerSpot.png",
   TOWER_AMETHYST_1: "amethystTower (1).png",
   
-  PROJECTILE_SAPPHIRE_1: "Iceball_84x9.png",
+  PROJECTILE_SAPPHIRE_1: "Iceball_84x9.png", 
 };
 
 // prettier-ignore

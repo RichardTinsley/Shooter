@@ -14,6 +14,7 @@ export const COLOURS = {
   SHADOW: "rgba(0, 0, 0, 0.3)",
   DARKSHADOW: "rgba(0, 0, 0, 0.9)",
   GLOW: "rgba(213, 48, 0, 1)",
+  GLOW_ALPHA: "rgba(213, 48, 0, 0)",
   TOWER_MODAL: "rgba(213,94,0, 1)",
   TOWER_MODAL_ALPHA: "rgba(213,94,0, 0.5)",
   NONE: "",

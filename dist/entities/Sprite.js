@@ -24,8 +24,8 @@ export class Sprite {
         this.image = ALL_ASSETS.get(fileName);
     }
     draw(ctx) {
-        ctx.drawImage(this.image, this.spriteWidth * this.animationFrame, this.spriteHeight * this.animationRow, this.spriteWidth, this.spriteHeight, this.drawPositionX, this.drawPositionY, this.width, this.height);
         drawMouseOverEntity(ctx, this.position, this.width);
+        ctx.drawImage(this.image, this.spriteWidth * this.animationFrame, this.spriteHeight * this.animationRow, this.spriteWidth, this.spriteHeight, this.drawPositionX, this.drawPositionY, this.width, this.height);
     }
     update() { }
     setImage(fileName) {

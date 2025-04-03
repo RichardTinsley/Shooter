@@ -42,6 +42,7 @@ export class Sprite implements IDrawable {
   }
 
   draw(ctx: CanvasRenderingContext2D) {
+    drawMouseOverEntity(ctx, this.position, this.width);
     ctx.drawImage(
       this.image,
       this.spriteWidth * this.animationFrame,
@@ -53,8 +54,6 @@ export class Sprite implements IDrawable {
       this.width,
       this.height
     );
-
-    drawMouseOverEntity(ctx, this.position, this.width);
   }
 
   update(): void {}
