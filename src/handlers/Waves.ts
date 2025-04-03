@@ -1,34 +1,35 @@
-// import {
-//     WASTELANDS_WAYPOINTS,
-//     generateEnemyWaypoints,
-//   } from "../constants/levels.js";
-//   import { generateEnemySpeed } from "../utilities/math.js";
-//   import { Enemy } from "../objects/Enemy.js";
-//   import { HUD } from "./HUD.js";
-
 //   export class Wave {
 //     constructor() {
 //       this.enemySpawnTimer = 0;
-//       this.enemyCounter = 0;
+//       this.enemyCounter
 //       this.maxEnemies = 8;
-//       this.maxEnemySpeed = 2;
-//       this.allEnemiesActive = false;
 //     }
+// setMaxEnemies(){
+//     this.maxenemies = this.waves + 10 //and add 20% floored until 150 enemies max
+// }
 
-//     draw(ctx) {}
+// switch(this.state){
+//     case: NEWWAVE:
+//         this.spawnEnemies
+//     case: CURRENTWAVWE:
+//         //NOTHING
+//     case: ENDWAVE
+//     // reset counter, increase max enemies, increment waves
+//}
 
-//     update(event, enemies) {
-//       if (!event) return;
-
-//       this.enemySpawnTimer++;
-//       this.allEnemiesActiveCheck();
-//       this.spawnEnemy(enemies);
-//       this.newWaveCheck(enemies);
+// setWave(){ //ACCESS FROM ENEMY IN DEATH STATE
+//     if(enemies.length === 0){
+// this.state = NEW WAVE
+//         waves++
+//         this.newWave()
 //     }
+// }
 
-//     allEnemiesActiveCheck() {
-//       if (this.enemyCounter === this.maxEnemies) this.allEnemiesActive = true;
-//     }
+// allEnemiesActive(){
+// this.state = CURRENT WAVE
+// return this.enemyCounter === this.maxEnemies
+//
+// }
 
 //     newWaveCheck(enemies) {
 //       if (enemies.length === 0 && this.allEnemiesActive) {
@@ -46,19 +47,7 @@
 //         return;
 //       }
 
-//       if (this.allEnemiesActive) return;
-
 //       if (this.enemySpawnTimer % Math.floor(Math.random() * 100) === 0) {
-//         const waypoints = generateEnemyWaypoints(WASTELANDS_WAYPOINTS);
-//         const speed = generateEnemySpeed(this.maxEnemySpeed);
-
-//         enemies.push(
-//           new Enemy({
-//             position: { ...waypoints[0] },
-//             speed: speed,
-//             waypoints: waypoints,
-//           }),
-//         );
 
 //         this.enemyCounter++;
 //       }

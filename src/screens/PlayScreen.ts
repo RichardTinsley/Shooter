@@ -4,7 +4,7 @@ import { AnimatedSprite } from "../entities/AnimatedSprite.js";
 import { Enemy } from "../entities/enemies/Enemy.js";
 import { Lavoney } from "../entities/levels/Lavoney.js";
 import { Sprite } from "../entities/Sprite.js";
-import { HUDDisplay } from "../GUI/HUD.js";
+import { HUDDisplay } from "../GUI/HUDDisplay.js";
 import { MainMenu } from "../GUI/menus/MainMenu.js";
 import { Menu } from "../GUI/menus/Menu.js";
 import { IScreenState, Screen } from "./Screen.js";
