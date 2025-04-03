@@ -17,6 +17,7 @@ export const COLOURS = {
     GLOW_ALPHA: "rgba(213, 48, 0, 0)",
     TOWER_MODAL: "rgba(213,94,0, 1)",
     TOWER_MODAL_ALPHA: "rgba(213,94,0, 0.5)",
+    TOWER_MODAL_TRANSPARENT: "rgba(213,94,0, 0.1)",
     NONE: "",
     BLACKOUT: "0, 0, 0, ",
     REDOUT: "250, 0, 0, ",

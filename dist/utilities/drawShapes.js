@@ -37,6 +37,21 @@ export function drawEntityShadow(ctx, position, width) {
     ctx.fill();
     ctx.restore();
 }
+export function drawMouseOverTower(ctx, position, radius) {
+    radius /= 2;
+    ctx.save();
+    ctx.beginPath();
+    ctx.translate(position.x, position.y);
+    ctx.transform(1, 0, 0, 0.3, 0, 0);
+    const radialGradient = ctx.createRadialGradient(0, 0, radius - 20, 0, 0, radius);
+    radialGradient.addColorStop(0.2, `${COLOURS.TOWER_MODAL_TRANSPARENT}`);
+    radialGradient.addColorStop(0.6, `${COLOURS.TOWER_MODAL}`);
+    radialGradient.addColorStop(1, `${COLOURS.TOWER_MODAL_TRANSPARENT}`);
+    ctx.fillStyle = radialGradient;
+    ctx.arc(0, 0, radius, 0, 2 * Math.PI, false);
+    ctx.fill();
+    ctx.restore();
+}
 export function drawMouseOverEntity(ctx, position, radius) {
     radius /= 2;
     ctx.save();
