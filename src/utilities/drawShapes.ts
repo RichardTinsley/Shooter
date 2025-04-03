@@ -95,7 +95,6 @@ export function drawMouseOverEntity(
   ctx.fill();
   ctx.restore();
 }
-
 // RED GLOWING RING
 // export function drawMouseOverEntity(
 //   ctx: CanvasRenderingContext2D,
