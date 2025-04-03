@@ -13,3 +13,4 @@ move effects array into enemy
 before enemy array for effects
 EACH CLICKABLE ENTITY WITH HAVE ITS OWN "CLICK FUNCTION" POLY MORPHISM
 extract shape drawing functions from entity classes into context utitilty with text render
+Testing
