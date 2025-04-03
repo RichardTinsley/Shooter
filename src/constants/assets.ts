@@ -22,6 +22,7 @@ export const FILE_NAMES: Record<string, string> = {
   ICONS_PAUSE: "pause.png",
   ICONS_AUDIO: "audio.png",
   ICONS_SETTINGS: "settings.png",
+  ICONS_TIMER: "timer.png",
 
   MUSIC_MAIN_MENU: "mainMenu.mp3",
 
@@ -47,6 +48,7 @@ export const ASSET_LIST: string[][] = [
   [`${FILE_NAMES.ICONS_PAUSE}`, `${ICONS_URL}${FILE_NAMES.ICONS_PAUSE}`], 
   [`${FILE_NAMES.ICONS_AUDIO}`, `${ICONS_URL}${FILE_NAMES.ICONS_AUDIO}`], 
   [`${FILE_NAMES.ICONS_SETTINGS}`, `${ICONS_URL}${FILE_NAMES.ICONS_SETTINGS}`], 
+  [`${FILE_NAMES.ICONS_TIMER}`, `${ICONS_URL}${FILE_NAMES.ICONS_TIMER}`], 
 
   //MUSIC 
   [`${FILE_NAMES.MUSIC_MAIN_MENU}`, `${MUSIC_URL}${FILE_NAMES.MUSIC_MAIN_MENU}`],

@@ -6,67 +6,41 @@ import { Sprite } from "../entities/Sprite.js";
 import { drawRectangle } from "../utilities/drawShapes.js";
 
 export class HUDDisplay {
-  // let timer = 0;
-  private anchorPointX = this.position.x + SIZES.TILE;
+  private anchorPointX = this.position.x;
   private anchorPointY = this.position.y + SIZES.TILE + 8;
+  private icons: Array<Sprite> = [];
 
-  private lives = new Sprite(
-    { x: this.anchorPointX, y: this.anchorPointY },
+  private names: Array<string> = [
     FILE_NAMES.ICONS_LIVES,
-    SIZES.TILE,
-    SIZES.TILE
-  );
-
-  private coins = new Sprite(
-    { x: this.anchorPointX * 3, y: this.anchorPointY },
     FILE_NAMES.ICONS_COINS,
-    SIZES.TILE,
-    SIZES.TILE
-  );
-
-  private experience = new Sprite(
-    { x: this.anchorPointX * 5, y: this.anchorPointY },
     FILE_NAMES.ICONS_EXP,
-    SIZES.TILE,
-    SIZES.TILE
-  );
-
-  private mana = new Sprite(
-    { x: this.anchorPointX * 7, y: this.anchorPointY },
-    FILE_NAMES.ICONS_MANA,
-    SIZES.TILE,
-    SIZES.TILE
-  );
-
-  private waves = new Sprite(
-    { x: this.anchorPointX * 11, y: this.anchorPointY },
     FILE_NAMES.ICONS_WAVES,
-    SIZES.TILE,
-    SIZES.TILE
-  );
-
-  private pause = new Sprite(
-    { x: this.anchorPointX * 14, y: this.anchorPointY },
+    FILE_NAMES.ICONS_MANA,
     FILE_NAMES.ICONS_PAUSE,
-    SIZES.TILE,
-    SIZES.TILE
-  );
-
-  private audio = new Sprite(
-    { x: this.anchorPointX * 15, y: this.anchorPointY },
     FILE_NAMES.ICONS_AUDIO,
-    SIZES.TILE,
-    SIZES.TILE
-  );
-
-  private settings = new Sprite(
-    { x: this.anchorPointX * 16, y: this.anchorPointY },
     FILE_NAMES.ICONS_SETTINGS,
-    SIZES.TILE,
-    SIZES.TILE
-  );
+    FILE_NAMES.ICONS_TIMER,
+  ];
 
-  constructor(private position: Position) {}
+  private spacing: number = SIZES.TILE;
+  constructor(private position: Position) {
+    this.icons = this.names.map((name, index) => {
+      if (index === 1) this.spacing = SIZES.TILE * 4; //LIVES, COINS, EXPERIENCE, WAVES
+      if (index === 5) this.spacing = SIZES.TILE * 7; //MANA SPACING
+      if (index === 6) this.spacing = SIZES.TILE_HALF * 5; //BUTTONS
+      if (index === 8) this.spacing = SIZES.TILE * 4; //TIMER
+
+      return new Sprite(
+        {
+          x: (this.anchorPointX += this.spacing),
+          y: this.anchorPointY,
+        },
+        name,
+        SIZES.TILE,
+        SIZES.TILE
+      );
+    });
+  }
 
   draw(ctx: CanvasRenderingContext2D): void {
     ctx.lineWidth = 3;
@@ -79,14 +53,7 @@ export class HUDDisplay {
       COLOURS.WHITE
     );
 
-    this.lives.draw(ctx);
-    this.coins.draw(ctx);
-    this.experience.draw(ctx);
-    this.mana.draw(ctx);
-    this.waves.draw(ctx);
-    this.pause.draw(ctx);
-    this.audio.draw(ctx);
-    this.settings.draw(ctx);
+    this.icons.forEach((icon) => icon.draw(ctx));
   }
   update(): void {}
 }
