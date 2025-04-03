@@ -1,13 +1,12 @@
 import { ASSET_LIST, ALL_ASSETS } from "../constants/assets.js";
-
 export const assetListLength: number = ASSET_LIST.length;
 
-export const ASSET_TYPE: { IMAGE: string; SOUND: string } = {
+const ASSET_TYPE: { IMAGE: string; SOUND: string } = {
   IMAGE: "image",
   SOUND: "sound",
 };
 
-export const ASSET_TYPE_LOOKUP: Record<string, string> = {
+const ASSET_TYPE_LOOKUP: Record<string, string> = {
   png: ASSET_TYPE.IMAGE,
   mp3: ASSET_TYPE.SOUND,
   ogg: ASSET_TYPE.SOUND,
@@ -20,20 +19,24 @@ type Asset = {
 
 export async function load(assetLoaded: Function) {
   const promises: Promise<Asset>[] = ASSET_LIST.map(([key, fileName]) => {
-    const extension: string = fileName
-      // const extension: keyof typeof ASSETS.ASSET_TYPE_LOOKUP = fileName
-      .substring(fileName.lastIndexOf(".") + 1)
-      .toLowerCase();
+    const { newAsset, eventListenerType } = findAssetType(fileName);
 
-    const type: string = ASSET_TYPE_LOOKUP[extension];
+    return new Promise<Asset>((resolve, reject) => {
+      newAsset.addEventListener(
+        eventListenerType,
+        () => {
+          resolve({ key, asset: newAsset });
+          assetLoaded({ fileName, newAsset });
+        },
+        { once: true }
+      );
 
-    if (type === ASSET_TYPE.IMAGE) {
-      return loadImage(key, fileName.toString(), assetLoaded);
-    } else if (type === ASSET_TYPE.SOUND) {
-      return loadSound(key, fileName.toString(), assetLoaded);
-    } else {
-      throw new TypeError("Error unknown type");
-    }
+      newAsset.addEventListener("error", (event) =>
+        reject({ fileName, event })
+      );
+
+      newAsset.src = fileName;
+    });
   });
 
   return Promise.all(promises).then((loadedAssets) => {
@@ -43,40 +46,25 @@ export async function load(assetLoaded: Function) {
   });
 }
 
-function loadImage(key: string, fileName: string, assetLoaded: Function) {
-  return new Promise<Asset>((resolve, reject) => {
-    const image: HTMLImageElement = new Image();
+function findAssetType(fileName: string) {
+  const extension: string = fileName
+    .substring(fileName.lastIndexOf(".") + 1)
+    .toLowerCase();
 
-    image.addEventListener(
-      "load",
-      () => {
-        resolve({ key, asset: image });
-        if (typeof assetLoaded === "function") assetLoaded({ fileName, image });
-      },
-      { once: true }
-    );
+  const type: string = ASSET_TYPE_LOOKUP[extension];
 
-    image.addEventListener("error", (event) => reject({ fileName, event }));
+  let newAsset: HTMLImageElement | HTMLAudioElement;
+  let eventListenerType: string;
 
-    image.src = fileName;
-  });
-}
+  if (type === ASSET_TYPE.IMAGE) {
+    newAsset = new Image();
+    eventListenerType = "load";
+  } else if (type === ASSET_TYPE.SOUND) {
+    newAsset = new Audio();
+    eventListenerType = "canplay";
+  } else {
+    throw new TypeError("Error unknown type");
+  }
 
-function loadSound(key: string, fileName: string, assetLoaded: Function) {
-  return new Promise<Asset>((resolve, reject) => {
-    const sound: HTMLAudioElement = new Audio();
-
-    sound.addEventListener(
-      "canplay",
-      () => {
-        resolve({ key, asset: sound });
-        if (typeof assetLoaded === "function") assetLoaded({ fileName, sound });
-      },
-      { once: true }
-    );
-
-    sound.addEventListener("error", (event) => reject({ fileName, event }));
-
-    sound.src = fileName;
-  });
+  return { newAsset, eventListenerType };
 }
