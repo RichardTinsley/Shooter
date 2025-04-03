@@ -2,7 +2,11 @@ import { ALL_ASSETS } from "../constants/assets.js";
 import { Cursor, HitCircle, Position } from "../constants/types.js";
 import { IDrawable } from "../interfaces/IEntity.js";
 import { checkCircleCollision } from "../utilities/collisionDetection.js";
-import { drawCircleHitbox, drawDot } from "../utilities/drawShapes.js";
+import {
+  drawCircleHitbox,
+  drawDot,
+  drawMouseOverEntity,
+} from "../utilities/drawShapes.js";
 
 export class Sprite implements IDrawable {
   protected image!: HTMLImageElement;
@@ -49,6 +53,8 @@ export class Sprite implements IDrawable {
       this.width,
       this.height
     );
+
+    drawMouseOverEntity(ctx, this.position, this.width);
   }
 
   update(): void {}

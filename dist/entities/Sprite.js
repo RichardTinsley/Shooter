@@ -1,6 +1,6 @@
 import { ALL_ASSETS } from "../constants/assets.js";
 import { checkCircleCollision } from "../utilities/collisionDetection.js";
-import { drawCircleHitbox, drawDot } from "../utilities/drawShapes.js";
+import { drawCircleHitbox, drawDot, drawMouseOverEntity, } from "../utilities/drawShapes.js";
 export class Sprite {
     constructor(position, fileName, spriteWidth, spriteHeight) {
         this.position = position;
@@ -25,6 +25,7 @@ export class Sprite {
     }
     draw(ctx) {
         ctx.drawImage(this.image, this.spriteWidth * this.animationFrame, this.spriteHeight * this.animationRow, this.spriteWidth, this.spriteHeight, this.drawPositionX, this.drawPositionY, this.width, this.height);
+        drawMouseOverEntity(ctx, this.position, this.width);
     }
     update() { }
     setImage(fileName) {

@@ -68,56 +68,33 @@ export function drawEntityShadow(
   ctx.restore();
 }
 
-//COMBINE GRADIENT AND ELLIPSE FOR ENEMY AND TOWER SELECTION
-//MAKE THIS A CLASS?
-export function drawEllipse(
-  ctx: CanvasRenderingContext2D,
-  position: Position,
-  height: number,
-  width: number,
-  fillStyle: string
-): void {
-  ctx.beginPath();
-  ctx.ellipse(
-    position.x,
-    position.y,
-    height,
-    width,
-    Math.PI / 2,
-    0,
-    2 * Math.PI
-  );
-  ctx.fillStyle = fillStyle;
-  ctx.lineWidth = 3;
-  ctx.strokeStyle = COLOURS.GREEN;
-  ctx.fill();
-  ctx.stroke();
-}
-
 export function drawMouseOverEntity(
   ctx: CanvasRenderingContext2D,
   position: Position,
   radius: number
 ): void {
+  radius /= 2;
+  ctx.save();
+  ctx.beginPath();
+  ctx.translate(position.x, position.y);
+  ctx.transform(1, 0, 0, 0.3, 0, 0);
   const radialGradient = ctx.createRadialGradient(
-    position.x,
-    position.y,
-    radius - 10,
-    position.x,
-    position.y,
-    radius / 4
+    0,
+    0,
+    radius - 20,
+    0,
+    0,
+    radius
   );
   radialGradient.addColorStop(0, "#00000000");
-  radialGradient.addColorStop(1, COLOURS.SHADOW);
-
-  ctx.beginPath();
+  radialGradient.addColorStop(1, COLOURS.GLOW);
   ctx.fillStyle = radialGradient;
-  ctx.arc(position.x, position.y, radius - 5, 0, 2 * Math.PI);
+  ctx.arc(0, 0, radius, 0, 2 * Math.PI, false);
   ctx.fill();
-
   ctx.beginPath();
   ctx.lineWidth = 2;
-  ctx.arc(position.x, position.y, radius, 0, 2 * Math.PI);
-  ctx.strokeStyle = COLOURS.TOWER_MODAL;
+  ctx.arc(0, 0, radius + 5, 0, 2 * Math.PI);
+  ctx.strokeStyle = COLOURS.GLOW;
   ctx.stroke();
+  ctx.restore();
 }
