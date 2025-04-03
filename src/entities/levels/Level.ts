@@ -10,14 +10,9 @@ export enum LEVEL_NAMES {
 }
 
 export abstract class Level {
-  static TILEMAP: Array<number>;
-  static WAYPOINTS: Array<Position>;
-
   levelImage = ALL_ASSETS.get(FILE_NAMES.LEVEL_LAVONEY);
   tile2DMap = this.create2DArray();
   doodads: Array<any> = [];
-
-  constructor() {}
 
   draw(ctx: CanvasRenderingContext2D) {
     ctx.drawImage(this.levelImage, 0, 0);
@@ -28,8 +23,12 @@ export abstract class Level {
     this.doodads.forEach((towerSpot: EmptyTowerSpot) => towerSpot.update());
   }
 
-  static getEnemyGeneratedWaypoints() {
-    return Level.WAYPOINTS.map((waypoint) => {
+  abstract getTileMap(): Array<number>;
+
+  abstract getWaypoints(): Array<Position>;
+
+  getEnemyGeneratedWaypoints() {
+    return this.getWaypoints().map((waypoint) => {
       return {
         x:
           waypoint.x -
@@ -41,10 +40,6 @@ export abstract class Level {
           Math.round(Math.random() * (SIZES.TILE * 2)),
       };
     });
-  }
-
-  getTowerSpots(): Array<EmptyTowerSpot> {
-    return this.createEmptyTowerSpots();
   }
 
   createEmptyTowerSpots(): Array<EmptyTowerSpot> {
@@ -70,8 +65,8 @@ export abstract class Level {
 
   create2DArray(): Array<Array<number>> {
     const TileMapArray: Array<number>[] = [];
-    for (let i = 0; i < Level.TILEMAP.length; i += SIZES.COLUMNS)
-      TileMapArray.push(Level.TILEMAP.slice(i, i + SIZES.COLUMNS));
+    for (let i = 0; i < this.getTileMap().length; i += SIZES.COLUMNS)
+      TileMapArray.push(this.getTileMap().slice(i, i + SIZES.COLUMNS));
     return TileMapArray;
   }
 }

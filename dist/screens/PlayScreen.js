@@ -7,21 +7,19 @@ export class PlayScreen {
         this.hud = new HUDDisplay({ x: SIZES.TILE_HALF, y: SIZES.TILE_HALF });
         this.level = new Lavoney();
         this.entities = [];
-        this.entities.push(...this.level.getTowerSpots());
+        this.entities.push(...this.level.createEmptyTowerSpots());
     }
     draw(ctx) {
         this.level.draw(ctx);
         this.hud.draw(ctx);
-        this.menu.draw(ctx);
         this.entities.forEach((entity) => entity.draw(ctx));
     }
     update() {
         this.level.update();
-        this.menu.update();
         this.entities.forEach((entity) => entity.update());
     }
     getArray() {
-        return [...this.menu.getMenuItemsArray(), ...this.entities];
+        return [];
     }
 }
 //# sourceMappingURL=PlayScreen.js.map

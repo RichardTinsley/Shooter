@@ -11,22 +11,23 @@ export class PlayScreen implements IScreenState {
   entities: Array<any> = [];
 
   constructor(public screen: Screen) {
-    this.entities.push(...this.level.getTowerSpots());
+    this.entities.push(...this.level.createEmptyTowerSpots());
   }
 
   draw(ctx: CanvasRenderingContext2D): void {
     this.level.draw(ctx);
     this.hud.draw(ctx);
-    this.menu.draw(ctx);
+    //this.menu.draw(ctx);
     this.entities.forEach((entity) => entity.draw(ctx));
   }
   update(): void {
     this.level.update();
-    this.menu.update();
+    //this.menu.update();
     this.entities.forEach((entity) => entity.update());
   }
 
   getArray(): Array<any> {
-    return [...this.menu.getMenuItemsArray(), ...this.entities];
+    //return [...this.menu.getMenuItemsArray(), ...this.entities];
+    return [];
   }
 }

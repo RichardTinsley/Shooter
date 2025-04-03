@@ -20,8 +20,8 @@ export class Level {
     update() {
         this.doodads.forEach((towerSpot) => towerSpot.update());
     }
-    static getEnemyGeneratedWaypoints() {
-        return Level.WAYPOINTS.map((waypoint) => {
+    getEnemyGeneratedWaypoints() {
+        return this.getWaypoints().map((waypoint) => {
             return {
                 x: waypoint.x -
                     SIZES.TILE +
@@ -31,9 +31,6 @@ export class Level {
                     Math.round(Math.random() * (SIZES.TILE * 2)),
             };
         });
-    }
-    getTowerSpots() {
-        return this.createEmptyTowerSpots();
     }
     createEmptyTowerSpots() {
         const emptyTowerSpots = [];
@@ -50,8 +47,8 @@ export class Level {
     }
     create2DArray() {
         const TileMapArray = [];
-        for (let i = 0; i < Level.TILEMAP.length; i += SIZES.COLUMNS)
-            TileMapArray.push(Level.TILEMAP.slice(i, i + SIZES.COLUMNS));
+        for (let i = 0; i < this.getTileMap().length; i += SIZES.COLUMNS)
+            TileMapArray.push(this.getTileMap().slice(i, i + SIZES.COLUMNS));
         return TileMapArray;
     }
 }
