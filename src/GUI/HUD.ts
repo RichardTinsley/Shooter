@@ -1,94 +1,95 @@
-// import * as GAME from "../constants/game.js";
-// import * as INTERFACE from "../constants/interface.js";
-// import { Time } from "./Time.js";
-// import { HUDItem } from "../components/HUDItem.js";
-// import { MenuBox } from "../components/MenuBox.js";
+import { FILE_NAMES } from "../constants/assets.js";
+import { COLOURS } from "../constants/colours.js";
+import { SIZES } from "../constants/game.js";
+import { Position } from "../constants/types.js";
+import { Sprite } from "../entities/Sprite.js";
+import { drawRectangle } from "../utilities/drawShapes.js";
 
-// let lives = 2;
-// let coins = 100;
-// let experience = 0;
-// let mana = 0;
-// let waves = 1;
-// let timer = 0;
+export class HUDDisplay {
+  // let timer = 0;
+  private anchorPointX = this.position.x + SIZES.TILE;
+  private anchorPointY = this.position.y + SIZES.TILE + 8;
 
-// export class HUD{
-//     constructor(switchScenes){
-//         this.switchScenes = switchScenes;
-//         lives = 2;
-//         coins = 100;
-//         experience = 0;
-//         mana = 0;
-//         waves = 1;
-//         timer = 0;
+  private lives = new Sprite(
+    { x: this.anchorPointX, y: this.anchorPointY },
+    FILE_NAMES.ICONS_LIVES,
+    SIZES.TILE,
+    SIZES.TILE
+  );
 
-//         this.position = {
-//             x: 16,
-//             y: 16,
-//         }
+  private coins = new Sprite(
+    { x: this.anchorPointX * 3, y: this.anchorPointY },
+    FILE_NAMES.ICONS_COINS,
+    SIZES.TILE,
+    SIZES.TILE
+  );
 
-//         this.HUDBox = new MenuBox({
-//             position: {
-//                 x: this.position.x,
-//                 y: this.position.y,
-//             }
-//         })
+  private experience = new Sprite(
+    { x: this.anchorPointX * 5, y: this.anchorPointY },
+    FILE_NAMES.ICONS_EXP,
+    SIZES.TILE,
+    SIZES.TILE
+  );
 
-//         this.HUDLives = new HUDItem({
-//             position: {
-//                 x: this.position.x + 16,
-//                 y: this.position.y + 16,
-//             },
-//             icon: "lives",
-//         });
+  private mana = new Sprite(
+    { x: this.anchorPointX * 7, y: this.anchorPointY },
+    FILE_NAMES.ICONS_MANA,
+    SIZES.TILE,
+    SIZES.TILE
+  );
 
-//         this.HUDCoins = new HUDItem({
-//             position: {
-//                 x: this.position.x + 112,
-//                 y: this.position.y + 16,
-//             },
-//             icon: "coins",
-//         });
+  private waves = new Sprite(
+    { x: this.anchorPointX * 11, y: this.anchorPointY },
+    FILE_NAMES.ICONS_WAVES,
+    SIZES.TILE,
+    SIZES.TILE
+  );
 
-//         this.HUDExperience = new HUDItem({
-//             position: {
-//                 x: this.position.x + 240,
-//                 y: this.position.y + 16,
-//             },
-//             icon: "experience",
-//         });
+  private pause = new Sprite(
+    { x: this.anchorPointX * 14, y: this.anchorPointY },
+    FILE_NAMES.ICONS_PAUSE,
+    SIZES.TILE,
+    SIZES.TILE
+  );
 
-//         this.HUDWaves = new HUDItem({
-//             position: {
-//                 x: this.position.x + 368,
-//                 y: this.position.y + 16,
-//             },
-//             icon: "waves",
-//         });
+  private audio = new Sprite(
+    { x: this.anchorPointX * 15, y: this.anchorPointY },
+    FILE_NAMES.ICONS_AUDIO,
+    SIZES.TILE,
+    SIZES.TILE
+  );
 
-//         this.HUDTimer = new HUDItem({
-//             position: {
-//                 x: this.position.x + 496,
-//                 y: this.position.y + 16,
-//             },
-//             icon: "timer",
-//         });
-//     }
+  private settings = new Sprite(
+    { x: this.anchorPointX * 16, y: this.anchorPointY },
+    FILE_NAMES.ICONS_SETTINGS,
+    SIZES.TILE,
+    SIZES.TILE
+  );
 
-//     draw(ctx){
-//         this.drawHUDBackground(ctx);
-//         this.HUDBox.draw(ctx);
-//         this.HUDLives.draw(ctx, lives);
-//         this.HUDCoins.draw(ctx, coins);
-//         this.HUDExperience.draw(ctx, experience);
-//         this.HUDWaves.draw(ctx, waves)
-//         this.HUDTimer.draw(ctx, timer);
-//     }
+  constructor(private position: Position) {}
 
-//     update(event){
-//         timer = Time.displayTimer();
-//         if(lives <= 0)
-//             this.switchScenes(GAME.STATES.GAMEOVER);
-//     }
+  draw(ctx: CanvasRenderingContext2D): void {
+    ctx.lineWidth = 3;
+    drawRectangle(
+      ctx,
+      this.position,
+      SIZES.GAME_WIDTH - SIZES.TILE,
+      SIZES.TILE + SIZES.TILE_HALF,
+      COLOURS.DARKSHADOW,
+      COLOURS.WHITE
+    );
+
+    this.lives.draw(ctx);
+    this.coins.draw(ctx);
+    this.experience.draw(ctx);
+    this.mana.draw(ctx);
+    this.waves.draw(ctx);
+    this.pause.draw(ctx);
+    this.audio.draw(ctx);
+    this.settings.draw(ctx);
+  }
+  update(): void {}
+}
 
 //     static setLives(){
 //         lives--;
@@ -140,4 +141,3 @@
 //         ctx.fillRect(this.position.x + 2, this.position.y + 2, GAME.SIZES.TILE * 26 - 4, GAME.SIZES.TILE * 2 - 4);
 //         ctx.closePath();
 //     }
-// }

@@ -5,10 +5,19 @@ const TOWERS_URL = "./images/towers/";
 const UI_URL = "./images/UI/";
 const LEVELS_URL = "./images/levels/";
 const MUSIC_URL = "./audio/";
+const ICONS_URL = "./images/UI/icons/";
 export const ALL_ASSETS = new Map();
 export const FILE_NAMES = {
     DSLOGO: "DsShieldLogo.png",
     LEVEL_LAVONEY: "lavoney.png",
+    ICONS_LIVES: "lives.png",
+    ICONS_COINS: "coins.png",
+    ICONS_EXP: "experience.png",
+    ICONS_MANA: "mana.png",
+    ICONS_WAVES: "waves.png",
+    ICONS_PAUSE: "pause.png",
+    ICONS_AUDIO: "audio.png",
+    ICONS_SETTINGS: "settings.png",
     MUSIC_MAIN_MENU: "mainMenu.mp3",
     TOWER_EMPTY_SPOT: "emptyTowerSpot.png",
     TOWER_AMETHYST_1: "amethystTower (1).png",
@@ -17,6 +26,14 @@ export const FILE_NAMES = {
 export const ASSET_LIST = [
     [`${FILE_NAMES.DSLOGO}`, `${UI_URL}${FILE_NAMES.DSLOGO}`],
     [`${FILE_NAMES.LEVEL_LAVONEY}`, `${LEVELS_URL}${FILE_NAMES.LEVEL_LAVONEY}`],
+    [`${FILE_NAMES.ICONS_LIVES}`, `${ICONS_URL}${FILE_NAMES.ICONS_LIVES}`],
+    [`${FILE_NAMES.ICONS_COINS}`, `${ICONS_URL}${FILE_NAMES.ICONS_COINS}`],
+    [`${FILE_NAMES.ICONS_EXP}`, `${ICONS_URL}${FILE_NAMES.ICONS_EXP}`],
+    [`${FILE_NAMES.ICONS_MANA}`, `${ICONS_URL}${FILE_NAMES.ICONS_MANA}`],
+    [`${FILE_NAMES.ICONS_WAVES}`, `${ICONS_URL}${FILE_NAMES.ICONS_WAVES}`],
+    [`${FILE_NAMES.ICONS_PAUSE}`, `${ICONS_URL}${FILE_NAMES.ICONS_PAUSE}`],
+    [`${FILE_NAMES.ICONS_AUDIO}`, `${ICONS_URL}${FILE_NAMES.ICONS_AUDIO}`],
+    [`${FILE_NAMES.ICONS_SETTINGS}`, `${ICONS_URL}${FILE_NAMES.ICONS_SETTINGS}`],
     [`${FILE_NAMES.MUSIC_MAIN_MENU}`, `${MUSIC_URL}${FILE_NAMES.MUSIC_MAIN_MENU}`],
     [`${FILE_NAMES.TOWER_EMPTY_SPOT}`, `${TOWERS_URL}${FILE_NAMES.TOWER_EMPTY_SPOT}`],
     [`${FILE_NAMES.TOWER_AMETHYST_1}`, `${TOWERS_URL}${FILE_NAMES.TOWER_AMETHYST_1}`],

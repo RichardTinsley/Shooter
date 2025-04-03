@@ -1,16 +1,19 @@
 import { FILE_NAMES } from "../constants/assets.js";
+import { SIZES } from "../constants/game.js";
 import { AnimatedSprite } from "../entities/AnimatedSprite.js";
 import { Enemy } from "../entities/enemies/Enemy.js";
 import { Lavoney } from "../entities/levels/Lavoney.js";
 import { Sprite } from "../entities/Sprite.js";
+import { HUDDisplay } from "../GUI/HUD.js";
 import { MainMenu } from "../GUI/menus/MainMenu.js";
 import { Menu } from "../GUI/menus/Menu.js";
 import { IScreenState, Screen } from "./Screen.js";
 
 export class PlayScreen implements IScreenState {
-  private entities: Array<any> = [];
-  level = new Lavoney();
   menu: Menu;
+  hud = new HUDDisplay({ x: SIZES.TILE_HALF, y: SIZES.TILE_HALF });
+  level = new Lavoney();
+  entities: Array<any> = [];
   waypoints;
 
   constructor(public screen: Screen) {
@@ -44,6 +47,7 @@ export class PlayScreen implements IScreenState {
 
   draw(ctx: CanvasRenderingContext2D): void {
     this.level.draw(ctx);
+    this.hud.draw(ctx);
     this.menu.draw(ctx);
     this.entities.forEach((entity) => entity.draw(ctx));
   }

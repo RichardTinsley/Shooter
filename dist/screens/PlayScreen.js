@@ -1,14 +1,17 @@
 import { FILE_NAMES } from "../constants/assets.js";
+import { SIZES } from "../constants/game.js";
 import { AnimatedSprite } from "../entities/AnimatedSprite.js";
 import { Enemy } from "../entities/enemies/Enemy.js";
 import { Lavoney } from "../entities/levels/Lavoney.js";
 import { Sprite } from "../entities/Sprite.js";
+import { HUDDisplay } from "../GUI/HUD.js";
 import { MainMenu } from "../GUI/menus/MainMenu.js";
 export class PlayScreen {
     constructor(screen) {
         this.screen = screen;
-        this.entities = [];
+        this.hud = new HUDDisplay({ x: SIZES.TILE_HALF, y: SIZES.TILE_HALF });
         this.level = new Lavoney();
+        this.entities = [];
         this.menu = new MainMenu(screen, 200);
         this.entities.push(...this.level.getTowerSpots());
         this.waypoints = this.level.getWaypoints();
@@ -18,6 +21,7 @@ export class PlayScreen {
     }
     draw(ctx) {
         this.level.draw(ctx);
+        this.hud.draw(ctx);
         this.menu.draw(ctx);
         this.entities.forEach((entity) => entity.draw(ctx));
     }
