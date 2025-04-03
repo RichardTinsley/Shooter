@@ -1,7 +1,6 @@
 import { ALL_ASSETS, FILE_NAMES } from "../../constants/assets.js";
 import { SIZES } from "../../constants/game.js";
 import { Position } from "../../constants/types.js";
-import { create2DArray } from "../../utilities/array.js";
 import { EmptyTowerSpot } from "../towers/emptyTowerSpot.js";
 
 export enum LEVEL_NAMES {
@@ -11,32 +10,46 @@ export enum LEVEL_NAMES {
 }
 
 export abstract class Level {
+  static TILEMAP: Array<number>;
+  static WAYPOINTS: Array<Position>;
+
   levelImage = ALL_ASSETS.get(FILE_NAMES.LEVEL_LAVONEY);
-  tileMap = create2DArray(this.getTileMap(), SIZES.COLUMNS);
+  tile2DMap = this.create2DArray();
   doodads: Array<any> = [];
 
   constructor() {}
 
   draw(ctx: CanvasRenderingContext2D) {
     ctx.drawImage(this.levelImage, 0, 0);
-    // this.doodads.forEach((towerSpot: EmptyTowerSpot) => towerSpot.draw(ctx));
+    this.doodads.forEach((towerSpot: EmptyTowerSpot) => towerSpot.draw(ctx));
   }
 
   update(): void {
-    //this.doodads.forEach((towerSpot: EmptyTowerSpot) => towerSpot.update());
+    this.doodads.forEach((towerSpot: EmptyTowerSpot) => towerSpot.update());
   }
 
-  abstract getTileMap(): Array<number>;
-
-  abstract getWaypoints(): Array<Position>;
+  static getEnemyGeneratedWaypoints() {
+    return Level.WAYPOINTS.map((waypoint) => {
+      return {
+        x:
+          waypoint.x -
+          SIZES.TILE +
+          Math.round(Math.random() * (SIZES.TILE * 2)),
+        y:
+          waypoint.y -
+          SIZES.TILE +
+          Math.round(Math.random() * (SIZES.TILE * 2)),
+      };
+    });
+  }
 
   getTowerSpots(): Array<EmptyTowerSpot> {
-    return this.emptyTowerSpots();
+    return this.createEmptyTowerSpots();
   }
 
-  emptyTowerSpots(): Array<EmptyTowerSpot> {
+  createEmptyTowerSpots(): Array<EmptyTowerSpot> {
     const emptyTowerSpots: Array<EmptyTowerSpot> = [];
-    this.tileMap.forEach((row, y) => {
+    this.tile2DMap.forEach((row, y) => {
       row.forEach((symbol, x) => {
         if (symbol !== 0)
           emptyTowerSpots.push(
@@ -53,5 +66,12 @@ export abstract class Level {
       });
     });
     return emptyTowerSpots;
+  }
+
+  create2DArray(): Array<Array<number>> {
+    const TileMapArray: Array<number>[] = [];
+    for (let i = 0; i < Level.TILEMAP.length; i += SIZES.COLUMNS)
+      TileMapArray.push(Level.TILEMAP.slice(i, i + SIZES.COLUMNS));
+    return TileMapArray;
   }
 }

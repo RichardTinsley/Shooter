@@ -19,9 +19,10 @@ export class Wave {
   }
 
   update() {
+    //pass entity arrayhere
     switch (this.state) {
       case WAVE_STATE.NEW:
-        this.spawnEnemy;
+        // this.spawnEnemy();
         break;
       case WAVE_STATE.CURRENT:
         break;
@@ -31,11 +32,11 @@ export class Wave {
     }
   }
 
-  spawnEnemy(): void {
+  spawnEnemy(array: Array<any>): void {
     if (Time.eventUpdate) this.enemySpawnTimer++;
 
     if (this.enemySpawnTimer % Math.floor(Math.random() * 100) === 0) {
-      //CALLENEMY FACTORY // 2% Health and Armour increase depending on round?
+      array.push(); //CALLENEMY FACTORY // 2% Health and Armour increase depending on round?
       this.enemyCount++;
     }
 

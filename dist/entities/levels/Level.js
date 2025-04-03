@@ -1,6 +1,5 @@
 import { ALL_ASSETS, FILE_NAMES } from "../../constants/assets.js";
 import { SIZES } from "../../constants/game.js";
-import { create2DArray } from "../../utilities/array.js";
 import { EmptyTowerSpot } from "../towers/emptyTowerSpot.js";
 export var LEVEL_NAMES;
 (function (LEVEL_NAMES) {
@@ -11,20 +10,34 @@ export var LEVEL_NAMES;
 export class Level {
     constructor() {
         this.levelImage = ALL_ASSETS.get(FILE_NAMES.LEVEL_LAVONEY);
-        this.tileMap = create2DArray(this.getTileMap(), SIZES.COLUMNS);
+        this.tile2DMap = this.create2DArray();
         this.doodads = [];
     }
     draw(ctx) {
         ctx.drawImage(this.levelImage, 0, 0);
+        this.doodads.forEach((towerSpot) => towerSpot.draw(ctx));
     }
     update() {
+        this.doodads.forEach((towerSpot) => towerSpot.update());
+    }
+    static getEnemyGeneratedWaypoints() {
+        return Level.WAYPOINTS.map((waypoint) => {
+            return {
+                x: waypoint.x -
+                    SIZES.TILE +
+                    Math.round(Math.random() * (SIZES.TILE * 2)),
+                y: waypoint.y -
+                    SIZES.TILE +
+                    Math.round(Math.random() * (SIZES.TILE * 2)),
+            };
+        });
     }
     getTowerSpots() {
-        return this.emptyTowerSpots();
+        return this.createEmptyTowerSpots();
     }
-    emptyTowerSpots() {
+    createEmptyTowerSpots() {
         const emptyTowerSpots = [];
-        this.tileMap.forEach((row, y) => {
+        this.tile2DMap.forEach((row, y) => {
             row.forEach((symbol, x) => {
                 if (symbol !== 0)
                     emptyTowerSpots.push(new EmptyTowerSpot({
@@ -34,6 +47,12 @@ export class Level {
             });
         });
         return emptyTowerSpots;
+    }
+    create2DArray() {
+        const TileMapArray = [];
+        for (let i = 0; i < Level.TILEMAP.length; i += SIZES.COLUMNS)
+            TileMapArray.push(Level.TILEMAP.slice(i, i + SIZES.COLUMNS));
+        return TileMapArray;
     }
 }
 //# sourceMappingURL=Level.js.map

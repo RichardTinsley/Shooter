@@ -15,7 +15,6 @@ export class Wave {
     update() {
         switch (this.state) {
             case WAVE_STATE.NEW:
-                this.spawnEnemy;
                 break;
             case WAVE_STATE.CURRENT:
                 break;
@@ -24,10 +23,11 @@ export class Wave {
                 break;
         }
     }
-    spawnEnemy() {
+    spawnEnemy(array) {
         if (Time.eventUpdate)
             this.enemySpawnTimer++;
         if (this.enemySpawnTimer % Math.floor(Math.random() * 100) === 0) {
+            array.push();
             this.enemyCount++;
         }
         if (this.enemyCount === this.maxEnemies)
