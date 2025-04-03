@@ -5,7 +5,7 @@ import { Time } from "./handlers/Time.js";
 import { Screen } from "./screens/Screen.js";
 
 export class Game {
-  private time: Time = Time.create();
+  private time = new Time();
   private screen = new Screen();
   private mouse = new Mouse(this.screen);
   private debug = new Debug(this.screen, this.mouse);

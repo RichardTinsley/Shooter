@@ -11,11 +11,10 @@ let frames: number = 0;
 let startTime: DOMHighResTimeStamp = performance.now();
 
 export class Time {
-  private static INSTANCE: Time;
   static deltaTimeMultiplier: number = 0;
   static eventUpdate: boolean = false;
 
-  private constructor() {
+  constructor() {
     window.addEventListener("visibilitychange", () => {
       if (document.visibilityState === "visible") {
         this.startTimer();
@@ -23,13 +22,6 @@ export class Time {
         this.pauseTimer();
       }
     });
-  }
-  /// DELETE SINGLETON??
-  static create() {
-    if (!Time.INSTANCE) {
-      Time.INSTANCE = new Time();
-    }
-    return Time.INSTANCE;
   }
 
   update() {

@@ -18,12 +18,6 @@ export class Time {
             }
         });
     }
-    static create() {
-        if (!Time.INSTANCE) {
-            Time.INSTANCE = new Time();
-        }
-        return Time.INSTANCE;
-    }
     update() {
         const deltaTime = performance.now() - previousTime;
         previousTime = performance.now();
