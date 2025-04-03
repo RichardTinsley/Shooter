@@ -24,7 +24,7 @@ export class Time {
       }
     });
   }
-
+  /// DELETE SINGLETON??
   static create() {
     if (!Time.INSTANCE) {
       Time.INSTANCE = new Time();
@@ -61,7 +61,6 @@ export class Time {
   }
 
   static displayTimer() {
-    // MAKE STATIC STRING VARIABLE??!!?!??
     let seconds = totalSeconds % 60;
     let minutes = Math.floor(totalSeconds / 60) % 60;
     let hours = Math.floor(totalSeconds / 60 / 60);
@@ -82,7 +81,7 @@ export class Time {
 
   resetTimer() {
     totalSeconds = 0;
-    clearInterval(timeout);
-    this.startTimer();
+    clearInterval(timeout); /// DELETE?
+    this.startTimer(); /// DELETE?
   }
 }
