@@ -1,3 +1,4 @@
+import { EnemyFactory } from "../entities/enemies/EnemyFactory.js";
 import { Time } from "./Time.js";
 
 enum WAVE_STATE {
@@ -6,7 +7,7 @@ enum WAVE_STATE {
   END,
 }
 
-export class Wave {
+export class Waves {
   private enemySpawnTimer: number;
   private enemyCount: number;
   private maxEnemies: number;
@@ -22,7 +23,7 @@ export class Wave {
     //pass entity arrayhere
     switch (this.state) {
       case WAVE_STATE.NEW:
-        // this.spawnEnemy();
+        this.spawnEnemy();
         break;
       case WAVE_STATE.CURRENT:
         break;
@@ -32,11 +33,11 @@ export class Wave {
     }
   }
 
-  spawnEnemy(array: Array<any>): void {
+  spawnEnemy(): void {
     if (Time.eventUpdate) this.enemySpawnTimer++;
 
     if (this.enemySpawnTimer % Math.floor(Math.random() * 100) === 0) {
-      array.push(); //CALLENEMY FACTORY // 2% Health and Armour increase depending on round?
+      EnemyFactory.createEnemy(); // 2% Health and Armour increase depending on round?
       this.enemyCount++;
     }
 

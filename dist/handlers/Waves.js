@@ -1,3 +1,4 @@
+import { EnemyFactory } from "../entities/enemies/EnemyFactory.js";
 import { Time } from "./Time.js";
 var WAVE_STATE;
 (function (WAVE_STATE) {
@@ -5,7 +6,7 @@ var WAVE_STATE;
     WAVE_STATE[WAVE_STATE["CURRENT"] = 1] = "CURRENT";
     WAVE_STATE[WAVE_STATE["END"] = 2] = "END";
 })(WAVE_STATE || (WAVE_STATE = {}));
-export class Wave {
+export class Waves {
     constructor() {
         this.state = WAVE_STATE.NEW;
         this.enemySpawnTimer = 0;
@@ -15,6 +16,7 @@ export class Wave {
     update() {
         switch (this.state) {
             case WAVE_STATE.NEW:
+                this.spawnEnemy();
                 break;
             case WAVE_STATE.CURRENT:
                 break;
@@ -23,11 +25,11 @@ export class Wave {
                 break;
         }
     }
-    spawnEnemy(array) {
+    spawnEnemy() {
         if (Time.eventUpdate)
             this.enemySpawnTimer++;
         if (this.enemySpawnTimer % Math.floor(Math.random() * 100) === 0) {
-            array.push();
+            EnemyFactory.createEnemy();
             this.enemyCount++;
         }
         if (this.enemyCount === this.maxEnemies)

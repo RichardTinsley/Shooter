@@ -2,6 +2,7 @@ import { SIZES } from "../constants/game.js";
 import { HUDDisplay } from "../GUI/HUDDisplay.js";
 import { Menu } from "../GUI/menus/Menu.js";
 import { Level } from "../handlers/Level.js";
+import { Waves } from "../handlers/Waves.js";
 import { IScreenState, Screen } from "./Screen.js";
 
 export class PlayScreen implements IScreenState {
@@ -9,6 +10,7 @@ export class PlayScreen implements IScreenState {
   hud = new HUDDisplay({ x: SIZES.TILE_HALF, y: SIZES.TILE_HALF });
   level = new Level();
   entities: Array<any> = [];
+  waves = new Waves();
 
   constructor(public screen: Screen) {
     this.entities.push(...this.level.createEmptyTowerSpots());
@@ -24,6 +26,7 @@ export class PlayScreen implements IScreenState {
     this.level.update();
     //this.menu.update();
     this.entities.forEach((entity) => entity.update());
+    this.waves.update();
   }
 
   getArray(): Array<any> {

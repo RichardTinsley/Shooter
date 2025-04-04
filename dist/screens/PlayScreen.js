@@ -1,12 +1,14 @@
 import { SIZES } from "../constants/game.js";
-import { Lavoney } from "../entities/levels/Lavoney.js";
 import { HUDDisplay } from "../GUI/HUDDisplay.js";
+import { Level } from "../handlers/Level.js";
+import { Waves } from "../handlers/Waves.js";
 export class PlayScreen {
     constructor(screen) {
         this.screen = screen;
         this.hud = new HUDDisplay({ x: SIZES.TILE_HALF, y: SIZES.TILE_HALF });
-        this.level = new Lavoney();
+        this.level = new Level();
         this.entities = [];
+        this.waves = new Waves();
         this.entities.push(...this.level.createEmptyTowerSpots());
     }
     draw(ctx) {
@@ -17,6 +19,7 @@ export class PlayScreen {
     update() {
         this.level.update();
         this.entities.forEach((entity) => entity.update());
+        this.waves.update();
     }
     getArray() {
         return [];
