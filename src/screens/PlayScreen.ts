@@ -31,3 +31,8 @@ export class PlayScreen implements IScreenState {
     return [];
   }
 }
+
+// this.entities = this.entities.filter(entity => {
+//   entity.update();
+//   return entity.state !== ANIMATION.FINISHED;
+// });
