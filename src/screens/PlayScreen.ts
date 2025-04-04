@@ -1,9 +1,12 @@
+import { FILE_NAMES } from "../constants/assets.js";
 import { SIZES } from "../constants/game.js";
-import { HUDDisplay } from "../GUI/HUDDisplay.js";
+import { HUDDisplay } from "../handlers/HUDDisplay.js";
+import { HUDItem } from "../GUI/HUD/HUDItem.js";
 import { Menu } from "../GUI/menus/Menu.js";
 import { Level } from "../handlers/Level.js";
 import { Waves } from "../handlers/Waves.js";
 import { IScreenState, Screen } from "./Screen.js";
+import { HUD } from "../handlers/HUD.js";
 
 export class PlayScreen implements IScreenState {
   menu!: Menu;

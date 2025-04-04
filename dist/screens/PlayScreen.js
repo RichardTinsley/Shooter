@@ -1,5 +1,5 @@
 import { SIZES } from "../constants/game.js";
-import { HUDDisplay } from "../GUI/HUDDisplay.js";
+import { HUDDisplay } from "../handlers/HUDDisplay.js";
 import { Level } from "../handlers/Level.js";
 import { Waves } from "../handlers/Waves.js";
 export class PlayScreen {
