@@ -1,39 +1,28 @@
 import { SIZES } from "../../constants/game.js";
 import { Position } from "../../constants/types.js";
 import { Sprite } from "../../entities/Sprite.js";
-import { TextFactory } from "../../entities/texts/TextFactory.js";
+import { Text } from "../texts/Text.js";
 
-export class HUDItem {
+export class HUDItem extends Text {
   private icon!: Sprite;
-  private label;
 
   constructor() {
-    this.label = TextFactory.createTextPlain();
+    super();
+    this.align = "left";
   }
 
   draw(ctx: CanvasRenderingContext2D): void {
+    super.draw(ctx);
     this.icon.draw(ctx);
-    this.label.draw(ctx);
   }
 
-  update(): void {}
-
-  setItem(position: Position, fileName: string): this {
-    this.label.setPosition({
-      x: position.x + SIZES.TILE,
-      y: position.y - SIZES.TILE_HALF,
-    });
-
+  setHUDItem(position: Position, fileName: string): this {
+    super.setPosition(position);
+    const newPosition = {
+      x: (position.x -= SIZES.TILE),
+      y: (position.y += SIZES.TILE_HALF),
+    };
     this.icon = new Sprite(position, fileName, SIZES.TILE, SIZES.TILE);
-
     return this;
-  }
-
-  setNumberToLabelText(text: number) {
-    this.label.setText(text.toString());
-  }
-
-  getLabelTextToNumber(): number {
-    return Number(this.label.getText());
   }
 }

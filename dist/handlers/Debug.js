@@ -1,6 +1,6 @@
 import { SIZES } from "../constants/game.js";
 import { COLOURS } from "../constants/colours.js";
-import { TextFactory } from "../entities/texts/TextFactory.js";
+import { TextFactory } from "../GUI/texts/TextFactory.js";
 import { PlayScreen } from "../screens/PlayScreen.js";
 import { drawDot, drawRectangle } from "../utilities/drawShapes.js";
 import { Time } from "./Time.js";

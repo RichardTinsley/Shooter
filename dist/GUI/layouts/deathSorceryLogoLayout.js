@@ -1,5 +1,5 @@
 import { SIZES } from "../../constants/game.js";
-import { TextFactory } from "../../entities/texts/TextFactory.js";
+import { TextFactory } from "../texts/TextFactory.js";
 export class deathSorceryLogoLayout {
     constructor() {
         this.title = TextFactory.text()

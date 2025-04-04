@@ -2,7 +2,7 @@ import { load, assetListLength } from "../utilities/assetLoaders.js";
 import { ALL_ASSETS } from "../constants/assets.js";
 import { Screen, IScreenState } from "./Screen.js";
 import { SIZES } from "../constants/game.js";
-import { TextFactory } from "../entities/texts/TextFactory.js";
+import { TextFactory } from "../GUI/texts/TextFactory.js";
 import { LoadingBar } from "../GUI/components/LoadingBar.js";
 import { Menu } from "../GUI/menus/Menu.js";
 import { deathSorceryLogoLayout } from "../GUI/layouts/deathSorceryLogoLayout.js";

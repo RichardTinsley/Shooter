@@ -1,28 +1,23 @@
 import { SIZES } from "../../constants/game.js";
 import { Sprite } from "../../entities/Sprite.js";
-import { TextFactory } from "../../entities/texts/TextFactory.js";
-export class HUDItem {
+import { Text } from "../texts/Text.js";
+export class HUDItem extends Text {
     constructor() {
-        this.label = TextFactory.createTextPlain();
+        super();
+        this.align = "left";
     }
     draw(ctx) {
+        super.draw(ctx);
         this.icon.draw(ctx);
-        this.label.draw(ctx);
     }
-    update() { }
-    setItem(position, fileName) {
-        this.label.setPosition({
-            x: position.x + SIZES.TILE,
-            y: position.y - SIZES.TILE_HALF,
-        });
+    setHUDItem(position, fileName) {
+        super.setPosition(position);
+        const newPosition = {
+            x: (position.x -= SIZES.TILE),
+            y: (position.y += SIZES.TILE_HALF),
+        };
         this.icon = new Sprite(position, fileName, SIZES.TILE, SIZES.TILE);
         return this;
-    }
-    setNumberToLabelText(text) {
-        this.label.setText(text.toString());
-    }
-    getLabelTextToNumber() {
-        return Number(this.label.getText());
     }
 }
 //# sourceMappingURL=HUDItem.js.map

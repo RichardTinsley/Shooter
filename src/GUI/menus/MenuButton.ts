@@ -1,7 +1,7 @@
 import { SIZES } from "../../constants/game.js";
 import { Position, HitBox, Cursor } from "../../constants/types.js";
 import { Screen } from "../../screens/Screen.js";
-import { Text } from "../../entities/texts/Text.js";
+import { Text } from "../texts/Text.js";
 import { checkHitBoxCollision } from "../../utilities/collisionDetection.js";
 import { drawSquareHitBox } from "../../utilities/drawShapes.js";
 

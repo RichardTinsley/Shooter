@@ -17,7 +17,7 @@ export class Time {
   constructor() {
     window.addEventListener("visibilitychange", () => {
       if (document.visibilityState === "visible") {
-        this.startTimer();
+        Time.startTimer();
       } else if (document.visibilityState === "hidden") {
         this.pauseTimer();
       }
@@ -61,7 +61,7 @@ export class Time {
     return `${hours} : ${minuteString} : ${secondString}`;
   }
 
-  startTimer() {
+  static startTimer() {
     timeout = setInterval(() => {
       totalSeconds++;
     }, 1000);
@@ -74,6 +74,6 @@ export class Time {
   resetTimer() {
     totalSeconds = 0;
     clearInterval(timeout); /// DELETE?
-    this.startTimer(); /// DELETE?
+    Time.startTimer(); /// DELETE?
   }
 }

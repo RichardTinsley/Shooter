@@ -6,7 +6,8 @@ import { Menu } from "../GUI/menus/Menu.js";
 import { Level } from "../handlers/Level.js";
 import { Waves } from "../handlers/Waves.js";
 import { IScreenState, Screen } from "./Screen.js";
-import { HUD } from "../handlers/HUD.js";
+import { HUDTimer } from "../GUI/HUD/HUDTimer.js";
+import { Time } from "../handlers/Time.js";
 
 export class PlayScreen implements IScreenState {
   menu!: Menu;
@@ -15,8 +16,19 @@ export class PlayScreen implements IScreenState {
   entities: Array<any> = [];
   waves = new Waves();
 
+  hudItem = new HUDItem().setHUDItem(
+    { x: 100, y: 100 },
+    FILE_NAMES.ICONS_LIVES
+  );
+
+  hudTimer = new HUDTimer().setHUDItem(
+    { x: 200, y: 200 },
+    FILE_NAMES.ICONS_TIMER
+  );
+
   constructor(public screen: Screen) {
     this.entities.push(...this.level.createEmptyTowerSpots());
+    Time.startTimer();
   }
 
   draw(ctx: CanvasRenderingContext2D): void {
@@ -24,12 +36,16 @@ export class PlayScreen implements IScreenState {
     this.hud.draw(ctx);
     //this.menu.draw(ctx);
     this.entities.forEach((entity) => entity.draw(ctx));
+
+    this.hudItem.draw(ctx);
+    this.hudTimer.draw(ctx);
   }
   update(): void {
     this.level.update();
     //this.menu.update();
     this.entities.forEach((entity) => entity.update());
     this.waves.update();
+    this.hudTimer.update();
   }
 
   getArray(): Array<any> {

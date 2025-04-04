@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 import { load, assetListLength } from "../utilities/assetLoaders.js";
 import { ALL_ASSETS } from "../constants/assets.js";
 import { SIZES } from "../constants/game.js";
-import { TextFactory } from "../entities/texts/TextFactory.js";
+import { TextFactory } from "../GUI/texts/TextFactory.js";
 import { LoadingBar } from "../GUI/components/LoadingBar.js";
 import { deathSorceryLogoLayout } from "../GUI/layouts/deathSorceryLogoLayout.js";
 export class LoadingScreen {
