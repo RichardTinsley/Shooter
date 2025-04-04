@@ -1,5 +1,5 @@
 // import { FILE_NAMES } from "../../constants/assets.js";
-// import { Level } from "../levels/Level.js";
+// import { Level } from "../../handlers/Level.js";
 // import { Enemy } from "./Enemy.js";
 
 // export class EnemyFactory {
