@@ -8,6 +8,9 @@ import { Enemy } from "../entities/enemies/Enemy.js";
 const mouseSize: number = 3;
 
 export class Mouse {
+  static enemySelected: Enemy;
+  // static towerSelected:Tower;
+
   private cursor: Cursor = {
     x: 0,
     y: 0,
@@ -52,16 +55,18 @@ export class Mouse {
 
     if (this.mouseOverItem instanceof MenuButton)
       this.mouseOverItem.changeState();
-    if (this.mouseOverItem instanceof Enemy) console.log("ENEM");
 
-    // if (this.mouseOverItem instanceof Enemy && this.selectedItem instanceof Enemy )
-    //if(this.mouseOverItem !== this.selectedItem)
-    //create 'swap function' for selected and enemy
-    this.mouseOverItem = undefined;
+    if (this.mouseOverItem instanceof Enemy)
+      // if(this.selectedEnemy !== this.mouseOverItem)
+      //   Mouse.selectedEnemy.mouseClick("NOLONGERSELECTED")
+      //   Mouse.selectedEnemy = this.mouseOverItem
+      //   Mouse.selectedEnemy.mouseClick()
+
+      this.mouseOverItem = undefined;
   }
 
   setCursor() {
-    let style = "Plain";
+    let style: string = "Plain";
     if (this.mouseOverItem instanceof MenuButton) style = "MenuButton";
     if (this.mouseOverItem instanceof EmptyTowerSpot) style = "Tower";
     if (this.mouseOverItem instanceof Enemy) style = "Enemy";
