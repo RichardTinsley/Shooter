@@ -10,18 +10,11 @@ import { HUDWaves } from "../GUI/HUD/HUDWaves.js";
 import { drawRectangle } from "../utilities/drawShapes.js";
 
 export class HUD {
-  private static INSTANCE: HUD;
-
-  // private anchorPointX = this.position.x;
   private anchorPointY = this.position.y + SIZES.TILE;
 
   static hudlives: HUDLives;
 
   HUDItems: Array<any> = [
-    new HUDLives().setHUDItem(
-      { x: this.position.x + SIZES.TILE * 2, y: this.anchorPointY },
-      FILE_NAMES.ICONS_LIVES
-    ),
     new HUDCoins().setHUDItem(
       { x: this.position.x + SIZES.TILE * 5, y: this.anchorPointY },
       FILE_NAMES.ICONS_COINS
@@ -42,33 +35,21 @@ export class HUD {
     // FILE_NAMES.ICONS_MANA,
   ];
 
-  private constructor(private position: Position) {
+  constructor(private position: Position) {
     HUD.hudlives = new HUDLives().setHUDItem(
       { x: this.position.x + SIZES.TILE * 2, y: this.anchorPointY },
       FILE_NAMES.ICONS_LIVES
     );
   }
 
-  static createInstance(position: Position = HUD.INSTANCE.position) {
-    if (!HUD.INSTANCE) {
-      HUD.INSTANCE = new HUD(position);
-    }
-    return HUD.INSTANCE;
-  }
-
   draw(ctx: CanvasRenderingContext2D): void {
     this.HUDItems.forEach((item) => item.draw(ctx));
-    // ctx.lineWidth = 3;
-    // drawRectangle(
-    //   ctx,
-    //   this.position,
-    //   SIZES.GAME_WIDTH - SIZES.TILE,
-    //   SIZES.TILE + SIZES.TILE_HALF,
-    //   COLOURS.DARKSHADOW,
-    //   COLOURS.WHITE
-    // );
+
+    HUD.hudlives.draw(ctx);
   }
   update(): void {
     this.HUDItems.forEach((item) => item.update());
+
+    // HUD.hudlives.update();
   }
 }

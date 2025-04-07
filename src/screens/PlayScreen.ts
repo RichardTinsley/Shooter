@@ -6,7 +6,7 @@ import { IScreenState, Screen } from "./Screen.js";
 
 export class PlayScreen implements IScreenState {
   menu!: Menu;
-  hud = HUD.createInstance({ x: SIZES.TILE_HALF, y: SIZES.TILE_HALF });
+  hud = new HUD({ x: SIZES.TILE_HALF, y: SIZES.TILE_HALF });
   level = new Level();
   entities: Array<any> = [];
 

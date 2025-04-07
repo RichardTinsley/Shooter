@@ -10,7 +10,6 @@ export class HUD {
         this.position = position;
         this.anchorPointY = this.position.y + SIZES.TILE;
         this.HUDItems = [
-            new HUDLives().setHUDItem({ x: this.position.x + SIZES.TILE * 2, y: this.anchorPointY }, FILE_NAMES.ICONS_LIVES),
             new HUDCoins().setHUDItem({ x: this.position.x + SIZES.TILE * 5, y: this.anchorPointY }, FILE_NAMES.ICONS_COINS),
             new HUDExperience().setHUDItem({ x: this.position.x + SIZES.TILE * 9, y: this.anchorPointY }, FILE_NAMES.ICONS_EXP),
             new HUDWaves().setHUDItem({ x: this.position.x + SIZES.TILE * 32, y: this.anchorPointY }, FILE_NAMES.ICONS_WAVES),
@@ -18,14 +17,9 @@ export class HUD {
         ];
         HUD.hudlives = new HUDLives().setHUDItem({ x: this.position.x + SIZES.TILE * 2, y: this.anchorPointY }, FILE_NAMES.ICONS_LIVES);
     }
-    static createInstance(position = HUD.INSTANCE.position) {
-        if (!HUD.INSTANCE) {
-            HUD.INSTANCE = new HUD(position);
-        }
-        return HUD.INSTANCE;
-    }
     draw(ctx) {
         this.HUDItems.forEach((item) => item.draw(ctx));
+        HUD.hudlives.draw(ctx);
     }
     update() {
         this.HUDItems.forEach((item) => item.update());
