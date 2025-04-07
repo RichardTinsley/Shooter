@@ -19,7 +19,7 @@ export class Level {
     this.doodads.forEach((towerSpot: EmptyTowerSpot) => towerSpot.update());
   }
 
-  static getEnemyGeneratedWaypoints(): Array<Position> | null {
+  static getEnemyGeneratedWaypoints(): Array<Position> {
     const WAYPOINTS = ALL_WAYPOINTS.get(FILE_NAMES.LEVEL_LAVONEY);
     if (WAYPOINTS !== undefined) {
       return WAYPOINTS.map((waypoint) => {

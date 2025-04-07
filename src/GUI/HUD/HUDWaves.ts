@@ -1,0 +1,86 @@
+import { HUDItem } from "./HUDItem.js";
+import { EnemyFactory } from "../../entities/enemies/EnemyFactory.js";
+import { Time } from "../../handlers/Time.js";
+import { Enemy } from "../../entities/enemies/Enemy.js";
+
+enum WAVE_STATE {
+  NEW,
+  CURRENT,
+  END,
+}
+
+export class HUDWaves extends HUDItem {
+  private waves: number;
+  private enemySpawnTimer: number;
+  private enemyCount: number;
+  private maxEnemies: number;
+  private waveState: number = WAVE_STATE.NEW;
+
+  private enemies: Array<any> = [];
+
+  constructor() {
+    super();
+    this.waves = 0;
+    this.enemySpawnTimer = 0;
+    this.enemyCount = 0;
+    this.maxEnemies = 8;
+    this.text = this.waves.toString();
+  }
+
+  draw(ctx: CanvasRenderingContext2D) {
+    this.enemies.forEach((enemy) => enemy.draw(ctx));
+  }
+
+  update() {
+    //pass entity arrayhere
+    switch (this.waveState) {
+      case WAVE_STATE.NEW:
+        this.spawnEnemy();
+        break;
+      case WAVE_STATE.CURRENT:
+        break;
+      case WAVE_STATE.END:
+        this.resetWave();
+        break;
+    }
+    this.enemies.forEach((enemy) => enemy.update());
+  }
+
+  // 2% Health and Armour increase depending on round?
+  spawnEnemy(): any {
+    if (Time.eventUpdate) this.enemySpawnTimer++;
+
+    if (this.enemySpawnTimer % Math.floor(Math.random() * 1000) === 0) {
+      this.enemyCount++;
+      this.enemies.push(EnemyFactory.createEnemy());
+      console.log(this.enemies);
+    }
+
+    if (this.enemyCount === this.maxEnemies)
+      this.waveState = WAVE_STATE.CURRENT;
+  }
+
+  checkWaveStatusAfterEnemyDeath(): void {
+    // ACCESS FROM ENEMY IN DEATH STATE
+    if (this.enemies.length === 0) {
+      this.waveState = WAVE_STATE.END;
+      //this.waves++
+    }
+  }
+
+  resetWave(): void {
+    this.enemyCount = 0;
+    this.maxEnemies++;
+    //this.maxEnemies = this.waves + 10 //and add 20% floored until 150 enemies max
+    this.waveState = WAVE_STATE.NEW;
+  }
+
+  getWaves() {
+    return this.waves;
+  }
+
+  setWaves() {
+    this.waves--;
+    this.text = this.waves.toString();
+  }
+}

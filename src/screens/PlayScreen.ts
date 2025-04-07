@@ -1,12 +1,12 @@
 import { SIZES } from "../constants/game.js";
-import { HUDDisplay } from "../handlers/HUDDisplay.js";
+import { HUD } from "../handlers/HUD.js";
 import { Menu } from "../GUI/menus/Menu.js";
 import { Level } from "../handlers/Level.js";
 import { IScreenState, Screen } from "./Screen.js";
 
 export class PlayScreen implements IScreenState {
   menu!: Menu;
-  hud = new HUDDisplay({ x: SIZES.TILE_HALF, y: SIZES.TILE_HALF });
+  hud = HUD.createInstance({ x: SIZES.TILE_HALF, y: SIZES.TILE_HALF });
   level = new Level();
   entities: Array<any> = [];
 
@@ -22,6 +22,7 @@ export class PlayScreen implements IScreenState {
   }
   update(): void {
     this.level.update();
+    this.hud.update();
     //this.menu.update();
     this.entities.forEach((entity) => entity.update());
   }

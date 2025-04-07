@@ -1,50 +1,67 @@
-import { Time } from "./Time.js";
+import { FILE_NAMES } from "../constants/assets.js";
+import { COLOURS } from "../constants/colours.js";
+import { SIZES } from "../constants/game.js";
+import { Position } from "../constants/types.js";
+import { HUDCoins } from "../GUI/HUD/HUDCoins.js";
+import { HUDExperience } from "../GUI/HUD/HUDExperience.js";
+import { HUDLives } from "../GUI/HUD/HUDLives.js";
+import { HUDTimer } from "../GUI/HUD/HUDTimer.js";
+import { HUDWaves } from "../GUI/HUD/HUDWaves.js";
+import { drawRectangle } from "../utilities/drawShapes.js";
 
 export class HUD {
-  static lives: number = 10;
-  static coins: number = 100;
-  static experience: number = 0;
-  static waves: number = 1;
-  static timer: string = Time.displayTimer();
+  private static INSTANCE: HUD;
 
-  constructor() {}
+  // private anchorPointX = this.position.x;
+  private anchorPointY = this.position.y + SIZES.TILE;
 
-  static setLives() {
-    HUD.lives--;
+  private HUDItems: Array<any> = [
+    new HUDLives().setHUDItem(
+      { x: this.position.x + SIZES.TILE * 2, y: this.anchorPointY },
+      FILE_NAMES.ICONS_LIVES
+    ),
+    new HUDCoins().setHUDItem(
+      { x: this.position.x + SIZES.TILE * 5, y: this.anchorPointY },
+      FILE_NAMES.ICONS_COINS
+    ),
+    new HUDExperience().setHUDItem(
+      { x: this.position.x + SIZES.TILE * 9, y: this.anchorPointY },
+      FILE_NAMES.ICONS_EXP
+    ),
+    new HUDWaves().setHUDItem(
+      { x: this.position.x + SIZES.TILE * 32, y: this.anchorPointY },
+      FILE_NAMES.ICONS_WAVES
+    ),
+    new HUDTimer().setHUDItem(
+      { x: this.position.x + SIZES.TILE * 35, y: this.anchorPointY },
+      FILE_NAMES.ICONS_TIMER
+    ),
+
+    // FILE_NAMES.ICONS_MANA,
+  ];
+
+  private constructor(private position: Position) {}
+
+  static createInstance(position: Position) {
+    if (!HUD.INSTANCE) {
+      HUD.INSTANCE = new HUD(position);
+    }
+    return HUD.INSTANCE;
   }
 
-  static getCoins() {
-    return HUD.coins;
+  draw(ctx: CanvasRenderingContext2D): void {
+    this.HUDItems.forEach((item) => item.draw(ctx));
+    // ctx.lineWidth = 3;
+    // drawRectangle(
+    //   ctx,
+    //   this.position,
+    //   SIZES.GAME_WIDTH - SIZES.TILE,
+    //   SIZES.TILE + SIZES.TILE_HALF,
+    //   COLOURS.DARKSHADOW,
+    //   COLOURS.WHITE
+    // );
   }
-
-  //     static buy(cost){
-  //         coins -= cost;
-  //     }
-
-  //     static setCoins(){//ENEMY TYPE in parameter affect gold.  BOSS or GoldEnemy etc
-  //         const newCoins = Math.floor(Math.random() * waves + 1);
-  //         coins += newCoins;
-  //         return '$' + newCoins
-  //     }
-
-  //     getExperience(){
-  //         return experience;
-  //     }
-
-  //   static setExperience(){//ENEMY TYPE in parameter affect experience.  BOSS or EmeraldEnemy etc
-  //       if (Math.random() * 10 > 1)
-  //           return 0
-
-  //       const newExperience = Math.floor(Math.random() * waves + 1);
-  //       experience += newExperience;
-  //       return newExperience + 'exp'
-  //   }
-
-  static getWave() {
-    return HUD.waves;
-  }
-
-  static setWave() {
-    HUD.waves++;
+  update(): void {
+    this.HUDItems.forEach((item) => item.update());
   }
 }

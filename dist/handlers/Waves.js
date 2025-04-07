@@ -29,7 +29,7 @@ export class Waves {
         if (Time.eventUpdate)
             this.enemySpawnTimer++;
         if (this.enemySpawnTimer % Math.floor(Math.random() * 100) === 0) {
-            EnemyFactory.createEnemy();
+            return EnemyFactory.createEnemy();
             this.enemyCount++;
         }
         if (this.enemyCount === this.maxEnemies)

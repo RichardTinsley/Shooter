@@ -5,22 +5,20 @@ import { ANIMATION } from "../constants/animation.js";
 import { EmptyTowerSpot } from "../entities/towers/emptyTowerSpot.js";
 import { Enemy } from "../entities/enemies/Enemy.js";
 
-const mouseSize: number = 3;
-
 export class Mouse {
   static enemySelected: Enemy;
   // static towerSelected:Tower;
+  mouseOverItem: any = undefined;
+  private readonly mouseSize: number = 3;
 
   private cursor: Cursor = {
     x: 0,
     y: 0,
-    radius: mouseSize,
-    width: mouseSize,
-    height: mouseSize,
+    radius: this.mouseSize,
+    width: this.mouseSize,
+    height: this.mouseSize,
     style: document.getElementById("canvas")!.style,
   };
-
-  mouseOverItem: any = undefined;
 
   constructor(state: Screen) {
     window.addEventListener("mousemove", (e) => {
@@ -28,13 +26,11 @@ export class Mouse {
       this.cursor.y = e.offsetY;
     });
 
-    window.addEventListener("click", () => {
-      this.mouseClick();
-    });
+    window.addEventListener("click", () => this.mouseClick());
   }
 
-  update(state: Screen) {
-    this.mouseOver(state.getCurrentState().getArray());
+  update(screen: Screen) {
+    this.mouseOver(screen.getCurrentState().getArray());
     this.setCursor();
   }
 
@@ -57,7 +53,7 @@ export class Mouse {
       this.mouseOverItem.changeState();
 
     if (this.mouseOverItem instanceof Enemy)
-      // if(this.selectedEnemy !== this.mouseOverItem)
+      // if(Mouse.selectedEnemy !== this.mouseOverItem)
       //   Mouse.selectedEnemy.mouseClick("NOLONGERSELECTED")
       //   Mouse.selectedEnemy = this.mouseOverItem
       //   Mouse.selectedEnemy.mouseClick()

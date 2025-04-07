@@ -1,22 +1,33 @@
-import { Time } from "./Time.js";
+import { FILE_NAMES } from "../constants/assets.js";
+import { SIZES } from "../constants/game.js";
+import { HUDCoins } from "../GUI/HUD/HUDCoins.js";
+import { HUDExperience } from "../GUI/HUD/HUDExperience.js";
+import { HUDLives } from "../GUI/HUD/HUDLives.js";
+import { HUDTimer } from "../GUI/HUD/HUDTimer.js";
+import { HUDWaves } from "../GUI/HUD/HUDWaves.js";
 export class HUD {
-    constructor() { }
-    static setLives() {
-        HUD.lives--;
+    constructor(position) {
+        this.position = position;
+        this.anchorPointY = this.position.y + SIZES.TILE;
+        this.HUDItems = [
+            new HUDLives().setHUDItem({ x: this.position.x + SIZES.TILE * 2, y: this.anchorPointY }, FILE_NAMES.ICONS_LIVES),
+            new HUDCoins().setHUDItem({ x: this.position.x + SIZES.TILE * 5, y: this.anchorPointY }, FILE_NAMES.ICONS_COINS),
+            new HUDExperience().setHUDItem({ x: this.position.x + SIZES.TILE * 9, y: this.anchorPointY }, FILE_NAMES.ICONS_EXP),
+            new HUDWaves().setHUDItem({ x: this.position.x + SIZES.TILE * 32, y: this.anchorPointY }, FILE_NAMES.ICONS_WAVES),
+            new HUDTimer().setHUDItem({ x: this.position.x + SIZES.TILE * 35, y: this.anchorPointY }, FILE_NAMES.ICONS_TIMER),
+        ];
     }
-    static getCoins() {
-        return HUD.coins;
+    static createInstance(position) {
+        if (!HUD.INSTANCE) {
+            HUD.INSTANCE = new HUD(position);
+        }
+        return HUD.INSTANCE;
     }
-    static getWave() {
-        return HUD.waves;
+    draw(ctx) {
+        this.HUDItems.forEach((item) => item.draw(ctx));
     }
-    static setWave() {
-        HUD.waves++;
+    update() {
+        this.HUDItems.forEach((item) => item.update());
     }
 }
-HUD.lives = 10;
-HUD.coins = 100;
-HUD.experience = 0;
-HUD.waves = 1;
-HUD.timer = Time.displayTimer();
 //# sourceMappingURL=HUD.js.map
