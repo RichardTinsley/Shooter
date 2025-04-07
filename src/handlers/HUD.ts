@@ -15,6 +15,8 @@ export class HUD {
   // private anchorPointX = this.position.x;
   private anchorPointY = this.position.y + SIZES.TILE;
 
+  static hudlives: HUDLives;
+
   HUDItems: Array<any> = [
     new HUDLives().setHUDItem(
       { x: this.position.x + SIZES.TILE * 2, y: this.anchorPointY },
@@ -40,7 +42,12 @@ export class HUD {
     // FILE_NAMES.ICONS_MANA,
   ];
 
-  private constructor(private position: Position) {}
+  private constructor(private position: Position) {
+    HUD.hudlives = new HUDLives().setHUDItem(
+      { x: this.position.x + SIZES.TILE * 2, y: this.anchorPointY },
+      FILE_NAMES.ICONS_LIVES
+    );
+  }
 
   static createInstance(position: Position = HUD.INSTANCE.position) {
     if (!HUD.INSTANCE) {

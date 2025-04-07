@@ -19,6 +19,7 @@ export class HUDWaves extends HUDItem {
         this.text = this.waves.toString();
     }
     draw(ctx) {
+        this.enemies.sort((a, b) => a.position.y - b.position.y);
         this.enemies.forEach((enemy) => enemy.draw(ctx));
     }
     update() {

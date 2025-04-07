@@ -16,6 +16,7 @@ export class HUD {
             new HUDWaves().setHUDItem({ x: this.position.x + SIZES.TILE * 32, y: this.anchorPointY }, FILE_NAMES.ICONS_WAVES),
             new HUDTimer().setHUDItem({ x: this.position.x + SIZES.TILE * 35, y: this.anchorPointY }, FILE_NAMES.ICONS_TIMER),
         ];
+        HUD.hudlives = new HUDLives().setHUDItem({ x: this.position.x + SIZES.TILE * 2, y: this.anchorPointY }, FILE_NAMES.ICONS_LIVES);
     }
     static createInstance(position = HUD.INSTANCE.position) {
         if (!HUD.INSTANCE) {
