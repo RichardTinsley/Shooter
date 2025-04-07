@@ -15,7 +15,7 @@ export class HUDWaves extends HUDItem {
         this.waves = 0;
         this.enemySpawnTimer = 0;
         this.enemyCount = 0;
-        this.maxEnemies = 1;
+        this.maxEnemies = 8;
         this.text = this.waves.toString();
     }
     draw(ctx) {

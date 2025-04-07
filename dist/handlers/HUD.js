@@ -17,7 +17,7 @@ export class HUD {
             new HUDTimer().setHUDItem({ x: this.position.x + SIZES.TILE * 35, y: this.anchorPointY }, FILE_NAMES.ICONS_TIMER),
         ];
     }
-    static createInstance(position) {
+    static createInstance(position = HUD.INSTANCE.position) {
         if (!HUD.INSTANCE) {
             HUD.INSTANCE = new HUD(position);
         }

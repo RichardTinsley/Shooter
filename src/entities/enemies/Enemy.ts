@@ -1,5 +1,6 @@
 import { Position } from "../../constants/types.js";
 import { HealthBar } from "../../GUI/components/HealthBar.js";
+import { HUD } from "../../handlers/HUD.js";
 import { checkCircleCollision } from "../../utilities/collisionDetection.js";
 import { drawEntityShadow } from "../../utilities/drawShapes.js";
 import { DIRECTION } from "../../utilities/math.js";
@@ -8,6 +9,7 @@ import { MovingSprite } from "../MovingSprite.js";
 export class Enemy extends MovingSprite {
   private healthBar = new HealthBar(this.width);
   protected waypointIndex = 0;
+  hud = HUD.createInstance();
 
   constructor(
     position: Position,
@@ -34,7 +36,6 @@ export class Enemy extends MovingSprite {
     this.updateSpriteDrawPosition();
     this.updateHealthBarPosition();
     this.checkWaypointArrival();
-    this.checkEndpointArrival();
   }
 
   contextSave(ctx: CanvasRenderingContext2D) {
@@ -57,16 +58,13 @@ export class Enemy extends MovingSprite {
       this.setDestination(this.waypoints[(this.waypointIndex += 1)]);
 
       if (this.waypointIndex === this.waypoints.length) {
-        // HUD.setLives();
+        this.hud.HUDItems[0].setLives();
         this.waypointIndex = 0;
-        console.log(this.waypoints);
         this.setDestination(this.waypoints[this.waypointIndex]);
         this.setPosition(this.waypoints[this.waypointIndex]);
       }
     }
   }
-
-  checkEndpointArrival() {}
 
   updateHealthBarPosition() {
     this.healthBar.setPosition({
