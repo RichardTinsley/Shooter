@@ -55,17 +55,18 @@ export class Enemy extends MovingSprite {
   checkWaypointArrival() {
     if (checkCircleCollision(this.position, this.destination, 5, 10)) {
       this.setDestination(this.waypoints[(this.waypointIndex += 1)]);
+
+      if (this.waypointIndex === this.waypoints.length) {
+        // HUD.setLives();
+        this.waypointIndex = 0;
+        console.log(this.waypoints);
+        this.setDestination(this.waypoints[this.waypointIndex]);
+        this.setPosition(this.waypoints[this.waypointIndex]);
+      }
     }
   }
 
-  checkEndpointArrival() {
-    if (this.waypointIndex === this.waypoints.length) {
-      // HUD.setLives();
-      this.waypointIndex = 0;
-      this.setPosition(this.waypoints[this.waypointIndex]);
-      this.setDestination(this.waypoints[this.waypointIndex]);
-    }
-  }
+  checkEndpointArrival() {}
 
   updateHealthBarPosition() {
     this.healthBar.setPosition({

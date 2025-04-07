@@ -1,7 +1,6 @@
 import { HUDItem } from "./HUDItem.js";
 import { EnemyFactory } from "../../entities/enemies/EnemyFactory.js";
 import { Time } from "../../handlers/Time.js";
-import { Enemy } from "../../entities/enemies/Enemy.js";
 
 enum WAVE_STATE {
   NEW,
@@ -23,7 +22,7 @@ export class HUDWaves extends HUDItem {
     this.waves = 0;
     this.enemySpawnTimer = 0;
     this.enemyCount = 0;
-    this.maxEnemies = 8;
+    this.maxEnemies = 1;
     this.text = this.waves.toString();
   }
 
@@ -43,6 +42,7 @@ export class HUDWaves extends HUDItem {
         this.resetWave();
         break;
     }
+
     this.enemies.forEach((enemy) => enemy.update());
   }
 
@@ -53,7 +53,6 @@ export class HUDWaves extends HUDItem {
     if (this.enemySpawnTimer % Math.floor(Math.random() * 1000) === 0) {
       this.enemyCount++;
       this.enemies.push(EnemyFactory.createEnemy());
-      console.log(this.enemies);
     }
 
     if (this.enemyCount === this.maxEnemies)

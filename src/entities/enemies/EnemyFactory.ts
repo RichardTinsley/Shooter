@@ -9,12 +9,12 @@ export class EnemyFactory {
     //     switch (enemyChoice) {
     //       case 0:
     return new Enemy(
-      waypoints[0],
+      { ...waypoints[0] },
       FILE_NAMES.TOWER_AMETHYST_1,
       64,
       64,
       waypoints
-    );
+    ).setSpeed(10);
     //     }
   }
 }
