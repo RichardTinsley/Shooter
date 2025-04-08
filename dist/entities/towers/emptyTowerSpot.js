@@ -7,5 +7,8 @@ export class EmptyTowerSpot extends AnimatedSprite {
         this.spriteHeight = spriteHeight;
         this.hitDetection = new CircleHitDetection(spriteWidth, spriteHeight).setHitCircle(position);
     }
+    mouseOver(state) {
+        return;
+    }
 }
 //# sourceMappingURL=emptyTowerSpot.js.map

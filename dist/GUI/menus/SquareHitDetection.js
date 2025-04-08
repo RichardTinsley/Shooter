@@ -20,8 +20,5 @@ export class SquareHitDetection {
     drawHitbox(ctx) {
         drawSquareHitBox(ctx, this.hitBox);
     }
-    mouseOver(state) {
-        return;
-    }
 }
 //# sourceMappingURL=SquareHitDetection.js.map

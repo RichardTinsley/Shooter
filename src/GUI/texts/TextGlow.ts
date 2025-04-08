@@ -22,7 +22,7 @@ export class TextGlow extends Text {
 
   update() {
     switch (this.state) {
-      case ANIMATION.ANIMATING:
+      case ANIMATION.MOUSEOVER:
         this.glowChanger();
         this.glow += oscillate(
           OSCILLATIONS.COSINE,
@@ -30,14 +30,14 @@ export class TextGlow extends Text {
           this.amplitude
         );
         break;
-      case ANIMATION.FINISHED:
+      case ANIMATION.NORMAL:
         this.glowChanger();
         break;
     }
   }
 
   glowChanger() {
-    if (this.state === ANIMATION.ANIMATING) {
+    if (this.state === ANIMATION.MOUSEOVER) {
       if (this.glow < 13) this.glow++;
     } else {
       if (this.glow > 0) this.glow--;

@@ -28,8 +28,4 @@ export class CircleHitDetection {
   drawHitbox(ctx: CanvasRenderingContext2D) {
     drawCircleHitbox(ctx, this.hitCircle);
   }
-
-  mouseOver(state: number) {
-    return;
-  }
 }

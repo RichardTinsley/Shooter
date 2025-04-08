@@ -1,26 +1,36 @@
 import { HealthBar } from "../../GUI/components/HealthBar.js";
 import { checkCircleCollision } from "../../utilities/collisionDetection.js";
-import { drawEntityShadow } from "../../utilities/drawShapes.js";
+import { drawEntityShadow, drawMouseOverEnemy, } from "../../utilities/drawShapes.js";
 import { DIRECTION } from "../../utilities/math.js";
 import { MovingSprite } from "../MovingSprite.js";
 import { HUD } from "../../handlers/HUD.js";
 import { CircleHitDetection } from "../CircleHitDetection.js";
+import { ANIMATION } from "../../constants/animation.js";
 export class Enemy extends MovingSprite {
     constructor(position, fileName, spriteWidth, spriteHeight, waypoints) {
         super(position, fileName, spriteWidth, spriteHeight);
         this.waypoints = waypoints;
         this.healthBar = new HealthBar(this.width);
         this.waypointIndex = 0;
+        this.enemyState = ANIMATION.ANIMATING;
         this.destination = Object.assign({}, position);
         this.updateHealthBarPosition();
         this.hitDetection = new CircleHitDetection(spriteWidth, spriteHeight).setHitCircle(position);
     }
     draw(ctx) {
-        drawEntityShadow(ctx, this.position, this.width);
-        this.contextSave(ctx);
-        super.draw(ctx);
-        this.contextRestore(ctx);
-        this.healthBar.draw(ctx);
+        switch (this.enemyState) {
+            case ANIMATION.MOUSEOVER:
+                drawMouseOverEnemy(ctx, this.position, this.width);
+            case ANIMATION.NORMAL:
+                drawEntityShadow(ctx, this.position, this.width);
+                this.contextSave(ctx);
+                super.draw(ctx);
+                this.contextRestore(ctx);
+                this.healthBar.draw(ctx);
+                break;
+            case ANIMATION.FINISHED:
+                break;
+        }
     }
     update() {
         super.update();
@@ -65,6 +75,10 @@ export class Enemy extends MovingSprite {
     checkEnemyHealth() {
     }
     updatePriorityDistance() {
+    }
+    mouseOver(state) {
+        this.enemyState = state;
+        return;
     }
 }
 //# sourceMappingURL=Enemy.js.map

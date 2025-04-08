@@ -25,8 +25,4 @@ export class SquareHitDetection {
   drawHitbox(ctx: CanvasRenderingContext2D) {
     drawSquareHitBox(ctx, this.hitBox);
   }
-
-  mouseOver(state: number) {
-    return;
-  }
 }

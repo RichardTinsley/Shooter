@@ -19,8 +19,5 @@ export class CircleHitDetection {
     drawHitbox(ctx) {
         drawCircleHitbox(ctx, this.hitCircle);
     }
-    mouseOver(state) {
-        return;
-    }
 }
 //# sourceMappingURL=CircleHitDetection.js.map

@@ -24,4 +24,8 @@ export class EmptyTowerSpot extends AnimatedSprite {
   //     y: this.position.y - this.width / 2,
   //     radius: this.width / 2,
   // };
+
+  mouseOver(state: number) {
+    return;
+  }
 }

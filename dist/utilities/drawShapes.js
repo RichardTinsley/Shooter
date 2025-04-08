@@ -52,19 +52,18 @@ export function drawMouseOverTower(ctx, position, radius) {
     ctx.fill();
     ctx.restore();
 }
-export function drawMouseOverEntity(ctx, position, radius) {
+export function drawMouseOverEnemy(ctx, position, radius) {
     radius /= 2;
+    let c = 2 * Math.PI * radius;
+    ctx.lineWidth = 8;
     ctx.save();
     ctx.beginPath();
     ctx.translate(position.x, position.y);
     ctx.transform(1, 0, 0, 0.3, 0, 0);
-    const radialGradient = ctx.createRadialGradient(0, 0, radius - 20, 0, 0, radius);
-    radialGradient.addColorStop(0.2, `#00000000`);
-    radialGradient.addColorStop(0.6, `${COLOURS.RED_ALPHA}`);
-    radialGradient.addColorStop(1, `#00000000`);
-    ctx.fillStyle = radialGradient;
-    ctx.arc(0, 0, radius, 0, 2 * Math.PI, false);
-    ctx.fill();
+    ctx.arc(0, 0, radius, Math.PI / 8, 2 * Math.PI, false);
+    ctx.setLineDash([c / 8, c / 8]);
+    ctx.strokeStyle = COLOURS.RED;
+    ctx.stroke();
     ctx.restore();
 }
 //# sourceMappingURL=drawShapes.js.map

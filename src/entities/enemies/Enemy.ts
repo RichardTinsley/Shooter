@@ -1,16 +1,21 @@
 import { Position } from "../../constants/types.js";
 import { HealthBar } from "../../GUI/components/HealthBar.js";
 import { checkCircleCollision } from "../../utilities/collisionDetection.js";
-import { drawEntityShadow } from "../../utilities/drawShapes.js";
+import {
+  drawEntityShadow,
+  drawMouseOverEnemy,
+} from "../../utilities/drawShapes.js";
 import { DIRECTION } from "../../utilities/math.js";
 import { MovingSprite } from "../MovingSprite.js";
 import { HUD } from "../../handlers/HUD.js";
 import { CircleHitDetection } from "../CircleHitDetection.js";
+import { ANIMATION } from "../../constants/animation.js";
 
 export class Enemy extends MovingSprite {
   private healthBar = new HealthBar(this.width);
   protected waypointIndex = 0;
   protected hitDetection;
+  protected enemyState = ANIMATION.ANIMATING;
 
   constructor(
     position: Position,
@@ -30,11 +35,19 @@ export class Enemy extends MovingSprite {
   }
 
   draw(ctx: CanvasRenderingContext2D) {
-    drawEntityShadow(ctx, this.position, this.width);
-    this.contextSave(ctx);
-    super.draw(ctx);
-    this.contextRestore(ctx);
-    this.healthBar.draw(ctx);
+    switch (this.enemyState) {
+      case ANIMATION.MOUSEOVER:
+        drawMouseOverEnemy(ctx, this.position, this.width);
+      case ANIMATION.NORMAL:
+        drawEntityShadow(ctx, this.position, this.width);
+        this.contextSave(ctx);
+        super.draw(ctx);
+        this.contextRestore(ctx);
+        this.healthBar.draw(ctx);
+        break;
+      case ANIMATION.FINISHED:
+        break;
+    }
   }
 
   update() {
@@ -97,5 +110,10 @@ export class Enemy extends MovingSprite {
     // this.priorityDistance = Math.round(
     //   Math.abs(xDistance) + Math.abs(yDistance)
     // );
+  }
+
+  mouseOver(state: number) {
+    this.enemyState = state;
+    return;
   }
 }

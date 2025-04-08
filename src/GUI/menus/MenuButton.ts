@@ -28,8 +28,8 @@ export class MenuButton {
   }
 
   setPosition(position: Position): this {
-    this.menuLabel.setPosition(position);
     this.position = { ...position };
+    this.menuLabel.setPosition(position);
     this.hitDetection.setHitBox(position);
     return this;
   }

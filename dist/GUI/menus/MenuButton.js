@@ -16,8 +16,8 @@ export class MenuButton {
         this.menuLabel.update();
     }
     setPosition(position) {
-        this.menuLabel.setPosition(position);
         this.position = Object.assign({}, position);
+        this.menuLabel.setPosition(position);
         this.hitDetection.setHitBox(position);
         return this;
     }

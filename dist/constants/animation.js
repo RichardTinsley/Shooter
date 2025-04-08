@@ -1,9 +1,9 @@
-export const ANIMATION = {
-    LEFT: -1,
-    ANIMATING: 0,
-    RIGHT: 1,
-    FINISHED: 2,
-    MOUSEOVER: 3,
-    SELECTED: 4,
-};
+export var ANIMATION;
+(function (ANIMATION) {
+    ANIMATION[ANIMATION["ANIMATING"] = 0] = "ANIMATING";
+    ANIMATION[ANIMATION["FINISHED"] = 1] = "FINISHED";
+    ANIMATION[ANIMATION["MOUSEOVER"] = 2] = "MOUSEOVER";
+    ANIMATION[ANIMATION["NORMAL"] = 3] = "NORMAL";
+    ANIMATION[ANIMATION["SELECTED"] = 4] = "SELECTED";
+})(ANIMATION || (ANIMATION = {}));
 //# sourceMappingURL=animation.js.map

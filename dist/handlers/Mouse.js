@@ -28,11 +28,11 @@ export class Mouse {
         this.mouseOverItem = undefined;
         array.forEach((item) => {
             if (item.hitDetection.checkCollision(this.cursor)) {
-                item.hitDetection.mouseOver(ANIMATION.ANIMATING);
+                item.mouseOver(ANIMATION.MOUSEOVER);
                 this.mouseOverItem = item;
             }
             else {
-                item.hitDetection.mouseOver(ANIMATION.FINISHED);
+                item.mouseOver(ANIMATION.NORMAL);
             }
         });
     }
