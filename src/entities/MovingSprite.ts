@@ -1,7 +1,12 @@
 import { Position } from "../constants/types.js";
 import { Time } from "../handlers/Time.js";
 import { IMovingSprite } from "../interfaces/IEntity.js";
-import { giveAngle, giveDirection, randomFloat } from "../utilities/math.js";
+import {
+  DIRECTION,
+  giveAngle,
+  giveDirection,
+  randomFloat,
+} from "../utilities/math.js";
 import { AnimatedSprite } from "./AnimatedSprite.js";
 
 export class MovingSprite extends AnimatedSprite implements IMovingSprite {
@@ -21,8 +26,10 @@ export class MovingSprite extends AnimatedSprite implements IMovingSprite {
   }
 
   draw(ctx: CanvasRenderingContext2D) {
+    this.contextSave(ctx);
     this.updateSpriteDrawPosition();
     super.draw(ctx);
+    this.contextRestore(ctx);
   }
 
   update() {
@@ -53,5 +60,20 @@ export class MovingSprite extends AnimatedSprite implements IMovingSprite {
   setDestination(position: Position): this {
     this.destination = { ...position };
     return this;
+  }
+
+  contextSave(ctx: CanvasRenderingContext2D) {
+    if (this.direction === DIRECTION.LEFT) {
+      ctx.save();
+      ctx.scale(this.direction, 1);
+      this.position.x *= -1;
+    }
+  }
+
+  contextRestore(ctx: CanvasRenderingContext2D) {
+    if (this.direction === DIRECTION.LEFT) {
+      this.position.x *= -1;
+      ctx.restore();
+    }
   }
 }

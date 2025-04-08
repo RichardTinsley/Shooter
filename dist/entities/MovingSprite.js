@@ -1,5 +1,5 @@
 import { Time } from "../handlers/Time.js";
-import { giveAngle, giveDirection, randomFloat } from "../utilities/math.js";
+import { DIRECTION, giveAngle, giveDirection, randomFloat, } from "../utilities/math.js";
 import { AnimatedSprite } from "./AnimatedSprite.js";
 export class MovingSprite extends AnimatedSprite {
     constructor(position, fileName, spriteWidth, spriteHeight) {
@@ -8,8 +8,10 @@ export class MovingSprite extends AnimatedSprite {
         this.hitCircleOffsetX = 0;
     }
     draw(ctx) {
+        this.contextSave(ctx);
         this.updateSpriteDrawPosition();
         super.draw(ctx);
+        this.contextRestore(ctx);
     }
     update() {
         super.update();
@@ -34,6 +36,19 @@ export class MovingSprite extends AnimatedSprite {
     setDestination(position) {
         this.destination = Object.assign({}, position);
         return this;
+    }
+    contextSave(ctx) {
+        if (this.direction === DIRECTION.LEFT) {
+            ctx.save();
+            ctx.scale(this.direction, 1);
+            this.position.x *= -1;
+        }
+    }
+    contextRestore(ctx) {
+        if (this.direction === DIRECTION.LEFT) {
+            this.position.x *= -1;
+            ctx.restore();
+        }
     }
 }
 //# sourceMappingURL=MovingSprite.js.map

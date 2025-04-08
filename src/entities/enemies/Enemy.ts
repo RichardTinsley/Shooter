@@ -5,7 +5,6 @@ import {
   drawEntityShadow,
   drawMouseOverEnemy,
 } from "../../utilities/drawShapes.js";
-import { DIRECTION } from "../../utilities/math.js";
 import { MovingSprite } from "../MovingSprite.js";
 import { HUD } from "../../handlers/HUD.js";
 import { CircleHitDetection } from "../CircleHitDetection.js";
@@ -40,9 +39,7 @@ export class Enemy extends MovingSprite {
         drawMouseOverEnemy(ctx, this.position, this.width);
       case ANIMATION.NORMAL:
         drawEntityShadow(ctx, this.position, this.width);
-        this.contextSave(ctx);
         super.draw(ctx);
-        this.contextRestore(ctx);
         this.healthBar.draw(ctx);
         break;
       case ANIMATION.FINISHED:
@@ -52,28 +49,12 @@ export class Enemy extends MovingSprite {
 
   update() {
     super.update();
-    this.updateSpriteDrawPosition();
     this.updateHealthBarPosition();
     this.checkWaypointArrival();
     this.hitDetection.setHitCircle({
       x: this.position.x,
       y: this.position.y - this.height / 2 - this.hitCircleOffsetX,
     });
-  }
-
-  contextSave(ctx: CanvasRenderingContext2D) {
-    if (this.direction === DIRECTION.LEFT) {
-      ctx.save();
-      ctx.scale(this.direction, 1);
-      this.position.x *= -1;
-    }
-  }
-
-  contextRestore(ctx: CanvasRenderingContext2D) {
-    if (this.direction === DIRECTION.LEFT) {
-      this.position.x *= -1;
-      ctx.restore();
-    }
   }
 
   checkWaypointArrival() {
