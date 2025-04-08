@@ -11,21 +11,16 @@ export class HUDWaves extends HUDItem {
     constructor() {
         super();
         this.waveState = WAVE_STATE.NEW;
-        this.enemies = [];
         this.waves = 0;
         this.enemySpawnTimer = 0;
         this.enemyCount = 0;
         this.maxEnemies = 8;
         this.text = this.waves.toString();
     }
-    draw(ctx) {
-        this.enemies.sort((a, b) => a.position.y - b.position.y);
-        this.enemies.forEach((enemy) => enemy.draw(ctx));
-    }
-    update() {
+    waveUpdate(entities) {
         switch (this.waveState) {
             case WAVE_STATE.NEW:
-                this.spawnEnemy();
+                this.spawnEnemy(entities);
                 break;
             case WAVE_STATE.CURRENT:
                 break;
@@ -33,22 +28,21 @@ export class HUDWaves extends HUDItem {
                 this.resetWave();
                 break;
         }
-        this.enemies.forEach((enemy) => enemy.update());
     }
-    spawnEnemy() {
+    spawnEnemy(entities) {
         if (Time.eventUpdate)
             this.enemySpawnTimer++;
         if (this.enemySpawnTimer % Math.floor(Math.random() * 1000) === 0) {
             this.enemyCount++;
-            this.enemies.push(EnemyFactory.createEnemy());
+            entities.push(EnemyFactory.createEnemy());
         }
         if (this.enemyCount === this.maxEnemies)
             this.waveState = WAVE_STATE.CURRENT;
     }
     checkWaveStatusAfterEnemyDeath() {
-        if (this.enemies.length === 0) {
-            this.waveState = WAVE_STATE.END;
-        }
+        this.waves++;
+        this.text = this.waves.toString();
+        this.waveState = WAVE_STATE.END;
     }
     resetWave() {
         this.enemyCount = 0;
@@ -57,10 +51,6 @@ export class HUDWaves extends HUDItem {
     }
     getWaves() {
         return this.waves;
-    }
-    setWaves() {
-        this.waves--;
-        this.text = this.waves.toString();
     }
 }
 //# sourceMappingURL=HUDWaves.js.map

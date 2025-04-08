@@ -43,7 +43,7 @@ export class Enemy extends MovingSprite {
         if (checkCircleCollision(this.position, this.destination, 5, 10)) {
             this.setDestination(this.waypoints[(this.waypointIndex += 1)]);
             if (this.waypointIndex === this.waypoints.length) {
-                HUD.hudlives.setLives();
+                HUD.hudLives.setLives();
                 this.waypointIndex = 0;
                 this.setDestination(this.waypoints[this.waypointIndex]);
                 this.setPosition(this.waypoints[this.waypointIndex]);

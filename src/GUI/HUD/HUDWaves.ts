@@ -15,8 +15,6 @@ export class HUDWaves extends HUDItem {
   private maxEnemies: number;
   private waveState: number = WAVE_STATE.NEW;
 
-  private enemies: Array<any> = [];
-
   constructor() {
     super();
     this.waves = 0;
@@ -26,16 +24,11 @@ export class HUDWaves extends HUDItem {
     this.text = this.waves.toString();
   }
 
-  draw(ctx: CanvasRenderingContext2D) {
-    this.enemies.sort((a, b) => a.position.y - b.position.y);
-    this.enemies.forEach((enemy) => enemy.draw(ctx));
-  }
-
-  update() {
+  waveUpdate(entities: Array<any>) {
     //pass entity arrayhere
     switch (this.waveState) {
       case WAVE_STATE.NEW:
-        this.spawnEnemy();
+        this.spawnEnemy(entities);
         break;
       case WAVE_STATE.CURRENT:
         break;
@@ -43,17 +36,14 @@ export class HUDWaves extends HUDItem {
         this.resetWave();
         break;
     }
-
-    this.enemies.forEach((enemy) => enemy.update());
   }
 
-  // 2% Health and Armour increase depending on round?
-  spawnEnemy(): any {
+  spawnEnemy(entities: Array<any>): any {
     if (Time.eventUpdate) this.enemySpawnTimer++;
 
     if (this.enemySpawnTimer % Math.floor(Math.random() * 1000) === 0) {
       this.enemyCount++;
-      this.enemies.push(EnemyFactory.createEnemy());
+      entities.push(EnemyFactory.createEnemy());
     }
 
     if (this.enemyCount === this.maxEnemies)
@@ -62,10 +52,11 @@ export class HUDWaves extends HUDItem {
 
   checkWaveStatusAfterEnemyDeath(): void {
     // ACCESS FROM ENEMY IN DEATH STATE
-    if (this.enemies.length === 0) {
-      this.waveState = WAVE_STATE.END;
-      //this.waves++
-    }
+    // if (this.enemies.length === 0) {
+    this.waves++;
+    this.text = this.waves.toString();
+    this.waveState = WAVE_STATE.END;
+    // }
   }
 
   resetWave(): void {
@@ -77,10 +68,5 @@ export class HUDWaves extends HUDItem {
 
   getWaves() {
     return this.waves;
-  }
-
-  setWaves() {
-    this.waves--;
-    this.text = this.waves.toString();
   }
 }

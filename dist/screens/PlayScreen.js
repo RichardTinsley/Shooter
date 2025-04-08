@@ -12,15 +12,17 @@ export class PlayScreen {
     draw(ctx) {
         this.level.draw(ctx);
         this.hud.draw(ctx);
+        this.entities.sort((a, b) => a.position.y - b.position.y);
         this.entities.forEach((entity) => entity.draw(ctx));
     }
     update() {
         this.level.update();
         this.hud.update();
         this.entities.forEach((entity) => entity.update());
+        HUD.hudWaves.waveUpdate(this.entities);
     }
     getArray() {
-        return [];
+        return [...this.entities];
     }
 }
 //# sourceMappingURL=PlayScreen.js.map

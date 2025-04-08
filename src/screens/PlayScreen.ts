@@ -18,6 +18,7 @@ export class PlayScreen implements IScreenState {
     this.level.draw(ctx);
     this.hud.draw(ctx);
     //this.menu.draw(ctx);
+    this.entities.sort((a, b) => a.position.y - b.position.y);
     this.entities.forEach((entity) => entity.draw(ctx));
   }
   update(): void {
@@ -25,11 +26,12 @@ export class PlayScreen implements IScreenState {
     this.hud.update();
     //this.menu.update();
     this.entities.forEach((entity) => entity.update());
+    HUD.hudWaves.waveUpdate(this.entities);
   }
 
   getArray(): Array<any> {
-    //return [...this.menu.getMenuItemsArray(), ...this.entities];
-    return [];
+    // return [...this.menu.getMenuItemsArray(), ...this.entities];
+    return [...this.entities];
   }
 }
 
