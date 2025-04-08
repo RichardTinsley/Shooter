@@ -9,9 +9,6 @@ export class AnimatedSprite extends Sprite {
             ? (this.animationState = 0)
             : (this.animationState = 1);
     }
-    draw(ctx) {
-        super.draw(ctx);
-    }
     update() {
         if (!Time.eventUpdate)
             return;

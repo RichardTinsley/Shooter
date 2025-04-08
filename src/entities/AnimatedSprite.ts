@@ -36,10 +36,6 @@ export class AnimatedSprite extends Sprite implements IAnimatedSprite {
       : (this.animationState = SPRITE_STATE.ANIMATE_ROWS);
   }
 
-  draw(ctx: CanvasRenderingContext2D): void {
-    super.draw(ctx);
-  }
-
   update() {
     if (!Time.eventUpdate) return;
 

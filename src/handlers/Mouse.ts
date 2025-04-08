@@ -7,7 +7,7 @@ import { MenuButton } from "../GUI/menus/MenuButton.js";
 
 export class Mouse {
   static enemySelected: Enemy;
-  // static towerSelected:Tower;
+  //static towerSelected:Tower;
   mouseOverItem: any = undefined;
   private readonly mouseSize: number = 3;
 

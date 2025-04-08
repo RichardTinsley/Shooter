@@ -25,7 +25,6 @@ export class HUDWaves extends HUDItem {
   }
 
   waveUpdate(entities: Array<any>) {
-    //pass entity arrayhere
     switch (this.waveState) {
       case WAVE_STATE.NEW:
         this.spawnEnemy(entities);
