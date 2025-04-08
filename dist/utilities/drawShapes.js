@@ -13,7 +13,7 @@ export function drawDot(ctx, item, colour) {
     ctx.fillStyle = colour;
     ctx.fillRect(item.x - 2, item.y - 2, 4, 4);
 }
-export function drawCircleHitbox(ctx, item, drawDot) {
+export function drawCircleHitbox(ctx, item) {
     ctx.beginPath();
     ctx.arc(item.x, item.y, item.radius, 0, Math.PI * 2);
     ctx.fillStyle = COLOURS.RED_ALPHA;

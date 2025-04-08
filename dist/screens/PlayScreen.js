@@ -4,7 +4,7 @@ import { Level } from "../handlers/Level.js";
 export class PlayScreen {
     constructor(screen) {
         this.screen = screen;
-        this.hud = new HUD({ x: SIZES.TILE_HALF, y: SIZES.TILE_HALF });
+        this.hud = new HUD({ x: SIZES.TILE_HALF, y: SIZES.TILE });
         this.level = new Level();
         this.entities = [];
         this.entities.push(...this.level.createEmptyTowerSpots());

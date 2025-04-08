@@ -1,7 +1,7 @@
-import { MenuButton } from "../GUI/menus/MenuButton.js";
 import { ANIMATION } from "../constants/animation.js";
 import { EmptyTowerSpot } from "../entities/towers/emptyTowerSpot.js";
 import { Enemy } from "../entities/enemies/Enemy.js";
+import { MenuButton } from "../GUI/menus/MenuButton.js";
 export class Mouse {
     constructor(state) {
         this.mouseOverItem = undefined;
@@ -27,12 +27,12 @@ export class Mouse {
     mouseOver(array) {
         this.mouseOverItem = undefined;
         array.forEach((item) => {
-            if (item.checkCollision(this.cursor)) {
-                item.mouseOver(ANIMATION.ANIMATING);
+            if (item.hitDetection.checkCollision(this.cursor)) {
+                item.hitDetection.mouseOver(ANIMATION.ANIMATING);
                 this.mouseOverItem = item;
             }
             else {
-                item.mouseOver(ANIMATION.FINISHED);
+                item.hitDetection.mouseOver(ANIMATION.FINISHED);
             }
         });
     }
@@ -40,7 +40,7 @@ export class Mouse {
         if (!this.mouseOverItem)
             return;
         if (this.mouseOverItem instanceof MenuButton)
-            this.mouseOverItem.changeState();
+            this.mouseOverItem.changeScreen();
         if (this.mouseOverItem instanceof Enemy)
             this.mouseOverItem = undefined;
     }

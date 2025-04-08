@@ -55,11 +55,11 @@ export class Debug {
     entities.forEach((entity) => {
       drawDot(ctx, entity.position, COLOURS.BLUE);
 
-      entity.drawHitbox(ctx);
+      entity.hitDetection.drawHitbox(ctx);
 
-      entity.waypoints?.forEach((waypoint: any) => {
-        drawDot(ctx, waypoint, COLOURS.BRIGHT_GREEN);
-      });
+      entity.waypoints?.forEach((waypoint: any) =>
+        drawDot(ctx, waypoint, COLOURS.BRIGHT_GREEN)
+      );
       // drawDot(ctx, entity.muzzle, COLOURS.YELLOW);
     });
   }

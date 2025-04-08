@@ -1,12 +1,12 @@
 import { LABELS } from "./MenuLabelBuilder.js";
 import { VerticalMenu } from "./VerticalMenu.js";
 export class BeginMenu extends VerticalMenu {
-    constructor(state, position) {
+    constructor(screen, position) {
         super();
         const menuTemplate = [
-            { state: state.setMainMenuScreen, label: LABELS.BEGIN },
+            { screen: screen.setMainMenuScreen, label: LABELS.BEGIN },
         ];
-        this.menuItems = this.initialiseVerticalMenu(state, menuTemplate, position);
+        this.menuItems = this.initialiseVerticalMenu(screen, menuTemplate, position);
     }
 }
 //# sourceMappingURL=BeginMenu.js.map

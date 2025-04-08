@@ -1,22 +1,22 @@
 import { SIZES } from "../../constants/game.js";
-import { Position, HitBox, Cursor } from "../../constants/types.js";
+import { Position } from "../../constants/types.js";
 import { Screen } from "../../screens/Screen.js";
+import { SquareHitDetection } from "./SquareHitDetection.js";
 import { Text } from "../texts/Text.js";
-import { checkHitBoxCollision } from "../../utilities/collisionDetection.js";
-import { drawSquareHitBox } from "../../utilities/drawShapes.js";
 
 export class MenuButton {
   public size = SIZES.TEXT_MENUITEM;
   public width: number;
-  public hitBox!: HitBox;
+  public hitDetection;
   public position!: Position;
 
   constructor(
     public menuLabel: Text,
-    public state: Screen,
-    public setState: Function
+    public screen: Screen,
+    public setScreen: Function
   ) {
     this.width = this.menuLabel.getText().length * (this.size / 1.75);
+    this.hitDetection = new SquareHitDetection(this.width, this.size);
   }
 
   draw(ctx: CanvasRenderingContext2D): void {
@@ -30,30 +30,15 @@ export class MenuButton {
   setPosition(position: Position): this {
     this.menuLabel.setPosition(position);
     this.position = { ...position };
-
-    this.hitBox = {
-      x: this.position.x - this.width / 2,
-      y: this.position.y - this.size / 2,
-      width: this.width,
-      height: this.size,
-    };
-
+    this.hitDetection.setHitBox(position);
     return this;
   }
 
-  changeState(): void {
-    this.setState();
+  changeScreen(): void {
+    this.setScreen();
   }
 
   mouseOver(state: number): void {
     this.menuLabel.setState(state);
-  }
-
-  checkCollision(cursor: Cursor): boolean {
-    return checkHitBoxCollision(cursor, this.hitBox);
-  }
-
-  drawHitbox(ctx: CanvasRenderingContext2D) {
-    drawSquareHitBox(ctx, this.hitBox);
   }
 }

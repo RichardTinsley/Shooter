@@ -9,6 +9,7 @@ export class MovingSprite extends AnimatedSprite implements IMovingSprite {
   protected speed: number = 1;
   protected angle!: number;
   protected direction!: number;
+  protected hitCircleOffsetX: number = 0;
 
   constructor(
     position: Position,
@@ -27,7 +28,6 @@ export class MovingSprite extends AnimatedSprite implements IMovingSprite {
   update() {
     super.update();
     this.updateMovement();
-    this.updateHitCirclePosition();
   }
 
   updateMovement() {
@@ -42,13 +42,7 @@ export class MovingSprite extends AnimatedSprite implements IMovingSprite {
 
   updateSpriteDrawPosition() {
     this.drawPositionX = this.position.x - this.halfWidth;
-    this.drawPositionY = this.position.y - this.height - this.drawOffsetY;
-  }
-
-  updateHitCirclePosition() {
-    this.hitCircle.x = this.position.x;
-    this.hitCircle.y =
-      this.position.y - this.height / 2 - this.hitCircleOffsetX;
+    this.drawPositionY = this.position.y - this.height; // - this.drawOffsetY
   }
 
   setSpeed(speed: number): this {

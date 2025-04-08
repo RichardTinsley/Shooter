@@ -1,6 +1,4 @@
 import { ALL_ASSETS } from "../constants/assets.js";
-import { checkCircleCollision } from "../utilities/collisionDetection.js";
-import { drawCircleHitbox, drawDot, } from "../utilities/drawShapes.js";
 export class Sprite {
     constructor(position, fileName, spriteWidth, spriteHeight) {
         this.position = position;
@@ -12,13 +10,6 @@ export class Sprite {
         this.halfWidth = this.width / 2;
         this.drawPositionX = this.position.x - this.halfWidth;
         this.drawPositionY = this.position.y - this.height;
-        this.drawOffsetY = 0;
-        this.hitCircleOffsetX = 0;
-        this.hitCircle = {
-            x: this.position.x,
-            y: this.position.y - this.height / 2,
-            radius: this.halfWidth,
-        };
         this.animationFrame = 0;
         this.animationRow = 0;
         this.image = ALL_ASSETS.get(fileName);
@@ -44,15 +35,6 @@ export class Sprite {
         this.height = Math.round(this.spriteHeight * this.scale * 100) / 100;
         this.halfWidth = this.width / 2;
         return this;
-    }
-    checkCollision(cursor) {
-        return checkCircleCollision(cursor, this.hitCircle, cursor.radius, this.hitCircle.radius);
-    }
-    drawHitbox(ctx) {
-        drawCircleHitbox(ctx, this.hitCircle, drawDot);
-    }
-    mouseOver(state) {
-        return;
     }
 }
 //# sourceMappingURL=Sprite.js.map

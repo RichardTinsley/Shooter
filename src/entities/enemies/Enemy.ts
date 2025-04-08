@@ -5,10 +5,12 @@ import { drawEntityShadow } from "../../utilities/drawShapes.js";
 import { DIRECTION } from "../../utilities/math.js";
 import { MovingSprite } from "../MovingSprite.js";
 import { HUD } from "../../handlers/HUD.js";
+import { CircleHitDetection } from "../CircleHitDetection.js";
 
 export class Enemy extends MovingSprite {
   private healthBar = new HealthBar(this.width);
   protected waypointIndex = 0;
+  protected hitDetection;
 
   constructor(
     position: Position,
@@ -20,6 +22,11 @@ export class Enemy extends MovingSprite {
     super(position, fileName, spriteWidth, spriteHeight);
     this.destination = { ...position };
     this.updateHealthBarPosition();
+
+    this.hitDetection = new CircleHitDetection(
+      spriteWidth,
+      spriteHeight
+    ).setHitCircle(position);
   }
 
   draw(ctx: CanvasRenderingContext2D) {
@@ -35,6 +42,10 @@ export class Enemy extends MovingSprite {
     this.updateSpriteDrawPosition();
     this.updateHealthBarPosition();
     this.checkWaypointArrival();
+    this.hitDetection.setHitCircle({
+      x: this.position.x,
+      y: this.position.y - this.height / 2 - this.hitCircleOffsetX,
+    });
   }
 
   contextSave(ctx: CanvasRenderingContext2D) {

@@ -1,7 +1,10 @@
 import { Position } from "../../constants/types.js";
 import { AnimatedSprite } from "../AnimatedSprite.js";
+import { CircleHitDetection } from "../CircleHitDetection.js";
 
 export class EmptyTowerSpot extends AnimatedSprite {
+  protected hitDetection;
+
   constructor(
     position: Position,
     fileName: string,
@@ -9,6 +12,11 @@ export class EmptyTowerSpot extends AnimatedSprite {
     protected spriteHeight: number
   ) {
     super(position, fileName, spriteWidth, spriteHeight);
+
+    this.hitDetection = new CircleHitDetection(
+      spriteWidth,
+      spriteHeight
+    ).setHitCircle(position);
   }
 
   // this.center = {

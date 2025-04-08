@@ -6,7 +6,7 @@ import { IScreenState, Screen } from "./Screen.js";
 
 export class PlayScreen implements IScreenState {
   menu!: Menu;
-  hud = new HUD({ x: SIZES.TILE_HALF, y: SIZES.TILE_HALF });
+  hud = new HUD({ x: SIZES.TILE_HALF, y: SIZES.TILE });
   level = new Level();
   entities: Array<any> = [];
 
@@ -18,6 +18,7 @@ export class PlayScreen implements IScreenState {
     this.level.draw(ctx);
     this.hud.draw(ctx);
     //this.menu.draw(ctx);
+
     this.entities.sort((a, b) => a.position.y - b.position.y);
     this.entities.forEach((entity) => entity.draw(ctx));
   }
@@ -25,7 +26,12 @@ export class PlayScreen implements IScreenState {
     this.level.update();
     this.hud.update();
     //this.menu.update();
+
     this.entities.forEach((entity) => entity.update());
+    // this.entities = this.entities.filter(entity => {
+    //   entity.update();
+    //   return entity.state !== ANIMATION.FINISHED;
+    // });
     HUD.hudWaves.waveUpdate(this.entities);
   }
 
@@ -34,8 +40,3 @@ export class PlayScreen implements IScreenState {
     return [...this.entities];
   }
 }
-
-// this.entities = this.entities.filter(entity => {
-//   entity.update();
-//   return entity.state !== ANIMATION.FINISHED;
-// });

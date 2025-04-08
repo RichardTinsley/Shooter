@@ -26,6 +26,6 @@ export type HitCircle = {
 };
 
 export type MenuTemplate = {
-  state: Function;
+  screen: Function;
   label: string;
 };

@@ -1,9 +1,9 @@
 import { Screen } from "../screens/Screen.js";
 import { Cursor } from "../constants/types.js";
-import { MenuButton } from "../GUI/menus/MenuButton.js";
 import { ANIMATION } from "../constants/animation.js";
 import { EmptyTowerSpot } from "../entities/towers/emptyTowerSpot.js";
 import { Enemy } from "../entities/enemies/Enemy.js";
+import { MenuButton } from "../GUI/menus/MenuButton.js";
 
 export class Mouse {
   static enemySelected: Enemy;
@@ -37,11 +37,11 @@ export class Mouse {
   mouseOver(array: Array<any>) {
     this.mouseOverItem = undefined;
     array.forEach((item: any) => {
-      if (item.checkCollision(this.cursor)) {
-        item.mouseOver(ANIMATION.ANIMATING);
+      if (item.hitDetection.checkCollision(this.cursor)) {
+        item.hitDetection.mouseOver(ANIMATION.ANIMATING);
         this.mouseOverItem = item;
       } else {
-        item.mouseOver(ANIMATION.FINISHED);
+        item.hitDetection.mouseOver(ANIMATION.FINISHED);
       }
     });
   }
@@ -50,7 +50,7 @@ export class Mouse {
     if (!this.mouseOverItem) return;
 
     if (this.mouseOverItem instanceof MenuButton)
-      this.mouseOverItem.changeState();
+      this.mouseOverItem.changeScreen();
 
     if (this.mouseOverItem instanceof Enemy)
       // if(Mouse.selectedEnemy !== this.mouseOverItem)

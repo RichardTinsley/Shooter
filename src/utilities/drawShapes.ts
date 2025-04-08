@@ -31,8 +31,7 @@ export function drawDot(
 
 export function drawCircleHitbox(
   ctx: CanvasRenderingContext2D,
-  item: any,
-  drawDot: Function
+  item: any
 ): void {
   ctx.beginPath();
   ctx.arc(item.x, item.y, item.radius, 0, Math.PI * 2);

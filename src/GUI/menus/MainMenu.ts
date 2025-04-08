@@ -4,15 +4,19 @@ import { LABELS } from "./MenuLabelBuilder.js";
 import { VerticalMenu } from "./VerticalMenu.js";
 
 export class MainMenu extends VerticalMenu {
-  constructor(state: Screen, position: number) {
+  constructor(screen: Screen, position: number) {
     super();
 
     const menuTemplate: Array<MenuTemplate> = [
-      { state: state.setPlayScreen, label: LABELS.NEWGAME },
-      { state: state.setOptionsScreen, label: LABELS.OPTIONS },
-      { state: state.setAboutScreen, label: LABELS.ABOUT },
+      { screen: screen.setPlayScreen, label: LABELS.NEWGAME },
+      { screen: screen.setOptionsScreen, label: LABELS.OPTIONS },
+      { screen: screen.setAboutScreen, label: LABELS.ABOUT },
     ];
 
-    this.menuItems = this.initialiseVerticalMenu(state, menuTemplate, position);
+    this.menuItems = this.initialiseVerticalMenu(
+      screen,
+      menuTemplate,
+      position
+    );
   }
 }

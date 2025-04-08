@@ -6,9 +6,9 @@ export class VerticalMenu extends Menu {
     constructor() {
         super();
     }
-    initialiseVerticalMenu(state, menuTemplate, menuPosition) {
+    initialiseVerticalMenu(screen, menuTemplate, menuPosition) {
         return menuTemplate.map((item, index) => {
-            return new MenuButton(MenuLabelBuilder.createLabel(item.label), state, item.state).setPosition({
+            return new MenuButton(MenuLabelBuilder.createLabel(item.label), screen, item.screen).setPosition({
                 x: SIZES.GAME_WIDTH_HALF,
                 y: menuPosition + index * (SIZES.TEXT_MENUITEM + SIZES.TEXT_SPACING),
             });

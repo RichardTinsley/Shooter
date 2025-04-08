@@ -11,7 +11,7 @@ const enum SPRITE_STATE {
 export class AnimatedSprite extends Sprite implements IAnimatedSprite {
   protected maxAnimationFrame!: number;
   protected maxAnimationRow!: number;
-  protected state!: number;
+  protected animationState!: number;
 
   constructor(
     position: Position,
@@ -32,8 +32,8 @@ export class AnimatedSprite extends Sprite implements IAnimatedSprite {
     );
 
     this.maxAnimationRow === 0
-      ? (this.state = SPRITE_STATE.ANIMATE_FRAMES)
-      : (this.state = SPRITE_STATE.ANIMATE_ROWS);
+      ? (this.animationState = SPRITE_STATE.ANIMATE_FRAMES)
+      : (this.animationState = SPRITE_STATE.ANIMATE_ROWS);
   }
 
   draw(ctx: CanvasRenderingContext2D): void {
@@ -43,7 +43,7 @@ export class AnimatedSprite extends Sprite implements IAnimatedSprite {
   update() {
     if (!Time.eventUpdate) return;
 
-    switch (this.state) {
+    switch (this.animationState) {
       case SPRITE_STATE.ANIMATE_FRAMES:
         this.animateFrames();
         break;

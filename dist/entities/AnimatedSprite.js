@@ -6,8 +6,8 @@ export class AnimatedSprite extends Sprite {
         this.maxAnimationFrame = this.getSpriteSheetDimensions(this.image.width, this.spriteWidth);
         this.maxAnimationRow = this.getSpriteSheetDimensions(this.image.height, this.spriteHeight);
         this.maxAnimationRow === 0
-            ? (this.state = 0)
-            : (this.state = 1);
+            ? (this.animationState = 0)
+            : (this.animationState = 1);
     }
     draw(ctx) {
         super.draw(ctx);
@@ -15,7 +15,7 @@ export class AnimatedSprite extends Sprite {
     update() {
         if (!Time.eventUpdate)
             return;
-        switch (this.state) {
+        switch (this.animationState) {
             case 0:
                 this.animateFrames();
                 break;

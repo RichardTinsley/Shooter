@@ -11,15 +11,15 @@ export class VerticalMenu extends Menu {
   }
 
   initialiseVerticalMenu(
-    state: Screen,
+    screen: Screen,
     menuTemplate: Array<MenuTemplate>,
     menuPosition: number
   ): Array<MenuButton> {
     return menuTemplate.map((item: MenuTemplate, index: number) => {
       return new MenuButton(
         MenuLabelBuilder.createLabel(item.label),
-        state,
-        item.state
+        screen,
+        item.screen
       ).setPosition({
         x: SIZES.GAME_WIDTH_HALF,
         y: menuPosition + index * (SIZES.TEXT_MENUITEM + SIZES.TEXT_SPACING),

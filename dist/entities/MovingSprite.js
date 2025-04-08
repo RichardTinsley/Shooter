@@ -5,6 +5,7 @@ export class MovingSprite extends AnimatedSprite {
     constructor(position, fileName, spriteWidth, spriteHeight) {
         super(position, fileName, spriteWidth, spriteHeight);
         this.speed = 1;
+        this.hitCircleOffsetX = 0;
     }
     draw(ctx) {
         this.updateSpriteDrawPosition();
@@ -13,7 +14,6 @@ export class MovingSprite extends AnimatedSprite {
     update() {
         super.update();
         this.updateMovement();
-        this.updateHitCirclePosition();
     }
     updateMovement() {
         this.angle = giveAngle(this.destination, this.position);
@@ -25,12 +25,7 @@ export class MovingSprite extends AnimatedSprite {
     }
     updateSpriteDrawPosition() {
         this.drawPositionX = this.position.x - this.halfWidth;
-        this.drawPositionY = this.position.y - this.height - this.drawOffsetY;
-    }
-    updateHitCirclePosition() {
-        this.hitCircle.x = this.position.x;
-        this.hitCircle.y =
-            this.position.y - this.height / 2 - this.hitCircleOffsetX;
+        this.drawPositionY = this.position.y - this.height;
     }
     setSpeed(speed) {
         this.speed = randomFloat(speed - speed * 0.2, speed + speed * 0.2);

@@ -40,10 +40,8 @@ export class Debug {
         entities.forEach((entity) => {
             var _a;
             drawDot(ctx, entity.position, COLOURS.BLUE);
-            entity.drawHitbox(ctx);
-            (_a = entity.waypoints) === null || _a === void 0 ? void 0 : _a.forEach((waypoint) => {
-                drawDot(ctx, waypoint, COLOURS.BRIGHT_GREEN);
-            });
+            entity.hitDetection.drawHitbox(ctx);
+            (_a = entity.waypoints) === null || _a === void 0 ? void 0 : _a.forEach((waypoint) => drawDot(ctx, waypoint, COLOURS.BRIGHT_GREEN));
         });
     }
     drawLevelDebugInfoGrid(ctx) {
