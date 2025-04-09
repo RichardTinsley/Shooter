@@ -34,6 +34,7 @@ export class Enemy extends MovingSprite {
     super(position, fileName, spriteWidth, spriteHeight, scale);
     this.destination = { ...position };
     this.drawPositionOffsetY = 50;
+    this.drawPositionOffsetX = this.width / 4;
   }
 
   draw(ctx: CanvasRenderingContext2D) {

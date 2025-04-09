@@ -15,6 +15,7 @@ export class MovingSprite extends AnimatedSprite implements IMovingSprite {
   protected angle!: number;
   protected direction!: number;
 
+  protected drawPositionOffsetX: number = 0;
   protected drawPositionOffsetY: number = 0;
 
   constructor(
@@ -50,7 +51,8 @@ export class MovingSprite extends AnimatedSprite implements IMovingSprite {
   }
 
   updateSpriteDrawPosition() {
-    this.drawPositionX = this.position.x - this.halfWidth;
+    this.drawPositionX =
+      this.position.x - this.halfWidth + this.drawPositionOffsetX;
     this.drawPositionY =
       this.position.y - this.height - this.drawPositionOffsetY;
   }

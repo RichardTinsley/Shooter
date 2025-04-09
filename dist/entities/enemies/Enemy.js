@@ -18,6 +18,7 @@ export class Enemy extends MovingSprite {
         this.enemyState = ANIMATION.ANIMATING;
         this.destination = Object.assign({}, position);
         this.drawPositionOffsetY = 50;
+        this.drawPositionOffsetX = this.width / 4;
     }
     draw(ctx) {
         switch (this.enemyState) {

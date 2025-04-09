@@ -30,6 +30,9 @@ export const FILE_NAMES: Record<string, string> = {
   TOWER_AMETHYST_1: "amethystTower (1).png",
   
   PROJECTILE_SAPPHIRE_1: "Iceball_84x9.png", 
+
+  ENEMY_ZOMBIE_1_WALK: "zombie_1_walk.png",
+  ENEMY_ZOMBIE_1_DIE: "zombie_1_die.png",
 };
 
 // prettier-ignore
@@ -56,7 +59,8 @@ export const ASSET_LIST: string[][] = [
   //SOUNDFX
 
   //ENEMIES
-
+  [`${FILE_NAMES.ENEMY_ZOMBIE_1_WALK}`, `${ENEMIES_URL}${FILE_NAMES.ENEMY_ZOMBIE_1_WALK}`],
+  
   //TOWERS
   [`${FILE_NAMES.TOWER_EMPTY_SPOT}`, `${TOWERS_URL}${FILE_NAMES.TOWER_EMPTY_SPOT}`],
   [`${FILE_NAMES.TOWER_AMETHYST_1}`, `${TOWERS_URL}${FILE_NAMES.TOWER_AMETHYST_1}`],

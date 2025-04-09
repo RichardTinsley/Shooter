@@ -5,6 +5,7 @@ export class MovingSprite extends AnimatedSprite {
     constructor(position, fileName, spriteWidth, spriteHeight, scale) {
         super(position, fileName, spriteWidth, spriteHeight, scale);
         this.speed = 1;
+        this.drawPositionOffsetX = 0;
         this.drawPositionOffsetY = 0;
     }
     draw(ctx) {
@@ -26,7 +27,8 @@ export class MovingSprite extends AnimatedSprite {
             Math.sin(this.angle) * this.speed * Time.deltaTimeMultiplier;
     }
     updateSpriteDrawPosition() {
-        this.drawPositionX = this.position.x - this.halfWidth;
+        this.drawPositionX =
+            this.position.x - this.halfWidth + this.drawPositionOffsetX;
         this.drawPositionY =
             this.position.y - this.height - this.drawPositionOffsetY;
     }

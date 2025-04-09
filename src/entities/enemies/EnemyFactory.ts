@@ -11,9 +11,9 @@ export class EnemyFactory {
     //       case 0:
     return new Enemy(
       { ...waypoints[0] },
-      FILE_NAMES.TOWER_AMETHYST_1,
+      FILE_NAMES.ENEMY_ZOMBIE_1_WALK,
       64,
-      64,
+      32,
       randomFloat(0.5, 2.5),
       waypoints
     ).setSpeed(10);
