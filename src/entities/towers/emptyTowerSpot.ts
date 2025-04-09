@@ -20,12 +20,6 @@ export class EmptyTowerSpot extends AnimatedSprite {
     );
   }
 
-  // this.center = {
-  //     x: this.position.x,
-  //     y: this.position.y - this.width / 2,
-  //     radius: this.width / 2,
-  // };
-
   mouseOver(state: number) {
     return;
   }

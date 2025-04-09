@@ -1,11 +1,12 @@
 import { COLOURS } from "../../constants/colours.js";
+import { Position } from "../../constants/types.js";
 import { drawRectangle } from "../../utilities/drawShapes.js";
 import { StatusBar } from "./StatusBar.js";
 
 export class HealthBar extends StatusBar {
   readonly statusBarHeight: number = 3;
   statusBarLength!: number;
-  protected lineWidth: number = 6;
+  protected lineWidth: number = 5;
 
   protected healthBarColour: string = COLOURS.BRIGHT_GREEN;
 
@@ -53,6 +54,12 @@ export class HealthBar extends StatusBar {
 
   setWidth(length: number): this {
     this.statusBarLength = length / 1.5;
+    return this;
+  }
+
+  setPosition(position: Position): this {
+    super.setPosition(position);
+    this.position.y -= 3;
     return this;
   }
 }

@@ -1,6 +1,7 @@
 import { FILE_NAMES } from "../../constants/assets.js";
 import { Level } from "../../handlers/Level.js";
 import { Enemy } from "./Enemy.js";
+import { randomFloat } from "../../utilities/math.js";
 
 export class EnemyFactory {
   static createEnemy() {
@@ -13,7 +14,7 @@ export class EnemyFactory {
       FILE_NAMES.TOWER_AMETHYST_1,
       64,
       64,
-      2,
+      randomFloat(0.5, 2.5),
       waypoints
     ).setSpeed(10);
     //     }

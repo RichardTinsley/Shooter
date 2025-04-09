@@ -5,7 +5,7 @@ export class HealthBar extends StatusBar {
     constructor() {
         super();
         this.statusBarHeight = 3;
-        this.lineWidth = 6;
+        this.lineWidth = 5;
         this.healthBarColour = COLOURS.BRIGHT_GREEN;
         this.maxStatus = 100;
         this.currentStatus = 100;
@@ -27,6 +27,11 @@ export class HealthBar extends StatusBar {
     }
     setWidth(length) {
         this.statusBarLength = length / 1.5;
+        return this;
+    }
+    setPosition(position) {
+        super.setPosition(position);
+        this.position.y -= 3;
         return this;
     }
 }
