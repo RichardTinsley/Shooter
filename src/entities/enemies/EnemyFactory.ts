@@ -1,7 +1,7 @@
 import { FILE_NAMES } from "../../constants/assets.js";
 import { Level } from "../../handlers/Level.js";
-import { Enemy } from "./Enemy.js";
 import { randomFloat } from "../../utilities/math.js";
+import { ZombieEnemy } from "./ZombieEnemy.js";
 
 export class EnemyFactory {
   static createEnemy() {
@@ -9,12 +9,12 @@ export class EnemyFactory {
     const waypoints = Level.getEnemyGeneratedWaypoints();
     //     switch (enemyChoice) {
     //       case 0:
-    return new Enemy(
+    return new ZombieEnemy(
       { ...waypoints[0] },
       FILE_NAMES.ENEMY_ZOMBIE_1_WALK,
       64,
       32,
-      randomFloat(0.5, 2.5),
+      1.5,
       waypoints
     ).setSpeed(10);
     //     }

@@ -9,23 +9,21 @@ export class Enemy extends MovingSprite {
     constructor(position, fileName, spriteWidth, spriteHeight, scale, waypoints) {
         super(position, fileName, spriteWidth, spriteHeight, scale);
         this.waypoints = waypoints;
-        this.healthBar = new HealthBar()
-            .setPosition(this.position)
-            .setWidth(this.width);
-        this.hitDetection = new CircleHitDetection().setHitCircle(this.position, this.width);
         this.waypointIndex = 0;
         this.priorityDistance = 0;
         this.enemyState = ANIMATION.ANIMATING;
+        this.shadowWidth = this.width;
+        this.mouseOverWidth = this.width;
+        this.healthBar = new HealthBar().setPosition(this.position);
+        this.hitDetection = new CircleHitDetection().setPosition(this.position);
         this.destination = Object.assign({}, position);
-        this.drawPositionOffsetY = 50;
-        this.drawPositionOffsetX = this.width / 4;
     }
     draw(ctx) {
         switch (this.enemyState) {
             case ANIMATION.MOUSEOVER:
-                drawMouseOverEnemy(ctx, this.position, this.width);
+                drawMouseOverEnemy(ctx, this.position, this.mouseOverWidth);
             case ANIMATION.NORMAL:
-                drawEntityShadow(ctx, this.position, this.width);
+                drawEntityShadow(ctx, this.position, this.shadowWidth);
                 super.draw(ctx);
                 this.healthBar.draw(ctx);
                 break;
@@ -40,10 +38,10 @@ export class Enemy extends MovingSprite {
             x: this.position.x,
             y: this.position.y - this.height - this.drawPositionOffsetY,
         });
-        this.hitDetection.setHitCircle({
+        this.hitDetection.setPosition({
             x: this.position.x,
             y: this.position.y - this.height / 2 - this.drawPositionOffsetY,
-        }, this.width);
+        });
     }
     checkWaypointArrival() {
         if (checkCircleCollision(this.position, this.destination, 5, 10)) {

@@ -14,10 +14,9 @@ export class EmptyTowerSpot extends AnimatedSprite {
   ) {
     super(position, fileName, spriteWidth, spriteHeight, scale);
 
-    this.hitDetection = new CircleHitDetection().setHitCircle(
-      position,
-      this.width
-    );
+    this.hitDetection = new CircleHitDetection()
+      .setPosition(position)
+      .setWidth(this.width);
   }
 
   mouseOver(state: number) {

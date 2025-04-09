@@ -11,17 +11,16 @@ import { CircleHitDetection } from "../CircleHitDetection.js";
 import { ANIMATION } from "../../constants/animation.js";
 
 export class Enemy extends MovingSprite {
-  protected healthBar = new HealthBar()
-    .setPosition(this.position)
-    .setWidth(this.width);
-  protected hitDetection = new CircleHitDetection().setHitCircle(
-    this.position,
-    this.width
-  );
-
   protected waypointIndex = 0;
   protected priorityDistance = 0;
   protected enemyState = ANIMATION.ANIMATING;
+
+  protected shadowWidth = this.width;
+  protected mouseOverWidth = this.width;
+
+  protected healthBar = new HealthBar().setPosition(this.position);
+
+  protected hitDetection = new CircleHitDetection().setPosition(this.position);
 
   constructor(
     position: Position,
@@ -33,16 +32,14 @@ export class Enemy extends MovingSprite {
   ) {
     super(position, fileName, spriteWidth, spriteHeight, scale);
     this.destination = { ...position };
-    this.drawPositionOffsetY = 50;
-    this.drawPositionOffsetX = this.width / 4;
   }
 
   draw(ctx: CanvasRenderingContext2D) {
     switch (this.enemyState) {
       case ANIMATION.MOUSEOVER:
-        drawMouseOverEnemy(ctx, this.position, this.width);
+        drawMouseOverEnemy(ctx, this.position, this.mouseOverWidth);
       case ANIMATION.NORMAL:
-        drawEntityShadow(ctx, this.position, this.width);
+        drawEntityShadow(ctx, this.position, this.shadowWidth);
         super.draw(ctx);
         this.healthBar.draw(ctx);
         break;
@@ -61,13 +58,10 @@ export class Enemy extends MovingSprite {
       y: this.position.y - this.height - this.drawPositionOffsetY,
     });
 
-    this.hitDetection.setHitCircle(
-      {
-        x: this.position.x,
-        y: this.position.y - this.height / 2 - this.drawPositionOffsetY,
-      },
-      this.width
-    );
+    this.hitDetection.setPosition({
+      x: this.position.x,
+      y: this.position.y - this.height / 2 - this.drawPositionOffsetY,
+    });
   }
 
   checkWaypointArrival() {
