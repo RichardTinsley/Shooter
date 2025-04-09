@@ -14,15 +14,17 @@ export class MovingSprite extends AnimatedSprite implements IMovingSprite {
   protected speed: number = 1;
   protected angle!: number;
   protected direction!: number;
-  protected hitCircleOffsetX: number = 0;
+
+  protected drawPositionOffsetY: number = 0;
 
   constructor(
     position: Position,
     fileName: string,
     spriteWidth: number,
-    spriteHeight: number
+    spriteHeight: number,
+    scale: number
   ) {
-    super(position, fileName, spriteWidth, spriteHeight);
+    super(position, fileName, spriteWidth, spriteHeight, scale);
   }
 
   draw(ctx: CanvasRenderingContext2D) {
@@ -49,7 +51,8 @@ export class MovingSprite extends AnimatedSprite implements IMovingSprite {
 
   updateSpriteDrawPosition() {
     this.drawPositionX = this.position.x - this.halfWidth;
-    this.drawPositionY = this.position.y - this.height; // - this.drawOffsetY
+    this.drawPositionY =
+      this.position.y - this.height - this.drawPositionOffsetY;
   }
 
   setSpeed(speed: number): this {

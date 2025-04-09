@@ -2,12 +2,11 @@ import { COLOURS } from "../../constants/colours.js";
 import { drawRectangle } from "../../utilities/drawShapes.js";
 import { StatusBar } from "./StatusBar.js";
 export class HealthBar extends StatusBar {
-    constructor(length) {
+    constructor() {
         super();
         this.statusBarHeight = 3;
-        this.lineWidth = 5;
+        this.lineWidth = 6;
         this.healthBarColour = COLOURS.BRIGHT_GREEN;
-        this.statusBarLength = length / 1.5;
         this.maxStatus = 100;
         this.currentStatus = 100;
     }
@@ -25,6 +24,10 @@ export class HealthBar extends StatusBar {
             this.currentStatus = 0;
         if (this.currentStatus < this.maxStatus * 33)
             this.healthBarColour = COLOURS.RED;
+    }
+    setWidth(length) {
+        this.statusBarLength = length / 1.5;
+        return this;
     }
 }
 //# sourceMappingURL=HealthBar.js.map

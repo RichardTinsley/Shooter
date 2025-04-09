@@ -1,10 +1,10 @@
 import { ALL_ASSETS } from "../constants/assets.js";
 export class Sprite {
-    constructor(position, fileName, spriteWidth, spriteHeight) {
+    constructor(position, fileName, spriteWidth, spriteHeight, scale) {
         this.position = position;
         this.spriteWidth = spriteWidth;
         this.spriteHeight = spriteHeight;
-        this.scale = 1;
+        this.scale = scale;
         this.width = this.spriteWidth;
         this.height = this.spriteHeight;
         this.halfWidth = this.width / 2;
@@ -12,6 +12,7 @@ export class Sprite {
         this.drawPositionY = this.position.y - this.height;
         this.animationFrame = 0;
         this.animationRow = 0;
+        this.setScale(scale);
         this.image = ALL_ASSETS.get(fileName);
     }
     draw(ctx) {

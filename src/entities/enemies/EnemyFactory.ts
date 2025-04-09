@@ -13,6 +13,7 @@ export class EnemyFactory {
       FILE_NAMES.TOWER_AMETHYST_1,
       64,
       64,
+      2,
       waypoints
     ).setSpeed(10);
     //     }

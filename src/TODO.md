@@ -1,18 +1,10 @@
 Default parameters on constructors
 Web Audio API and JavaScript
-
+TOWER AND ENEMIES IN ARRAY, SORTED, PROJECTILES ARRAY WITHIN EACH TOWER, EACH PROJECTILE STATE CHANGES TO EFFECT,
 Build tower modal with animated SPRITEs. / scale modals? /
 See through options menu so game can keep running in background
-DELTA TIME \* ENEMY MOVE, (EVENT) on all entiry UPDATE methods UPDATE !event return, RUN TIMER ON TOTALRUNTIME SECONDS FROM TIME PARAM
+enemy collisions, push each other away / DYKSTRA collision and non collision tiles
+EACH CLICKABLE ENTITY WITH HAVE ITS OWN "CLICK FUNCTION" POLY MORPHISM
+
 RESEARCH: ASYNC, AWAIT, PROMISES, SCOPE/CLOSURE, OBJECT.() PROTOTYPES, JS PERFORMANCE, WINDOW DOCUMENT. STATIC METHODS
 PROTOYTYPE CHAIN
-
-enemy collisions, push each other away / DYKSTRA collision and non collision tiles
-
-move effects array into enemy
-before enemy array for effects
-EACH CLICKABLE ENTITY WITH HAVE ITS OWN "CLICK FUNCTION" POLY MORPHISM
-extract shape drawing functions from entity classes into context utitilty with text render
-Testing
-
-take collision stuff out of sprite and create a new parent class and put in between Animated and Moving

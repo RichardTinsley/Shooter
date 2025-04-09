@@ -5,13 +5,11 @@ import { drawCircleHitbox } from "../utilities/drawShapes.js";
 export class CircleHitDetection {
   protected hitCircle!: HitCircle;
 
-  constructor(public width: number, public height: number) {}
-
-  setHitCircle(position: Position): this {
+  setHitCircle(position: Position, width: number): this {
     this.hitCircle = {
       x: position.x,
       y: position.y,
-      radius: this.width / 2,
+      radius: width / 2,
     };
     return this;
   }

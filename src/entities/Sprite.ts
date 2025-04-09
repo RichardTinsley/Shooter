@@ -5,7 +5,6 @@ import { IDrawable } from "../interfaces/IEntity.js";
 export class Sprite implements IDrawable {
   protected image!: HTMLImageElement;
 
-  protected scale: number = 1;
   protected width: number = this.spriteWidth;
   protected height: number = this.spriteHeight;
   protected halfWidth = this.width / 2;
@@ -20,8 +19,10 @@ export class Sprite implements IDrawable {
     public position: Position,
     fileName: string,
     protected spriteWidth: number,
-    protected spriteHeight: number
+    protected spriteHeight: number,
+    protected scale: number
   ) {
+    this.setScale(scale);
     this.image = ALL_ASSETS.get(fileName);
   }
 

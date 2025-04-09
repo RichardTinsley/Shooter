@@ -10,9 +10,10 @@ export class Projectile extends MovingSprite {
     position: Position,
     fileName: string,
     spriteWidth: number,
-    spriteHeight: number
+    spriteHeight: number,
+    scale: number
   ) {
-    super(position, fileName, spriteWidth, spriteHeight);
+    super(position, fileName, spriteWidth, spriteHeight, scale);
   }
 
   draw(ctx: CanvasRenderingContext2D) {

@@ -4,7 +4,7 @@ import { HUDLives } from "../GUI/HUD/HUDLives.js";
 import { HUDCoins } from "../GUI/HUD/HUDCoins.js";
 import { HUDExperience } from "../GUI/HUD/HUDExperience.js";
 import { HUDMana } from "../GUI/HUD/HUDMana.js";
-import { HUDWaves } from "../GUI/HUD/HUDWaves.js";
+import { HUDEnemies } from "../GUI/HUD/HUDEnemies.js";
 import { HUDTimer } from "../GUI/HUD/HUDTimer.js";
 export class HUD {
     constructor(position) {
@@ -13,7 +13,7 @@ export class HUD {
         HUD.hudCoins = new HUDCoins().setHUDItem({ x: this.position.x + SIZES.TILE * 5, y: this.position.y }, FILE_NAMES.ICONS_COINS);
         HUD.hudExperience = new HUDExperience().setHUDItem({ x: this.position.x + SIZES.TILE * 9, y: this.position.y }, FILE_NAMES.ICONS_EXP);
         HUD.hudMana = new HUDMana().setHUDItem({ x: this.position.x + SIZES.TILE * 13, y: this.position.y }, FILE_NAMES.ICONS_MANA);
-        HUD.hudWaves = new HUDWaves().setHUDItem({ x: this.position.x + SIZES.TILE * 32, y: this.position.y }, FILE_NAMES.ICONS_WAVES);
+        HUD.hudWaves = new HUDEnemies().setHUDItem({ x: this.position.x + SIZES.TILE * 32, y: this.position.y }, FILE_NAMES.ICONS_WAVES);
         HUD.hudTimer = new HUDTimer().setHUDItem({ x: this.position.x + SIZES.TILE * 35, y: this.position.y }, FILE_NAMES.ICONS_TIMER);
     }
     draw(ctx) {

@@ -17,9 +17,10 @@ export class AnimatedSprite extends Sprite implements IAnimatedSprite {
     position: Position,
     fileName: string,
     spriteWidth: number,
-    spriteHeight: number
+    spriteHeight: number,
+    scale: number
   ) {
-    super(position, fileName, spriteWidth, spriteHeight);
+    super(position, fileName, spriteWidth, spriteHeight, scale);
 
     this.maxAnimationFrame = this.getSpriteSheetDimensions(
       this.image.width,

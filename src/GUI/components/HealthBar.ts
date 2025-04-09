@@ -5,13 +5,12 @@ import { StatusBar } from "./StatusBar.js";
 export class HealthBar extends StatusBar {
   readonly statusBarHeight: number = 3;
   statusBarLength!: number;
-  protected lineWidth: number = 5;
+  protected lineWidth: number = 6;
 
   protected healthBarColour: string = COLOURS.BRIGHT_GREEN;
 
-  constructor(length: number) {
+  constructor() {
     super();
-    this.statusBarLength = length / 1.5;
     this.maxStatus = 100;
     this.currentStatus = 100;
     // this.maxStatus = randomFloat(HUB.wave());
@@ -50,5 +49,10 @@ export class HealthBar extends StatusBar {
 
     if (this.currentStatus < this.maxStatus * 33)
       this.healthBarColour = COLOURS.RED;
+  }
+
+  setWidth(length: number): this {
+    this.statusBarLength = length / 1.5;
+    return this;
   }
 }

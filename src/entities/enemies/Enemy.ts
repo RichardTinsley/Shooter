@@ -11,9 +11,16 @@ import { CircleHitDetection } from "../CircleHitDetection.js";
 import { ANIMATION } from "../../constants/animation.js";
 
 export class Enemy extends MovingSprite {
-  private healthBar = new HealthBar(this.width);
+  protected healthBar = new HealthBar()
+    .setPosition(this.position)
+    .setWidth(this.width);
+  protected hitDetection = new CircleHitDetection().setHitCircle(
+    this.position,
+    this.width
+  );
+
   protected waypointIndex = 0;
-  protected hitDetection;
+  protected priorityDistance = 0;
   protected enemyState = ANIMATION.ANIMATING;
 
   constructor(
@@ -21,16 +28,12 @@ export class Enemy extends MovingSprite {
     fileName: string,
     spriteWidth: number,
     spriteHeight: number,
+    scale: number,
     protected waypoints: Array<Position>
   ) {
-    super(position, fileName, spriteWidth, spriteHeight);
+    super(position, fileName, spriteWidth, spriteHeight, scale);
     this.destination = { ...position };
-    this.updateHealthBarPosition();
-
-    this.hitDetection = new CircleHitDetection(
-      spriteWidth,
-      spriteHeight
-    ).setHitCircle(position);
+    this.drawPositionOffsetY = 50;
   }
 
   draw(ctx: CanvasRenderingContext2D) {
@@ -49,12 +52,21 @@ export class Enemy extends MovingSprite {
 
   update() {
     super.update();
-    this.updateHealthBarPosition();
+
     this.checkWaypointArrival();
-    this.hitDetection.setHitCircle({
+
+    this.healthBar.setPosition({
       x: this.position.x,
-      y: this.position.y - this.height / 2 - this.hitCircleOffsetX,
+      y: this.position.y - this.height - this.drawPositionOffsetY,
     });
+
+    this.hitDetection.setHitCircle(
+      {
+        x: this.position.x,
+        y: this.position.y - this.height / 2 - this.drawPositionOffsetY,
+      },
+      this.width
+    );
   }
 
   checkWaypointArrival() {
@@ -70,13 +82,6 @@ export class Enemy extends MovingSprite {
     }
   }
 
-  updateHealthBarPosition() {
-    this.healthBar.setPosition({
-      x: this.position.x,
-      y: this.position.y - this.height,
-    });
-  }
-
   checkEnemyHealth() {
     // if(!this.health.isAlive() && !this.isEnemyDying()){
     // this.sprite.row = OBJECTS.STATES.DYING;
@@ -86,11 +91,11 @@ export class Enemy extends MovingSprite {
   }
 
   updatePriorityDistance() {
-    // const yDistance = this.destination.y - this.position.y;
-    // const xDistance = this.destination.x - this.position.x;
-    // this.priorityDistance = Math.round(
-    //   Math.abs(xDistance) + Math.abs(yDistance)
-    // );
+    const yDistance = this.destination.y - this.position.y;
+    const xDistance = this.destination.x - this.position.x;
+    this.priorityDistance = Math.round(
+      Math.abs(xDistance) + Math.abs(yDistance)
+    );
   }
 
   mouseOver(state: number) {

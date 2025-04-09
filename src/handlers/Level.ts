@@ -52,7 +52,8 @@ export class Level {
               },
               FILE_NAMES.TOWER_EMPTY_SPOT,
               64,
-              64
+              64,
+              1
             )
           );
       });

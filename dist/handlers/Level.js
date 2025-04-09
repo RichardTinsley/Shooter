@@ -42,7 +42,7 @@ export class Level {
                     emptyTowerSpots.push(new EmptyTowerSpot({
                         x: x * SIZES.TILE + SIZES.TILE_HALF,
                         y: y * SIZES.TILE + SIZES.TILE_HALF,
-                    }, FILE_NAMES.TOWER_EMPTY_SPOT, 64, 64));
+                    }, FILE_NAMES.TOWER_EMPTY_SPOT, 64, 64, 1));
             });
         });
         return emptyTowerSpots;

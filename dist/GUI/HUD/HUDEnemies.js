@@ -53,4 +53,4 @@ export class HUDEnemies extends HUDItem {
         return this.waves;
     }
 }
-//# sourceMappingURL=HUDWaves.js.map
+//# sourceMappingURL=HUDEnemies.js.map

@@ -8,7 +8,7 @@ enum WAVE_STATE {
   END,
 }
 
-export class HUDWaves extends HUDItem {
+export class HUDEnemies extends HUDItem {
   private waves: number;
   private enemySpawnTimer: number;
   private enemyCount: number;

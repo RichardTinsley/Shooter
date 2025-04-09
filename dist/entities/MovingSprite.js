@@ -2,10 +2,10 @@ import { Time } from "../handlers/Time.js";
 import { DIRECTION, giveAngle, giveDirection, randomFloat, } from "../utilities/math.js";
 import { AnimatedSprite } from "./AnimatedSprite.js";
 export class MovingSprite extends AnimatedSprite {
-    constructor(position, fileName, spriteWidth, spriteHeight) {
-        super(position, fileName, spriteWidth, spriteHeight);
+    constructor(position, fileName, spriteWidth, spriteHeight, scale) {
+        super(position, fileName, spriteWidth, spriteHeight, scale);
         this.speed = 1;
-        this.hitCircleOffsetX = 0;
+        this.drawPositionOffsetY = 0;
     }
     draw(ctx) {
         this.contextSave(ctx);
@@ -27,7 +27,8 @@ export class MovingSprite extends AnimatedSprite {
     }
     updateSpriteDrawPosition() {
         this.drawPositionX = this.position.x - this.halfWidth;
-        this.drawPositionY = this.position.y - this.height;
+        this.drawPositionY =
+            this.position.y - this.height - this.drawPositionOffsetY;
     }
     setSpeed(speed) {
         this.speed = randomFloat(speed - speed * 0.2, speed + speed * 0.2);

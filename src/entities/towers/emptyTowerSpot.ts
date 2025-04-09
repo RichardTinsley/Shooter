@@ -9,14 +9,15 @@ export class EmptyTowerSpot extends AnimatedSprite {
     position: Position,
     fileName: string,
     protected spriteWidth: number,
-    protected spriteHeight: number
+    protected spriteHeight: number,
+    protected scale: number
   ) {
-    super(position, fileName, spriteWidth, spriteHeight);
+    super(position, fileName, spriteWidth, spriteHeight, scale);
 
-    this.hitDetection = new CircleHitDetection(
-      spriteWidth,
-      spriteHeight
-    ).setHitCircle(position);
+    this.hitDetection = new CircleHitDetection().setHitCircle(
+      position,
+      this.width
+    );
   }
 
   // this.center = {
