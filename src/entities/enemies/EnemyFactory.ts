@@ -16,7 +16,9 @@ export class EnemyFactory {
       32,
       1.5,
       waypoints
-    ).setSpeed(10);
+    )
+      .setSpeed(10)
+      .setScale(3);
     //     }
   }
 }
