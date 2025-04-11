@@ -15,9 +15,6 @@ export class MovingSprite extends AnimatedSprite implements IMovingSprite {
   protected angle!: number;
   protected direction!: number;
 
-  protected drawPositionOffsetX: number = 0;
-  protected drawPositionOffsetY: number = 0;
-
   constructor(
     position: Position,
     fileName: string,

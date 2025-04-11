@@ -10,6 +10,8 @@ export class Sprite {
         this.halfWidth = this.width / 2;
         this.drawPositionX = this.position.x - this.halfWidth;
         this.drawPositionY = this.position.y - this.height;
+        this.drawPositionOffsetX = 0;
+        this.drawPositionOffsetY = 0;
         this.animationFrame = 0;
         this.animationRow = 0;
         this.setScale(scale);
@@ -20,7 +22,7 @@ export class Sprite {
     }
     update() { }
     setImage(fileName) {
-        ALL_ASSETS.get(fileName);
+        this.image = ALL_ASSETS.get(fileName);
         return this;
     }
     setPosition(position) {

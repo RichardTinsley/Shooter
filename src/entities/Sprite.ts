@@ -12,6 +12,9 @@ export class Sprite implements IDrawable {
   protected drawPositionX: number = this.position.x - this.halfWidth;
   protected drawPositionY: number = this.position.y - this.height;
 
+  protected drawPositionOffsetX: number = 0;
+  protected drawPositionOffsetY: number = 0;
+
   protected animationFrame = 0;
   protected animationRow = 0;
 
@@ -43,7 +46,7 @@ export class Sprite implements IDrawable {
   update(): void {}
 
   setImage(fileName: String): this {
-    ALL_ASSETS.get(fileName);
+    this.image = ALL_ASSETS.get(fileName);
     return this;
   }
 

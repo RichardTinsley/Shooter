@@ -5,8 +5,6 @@ export class MovingSprite extends AnimatedSprite {
     constructor(position, fileName, spriteWidth, spriteHeight, scale) {
         super(position, fileName, spriteWidth, spriteHeight, scale);
         this.speed = 1;
-        this.drawPositionOffsetX = 0;
-        this.drawPositionOffsetY = 0;
     }
     draw(ctx) {
         this.contextSave(ctx);
