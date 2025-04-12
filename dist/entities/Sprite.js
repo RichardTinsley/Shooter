@@ -8,19 +8,16 @@ export class Sprite {
         this.width = this.spriteWidth;
         this.height = this.spriteHeight;
         this.halfWidth = this.width / 2;
-        this.drawPositionX = this.position.x - this.halfWidth;
-        this.drawPositionY = this.position.y - this.height;
-        this.drawPositionOffsetX = 0;
-        this.drawPositionOffsetY = 0;
+        this.drawOffsetX = 0;
+        this.drawOffsetY = 0;
         this.animationFrame = 0;
         this.animationRow = 0;
         this.setScale(scale);
         this.image = ALL_ASSETS.get(fileName);
     }
     draw(ctx) {
-        ctx.drawImage(this.image, this.spriteWidth * this.animationFrame, this.spriteHeight * this.animationRow, this.spriteWidth, this.spriteHeight, this.drawPositionX, this.drawPositionY, this.width, this.height);
+        ctx.drawImage(this.image, this.spriteWidth * this.animationFrame, this.spriteHeight * this.animationRow, this.spriteWidth, this.spriteHeight, this.position.x - this.halfWidth + this.drawOffsetX, this.position.y - this.height + this.drawOffsetY, this.width, this.height);
     }
-    update() { }
     setImage(fileName) {
         this.image = ALL_ASSETS.get(fileName);
         return this;
@@ -31,6 +28,10 @@ export class Sprite {
     }
     getPosition() {
         return this.position;
+    }
+    setDrawOffsets(offsetX, offsetY) {
+        this.drawOffsetX = offsetX;
+        this.drawOffsetY = offsetY;
     }
     setScale(scale) {
         this.scale = scale;

@@ -8,7 +8,6 @@ export class MovingSprite extends AnimatedSprite {
     }
     draw(ctx) {
         this.contextSave(ctx);
-        this.updateSpriteDrawPosition();
         super.draw(ctx);
         this.contextRestore(ctx);
     }
@@ -23,12 +22,6 @@ export class MovingSprite extends AnimatedSprite {
             Math.cos(this.angle) * this.speed * Time.deltaTimeMultiplier;
         this.position.y +=
             Math.sin(this.angle) * this.speed * Time.deltaTimeMultiplier;
-    }
-    updateSpriteDrawPosition() {
-        this.drawPositionX =
-            this.position.x - this.halfWidth + this.drawPositionOffsetX;
-        this.drawPositionY =
-            this.position.y - this.height - this.drawPositionOffsetY;
     }
     setSpeed(speed) {
         this.speed = randomFloat(speed - speed * 0.2, speed + speed * 0.2);

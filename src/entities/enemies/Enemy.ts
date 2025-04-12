@@ -55,12 +55,12 @@ export class Enemy extends MovingSprite {
 
     this.healthBar.setPosition({
       x: this.position.x,
-      y: this.position.y - this.height - this.drawPositionOffsetY,
+      y: this.position.y - this.height - this.drawOffsetY,
     });
 
     this.hitDetection.setPosition({
       x: this.position.x,
-      y: this.position.y - this.height / 2 - this.drawPositionOffsetY,
+      y: this.position.y - this.height / 2 - this.drawOffsetY,
     });
   }
 

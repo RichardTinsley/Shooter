@@ -4,12 +4,12 @@ export interface IDrawable {
   position: Position;
 
   draw(ctx: CanvasRenderingContext2D): void;
-  update(): void;
   setPosition(position: Position): this;
   getPosition(): Position;
 }
 
 export interface IAnimatedSprite extends IDrawable {
+  update(): void;
   animateFrames(): void;
   animateRows(): void;
 }

@@ -9,11 +9,8 @@ export class Sprite implements IDrawable {
   protected height: number = this.spriteHeight;
   protected halfWidth = this.width / 2;
 
-  protected drawPositionX: number = this.position.x - this.halfWidth;
-  protected drawPositionY: number = this.position.y - this.height;
-
-  protected drawPositionOffsetX: number = 0;
-  protected drawPositionOffsetY: number = 0;
+  protected drawOffsetX: number = 0;
+  protected drawOffsetY: number = 0;
 
   protected animationFrame = 0;
   protected animationRow = 0;
@@ -36,14 +33,12 @@ export class Sprite implements IDrawable {
       this.spriteHeight * this.animationRow,
       this.spriteWidth,
       this.spriteHeight,
-      this.drawPositionX,
-      this.drawPositionY,
+      this.position.x - this.halfWidth + this.drawOffsetX,
+      this.position.y - this.height + this.drawOffsetY,
       this.width,
       this.height
     );
   }
-
-  update(): void {}
 
   setImage(fileName: String): this {
     this.image = ALL_ASSETS.get(fileName);
@@ -59,8 +54,13 @@ export class Sprite implements IDrawable {
     return this.position;
   }
 
+  setDrawOffsets(offsetX: number, offsetY: number): void {
+    this.drawOffsetX = offsetX;
+    this.drawOffsetY = offsetY;
+  }
+
   setScale(scale: number): this {
-    this.scale = scale;
+    this.scale = scale; // REMOVE SCALE FROM CLASS
     this.width = Math.round(this.spriteWidth * this.scale * 100) / 100;
     this.height = Math.round(this.spriteHeight * this.scale * 100) / 100;
     this.halfWidth = this.width / 2;

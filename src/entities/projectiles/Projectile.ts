@@ -26,7 +26,7 @@ export class Projectile extends MovingSprite {
 
   update() {
     super.update();
-    this.updateSpriteDrawPosition();
+    // this.updateSpriteDrawPosition();
     // this.setDestination(this.enemy.center);
   }
 

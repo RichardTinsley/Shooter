@@ -3,8 +3,8 @@ export class ZombieEnemy extends Enemy {
     constructor(position, fileName, spriteWidth, spriteHeight, scale, waypoints) {
         super(position, fileName, spriteWidth, spriteHeight, scale, waypoints);
         this.waypoints = waypoints;
-        this.drawPositionOffsetY = -5;
-        this.drawPositionOffsetX = this.width / 4;
+        this.drawOffsetY = 5;
+        this.drawOffsetX = this.width / 4;
         this.shadowWidth = this.width / 2;
         this.mouseOverWidth = this.width / 2;
         this.healthBar.setWidth(this.width * 0.5);

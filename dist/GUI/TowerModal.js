@@ -33,5 +33,8 @@ export class TowerModal {
     getPosition() {
         throw new Error("Method not implemented.");
     }
+    setDrawOffsets(offsetX, offsetY) {
+        throw new Error("Method not implemented.");
+    }
 }
 //# sourceMappingURL=TowerModal.js.map

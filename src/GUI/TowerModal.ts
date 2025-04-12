@@ -54,4 +54,8 @@ export class TowerModal implements IDrawable {
   getPosition(): Position {
     throw new Error("Method not implemented.");
   }
+
+  setDrawOffsets(offsetX: number, offsetY: number): void {
+    throw new Error("Method not implemented.");
+  }
 }
