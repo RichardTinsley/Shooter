@@ -11,12 +11,10 @@ export class LoadingBar extends StatusBar {
     }
     draw(ctx) {
         super.draw(ctx);
-        drawRectangle(ctx, this.position, this.statusBarLength * (this.currentStatus / this.maxStatus), this.statusBarHeight, COLOURS.WHITE, COLOURS.WHITE);
-    }
-    setPosition(position) {
-        super.setPosition(position);
-        this.position.x -= this.statusBarLength / 2;
-        return this;
+        drawRectangle(ctx, {
+            x: this.position.x - this.drawOffsetX,
+            y: this.position.y - this.drawOffsetY,
+        }, this.statusBarLength * (this.currentStatus / this.maxStatus), this.statusBarHeight, COLOURS.WHITE, COLOURS.WHITE);
     }
 }
 //# sourceMappingURL=LoadingBar.js.map

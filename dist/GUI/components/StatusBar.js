@@ -14,13 +14,13 @@ export class StatusBar {
     draw(ctx) {
         ctx.lineJoin = this.lineJoin;
         ctx.lineWidth = this.lineWidth;
-        drawRectangle(ctx, this.position, this.statusBarLength, this.statusBarHeight, this.backgroundFillColour, this.backgroundStrokeColour);
-    }
-    update() {
-        return;
+        drawRectangle(ctx, {
+            x: this.position.x - this.drawOffsetX,
+            y: this.position.y - this.drawOffsetY,
+        }, this.statusBarLength, this.statusBarHeight, this.backgroundFillColour, this.backgroundStrokeColour);
     }
     setPosition(position) {
-        this.position = Object.assign({}, position);
+        this.position = position;
         return this;
     }
     getPosition() {
@@ -31,6 +31,11 @@ export class StatusBar {
     }
     setCurrentStatus(currentStatus) {
         this.currentStatus += currentStatus;
+    }
+    setDrawOffsets(offsetY, offsetX = this.statusBarLength / 2) {
+        this.drawOffsetX = offsetX;
+        this.drawOffsetY = offsetY;
+        return this;
     }
 }
 //# sourceMappingURL=StatusBar.js.map

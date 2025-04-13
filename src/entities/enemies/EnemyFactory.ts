@@ -1,5 +1,3 @@
-import { FILE_NAMES } from "../../constants/assets.js";
-import { Level } from "../../handlers/Level.js";
 import { randomFloat } from "../../utilities/math.js";
 import { EnemyDraw } from "./EnemyDraw.js";
 // import { ZombieEnemy } from "./ZombieEnemy.js";
@@ -7,7 +5,6 @@ import { EnemyDraw } from "./EnemyDraw.js";
 export class EnemyFactory {
   static createEnemy() {
     const enemyChoice = 0; /// = randomNumber % wavenumber
-    const waypoints = Level.getEnemyGeneratedWaypoints();
     //     switch (enemyChoice) {
     //       case 0:
     // return new ZombieEnemy(

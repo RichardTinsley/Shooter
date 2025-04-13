@@ -17,16 +17,14 @@ export class LoadingBar extends StatusBar {
 
     drawRectangle(
       ctx,
-      this.position,
+      {
+        x: this.position.x - this.drawOffsetX,
+        y: this.position.y - this.drawOffsetY,
+      },
       this.statusBarLength * (this.currentStatus / this.maxStatus),
       this.statusBarHeight,
       COLOURS.WHITE,
       COLOURS.WHITE
     );
-  }
-  setPosition(position: Position): this {
-    super.setPosition(position);
-    this.position.x -= this.statusBarLength / 2;
-    return this;
   }
 }

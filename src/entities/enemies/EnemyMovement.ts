@@ -9,15 +9,15 @@ export class EnemyMovement {
   protected destination!: Position;
 
   private waypoints!: Array<Position>;
-  private waypointIndex = 0;
-  private priorityDistance = 0;
+  private waypointIndex: number = 1;
+  private priorityDistance: number = 0;
 
   protected movement = new EntityMovement();
 
   constructor() {
     this.waypoints = Level.getEnemyGeneratedWaypoints();
-    this.position = { ...this.waypoints[1] };
-    this.destination = { ...this.waypoints[1] };
+    this.setPosition({ ...this.waypoints[this.waypointIndex] });
+    this.setDestination({ ...this.waypoints[this.waypointIndex] });
   }
 
   update() {
@@ -39,13 +39,17 @@ export class EnemyMovement {
   }
 
   setPosition(position: Position): this {
-    this.position = position;
+    this.position = { ...position };
     return this;
   }
 
   setDestination(destination: Position): this {
     this.destination = { ...destination };
     return this;
+  }
+
+  getPriorityDistance(): number {
+    return this.priorityDistance;
   }
 
   updatePriorityDistance() {

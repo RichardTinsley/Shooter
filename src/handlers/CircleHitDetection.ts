@@ -1,35 +1,31 @@
-import { HitCircle, Cursor, Position } from "../constants/types";
+import { Cursor, Position } from "../constants/types";
 import { checkCircleCollision } from "../utilities/collisionDetection.js";
 import { drawCircleHitbox } from "../utilities/drawShapes.js";
 
 export class CircleHitDetection {
-  protected hitCircle = {
-    x: 0,
-    y: 0,
-    radius: 0,
-  };
+  protected position!: Position;
+  protected radius!: number;
 
   setPosition(position: Position): this {
-    this.hitCircle.x = position.x;
-    this.hitCircle.y = position.y;
+    this.position = position;
     return this;
   }
 
   setWidth(width: number): this {
-    this.hitCircle.radius = width / 2;
+    this.radius = width / 2;
     return this;
   }
 
   checkCollision(cursor: Cursor): boolean {
     return checkCircleCollision(
       cursor,
-      this.hitCircle,
+      this.position,
       cursor.radius,
-      this.hitCircle.radius
+      this.radius
     );
   }
 
   drawHitbox(ctx: CanvasRenderingContext2D) {
-    drawCircleHitbox(ctx, this.hitCircle);
+    drawCircleHitbox(ctx, this.position, this.radius);
   }
 }

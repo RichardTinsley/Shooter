@@ -1,7 +1,7 @@
 import { SIZES } from "../../constants/game.js";
 import { Position } from "../../constants/types.js";
+import { SquareHitDetection } from "../../handlers/SquareHitDetection.js";
 import { Screen } from "../../screens/Screen.js";
-import { SquareHitDetection } from "./SquareHitDetection.js";
 import { Text } from "../texts/Text.js";
 
 export class MenuButton {

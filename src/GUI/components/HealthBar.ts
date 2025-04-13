@@ -18,7 +18,6 @@ export class HealthBar extends StatusBar {
   }
 
   draw(ctx: CanvasRenderingContext2D): void {
-    this.position.x -= this.statusBarLength / 2;
     ctx.lineJoin = this.lineJoin;
 
     super.draw(ctx);
@@ -26,7 +25,10 @@ export class HealthBar extends StatusBar {
     ctx.lineWidth = 2;
     drawRectangle(
       ctx,
-      this.position,
+      {
+        x: this.position.x - this.drawOffsetX,
+        y: this.position.y - this.drawOffsetY,
+      },
       this.statusBarLength,
       this.statusBarHeight,
       COLOURS.NONE,
@@ -35,7 +37,10 @@ export class HealthBar extends StatusBar {
 
     drawRectangle(
       ctx,
-      this.position,
+      {
+        x: this.position.x - this.drawOffsetX,
+        y: this.position.y - this.drawOffsetY,
+      },
       this.statusBarLength * (this.currentStatus / this.maxStatus),
       this.statusBarHeight,
       this.healthBarColour,
@@ -54,12 +59,6 @@ export class HealthBar extends StatusBar {
 
   setWidth(length: number): this {
     this.statusBarLength = length / 1.5;
-    return this;
-  }
-
-  setPosition(position: Position): this {
-    super.setPosition(position);
-    this.position.y -= 3;
     return this;
   }
 }

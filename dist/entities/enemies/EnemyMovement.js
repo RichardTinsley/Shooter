@@ -4,12 +4,12 @@ import { EntityMovement, DIRECTION } from "../../handlers/EntityMovement.js";
 import { Level } from "../../handlers/Level.js";
 export class EnemyMovement {
     constructor() {
-        this.waypointIndex = 0;
+        this.waypointIndex = 1;
         this.priorityDistance = 0;
         this.movement = new EntityMovement();
         this.waypoints = Level.getEnemyGeneratedWaypoints();
-        this.position = Object.assign({}, this.waypoints[1]);
-        this.destination = Object.assign({}, this.waypoints[1]);
+        this.setPosition(Object.assign({}, this.waypoints[this.waypointIndex]));
+        this.setDestination(Object.assign({}, this.waypoints[this.waypointIndex]));
     }
     update() {
         this.checkWaypointArrival();
@@ -27,12 +27,15 @@ export class EnemyMovement {
         }
     }
     setPosition(position) {
-        this.position = position;
+        this.position = Object.assign({}, position);
         return this;
     }
     setDestination(destination) {
         this.destination = Object.assign({}, destination);
         return this;
+    }
+    getPriorityDistance() {
+        return this.priorityDistance;
     }
     updatePriorityDistance() {
         const yDistance = this.destination.y - this.position.y;

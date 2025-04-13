@@ -11,12 +11,17 @@ export class HealthBar extends StatusBar {
         this.currentStatus = 100;
     }
     draw(ctx) {
-        this.position.x -= this.statusBarLength / 2;
         ctx.lineJoin = this.lineJoin;
         super.draw(ctx);
         ctx.lineWidth = 2;
-        drawRectangle(ctx, this.position, this.statusBarLength, this.statusBarHeight, COLOURS.NONE, COLOURS.BLACK);
-        drawRectangle(ctx, this.position, this.statusBarLength * (this.currentStatus / this.maxStatus), this.statusBarHeight, this.healthBarColour, COLOURS.NONE);
+        drawRectangle(ctx, {
+            x: this.position.x - this.drawOffsetX,
+            y: this.position.y - this.drawOffsetY,
+        }, this.statusBarLength, this.statusBarHeight, COLOURS.NONE, COLOURS.BLACK);
+        drawRectangle(ctx, {
+            x: this.position.x - this.drawOffsetX,
+            y: this.position.y - this.drawOffsetY,
+        }, this.statusBarLength * (this.currentStatus / this.maxStatus), this.statusBarHeight, this.healthBarColour, COLOURS.NONE);
     }
     setCurrentStatus(damage) {
         this.currentStatus -= damage;
@@ -27,11 +32,6 @@ export class HealthBar extends StatusBar {
     }
     setWidth(length) {
         this.statusBarLength = length / 1.5;
-        return this;
-    }
-    setPosition(position) {
-        super.setPosition(position);
-        this.position.y -= 3;
         return this;
     }
 }

@@ -1,5 +1,5 @@
 import { SIZES } from "../../constants/game.js";
-import { SquareHitDetection } from "./SquareHitDetection.js";
+import { SquareHitDetection } from "../../handlers/SquareHitDetection.js";
 export class MenuButton {
     constructor(menuLabel, screen, setScreen) {
         this.menuLabel = menuLabel;

@@ -9,16 +9,16 @@ export function drawRectangle(ctx, position, length, height, fillStyle, strokeSt
         ctx.strokeRect(position.x, position.y, length, height);
     }
 }
-export function drawDot(ctx, item, colour) {
+export function drawDot(ctx, position, colour) {
     ctx.fillStyle = colour;
-    ctx.fillRect(item.x - 2, item.y - 2, 4, 4);
+    ctx.fillRect(position.x - 2, position.y - 2, 4, 4);
 }
-export function drawCircleHitbox(ctx, item) {
+export function drawCircleHitbox(ctx, position, radius) {
     ctx.beginPath();
-    ctx.arc(item.x, item.y, item.radius, 0, Math.PI * 2);
+    ctx.arc(position.x, position.y, radius, 0, Math.PI * 2);
     ctx.fillStyle = COLOURS.RED_ALPHA;
     ctx.fill();
-    drawDot(ctx, item, COLOURS.RED);
+    drawDot(ctx, position, COLOURS.RED);
 }
 export function drawSquareHitBox(ctx, item) {
     ctx.fillStyle = COLOURS.RED_ALPHA;

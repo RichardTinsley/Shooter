@@ -15,7 +15,8 @@ export class StatusBar implements IDrawable {
   protected backgroundStrokeColour: string = COLOURS.WHITE;
   position!: Position;
 
-  constructor() {}
+  protected drawOffsetX!: number;
+  protected drawOffsetY!: number;
 
   draw(ctx: CanvasRenderingContext2D): void {
     ctx.lineJoin = this.lineJoin;
@@ -23,7 +24,10 @@ export class StatusBar implements IDrawable {
 
     drawRectangle(
       ctx,
-      this.position,
+      {
+        x: this.position.x - this.drawOffsetX,
+        y: this.position.y - this.drawOffsetY,
+      },
       this.statusBarLength,
       this.statusBarHeight,
       this.backgroundFillColour,
@@ -31,12 +35,8 @@ export class StatusBar implements IDrawable {
     );
   }
 
-  update(): void {
-    return;
-  }
-
   setPosition(position: Position): this {
-    this.position = { ...position };
+    this.position = position;
     return this;
   }
 
@@ -50,5 +50,14 @@ export class StatusBar implements IDrawable {
 
   setCurrentStatus(currentStatus: number): void {
     this.currentStatus += currentStatus;
+  }
+
+  setDrawOffsets(
+    offsetY: number,
+    offsetX: number = this.statusBarLength / 2
+  ): this {
+    this.drawOffsetX = offsetX;
+    this.drawOffsetY = offsetY;
+    return this;
   }
 }

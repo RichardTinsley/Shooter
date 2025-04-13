@@ -1,30 +1,28 @@
 import { EnemyMovement } from "./EnemyMovement.js";
 import { HealthBar } from "../../GUI/components/HealthBar.js";
-import { CircleHitDetection } from "../CircleHitDetection.js";
+import { CircleHitDetection } from "../../handlers/CircleHitDetection.js";
 import { drawEntityShadow, drawMouseOverEnemy, } from "../../utilities/drawShapes.js";
 import { ANIMATION } from "../../constants/animation.js";
-import { SpriteAnimation } from "../SpriteAnimation.js";
-import { FILE_NAMES } from "../../constants/assets.js";
+import { SpriteFactory } from "../SpriteFactory.js";
 export class EnemyDraw extends EnemyMovement {
     constructor() {
         super();
-        this.width = 64;
-        this.height = 32;
-        this.halfWidth = this.width / 2;
-        this.spriteOffsetX = this.width / 4;
-        this.spriteOffsetY = this.height / 5;
-        this.shadowWidth = this.halfWidth;
-        this.mouseOverWidth = this.halfWidth;
+        this.sprite = SpriteFactory.createZombieSprite1();
+        this.spriteOffsetX = this.sprite.getScaledWidth() / 4;
+        this.spriteOffsetY = 1;
+        this.healthbarOffsetY = this.sprite.getScaledHeight();
+        this.halfWidth = this.sprite.getScaledWidth() / 2;
         this.enemyState = ANIMATION.NORMAL;
         this.setDimension(1);
     }
     setDimension(scale) {
-        this.sprite = new SpriteAnimation(FILE_NAMES.ENEMY_ZOMBIE_1_WALK, this.width, this.height)
+        this.sprite
             .setPosition(this.position)
-            .setSpriteDrawOffsets(this.spriteOffsetX, this.spriteOffsetY);
+            .setDrawOffsets(this.spriteOffsetX, this.spriteOffsetY);
         this.healthBar = new HealthBar()
             .setPosition(this.position)
-            .setWidth(this.halfWidth);
+            .setWidth(this.halfWidth)
+            .setDrawOffsets(this.healthbarOffsetY);
         this.hitDetection = new CircleHitDetection()
             .setPosition(this.position)
             .setWidth(this.halfWidth);
@@ -33,9 +31,9 @@ export class EnemyDraw extends EnemyMovement {
     draw(ctx) {
         switch (this.enemyState) {
             case ANIMATION.MOUSEOVER:
-                drawMouseOverEnemy(ctx, this.position, this.mouseOverWidth);
+                drawMouseOverEnemy(ctx, this.position, this.halfWidth);
             case ANIMATION.NORMAL:
-                drawEntityShadow(ctx, this.position, this.shadowWidth);
+                drawEntityShadow(ctx, this.position, this.halfWidth);
                 this.contextSave(ctx);
                 this.sprite.draw(ctx);
                 this.contextRestore(ctx);
@@ -48,8 +46,6 @@ export class EnemyDraw extends EnemyMovement {
     update() {
         super.update();
         this.sprite.update();
-        this.hitDetection.setPosition(this.position);
-        this.healthBar.setPosition(this.position);
     }
     mouseOver(state) {
         this.enemyState = state;

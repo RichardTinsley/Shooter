@@ -1,4 +1,4 @@
-import { CircleHitDetection } from "../CircleHitDetection.js";
+import { CircleHitDetection } from "../../handlers/CircleHitDetection.js";
 import { SpriteAnimation } from "../SpriteAnimation.js";
 export class EmptyTowerSpot {
     constructor(position, fileName) {

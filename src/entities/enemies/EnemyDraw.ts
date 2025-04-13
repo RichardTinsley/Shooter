@@ -1,30 +1,24 @@
 import { EnemyMovement } from "./EnemyMovement.js";
 import { HealthBar } from "../../GUI/components/HealthBar.js";
-import { CircleHitDetection } from "../CircleHitDetection.js";
+import { CircleHitDetection } from "../../handlers/CircleHitDetection.js";
 import {
   drawEntityShadow,
   drawMouseOverEnemy,
 } from "../../utilities/drawShapes.js";
 import { ANIMATION } from "../../constants/animation.js";
-import { SpriteAnimation } from "../SpriteAnimation.js";
-import { FILE_NAMES } from "../../constants/assets.js";
+import { SpriteFactory } from "../SpriteFactory.js";
 
 export class EnemyDraw extends EnemyMovement {
-  protected width: number = 64;
-  protected height: number = 32;
-  protected halfWidth = this.width / 2;
-
-  protected spriteOffsetX = this.width / 4;
-  protected spriteOffsetY = this.height / 5;
-
-  protected shadowWidth = this.halfWidth;
-  protected mouseOverWidth = this.halfWidth;
-
-  protected enemyState = ANIMATION.NORMAL;
-
-  protected sprite!: SpriteAnimation;
+  protected sprite = SpriteFactory.createZombieSprite1();
   protected healthBar!: HealthBar;
   protected hitDetection!: CircleHitDetection;
+
+  protected spriteOffsetX = this.sprite.getScaledWidth() / 4;
+  protected spriteOffsetY = 1;
+  protected healthbarOffsetY = this.sprite.getScaledHeight();
+  protected halfWidth = this.sprite.getScaledWidth() / 2;
+
+  protected enemyState = ANIMATION.NORMAL;
 
   constructor() {
     super();
@@ -32,21 +26,14 @@ export class EnemyDraw extends EnemyMovement {
   }
 
   setDimension(scale: number): this {
-    // this.width = Math.round(this.spriteWidth * scale * 100) / 100;
-    // this.height = Math.round(this.spriteHeight * scale * 100) / 100;
-    // this.halfWidth = this.width / 2;
-
-    this.sprite = new SpriteAnimation(
-      FILE_NAMES.ENEMY_ZOMBIE_1_WALK,
-      this.width,
-      this.height
-    )
+    this.sprite
       .setPosition(this.position)
-      .setSpriteDrawOffsets(this.spriteOffsetX, this.spriteOffsetY);
+      .setDrawOffsets(this.spriteOffsetX, this.spriteOffsetY);
 
     this.healthBar = new HealthBar()
       .setPosition(this.position)
-      .setWidth(this.halfWidth);
+      .setWidth(this.halfWidth)
+      .setDrawOffsets(this.healthbarOffsetY);
 
     this.hitDetection = new CircleHitDetection()
       .setPosition(this.position)
@@ -57,9 +44,9 @@ export class EnemyDraw extends EnemyMovement {
   draw(ctx: CanvasRenderingContext2D) {
     switch (this.enemyState) {
       case ANIMATION.MOUSEOVER:
-        drawMouseOverEnemy(ctx, this.position, this.mouseOverWidth);
+        drawMouseOverEnemy(ctx, this.position, this.halfWidth);
       case ANIMATION.NORMAL:
-        drawEntityShadow(ctx, this.position, this.shadowWidth);
+        drawEntityShadow(ctx, this.position, this.halfWidth);
         this.contextSave(ctx);
         this.sprite.draw(ctx);
         this.contextRestore(ctx);
@@ -73,8 +60,6 @@ export class EnemyDraw extends EnemyMovement {
   update() {
     super.update();
     this.sprite.update();
-    this.hitDetection.setPosition(this.position); // REMOVE THIS BY POINTING TO ENEMYMOVEMENT POSITION
-    this.healthBar.setPosition(this.position); // REMOVE THIS BY POINTING TO ENEMYMOVEMENT POSITION
   }
 
   mouseOver(state: number) {

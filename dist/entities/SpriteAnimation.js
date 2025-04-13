@@ -3,8 +3,8 @@ import { Sprite } from "./Sprite.js";
 export class SpriteAnimation extends Sprite {
     constructor(fileName, spriteWidth, spriteHeight) {
         super(fileName, spriteWidth, spriteHeight);
-        this.maxAnimationFrame = this.getSpriteSheetDimensions(this.image.width, this.spriteWidth);
-        this.maxAnimationRow = this.getSpriteSheetDimensions(this.image.height, this.spriteHeight);
+        this.maxAnimationFrame = this.getSpriteSheetDimensions(this.image.width, this.width);
+        this.maxAnimationRow = this.getSpriteSheetDimensions(this.image.height, this.height);
         this.maxAnimationRow === 0
             ? (this.animationState = 0)
             : (this.animationState = 1);

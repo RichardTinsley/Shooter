@@ -16,12 +16,12 @@ export class SpriteAnimation extends Sprite {
 
     this.maxAnimationFrame = this.getSpriteSheetDimensions(
       this.image.width,
-      this.spriteWidth
+      this.width
     );
 
     this.maxAnimationRow = this.getSpriteSheetDimensions(
       this.image.height,
-      this.spriteHeight
+      this.height
     );
 
     this.maxAnimationRow === 0

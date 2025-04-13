@@ -5,20 +5,20 @@ export class Sprite {
   protected image!: HTMLImageElement;
   protected position!: Position;
 
-  protected width: number = this.spriteWidth;
-  protected height: number = this.spriteHeight;
-  protected halfWidth = this.width / 2;
+  protected scaledWidth: number = this.width;
+  protected scaledHeight: number = this.height;
+  protected halfWidth: number = this.width / 2;
 
   protected drawOffsetX: number = 0;
   protected drawOffsetY: number = 0;
 
-  protected animationFrame = 0;
-  protected animationRow = 0;
+  protected animationFrame: number = 0;
+  protected animationRow: number = 0;
 
   constructor(
     fileName: string,
-    protected spriteWidth: number,
-    protected spriteHeight: number
+    protected width: number,
+    protected height: number
   ) {
     this.image = ALL_ASSETS.get(fileName);
   }
@@ -26,14 +26,14 @@ export class Sprite {
   draw(ctx: CanvasRenderingContext2D) {
     ctx.drawImage(
       this.image,
-      this.spriteWidth * this.animationFrame,
-      this.spriteHeight * this.animationRow,
-      this.spriteWidth,
-      this.spriteHeight,
+      this.width * this.animationFrame,
+      this.height * this.animationRow,
+      this.width,
+      this.height,
       this.position.x - this.halfWidth + this.drawOffsetX,
       this.position.y - this.height + this.drawOffsetY,
-      this.width,
-      this.height
+      this.scaledWidth,
+      this.scaledHeight
     );
   }
 
@@ -51,9 +51,24 @@ export class Sprite {
     return this.position;
   }
 
-  setSpriteDrawOffsets(offsetX: number, offsetY: number): this {
+  setDrawOffsets(offsetX: number, offsetY: number): this {
     this.drawOffsetX = offsetX;
     this.drawOffsetY = offsetY;
     return this;
+  }
+
+  setScale(scale: number): this {
+    this.scaledWidth = Math.round(this.width * scale * 100) / 100;
+    this.scaledHeight = Math.round(this.height * scale * 100) / 100;
+    this.halfWidth = this.width / 2;
+    return this;
+  }
+
+  getScaledWidth(): number {
+    return this.scaledWidth;
+  }
+
+  getScaledHeight(): number {
+    return this.scaledHeight;
   }
 }
