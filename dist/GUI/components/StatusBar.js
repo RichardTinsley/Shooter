@@ -20,7 +20,7 @@ export class StatusBar {
         }, this.statusBarLength, this.statusBarHeight, this.backgroundFillColour, this.backgroundStrokeColour);
     }
     setPosition(position) {
-        this.position = position;
+        this.position = Object.assign({}, position);
         return this;
     }
     getPosition() {

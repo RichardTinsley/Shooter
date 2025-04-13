@@ -15,26 +15,22 @@ export class Sprite {
     draw(ctx) {
         ctx.drawImage(this.image, this.width * this.animationFrame, this.height * this.animationRow, this.width, this.height, this.position.x - this.halfWidth + this.drawOffsetX, this.position.y - this.height + this.drawOffsetY, this.scaledWidth, this.scaledHeight);
     }
-    setImage(fileName) {
-        this.image = ALL_ASSETS.get(fileName);
-        return this;
-    }
     setPosition(position) {
-        this.position = position;
+        this.position = Object.assign({}, position);
         return this;
     }
     getPosition() {
         return this.position;
     }
     setDrawOffsets(offsetX, offsetY) {
-        this.drawOffsetX = offsetX;
-        this.drawOffsetY = offsetY;
+        this.drawOffsetX = offsetX * this.getScaledWidth();
+        this.drawOffsetY = offsetY * this.getScaledHeight();
         return this;
     }
     setScale(scale) {
         this.scaledWidth = Math.round(this.width * scale * 100) / 100;
         this.scaledHeight = Math.round(this.height * scale * 100) / 100;
-        this.halfWidth = this.width / 2;
+        this.halfWidth = this.scaledWidth / 2;
         return this;
     }
     getScaledWidth() {

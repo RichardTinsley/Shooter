@@ -8,12 +8,8 @@ export class EnemyMovement {
         this.priorityDistance = 0;
         this.movement = new EntityMovement();
         this.waypoints = Level.getEnemyGeneratedWaypoints();
-        this.setPosition(Object.assign({}, this.waypoints[this.waypointIndex]));
-        this.setDestination(Object.assign({}, this.waypoints[this.waypointIndex]));
-    }
-    update() {
-        this.checkWaypointArrival();
-        this.movement.move(this.position, this.destination);
+        this.setPosition(this.waypoints[this.waypointIndex]);
+        this.setDestination(this.waypoints[this.waypointIndex]);
     }
     checkWaypointArrival() {
         if (checkCircleCollision(this.position, this.destination, 5, 10)) {
@@ -21,10 +17,15 @@ export class EnemyMovement {
             if (this.waypointIndex === this.waypoints.length) {
                 HUD.hudLives.setLives();
                 this.waypointIndex = 0;
-                this.setDestination(this.waypoints[this.waypointIndex]);
                 this.setPosition(this.waypoints[this.waypointIndex]);
+                this.setDestination(this.waypoints[this.waypointIndex]);
             }
         }
+    }
+    updatePriorityDistance() {
+        const yDistance = this.destination.y - this.position.y;
+        const xDistance = this.destination.x - this.position.x;
+        this.priorityDistance = Math.round(Math.abs(xDistance) + Math.abs(yDistance));
     }
     setPosition(position) {
         this.position = Object.assign({}, position);
@@ -34,13 +35,12 @@ export class EnemyMovement {
         this.destination = Object.assign({}, destination);
         return this;
     }
+    setSpeed(speed) {
+        this.movement.setSpeed(speed);
+        return this;
+    }
     getPriorityDistance() {
         return this.priorityDistance;
-    }
-    updatePriorityDistance() {
-        const yDistance = this.destination.y - this.position.y;
-        const xDistance = this.destination.x - this.position.x;
-        this.priorityDistance = Math.round(Math.abs(xDistance) + Math.abs(yDistance));
     }
     contextSave(ctx) {
         if (this.movement.getDirection() === DIRECTION.LEFT) {

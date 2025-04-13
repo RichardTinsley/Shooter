@@ -16,13 +16,8 @@ export class EnemyMovement {
 
   constructor() {
     this.waypoints = Level.getEnemyGeneratedWaypoints();
-    this.setPosition({ ...this.waypoints[this.waypointIndex] });
-    this.setDestination({ ...this.waypoints[this.waypointIndex] });
-  }
-
-  update() {
-    this.checkWaypointArrival();
-    this.movement.move(this.position, this.destination);
+    this.setPosition(this.waypoints[this.waypointIndex]);
+    this.setDestination(this.waypoints[this.waypointIndex]);
   }
 
   checkWaypointArrival() {
@@ -32,10 +27,18 @@ export class EnemyMovement {
       if (this.waypointIndex === this.waypoints.length) {
         HUD.hudLives.setLives();
         this.waypointIndex = 0;
-        this.setDestination(this.waypoints[this.waypointIndex]);
         this.setPosition(this.waypoints[this.waypointIndex]);
+        this.setDestination(this.waypoints[this.waypointIndex]);
       }
     }
+  }
+
+  updatePriorityDistance() {
+    const yDistance = this.destination.y - this.position.y;
+    const xDistance = this.destination.x - this.position.x;
+    this.priorityDistance = Math.round(
+      Math.abs(xDistance) + Math.abs(yDistance)
+    );
   }
 
   setPosition(position: Position): this {
@@ -48,16 +51,13 @@ export class EnemyMovement {
     return this;
   }
 
-  getPriorityDistance(): number {
-    return this.priorityDistance;
+  setSpeed(speed: number): this {
+    this.movement.setSpeed(speed);
+    return this;
   }
 
-  updatePriorityDistance() {
-    const yDistance = this.destination.y - this.position.y;
-    const xDistance = this.destination.x - this.position.x;
-    this.priorityDistance = Math.round(
-      Math.abs(xDistance) + Math.abs(yDistance)
-    );
+  getPriorityDistance(): number {
+    return this.priorityDistance;
   }
 
   contextSave(ctx: CanvasRenderingContext2D) {

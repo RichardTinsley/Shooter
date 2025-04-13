@@ -37,13 +37,8 @@ export class Sprite {
     );
   }
 
-  setImage(fileName: String): this {
-    this.image = ALL_ASSETS.get(fileName);
-    return this;
-  }
-
   setPosition(position: Position): this {
-    this.position = position;
+    this.position = { ...position };
     return this;
   }
 
@@ -52,15 +47,15 @@ export class Sprite {
   }
 
   setDrawOffsets(offsetX: number, offsetY: number): this {
-    this.drawOffsetX = offsetX;
-    this.drawOffsetY = offsetY;
+    this.drawOffsetX = offsetX * this.getScaledWidth();
+    this.drawOffsetY = offsetY * this.getScaledHeight();
     return this;
   }
 
   setScale(scale: number): this {
     this.scaledWidth = Math.round(this.width * scale * 100) / 100;
     this.scaledHeight = Math.round(this.height * scale * 100) / 100;
-    this.halfWidth = this.width / 2;
+    this.halfWidth = this.scaledWidth / 2;
     return this;
   }
 

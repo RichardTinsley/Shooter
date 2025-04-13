@@ -7,7 +7,7 @@ export class CircleHitDetection {
   protected radius!: number;
 
   setPosition(position: Position): this {
-    this.position = position;
+    this.position = { ...position };
     return this;
   }
 

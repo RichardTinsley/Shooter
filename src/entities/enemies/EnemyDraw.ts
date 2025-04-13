@@ -13,8 +13,6 @@ export class EnemyDraw extends EnemyMovement {
   protected healthBar!: HealthBar;
   protected hitDetection!: CircleHitDetection;
 
-  protected spriteOffsetX = this.sprite.getScaledWidth() / 4;
-  protected spriteOffsetY = 1;
   protected healthbarOffsetY = this.sprite.getScaledHeight();
   protected halfWidth = this.sprite.getScaledWidth() / 2;
 
@@ -22,13 +20,11 @@ export class EnemyDraw extends EnemyMovement {
 
   constructor() {
     super();
-    this.setDimension(1);
+    this.setDimension();
   }
 
-  setDimension(scale: number): this {
-    this.sprite
-      .setPosition(this.position)
-      .setDrawOffsets(this.spriteOffsetX, this.spriteOffsetY);
+  setDimension(): this {
+    this.sprite.setPosition(this.position);
 
     this.healthBar = new HealthBar()
       .setPosition(this.position)
@@ -48,6 +44,7 @@ export class EnemyDraw extends EnemyMovement {
       case ANIMATION.NORMAL:
         drawEntityShadow(ctx, this.position, this.halfWidth);
         this.contextSave(ctx);
+        this.sprite.setPosition(this.position);
         this.sprite.draw(ctx);
         this.contextRestore(ctx);
         this.healthBar.draw(ctx);
@@ -58,7 +55,11 @@ export class EnemyDraw extends EnemyMovement {
   }
 
   update() {
-    super.update();
+    this.movement.move(this.position, this.destination);
+    this.checkWaypointArrival();
+    // this.sprite.setPosition(this.position);
+    this.hitDetection.setPosition(this.position);
+    this.healthBar.setPosition(this.position);
     this.sprite.update();
   }
 

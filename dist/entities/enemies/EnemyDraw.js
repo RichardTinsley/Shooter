@@ -8,17 +8,13 @@ export class EnemyDraw extends EnemyMovement {
     constructor() {
         super();
         this.sprite = SpriteFactory.createZombieSprite1();
-        this.spriteOffsetX = this.sprite.getScaledWidth() / 4;
-        this.spriteOffsetY = 1;
         this.healthbarOffsetY = this.sprite.getScaledHeight();
         this.halfWidth = this.sprite.getScaledWidth() / 2;
         this.enemyState = ANIMATION.NORMAL;
-        this.setDimension(1);
+        this.setDimension();
     }
-    setDimension(scale) {
-        this.sprite
-            .setPosition(this.position)
-            .setDrawOffsets(this.spriteOffsetX, this.spriteOffsetY);
+    setDimension() {
+        this.sprite.setPosition(this.position);
         this.healthBar = new HealthBar()
             .setPosition(this.position)
             .setWidth(this.halfWidth)
@@ -35,6 +31,7 @@ export class EnemyDraw extends EnemyMovement {
             case ANIMATION.NORMAL:
                 drawEntityShadow(ctx, this.position, this.halfWidth);
                 this.contextSave(ctx);
+                this.sprite.setPosition(this.position);
                 this.sprite.draw(ctx);
                 this.contextRestore(ctx);
                 this.healthBar.draw(ctx);
@@ -44,7 +41,10 @@ export class EnemyDraw extends EnemyMovement {
         }
     }
     update() {
-        super.update();
+        this.movement.move(this.position, this.destination);
+        this.checkWaypointArrival();
+        this.hitDetection.setPosition(this.position);
+        this.healthBar.setPosition(this.position);
         this.sprite.update();
     }
     mouseOver(state) {

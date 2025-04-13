@@ -3,6 +3,8 @@ import { SpriteAnimation } from "./SpriteAnimation.js";
 
 export class SpriteFactory {
   static createZombieSprite1(): SpriteAnimation {
-    return new SpriteAnimation(FILE_NAMES.ENEMY_ZOMBIE_1_WALK, 64, 32);
+    return new SpriteAnimation(FILE_NAMES.ENEMY_ZOMBIE_1_WALK, 64, 32)
+      .setScale(1.5)
+      .setDrawOffsets(0.25, -0.15);
   }
 }

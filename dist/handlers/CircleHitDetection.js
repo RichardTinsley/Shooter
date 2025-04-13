@@ -2,7 +2,7 @@ import { checkCircleCollision } from "../utilities/collisionDetection.js";
 import { drawCircleHitbox } from "../utilities/drawShapes.js";
 export class CircleHitDetection {
     setPosition(position) {
-        this.position = position;
+        this.position = Object.assign({}, position);
         return this;
     }
     setWidth(width) {

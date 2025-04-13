@@ -1,8 +1,7 @@
 import { EnemyDraw } from "./EnemyDraw.js";
 export class EnemyFactory {
     static createEnemy() {
-        const enemyChoice = 0;
-        return new EnemyDraw();
+        return new EnemyDraw().setSpeed(10);
     }
 }
 //# sourceMappingURL=EnemyFactory.js.map
