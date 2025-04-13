@@ -1,9 +1,9 @@
 import { ALL_ASSETS } from "../constants/assets.js";
 import { Position } from "../constants/types.js";
-import { IDrawable } from "../interfaces/IEntity.js";
 
-export class Sprite implements IDrawable {
+export class Sprite {
   protected image!: HTMLImageElement;
+  protected position!: Position;
 
   protected width: number = this.spriteWidth;
   protected height: number = this.spriteHeight;
@@ -16,13 +16,10 @@ export class Sprite implements IDrawable {
   protected animationRow = 0;
 
   constructor(
-    public position: Position,
     fileName: string,
     protected spriteWidth: number,
-    protected spriteHeight: number,
-    protected scale: number
+    protected spriteHeight: number
   ) {
-    this.setScale(scale);
     this.image = ALL_ASSETS.get(fileName);
   }
 
@@ -46,7 +43,7 @@ export class Sprite implements IDrawable {
   }
 
   setPosition(position: Position): this {
-    this.position = { ...position };
+    this.position = position;
     return this;
   }
 
@@ -54,16 +51,9 @@ export class Sprite implements IDrawable {
     return this.position;
   }
 
-  setDrawOffsets(offsetX: number, offsetY: number): void {
+  setSpriteDrawOffsets(offsetX: number, offsetY: number): this {
     this.drawOffsetX = offsetX;
     this.drawOffsetY = offsetY;
-  }
-
-  setScale(scale: number): this {
-    this.scale = scale; // REMOVE SCALE FROM CLASS
-    this.width = Math.round(this.spriteWidth * this.scale * 100) / 100;
-    this.height = Math.round(this.spriteHeight * this.scale * 100) / 100;
-    this.halfWidth = this.width / 2;
     return this;
   }
 }

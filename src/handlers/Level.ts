@@ -12,11 +12,11 @@ export class Level {
 
   draw(ctx: CanvasRenderingContext2D) {
     ctx.drawImage(this.levelImage, 0, 0);
-    this.doodads.forEach((towerSpot: EmptyTowerSpot) => towerSpot.draw(ctx));
+    // this.doodads.forEach((towerSpot: EmptyTowerSpot) => towerSpot.draw(ctx));
   }
 
   update(): void {
-    this.doodads.forEach((towerSpot: EmptyTowerSpot) => towerSpot.update());
+    // this.doodads.forEach((towerSpot: EmptyTowerSpot) => towerSpot.update());
   }
 
   static getEnemyGeneratedWaypoints(): Array<Position> {
@@ -50,10 +50,7 @@ export class Level {
                 x: x * SIZES.TILE + SIZES.TILE_HALF,
                 y: y * SIZES.TILE + SIZES.TILE_HALF,
               },
-              FILE_NAMES.TOWER_EMPTY_SPOT,
-              64,
-              64,
-              1
+              FILE_NAMES.TOWER_EMPTY_SPOT
             )
           );
       });

@@ -3,6 +3,7 @@ import { HUD } from "../handlers/HUD.js";
 import { Menu } from "../GUI/menus/Menu.js";
 import { Level } from "../handlers/Level.js";
 import { IScreenState, Screen } from "./Screen.js";
+import { EnemyFactory } from "../entities/enemies/EnemyFactory.js";
 
 export class PlayScreen implements IScreenState {
   menu!: Menu;
@@ -10,8 +11,11 @@ export class PlayScreen implements IScreenState {
   level = new Level();
   entities: Array<any> = [];
 
+  enemy = EnemyFactory.createEnemy();
+
   constructor(public screen: Screen) {
-    this.entities.push(...this.level.createEmptyTowerSpots());
+    // this.entities.push(...this.level.createEmptyTowerSpots());
+    this.entities.push(this.enemy);
   }
 
   draw(ctx: CanvasRenderingContext2D): void {

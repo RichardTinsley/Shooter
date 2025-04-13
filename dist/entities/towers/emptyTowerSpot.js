@@ -1,14 +1,11 @@
-import { AnimatedSprite } from "../AnimatedSprite.js";
 import { CircleHitDetection } from "../CircleHitDetection.js";
-export class EmptyTowerSpot extends AnimatedSprite {
-    constructor(position, fileName, spriteWidth, spriteHeight, scale) {
-        super(position, fileName, spriteWidth, spriteHeight, scale);
-        this.spriteWidth = spriteWidth;
-        this.spriteHeight = spriteHeight;
-        this.scale = scale;
+import { SpriteAnimation } from "../SpriteAnimation.js";
+export class EmptyTowerSpot {
+    constructor(position, fileName) {
+        this.sprite = new SpriteAnimation(fileName, 64, 64).setPosition(position);
         this.hitDetection = new CircleHitDetection()
             .setPosition(position)
-            .setWidth(this.width);
+            .setWidth(64);
     }
     mouseOver(state) {
         return;

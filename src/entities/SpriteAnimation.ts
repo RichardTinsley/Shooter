@@ -1,6 +1,4 @@
-import { Position } from "../constants/types.js";
 import { Time } from "../handlers/Time.js";
-import { IAnimatedSprite } from "../interfaces/IEntity.js";
 import { Sprite } from "./Sprite.js";
 
 const enum SPRITE_STATE {
@@ -8,19 +6,13 @@ const enum SPRITE_STATE {
   ANIMATE_ROWS,
 }
 
-export class AnimatedSprite extends Sprite implements IAnimatedSprite {
+export class SpriteAnimation extends Sprite {
   protected maxAnimationFrame!: number;
   protected maxAnimationRow!: number;
   protected animationState!: number;
 
-  constructor(
-    position: Position,
-    fileName: string,
-    spriteWidth: number,
-    spriteHeight: number,
-    scale: number
-  ) {
-    super(position, fileName, spriteWidth, spriteHeight, scale);
+  constructor(fileName: string, spriteWidth: number, spriteHeight: number) {
+    super(fileName, spriteWidth, spriteHeight);
 
     this.maxAnimationFrame = this.getSpriteSheetDimensions(
       this.image.width,

@@ -42,7 +42,7 @@ export class HUDEnemies extends HUDItem {
 
     if (this.enemySpawnTimer % Math.floor(Math.random() * 1000) === 0) {
       this.enemyCount++;
-      entities.push(EnemyFactory.createEnemy());
+      // entities.push(EnemyFactory.createEnemy());
     }
 
     if (this.enemyCount === this.maxEnemies)

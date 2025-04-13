@@ -1,13 +1,15 @@
 import { SIZES } from "../constants/game.js";
 import { HUD } from "../handlers/HUD.js";
 import { Level } from "../handlers/Level.js";
+import { EnemyFactory } from "../entities/enemies/EnemyFactory.js";
 export class PlayScreen {
     constructor(screen) {
         this.screen = screen;
         this.hud = new HUD({ x: SIZES.TILE_HALF, y: SIZES.TILE });
         this.level = new Level();
         this.entities = [];
-        this.entities.push(...this.level.createEmptyTowerSpots());
+        this.enemy = EnemyFactory.createEnemy();
+        this.entities.push(this.enemy);
     }
     draw(ctx) {
         this.level.draw(ctx);

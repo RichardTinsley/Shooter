@@ -2,11 +2,11 @@ import { Screen } from "../screens/Screen.js";
 import { Cursor } from "../constants/types.js";
 import { ANIMATION } from "../constants/animation.js";
 import { EmptyTowerSpot } from "../entities/towers/emptyTowerSpot.js";
-import { Enemy } from "../entities/enemies/Enemy.js";
+// import { Enemy } from "../entities/enemies/Enemy.js";
 import { MenuButton } from "../GUI/menus/MenuButton.js";
 
 export class Mouse {
-  static enemySelected: Enemy;
+  // static enemySelected: Enemy;
   //static towerSelected:Tower;
   mouseOverItem: any = undefined;
   private readonly mouseSize: number = 3;
@@ -52,20 +52,20 @@ export class Mouse {
     if (this.mouseOverItem instanceof MenuButton)
       this.mouseOverItem.changeScreen();
 
-    if (this.mouseOverItem instanceof Enemy)
-      // if(Mouse.selectedEnemy !== this.mouseOverItem)
-      //   Mouse.selectedEnemy.mouseClick("NOLONGERSELECTED")
-      //   Mouse.selectedEnemy = this.mouseOverItem
-      //   Mouse.selectedEnemy.mouseClick()
+    // if (this.mouseOverItem instanceof Enemy)
+    // if(Mouse.selectedEnemy !== this.mouseOverItem)
+    //   Mouse.selectedEnemy.mouseClick("NOLONGERSELECTED")
+    //   Mouse.selectedEnemy = this.mouseOverItem
+    //   Mouse.selectedEnemy.mouseClick()
 
-      this.mouseOverItem = undefined;
+    this.mouseOverItem = undefined;
   }
 
   setCursor() {
     let style: string = "Plain";
     if (this.mouseOverItem instanceof MenuButton) style = "MenuButton";
     if (this.mouseOverItem instanceof EmptyTowerSpot) style = "Tower";
-    if (this.mouseOverItem instanceof Enemy) style = "Enemy";
+    // if (this.mouseOverItem instanceof Enemy) style = "Enemy";
     this.cursor.style.cursor = `url(../../images/cursors/${style}.cur), auto`;
   }
 

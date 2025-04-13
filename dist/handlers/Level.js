@@ -11,10 +11,8 @@ export class Level {
     }
     draw(ctx) {
         ctx.drawImage(this.levelImage, 0, 0);
-        this.doodads.forEach((towerSpot) => towerSpot.draw(ctx));
     }
     update() {
-        this.doodads.forEach((towerSpot) => towerSpot.update());
     }
     static getEnemyGeneratedWaypoints() {
         const WAYPOINTS = ALL_WAYPOINTS.get(FILE_NAMES.LEVEL_LAVONEY);
@@ -42,7 +40,7 @@ export class Level {
                     emptyTowerSpots.push(new EmptyTowerSpot({
                         x: x * SIZES.TILE + SIZES.TILE_HALF,
                         y: y * SIZES.TILE + SIZES.TILE_HALF,
-                    }, FILE_NAMES.TOWER_EMPTY_SPOT, 64, 64, 1));
+                    }, FILE_NAMES.TOWER_EMPTY_SPOT));
             });
         });
         return emptyTowerSpots;

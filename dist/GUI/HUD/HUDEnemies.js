@@ -1,5 +1,4 @@
 import { HUDItem } from "./HUDItem.js";
-import { EnemyFactory } from "../../entities/enemies/EnemyFactory.js";
 import { Time } from "../../handlers/Time.js";
 var WAVE_STATE;
 (function (WAVE_STATE) {
@@ -34,7 +33,6 @@ export class HUDEnemies extends HUDItem {
             this.enemySpawnTimer++;
         if (this.enemySpawnTimer % Math.floor(Math.random() * 1000) === 0) {
             this.enemyCount++;
-            entities.push(EnemyFactory.createEnemy());
         }
         if (this.enemyCount === this.maxEnemies)
             this.waveState = WAVE_STATE.CURRENT;

@@ -1,73 +1,72 @@
 import { Position } from "../../constants/types.js";
-import { MovingSprite } from "../MovingSprite.js";
 
-export class Projectile extends MovingSprite {
-  // private origin = { ...this.position };
-  // private damage = damage;
-  // this.enemy = enemy;
+// export class Projectile extends MovingSprite {
+//   // private origin = { ...this.position };
+//   // private damage = damage;
+//   // this.enemy = enemy;
 
-  constructor(
-    position: Position,
-    fileName: string,
-    spriteWidth: number,
-    spriteHeight: number,
-    scale: number
-  ) {
-    super(position, fileName, spriteWidth, spriteHeight, scale);
-  }
+//   constructor(
+//     position: Position,
+//     fileName: string,
+//     spriteWidth: number,
+//     spriteHeight: number,
+//     scale: number
+//   ) {
+//     super(position, fileName, spriteWidth, spriteHeight, scale);
+//   }
 
-  draw(ctx: CanvasRenderingContext2D) {
-    ctx.save();
-    ctx.translate(this.position.x, this.position.y);
-    ctx.rotate(this.angle);
-    super.draw(ctx);
-    ctx.restore();
-  }
+//   draw(ctx: CanvasRenderingContext2D) {
+//     ctx.save();
+//     ctx.translate(this.position.x, this.position.y);
+//     ctx.rotate(this.angle);
+//     super.draw(ctx);
+//     ctx.restore();
+//   }
 
-  update() {
-    super.update();
-    // this.updateSpriteDrawPosition();
-    // this.setDestination(this.enemy.center);
-  }
+//   update() {
+//     super.update();
+//     // this.updateSpriteDrawPosition();
+//     // this.setDestination(this.enemy.center);
+//   }
 
-  // checkProjectileEnemyCollision(effects, texts) {
-  //   if (checkCircleCollision(this.enemy.center, this.center)) {
-  //     this.state = OBJECTS.ANIMATION.FINISHED;
-  //     this.addExplosion(effects);
+// checkProjectileEnemyCollision(effects, texts) {
+//   if (checkCircleCollision(this.enemy.center, this.center)) {
+//     this.state = OBJECTS.ANIMATION.FINISHED;
+//     this.addExplosion(effects);
 
-  //     this.enemy.health.setHealth(this.damage);
-  //     this.enemy.checkEnemyHealth();
+//     this.enemy.health.setHealth(this.damage);
+//     this.enemy.checkEnemyHealth();
 
-  //     if (!this.enemy.isPillaged && this.enemy.isEnemyDying()) {
-  //       this.addGold(texts);
-  //       this.addExperience(texts);
-  //       this.enemy.isPillaged = true;
-  //     }
+//     if (!this.enemy.isPillaged && this.enemy.isEnemyDying()) {
+//       this.addGold(texts);
+//       this.addExperience(texts);
+//       this.enemy.isPillaged = true;
+//     }
 
-  //     if (this.enemy.isEnemyDying()) this.enemy.addBlood(effects);
-  //   }
-  // }
+//     if (this.enemy.isEnemyDying()) this.enemy.addBlood(effects);
+//   }
+// }
 
-  // addGold(texts) {
-  //   texts.push(
-  //     new GameText({
-  //       text: HUD.setCoins(),
-  //       colour: INTERFACE.TEXT_COLOURS.GOLD,
-  //       position: { ...this.enemy.position },
-  //     })
-  //   );
-  // }
+// addGold(texts) {
+//   texts.push(
+//     new GameText({
+//       text: HUD.setCoins(),
+//       colour: INTERFACE.TEXT_COLOURS.GOLD,
+//       position: { ...this.enemy.position },
+//     })
+//   );
+// }
 
-  // addExperience(texts) {
-  //   const experienceText = HUD.setExperience();
-  //   if (experienceText === 0) return;
+// addExperience(texts) {
+//   const experienceText = HUD.setExperience();
+//   if (experienceText === 0) return;
 
-  //   texts.push(
-  //     new GameText({
-  //       text: experienceText,
-  //       colour: INTERFACE.TEXT_COLOURS.GREEN,
-  //       position: { ...this.origin },
-  //     })
-  //   );
-  // }
-}
+//   texts.push(
+//     new GameText({
+//       text: experienceText,
+//       colour: INTERFACE.TEXT_COLOURS.GREEN,
+//       position: { ...this.origin },
+//     })
+//   );
+// }
+// }
