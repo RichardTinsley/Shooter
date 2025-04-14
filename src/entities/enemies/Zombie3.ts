@@ -10,7 +10,7 @@ export class Zombie3 extends Enemy {
     FILE_NAMES.ENEMY_ZOMBIE_3_WALK,
     this.width,
     this.height
-  ).setScale(1);
+  ).setScale(1.5);
 
   constructor() {
     super();

@@ -57,7 +57,7 @@ export class StatusBar implements IDrawable {
     offsetX: number = this.statusBarLength / 2
   ): this {
     this.drawOffsetX = offsetX;
-    this.drawOffsetY = offsetY;
+    this.drawOffsetY = offsetY + this.statusBarHeight * 2;
     return this;
   }
 }

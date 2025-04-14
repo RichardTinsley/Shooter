@@ -15,7 +15,7 @@ export class Zombie1 extends Enemy {
             .setWidth(this.sprite.getScaledWidth() / 2);
         this.healthBar
             .setWidth(this.sprite.getScaledWidth() / 2)
-            .setDrawOffsets(this.sprite.getScaledHeight() + 2);
+            .setDrawOffsets(this.sprite.getScaledHeight() - 5);
         this.shadowWidth = this.sprite.getScaledWidth() / 2;
         this.mouseOverWidth = this.sprite.getScaledWidth() / 2;
     }

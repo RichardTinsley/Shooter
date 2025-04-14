@@ -34,7 +34,7 @@ export class StatusBar {
     }
     setDrawOffsets(offsetY, offsetX = this.statusBarLength / 2) {
         this.drawOffsetX = offsetX;
-        this.drawOffsetY = offsetY;
+        this.drawOffsetY = offsetY + this.statusBarHeight * 2;
         return this;
     }
 }
