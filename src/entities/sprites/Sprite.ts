@@ -1,5 +1,5 @@
-import { ALL_ASSETS } from "../constants/assets.js";
-import { Position } from "../constants/types.js";
+import { ALL_ASSETS } from "../../constants/assets.js";
+import { Position } from "../../constants/types.js";
 
 export class Sprite {
   protected image!: HTMLImageElement;
@@ -38,7 +38,7 @@ export class Sprite {
   }
 
   setPosition(position: Position): this {
-    this.position = { ...position };
+    this.position = position;
     return this;
   }
 

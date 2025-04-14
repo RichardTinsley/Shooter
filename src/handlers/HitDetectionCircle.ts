@@ -2,12 +2,12 @@ import { Cursor, Position } from "../constants/types";
 import { checkCircleCollision } from "../utilities/collisionDetection.js";
 import { drawCircleHitbox } from "../utilities/drawShapes.js";
 
-export class CircleHitDetection {
+export class HitDetectionCircle {
   protected position!: Position;
   protected radius!: number;
 
   setPosition(position: Position): this {
-    this.position = { ...position };
+    this.position = position;
     return this;
   }
 

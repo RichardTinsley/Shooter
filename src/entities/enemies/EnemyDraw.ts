@@ -1,17 +1,17 @@
 import { EnemyMovement } from "./EnemyMovement.js";
 import { HealthBar } from "../../GUI/components/HealthBar.js";
-import { CircleHitDetection } from "../../handlers/CircleHitDetection.js";
 import {
   drawEntityShadow,
   drawMouseOverEnemy,
 } from "../../utilities/drawShapes.js";
 import { ANIMATION } from "../../constants/animation.js";
-import { SpriteFactory } from "../SpriteFactory.js";
+import { SpriteFactory } from "../sprites/SpriteFactory.js";
+import { HitDetectionCircle } from "../../handlers/HitDetectionCircle.js";
 
 export class EnemyDraw extends EnemyMovement {
   protected sprite = SpriteFactory.createZombieSprite1();
   protected healthBar!: HealthBar;
-  protected hitDetection!: CircleHitDetection;
+  protected hitDetection!: HitDetectionCircle;
 
   protected healthbarOffsetY = this.sprite.getScaledHeight();
   protected halfWidth = this.sprite.getScaledWidth() / 2;
@@ -31,7 +31,7 @@ export class EnemyDraw extends EnemyMovement {
       .setWidth(this.halfWidth)
       .setDrawOffsets(this.healthbarOffsetY);
 
-    this.hitDetection = new CircleHitDetection()
+    this.hitDetection = new HitDetectionCircle()
       .setPosition(this.position)
       .setWidth(this.halfWidth);
     return this;
@@ -44,7 +44,6 @@ export class EnemyDraw extends EnemyMovement {
       case ANIMATION.NORMAL:
         drawEntityShadow(ctx, this.position, this.halfWidth);
         this.contextSave(ctx);
-        this.sprite.setPosition(this.position);
         this.sprite.draw(ctx);
         this.contextRestore(ctx);
         this.healthBar.draw(ctx);
@@ -56,12 +55,15 @@ export class EnemyDraw extends EnemyMovement {
 
   update() {
     this.movement.move(this.position, this.destination);
-    this.checkWaypointArrival();
-    // this.sprite.setPosition(this.position);
+    this.checkWaypointArrival(this.setComponentPositions);
+    this.sprite.animate();
+  }
+
+  setComponentPositions = () => {
+    this.sprite.setPosition(this.position);
     this.hitDetection.setPosition(this.position);
     this.healthBar.setPosition(this.position);
-    this.sprite.update();
-  }
+  };
 
   mouseOver(state: number) {
     this.enemyState = state;

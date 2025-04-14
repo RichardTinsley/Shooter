@@ -2,7 +2,7 @@ import { ALL_ASSETS, FILE_NAMES } from "../constants/assets.js";
 import { ALL_WAYPOINTS } from "../constants/waypoints.js";
 import { ALL_TILEMAPS } from "../constants/tilemaps.js";
 import { SIZES } from "../constants/game.js";
-import { EmptyTowerSpot } from "../entities/towers/emptyTowerSpot.js";
+// import { EmptyTowerSpot } from "../entities/towers/emptyTowerSpot.js";
 import { Position } from "../constants/types.js";
 
 export class Level {
@@ -39,24 +39,24 @@ export class Level {
     }
   }
 
-  createEmptyTowerSpots(): Array<EmptyTowerSpot> {
-    const emptyTowerSpots: Array<EmptyTowerSpot> = [];
-    this.tile2DMap.forEach((row, y) => {
-      row.forEach((symbol, x) => {
-        if (symbol !== 0)
-          emptyTowerSpots.push(
-            new EmptyTowerSpot(
-              {
-                x: x * SIZES.TILE + SIZES.TILE_HALF,
-                y: y * SIZES.TILE + SIZES.TILE_HALF,
-              },
-              FILE_NAMES.TOWER_EMPTY_SPOT
-            )
-          );
-      });
-    });
-    return emptyTowerSpots;
-  }
+  // createEmptyTowerSpots(): Array<EmptyTowerSpot> {
+  //   const emptyTowerSpots: Array<EmptyTowerSpot> = [];
+  //   this.tile2DMap.forEach((row, y) => {
+  //     row.forEach((symbol, x) => {
+  //       if (symbol !== 0)
+  //         emptyTowerSpots.push(
+  //           new EmptyTowerSpot(
+  //             {
+  //               x: x * SIZES.TILE + SIZES.TILE_HALF,
+  //               y: y * SIZES.TILE + SIZES.TILE_HALF,
+  //             },
+  //             FILE_NAMES.TOWER_EMPTY_SPOT
+  //           )
+  //         );
+  //     });
+  //   });
+  //   return emptyTowerSpots;
+  // }
 
   create2DArray(): Array<Array<number>> {
     const TILEMAP = ALL_TILEMAPS.get(FILE_NAMES.LEVEL_LAVONEY);

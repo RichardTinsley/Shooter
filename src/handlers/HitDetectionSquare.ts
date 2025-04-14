@@ -2,7 +2,7 @@ import { HitBox, Position, Cursor } from "../constants/types.js";
 import { checkHitBoxCollision } from "../utilities/collisionDetection.js";
 import { drawSquareHitBox } from "../utilities/drawShapes.js";
 
-export class SquareHitDetection {
+export class HitDetectionSquare {
   protected hitBox!: HitBox;
 
   constructor(public width: number, public height: number) {}

@@ -1,4 +1,4 @@
-import { Time } from "../handlers/Time.js";
+import { Time } from "../../handlers/Time.js";
 import { Sprite } from "./Sprite.js";
 
 const enum SPRITE_STATE {
@@ -29,7 +29,7 @@ export class SpriteAnimation extends Sprite {
       : (this.animationState = SPRITE_STATE.ANIMATE_ROWS);
   }
 
-  update() {
+  animate() {
     if (!Time.eventUpdate) return;
 
     switch (this.animationState) {

@@ -1,5 +1,5 @@
 import { HUDItem } from "./HUDItem.js";
-import { EnemyFactory } from "../../entities/enemies/EnemyFactory.js";
+// import { EnemyFactory } from "../../entities/enemies/EnemyFactory.js";
 import { Time } from "../../handlers/Time.js";
 
 enum WAVE_STATE {

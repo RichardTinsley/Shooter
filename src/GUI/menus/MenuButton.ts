@@ -1,6 +1,6 @@
 import { SIZES } from "../../constants/game.js";
 import { Position } from "../../constants/types.js";
-import { SquareHitDetection } from "../../handlers/SquareHitDetection.js";
+import { HitDetectionSquare } from "../../handlers/HitDetectionSquare.js";
 import { Screen } from "../../screens/Screen.js";
 import { Text } from "../texts/Text.js";
 
@@ -16,7 +16,7 @@ export class MenuButton {
     public setScreen: Function
   ) {
     this.width = this.menuLabel.getText().length * (this.size / 1.75);
-    this.hitDetection = new SquareHitDetection(this.width, this.size);
+    this.hitDetection = new HitDetectionSquare(this.width, this.size);
   }
 
   draw(ctx: CanvasRenderingContext2D): void {

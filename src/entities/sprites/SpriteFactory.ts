@@ -1,4 +1,4 @@
-import { FILE_NAMES } from "../constants/assets.js";
+import { FILE_NAMES } from "../../constants/assets.js";
 import { SpriteAnimation } from "./SpriteAnimation.js";
 
 export class SpriteFactory {

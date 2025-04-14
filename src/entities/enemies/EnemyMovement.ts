@@ -1,16 +1,16 @@
 import { Position } from "../../constants/types.js";
-import { checkCircleCollision } from "../../utilities/collisionDetection.js";
-import { HUD } from "../../handlers/HUD.js";
 import { EntityMovement, DIRECTION } from "../../handlers/EntityMovement.js";
+import { HUD } from "../../handlers/HUD.js";
 import { Level } from "../../handlers/Level.js";
+import { checkCircleCollision } from "../../utilities/collisionDetection.js";
 
 export class EnemyMovement {
   protected position!: Position;
   protected destination!: Position;
 
-  private waypoints!: Array<Position>;
-  private waypointIndex: number = 1;
-  private priorityDistance: number = 0;
+  protected waypoints!: Array<Position>;
+  protected waypointIndex: number = 1;
+  protected priorityDistance: number = 0;
 
   protected movement = new EntityMovement();
 
@@ -20,16 +20,18 @@ export class EnemyMovement {
     this.setDestination(this.waypoints[this.waypointIndex]);
   }
 
-  checkWaypointArrival() {
+  checkWaypointArrival(setComponentPositions: Function) {
     if (checkCircleCollision(this.position, this.destination, 5, 10)) {
-      this.setDestination(this.waypoints[(this.waypointIndex += 1)]);
-
+      this.waypointIndex++;
       if (this.waypointIndex === this.waypoints.length) {
         HUD.hudLives.setLives();
         this.waypointIndex = 0;
         this.setPosition(this.waypoints[this.waypointIndex]);
         this.setDestination(this.waypoints[this.waypointIndex]);
+        setComponentPositions();
       }
+
+      this.setDestination(this.waypoints[this.waypointIndex]);
     }
   }
 

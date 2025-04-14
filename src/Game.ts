@@ -7,7 +7,7 @@ import { Screen } from "./screens/Screen.js";
 export class Game {
   private time = new Time();
   private screen = new Screen();
-  private mouse = new Mouse(this.screen);
+  private mouse = new Mouse();
   private debug = new Debug(this.screen, this.mouse);
   private keyboard = new Keyboard(this.screen, this.debug);
 
