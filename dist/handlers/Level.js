@@ -2,6 +2,7 @@ import { ALL_ASSETS, FILE_NAMES } from "../constants/assets.js";
 import { ALL_WAYPOINTS } from "../constants/waypoints.js";
 import { ALL_TILEMAPS } from "../constants/tilemaps.js";
 import { SIZES } from "../constants/game.js";
+import { EmptyTowerSpot } from "../entities/towers/emptyTowerSpot.js";
 export class Level {
     constructor() {
         this.levelImage = ALL_ASSETS.get(FILE_NAMES.LEVEL_LAVONEY);
@@ -30,6 +31,19 @@ export class Level {
         else {
             throw new Error("Cannot create Waypoints array");
         }
+    }
+    createEmptyTowerSpots() {
+        const emptyTowerSpots = [];
+        this.tile2DMap.forEach((row, y) => {
+            row.forEach((symbol, x) => {
+                if (symbol !== 0)
+                    emptyTowerSpots.push(new EmptyTowerSpot({
+                        x: x * SIZES.TILE + SIZES.TILE_HALF,
+                        y: y * SIZES.TILE + SIZES.TILE_HALF,
+                    }, FILE_NAMES.TOWER_EMPTY_SPOT));
+            });
+        });
+        return emptyTowerSpots;
     }
     create2DArray() {
         const TILEMAP = ALL_TILEMAPS.get(FILE_NAMES.LEVEL_LAVONEY);

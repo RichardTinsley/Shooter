@@ -1,5 +1,7 @@
 import { ANIMATION } from "../constants/animation.js";
+import { EmptyTowerSpot } from "../entities/towers/emptyTowerSpot.js";
 import { MenuButton } from "../GUI/menus/MenuButton.js";
+import { Enemy } from "../entities/enemies/Enemy.js";
 export class Mouse {
     constructor() {
         this.mouseOverItem = undefined;
@@ -45,6 +47,10 @@ export class Mouse {
         let style = "Plain";
         if (this.mouseOverItem instanceof MenuButton)
             style = "MenuButton";
+        if (this.mouseOverItem instanceof EmptyTowerSpot)
+            style = "Tower";
+        if (this.mouseOverItem instanceof Enemy)
+            style = "Enemy";
         this.cursor.style.cursor = `url(../../images/cursors/${style}.cur), auto`;
     }
     getCursor() {

@@ -5,44 +5,55 @@ import {
   drawMouseOverEnemy,
 } from "../../utilities/drawShapes.js";
 import { ANIMATION } from "../../constants/animation.js";
-import { SpriteFactory } from "../sprites/SpriteFactory.js";
 import { HitDetectionCircle } from "../../handlers/HitDetectionCircle.js";
+import { SpriteAnimation } from "../sprites/SpriteAnimation.js";
 
-export class EnemyDraw extends EnemyMovement {
-  protected sprite = SpriteFactory.createZombieSprite1();
+export class Enemy extends EnemyMovement {
+  protected sprite!: SpriteAnimation;
   protected healthBar!: HealthBar;
   protected hitDetection!: HitDetectionCircle;
 
-  protected healthbarOffsetY = this.sprite.getScaledHeight();
-  protected halfWidth = this.sprite.getScaledWidth() / 2;
+  protected healthbarOffsetY!: number;
+  protected hitDectionOffsetY!: number;
+  protected shadowWidth!: number;
+  protected mouseOverWidth!: number;
+
+  protected halfScaledWidth!: number;
+  protected halfScaledHeight!: number;
 
   protected enemyState = ANIMATION.NORMAL;
 
   constructor() {
     super();
-    this.setDimension();
   }
 
-  setDimension(): this {
+  initialiseEnemy(): this {
     this.sprite.setPosition(this.position);
+    this.halfScaledWidth = this.sprite.getScaledWidth() / 2;
+    this.halfScaledHeight = this.sprite.getScaledHeight() / 2;
+    this.healthbarOffsetY = this.sprite.getScaledHeight();
+
+    this.shadowWidth = this.sprite.getScaledWidth();
+    this.mouseOverWidth = this.sprite.getScaledWidth();
 
     this.healthBar = new HealthBar()
       .setPosition(this.position)
-      .setWidth(this.halfWidth)
+      .setWidth(this.halfScaledWidth)
       .setDrawOffsets(this.healthbarOffsetY);
 
     this.hitDetection = new HitDetectionCircle()
       .setPosition(this.position)
-      .setWidth(this.halfWidth);
+      .setWidth(this.sprite.getScaledWidth());
+
     return this;
   }
 
   draw(ctx: CanvasRenderingContext2D) {
     switch (this.enemyState) {
       case ANIMATION.MOUSEOVER:
-        drawMouseOverEnemy(ctx, this.position, this.halfWidth);
+        drawMouseOverEnemy(ctx, this.position, this.mouseOverWidth);
       case ANIMATION.NORMAL:
-        drawEntityShadow(ctx, this.position, this.halfWidth);
+        drawEntityShadow(ctx, this.position, this.shadowWidth);
         this.contextSave(ctx);
         this.sprite.draw(ctx);
         this.contextRestore(ctx);

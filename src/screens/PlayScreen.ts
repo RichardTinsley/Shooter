@@ -11,11 +11,15 @@ export class PlayScreen implements IScreenState {
   level = new Level();
   entities: Array<any> = [];
 
-  enemy = EnemyFactory.createEnemy();
+  enemy = EnemyFactory.createZombie1();
+  enemy2 = EnemyFactory.createZombie3();
 
   constructor(public screen: Screen) {
-    // this.entities.push(...this.level.createEmptyTowerSpots());
-    this.entities.push(this.enemy);
+    this.entities.push(
+      ...this.level.createEmptyTowerSpots(),
+      this.enemy,
+      this.enemy2
+    );
   }
 
   draw(ctx: CanvasRenderingContext2D): void {

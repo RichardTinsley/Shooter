@@ -1,9 +1,9 @@
 import { Screen } from "../screens/Screen.js";
 import { Cursor } from "../constants/types.js";
 import { ANIMATION } from "../constants/animation.js";
-// import { EmptyTowerSpot } from "../entities/towers/emptyTowerSpot.js";
-// import { Enemy } from "../entities/enemies/Enemy.js";
+import { EmptyTowerSpot } from "../entities/towers/emptyTowerSpot.js";
 import { MenuButton } from "../GUI/menus/MenuButton.js";
+import { Enemy } from "../entities/enemies/Enemy.js";
 
 export class Mouse {
   // static enemySelected: Enemy;
@@ -64,8 +64,8 @@ export class Mouse {
   setCursor() {
     let style: string = "Plain";
     if (this.mouseOverItem instanceof MenuButton) style = "MenuButton";
-    // if (this.mouseOverItem instanceof EmptyTowerSpot) style = "Tower";
-    // if (this.mouseOverItem instanceof Enemy) style = "Enemy";
+    if (this.mouseOverItem instanceof EmptyTowerSpot) style = "Tower";
+    if (this.mouseOverItem instanceof Enemy) style = "Enemy";
     this.cursor.style.cursor = `url(../../images/cursors/${style}.cur), auto`;
   }
 

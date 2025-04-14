@@ -33,6 +33,10 @@ export const FILE_NAMES: Record<string, string> = {
 
   ENEMY_ZOMBIE_1_WALK: "zombie_1_walk.png",
   ENEMY_ZOMBIE_1_DIE: "zombie_1_die.png",
+
+  ENEMY_ZOMBIE_3_WALK: "zombie_3_walk.png",
+  ENEMY_ZOMBIE_3_DIE: "zombie_3_die.png",
+  
 };
 
 // prettier-ignore
@@ -60,6 +64,7 @@ export const ASSET_LIST: string[][] = [
 
   //ENEMIES
   [`${FILE_NAMES.ENEMY_ZOMBIE_1_WALK}`, `${ENEMIES_URL}${FILE_NAMES.ENEMY_ZOMBIE_1_WALK}`],
+  [`${FILE_NAMES.ENEMY_ZOMBIE_3_WALK}`, `${ENEMIES_URL}${FILE_NAMES.ENEMY_ZOMBIE_3_WALK}`], 
   
   //TOWERS
   [`${FILE_NAMES.TOWER_EMPTY_SPOT}`, `${TOWERS_URL}${FILE_NAMES.TOWER_EMPTY_SPOT}`],

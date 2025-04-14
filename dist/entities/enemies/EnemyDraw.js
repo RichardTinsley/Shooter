@@ -4,7 +4,7 @@ import { drawEntityShadow, drawMouseOverEnemy, } from "../../utilities/drawShape
 import { ANIMATION } from "../../constants/animation.js";
 import { SpriteFactory } from "../sprites/SpriteFactory.js";
 import { HitDetectionCircle } from "../../handlers/HitDetectionCircle.js";
-export class EnemyDraw extends EnemyMovement {
+export class Enemy extends EnemyMovement {
     constructor() {
         super();
         this.sprite = SpriteFactory.createZombieSprite1();

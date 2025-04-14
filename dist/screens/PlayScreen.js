@@ -8,8 +8,9 @@ export class PlayScreen {
         this.hud = new HUD({ x: SIZES.TILE_HALF, y: SIZES.TILE });
         this.level = new Level();
         this.entities = [];
-        this.enemy = EnemyFactory.createEnemy();
-        this.entities.push(this.enemy);
+        this.enemy = EnemyFactory.createZombie1();
+        this.enemy2 = EnemyFactory.createZombie3();
+        this.entities.push(...this.level.createEmptyTowerSpots(), this.enemy, this.enemy2);
     }
     draw(ctx) {
         this.level.draw(ctx);
