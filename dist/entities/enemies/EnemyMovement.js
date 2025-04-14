@@ -47,7 +47,7 @@ export class EnemyMovement {
     contextSave(ctx) {
         if (this.movement.getDirection() === DIRECTION.LEFT) {
             ctx.save();
-            ctx.scale(this.movement.getDirection(), 1);
+            ctx.scale(DIRECTION.LEFT, 1);
             this.position.x *= -1;
         }
     }
