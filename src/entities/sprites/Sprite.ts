@@ -31,7 +31,7 @@ export class Sprite {
       this.width,
       this.height,
       this.position.x - this.halfWidth + this.drawOffsetX,
-      this.position.y - this.height + this.drawOffsetY,
+      this.position.y - this.scaledHeight + this.drawOffsetY,
       this.scaledWidth,
       this.scaledHeight
     );

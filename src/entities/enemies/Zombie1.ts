@@ -12,14 +12,19 @@ export class Zombie1 extends Enemy {
     this.height
   )
     .setScale(1.5)
-    .setDrawOffsets(0.25, -0.15);
+    .setDrawOffsets(0.25, 0.1);
 
   constructor() {
     super();
     this.initialiseEnemy();
 
-    this.hitDetection.setDrawOffsets(0, 0).setWidth(this.halfScaledWidth);
-    this.shadowWidth = this.halfScaledWidth;
-    this.mouseOverWidth = this.halfScaledWidth;
+    this.hitDetection
+      .setDrawOffsets(0, 0)
+      .setWidth(this.sprite.getScaledWidth() / 2);
+    this.healthBar
+      .setWidth(this.sprite.getScaledWidth() / 2)
+      .setDrawOffsets(this.sprite.getScaledHeight() + 2);
+    this.shadowWidth = this.sprite.getScaledWidth() / 2;
+    this.mouseOverWidth = this.sprite.getScaledWidth() / 2;
   }
 }

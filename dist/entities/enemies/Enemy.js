@@ -15,17 +15,15 @@ export class Enemy extends EnemyMovement {
     }
     initialiseEnemy() {
         this.sprite.setPosition(this.position);
-        this.halfScaledWidth = this.sprite.getScaledWidth() / 2;
-        this.halfScaledHeight = this.sprite.getScaledHeight() / 2;
-        this.healthbarOffsetY = this.sprite.getScaledHeight();
         this.shadowWidth = this.sprite.getScaledWidth();
         this.mouseOverWidth = this.sprite.getScaledWidth();
         this.healthBar = new HealthBar()
             .setPosition(this.position)
-            .setWidth(this.halfScaledWidth)
-            .setDrawOffsets(this.healthbarOffsetY);
+            .setWidth(this.sprite.getScaledWidth())
+            .setDrawOffsets(this.sprite.getScaledHeight() + 2);
         this.hitDetection = new HitDetectionCircle()
             .setPosition(this.position)
+            .setDrawOffsets(0, this.sprite.getScaledHeight() / 2)
             .setWidth(this.sprite.getScaledWidth());
         return this;
     }

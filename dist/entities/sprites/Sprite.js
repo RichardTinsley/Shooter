@@ -13,7 +13,7 @@ export class Sprite {
         this.image = ALL_ASSETS.get(fileName);
     }
     draw(ctx) {
-        ctx.drawImage(this.image, this.width * this.animationFrame, this.height * this.animationRow, this.width, this.height, this.position.x - this.halfWidth + this.drawOffsetX, this.position.y - this.height + this.drawOffsetY, this.scaledWidth, this.scaledHeight);
+        ctx.drawImage(this.image, this.width * this.animationFrame, this.height * this.animationRow, this.width, this.height, this.position.x - this.halfWidth + this.drawOffsetX, this.position.y - this.scaledHeight + this.drawOffsetY, this.scaledWidth, this.scaledHeight);
     }
     setPosition(position) {
         this.position = position;

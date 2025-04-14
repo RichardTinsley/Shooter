@@ -6,11 +6,8 @@ export class Zombie3 extends Enemy {
         super();
         this.width = 32;
         this.height = 32;
-        this.sprite = new SpriteAnimation(FILE_NAMES.ENEMY_ZOMBIE_3_WALK, this.width, this.height)
-            .setScale(2)
-            .setDrawOffsets(0, -0.45);
+        this.sprite = new SpriteAnimation(FILE_NAMES.ENEMY_ZOMBIE_3_WALK, this.width, this.height).setScale(1);
         this.initialiseEnemy();
-        this.hitDetection.setDrawOffsets(0, this.halfScaledHeight);
     }
 }
 //# sourceMappingURL=Zombie3.js.map

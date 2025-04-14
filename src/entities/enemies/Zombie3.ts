@@ -10,14 +10,10 @@ export class Zombie3 extends Enemy {
     FILE_NAMES.ENEMY_ZOMBIE_3_WALK,
     this.width,
     this.height
-  )
-    .setScale(2)
-    .setDrawOffsets(0, -0.45);
+  ).setScale(1);
 
   constructor() {
     super();
     this.initialiseEnemy();
-
-    this.hitDetection.setDrawOffsets(0, this.halfScaledHeight);
   }
 }
