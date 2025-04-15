@@ -1,5 +1,6 @@
 import { EnemyFactory } from "../entities/enemies/EnemyFactory.js";
 import { HUD } from "../GUI/HUD/HUD.js";
+import { randomNumber } from "../utilities/math.js";
 import { Time } from "./Time.js";
 var ENEMIES;
 (function (ENEMIES) {
@@ -31,9 +32,9 @@ export class EnemyWaves {
         }
     }
     spawnEnemies(entities) {
-        if (Time.eventUpdate)
-            enemiesSpawnTimer++;
-        if (enemiesSpawnTimer % Math.floor(Math.random() * 1000) === 0) {
+        if (!Time.eventUpdate)
+            return;
+        if (enemiesSpawnTimer++ % 10 === 0 && randomNumber(0, 1)) {
             enemiesSpawned++;
             entities.push(EnemyFactory.createZombie3());
         }
