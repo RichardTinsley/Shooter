@@ -1,19 +1,19 @@
-import { FILE_NAMES } from "../constants/assets.js";
-import { SIZES } from "../constants/game.js";
-import { Position } from "../constants/types.js";
-import { HUDLives } from "../GUI/HUD/HUDLives.js";
-import { HUDCoins } from "../GUI/HUD/HUDCoins.js";
-import { HUDExperience } from "../GUI/HUD/HUDExperience.js";
-import { HUDMana } from "../GUI/HUD/HUDMana.js";
-import { HUDEnemies } from "../GUI/HUD/HUDEnemies.js";
-import { HUDTimer } from "../GUI/HUD/HUDTimer.js";
+import { FILE_NAMES } from "../../constants/assets.js";
+import { SIZES } from "../../constants/game.js";
+import { Position } from "../../constants/types.js";
+import { HUDLives } from "./HUDLives.js";
+import { HUDCoins } from "./HUDCoins.js";
+import { HUDExperience } from "./HUDExperience.js";
+import { HUDMana } from "./HUDMana.js";
+import { HUDWaves } from "./HUDWaves.js";
+import { HUDTimer } from "./HUDTimer.js";
 
 export class HUD {
   static hudLives: HUDLives;
   static hudCoins: HUDCoins;
   static hudExperience: HUDExperience;
   static hudMana: HUDMana;
-  static hudWaves: HUDEnemies;
+  static hudWaves: HUDWaves;
   static hudTimer: HUDTimer;
 
   constructor(private position: Position) {
@@ -33,7 +33,7 @@ export class HUD {
       { x: this.position.x + SIZES.TILE * 13, y: this.position.y },
       FILE_NAMES.ICONS_MANA
     );
-    HUD.hudWaves = new HUDEnemies().setHUDItem(
+    HUD.hudWaves = new HUDWaves().setHUDItem(
       { x: this.position.x + SIZES.TILE * 32, y: this.position.y },
       FILE_NAMES.ICONS_WAVES
     );

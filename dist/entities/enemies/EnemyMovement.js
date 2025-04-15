@@ -1,5 +1,5 @@
 import { EntityMovement, DIRECTION } from "../../handlers/EntityMovement.js";
-import { HUD } from "../../handlers/HUD.js";
+import { HUD } from "../../GUI/HUD/HUD.js";
 import { Level } from "../../handlers/Level.js";
 import { checkCircleCollision } from "../../utilities/collisionDetection.js";
 export class EnemyMovement {

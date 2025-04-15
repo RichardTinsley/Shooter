@@ -1,11 +1,11 @@
-import { FILE_NAMES } from "../constants/assets.js";
-import { SIZES } from "../constants/game.js";
-import { HUDLives } from "../GUI/HUD/HUDLives.js";
-import { HUDCoins } from "../GUI/HUD/HUDCoins.js";
-import { HUDExperience } from "../GUI/HUD/HUDExperience.js";
-import { HUDMana } from "../GUI/HUD/HUDMana.js";
-import { HUDWaves } from "../GUI/HUD/HUDWaves.js";
-import { HUDTimer } from "../GUI/HUD/HUDTimer.js";
+import { FILE_NAMES } from "../../constants/assets.js";
+import { SIZES } from "../../constants/game.js";
+import { HUDLives } from "./HUDLives.js";
+import { HUDCoins } from "./HUDCoins.js";
+import { HUDExperience } from "./HUDExperience.js";
+import { HUDMana } from "./HUDMana.js";
+import { HUDWaves } from "./HUDWaves.js";
+import { HUDTimer } from "./HUDTimer.js";
 export class HUD {
     constructor(position) {
         this.position = position;

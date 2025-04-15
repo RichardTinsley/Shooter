@@ -1,5 +1,5 @@
 import { SIZES } from "../constants/game.js";
-import { HUD } from "../handlers/HUD.js";
+import { HUD } from "../GUI/HUD/HUD.js";
 import { Menu } from "../GUI/menus/Menu.js";
 import { Level } from "../handlers/Level.js";
 import { IScreenState, Screen } from "./Screen.js";
@@ -40,7 +40,6 @@ export class PlayScreen implements IScreenState {
     //   entity.update();
     //   return entity.state !== ANIMATION.FINISHED;
     // });
-    HUD.hudWaves.waveUpdate(this.entities);
   }
 
   getArray(): Array<any> {

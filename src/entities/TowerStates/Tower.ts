@@ -1,0 +1,7 @@
+enum STATES {
+  FINISHED,
+  IDLE,
+  ATTACK,
+  MOVING,
+  RELOADING,
+}

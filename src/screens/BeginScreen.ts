@@ -9,7 +9,7 @@ export class BeginningScreen implements IScreenState {
   private logo = new deathSorceryLogoLayout();
 
   constructor(public screen: Screen) {
-    this.menu = new BeginMenu(screen, SIZES.GAME_HEIGHT - 120);
+    this.menu = new BeginMenu(screen, SIZES.GAME_HEIGHT - 110);
   }
 
   draw(ctx: CanvasRenderingContext2D): void {

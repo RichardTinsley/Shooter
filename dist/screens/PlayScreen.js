@@ -1,5 +1,5 @@
 import { SIZES } from "../constants/game.js";
-import { HUD } from "../handlers/HUD.js";
+import { HUD } from "../GUI/HUD/HUD.js";
 import { Level } from "../handlers/Level.js";
 import { EnemyFactory } from "../entities/enemies/EnemyFactory.js";
 export class PlayScreen {
@@ -22,7 +22,6 @@ export class PlayScreen {
         this.level.update();
         this.hud.update();
         this.entities.forEach((entity) => entity.update());
-        HUD.hudWaves.waveUpdate(this.entities);
     }
     getArray() {
         return [...this.entities];

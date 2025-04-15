@@ -6,48 +6,50 @@ var WAVE_STATE;
     WAVE_STATE[WAVE_STATE["CURRENT"] = 1] = "CURRENT";
     WAVE_STATE[WAVE_STATE["END"] = 2] = "END";
 })(WAVE_STATE || (WAVE_STATE = {}));
-export class HUDEnemies extends HUDItem {
+export class HUDWaves extends HUDItem {
     constructor() {
         super();
         this.waveState = WAVE_STATE.NEW;
         this.waves = 0;
-        this.enemySpawnTimer = 0;
-        this.enemyCount = 0;
-        this.maxEnemies = 8;
         this.text = this.waves.toString();
+        this.enemiesSpawnTimer = 0;
+        this.enemiesSpawned = 0;
+        this.enemiesKilled = 0;
+        this.enemiesMaximum = 10;
     }
     waveUpdate(entities) {
         switch (this.waveState) {
             case WAVE_STATE.NEW:
-                this.spawnEnemy(entities);
-                break;
-            case WAVE_STATE.CURRENT:
+                this.spawnEnemies(entities);
                 break;
             case WAVE_STATE.END:
-                this.resetWave();
+                this.resetEnemyWave();
                 break;
         }
     }
-    spawnEnemy(entities) {
+    spawnEnemies(entities) {
         if (Time.eventUpdate)
-            this.enemySpawnTimer++;
-        if (this.enemySpawnTimer % Math.floor(Math.random() * 1000) === 0) {
-            this.enemyCount++;
+            this.enemiesSpawnTimer++;
+        if (this.enemiesSpawnTimer % Math.floor(Math.random() * 1000) === 0) {
+            this.enemiesSpawned++;
         }
-        if (this.enemyCount === this.maxEnemies)
+        if (this.enemiesSpawned === this.enemiesMaximum)
             this.waveState = WAVE_STATE.CURRENT;
     }
-    checkWaveStatusAfterEnemyDeath() {
-        this.waves++;
-        this.text = this.waves.toString();
-        this.waveState = WAVE_STATE.END;
+    checkStatusOfEnemyWave() {
+        this.enemiesKilled++;
+        if (this.enemiesKilled === this.enemiesMaximum) {
+            this.waves++;
+            this.text = this.waves.toString();
+            this.waveState = WAVE_STATE.END;
+        }
     }
-    resetWave() {
-        this.enemyCount = 0;
-        this.maxEnemies++;
+    resetEnemyWave() {
+        this.enemiesSpawned = 0;
+        this.enemiesMaximum++;
         this.waveState = WAVE_STATE.NEW;
     }
-    getWaves() {
+    getCurrentEnemyWave() {
         return this.waves;
     }
 }

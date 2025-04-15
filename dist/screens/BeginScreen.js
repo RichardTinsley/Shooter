@@ -5,7 +5,7 @@ export class BeginningScreen {
     constructor(screen) {
         this.screen = screen;
         this.logo = new deathSorceryLogoLayout();
-        this.menu = new BeginMenu(screen, SIZES.GAME_HEIGHT - 120);
+        this.menu = new BeginMenu(screen, SIZES.GAME_HEIGHT - 110);
     }
     draw(ctx) {
         this.logo.draw(ctx);
