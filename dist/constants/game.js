@@ -19,7 +19,7 @@ export const SIZES = {
     },
     TEXT_IN_GAME: 24,
     TEXT_TITLE: 120,
-    TEXT_BEGIN: 64,
+    TEXT_BEGIN: 102,
     TEXT_MENUITEM: 48,
     TEXT_SPACING: 16,
 };

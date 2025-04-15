@@ -42,6 +42,10 @@ export class Text implements IText {
     return this;
   }
 
+  getSize(): number {
+    return this.size;
+  }
+
   setSize(size: number): this {
     this.size = size;
     return this;

@@ -1,13 +1,12 @@
-import { SIZES } from "../../constants/game.js";
 import { HitDetectionSquare } from "../../handlers/HitDetectionSquare.js";
 export class MenuButton {
     constructor(menuLabel, screen, setScreen) {
         this.menuLabel = menuLabel;
         this.screen = screen;
         this.setScreen = setScreen;
-        this.size = SIZES.TEXT_MENUITEM;
-        this.width = this.menuLabel.getText().length * (this.size / 1.75);
-        this.hitDetection = new HitDetectionSquare(this.width, this.size);
+        this.width =
+            this.menuLabel.getText().length * (this.menuLabel.getSize() / 1.85);
+        this.hitDetection = new HitDetectionSquare(this.width, this.menuLabel.getSize());
     }
     draw(ctx) {
         this.menuLabel.draw(ctx);

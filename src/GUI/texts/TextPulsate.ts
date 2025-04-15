@@ -2,8 +2,8 @@ import { Text } from "./Text.js";
 import { oscillate, OSCILLATIONS } from "../../utilities/math.js";
 
 export class TextPulsate extends Text {
-  private frequency: number = 2;
-  private amplitude: number = 5;
+  private frequency: number = 1;
+  private amplitude: number = 1;
   private startTime!: number;
   constructor() {
     super();

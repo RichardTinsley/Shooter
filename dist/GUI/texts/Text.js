@@ -30,6 +30,9 @@ export class Text {
         this.position = Object.assign({}, position);
         return this;
     }
+    getSize() {
+        return this.size;
+    }
     setSize(size) {
         this.size = size;
         return this;
