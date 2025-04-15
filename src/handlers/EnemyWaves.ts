@@ -24,7 +24,7 @@ export class EnemyWaves {
     enemiesMaximum = 10;
   }
 
-  update(entities: Array<any>) {
+  update(entities: Array<any>): void {
     switch (enemiesState) {
       case ENEMIES.SPAWNING:
         this.spawnEnemies(entities);
@@ -35,7 +35,7 @@ export class EnemyWaves {
     }
   }
 
-  spawnEnemies(entities: Array<any>): any {
+  spawnEnemies(entities: Array<any>): void {
     if (!Time.eventUpdate) return;
 
     if (enemiesSpawnTimer++ % 10 === 0 && randomNumber(0, 1)) {

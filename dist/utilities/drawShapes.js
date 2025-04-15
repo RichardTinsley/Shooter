@@ -55,7 +55,7 @@ export function drawMouseOverTower(ctx, position, radius) {
 export function drawMouseOverEnemy(ctx, position, radius) {
     radius /= 2;
     let c = 2 * Math.PI * radius;
-    ctx.lineWidth = 8;
+    ctx.lineWidth = 10;
     ctx.save();
     ctx.beginPath();
     ctx.translate(position.x, position.y);
