@@ -50,7 +50,7 @@ export function drawSquareHitBox(
   ctx.fillRect(item.x, item.y, item.width, item.height);
 }
 
-export function drawEntityShadow(
+export function drawShadow(
   ctx: CanvasRenderingContext2D,
   position: Position,
   width: number

@@ -1,7 +1,7 @@
 import { FILE_NAMES } from "../../constants/assets.js";
 import { SpriteAnimation } from "../sprites/SpriteAnimation.js";
-import { Enemy } from "./Enemy.js";
-export class Zombie3 extends Enemy {
+import { EnemyMovement } from "./EnemyMovement.js";
+export class Zombie3 extends EnemyMovement {
     constructor() {
         super();
         this.width = 32;

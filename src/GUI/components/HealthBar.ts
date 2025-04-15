@@ -48,7 +48,7 @@ export class HealthBar extends StatusBar {
     );
   }
 
-  setCurrentStatus(damage: number): void {
+  setDamage(damage: number): void {
     this.currentStatus -= damage;
 
     if (this.currentStatus < 0) this.currentStatus = 0;

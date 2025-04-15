@@ -40,7 +40,7 @@ export class EnemyWaves {
         if (enemiesSpawned === enemiesMaximum)
             enemiesState = ENEMIES.ACTIVE;
     }
-    static checkStatusOfEnemies() {
+    static enemyKilled() {
         enemiesKilled++;
         if (enemiesKilled === enemiesMaximum) {
             HUD.hudWaves.setWaves();

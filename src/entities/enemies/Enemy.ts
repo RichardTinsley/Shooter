@@ -1,14 +1,11 @@
-import { EnemyMovement } from "./EnemyMovement.js";
 import { HealthBar } from "../../GUI/components/HealthBar.js";
-import {
-  drawEntityShadow,
-  drawMouseOverEnemy,
-} from "../../utilities/drawShapes.js";
-import { ANIMATION } from "../../constants/animation.js";
 import { HitDetectionCircle } from "../../handlers/HitDetectionCircle.js";
 import { SpriteAnimation } from "../sprites/SpriteAnimation.js";
+import { EnemyWaves } from "../../handlers/EnemyWaves.js";
+import { Position } from "../../constants/types.js";
 
-export class Enemy extends EnemyMovement {
+export class Enemy {
+  protected position!: Position;
   protected sprite!: SpriteAnimation;
   protected healthBar!: HealthBar;
   protected hitDetection!: HitDetectionCircle;
@@ -16,11 +13,7 @@ export class Enemy extends EnemyMovement {
   protected shadowWidth!: number;
   protected mouseOverWidth!: number;
 
-  protected enemyState = ANIMATION.NORMAL;
-
-  constructor() {
-    super();
-  }
+  constructor() {}
 
   initialiseEnemy(): this {
     this.sprite.setPosition(this.position);
@@ -41,36 +34,11 @@ export class Enemy extends EnemyMovement {
     return this;
   }
 
-  draw(ctx: CanvasRenderingContext2D) {
-    switch (this.enemyState) {
-      case ANIMATION.MOUSEOVER:
-        drawMouseOverEnemy(ctx, this.position, this.mouseOverWidth);
-      case ANIMATION.NORMAL:
-        drawEntityShadow(ctx, this.position, this.shadowWidth);
-        this.contextSave(ctx);
-        this.sprite.draw(ctx);
-        this.contextRestore(ctx);
-        this.healthBar.draw(ctx);
-        break;
-      case ANIMATION.FINISHED:
-        break;
+  setDamage(damage: number) {
+    this.healthBar.setDamage(damage);
+    if (this.healthBar.getCurrentStatus() === 0) {
+      EnemyWaves.enemyKilled();
     }
-  }
-
-  update() {
-    this.movement.move(this.position, this.destination);
-    this.checkWaypointArrival(this.setComponentPositions);
-    this.sprite.animate();
-  }
-
-  setComponentPositions = () => {
-    this.sprite.setPosition(this.position);
-    this.hitDetection.setPosition(this.position);
-    this.healthBar.setPosition(this.position);
-  };
-
-  mouseOver(state: number) {
-    this.enemyState = state;
-    return;
+    //this.enemyState === dying
   }
 }

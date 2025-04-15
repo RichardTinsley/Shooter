@@ -23,7 +23,7 @@ export class HealthBar extends StatusBar {
             y: this.position.y - this.drawOffsetY,
         }, this.statusBarLength * (this.currentStatus / this.maxStatus), this.statusBarHeight, this.healthBarColour, COLOURS.NONE);
     }
-    setCurrentStatus(damage) {
+    setDamage(damage) {
         this.currentStatus -= damage;
         if (this.currentStatus < 0)
             this.currentStatus = 0;

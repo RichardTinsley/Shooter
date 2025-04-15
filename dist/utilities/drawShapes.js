@@ -24,7 +24,7 @@ export function drawSquareHitBox(ctx, item) {
     ctx.fillStyle = COLOURS.RED_ALPHA;
     ctx.fillRect(item.x, item.y, item.width, item.height);
 }
-export function drawEntityShadow(ctx, position, width) {
+export function drawShadow(ctx, position, width) {
     ctx.save();
     ctx.beginPath();
     ctx.translate(position.x, position.y);
