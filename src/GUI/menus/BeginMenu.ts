@@ -1,20 +1,22 @@
-import { MenuTemplate } from "../../constants/types.js";
+import { SIZES } from "../../constants/game.js";
 import { Screen } from "../../screens/Screen.js";
-import { LABELS } from "./MenuLabelBuilder.js";
+import { TextFactory } from "../texts/TextFactory.js";
+import { MenuTemplate, LABELS } from "./Menu.js";
 import { VerticalMenu } from "./VerticalMenu.js";
 
 export class BeginMenu extends VerticalMenu {
   constructor(screen: Screen, position: number) {
     super();
 
-    const menuTemplate: Array<MenuTemplate> = [
-      { screen: screen.setMainMenuScreen, label: LABELS.BEGIN },
+    const BEGIN_MENU: Array<MenuTemplate> = [
+      {
+        screen: screen.setMainMenuScreen,
+        label: TextFactory.textPulsate()
+          .setText(LABELS.BEGIN)
+          .setHeight(SIZES.TEXT_BEGIN),
+      },
     ];
 
-    this.menuItems = this.initialiseVerticalMenu(
-      screen,
-      menuTemplate,
-      position
-    );
+    this.menuItems = this.initialiseVerticalMenu(screen, BEGIN_MENU, position);
   }
 }

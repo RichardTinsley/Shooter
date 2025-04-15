@@ -22,6 +22,6 @@ export class TextFactory {
   }
 
   static createTextPlain(): Text {
-    return new Text().setSize(SIZES.TEXT_IN_GAME).setAlignment("left");
+    return new Text().setHeight(SIZES.TEXT_IN_GAME).setAlignment("left");
   }
 }

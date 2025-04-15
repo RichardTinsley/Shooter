@@ -13,7 +13,7 @@ export class LoadingScreen implements IScreenState {
   private summoning: any = TextFactory.textFade()
     .setPosition({ x: SIZES.GAME_WIDTH_HALF, y: SIZES.GAME_HEIGHT - 140 })
     .setText("Summoning...")
-    .setSize(SIZES.TEXT_MENUITEM);
+    .setHeight(SIZES.TEXT_MENUITEM);
 
   private loadingBar = new LoadingBar(assetListLength)
     .setPosition({

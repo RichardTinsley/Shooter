@@ -1,12 +1,19 @@
-import { LABELS } from "./MenuLabelBuilder.js";
+import { SIZES } from "../../constants/game.js";
+import { TextFactory } from "../texts/TextFactory.js";
+import { LABELS } from "./Menu.js";
 import { VerticalMenu } from "./VerticalMenu.js";
 export class BeginMenu extends VerticalMenu {
     constructor(screen, position) {
         super();
-        const menuTemplate = [
-            { screen: screen.setMainMenuScreen, label: LABELS.BEGIN },
+        const BEGIN_MENU = [
+            {
+                screen: screen.setMainMenuScreen,
+                label: TextFactory.textPulsate()
+                    .setText(LABELS.BEGIN)
+                    .setHeight(SIZES.TEXT_BEGIN),
+            },
         ];
-        this.menuItems = this.initialiseVerticalMenu(screen, menuTemplate, position);
+        this.menuItems = this.initialiseVerticalMenu(screen, BEGIN_MENU, position);
     }
 }
 //# sourceMappingURL=BeginMenu.js.map

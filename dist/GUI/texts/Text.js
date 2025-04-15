@@ -30,12 +30,15 @@ export class Text {
         this.position = Object.assign({}, position);
         return this;
     }
-    getSize() {
+    getHeight() {
         return this.size;
     }
-    setSize(size) {
+    setHeight(size) {
         this.size = size;
         return this;
+    }
+    getWidth() {
+        return this.getText().length * (this.getHeight() / 1.85);
     }
     setAlignment(alignment) {
         this.align = alignment;

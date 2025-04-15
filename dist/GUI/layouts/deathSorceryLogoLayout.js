@@ -5,7 +5,7 @@ export class deathSorceryLogoLayout {
         this.title = TextFactory.text()
             .setPosition({ x: SIZES.GAME_WIDTH_HALF, y: 100 })
             .setText("Death Sorcery")
-            .setSize(SIZES.TEXT_TITLE);
+            .setHeight(SIZES.TEXT_TITLE);
         this.dslogo = document.getElementById("dslogo");
     }
     draw(ctx) {

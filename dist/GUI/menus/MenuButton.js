@@ -1,22 +1,21 @@
 import { HitDetectionSquare } from "../../handlers/HitDetectionSquare.js";
 export class MenuButton {
-    constructor(menuLabel, screen, setScreen) {
-        this.menuLabel = menuLabel;
+    constructor(label, screen, setScreen) {
+        this.label = label;
         this.screen = screen;
         this.setScreen = setScreen;
-        this.width =
-            this.menuLabel.getText().length * (this.menuLabel.getSize() / 1.85);
-        this.hitDetection = new HitDetectionSquare(this.width, this.menuLabel.getSize());
+        this.width = this.label.getWidth();
+        this.hitDetection = new HitDetectionSquare(this.width, this.label.getHeight());
     }
     draw(ctx) {
-        this.menuLabel.draw(ctx);
+        this.label.draw(ctx);
     }
     update() {
-        this.menuLabel.update();
+        this.label.update();
     }
     setPosition(position) {
         this.position = Object.assign({}, position);
-        this.menuLabel.setPosition(position);
+        this.label.setPosition(position);
         this.hitDetection.setHitBox(position);
         return this;
     }
@@ -24,7 +23,7 @@ export class MenuButton {
         this.setScreen();
     }
     mouseOver(state) {
-        this.menuLabel.setState(state);
+        this.label.setState(state);
     }
 }
 //# sourceMappingURL=MenuButton.js.map

@@ -1,3 +1,10 @@
+export var LABELS;
+(function (LABELS) {
+    LABELS["BEGIN"] = "Begin!";
+    LABELS["NEWGAME"] = "New Game";
+    LABELS["OPTIONS"] = "Options";
+    LABELS["ABOUT"] = "About";
+})(LABELS || (LABELS = {}));
 export class Menu {
     constructor() {
         this.menuItems = [];

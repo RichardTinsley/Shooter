@@ -1,9 +1,7 @@
 import { MenuButton } from "./MenuButton.js";
 import { SIZES } from "../../constants/game.js";
 import { Screen } from "../../screens/Screen.js";
-import { Menu } from "./Menu.js";
-import { MenuLabelBuilder } from "./MenuLabelBuilder.js";
-import { MenuTemplate } from "../../constants/types.js";
+import { Menu, MenuTemplate } from "./Menu.js";
 
 export class VerticalMenu extends Menu {
   constructor() {
@@ -16,11 +14,7 @@ export class VerticalMenu extends Menu {
     menuPosition: number
   ): Array<MenuButton> {
     return menuTemplate.map((item: MenuTemplate, index: number) => {
-      return new MenuButton(
-        MenuLabelBuilder.createLabel(item.label),
-        screen,
-        item.screen
-      ).setPosition({
+      return new MenuButton(item.label, screen, item.screen).setPosition({
         x: SIZES.GAME_WIDTH_HALF,
         y: menuPosition + index * (SIZES.TEXT_MENUITEM + SIZES.TEXT_SPACING),
       });

@@ -20,7 +20,7 @@ export class LoadingScreen {
         this.summoning = TextFactory.textFade()
             .setPosition({ x: SIZES.GAME_WIDTH_HALF, y: SIZES.GAME_HEIGHT - 140 })
             .setText("Summoning...")
-            .setSize(SIZES.TEXT_MENUITEM);
+            .setHeight(SIZES.TEXT_MENUITEM);
         this.loadingBar = new LoadingBar(assetListLength)
             .setPosition({
             x: SIZES.GAME_WIDTH_HALF,

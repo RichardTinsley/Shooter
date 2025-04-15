@@ -24,8 +24,3 @@ export type HitCircle = {
   y: number;
   radius: number;
 };
-
-export type MenuTemplate = {
-  screen: Function;
-  label: string;
-};

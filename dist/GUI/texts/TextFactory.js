@@ -17,7 +17,7 @@ export class TextFactory {
         return new TextFade();
     }
     static createTextPlain() {
-        return new Text().setSize(SIZES.TEXT_IN_GAME).setAlignment("left");
+        return new Text().setHeight(SIZES.TEXT_IN_GAME).setAlignment("left");
     }
 }
 //# sourceMappingURL=TextFactory.js.map

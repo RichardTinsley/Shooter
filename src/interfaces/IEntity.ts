@@ -22,7 +22,7 @@ export interface IMovingSprite extends IAnimatedSprite {
 
 export interface IText extends IDrawable {
   setText(text: string): this;
-  setSize(size: number): this;
+  setHeight(size: number): this;
   setAlignment(alignment: CanvasTextAlign): this;
   setState(state: number): this;
 }

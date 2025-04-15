@@ -42,13 +42,17 @@ export class Text implements IText {
     return this;
   }
 
-  getSize(): number {
+  getHeight(): number {
     return this.size;
   }
 
-  setSize(size: number): this {
+  setHeight(size: number): this {
     this.size = size;
     return this;
+  }
+
+  getWidth(): number {
+    return this.getText().length * (this.getHeight() / 1.85);
   }
 
   setAlignment(alignment: CanvasTextAlign): this {
