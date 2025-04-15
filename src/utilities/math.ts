@@ -8,10 +8,11 @@ export const enum OSCILLATIONS {
 
 export function oscillate(
   waveType: number,
+  startTime: number,
   frequency: number,
   amplitude: number
 ): number {
-  const time: number = Date.now() / 1000;
+  const time: number = (Date.now() - startTime) / 1000;
   const x = time * frequency;
   const adj = x < 0 ? amplitude : -amplitude;
 

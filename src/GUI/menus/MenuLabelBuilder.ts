@@ -16,7 +16,7 @@ export class MenuLabelBuilder {
       case LABELS.BEGIN:
         text = TextFactory.textPulsate()
           .setText(LABELS.BEGIN)
-          .setSize(SIZES.TEXT_MENUITEM);
+          .setSize(SIZES.TEXT_BEGIN);
         break;
       case LABELS.NEWGAME:
         text = TextFactory.textGlow()

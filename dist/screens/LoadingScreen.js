@@ -18,7 +18,7 @@ export class LoadingScreen {
         this.screen = screen;
         this.logo = new deathSorceryLogoLayout();
         this.summoning = TextFactory.textFade()
-            .setPosition({ x: SIZES.GAME_WIDTH_HALF, y: SIZES.GAME_HEIGHT - 130 })
+            .setPosition({ x: SIZES.GAME_WIDTH_HALF, y: SIZES.GAME_HEIGHT - 140 })
             .setText("Summoning...")
             .setSize(SIZES.TEXT_MENUITEM);
         this.loadingBar = new LoadingBar(assetListLength)

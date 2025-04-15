@@ -5,13 +5,14 @@ export class TextPulsate extends Text {
         super();
         this.frequency = 2;
         this.amplitude = 5;
+        this.startTime = Date.now();
     }
     draw(ctx) {
         super.draw(ctx);
     }
     update() {
-        this.size = oscillate(1, this.frequency, this.amplitude);
-        this.size += 80;
+        const newSize = oscillate(1, this.startTime, this.frequency, this.amplitude);
+        this.size += newSize;
     }
 }
 //# sourceMappingURL=TextPulsate.js.map

@@ -9,6 +9,7 @@ export class TextGlow extends Text {
         this.glow = 0;
         this.frequency = 0.7;
         this.amplitude = 0.2;
+        this.startTime = Date.now();
     }
     draw(ctx) {
         ctx.shadowColor = COLOURS.GLOW;
@@ -20,7 +21,7 @@ export class TextGlow extends Text {
         switch (this.state) {
             case ANIMATION.MOUSEOVER:
                 this.glowChanger();
-                this.glow += oscillate(1, this.frequency, this.amplitude);
+                this.glow += oscillate(1, this.startTime, this.frequency, this.amplitude);
                 break;
             case ANIMATION.NORMAL:
                 this.glowChanger();

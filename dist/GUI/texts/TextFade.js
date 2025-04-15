@@ -5,12 +5,13 @@ export class TextFade extends Text {
         super();
         this.frequency = 0.1;
         this.amplitude = 0.6;
+        this.startTime = Date.now();
     }
     draw(ctx) {
         super.draw(ctx);
     }
     update() {
-        this.alpha = oscillate(1, this.frequency, this.amplitude);
+        this.alpha = oscillate(1, this.startTime, this.frequency, this.amplitude);
         this.alpha += 0.5;
     }
 }

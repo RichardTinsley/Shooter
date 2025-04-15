@@ -1,5 +1,5 @@
-export function oscillate(waveType, frequency, amplitude) {
-    const time = Date.now() / 1000;
+export function oscillate(waveType, startTime, frequency, amplitude) {
+    const time = (Date.now() - startTime) / 1000;
     const x = time * frequency;
     const adj = x < 0 ? amplitude : -amplitude;
     switch (waveType) {

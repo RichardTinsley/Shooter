@@ -11,7 +11,7 @@ export class LoadingScreen implements IScreenState {
   private logo = new deathSorceryLogoLayout();
 
   private summoning: any = TextFactory.textFade()
-    .setPosition({ x: SIZES.GAME_WIDTH_HALF, y: SIZES.GAME_HEIGHT - 130 })
+    .setPosition({ x: SIZES.GAME_WIDTH_HALF, y: SIZES.GAME_HEIGHT - 140 })
     .setText("Summoning...")
     .setSize(SIZES.TEXT_MENUITEM);
 

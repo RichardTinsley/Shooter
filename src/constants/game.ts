@@ -30,8 +30,9 @@ export const SIZES = {
     return this.GAME_HEIGHT / 2;
   },
 
-  TEXT_IN_GAME: 25,
+  TEXT_IN_GAME: 24,
   TEXT_TITLE: 120,
-  TEXT_MENUITEM: 50,
-  TEXT_SPACING: 15,
+  TEXT_BEGIN: 64,
+  TEXT_MENUITEM: 48,
+  TEXT_SPACING: 16,
 };
