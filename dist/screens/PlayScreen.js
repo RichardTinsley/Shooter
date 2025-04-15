@@ -1,16 +1,15 @@
 import { SIZES } from "../constants/game.js";
 import { HUD } from "../GUI/HUD/HUD.js";
 import { Level } from "../handlers/Level.js";
-import { EnemyFactory } from "../entities/enemies/EnemyFactory.js";
+import { EnemyWaves } from "../handlers/EnemyWaves.js";
 export class PlayScreen {
     constructor(screen) {
         this.screen = screen;
         this.hud = new HUD({ x: SIZES.TILE_HALF, y: SIZES.TILE });
         this.level = new Level();
+        this.enemies = new EnemyWaves();
         this.entities = [];
-        this.enemy = EnemyFactory.createZombie1();
-        this.enemy2 = EnemyFactory.createZombie3();
-        this.entities.push(...this.level.createEmptyTowerSpots(), this.enemy, this.enemy2);
+        this.entities.push(...this.level.createEmptyTowerSpots());
     }
     draw(ctx) {
         this.level.draw(ctx);
@@ -21,6 +20,7 @@ export class PlayScreen {
     update() {
         this.level.update();
         this.hud.update();
+        this.enemies.update(this.entities);
         this.entities.forEach((entity) => entity.update());
     }
     getArray() {

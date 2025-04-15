@@ -3,23 +3,17 @@ import { HUD } from "../GUI/HUD/HUD.js";
 import { Menu } from "../GUI/menus/Menu.js";
 import { Level } from "../handlers/Level.js";
 import { IScreenState, Screen } from "./Screen.js";
-import { EnemyFactory } from "../entities/enemies/EnemyFactory.js";
+import { EnemyWaves } from "../handlers/EnemyWaves.js";
 
 export class PlayScreen implements IScreenState {
   menu!: Menu;
   hud = new HUD({ x: SIZES.TILE_HALF, y: SIZES.TILE });
   level = new Level();
+  enemies = new EnemyWaves();
   entities: Array<any> = [];
 
-  enemy = EnemyFactory.createZombie1();
-  enemy2 = EnemyFactory.createZombie3();
-
   constructor(public screen: Screen) {
-    this.entities.push(
-      ...this.level.createEmptyTowerSpots(),
-      this.enemy,
-      this.enemy2
-    );
+    this.entities.push(...this.level.createEmptyTowerSpots());
   }
 
   draw(ctx: CanvasRenderingContext2D): void {
@@ -34,6 +28,7 @@ export class PlayScreen implements IScreenState {
     this.level.update();
     this.hud.update();
     //this.menu.update();
+    this.enemies.update(this.entities);
 
     this.entities.forEach((entity) => entity.update());
     // this.entities = this.entities.filter(entity => {

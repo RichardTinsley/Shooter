@@ -1,3 +1,4 @@
+import { EnemyFactory } from "../entities/enemies/EnemyFactory.js";
 import { HUD } from "../GUI/HUD/HUD.js";
 import { Time } from "./Time.js";
 var ENEMIES;
@@ -19,7 +20,7 @@ export class EnemyWaves {
         enemiesKilled = 0;
         enemiesMaximum = 10;
     }
-    waveUpdate(entities) {
+    update(entities) {
         switch (enemiesState) {
             case ENEMIES.SPAWNING:
                 this.spawnEnemies(entities);
@@ -34,6 +35,7 @@ export class EnemyWaves {
             enemiesSpawnTimer++;
         if (enemiesSpawnTimer % Math.floor(Math.random() * 1000) === 0) {
             enemiesSpawned++;
+            entities.push(EnemyFactory.createZombie3());
         }
         if (enemiesSpawned === enemiesMaximum)
             enemiesState = ENEMIES.ACTIVE;
