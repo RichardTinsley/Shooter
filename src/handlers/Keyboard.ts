@@ -12,9 +12,7 @@ const keys: Set<string> = new Set();
 
 export class Keyboard {
   constructor(public state: Screen, public debug: Debug) {
-    window.addEventListener("keydown", (e) => {
-      keys.add(e.key.toLowerCase());
-    });
+    window.addEventListener("keydown", (e) => keys.add(e.key.toLowerCase()));
 
     window.addEventListener("keyup", (e) => {
       if (keys.has(KEYBOARD.PAUSE)) console.log(KEYBOARD.PAUSE);

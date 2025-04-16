@@ -34,3 +34,5 @@ export class Screen {
   public setAboutScreen = () =>
     (this.currentScreen = new BeginningScreen(this));
 }
+// if(this.globalAlpha < 1)
+//   ctx.globalAlpha = this.globalAlpha += this.delta;

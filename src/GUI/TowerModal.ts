@@ -59,3 +59,33 @@ export class TowerModal implements IDrawable {
     throw new Error("Method not implemented.");
   }
 }
+
+// export class BuildTowerModal{
+
+//     expandMenu(){
+//         if (this.radius < 70){
+//             for (let i = 0; i < 6; i++){
+//                 const rotation = (Math.PI / 3) * i;
+//                 this.menu[i].updatePosition({
+//                         x: (this.radius * Math.cos(rotation)) + this.position.x,
+//                         y: (this.radius * Math.sin(rotation)) + this.position.y
+//                 });
+//             }
+//             this.radius += this.speed;
+//         }
+//     }
+
+//     initialiseMenu(){
+//         const array = [];
+//         for (let i = 0; i < 6; i++){
+//             array.push(new MenuItemImage({
+//                 image: assets.get(`${towerIcons[i]}${OBJECTS.TYPES.TOWER}1`),
+//                 position: {...this.position},
+//                 option: towerIcons[i],
+//                 cost: OBJECTS.TOWERINFORMATION[towerIcons[i]].cost,
+//                 scale: 0.65,
+//             }));
+//         }
+//         return array;
+//     }
+// }
