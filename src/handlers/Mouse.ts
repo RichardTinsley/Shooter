@@ -1,19 +1,19 @@
 import { Screen } from "../screens/Screen.js";
 import { Cursor } from "../constants/types.js";
 import { ANIMATION } from "../constants/animation.js";
+import { PLAIN_CURSOR } from "../constants/types.js";
 
 export class Mouse {
   // static enemySelected: Enemy;
   //static towerSelected:Tower;
-  mouseOverItem: any = undefined;
-  private readonly mouseSize: number = 3;
+  private mouseOverItem: any = PLAIN_CURSOR;
 
   private cursor: Cursor = {
     x: 0,
     y: 0,
-    radius: this.mouseSize,
-    width: this.mouseSize,
-    height: this.mouseSize,
+    radius: 3,
+    width: 3,
+    height: 3,
     style: document.getElementById("canvas")!.style,
   };
 
@@ -23,13 +23,13 @@ export class Mouse {
       this.cursor.y = e.offsetY;
     });
 
-    window.addEventListener("click", () => this.mouseClick());
+    window.addEventListener("click", () => this.mouseOverItem.mouseClick());
   }
 
   update(screen: Screen) {
-    this.mouseOverItem = undefined;
-    this.setCursor("Plain");
+    this.mouseOverItem = PLAIN_CURSOR;
     this.mouseOver(screen.getCurrentState().getArray());
+    this.setCursor(this.mouseOverItem.getType());
   }
 
   mouseOver(array: Array<any>) {
@@ -37,17 +37,10 @@ export class Mouse {
       if (item.hitDetection.checkCollision(this.cursor)) {
         item.mouseOver(ANIMATION.MOUSEOVER);
         this.mouseOverItem = item;
-        this.setCursor(this.mouseOverItem.getType());
       } else {
         item.mouseOver(ANIMATION.NORMAL);
       }
     });
-  }
-
-  mouseClick() {
-    if (!this.mouseOverItem) return;
-    this.mouseOverItem.mouseClick();
-    this.mouseOverItem = undefined;
   }
 
   setCursor(style: string) {

@@ -12,7 +12,7 @@ export type Cursor = {
   style: CSSStyleDeclaration;
 };
 
-export const PLAINCURSOR = {
+export const PLAIN_CURSOR = {
   getType: function (): string {
     return "Plain";
   },
