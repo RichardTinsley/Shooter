@@ -14,8 +14,14 @@ export class EmptyTowerSpot {
     update() {
         this.sprite.animate();
     }
+    mouseClick() {
+        return;
+    }
     mouseOver(state) {
         return;
+    }
+    getType() {
+        return "Tower";
     }
 }
 //# sourceMappingURL=emptyTowerSpot.js.map

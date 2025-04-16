@@ -35,11 +35,15 @@ export class MenuButton {
     return this;
   }
 
-  changeScreen(): void {
+  mouseClick(): void {
     this.setScreen();
   }
 
   mouseOver(state: number): void {
     this.label.setState(state);
+  }
+
+  getType(): string {
+    return "MenuButton";
   }
 }

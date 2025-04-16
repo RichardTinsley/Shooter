@@ -12,6 +12,15 @@ export type Cursor = {
   style: CSSStyleDeclaration;
 };
 
+export const PLAINCURSOR = {
+  getType: function (): string {
+    return "Plain";
+  },
+  mouseClick: function (): void {
+    return;
+  },
+};
+
 export type HitBox = {
   x: number;
   y: number;

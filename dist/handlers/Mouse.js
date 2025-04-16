@@ -1,7 +1,4 @@
 import { ANIMATION } from "../constants/animation.js";
-import { EmptyTowerSpot } from "../entities/towers/emptyTowerSpot.js";
-import { MenuButton } from "../GUI/menus/MenuButton.js";
-import { Enemy } from "../entities/enemies/Enemy.js";
 export class Mouse {
     constructor() {
         this.mouseOverItem = undefined;
@@ -21,15 +18,16 @@ export class Mouse {
         window.addEventListener("click", () => this.mouseClick());
     }
     update(screen) {
+        this.mouseOverItem = undefined;
+        this.setCursor("Plain");
         this.mouseOver(screen.getCurrentState().getArray());
-        this.setCursor();
     }
     mouseOver(array) {
-        this.mouseOverItem = undefined;
         array.forEach((item) => {
             if (item.hitDetection.checkCollision(this.cursor)) {
                 item.mouseOver(ANIMATION.MOUSEOVER);
                 this.mouseOverItem = item;
+                this.setCursor(this.mouseOverItem.getType());
             }
             else {
                 item.mouseOver(ANIMATION.NORMAL);
@@ -39,18 +37,10 @@ export class Mouse {
     mouseClick() {
         if (!this.mouseOverItem)
             return;
-        if (this.mouseOverItem instanceof MenuButton)
-            this.mouseOverItem.changeScreen();
+        this.mouseOverItem.mouseClick();
         this.mouseOverItem = undefined;
     }
-    setCursor() {
-        let style = "Plain";
-        if (this.mouseOverItem instanceof MenuButton)
-            style = "MenuButton";
-        if (this.mouseOverItem instanceof EmptyTowerSpot)
-            style = "Tower";
-        if (this.mouseOverItem instanceof Enemy)
-            style = "Enemy";
+    setCursor(style) {
         this.cursor.style.cursor = `url(../../images/cursors/${style}.cur), auto`;
     }
     getCursor() {

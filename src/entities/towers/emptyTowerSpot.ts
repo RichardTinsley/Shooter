@@ -21,7 +21,15 @@ export class EmptyTowerSpot {
     this.sprite.animate();
   }
 
+  mouseClick() {
+    return;
+  }
+
   mouseOver(state: number) {
     return;
+  }
+
+  getType(): string {
+    return "Tower";
   }
 }

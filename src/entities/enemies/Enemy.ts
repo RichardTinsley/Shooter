@@ -41,4 +41,16 @@ export class Enemy {
     }
     //this.enemyState === dying
   }
+
+  getType(): string {
+    return "Enemy";
+  }
+
+  mouseClick() {
+    // if(Mouse.selectedEnemy !== this.mouseOverItem) handle this logic in entity.mouseclick()
+    //   Mouse.selectedEnemy.mouseClick("NOLONGERSELECTED")
+    //   Mouse.selectedEnemy = this.mouseOverItem
+    // same swap logic in tower
+    return;
+  }
 }

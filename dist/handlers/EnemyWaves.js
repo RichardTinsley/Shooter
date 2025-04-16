@@ -35,11 +35,13 @@ export class EnemyWaves {
         if (!Time.eventUpdate)
             return;
         if (enemiesSpawnTimer++ % 10 === 0 && randomNumber(0, 1)) {
-            enemiesSpawned++;
             entities.push(EnemyFactory.createZombie3());
+            if (enemiesSpawned++ === enemiesMaximum)
+                enemiesState = ENEMIES.ACTIVE;
         }
-        if (enemiesSpawned === enemiesMaximum)
-            enemiesState = ENEMIES.ACTIVE;
+        else {
+            return;
+        }
     }
     static enemyKilled() {
         enemiesKilled++;

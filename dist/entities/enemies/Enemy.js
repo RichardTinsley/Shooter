@@ -23,5 +23,11 @@ export class Enemy {
             EnemyWaves.enemyKilled();
         }
     }
+    getType() {
+        return "Enemy";
+    }
+    mouseClick() {
+        return;
+    }
 }
 //# sourceMappingURL=Enemy.js.map

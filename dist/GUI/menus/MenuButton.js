@@ -19,11 +19,14 @@ export class MenuButton {
         this.hitDetection.setHitBox(position);
         return this;
     }
-    changeScreen() {
+    mouseClick() {
         this.setScreen();
     }
     mouseOver(state) {
         this.label.setState(state);
+    }
+    getType() {
+        return "MenuButton";
     }
 }
 //# sourceMappingURL=MenuButton.js.map

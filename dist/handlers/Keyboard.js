@@ -9,9 +9,7 @@ export class Keyboard {
     constructor(state, debug) {
         this.state = state;
         this.debug = debug;
-        window.addEventListener("keydown", (e) => {
-            keys.add(e.key.toLowerCase());
-        });
+        window.addEventListener("keydown", (e) => keys.add(e.key.toLowerCase()));
         window.addEventListener("keyup", (e) => {
             if (keys.has(KEYBOARD.PAUSE))
                 console.log(KEYBOARD.PAUSE);
