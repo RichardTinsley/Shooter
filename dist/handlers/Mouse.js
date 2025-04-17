@@ -28,7 +28,9 @@ export class Mouse {
                 this.mouseOverEntity = entity;
                 this.mouseOverEntity.mouseOver(ANIMATION.MOUSEOVER);
             }
-            else {
+        });
+        array.forEach((entity) => {
+            if (entity !== this.mouseOverEntity) {
                 entity.mouseOver(ANIMATION.NORMAL);
             }
         });

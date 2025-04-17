@@ -37,7 +37,11 @@ export class Mouse {
       if (entity.hitDetection.checkCollision(this.cursor)) {
         this.mouseOverEntity = entity;
         this.mouseOverEntity.mouseOver(ANIMATION.MOUSEOVER);
-      } else {
+      }
+    });
+
+    array.forEach((entity: any) => {
+      if (entity !== this.mouseOverEntity) {
         entity.mouseOver(ANIMATION.NORMAL);
       }
     });
