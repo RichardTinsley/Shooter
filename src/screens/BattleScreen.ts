@@ -1,13 +1,12 @@
-import { SIZES } from "../constants/game.js";
 import { HUD } from "../GUI/HUD/HUD.js";
 import { Menu } from "../GUI/menus/Menu.js";
 import { Level } from "../handlers/Level.js";
 import { IScreenState, Screen } from "./Screen.js";
 import { EnemyWaves } from "../handlers/EnemyWaves.js";
 
-export class PlayScreen implements IScreenState {
+export class BattleScreen implements IScreenState {
   menu!: Menu;
-  hud = new HUD({ x: SIZES.TILE_HALF, y: SIZES.TILE });
+  hud = new HUD();
   level = new Level();
   enemies = new EnemyWaves();
   entities: Array<any> = [];

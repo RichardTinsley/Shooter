@@ -7,7 +7,7 @@ export class BeginMenu extends VerticalMenu {
         super();
         const BEGIN_MENU = [
             {
-                screen: screen.setMainMenuScreen,
+                screen: screen.switchToMainMenuScreen,
                 label: TextFactory.textPulsate()
                     .setText(LABELS.BEGIN)
                     .setHeight(SIZES.TEXT_BEGIN),

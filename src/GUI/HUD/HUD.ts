@@ -16,7 +16,9 @@ export class HUD {
   static hudWaves: HUDWaves;
   static hudTimer: HUDTimer;
 
-  constructor(private position: Position) {
+  private position: Position = { x: SIZES.TILE_HALF, y: SIZES.TILE };
+
+  constructor() {
     HUD.hudLives = new HUDLives().setHUDItem(
       { x: this.position.x + SIZES.TILE * 2, y: this.position.y },
       FILE_NAMES.ICONS_LIVES

@@ -2,7 +2,7 @@ import { Menu } from "../GUI/menus/Menu.js";
 import { BeginningScreen } from "./BeginScreen.js";
 import { LoadingScreen } from "./LoadingScreen.js";
 import { MainMenuScreen } from "./MainMenuScreen.js";
-import { PlayScreen } from "./PlayScreen.js";
+import { BattleScreen } from "./BattleScreen.js";
 
 export interface IScreenState {
   screen: Screen;
@@ -20,18 +20,19 @@ export class Screen {
     return this.currentScreen;
   }
 
-  public setBeginningScreen = () =>
+  public switchToBeginningScreen = () =>
     (this.currentScreen = new BeginningScreen(this));
 
-  public setMainMenuScreen = () =>
+  public switchToMainMenuScreen = () =>
     (this.currentScreen = new MainMenuScreen(this));
 
-  public setPlayScreen = () => (this.currentScreen = new PlayScreen(this));
+  public switchToBattleScreen = () =>
+    (this.currentScreen = new BattleScreen(this));
 
-  public setOptionsScreen = () =>
+  public switchToOptionsScreen = () =>
     (this.currentScreen = new BeginningScreen(this));
 
-  public setAboutScreen = () =>
+  public switchToAboutScreen = () =>
     (this.currentScreen = new BeginningScreen(this));
 }
 // if(this.globalAlpha < 1)

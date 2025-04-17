@@ -3,7 +3,7 @@ import { COLOURS } from "../constants/colours.js";
 import { TextFactory } from "../GUI/texts/TextFactory.js";
 import { Screen } from "../screens/Screen.js";
 import { Mouse } from "./Mouse.js";
-import { PlayScreen } from "../screens/PlayScreen.js";
+import { BattleScreen } from "../screens/BattleScreen.js";
 import { drawDot, drawRectangle } from "../utilities/drawShapes.js";
 import { Time } from "./Time.js";
 
@@ -21,7 +21,7 @@ export class Debug {
     if (!this.isDebugMode) return;
     const currentState = this.state.getCurrentState();
 
-    if (currentState instanceof PlayScreen) this.drawLevelDebugInfoGrid(ctx);
+    if (currentState instanceof BattleScreen) this.drawLevelDebugInfoGrid(ctx);
 
     this.drawEntitiesDebugInfo(ctx, currentState.getArray());
 

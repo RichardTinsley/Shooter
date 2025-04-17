@@ -1,7 +1,7 @@
 import { HUD } from "../GUI/HUD/HUD.js";
 import { Level } from "../handlers/Level.js";
 import { EnemyWaves } from "../handlers/EnemyWaves.js";
-export class PlayScreen {
+export class BattleScreen {
     constructor(screen) {
         this.screen = screen;
         this.hud = new HUD();
@@ -26,4 +26,4 @@ export class PlayScreen {
         return [...this.entities];
     }
 }
-//# sourceMappingURL=PlayScreen.js.map
+//# sourceMappingURL=BattleScreen.js.map

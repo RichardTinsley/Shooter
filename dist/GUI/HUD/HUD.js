@@ -7,8 +7,8 @@ import { HUDMana } from "./HUDMana.js";
 import { HUDWaves } from "./HUDWaves.js";
 import { HUDTimer } from "./HUDTimer.js";
 export class HUD {
-    constructor(position) {
-        this.position = position;
+    constructor() {
+        this.position = { x: SIZES.TILE_HALF, y: SIZES.TILE };
         HUD.hudLives = new HUDLives().setHUDItem({ x: this.position.x + SIZES.TILE * 2, y: this.position.y }, FILE_NAMES.ICONS_LIVES);
         HUD.hudCoins = new HUDCoins().setHUDItem({ x: this.position.x + SIZES.TILE * 5, y: this.position.y }, FILE_NAMES.ICONS_COINS);
         HUD.hudExperience = new HUDExperience().setHUDItem({ x: this.position.x + SIZES.TILE * 9, y: this.position.y }, FILE_NAMES.ICONS_EXP);

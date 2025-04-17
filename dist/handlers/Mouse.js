@@ -21,6 +21,7 @@ export class Mouse {
         this.mouseOverEntity = PLAIN_CURSOR;
         this.mouseOver(screen.getCurrentState().getArray());
         this.setCursor(this.mouseOverEntity.getType());
+        this.mouseOverCleanUp(screen.getCurrentState().getArray());
     }
     mouseOver(array) {
         array.forEach((entity) => {
@@ -29,10 +30,11 @@ export class Mouse {
                 this.mouseOverEntity.mouseOver(ANIMATION.MOUSEOVER);
             }
         });
+    }
+    mouseOverCleanUp(array) {
         array.forEach((entity) => {
-            if (entity !== this.mouseOverEntity) {
+            if (entity !== this.mouseOverEntity)
                 entity.mouseOver(ANIMATION.NORMAL);
-            }
         });
     }
     setCursor(style) {

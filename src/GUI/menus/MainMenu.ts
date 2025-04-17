@@ -10,19 +10,19 @@ export class MainMenu extends VerticalMenu {
 
     const MAIN_MENU: Array<MenuTemplate> = [
       {
-        screen: screen.setPlayScreen,
+        screen: screen.switchToBattleScreen,
         label: TextFactory.textGlow()
           .setText(LABELS.NEWGAME)
           .setHeight(SIZES.TEXT_MENUITEM),
       },
       {
-        screen: screen.setOptionsScreen,
+        screen: screen.switchToOptionsScreen,
         label: TextFactory.textGlow()
           .setText(LABELS.OPTIONS)
           .setHeight(SIZES.TEXT_MENUITEM),
       },
       {
-        screen: screen.setAboutScreen,
+        screen: screen.switchToAboutScreen,
         label: TextFactory.textGlow()
           .setText(LABELS.ABOUT)
           .setHeight(SIZES.TEXT_MENUITEM),
