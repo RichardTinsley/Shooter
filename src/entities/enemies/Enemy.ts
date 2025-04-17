@@ -46,6 +46,10 @@ export class Enemy {
     return "Enemy";
   }
 
+  mouseOver(state: number) {
+    return;
+  }
+
   mouseClick() {
     // if(Mouse.selectedEnemy !== this.mouseOverItem) handle this logic in entity.mouseclick()
     //   Mouse.selectedEnemy.mouseClick("NOLONGERSELECTED")

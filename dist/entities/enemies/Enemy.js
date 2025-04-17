@@ -26,6 +26,9 @@ export class Enemy {
     getType() {
         return "Enemy";
     }
+    mouseOver(state) {
+        return;
+    }
     mouseClick() {
         return;
     }

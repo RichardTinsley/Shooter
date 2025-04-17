@@ -4,9 +4,9 @@ import { ANIMATION } from "../constants/animation.js";
 import { PLAIN_CURSOR } from "../constants/types.js";
 
 export class Mouse {
-  // static enemySelected: Enemy;
-  //static towerSelected:Tower;
-  private mouseOverItem: any = PLAIN_CURSOR;
+  // static enemySelected: Enemy; //IClickAble
+  //static towerSelected:Tower; //IClickAble
+  private mouseOverEntity: any = PLAIN_CURSOR;
 
   private cursor: Cursor = {
     x: 0,
@@ -23,22 +23,22 @@ export class Mouse {
       this.cursor.y = e.offsetY;
     });
 
-    window.addEventListener("click", () => this.mouseOverItem.mouseClick());
+    window.addEventListener("click", () => this.mouseOverEntity.mouseClick());
   }
 
   update(screen: Screen) {
-    this.mouseOverItem = PLAIN_CURSOR;
+    this.mouseOverEntity = PLAIN_CURSOR;
     this.mouseOver(screen.getCurrentState().getArray());
-    this.setCursor(this.mouseOverItem.getType());
+    this.setCursor(this.mouseOverEntity.getType());
   }
 
   mouseOver(array: Array<any>) {
-    array.forEach((item: any) => {
-      if (item.hitDetection.checkCollision(this.cursor)) {
-        item.mouseOver(ANIMATION.MOUSEOVER);
-        this.mouseOverItem = item;
+    array.forEach((entity: any) => {
+      if (entity.hitDetection.checkCollision(this.cursor)) {
+        this.mouseOverEntity = entity;
+        this.mouseOverEntity.mouseOver(ANIMATION.MOUSEOVER);
       } else {
-        item.mouseOver(ANIMATION.NORMAL);
+        entity.mouseOver(ANIMATION.NORMAL);
       }
     });
   }

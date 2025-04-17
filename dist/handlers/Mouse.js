@@ -2,7 +2,7 @@ import { ANIMATION } from "../constants/animation.js";
 import { PLAIN_CURSOR } from "../constants/types.js";
 export class Mouse {
     constructor() {
-        this.mouseOverItem = PLAIN_CURSOR;
+        this.mouseOverEntity = PLAIN_CURSOR;
         this.cursor = {
             x: 0,
             y: 0,
@@ -15,21 +15,21 @@ export class Mouse {
             this.cursor.x = e.offsetX;
             this.cursor.y = e.offsetY;
         });
-        window.addEventListener("click", () => this.mouseOverItem.mouseClick());
+        window.addEventListener("click", () => this.mouseOverEntity.mouseClick());
     }
     update(screen) {
-        this.mouseOverItem = PLAIN_CURSOR;
+        this.mouseOverEntity = PLAIN_CURSOR;
         this.mouseOver(screen.getCurrentState().getArray());
-        this.setCursor(this.mouseOverItem.getType());
+        this.setCursor(this.mouseOverEntity.getType());
     }
     mouseOver(array) {
-        array.forEach((item) => {
-            if (item.hitDetection.checkCollision(this.cursor)) {
-                item.mouseOver(ANIMATION.MOUSEOVER);
-                this.mouseOverItem = item;
+        array.forEach((entity) => {
+            if (entity.hitDetection.checkCollision(this.cursor)) {
+                this.mouseOverEntity = entity;
+                this.mouseOverEntity.mouseOver(ANIMATION.MOUSEOVER);
             }
             else {
-                item.mouseOver(ANIMATION.NORMAL);
+                entity.mouseOver(ANIMATION.NORMAL);
             }
         });
     }
