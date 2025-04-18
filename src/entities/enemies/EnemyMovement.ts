@@ -7,21 +7,21 @@ import * as MOVEMENT from "../../utilities/entityMovement.js";
 
 export class EnemyMovement {
   protected waypoints = Level.getEnemyGeneratedWaypoints();
-  protected waypointIndex: number = 0;
+  protected waypointIndex: number = 1;
   protected priorityDistance: number = 0;
   protected position: Position = { ...this.waypoints[this.waypointIndex] };
   protected destination: Position = { ...this.waypoints[this.waypointIndex] };
 
   protected speed!: number;
   protected angle = MOVEMENT.setAngle(this.position, this.destination);
-  protected direction = MOVEMENT.getDirection(this.angle);
 
-  update() {
+  update(enemy: any) {
     MOVEMENT.updatePosition(this.position, this.angle, this.speed);
     this.updatePriorityDistance();
+    this.checkWaypointArrival(enemy);
   }
 
-  checkWaypointArrival(updateComponents: Function) {
+  checkWaypointArrival(enemy: any) {
     if (checkCircleCollision(this.position, this.destination, 5, 10)) {
       this.waypointIndex++;
 
@@ -29,12 +29,16 @@ export class EnemyMovement {
         HUD.hudLives.setLives();
         this.waypointIndex = 0;
         this.setPosition(this.waypoints[this.waypointIndex]);
-        updateComponents(this.position);
+
+        enemy.sprite.setPosition(this.position);
+        enemy.hitDetection.setPosition(this.position);
+        enemy.healthBar.setPosition(this.position);
+        enemy.position = this.position;
       }
 
       this.setDestination(this.waypoints[this.waypointIndex]);
       this.angle = MOVEMENT.setAngle(this.position, this.destination);
-      this.direction = MOVEMENT.getDirection(this.angle);
+      enemy.sprite.setDirection(MOVEMENT.getDirection(this.angle));
     }
   }
 
@@ -65,9 +69,5 @@ export class EnemyMovement {
 
   getPriorityDistance(): number {
     return this.priorityDistance;
-  }
-
-  getDirection(): number {
-    return this.direction;
   }
 }

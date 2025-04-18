@@ -34,10 +34,8 @@ export class Enemy {
   }
 
   update() {
-    this.movement.update();
-    this.movement.checkWaypointArrival(this.updateComponents);
+    this.movement.update(this);
     this.sprite.animate();
-    this.sprite.setDirection(this.movement.getDirection());
   }
 
   initialiseEnemy(): this {
@@ -55,13 +53,6 @@ export class Enemy {
       .setDrawOffsets(0, this.sprite.getScaledHeight() / 2);
     return this;
   }
-
-  updateComponents = (position: Position) => {
-    this.sprite.setPosition(position);
-    this.hitDetection.setPosition(position);
-    this.healthBar.setPosition(position);
-    this.position = position;
-  };
 
   mouseOver(state: number) {
     this.enemyState = state;

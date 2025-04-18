@@ -9,12 +9,6 @@ export class Enemy {
         this.movement = new EnemyMovement();
         this.position = this.movement.getPosition();
         this.enemyState = ANIMATION.NORMAL;
-        this.updateComponents = (position) => {
-            this.sprite.setPosition(position);
-            this.hitDetection.setPosition(position);
-            this.healthBar.setPosition(position);
-            this.position = position;
-        };
     }
     draw(ctx) {
         switch (this.enemyState) {
@@ -30,10 +24,8 @@ export class Enemy {
         }
     }
     update() {
-        this.movement.update();
-        this.movement.checkWaypointArrival(this.updateComponents);
+        this.movement.update(this);
         this.sprite.animate();
-        this.sprite.setDirection(this.movement.getDirection());
     }
     initialiseEnemy() {
         this.shadowWidth = this.sprite.getScaledWidth();

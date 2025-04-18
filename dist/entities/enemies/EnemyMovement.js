@@ -6,29 +6,32 @@ import * as MOVEMENT from "../../utilities/entityMovement.js";
 export class EnemyMovement {
     constructor() {
         this.waypoints = Level.getEnemyGeneratedWaypoints();
-        this.waypointIndex = 0;
+        this.waypointIndex = 1;
         this.priorityDistance = 0;
         this.position = Object.assign({}, this.waypoints[this.waypointIndex]);
         this.destination = Object.assign({}, this.waypoints[this.waypointIndex]);
         this.angle = MOVEMENT.setAngle(this.position, this.destination);
-        this.direction = MOVEMENT.getDirection(this.angle);
     }
-    update() {
+    update(enemy) {
         MOVEMENT.updatePosition(this.position, this.angle, this.speed);
         this.updatePriorityDistance();
+        this.checkWaypointArrival(enemy);
     }
-    checkWaypointArrival(updateComponents) {
+    checkWaypointArrival(enemy) {
         if (checkCircleCollision(this.position, this.destination, 5, 10)) {
             this.waypointIndex++;
             if (this.waypointIndex === this.waypoints.length) {
                 HUD.hudLives.setLives();
                 this.waypointIndex = 0;
                 this.setPosition(this.waypoints[this.waypointIndex]);
-                updateComponents(this.position);
+                enemy.sprite.setPosition(this.position);
+                enemy.hitDetection.setPosition(this.position);
+                enemy.healthBar.setPosition(this.position);
+                enemy.position = this.position;
             }
             this.setDestination(this.waypoints[this.waypointIndex]);
             this.angle = MOVEMENT.setAngle(this.position, this.destination);
-            this.direction = MOVEMENT.getDirection(this.angle);
+            enemy.sprite.setDirection(MOVEMENT.getDirection(this.angle));
         }
     }
     updatePriorityDistance() {
@@ -53,9 +56,6 @@ export class EnemyMovement {
     }
     getPriorityDistance() {
         return this.priorityDistance;
-    }
-    getDirection() {
-        return this.direction;
     }
 }
 //# sourceMappingURL=EnemyMovement.js.map
