@@ -1,7 +1,6 @@
 import { Screen } from "../screens/Screen.js";
-import { Cursor } from "../constants/types.js";
+import { Cursor, PLAIN_CURSOR } from "../constants/types.js";
 import { ANIMATION } from "../constants/animation.js";
-import { PLAIN_CURSOR } from "../constants/types.js";
 
 export class Mouse {
   // static enemySelected: Enemy; //IClickAble
@@ -30,7 +29,7 @@ export class Mouse {
     this.mouseOverEntity = PLAIN_CURSOR;
     this.mouseOver(screen.getCurrentState().getArray());
     this.setCursor(this.mouseOverEntity.getType());
-    this.mouseOverCleanUp(screen.getCurrentState().getArray());
+    this.removeMouseOver(screen.getCurrentState().getArray());
   }
 
   mouseOver(array: Array<any>) {
@@ -42,7 +41,7 @@ export class Mouse {
     });
   }
 
-  mouseOverCleanUp(array: Array<any>) {
+  removeMouseOver(array: Array<any>) {
     array.forEach((entity: any) => {
       if (entity !== this.mouseOverEntity) entity.mouseOver(ANIMATION.NORMAL);
     });

@@ -1,5 +1,5 @@
-import { ANIMATION } from "../constants/animation.js";
 import { PLAIN_CURSOR } from "../constants/types.js";
+import { ANIMATION } from "../constants/animation.js";
 export class Mouse {
     constructor() {
         this.mouseOverEntity = PLAIN_CURSOR;
@@ -21,7 +21,7 @@ export class Mouse {
         this.mouseOverEntity = PLAIN_CURSOR;
         this.mouseOver(screen.getCurrentState().getArray());
         this.setCursor(this.mouseOverEntity.getType());
-        this.mouseOverCleanUp(screen.getCurrentState().getArray());
+        this.removeMouseOver(screen.getCurrentState().getArray());
     }
     mouseOver(array) {
         array.forEach((entity) => {
@@ -31,7 +31,7 @@ export class Mouse {
             }
         });
     }
-    mouseOverCleanUp(array) {
+    removeMouseOver(array) {
         array.forEach((entity) => {
             if (entity !== this.mouseOverEntity)
                 entity.mouseOver(ANIMATION.NORMAL);

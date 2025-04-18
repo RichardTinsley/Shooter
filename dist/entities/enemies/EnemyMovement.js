@@ -6,16 +6,17 @@ import * as MOVEMENT from "../../utilities/entityMovement.js";
 export class EnemyMovement {
     constructor() {
         this.waypoints = Level.getEnemyGeneratedWaypoints();
-        this.waypointIndex = 1;
+        this.waypointIndex = 0;
         this.priorityDistance = 0;
         this.position = Object.assign({}, this.waypoints[this.waypointIndex]);
         this.destination = Object.assign({}, this.waypoints[this.waypointIndex]);
+        this.speedDelta = 0.15;
         this.angle = MOVEMENT.setAngle(this.position, this.destination);
     }
     update(enemy) {
         MOVEMENT.updatePosition(this.position, this.angle, this.speed);
-        this.updatePriorityDistance();
         this.checkWaypointArrival(enemy);
+        this.updatePriorityDistance();
     }
     checkWaypointArrival(enemy) {
         if (checkCircleCollision(this.position, this.destination, 5, 10)) {
@@ -51,7 +52,7 @@ export class EnemyMovement {
         return this;
     }
     setSpeed(speed) {
-        this.speed = randomFloat(speed - speed * 0.1, speed + speed * 0.1);
+        this.speed = randomFloat(speed - speed * this.speedDelta, speed + speed * this.speedDelta);
         return this;
     }
     getPriorityDistance() {

@@ -3,7 +3,6 @@ import { HitDetectionCircle } from "../../handlers/HitDetectionCircle.js";
 import { SpriteAnimation } from "../sprites/SpriteAnimation.js";
 import { drawShadow, drawMouseOverEnemy } from "../../utilities/drawShapes.js";
 import { EnemyWaves } from "../../handlers/EnemyWaves.js";
-import { Position } from "../../constants/types.js";
 import { ANIMATION } from "../../constants/animation.js";
 import { EnemyMovement } from "./EnemyMovement.js";
 
@@ -16,7 +15,7 @@ export class Enemy {
   protected shadowWidth!: number;
   protected mouseOverWidth!: number;
 
-  protected position: Position = this.movement.getPosition();
+  protected position = this.movement.getPosition();
   protected enemyState = ANIMATION.NORMAL;
 
   draw(ctx: CanvasRenderingContext2D) {
