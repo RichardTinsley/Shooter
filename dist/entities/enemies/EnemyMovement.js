@@ -13,24 +13,23 @@ export class EnemyMovement {
         this.angle = MOVEMENT.setAngle(this.position, this.destination);
         this.direction = MOVEMENT.getDirection(this.angle);
     }
-    update() {
+    update(updateComponents) {
         MOVEMENT.updatePosition(this.position, this.angle, this.speed);
-        this.checkWaypointArrival();
+        this.updatePriorityDistance();
+        this.checkWaypointArrival(updateComponents);
     }
-    checkWaypointArrival() {
+    checkWaypointArrival(updateComponents) {
         if (checkCircleCollision(this.position, this.destination, 5, 10)) {
             this.waypointIndex++;
-            this.checkEndPointArrival();
+            if (this.waypointIndex === this.waypoints.length) {
+                HUD.hudLives.setLives();
+                this.waypointIndex = 0;
+                this.setPosition(this.waypoints[this.waypointIndex]);
+                updateComponents(this.position);
+            }
             this.setDestination(this.waypoints[this.waypointIndex]);
             this.angle = MOVEMENT.setAngle(this.position, this.destination);
             this.direction = MOVEMENT.getDirection(this.angle);
-        }
-    }
-    checkEndPointArrival() {
-        if (this.waypointIndex === this.waypoints.length) {
-            HUD.hudLives.setLives();
-            this.waypointIndex = 0;
-            this.setPosition(this.waypoints[this.waypointIndex]);
         }
     }
     updatePriorityDistance() {

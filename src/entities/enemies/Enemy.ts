@@ -36,8 +36,7 @@ export class Enemy {
   }
 
   update() {
-    this.movement.update();
-    this.position = this.movement.getPosition();
+    this.movement.update(this.updateComponents);
     this.sprite.animate();
   }
 
@@ -56,6 +55,13 @@ export class Enemy {
       .setDrawOffsets(0, this.sprite.getScaledHeight() / 2);
     return this;
   }
+
+  updateComponents = (position: Position) => {
+    this.sprite.setPosition(position);
+    this.hitDetection.setPosition(position);
+    this.healthBar.setPosition(position);
+    this.position = position;
+  };
 
   contextSave(ctx: CanvasRenderingContext2D) {
     if (this.movement.getDirection() === -1) {
