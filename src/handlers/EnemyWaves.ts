@@ -38,17 +38,9 @@ export class EnemyWaves {
   spawnEnemies(entities: Array<any>): void {
     if (!Time.eventUpdate) return;
 
-    if (enemiesSpawnTimer++ % randomNumber(10, 20) === 0) {
+    if (enemiesSpawnTimer++ % randomNumber(10, 25) === 0) {
       entities.push(EnemyFactory.createZombie3());
       if (enemiesSpawned++ === enemiesMaximum) enemiesState = ENEMIES.ACTIVE;
-    }
-  }
-
-  static enemyKilled(): void {
-    enemiesKilled++;
-    if (enemiesKilled === enemiesMaximum) {
-      HUD.hudWaves.setWaves();
-      enemiesState = ENEMIES.KILLED;
     }
   }
 
@@ -57,4 +49,12 @@ export class EnemyWaves {
     enemiesMaximum++;
     enemiesState = ENEMIES.SPAWNING;
   } //= HUD.hudWaves.getWaves() + 10 //and add 20% floored until 150 enemies max
+
+  static enemyKilled(): void {
+    enemiesKilled++;
+    if (enemiesKilled === enemiesMaximum) {
+      HUD.hudWaves.setWaves();
+      enemiesState = ENEMIES.KILLED;
+    }
+  }
 }

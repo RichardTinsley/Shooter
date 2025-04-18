@@ -1,11 +1,12 @@
-import { Zombie1 } from "./Zombie1.js";
+import { ZombieCrawler } from "./ZombieCrawler.js";
 import { Zombie3 } from "./Zombie3.js";
+import { FILE_NAMES } from "../../constants/assets.js";
 export class EnemyFactory {
     static createZombie1() {
-        return new Zombie1().setSpeed(1);
+        return new ZombieCrawler(FILE_NAMES.ENEMY_ZOMBIE_1_WALK).setSpeed(1);
     }
     static createZombie3() {
-        return new Zombie3().setSpeed(4);
+        return new Zombie3(FILE_NAMES.ENEMY_ZOMBIE_3_WALK).setSpeed(4);
     }
 }
 //# sourceMappingURL=EnemyFactory.js.map

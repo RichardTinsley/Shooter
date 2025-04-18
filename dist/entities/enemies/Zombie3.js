@@ -1,12 +1,13 @@
-import { FILE_NAMES } from "../../constants/assets.js";
 import { SpriteAnimation } from "../sprites/SpriteAnimation.js";
-import { EnemyMovement } from "./EnemyMovement.js";
-export class Zombie3 extends EnemyMovement {
-    constructor() {
+import { Enemy } from "./Enemy.js";
+export class Zombie3 extends Enemy {
+    constructor(fileName) {
         super();
         this.width = 32;
         this.height = 32;
-        this.sprite = new SpriteAnimation(FILE_NAMES.ENEMY_ZOMBIE_3_WALK, this.width, this.height).setScale(1.5);
+        this.sprite = new SpriteAnimation(fileName, this.width, this.height)
+            .setPosition(this.position)
+            .setScale(1.5);
         this.initialiseEnemy();
     }
 }

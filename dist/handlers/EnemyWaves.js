@@ -34,11 +34,16 @@ export class EnemyWaves {
     spawnEnemies(entities) {
         if (!Time.eventUpdate)
             return;
-        if (enemiesSpawnTimer++ % randomNumber(10, 20) === 0) {
+        if (enemiesSpawnTimer++ % randomNumber(10, 25) === 0) {
             entities.push(EnemyFactory.createZombie3());
             if (enemiesSpawned++ === enemiesMaximum)
                 enemiesState = ENEMIES.ACTIVE;
         }
+    }
+    resetEnemies() {
+        enemiesSpawned = 0;
+        enemiesMaximum++;
+        enemiesState = ENEMIES.SPAWNING;
     }
     static enemyKilled() {
         enemiesKilled++;
@@ -46,11 +51,6 @@ export class EnemyWaves {
             HUD.hudWaves.setWaves();
             enemiesState = ENEMIES.KILLED;
         }
-    }
-    resetEnemies() {
-        enemiesSpawned = 0;
-        enemiesMaximum++;
-        enemiesState = ENEMIES.SPAWNING;
     }
 }
 //# sourceMappingURL=EnemyWaves.js.map
