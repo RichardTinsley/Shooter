@@ -32,7 +32,8 @@ export class Enemy {
         }
     }
     update() {
-        this.movement.update(this.updateComponents);
+        this.movement.update();
+        this.movement.checkWaypointArrival(this.updateComponents);
         this.sprite.animate();
     }
     initialiseEnemy() {

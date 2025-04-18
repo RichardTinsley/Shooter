@@ -13,10 +13,9 @@ export class EnemyMovement {
         this.angle = MOVEMENT.setAngle(this.position, this.destination);
         this.direction = MOVEMENT.getDirection(this.angle);
     }
-    update(updateComponents) {
+    update() {
         MOVEMENT.updatePosition(this.position, this.angle, this.speed);
         this.updatePriorityDistance();
-        this.checkWaypointArrival(updateComponents);
     }
     checkWaypointArrival(updateComponents) {
         if (checkCircleCollision(this.position, this.destination, 5, 10)) {

@@ -25,10 +25,9 @@ export class EnemyMovement {
     this.direction = MOVEMENT.getDirection(this.angle);
   }
 
-  update(updateComponents: Function) {
+  update() {
     MOVEMENT.updatePosition(this.position, this.angle, this.speed);
     this.updatePriorityDistance();
-    this.checkWaypointArrival(updateComponents);
   }
 
   checkWaypointArrival(updateComponents: Function) {
@@ -39,11 +38,6 @@ export class EnemyMovement {
         HUD.hudLives.setLives();
         this.waypointIndex = 0;
         this.setPosition(this.waypoints[this.waypointIndex]);
-        // this.setDestination(this.waypoints[this.waypointIndex]);
-
-        // this.sprite.setPosition(this.position);
-        // this.hitDetection.setPosition(this.position);
-        // this.healthBar.setPosition(this.position);
         updateComponents(this.position);
       }
 

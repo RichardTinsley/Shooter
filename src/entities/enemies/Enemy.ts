@@ -36,7 +36,8 @@ export class Enemy {
   }
 
   update() {
-    this.movement.update(this.updateComponents);
+    this.movement.update();
+    this.movement.checkWaypointArrival(this.updateComponents);
     this.sprite.animate();
   }
 
@@ -116,7 +117,7 @@ export class Enemy {
 // }
 
 // export class Enemy {
-//   public currentState: IEnemyState = new EnemyMoving(this);
+//   public state: IEnemyState = new EnemyMoving(this);
 
 //   protected position!: Position;
 //   protected sprite!: SpriteAnimation;
@@ -128,10 +129,6 @@ export class Enemy {
 
 //   getType(): string {
 //     return "Enemy";
-//   }
-
-//   public getCurrentState(): IEnemyState {
-//     return this.currentState;
 //   }
 
 //   public switchToDyingState = () =>
