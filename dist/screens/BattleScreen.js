@@ -6,7 +6,7 @@ export class BattleScreen {
         this.screen = screen;
         this.hud = new HUD();
         this.level = new Level();
-        this.enemies = new EnemyWaves();
+        this.enemyWaves = new EnemyWaves();
         this.entities = [];
         this.entities.push(...this.level.createEmptyTowerSpots());
     }
@@ -19,7 +19,7 @@ export class BattleScreen {
     update() {
         this.level.update();
         this.hud.update();
-        this.enemies.update(this.entities);
+        this.enemyWaves.update(this.entities);
         this.entities.forEach((entity) => entity.update());
     }
     getArray() {

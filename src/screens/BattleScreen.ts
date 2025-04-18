@@ -8,7 +8,7 @@ export class BattleScreen implements IScreenState {
   menu!: Menu;
   hud = new HUD();
   level = new Level();
-  enemies = new EnemyWaves();
+  enemyWaves = new EnemyWaves();
   entities: Array<any> = [];
 
   constructor(public screen: Screen) {
@@ -27,7 +27,7 @@ export class BattleScreen implements IScreenState {
     this.level.update();
     this.hud.update();
     //this.menu.update();
-    this.enemies.update(this.entities);
+    this.enemyWaves.update(this.entities);
 
     this.entities.forEach((entity) => entity.update());
     // this.entities = this.entities.filter(entity => {
