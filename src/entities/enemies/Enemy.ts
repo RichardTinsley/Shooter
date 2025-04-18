@@ -9,7 +9,6 @@ import { EnemyMovement } from "./EnemyMovement.js";
 
 export class Enemy {
   protected movement = new EnemyMovement();
-  protected position: Position = this.movement.getPosition();
   protected sprite!: SpriteAnimation;
   protected healthBar!: HealthBar;
   protected hitDetection!: HitDetectionCircle;
@@ -17,6 +16,7 @@ export class Enemy {
   protected shadowWidth!: number;
   protected mouseOverWidth!: number;
 
+  protected position: Position = this.movement.getPosition();
   protected enemyState = ANIMATION.NORMAL;
 
   draw(ctx: CanvasRenderingContext2D) {
@@ -25,9 +25,7 @@ export class Enemy {
         drawMouseOverEnemy(ctx, this.position, this.mouseOverWidth);
       case ANIMATION.NORMAL:
         drawShadow(ctx, this.position, this.shadowWidth);
-        this.contextSave(ctx);
         this.sprite.draw(ctx);
-        this.contextRestore(ctx);
         this.healthBar.draw(ctx);
         break;
       case ANIMATION.FINISHED:
@@ -39,6 +37,7 @@ export class Enemy {
     this.movement.update();
     this.movement.checkWaypointArrival(this.updateComponents);
     this.sprite.animate();
+    this.sprite.setDirection(this.movement.getDirection());
   }
 
   initialiseEnemy(): this {
@@ -63,21 +62,6 @@ export class Enemy {
     this.healthBar.setPosition(position);
     this.position = position;
   };
-
-  contextSave(ctx: CanvasRenderingContext2D) {
-    if (this.movement.getDirection() === -1) {
-      ctx.save();
-      ctx.scale(-1, 1);
-      this.position.x *= -1;
-    }
-  }
-
-  contextRestore(ctx: CanvasRenderingContext2D) {
-    if (this.movement.getDirection() === -1) {
-      this.position.x *= -1;
-      ctx.restore();
-    }
-  }
 
   mouseOver(state: number) {
     this.enemyState = state;

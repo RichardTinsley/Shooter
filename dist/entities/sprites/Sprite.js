@@ -13,7 +13,11 @@ export class Sprite {
         this.image = ALL_ASSETS.get(fileName);
     }
     draw(ctx) {
-        ctx.drawImage(this.image, this.width * this.animationFrame, this.height * this.animationRow, this.width, this.height, this.position.x - this.halfWidth + this.drawOffsetX, this.position.y - this.scaledHeight + this.drawOffsetY, this.scaledWidth, this.scaledHeight);
+        ctx.save();
+        ctx.translate(this.position.x, this.position.y);
+        ctx.scale(this.direction, 1);
+        ctx.drawImage(this.image, this.width * this.animationFrame, this.height * this.animationRow, this.width, this.height, 0 - this.halfWidth + this.drawOffsetX, 0 - this.scaledHeight + this.drawOffsetY, this.scaledWidth, this.scaledHeight);
+        ctx.restore();
     }
     setPosition(position) {
         this.position = position;
@@ -21,6 +25,9 @@ export class Sprite {
     }
     getPosition() {
         return this.position;
+    }
+    setDirection(direction) {
+        this.direction = direction;
     }
     setDrawOffsets(offsetX, offsetY) {
         this.drawOffsetX = offsetX * this.getScaledWidth();

@@ -5,11 +5,11 @@ import { randomFloat } from "../../utilities/math.js";
 import * as MOVEMENT from "../../utilities/entityMovement.js";
 export class EnemyMovement {
     constructor() {
-        this.waypointIndex = 1;
-        this.priorityDistance = 0;
         this.waypoints = Level.getEnemyGeneratedWaypoints();
-        this.setPosition(this.waypoints[this.waypointIndex]);
-        this.setDestination(this.waypoints[this.waypointIndex]);
+        this.waypointIndex = 0;
+        this.priorityDistance = 0;
+        this.position = Object.assign({}, this.waypoints[this.waypointIndex]);
+        this.destination = Object.assign({}, this.waypoints[this.waypointIndex]);
         this.angle = MOVEMENT.setAngle(this.position, this.destination);
         this.direction = MOVEMENT.getDirection(this.angle);
     }
@@ -48,7 +48,7 @@ export class EnemyMovement {
         return this;
     }
     setSpeed(speed) {
-        this.speed = randomFloat(speed - speed * 0.2, speed + speed * 0.2);
+        this.speed = randomFloat(speed - speed * 0.1, speed + speed * 0.1);
         return this;
     }
     getPriorityDistance() {

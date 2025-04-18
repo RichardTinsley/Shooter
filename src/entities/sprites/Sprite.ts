@@ -4,6 +4,7 @@ import { Position } from "../../constants/types.js";
 export class Sprite {
   protected image!: HTMLImageElement;
   protected position!: Position;
+  protected direction!: number;
 
   protected scaledWidth: number = this.width;
   protected scaledHeight: number = this.height;
@@ -24,17 +25,23 @@ export class Sprite {
   }
 
   draw(ctx: CanvasRenderingContext2D) {
+    ctx.save();
+    ctx.translate(this.position.x, this.position.y);
+    ctx.scale(this.direction, 1);
+
     ctx.drawImage(
       this.image,
       this.width * this.animationFrame,
       this.height * this.animationRow,
       this.width,
       this.height,
-      this.position.x - this.halfWidth + this.drawOffsetX,
-      this.position.y - this.scaledHeight + this.drawOffsetY,
+      0 - this.halfWidth + this.drawOffsetX,
+      0 - this.scaledHeight + this.drawOffsetY,
       this.scaledWidth,
       this.scaledHeight
     );
+
+    ctx.restore();
   }
 
   setPosition(position: Position): this {
@@ -44,6 +51,10 @@ export class Sprite {
 
   getPosition(): Position {
     return this.position;
+  }
+
+  setDirection(direction: number) {
+    this.direction = direction;
   }
 
   setDrawOffsets(offsetX: number, offsetY: number): this {

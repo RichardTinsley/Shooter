@@ -6,24 +6,15 @@ import { randomFloat } from "../../utilities/math.js";
 import * as MOVEMENT from "../../utilities/entityMovement.js";
 
 export class EnemyMovement {
-  protected position!: Position;
-  protected destination!: Position;
+  protected waypoints = Level.getEnemyGeneratedWaypoints();
+  protected waypointIndex: number = 0;
+  protected priorityDistance: number = 0;
+  protected position: Position = { ...this.waypoints[this.waypointIndex] };
+  protected destination: Position = { ...this.waypoints[this.waypointIndex] };
 
   protected speed!: number;
-  protected angle!: number;
-  protected direction!: number;
-
-  protected waypoints!: Array<Position>;
-  protected waypointIndex: number = 1;
-  protected priorityDistance: number = 0;
-
-  constructor() {
-    this.waypoints = Level.getEnemyGeneratedWaypoints();
-    this.setPosition(this.waypoints[this.waypointIndex]);
-    this.setDestination(this.waypoints[this.waypointIndex]);
-    this.angle = MOVEMENT.setAngle(this.position, this.destination);
-    this.direction = MOVEMENT.getDirection(this.angle);
-  }
+  protected angle = MOVEMENT.setAngle(this.position, this.destination);
+  protected direction = MOVEMENT.getDirection(this.angle);
 
   update() {
     MOVEMENT.updatePosition(this.position, this.angle, this.speed);
@@ -68,7 +59,7 @@ export class EnemyMovement {
   }
 
   setSpeed(speed: number): this {
-    this.speed = randomFloat(speed - speed * 0.2, speed + speed * 0.2);
+    this.speed = randomFloat(speed - speed * 0.1, speed + speed * 0.1);
     return this;
   }
 

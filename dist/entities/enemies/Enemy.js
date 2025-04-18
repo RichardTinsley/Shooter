@@ -22,9 +22,7 @@ export class Enemy {
                 drawMouseOverEnemy(ctx, this.position, this.mouseOverWidth);
             case ANIMATION.NORMAL:
                 drawShadow(ctx, this.position, this.shadowWidth);
-                this.contextSave(ctx);
                 this.sprite.draw(ctx);
-                this.contextRestore(ctx);
                 this.healthBar.draw(ctx);
                 break;
             case ANIMATION.FINISHED:
@@ -35,6 +33,7 @@ export class Enemy {
         this.movement.update();
         this.movement.checkWaypointArrival(this.updateComponents);
         this.sprite.animate();
+        this.sprite.setDirection(this.movement.getDirection());
     }
     initialiseEnemy() {
         this.shadowWidth = this.sprite.getScaledWidth();
@@ -48,19 +47,6 @@ export class Enemy {
             .setWidth(this.sprite.getScaledWidth())
             .setDrawOffsets(0, this.sprite.getScaledHeight() / 2);
         return this;
-    }
-    contextSave(ctx) {
-        if (this.movement.getDirection() === -1) {
-            ctx.save();
-            ctx.scale(-1, 1);
-            this.position.x *= -1;
-        }
-    }
-    contextRestore(ctx) {
-        if (this.movement.getDirection() === -1) {
-            this.position.x *= -1;
-            ctx.restore();
-        }
     }
     mouseOver(state) {
         this.enemyState = state;
