@@ -45,7 +45,9 @@ export class EnemyWaves {
   }
 
   resetEnemies(): void {
+    HUD.hudWaves.setWaves();
     enemiesSpawned = 0;
+    enemiesKilled = 0;
     enemiesMaximum++;
     enemiesState = ENEMIES.SPAWNING;
   } //= HUD.hudWaves.getWaves() + 10 //and add 20% floored until 150 enemies max
@@ -53,7 +55,6 @@ export class EnemyWaves {
   static enemyKilled(): void {
     enemiesKilled++;
     if (enemiesKilled === enemiesMaximum) {
-      HUD.hudWaves.setWaves();
       enemiesState = ENEMIES.KILLED;
     }
   }
