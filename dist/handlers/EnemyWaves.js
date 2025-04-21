@@ -8,20 +8,15 @@ var ENEMIES;
     ENEMIES[ENEMIES["ACTIVE"] = 1] = "ACTIVE";
     ENEMIES[ENEMIES["KILLED"] = 2] = "KILLED";
 })(ENEMIES || (ENEMIES = {}));
-let enemiesState;
-let enemiesSpawnTimer;
-let enemiesSpawned;
-let enemiesKilled;
-let enemiesMaximum;
+let enemiesState = ENEMIES.SPAWNING;
+let enemiesSpawnTimer = 0;
+let enemiesSpawned = 0;
+let enemiesKilled = 0;
+let enemiesMaximum = 9;
 export class EnemyWaves {
-    constructor() {
-        enemiesState = ENEMIES.SPAWNING;
-        enemiesSpawnTimer = 0;
-        enemiesSpawned = 0;
-        enemiesKilled = 0;
-        enemiesMaximum = 10;
-    }
     update(entities) {
+        if (!Time.eventUpdate)
+            return;
         switch (enemiesState) {
             case ENEMIES.SPAWNING:
                 this.spawnEnemies(entities);
@@ -32,25 +27,23 @@ export class EnemyWaves {
         }
     }
     spawnEnemies(entities) {
-        if (!Time.eventUpdate)
-            return;
         if (enemiesSpawnTimer++ % randomNumber(10, 25) === 0) {
-            entities.push(EnemyFactory.createZombie3());
+            entities.push(EnemyFactory.createZombie3(HUD.hudWaves.getWaves()));
             if (enemiesSpawned++ === enemiesMaximum)
                 enemiesState = ENEMIES.ACTIVE;
         }
     }
     resetEnemies() {
+        HUD.hudWaves.setWaves();
         enemiesSpawned = 0;
+        enemiesKilled = 0;
         enemiesMaximum++;
         enemiesState = ENEMIES.SPAWNING;
     }
     static enemyKilled() {
         enemiesKilled++;
-        if (enemiesKilled === enemiesMaximum) {
-            HUD.hudWaves.setWaves();
+        if (enemiesKilled === enemiesMaximum)
             enemiesState = ENEMIES.KILLED;
-        }
     }
 }
 //# sourceMappingURL=EnemyWaves.js.map
