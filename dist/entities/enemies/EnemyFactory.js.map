@@ -1,1 +1,1 @@
-{"version":3,"file":"EnemyFactory.js","sourceRoot":"","sources":["../../../src/entities/enemies/EnemyFactory.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,OAAO,EAAE,MAAM,yBAAyB,CAAC;AAElD,MAAM,OAAO,YAAY;IACvB,MAAM,CAAC,aAAa,CAAC,WAAmB;QACtC,OAAO,IAAI,OAAO,EAAE,CAAC;IACvB,CAAC;CACF"}
+{"version":3,"file":"EnemyFactory.js","sourceRoot":"","sources":["../../../src/entities/enemies/EnemyFactory.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,OAAO,EAAE,MAAM,oBAAoB,CAAC;AAE7C,MAAM,OAAO,YAAY;IACvB,MAAM,CAAC,aAAa,CAAC,WAAmB;QACtC,OAAO,IAAI,OAAO,EAAE,CAAC;IACvB,CAAC;CACF"}

@@ -1,4 +1,4 @@
-import { Zombie3 } from "./enemyTypes/Zombie3.js";
+import { Zombie3 } from "./types/Zombie3.js";
 export class EnemyFactory {
     static createZombie3(waveCounter) {
         return new Zombie3();

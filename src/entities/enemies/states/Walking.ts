@@ -1,18 +1,10 @@
 import { drawShadow } from "../../../utilities/drawShapes.js";
-import { SpriteAnimation } from "../../sprites/SpriteAnimation.js";
 import { Enemy, IEnemyState } from "../Enemy.js";
 
-export class EnemyWalkingState implements IEnemyState {
+export class Walking implements IEnemyState {
   constructor(public enemy: Enemy) {
-    enemy.sprite = new SpriteAnimation(
-      enemy.walkingSprite,
-      enemy.width,
-      enemy.height
-    )
-      .setPosition(enemy.position)
-      .setScale(1.5);
-
-    enemy.movement.setSpeed(enemy.speed);
+    enemy.setSprite(enemy.walkingSprite);
+    enemy.movement.setSpeed(enemy.movementSpeed);
   }
 
   draw(ctx: CanvasRenderingContext2D) {

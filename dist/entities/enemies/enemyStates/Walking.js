@@ -1,5 +1,5 @@
 import { drawShadow } from "../../../utilities/drawShapes.js";
-export class EnemyWalkingState {
+export class Walking {
     constructor(enemy) {
         this.enemy = enemy;
         enemy.setSprite(enemy.walkingSprite);
@@ -15,4 +15,4 @@ export class EnemyWalkingState {
         this.enemy.movement.update(this.enemy);
     }
 }
-//# sourceMappingURL=EnemyWalkingState.js.map
+//# sourceMappingURL=Walking.js.map

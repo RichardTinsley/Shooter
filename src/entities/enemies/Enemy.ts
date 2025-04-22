@@ -2,8 +2,8 @@ import { Position } from "../../constants/types.js";
 import { HealthBar } from "../../GUI/components/HealthBar.js";
 import { HitDetectionCircle } from "../../handlers/HitDetectionCircle.js";
 import { SpriteAnimation } from "../sprites/SpriteAnimation.js";
-import { EnemyMovementComponent } from "./EnemyMovementComponent.js";
-import { EnemyWalkingState } from "./enemyStates/EnemyWalkingState.js";
+import { Movement } from "./components/Movement.js";
+import { Walking } from "./states/Walking.js";
 
 export interface IEnemyState {
   enemy: Enemy;
@@ -15,13 +15,13 @@ export class Enemy {
   public state!: IEnemyState;
 
   public walkingSprite!: string;
-  public width!: number;
-  public height!: number;
-  public scale!: number;
-  public speed!: number;
+  public spriteWidth!: number;
+  public spriteHeight!: number;
+  public spriteScale!: number;
+  public movementSpeed!: number;
 
   public sprite!: SpriteAnimation;
-  public movement = new EnemyMovementComponent();
+  public movement = new Movement();
   public position = this.movement.getWaypoints();
   public destination = this.movement.getWaypoints();
 
@@ -35,8 +35,7 @@ export class Enemy {
   }
 
   // public switchToDyingState = () => (this.state = new EnemyDying(this));
-  public switchToWalkingState = () =>
-    (this.state = new EnemyWalkingState(this));
+  public switchToWalkingState = () => (this.state = new Walking(this));
 
   initialiseEnemy(): this {
     this.healthBar
@@ -50,6 +49,16 @@ export class Enemy {
     this.shadowWidth = this.sprite.getScaledWidth();
     this.mouseOverWidth = this.sprite.getScaledWidth() * 1.25;
     return this;
+  }
+
+  setSprite(sprite: string) {
+    this.sprite = new SpriteAnimation(
+      sprite,
+      this.spriteWidth,
+      this.spriteHeight
+    )
+      .setPosition(this.position)
+      .setScale(this.spriteScale);
   }
 
   setPosition(position: Position): this {

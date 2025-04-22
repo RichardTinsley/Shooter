@@ -1,11 +1,11 @@
-import { Position } from "../../constants/types.js";
-import { HUD } from "../../GUI/HUD/HUD.js";
-import { Level } from "../../handlers/Level.js";
-import { checkCircleCollision } from "../../utilities/collisionDetection.js";
-import * as MOVEMENT from "../../utilities/entityMovement.js";
-import { randomFloat } from "../../utilities/math.js";
+import { Position } from "../../../constants/types.js";
+import { HUD } from "../../../GUI/HUD/HUD.js";
+import { Level } from "../../../handlers/Level.js";
+import { checkCircleCollision } from "../../../utilities/collisionDetection.js";
+import * as MOVEMENT from "../../../utilities/entityMovement.js";
+import { randomFloat } from "../../../utilities/math.js";
 
-export class EnemyMovementComponent {
+export class Movement {
   private waypoints = Level.getEnemyGeneratedWaypoints();
   private waypointIndex: number = 1;
   private priorityDistance: number = 0;

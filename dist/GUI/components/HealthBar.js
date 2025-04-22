@@ -1,4 +1,5 @@
 import { COLOURS } from "../../constants/colours.js";
+import { EnemyWaves } from "../../handlers/EnemyWaves.js";
 import { drawRectangle } from "../../utilities/drawShapes.js";
 import { StatusBar } from "./StatusBar.js";
 export class HealthBar extends StatusBar {
@@ -25,10 +26,12 @@ export class HealthBar extends StatusBar {
     }
     setDamage(damage) {
         this.currentStatus -= damage;
-        if (this.currentStatus < 0)
-            this.currentStatus = 0;
         if (this.currentStatus < this.maxStatus * 33)
             this.healthBarColour = COLOURS.RED;
+        if (this.currentStatus < 0) {
+            this.currentStatus = 0;
+            EnemyWaves.enemyKilled();
+        }
     }
     setWidth(length) {
         this.statusBarLength = length / 1.5;

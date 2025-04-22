@@ -1,4 +1,5 @@
 import { COLOURS } from "../../constants/colours.js";
+import { EnemyWaves } from "../../handlers/EnemyWaves.js";
 import { drawRectangle } from "../../utilities/drawShapes.js";
 import { StatusBar } from "./StatusBar.js";
 
@@ -13,7 +14,7 @@ export class HealthBar extends StatusBar {
     super();
     this.maxStatus = 100;
     this.currentStatus = 100;
-    // this.maxStatus = randomFloat(HUB.wave());
+    // this.maxStatus = randomFloat(HUB.wave()); //SET MAX HEALTH FUNCTION
   }
 
   draw(ctx: CanvasRenderingContext2D): void {
@@ -50,19 +51,15 @@ export class HealthBar extends StatusBar {
   setDamage(damage: number): void {
     this.currentStatus -= damage;
 
-    if (this.currentStatus < 0) this.currentStatus = 0;
-
     if (this.currentStatus < this.maxStatus * 33)
       this.healthBarColour = COLOURS.RED;
+
+    if (this.currentStatus < 0) {
+      this.currentStatus = 0;
+      EnemyWaves.enemyKilled();
+    }
   }
 
-  ////MOVE THIS LOGIC INTO HEALTHBAR
-  // setDamage(damage: number) {
-  //   this.healthBar.setDamage(damage);
-  //   if (this.healthBar.getCurrentStatus() === 0) {
-  //     EnemyWaves.enemyKilled();
-  //   }
-  // }
   setWidth(length: number): this {
     this.statusBarLength = length / 1.5;
     return this;
