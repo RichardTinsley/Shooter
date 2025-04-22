@@ -1,33 +1,22 @@
 import { HealthBar } from "../../GUI/components/HealthBar.js";
 import { HitDetectionCircle } from "../../handlers/HitDetectionCircle.js";
-import { drawShadow, drawMouseOverEnemy } from "../../utilities/drawShapes.js";
-import { EnemyWaves } from "../../handlers/EnemyWaves.js";
-import { ANIMATION } from "../../constants/animation.js";
+import { SpriteAnimation } from "../sprites/SpriteAnimation.js";
 import { EnemyMovement } from "./EnemyMovement.js";
+import { EnemyWalking } from "./enemyStates/EnemyWalking.js";
 export class Enemy {
     constructor() {
-        this.movement = new EnemyMovement();
-        this.position = this.movement.getPosition();
-        this.enemyState = ANIMATION.NORMAL;
+        this.switchToWalkingState = () => (this.state = new EnemyWalking(this));
     }
-    draw(ctx) {
-        switch (this.enemyState) {
-            case ANIMATION.MOUSEOVER:
-                drawMouseOverEnemy(ctx, this.position, this.mouseOverWidth);
-            case ANIMATION.NORMAL:
-                drawShadow(ctx, this.position, this.shadowWidth);
-                this.sprite.draw(ctx);
-                this.healthBar.draw(ctx);
-                break;
-            case ANIMATION.FINISHED:
-                break;
-        }
+    getCurrentState() {
+        return this.state;
     }
-    update() {
-        this.movement.update(this);
-        this.sprite.animate();
-    }
-    initialiseEnemy() {
+    initialiseEnemy(fileName, width, height) {
+        this.movement = new EnemyMovement().setSpeed(4);
+        this.position = this.movement.getWaypoints();
+        this.destination = this.movement.getWaypoints();
+        this.sprite = new SpriteAnimation(fileName, width, height)
+            .setPosition(this.position)
+            .setScale(1.5);
         this.shadowWidth = this.sprite.getScaledWidth();
         this.mouseOverWidth = this.sprite.getScaledWidth() * 1.25;
         this.healthBar = new HealthBar()
@@ -40,25 +29,22 @@ export class Enemy {
             .setDrawOffsets(0, this.sprite.getScaledHeight() / 2);
         return this;
     }
-    mouseOver(state) {
-        this.enemyState = state;
-        return;
-    }
-    setDamage(damage) {
-        this.healthBar.setDamage(damage);
-        if (this.healthBar.getCurrentStatus() === 0) {
-            EnemyWaves.enemyKilled();
-        }
-    }
-    setSpeed(speed) {
-        this.movement.setSpeed(speed);
+    setPosition(position) {
+        this.position = Object.assign({}, position);
         return this;
     }
-    getType() {
-        return "Enemy";
+    setDestination(destination) {
+        this.destination = Object.assign({}, destination);
+        return this;
     }
     mouseClick() {
         return;
+    }
+    mouseOver(state) {
+        return;
+    }
+    getType() {
+        return "Enemy";
     }
 }
 //# sourceMappingURL=Enemy.js.map

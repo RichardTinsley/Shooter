@@ -10,6 +10,7 @@ export class BattleScreen implements IScreenState {
   level = new Level();
   enemyWaves = new EnemyWaves();
   entities: Array<any> = [];
+  enemies: Array<any> = [];
 
   constructor(public screen: Screen) {
     this.entities.push(...this.level.createEmptyTowerSpots());
@@ -21,14 +22,19 @@ export class BattleScreen implements IScreenState {
     //this.menu.draw(ctx);
     this.entities.sort((a, b) => a.position.y - b.position.y);
     this.entities.forEach((entity) => entity.draw(ctx));
+
+    this.enemies.sort((a, b) => a.position.y - b.position.y);
+    this.enemies.forEach((entity) => entity.getCurrentState().draw(ctx));
   }
   update(): void {
     this.level.update();
     this.hud.update();
     //this.menu.update();
-    this.enemyWaves.update(this.entities);
+    this.enemyWaves.update(this.enemies);
 
     this.entities.forEach((entity) => entity.update());
+
+    this.enemies.forEach((entity) => entity.getCurrentState().update());
     // this.entities = this.entities.filter(entity => {
     //   entity.update();
     //   return entity.state !== ANIMATION.FINISHED;

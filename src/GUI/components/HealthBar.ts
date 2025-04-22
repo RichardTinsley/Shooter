@@ -1,5 +1,4 @@
 import { COLOURS } from "../../constants/colours.js";
-import { Position } from "../../constants/types.js";
 import { drawRectangle } from "../../utilities/drawShapes.js";
 import { StatusBar } from "./StatusBar.js";
 
@@ -57,6 +56,13 @@ export class HealthBar extends StatusBar {
       this.healthBarColour = COLOURS.RED;
   }
 
+  ////MOVE THIS LOGIC INTO HEALTHBAR
+  // setDamage(damage: number) {
+  //   this.healthBar.setDamage(damage);
+  //   if (this.healthBar.getCurrentStatus() === 0) {
+  //     EnemyWaves.enemyKilled();
+  //   }
+  // }
   setWidth(length: number): this {
     this.statusBarLength = length / 1.5;
     return this;

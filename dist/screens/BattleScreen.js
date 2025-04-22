@@ -8,6 +8,7 @@ export class BattleScreen {
         this.level = new Level();
         this.enemyWaves = new EnemyWaves();
         this.entities = [];
+        this.enemies = [];
         this.entities.push(...this.level.createEmptyTowerSpots());
     }
     draw(ctx) {
@@ -15,12 +16,15 @@ export class BattleScreen {
         this.hud.draw(ctx);
         this.entities.sort((a, b) => a.position.y - b.position.y);
         this.entities.forEach((entity) => entity.draw(ctx));
+        this.enemies.sort((a, b) => a.position.y - b.position.y);
+        this.enemies.forEach((entity) => entity.getCurrentState().draw(ctx));
     }
     update() {
         this.level.update();
         this.hud.update();
-        this.enemyWaves.update(this.entities);
+        this.enemyWaves.update(this.enemies);
         this.entities.forEach((entity) => entity.update());
+        this.enemies.forEach((entity) => entity.getCurrentState().update());
     }
     getArray() {
         return [...this.entities];
