@@ -1,13 +1,19 @@
-import { Enemy } from "../Enemy.js";
+import { Enemy, IEnemyState } from "../Enemy.js";
+import { EnemyWalkingState } from "../enemyStates/EnemyWalkingState.js";
+import { FILE_NAMES } from "../../../constants/assets.js";
 
 export class Zombie3 extends Enemy {
-  protected width: number = 32;
-  protected height: number = 32;
+  public width: number = 32;
+  public height: number = 32;
+  public scale: number = 1.5;
   public speed: number = 8;
 
-  constructor(fileName: string) {
+  public walkingSprite = FILE_NAMES.ENEMY_ZOMBIE_3_WALK;
+
+  public state: IEnemyState = new EnemyWalkingState(this);
+
+  constructor() {
     super();
-    this.initialiseEnemy(fileName, this.width, this.height);
-    this.switchToWalkingState();
+    this.initialiseEnemy();
   }
 }

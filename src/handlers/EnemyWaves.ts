@@ -13,7 +13,7 @@ let enemiesState: number = ENEMIES.SPAWNING;
 let enemiesSpawnTimer: number = 0;
 let enemiesSpawned: number = 0;
 let enemiesKilled: number = 0;
-let enemiesMaximum: number = 9;
+let enemiesMaximum: number = 600;
 
 export class EnemyWaves {
   update(entities: Array<any>): void {

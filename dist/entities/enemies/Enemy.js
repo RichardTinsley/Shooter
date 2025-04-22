@@ -1,32 +1,28 @@
 import { HealthBar } from "../../GUI/components/HealthBar.js";
 import { HitDetectionCircle } from "../../handlers/HitDetectionCircle.js";
-import { SpriteAnimation } from "../sprites/SpriteAnimation.js";
-import { EnemyMovement } from "./EnemyMovement.js";
-import { EnemyWalking } from "./enemyStates/EnemyWalking.js";
+import { EnemyMovementComponent } from "./EnemyMovementComponent.js";
+import { EnemyWalkingState } from "./enemyStates/EnemyWalkingState.js";
 export class Enemy {
     constructor() {
-        this.switchToWalkingState = () => (this.state = new EnemyWalking(this));
+        this.movement = new EnemyMovementComponent();
+        this.position = this.movement.getWaypoints();
+        this.destination = this.movement.getWaypoints();
+        this.healthBar = new HealthBar().setPosition(this.position);
+        this.hitDetection = new HitDetectionCircle().setPosition(this.position);
+        this.switchToWalkingState = () => (this.state = new EnemyWalkingState(this));
     }
     getCurrentState() {
         return this.state;
     }
-    initialiseEnemy(fileName, width, height) {
-        this.movement = new EnemyMovement();
-        this.position = this.movement.getWaypoints();
-        this.destination = this.movement.getWaypoints();
-        this.sprite = new SpriteAnimation(fileName, width, height)
-            .setPosition(this.position)
-            .setScale(1.5);
-        this.shadowWidth = this.sprite.getScaledWidth();
-        this.mouseOverWidth = this.sprite.getScaledWidth() * 1.25;
-        this.healthBar = new HealthBar()
-            .setPosition(this.position)
+    initialiseEnemy() {
+        this.healthBar
             .setWidth(this.sprite.getScaledWidth())
             .setDrawOffsets(this.sprite.getScaledHeight());
-        this.hitDetection = new HitDetectionCircle()
-            .setPosition(this.position)
+        this.hitDetection
             .setWidth(this.sprite.getScaledWidth())
             .setDrawOffsets(0, this.sprite.getScaledHeight() / 2);
+        this.shadowWidth = this.sprite.getScaledWidth();
+        this.mouseOverWidth = this.sprite.getScaledWidth() * 1.25;
         return this;
     }
     setPosition(position) {

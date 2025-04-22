@@ -13,16 +13,15 @@
 //       .setScale(1.5)
 //       .setDrawOffsets(0.25, 0.1);
 
-//     this.shadowWidth = this.sprite.getScaledWidth() / 2;
-//     this.mouseOverWidth = this.sprite.getScaledWidth() / 2;
-
-//     this.hitDetection
-//       .setPosition(this.position)
-//       .setWidth(this.sprite.getScaledWidth() / 2)
-//       .setDrawOffsets(0, 0);
 //     this.healthBar
-//       .setPosition(this.position)
 //       .setWidth(this.sprite.getScaledWidth() / 2)
 //       .setDrawOffsets(this.sprite.getScaledHeight() - 5);
+
+//     this.hitDetection
+//       .setWidth(this.sprite.getScaledWidth() / 2)
+//       .setDrawOffsets(0, 0);
+
+//     this.shadowWidth = this.sprite.getScaledWidth() / 2;
+//     this.mouseOverWidth = this.sprite.getScaledWidth() / 2;
 //   }
 // }

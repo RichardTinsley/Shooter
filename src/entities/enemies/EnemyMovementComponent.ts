@@ -5,7 +5,7 @@ import { checkCircleCollision } from "../../utilities/collisionDetection.js";
 import * as MOVEMENT from "../../utilities/entityMovement.js";
 import { randomFloat } from "../../utilities/math.js";
 
-export class EnemyMovement {
+export class EnemyMovementComponent {
   private waypoints = Level.getEnemyGeneratedWaypoints();
   private waypointIndex: number = 1;
   private priorityDistance: number = 0;

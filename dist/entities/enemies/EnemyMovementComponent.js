@@ -44,4 +44,4 @@ export class EnemyMovementComponent {
         this.priorityDistance = Math.round(Math.abs(dx) + Math.abs(dy));
     }
 }
-//# sourceMappingURL=EnemyMovement.js.map
+//# sourceMappingURL=EnemyMovementComponent.js.map
