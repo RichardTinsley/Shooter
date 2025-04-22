@@ -11,7 +11,7 @@ export class Movement {
   private priorityDistance: number = 0;
 
   public speed!: number;
-  public speedDelta: number = 0.15;
+  public delta: number = 0.15;
   private angle!: number;
 
   update(enemy: any) {
@@ -45,12 +45,11 @@ export class Movement {
     return this.priorityDistance;
   }
 
-  setSpeed(speed: number): this {
+  setSpeed(speed: number) {
     this.speed = randomFloat(
-      speed - speed * this.speedDelta,
-      speed + speed * this.speedDelta
+      speed - speed * this.delta,
+      speed + speed * this.delta
     );
-    return this;
   }
 
   setPriorityDistance(enemy: any) {

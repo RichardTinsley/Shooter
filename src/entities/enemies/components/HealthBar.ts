@@ -1,7 +1,7 @@
-import { COLOURS } from "../../constants/colours.js";
-import { EnemyWaves } from "../../handlers/EnemyWaves.js";
-import { drawRectangle } from "../../utilities/drawShapes.js";
-import { StatusBar } from "./StatusBar.js";
+import { COLOURS } from "../../../constants/colours.js";
+import { StatusBar } from "../../../GUI/components/StatusBar.js";
+import { EnemyWaves } from "../../../handlers/EnemyWaves.js";
+import { drawRectangle } from "../../../utilities/drawShapes.js";
 
 export class HealthBar extends StatusBar {
   readonly statusBarHeight: number = 3;

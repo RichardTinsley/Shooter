@@ -12,7 +12,7 @@ let enemiesState = ENEMIES.SPAWNING;
 let enemiesSpawnTimer = 0;
 let enemiesSpawned = 0;
 let enemiesKilled = 0;
-let enemiesMaximum = 600;
+let enemiesMaximum = 90;
 export class EnemyWaves {
     update(entities) {
         if (!Time.eventUpdate)

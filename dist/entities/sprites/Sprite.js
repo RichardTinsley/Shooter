@@ -8,15 +8,15 @@ export class Sprite {
         this.halfWidth = this.width / 2;
         this.drawOffsetX = 0;
         this.drawOffsetY = 0;
-        this.animationFrame = 0;
-        this.animationRow = 0;
+        this.currentFrame = 0;
+        this.currentRow = 0;
         this.image = ALL_ASSETS.get(fileName);
     }
     draw(ctx) {
         ctx.save();
         ctx.translate(this.position.x, this.position.y);
         ctx.scale(this.direction, 1);
-        ctx.drawImage(this.image, this.width * this.animationFrame, this.height * this.animationRow, this.width, this.height, 0 - this.halfWidth + this.drawOffsetX, 0 - this.scaledHeight + this.drawOffsetY, this.scaledWidth, this.scaledHeight);
+        ctx.drawImage(this.image, this.width * this.currentFrame, this.height * this.currentRow, this.width, this.height, 0 - this.halfWidth + this.drawOffsetX, 0 - this.scaledHeight + this.drawOffsetY, this.scaledWidth, this.scaledHeight);
         ctx.restore();
     }
     setPosition(position) {

@@ -1,6 +1,6 @@
-import { HealthBar } from "../../GUI/components/HealthBar.js";
 import { HitDetectionCircle } from "../../handlers/HitDetectionCircle.js";
 import { SpriteAnimation } from "../sprites/SpriteAnimation.js";
+import { HealthBar } from "./components/HealthBar.js";
 import { Movement } from "./components/Movement.js";
 import { Walking } from "./states/Walking.js";
 export class Enemy {
@@ -24,7 +24,6 @@ export class Enemy {
             .setDrawOffsets(0, this.sprite.getScaledHeight() / 2);
         this.shadowWidth = this.sprite.getScaledWidth();
         this.mouseOverWidth = this.sprite.getScaledWidth() * 1.25;
-        return this;
     }
     setSprite(sprite) {
         this.sprite = new SpriteAnimation(sprite, this.spriteWidth, this.spriteHeight)
@@ -33,11 +32,9 @@ export class Enemy {
     }
     setPosition(position) {
         this.position = Object.assign({}, position);
-        return this;
     }
     setDestination(destination) {
         this.destination = Object.assign({}, destination);
-        return this;
     }
     mouseClick() {
         return;

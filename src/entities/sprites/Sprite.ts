@@ -13,8 +13,8 @@ export class Sprite {
   protected drawOffsetX: number = 0;
   protected drawOffsetY: number = 0;
 
-  protected animationFrame: number = 0;
-  protected animationRow: number = 0;
+  protected currentFrame: number = 0;
+  protected currentRow: number = 0;
 
   constructor(
     fileName: string,
@@ -31,8 +31,8 @@ export class Sprite {
 
     ctx.drawImage(
       this.image,
-      this.width * this.animationFrame,
-      this.height * this.animationRow,
+      this.width * this.currentFrame,
+      this.height * this.currentRow,
       this.width,
       this.height,
       0 - this.halfWidth + this.drawOffsetX,

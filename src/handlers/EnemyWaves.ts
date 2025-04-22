@@ -13,7 +13,7 @@ let enemiesState: number = ENEMIES.SPAWNING;
 let enemiesSpawnTimer: number = 0;
 let enemiesSpawned: number = 0;
 let enemiesKilled: number = 0;
-let enemiesMaximum: number = 600;
+let enemiesMaximum: number = 90;
 
 export class EnemyWaves {
   update(entities: Array<any>): void {
@@ -40,7 +40,7 @@ export class EnemyWaves {
     HUD.hudWaves.setWaves();
     enemiesSpawned = 0;
     enemiesKilled = 0;
-    enemiesMaximum++; //= HUD.hudWaves.getWaves()
+    enemiesMaximum++; //= HUD.hudWaves.getWaves() FORMULA
     enemiesState = ENEMIES.SPAWNING;
   }
 

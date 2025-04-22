@@ -1,73 +1,81 @@
 import { Time } from "../../handlers/Time.js";
 import { Sprite } from "./Sprite.js";
 
-const enum SPRITE_STATE {
-  ANIMATE_FRAMES,
-  ANIMATE_ROWS,
+const enum ANIMATE {
+  FINISHED,
+  ROW_ONCE,
+  ROW_REPEATEDLY,
+  ROWS_REPEATEDLY,
 }
 
 export class SpriteAnimation extends Sprite {
-  protected maxAnimationFrame!: number;
-  protected maxAnimationRow!: number;
+  protected maxFrames!: number;
+  protected maxRows!: number;
   protected animationState!: number;
 
   constructor(fileName: string, spriteWidth: number, spriteHeight: number) {
     super(fileName, spriteWidth, spriteHeight);
 
-    this.maxAnimationFrame = this.getSpriteSheetDimensions(
-      this.image.width,
-      this.width
-    );
+    this.maxFrames = Math.floor(this.image.width / this.width) - 1;
+    this.maxRows = Math.floor(this.image.height / this.height) - 1;
 
-    this.maxAnimationRow = this.getSpriteSheetDimensions(
-      this.image.height,
-      this.height
-    );
-
-    this.maxAnimationRow === 0
-      ? (this.animationState = SPRITE_STATE.ANIMATE_FRAMES)
-      : (this.animationState = SPRITE_STATE.ANIMATE_ROWS);
+    this.maxRows === 0
+      ? (this.animationState = ANIMATE.ROW_REPEATEDLY)
+      : (this.animationState = ANIMATE.ROWS_REPEATEDLY);
   }
 
   animate() {
     if (!Time.eventUpdate) return;
 
     switch (this.animationState) {
-      case SPRITE_STATE.ANIMATE_FRAMES:
-        this.animateFrames();
+      case ANIMATE.ROW_ONCE:
+        this.animateSingleRowOnce();
         break;
-      case SPRITE_STATE.ANIMATE_ROWS:
-        this.animateRows();
+      case ANIMATE.ROW_REPEATEDLY:
+        this.animateSingleRowRepeatedly();
+        break;
+      case ANIMATE.ROWS_REPEATEDLY:
+        this.animateMultipleRowsRepeatedly();
         break;
     }
   }
 
-  animateFrames(): void {
-    if (this.animationFrame < this.maxAnimationFrame) {
-      this.animationFrame++;
+  animateSingleRowOnce(): void {
+    if (this.currentFrame < this.maxFrames) {
+      this.currentFrame++;
     } else {
-      this.animationFrame = 0;
+      this.animationState = ANIMATE.FINISHED;
     }
   }
 
-  animateRows() {
-    if (this.animationFrame < this.maxAnimationFrame) {
-      this.animationFrame++;
+  animateSingleRowRepeatedly(): void {
+    if (this.currentFrame < this.maxFrames) {
+      this.currentFrame++;
     } else {
-      this.animationRow++;
-      this.animationFrame = 0;
+      this.currentFrame = 0;
+    }
+  }
+
+  animateMultipleRowsRepeatedly() {
+    if (this.currentFrame < this.maxFrames) {
+      this.currentFrame++;
+    } else {
+      this.currentRow++;
+      this.currentFrame = 0;
     }
 
     if (
-      this.animationRow === this.maxAnimationRow &&
-      this.animationFrame <= this.maxAnimationFrame
+      this.currentRow === this.maxRows &&
+      this.currentFrame <= this.maxFrames
     ) {
-      this.animationRow = 0;
-      this.animationFrame = 0;
+      this.currentRow = 0;
+      this.currentFrame = 0;
     }
   }
 
-  getSpriteSheetDimensions(sheet: number, sprite: number): number {
-    return Math.floor(sheet / sprite) - 1;
+  setSpriteSheetRowAndAnimateOnce(animationRow: number = 0): this {
+    this.currentRow = animationRow;
+    this.animationState = ANIMATE.ROW_ONCE;
+    return this;
   }
 }

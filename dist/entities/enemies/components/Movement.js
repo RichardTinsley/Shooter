@@ -8,7 +8,7 @@ export class Movement {
         this.waypoints = Level.getEnemyGeneratedWaypoints();
         this.waypointIndex = 1;
         this.priorityDistance = 0;
-        this.speedDelta = 0.15;
+        this.delta = 0.15;
     }
     update(enemy) {
         if (checkCircleCollision(enemy.position, enemy.destination, 5, 10)) {
@@ -35,8 +35,7 @@ export class Movement {
         return this.priorityDistance;
     }
     setSpeed(speed) {
-        this.speed = randomFloat(speed - speed * this.speedDelta, speed + speed * this.speedDelta);
-        return this;
+        this.speed = randomFloat(speed - speed * this.delta, speed + speed * this.delta);
     }
     setPriorityDistance(enemy) {
         const dx = enemy.destination.y - enemy.position.y;

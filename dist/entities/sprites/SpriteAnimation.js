@@ -3,48 +3,61 @@ import { Sprite } from "./Sprite.js";
 export class SpriteAnimation extends Sprite {
     constructor(fileName, spriteWidth, spriteHeight) {
         super(fileName, spriteWidth, spriteHeight);
-        this.maxAnimationFrame = this.getSpriteSheetDimensions(this.image.width, this.width);
-        this.maxAnimationRow = this.getSpriteSheetDimensions(this.image.height, this.height);
-        this.maxAnimationRow === 0
-            ? (this.animationState = 0)
-            : (this.animationState = 1);
+        this.maxFrames = Math.floor(this.image.width / this.width) - 1;
+        this.maxRows = Math.floor(this.image.height / this.height) - 1;
+        this.maxRows === 0
+            ? (this.animationState = 2)
+            : (this.animationState = 3);
     }
     animate() {
         if (!Time.eventUpdate)
             return;
         switch (this.animationState) {
-            case 0:
-                this.animateFrames();
-                break;
             case 1:
-                this.animateRows();
+                this.animateSingleRowOnce();
+                break;
+            case 2:
+                this.animateSingleRowRepeatedly();
+                break;
+            case 3:
+                this.animateMultipleRowsRepeatedly();
                 break;
         }
     }
-    animateFrames() {
-        if (this.animationFrame < this.maxAnimationFrame) {
-            this.animationFrame++;
+    animateSingleRowOnce() {
+        if (this.currentFrame < this.maxFrames) {
+            this.currentFrame++;
         }
         else {
-            this.animationFrame = 0;
+            this.animationState = 0;
         }
     }
-    animateRows() {
-        if (this.animationFrame < this.maxAnimationFrame) {
-            this.animationFrame++;
+    animateSingleRowRepeatedly() {
+        if (this.currentFrame < this.maxFrames) {
+            this.currentFrame++;
         }
         else {
-            this.animationRow++;
-            this.animationFrame = 0;
-        }
-        if (this.animationRow === this.maxAnimationRow &&
-            this.animationFrame <= this.maxAnimationFrame) {
-            this.animationRow = 0;
-            this.animationFrame = 0;
+            this.currentFrame = 0;
         }
     }
-    getSpriteSheetDimensions(sheet, sprite) {
-        return Math.floor(sheet / sprite) - 1;
+    animateMultipleRowsRepeatedly() {
+        if (this.currentFrame < this.maxFrames) {
+            this.currentFrame++;
+        }
+        else {
+            this.currentRow++;
+            this.currentFrame = 0;
+        }
+        if (this.currentRow === this.maxRows &&
+            this.currentFrame <= this.maxFrames) {
+            this.currentRow = 0;
+            this.currentFrame = 0;
+        }
+    }
+    setSpriteSheetRowAndAnimateOnce(animationRow = 0) {
+        this.currentRow = animationRow;
+        this.animationState = 1;
+        return this;
     }
 }
 //# sourceMappingURL=SpriteAnimation.js.map
