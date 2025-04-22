@@ -3,8 +3,7 @@ import { Enemy, IEnemyState } from "../Enemy.js";
 
 export class EnemyWalking implements IEnemyState {
   constructor(public enemy: Enemy) {
-    // enemy.movement.setSpeed(enemy.speed);
-    console.log(enemy.speed);
+    enemy.movement.setSpeed(enemy.speed);
   }
 
   draw(ctx: CanvasRenderingContext2D) {

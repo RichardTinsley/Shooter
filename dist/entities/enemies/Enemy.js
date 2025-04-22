@@ -11,7 +11,7 @@ export class Enemy {
         return this.state;
     }
     initialiseEnemy(fileName, width, height) {
-        this.movement = new EnemyMovement().setSpeed(4);
+        this.movement = new EnemyMovement();
         this.position = this.movement.getWaypoints();
         this.destination = this.movement.getWaypoints();
         this.sprite = new SpriteAnimation(fileName, width, height)

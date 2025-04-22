@@ -4,6 +4,7 @@ export class Zombie3 extends Enemy {
         super();
         this.width = 32;
         this.height = 32;
+        this.speed = 8;
         this.initialiseEnemy(fileName, this.width, this.height);
         this.switchToWalkingState();
     }

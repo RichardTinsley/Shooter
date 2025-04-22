@@ -34,7 +34,7 @@ export class Enemy {
   public switchToWalkingState = () => (this.state = new EnemyWalking(this));
 
   initialiseEnemy(fileName: string, width: number, height: number): this {
-    this.movement = new EnemyMovement().setSpeed(4);
+    this.movement = new EnemyMovement();
     this.position = this.movement.getWaypoints();
     this.destination = this.movement.getWaypoints();
 

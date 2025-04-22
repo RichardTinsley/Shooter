@@ -2,7 +2,7 @@ import { drawShadow } from "../../../utilities/drawShapes.js";
 export class EnemyWalking {
     constructor(enemy) {
         this.enemy = enemy;
-        console.log(enemy.speed);
+        enemy.movement.setSpeed(enemy.speed);
     }
     draw(ctx) {
         drawShadow(ctx, this.enemy.position, this.enemy.shadowWidth);
@@ -14,4 +14,4 @@ export class EnemyWalking {
         this.enemy.movement.update(this.enemy);
     }
 }
-//# so
+//# sourceMappingURL=EnemyWalking.js.map
