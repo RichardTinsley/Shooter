@@ -10,6 +10,7 @@ export class EmptyTowerSpot {
     this.sprite = new SpriteAnimation()
       .setImage(fileName, 64, 64)
       .setPosition(position)
+      .setScale(1)
       .initialise();
 
     this.hitDetection = new HitDetectionCircle()
