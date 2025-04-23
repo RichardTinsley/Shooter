@@ -49,8 +49,5 @@ export class Sprite {
     getScaledHeight() {
         return this.scaledHeight;
     }
-    getWidth() {
-        return this.spriteWidth;
-    }
 }
 //# sourceMappingURL=Sprite.js.map

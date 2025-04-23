@@ -78,8 +78,4 @@ export class Sprite {
   getScaledHeight(): number {
     return this.scaledHeight;
   }
-
-  getWidth(): number {
-    return this.spriteWidth;
-  }
 }
