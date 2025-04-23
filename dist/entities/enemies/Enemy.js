@@ -16,15 +16,15 @@ export class Enemy {
     getCurrentState() {
         return this.state;
     }
-    initialiseEnemy() {
+    initialiseEnemyComponents(width) {
         this.healthBar
-            .setWidth(this.sprite.getScaledWidth())
+            .setWidth(width)
             .setDrawOffsets(this.sprite.getScaledHeight());
         this.hitDetection
-            .setWidth(this.sprite.getScaledWidth())
+            .setWidth(width)
             .setDrawOffsets(0, this.sprite.getScaledHeight() / 2);
-        this.shadowWidth = this.sprite.getScaledWidth();
-        this.mouseOverWidth = this.sprite.getScaledWidth() * 1.25;
+        this.shadowWidth = width;
+        this.mouseOverWidth = width * 1.25;
     }
     setPosition(position) {
         this.position = Object.assign({}, position);

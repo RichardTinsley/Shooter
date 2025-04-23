@@ -42,17 +42,17 @@ export class Enemy {
   // public switchToDyingState = () => (this.state = new EnemyDying(this));
   public switchToWalkingState = () => (this.state = new Walking(this));
 
-  initialiseEnemy() {
+  initialiseEnemyComponents(width: number) {
     this.healthBar
-      .setWidth(this.sprite.getScaledWidth())
+      .setWidth(width)
       .setDrawOffsets(this.sprite.getScaledHeight());
 
     this.hitDetection
-      .setWidth(this.sprite.getScaledWidth())
+      .setWidth(width)
       .setDrawOffsets(0, this.sprite.getScaledHeight() / 2);
 
-    this.shadowWidth = this.sprite.getScaledWidth();
-    this.mouseOverWidth = this.sprite.getScaledWidth() * 1.25;
+    this.shadowWidth = width;
+    this.mouseOverWidth = width * 1.25;
   }
 
   setPosition(position: Position) {

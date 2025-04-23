@@ -35,17 +35,9 @@ export class ZombieCrawler extends Enemy {
 
   constructor() {
     super();
-
+    this.initialiseEnemyComponents(this.sprite.getScaledWidth() / 2);
     this.sprite.setDrawOffsets(0.25, 0.1);
-    this.healthBar
-      .setWidth(this.sprite.getScaledWidth() / 2)
-      .setDrawOffsets(this.sprite.getScaledHeight() - 5);
-
-    this.hitDetection
-      .setWidth(this.sprite.getScaledWidth() / 2)
-      .setDrawOffsets(0, 0);
-
-    this.shadowWidth = this.sprite.getScaledWidth() / 2;
-    this.mouseOverWidth = this.sprite.getScaledWidth() / 2;
+    this.healthBar.setDrawOffsets(this.sprite.getScaledHeight() - 5);
+    this.hitDetection.setDrawOffsets(0, 0);
   }
 }
