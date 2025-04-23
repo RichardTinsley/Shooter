@@ -15,6 +15,10 @@ export class Enemy {
   public state!: IEnemyState;
 
   public walkingSprite!: string;
+  public screamingSprite!: string;
+  public dyingSprite!: string;
+  public idlingSprite!: string;
+
   public sprite!: SpriteAnimation;
   public spriteWidth!: number;
   public spriteHeight!: number;

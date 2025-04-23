@@ -13,7 +13,7 @@ let enemiesState: number = ENEMIES.SPAWNING;
 let enemiesSpawnTimer: number = 0;
 let enemiesSpawned: number = 0;
 let enemiesKilled: number = 0;
-let enemiesMaximum: number = 90;
+let enemiesMaximum: number = 9;
 
 export class EnemyWaves {
   update(entities: Array<any>): void {
@@ -31,7 +31,7 @@ export class EnemyWaves {
 
   spawnEnemies(entities: Array<any>): void {
     if (enemiesSpawnTimer++ % randomNumber(10, 25) === 0) {
-      entities.push(EnemyFactory.createZombie3(HUD.hudWaves.getWaves()));
+      entities.push(EnemyFactory.createZombieCheeks(HUD.hudWaves.getWaves()));
       if (enemiesSpawned++ === enemiesMaximum) enemiesState = ENEMIES.ACTIVE;
     }
   }

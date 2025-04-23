@@ -1,5 +1,6 @@
 const EFFECTS_URL: string = "./images/effects/";
 const ENEMIES_URL: string = "./images/enemies/";
+const ZOMBIES_URL: string = "./images/enemies/zombies/";
 const PROJECTILES_URL: string = "./images/projectiles/";
 const TOWERS_URL: string = "./images/towers/";
 const UI_URL: string = "./images/UI/";
@@ -31,11 +32,15 @@ export const FILE_NAMES: Record<string, string> = {
   
   PROJECTILE_SAPPHIRE_1: "Iceball_84x9.png", 
 
-  ENEMY_ZOMBIE_1_WALK: "zombie_1_walk.png",
-  ENEMY_ZOMBIE_1_DIE: "zombie_1_die.png",
+  ZOMBIE_DARKCHEEKS_WALK: "zombie_dark_cheeks_walk.png",
+  ZOMBIE_DARKCHEEKS_DIE: "zombie_dark_cheeks_die.png",
+  ZOMBIE_DARKCHEEKS_IDLE: "zombie_dark_cheeks_idle.png",
+  ZOMBIE_DARKCHEEKS_SCREAM: "zombie_dark_cheeks_scream.png",
 
-  ENEMY_ZOMBIE_3_WALK: "zombie_3_walk.png",
-  ENEMY_ZOMBIE_3_DIE: "zombie_3_die.png",
+  ZOMBIE_CHEEKS_WALK: "zombie_cheeks_walk.png",
+  ZOMBIE_CHEEKS_DIE: "zombie_cheeks_die.png",
+  ZOMBIE_CHEEKS_IDLE: "zombie_cheeks_idle.png",
+  ZOMBIE_CHEEKS_SCREAM: "zombie_cheeks_scream.png",
   
 };
 
@@ -63,8 +68,15 @@ export const ASSET_LIST: string[][] = [
   //SOUNDFX
 
   //ENEMIES
-  [`${FILE_NAMES.ENEMY_ZOMBIE_1_WALK}`, `${ENEMIES_URL}${FILE_NAMES.ENEMY_ZOMBIE_1_WALK}`],
-  [`${FILE_NAMES.ENEMY_ZOMBIE_3_WALK}`, `${ENEMIES_URL}${FILE_NAMES.ENEMY_ZOMBIE_3_WALK}`], 
+  [`${FILE_NAMES.ZOMBIE_DARKCHEEKS_WALK}`, `${ZOMBIES_URL}${FILE_NAMES.ZOMBIE_DARKCHEEKS_WALK}`],
+  [`${FILE_NAMES.ZOMBIE_DARKCHEEKS_DIE}`, `${ZOMBIES_URL}${FILE_NAMES.ZOMBIE_DARKCHEEKS_DIE}`],
+  [`${FILE_NAMES.ZOMBIE_DARKCHEEKS_IDLE}`, `${ZOMBIES_URL}${FILE_NAMES.ZOMBIE_DARKCHEEKS_IDLE}`],
+  [`${FILE_NAMES.ZOMBIE_DARKCHEEKS_SCREAM}`, `${ZOMBIES_URL}${FILE_NAMES.ZOMBIE_DARKCHEEKS_SCREAM}`],
+
+  [`${FILE_NAMES.ZOMBIE_CHEEKS_WALK}`, `${ZOMBIES_URL}${FILE_NAMES.ZOMBIE_CHEEKS_WALK}`],
+  [`${FILE_NAMES.ZOMBIE_CHEEKS_DIE}`, `${ZOMBIES_URL}${FILE_NAMES.ZOMBIE_CHEEKS_DIE}`],
+  [`${FILE_NAMES.ZOMBIE_CHEEKS_IDLE}`, `${ZOMBIES_URL}${FILE_NAMES.ZOMBIE_CHEEKS_IDLE}`],
+  [`${FILE_NAMES.ZOMBIE_CHEEKS_SCREAM}`, `${ZOMBIES_URL}${FILE_NAMES.ZOMBIE_CHEEKS_SCREAM}`],
   
   //TOWERS
   [`${FILE_NAMES.TOWER_EMPTY_SPOT}`, `${TOWERS_URL}${FILE_NAMES.TOWER_EMPTY_SPOT}`],

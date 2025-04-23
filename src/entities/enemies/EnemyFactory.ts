@@ -1,7 +1,7 @@
-import { Zombie3 } from "./types/Zombie3.js";
+import { ZombieCheeks } from "./types/ZombieDarkCheeks.js";
 
 export class EnemyFactory {
-  static createZombie3(waveCounter: number): any {
-    return new Zombie3();
+  static createZombieCheeks(waveCounter: number): any {
+    return new ZombieCheeks();
   }
 }
