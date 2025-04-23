@@ -1,13 +1,22 @@
 import { randomNumber } from "../../utilities/math.js";
 import { ZombieCrawler } from "./types/ZombieCrawler.js";
-import { ZombieCheeks } from "./types/ZombieDarkCheeks.js";
+import { ZombieCheeks } from "./types/ZombieCheeks.js";
+import { ZombieCrawlerDark } from "./types/ZombieCrawlerDark.js";
+import { ZombieCheeksDark } from "./types/ZombieCheeksDark.js";
 export class EnemyFactory {
     static createZombie(waveCounter) {
-        if (randomNumber(0, 1) === 0) {
+        const number = randomNumber(0, 3);
+        if (number === 0) {
+            return new ZombieCrawler();
+        }
+        else if (number === 1) {
+            return new ZombieCrawlerDark();
+        }
+        else if (number === 2) {
             return new ZombieCheeks();
         }
-        else {
-            return new ZombieCrawler();
+        else if (number === 3) {
+            return new ZombieCheeksDark();
         }
     }
 }
