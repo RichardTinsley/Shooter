@@ -1,7 +1,7 @@
 import { Time } from "../../handlers/Time.js";
 import { Sprite } from "./Sprite.js";
 
-const enum ANIMATE {
+export enum ANIMATE {
   FINISHED,
   ROW_ONCE,
   ROW_REPEATEDLY,
@@ -13,18 +13,11 @@ export class SpriteAnimation extends Sprite {
   protected maxRows!: number;
   protected animationState!: number;
 
-  constructor(fileName: string, spriteWidth: number, spriteHeight: number) {
-    super(fileName, spriteWidth, spriteHeight);
-
-    this.maxFrames = Math.floor(this.image.width / this.width) - 1;
-    this.maxRows = Math.floor(this.image.height / this.height) - 1;
-
-    this.maxRows === 0
-      ? (this.animationState = ANIMATE.ROW_REPEATEDLY)
-      : (this.animationState = ANIMATE.ROWS_REPEATEDLY);
+  constructor() {
+    super();
   }
 
-  animate() {
+  update() {
     if (!Time.eventUpdate) return;
 
     switch (this.animationState) {
@@ -38,6 +31,22 @@ export class SpriteAnimation extends Sprite {
         this.animateMultipleRowsRepeatedly();
         break;
     }
+  }
+
+  initialise(): this {
+    this.maxFrames = Math.floor(this.image.width / this.spriteWidth) - 1;
+    this.maxRows = Math.floor(this.image.height / this.spriteHeight) - 1;
+
+    this.maxRows === 0
+      ? (this.animationState = ANIMATE.ROW_REPEATEDLY)
+      : (this.animationState = ANIMATE.ROWS_REPEATEDLY);
+    return this;
+  }
+
+  setSpriteSheetRowAndAnimateOnce(row: number = 0, state: number): this {
+    this.currentRow = row;
+    this.animationState = state;
+    return this;
   }
 
   animateSingleRowOnce(): void {
@@ -71,11 +80,5 @@ export class SpriteAnimation extends Sprite {
       this.currentRow = 0;
       this.currentFrame = 0;
     }
-  }
-
-  setSpriteSheetRowAndAnimateOnce(animationRow: number = 0): this {
-    this.currentRow = animationRow;
-    this.animationState = ANIMATE.ROW_ONCE;
-    return this;
   }
 }

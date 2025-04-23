@@ -2,7 +2,10 @@ import { drawShadow } from "../../../utilities/drawShapes.js";
 export class Walking {
     constructor(enemy) {
         this.enemy = enemy;
-        enemy.setSprite(enemy.walkingSprite);
+        enemy.sprite
+            .setImage(enemy.walkingSprite, enemy.spriteWidth, enemy.spriteHeight)
+            .setScale(enemy.spriteScale)
+            .initialise();
         enemy.movement.setSpeed(enemy.movementSpeed);
     }
     draw(ctx) {
@@ -11,7 +14,7 @@ export class Walking {
         this.enemy.healthBar.draw(ctx);
     }
     update() {
-        this.enemy.sprite.animate();
+        this.enemy.sprite.update();
         this.enemy.movement.update(this.enemy);
     }
 }

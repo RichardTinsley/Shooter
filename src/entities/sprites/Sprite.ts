@@ -3,26 +3,20 @@ import { Position } from "../../constants/types.js";
 
 export class Sprite {
   protected image!: HTMLImageElement;
+  protected spriteWidth!: number;
+  protected spriteHeight!: number;
   protected position!: Position;
   protected direction!: number;
 
-  protected scaledWidth: number = this.width;
-  protected scaledHeight: number = this.height;
-  protected halfWidth: number = this.width / 2;
+  protected scaledWidth: number = this.spriteWidth;
+  protected scaledHeight: number = this.spriteHeight;
+  protected halfWidth: number = this.spriteWidth / 2;
 
   protected drawOffsetX: number = 0;
   protected drawOffsetY: number = 0;
 
   protected currentFrame: number = 0;
   protected currentRow: number = 0;
-
-  constructor(
-    fileName: string,
-    protected width: number,
-    protected height: number
-  ) {
-    this.image = ALL_ASSETS.get(fileName);
-  }
 
   draw(ctx: CanvasRenderingContext2D) {
     ctx.save();
@@ -31,10 +25,10 @@ export class Sprite {
 
     ctx.drawImage(
       this.image,
-      this.width * this.currentFrame,
-      this.height * this.currentRow,
-      this.width,
-      this.height,
+      this.spriteWidth * this.currentFrame,
+      this.spriteHeight * this.currentRow,
+      this.spriteWidth,
+      this.spriteHeight,
       0 - this.halfWidth + this.drawOffsetX,
       0 - this.scaledHeight + this.drawOffsetY,
       this.scaledWidth,
@@ -42,6 +36,13 @@ export class Sprite {
     );
 
     ctx.restore();
+  }
+
+  setImage(fileName: string, width: number, height: number): this {
+    this.image = ALL_ASSETS.get(fileName);
+    this.spriteWidth = width;
+    this.spriteHeight = height;
+    return this;
   }
 
   setPosition(position: Position): this {
@@ -64,8 +65,8 @@ export class Sprite {
   }
 
   setScale(scale: number): this {
-    this.scaledWidth = Math.round(this.width * scale * 100) / 100;
-    this.scaledHeight = Math.round(this.height * scale * 100) / 100;
+    this.scaledWidth = Math.round(this.spriteWidth * scale * 100) / 100;
+    this.scaledHeight = Math.round(this.spriteHeight * scale * 100) / 100;
     this.halfWidth = this.scaledWidth / 2;
     return this;
   }
@@ -79,6 +80,6 @@ export class Sprite {
   }
 
   getWidth(): number {
-    return this.width;
+    return this.spriteWidth;
   }
 }

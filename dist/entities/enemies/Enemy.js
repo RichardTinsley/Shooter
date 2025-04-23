@@ -8,6 +8,7 @@ export class Enemy {
         this.movement = new Movement();
         this.position = this.movement.getWaypoints();
         this.destination = this.movement.getWaypoints();
+        this.sprite = new SpriteAnimation().setPosition(this.position);
         this.healthBar = new HealthBar().setPosition(this.position);
         this.hitDetection = new HitDetectionCircle().setPosition(this.position);
         this.switchToWalkingState = () => (this.state = new Walking(this));
@@ -24,11 +25,6 @@ export class Enemy {
             .setDrawOffsets(0, this.sprite.getScaledHeight() / 2);
         this.shadowWidth = this.sprite.getScaledWidth();
         this.mouseOverWidth = this.sprite.getScaledWidth() * 1.25;
-    }
-    setSprite(sprite) {
-        this.sprite = new SpriteAnimation(sprite, this.spriteWidth, this.spriteHeight)
-            .setPosition(this.position)
-            .setScale(this.spriteScale);
     }
     setPosition(position) {
         this.position = Object.assign({}, position);

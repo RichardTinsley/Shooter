@@ -10,7 +10,9 @@ export class HUDItem extends Text {
         super.setPosition(position);
         position.x -= SIZES.TILE_HALF;
         position.y += SIZES.TILE_HALF;
-        this.icon = new Sprite(fileName, SIZES.TILE, SIZES.TILE).setPosition(position);
+        this.icon = new Sprite()
+            .setImage(fileName, SIZES.TILE, SIZES.TILE)
+            .setPosition(position);
         this.align = "left";
         this.size = SIZES.TEXT_IN_GAME;
         return this;

@@ -3,7 +3,10 @@ import { Enemy, IEnemyState } from "../Enemy.js";
 
 export class Walking implements IEnemyState {
   constructor(public enemy: Enemy) {
-    enemy.setSprite(enemy.walkingSprite);
+    enemy.sprite
+      .setImage(enemy.walkingSprite, enemy.spriteWidth, enemy.spriteHeight)
+      .setScale(enemy.spriteScale)
+      .initialise();
     enemy.movement.setSpeed(enemy.movementSpeed);
   }
 
@@ -14,7 +17,7 @@ export class Walking implements IEnemyState {
   }
 
   update() {
-    this.enemy.sprite.animate();
+    this.enemy.sprite.update();
     this.enemy.movement.update(this.enemy);
   }
 }

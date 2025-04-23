@@ -14,21 +14,21 @@ export interface IEnemyState {
 export class Enemy {
   public state!: IEnemyState;
 
+  public movement = new Movement();
+  public movementSpeed!: number;
+  public position = this.movement.getWaypoints();
+  public destination = this.movement.getWaypoints();
+
+  public sprite = new SpriteAnimation().setPosition(this.position);
+  public spriteWidth!: number;
+  public spriteHeight!: number;
+  public spriteScale!: number;
+
   public walkingSprite!: string;
   public atttackingSprite!: string;
   public screamingSprite!: string;
   public dyingSprite!: string;
   public idlingSprite!: string;
-
-  public sprite!: SpriteAnimation;
-  public spriteWidth!: number;
-  public spriteHeight!: number;
-  public spriteScale!: number;
-
-  public movement = new Movement();
-  public movementSpeed!: number;
-  public position = this.movement.getWaypoints();
-  public destination = this.movement.getWaypoints();
 
   public healthBar = new HealthBar().setPosition(this.position);
   public hitDetection = new HitDetectionCircle().setPosition(this.position);
@@ -53,16 +53,6 @@ export class Enemy {
 
     this.shadowWidth = this.sprite.getScaledWidth();
     this.mouseOverWidth = this.sprite.getScaledWidth() * 1.25;
-  }
-
-  setSprite(sprite: string) {
-    this.sprite = new SpriteAnimation(
-      sprite,
-      this.spriteWidth,
-      this.spriteHeight
-    )
-      .setPosition(this.position)
-      .setScale(this.spriteScale);
   }
 
   setPosition(position: Position) {
