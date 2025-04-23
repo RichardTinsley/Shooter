@@ -14,22 +14,22 @@ export class ZombieCheeks extends Enemy {
   walkingSprite =
     this.skinChooser === 0
       ? FILE_NAMES.ZOMBIE_CHEEKS_WALK
-      : FILE_NAMES.ZOMBIE_DARKCHEEKS_WALK;
+      : FILE_NAMES.ZOMBIE_DARK_CHEEKS_WALK;
 
   screamingSprite =
     this.skinChooser === 0
       ? FILE_NAMES.ZOMBIE_CHEEKS_SCREAM
-      : FILE_NAMES.ZOMBIE_DARKCHEEKS_SCREAM;
+      : FILE_NAMES.ZOMBIE_DARK_CHEEKS_SCREAM;
 
   dyingSprite =
     this.skinChooser === 0
       ? FILE_NAMES.ZOMBIE_CHEEKS_DIE
-      : FILE_NAMES.ZOMBIE_DARKCHEEKS_DIE;
+      : FILE_NAMES.ZOMBIE_DARK_CHEEKS_DIE;
 
   idlingSprite =
     this.skinChooser === 0
       ? FILE_NAMES.ZOMBIE_CHEEKS_IDLE
-      : FILE_NAMES.ZOMBIE_DARKCHEEKS_IDLE;
+      : FILE_NAMES.ZOMBIE_DARK_CHEEKS_IDLE;
 
   state: IEnemyState = new Walking(this);
 

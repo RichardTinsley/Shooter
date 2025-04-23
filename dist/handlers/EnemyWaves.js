@@ -28,7 +28,7 @@ export class EnemyWaves {
     }
     spawnEnemies(entities) {
         if (enemiesSpawnTimer++ % randomNumber(10, 25) === 0) {
-            entities.push(EnemyFactory.createZombieCheeks(HUD.hudWaves.getWaves()));
+            entities.push(EnemyFactory.createZombie(HUD.hudWaves.getWaves()));
             if (enemiesSpawned++ === enemiesMaximum)
                 enemiesState = ENEMIES.ACTIVE;
         }

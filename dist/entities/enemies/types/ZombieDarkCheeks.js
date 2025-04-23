@@ -12,16 +12,16 @@ export class ZombieCheeks extends Enemy {
         this.skinChooser = randomNumber(0, 1);
         this.walkingSprite = this.skinChooser === 0
             ? FILE_NAMES.ZOMBIE_CHEEKS_WALK
-            : FILE_NAMES.ZOMBIE_DARKCHEEKS_WALK;
+            : FILE_NAMES.ZOMBIE_DARK_CHEEKS_WALK;
         this.screamingSprite = this.skinChooser === 0
             ? FILE_NAMES.ZOMBIE_CHEEKS_SCREAM
-            : FILE_NAMES.ZOMBIE_DARKCHEEKS_SCREAM;
+            : FILE_NAMES.ZOMBIE_DARK_CHEEKS_SCREAM;
         this.dyingSprite = this.skinChooser === 0
             ? FILE_NAMES.ZOMBIE_CHEEKS_DIE
-            : FILE_NAMES.ZOMBIE_DARKCHEEKS_DIE;
+            : FILE_NAMES.ZOMBIE_DARK_CHEEKS_DIE;
         this.idlingSprite = this.skinChooser === 0
             ? FILE_NAMES.ZOMBIE_CHEEKS_IDLE
-            : FILE_NAMES.ZOMBIE_DARKCHEEKS_IDLE;
+            : FILE_NAMES.ZOMBIE_DARK_CHEEKS_IDLE;
         this.state = new Walking(this);
         this.initialiseEnemy();
     }
