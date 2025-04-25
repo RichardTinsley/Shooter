@@ -1,9 +1,8 @@
 import { HitDetectionSquare } from "../../handlers/HitDetectionSquare.js";
 export class MenuButton {
-    constructor(label, screen, setScreen) {
-        this.label = label;
-        this.screen = screen;
+    constructor(setScreen, label) {
         this.setScreen = setScreen;
+        this.label = label;
         this.hitDetection = new HitDetectionSquare(this.label.getWidth(), this.label.getHeight());
     }
     draw(ctx) {

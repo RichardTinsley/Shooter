@@ -10,25 +10,25 @@ export class MainMenu extends VerticalMenu {
 
     const MAIN_MENU: Array<MenuTemplate> = [
       {
-        screen: screen.switchToBattleScreen,
+        setScreen: screen.switchToBattleScreen,
         label: TextFactory.textGlow()
           .setText(LABELS.NEWGAME)
           .setHeight(SIZES.TEXT_MENUITEM),
       },
       {
-        screen: screen.switchToOptionsScreen,
+        setScreen: screen.switchToOptionsScreen,
         label: TextFactory.textGlow()
           .setText(LABELS.OPTIONS)
           .setHeight(SIZES.TEXT_MENUITEM),
       },
       {
-        screen: screen.switchToAboutScreen,
+        setScreen: screen.switchToAboutScreen,
         label: TextFactory.textGlow()
           .setText(LABELS.ABOUT)
           .setHeight(SIZES.TEXT_MENUITEM),
       },
     ];
 
-    this.menuItems = this.initialiseVerticalMenu(screen, MAIN_MENU, position);
+    this.menuItems = this.initialiseVerticalMenu(MAIN_MENU, position);
   }
 }

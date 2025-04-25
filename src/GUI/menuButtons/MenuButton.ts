@@ -1,16 +1,11 @@
 import { Position } from "../../constants/types.js";
 import { HitDetectionSquare } from "../../handlers/HitDetectionSquare.js";
-import { Screen } from "../../screens/Screen.js";
 
 export class MenuButton {
   public hitDetection;
   public position!: Position;
 
-  constructor(
-    public label: any,
-    public screen: Screen,
-    public setScreen: Function
-  ) {
+  constructor(public setScreen: Function, public label: any) {
     this.hitDetection = new HitDetectionSquare(
       this.label.getWidth(),
       this.label.getHeight()

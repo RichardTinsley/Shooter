@@ -7,13 +7,13 @@ export class BeginMenu extends VerticalMenu {
         super();
         const BEGIN_MENU = [
             {
-                screen: screen.switchToMainMenuScreen,
+                setScreen: screen.switchToMainMenuScreen,
                 label: TextFactory.textPulsate()
                     .setText(LABELS.BEGIN)
                     .setHeight(SIZES.TEXT_BEGIN),
             },
         ];
-        this.menuItems = this.initialiseVerticalMenu(screen, BEGIN_MENU, position);
+        this.menuItems = this.initialiseVerticalMenu(BEGIN_MENU, position);
     }
 }
 //# sourceMappingURL=BeginMenu.js.map

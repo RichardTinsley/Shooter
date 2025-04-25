@@ -10,13 +10,13 @@ export class BeginMenu extends VerticalMenu {
 
     const BEGIN_MENU: Array<MenuTemplate> = [
       {
-        screen: screen.switchToMainMenuScreen,
+        setScreen: screen.switchToMainMenuScreen,
         label: TextFactory.textPulsate()
           .setText(LABELS.BEGIN)
           .setHeight(SIZES.TEXT_BEGIN),
       },
     ];
 
-    this.menuItems = this.initialiseVerticalMenu(screen, BEGIN_MENU, position);
+    this.menuItems = this.initialiseVerticalMenu(BEGIN_MENU, position);
   }
 }

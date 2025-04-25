@@ -3,7 +3,7 @@ import { Text } from "../texts/Text.js";
 import { MenuButton } from "../menuButtons/MenuButton.js";
 
 export type MenuTemplate = {
-  screen: Function;
+  setScreen: Function;
   label: Text | Sprite;
 };
 
