@@ -1,4 +1,4 @@
-import { MenuButton } from "./MenuButton.js";
+import { MenuButton } from "../menuButtons/MenuButton.js";
 import { SIZES } from "../../constants/game.js";
 import { Menu } from "./Menu.js";
 export class VerticalMenu extends Menu {

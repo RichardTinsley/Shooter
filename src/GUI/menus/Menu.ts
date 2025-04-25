@@ -1,6 +1,6 @@
 import { Sprite } from "../../entities/sprites/Sprite.js";
 import { Text } from "../texts/Text.js";
-import { MenuButton } from "./MenuButton.js";
+import { MenuButton } from "../menuButtons/MenuButton.js";
 
 export type MenuTemplate = {
   screen: Function;

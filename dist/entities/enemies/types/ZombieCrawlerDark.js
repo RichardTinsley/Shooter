@@ -5,7 +5,7 @@ export class ZombieCrawlerDark extends ZombieCrawler {
     constructor() {
         super();
         this.walkingSprite = FILE_NAMES.ZOMBIE_DARK_CRAWLER_WALK;
-        this.atttackingSprite = FILE_NAMES.ZOMBIE_DARK_CRAWLER_ATTACK;
+        this.attackingSprite = FILE_NAMES.ZOMBIE_DARK_CRAWLER_ATTACK;
         this.dyingSprite = FILE_NAMES.ZOMBIE_DARK_CRAWLER_DIE;
         this.idlingSprite = FILE_NAMES.ZOMBIE_DARK_CRAWLER_IDLE;
         this.state = new Walking(this);

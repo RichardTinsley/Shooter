@@ -15,42 +15,23 @@ export class Enemy {
   public state!: IEnemyState;
 
   public movement = new Movement();
-  public movementSpeed!: number;
   public position = this.movement.getWaypoints();
   public destination = this.movement.getWaypoints();
 
   public sprite = new SpriteAnimation().setPosition(this.position);
-  public spriteWidth!: number;
-  public spriteHeight!: number;
-  public spriteScale!: number;
-
-  public walkingSprite!: string;
-  public atttackingSprite!: string;
-  public screamingSprite!: string;
-  public dyingSprite!: string;
-  public idlingSprite!: string;
-
   public healthBar = new HealthBar().setPosition(this.position);
   public hitDetection = new HitDetectionCircle().setPosition(this.position);
   public shadowWidth!: number;
   public mouseOverWidth!: number;
 
-  public getCurrentState(): IEnemyState {
-    return this.state;
-  }
+  public getCurrentState = (): IEnemyState => this.state;
 
   // public switchToDyingState = () => (this.state = new EnemyDying(this));
   public switchToWalkingState = () => (this.state = new Walking(this));
 
-  initialiseEnemyComponents(width: number) {
-    this.healthBar
-      .setWidth(width)
-      .setDrawOffsets(this.sprite.getScaledHeight());
-
-    this.hitDetection
-      .setWidth(width)
-      .setDrawOffsets(0, this.sprite.getScaledHeight() / 2);
-
+  initialiseEnemyComponents(width: number, height: number) {
+    this.healthBar.setWidth(width).setDrawOffsets(height);
+    this.hitDetection.setWidth(width).setDrawOffsets(0, height / 2);
     this.shadowWidth = width;
     this.mouseOverWidth = width * 1.25;
   }

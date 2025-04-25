@@ -9,7 +9,7 @@ export class ZombieCrawler extends Enemy {
   movementSpeed: number = 1;
 
   walkingSprite = FILE_NAMES.ZOMBIE_CRAWLER_WALK;
-  atttackingSprite = FILE_NAMES.ZOMBIE_CRAWLER_ATTACK;
+  attackingSprite = FILE_NAMES.ZOMBIE_CRAWLER_ATTACK;
   dyingSprite = FILE_NAMES.ZOMBIE_CRAWLER_DIE;
   idlingSprite = FILE_NAMES.ZOMBIE_CRAWLER_IDLE;
 
@@ -17,9 +17,11 @@ export class ZombieCrawler extends Enemy {
 
   constructor() {
     super();
-    this.initialiseEnemyComponents(this.sprite.getScaledWidth() / 2);
+    this.initialiseEnemyComponents(
+      this.sprite.getScaledWidth() / 2,
+      this.sprite.getScaledHeight()
+    );
     this.sprite.setDrawOffsets(0.25, 0.1);
-    this.healthBar.setDrawOffsets(this.sprite.getScaledHeight() - 5);
     this.hitDetection.setDrawOffsets(0, 0);
   }
 }

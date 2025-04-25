@@ -2,7 +2,7 @@ import { drawShadow } from "../../../utilities/drawShapes.js";
 import { Enemy, IEnemyState } from "../Enemy.js";
 
 export class Walking implements IEnemyState {
-  constructor(public enemy: Enemy) {
+  constructor(public enemy: any) {
     enemy.sprite
       .setImage(enemy.walkingSprite, enemy.spriteWidth, enemy.spriteHeight)
       .setScale(enemy.spriteScale)

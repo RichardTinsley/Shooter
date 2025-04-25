@@ -13,7 +13,7 @@ export class ZombieCheeks extends Enemy {
         this.dyingSprite = FILE_NAMES.ZOMBIE_CHEEKS_DIE;
         this.idlingSprite = FILE_NAMES.ZOMBIE_CHEEKS_IDLE;
         this.state = new Walking(this);
-        this.initialiseEnemyComponents(this.sprite.getScaledWidth());
+        this.initialiseEnemyComponents(this.sprite.getScaledWidth(), this.sprite.getScaledHeight());
     }
 }
 //# sourceMappingURL=ZombieCheeks.js.map

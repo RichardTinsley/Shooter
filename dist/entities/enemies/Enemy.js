@@ -11,18 +11,12 @@ export class Enemy {
         this.sprite = new SpriteAnimation().setPosition(this.position);
         this.healthBar = new HealthBar().setPosition(this.position);
         this.hitDetection = new HitDetectionCircle().setPosition(this.position);
+        this.getCurrentState = () => this.state;
         this.switchToWalkingState = () => (this.state = new Walking(this));
     }
-    getCurrentState() {
-        return this.state;
-    }
-    initialiseEnemyComponents(width) {
-        this.healthBar
-            .setWidth(width)
-            .setDrawOffsets(this.sprite.getScaledHeight());
-        this.hitDetection
-            .setWidth(width)
-            .setDrawOffsets(0, this.sprite.getScaledHeight() / 2);
+    initialiseEnemyComponents(width, height) {
+        this.healthBar.setWidth(width).setDrawOffsets(height);
+        this.hitDetection.setWidth(width).setDrawOffsets(0, height / 2);
         this.shadowWidth = width;
         this.mouseOverWidth = width * 1.25;
     }
