@@ -3,7 +3,6 @@ import { HitDetectionSquare } from "../../handlers/HitDetectionSquare.js";
 import { Screen } from "../../screens/Screen.js";
 
 export class MenuButton {
-  public width: number;
   public hitDetection;
   public position!: Position;
 
@@ -12,10 +11,8 @@ export class MenuButton {
     public screen: Screen,
     public setScreen: Function
   ) {
-    this.width = this.label.getWidth();
-
     this.hitDetection = new HitDetectionSquare(
-      this.width,
+      this.label.getWidth(),
       this.label.getHeight()
     );
   }
@@ -59,6 +56,18 @@ export class MenuButton {
 
 //   public getCurrentState(): IMenuButtonState {
 //     return this.state;
+//   }
+
+//   mouseClick(): void {
+//     this.setScreen();
+//   }
+
+//   mouseOver(): void {
+//     this.state = new
+//   }
+
+//   getType(): string {
+//     return "MenuButton";
 //   }
 
 // }

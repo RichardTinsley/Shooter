@@ -4,8 +4,7 @@ export class MenuButton {
         this.label = label;
         this.screen = screen;
         this.setScreen = setScreen;
-        this.width = this.label.getWidth();
-        this.hitDetection = new HitDetectionSquare(this.width, this.label.getHeight());
+        this.hitDetection = new HitDetectionSquare(this.label.getWidth(), this.label.getHeight());
     }
     draw(ctx) {
         this.label.draw(ctx);

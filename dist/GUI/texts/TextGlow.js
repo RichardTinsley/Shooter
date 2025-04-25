@@ -31,7 +31,7 @@ export class TextGlow extends Text {
     glowChanger() {
         if (this.state === ANIMATION.MOUSEOVER) {
             if (this.glow < 13)
-                this.glow++;
+                this.glow += 2;
         }
         else {
             if (this.glow > 0)

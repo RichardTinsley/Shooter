@@ -29,7 +29,7 @@ export class Enemy {
     mouseClick() {
         return;
     }
-    mouseOver(state) {
+    mouseOver() {
         return;
     }
     getType() {

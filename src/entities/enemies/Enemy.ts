@@ -51,8 +51,8 @@ export class Enemy {
     return;
   }
 
-  mouseOver(state: number) {
-    // this.enemyState = state;
+  mouseOver() {
+    //this.state = state;
     return;
   }
 
