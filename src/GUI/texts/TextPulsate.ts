@@ -15,12 +15,11 @@ export class TextPulsate extends Text {
   }
 
   update() {
-    const newSize = oscillate(
+    this.size += oscillate(
       OSCILLATIONS.COSINE,
       this.startTime,
       this.frequency,
       this.amplitude
     );
-    this.size += newSize;
   }
 }

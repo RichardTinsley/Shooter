@@ -11,8 +11,7 @@ export class TextPulsate extends Text {
         super.draw(ctx);
     }
     update() {
-        const newSize = oscillate(1, this.startTime, this.frequency, this.amplitude);
-        this.size += newSize;
+        this.size += oscillate(1, this.startTime, this.frequency, this.amplitude);
     }
 }
 //# sourceMappingURL=TextPulsate.js.map
