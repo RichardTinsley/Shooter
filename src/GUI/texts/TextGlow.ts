@@ -8,11 +8,10 @@ export class TextGlow extends Text {
   private glow: number = 0;
   private frequency: number = 0.7;
   private amplitude: number = 0.2;
-  private startTime!: number;
+  private startTime = Date.now();
 
   constructor() {
     super();
-    this.startTime = Date.now();
   }
 
   draw(ctx: CanvasRenderingContext2D) {

@@ -3,12 +3,12 @@ import { oscillate, OSCILLATIONS } from "../../utilities/math.js";
 
 export class TextFade extends Text {
   private frequency: number = 0.1;
-  private amplitude: number = 0.6;
-  private startTime!: number;
+  private amplitude: number = 1;
+  private startTime = Date.now();
+  protected alpha: number = -0.5;
 
   constructor() {
     super();
-    this.startTime = Date.now();
   }
 
   draw(ctx: CanvasRenderingContext2D) {
@@ -17,11 +17,11 @@ export class TextFade extends Text {
 
   update() {
     this.alpha = oscillate(
-      OSCILLATIONS.COSINE,
+      OSCILLATIONS.SIN,
       this.startTime,
       this.frequency,
       this.amplitude
     );
-    this.alpha += 0.5;
+    // this.alpha += 0.5;
   }
 }

@@ -4,10 +4,10 @@ import { oscillate, OSCILLATIONS } from "../../utilities/math.js";
 export class TextPulsate extends Text {
   private frequency: number = 1;
   private amplitude: number = 1;
-  private startTime!: number;
+  private startTime = Date.now();
+
   constructor() {
     super();
-    this.startTime = Date.now();
   }
 
   draw(ctx: CanvasRenderingContext2D) {
