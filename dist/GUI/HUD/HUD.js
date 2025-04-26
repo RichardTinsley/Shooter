@@ -1,5 +1,5 @@
 import { FILE_NAMES } from "../../constants/assets.js";
-import { SIZES } from "../../constants/game.js";
+import { SIZES } from "../../constants/sizes.js";
 import { HUDLives } from "./HUDLives.js";
 import { HUDCoins } from "./HUDCoins.js";
 import { HUDExperience } from "./HUDExperience.js";

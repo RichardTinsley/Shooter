@@ -1,4 +1,4 @@
-import { SIZES } from "../../constants/game.js";
+import { SIZES } from "../../constants/sizes.js";
 import { Screen } from "../../screens/Screen.js";
 import { TextFactory } from "../texts/TextFactory.js";
 import { MenuTemplate, LABELS } from "./Menu.js";

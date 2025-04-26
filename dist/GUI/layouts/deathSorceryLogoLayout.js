@@ -1,4 +1,4 @@
-import { SIZES } from "../../constants/game.js";
+import { SIZES } from "../../constants/sizes.js";
 import { TextFactory } from "../texts/TextFactory.js";
 export class deathSorceryLogoLayout {
     constructor() {

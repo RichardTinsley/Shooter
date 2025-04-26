@@ -1,5 +1,5 @@
 import { MenuButton } from "../menuButtons/MenuButton.js";
-import { SIZES } from "../../constants/game.js";
+import { SIZES } from "../../constants/sizes.js";
 import { Menu, MenuTemplate } from "./Menu.js";
 
 export class VerticalMenu extends Menu {

@@ -1,5 +1,5 @@
 import { drawShadow } from "../../../utilities/drawShapes.js";
-import { Enemy, IEnemyState } from "../Enemy.js";
+import { IEnemyState } from "../Enemy.js";
 
 export class Walking implements IEnemyState {
   constructor(public enemy: any) {

@@ -1,7 +1,7 @@
 import { ALL_ASSETS, FILE_NAMES } from "../constants/assets.js";
 import { ALL_WAYPOINTS } from "../constants/waypoints.js";
 import { ALL_TILEMAPS } from "../constants/tilemaps.js";
-import { SIZES } from "../constants/game.js";
+import { SIZES } from "../constants/sizes.js";
 import { Position } from "../constants/types.js";
 import { EmptyTowerSpot } from "../entities/towers/emptyTowerSpot.js";
 

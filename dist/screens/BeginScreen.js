@@ -1,4 +1,4 @@
-import { SIZES } from "../constants/game.js";
+import { SIZES } from "../constants/sizes.js";
 import { deathSorceryLogoLayout } from "../GUI/layouts/deathSorceryLogoLayout.js";
 import { BeginMenu } from "../GUI/menus/BeginMenu.js";
 export class BeginningScreen {

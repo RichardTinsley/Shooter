@@ -41,7 +41,7 @@ export class MenuButton {
 }
 
 // export interface IMenuButtonState {
-//   enemy: MenuButton;
+//   menuButton: MenuButton;
 //   draw(ctx: CanvasRenderingContext2D): void;
 //   update(): void;
 // }

@@ -1,5 +1,5 @@
 import { COLOURS } from "../../constants/colours.js";
-import { SIZES } from "../../constants/game.js";
+import { SIZES } from "../../constants/sizes.js";
 import { drawRectangle } from "../../utilities/drawShapes.js";
 import { StatusBar } from "./StatusBar.js";
 export class LoadingBar extends StatusBar {

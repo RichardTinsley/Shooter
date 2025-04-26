@@ -18,8 +18,8 @@ export class ZombieCheeks extends Enemy {
   constructor() {
     super();
     this.initialiseEnemyComponents(
-      this.sprite.getScaledWidth(),
-      this.sprite.getScaledHeight()
+      this.sprite.getWidth(),
+      this.sprite.getHeight()
     );
   }
 }

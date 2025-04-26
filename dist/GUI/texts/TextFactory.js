@@ -1,4 +1,4 @@
-import { SIZES } from "../../constants/game.js";
+import { SIZES } from "../../constants/sizes.js";
 import { Text } from "./Text.js";
 import { TextFade } from "./TextFade.js";
 import { TextGlow } from "./TextGlow.js";

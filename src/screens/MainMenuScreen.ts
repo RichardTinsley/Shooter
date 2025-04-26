@@ -1,5 +1,5 @@
 import { ALL_ASSETS, FILE_NAMES } from "../constants/assets.js";
-import { SIZES } from "../constants/game.js";
+import { SIZES } from "../constants/sizes.js";
 import { MainMenu } from "../GUI/menus/MainMenu.js";
 import { Screen, IScreenState } from "./Screen.js";
 

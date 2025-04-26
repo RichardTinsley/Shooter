@@ -1,4 +1,4 @@
-import { SIZES } from "../../constants/game.js";
+import { SIZES } from "../../constants/sizes.js";
 import { Sprite } from "../../entities/sprites/Sprite.js";
 import { Text } from "../texts/Text.js";
 export class HUDItem extends Text {

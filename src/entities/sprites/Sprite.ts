@@ -59,23 +59,23 @@ export class Sprite {
   }
 
   setDrawOffsets(offsetX: number, offsetY: number): this {
-    this.drawOffsetX = offsetX * this.getScaledWidth();
-    this.drawOffsetY = offsetY * this.getScaledHeight();
+    this.drawOffsetX = offsetX * this.getWidth();
+    this.drawOffsetY = offsetY * this.getHeight();
     return this;
   }
 
   setScale(scale: number): this {
-    this.scaledWidth = Math.round(this.spriteWidth * scale * 100) / 100;
-    this.scaledHeight = Math.round(this.spriteHeight * scale * 100) / 100;
+    this.scaledWidth = Math.round(this.spriteWidth * scale);
+    this.scaledHeight = Math.round(this.spriteHeight * scale);
     this.halfWidth = this.scaledWidth / 2;
     return this;
   }
 
-  getScaledWidth(): number {
+  getWidth(): number {
     return this.scaledWidth;
   }
 
-  getScaledHeight(): number {
+  getHeight(): number {
     return this.scaledHeight;
   }
 }
