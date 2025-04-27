@@ -1,7 +1,7 @@
 import { Screen } from "../screens/Screen.js";
 import { Debug } from "./Debug.js";
 
-const KEYBOARD = {
+const KEYS = {
   PAUSE: "p",
   DEBUG: "o",
   MUTE: "m",
@@ -15,13 +15,13 @@ export class Keyboard {
     window.addEventListener("keydown", (e) => keys.add(e.key.toLowerCase()));
 
     window.addEventListener("keyup", (e) => {
-      if (keys.has(KEYBOARD.PAUSE)) console.log(KEYBOARD.PAUSE);
+      if (keys.has(KEYS.PAUSE)) console.log(KEYS.PAUSE);
 
-      if (keys.has(KEYBOARD.RESTART)) console.log(KEYBOARD.RESTART);
+      if (keys.has(KEYS.RESTART)) console.log(KEYS.RESTART);
 
-      if (keys.has(KEYBOARD.DEBUG)) debug.switchDebugMode();
+      if (keys.has(KEYS.DEBUG)) debug.switchDebugMode();
 
-      if (keys.has(KEYBOARD.MUTE)) console.log(KEYBOARD.MUTE);
+      if (keys.has(KEYS.MUTE)) console.log(KEYS.MUTE);
 
       keys.clear();
     });

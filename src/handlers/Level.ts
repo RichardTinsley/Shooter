@@ -4,6 +4,7 @@ import { ALL_TILEMAPS } from "../constants/tilemaps.js";
 import { SIZES } from "../constants/sizes.js";
 import { Position } from "../constants/types.js";
 import { EmptyTowerSpot } from "../entities/towers/emptyTowerSpot.js";
+import { randomNumber } from "../utilities/math.js";
 
 export class Level {
   levelImage = ALL_ASSETS.get(FILE_NAMES.LEVEL_LAVONEY);
@@ -24,14 +25,8 @@ export class Level {
     if (WAYPOINTS !== undefined) {
       return WAYPOINTS.map((waypoint) => {
         return {
-          x:
-            waypoint.x -
-            SIZES.TILE +
-            Math.round(Math.random() * (SIZES.TILE * 2)),
-          y:
-            waypoint.y -
-            SIZES.TILE +
-            Math.round(Math.random() * (SIZES.TILE * 2)),
+          x: waypoint.x - randomNumber(-SIZES.TILE, SIZES.TILE),
+          y: waypoint.y - randomNumber(-SIZES.TILE, SIZES.TILE),
         };
       });
     } else {
