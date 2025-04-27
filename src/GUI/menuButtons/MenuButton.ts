@@ -2,6 +2,7 @@ import { Position } from "../../constants/types.js";
 import { HitDetectionSquare } from "../../handlers/HitDetectionSquare.js";
 import { MouseOver } from "./states/MouseOver.js";
 import { MouseOff } from "./states/MouseOff.js";
+import { Mouse } from "../../handlers/Mouse.js";
 
 export interface IMenuButtonState {
   menuButton: MenuButton;
@@ -25,6 +26,8 @@ export class MenuButton {
 
   update(): void {
     this.label.update();
+    this.mouseOver();
+    // this.mouseOff();
   }
 
   setPosition(position: Position): this {
@@ -43,11 +46,16 @@ export class MenuButton {
   }
 
   mouseOver(): void {
-    if (!(this.state instanceof MouseOver)) this.state = new MouseOver(this);
-  }
-
-  mouseOff(): void {
-    if (!(this.state instanceof MouseOff)) this.state = new MouseOff(this);
+    if (this.hitDetection.checkCollision(Mouse.cursor)) {
+      Mouse.cursor.mouseOverEntity = this;
+      if (!(this.state instanceof MouseOver)) {
+        this.state = new MouseOver(this);
+      }
+    } else {
+      if (!(this.state instanceof MouseOff)) {
+        this.state = new MouseOff(this);
+      }
+    }
   }
 
   getType(): string {

@@ -17,9 +17,10 @@ export class Game {
     }
     update() {
         this.time.update();
+        this.mouse.resetCursor();
         this.screen.getCurrentState().update();
+        this.mouse.setCursor();
         this.debug.update();
-        this.mouse.update(this.screen);
     }
 }
 //# sourceMappingURL=Game.js.map

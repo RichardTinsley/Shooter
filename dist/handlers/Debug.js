@@ -1,6 +1,7 @@
 import { SIZES } from "../constants/sizes.js";
 import { COLOURS } from "../constants/colours.js";
 import { TextFactory } from "../GUI/texts/TextFactory.js";
+import { Mouse } from "./Mouse.js";
 import { BattleScreen } from "../screens/BattleScreen.js";
 import { drawDot, drawRectangle } from "../utilities/drawShapes.js";
 import { Time } from "./Time.js";
@@ -19,7 +20,6 @@ export class Debug {
         const currentState = this.state.getCurrentState();
         if (currentState instanceof BattleScreen)
             this.drawLevelDebugInfoGrid(ctx);
-        this.drawEntitiesDebugInfo(ctx, currentState.getArray());
         this.drawMouseDebugInfo(ctx);
         this.drawPerformanceDebugInfo(ctx);
     }
@@ -34,7 +34,7 @@ export class Debug {
         this.FPS.draw(ctx);
     }
     drawMouseDebugInfo(ctx) {
-        drawDot(ctx, this.mouse.getCursor(), COLOURS.RED);
+        drawDot(ctx, Mouse.cursor, COLOURS.RED);
     }
     drawEntitiesDebugInfo(ctx, entities) {
         entities.forEach((entity) => {

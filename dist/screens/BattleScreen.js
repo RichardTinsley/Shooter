@@ -25,8 +25,5 @@ export class BattleScreen {
         this.entities.forEach((entity) => entity.update());
         this.enemies.forEach((entity) => entity.getCurrentState().update());
     }
-    getArray() {
-        return [...this.entities];
-    }
 }
 //# sourceMappingURL=BattleScreen.js.map

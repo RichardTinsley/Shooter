@@ -1,46 +1,28 @@
 import { PLAIN_CURSOR } from "../constants/types.js";
+const size = 3;
 export class Mouse {
     constructor() {
-        this.mouseOverEntity = PLAIN_CURSOR;
-        this.cursor = {
-            x: 0,
-            y: 0,
-            radius: 3,
-            width: 3,
-            height: 3,
-            style: document.getElementById("canvas").style,
-        };
         window.addEventListener("mousemove", (e) => {
-            this.cursor.x = e.offsetX;
-            this.cursor.y = e.offsetY;
+            Mouse.cursor.x = e.offsetX;
+            Mouse.cursor.y = e.offsetY;
         });
-        window.addEventListener("click", () => this.mouseOverEntity.mouseClick());
+        window.addEventListener("click", () => Mouse.cursor.mouseOverEntity.mouseClick());
     }
-    update(screen) {
-        this.mouseOverEntity = PLAIN_CURSOR;
-        this.mouseOver(screen.getCurrentState().getArray());
-        this.setCursor(this.mouseOverEntity.getType());
-        this.removeMouseOver(screen.getCurrentState().getArray());
+    resetCursor() {
+        Mouse.cursor.mouseOverEntity = PLAIN_CURSOR;
     }
-    mouseOver(array) {
-        array.forEach((entity) => {
-            if (entity.hitDetection.checkCollision(this.cursor)) {
-                this.mouseOverEntity = entity;
-                this.mouseOverEntity.mouseOver();
-            }
-        });
-    }
-    removeMouseOver(array) {
-        array.forEach((entity) => {
-            if (entity !== this.mouseOverEntity)
-                entity.mouseOff();
-        });
-    }
-    setCursor(style) {
-        this.cursor.style.cursor = `url(../../images/cursors/${style}.cur), auto`;
-    }
-    getCursor() {
-        return this.cursor;
+    setCursor() {
+        const style = Mouse.cursor.mouseOverEntity.getType();
+        Mouse.cursor.style.cursor = `url(../../images/cursors/${style}.cur), auto`;
     }
 }
+Mouse.cursor = {
+    x: 0,
+    y: 0,
+    radius: size,
+    width: size,
+    height: size,
+    style: document.getElementById("canvas").style,
+    mouseOverEntity: PLAIN_CURSOR,
+};
 //# sourceMappingURL=Mouse.js.map

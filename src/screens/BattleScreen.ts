@@ -40,9 +40,4 @@ export class BattleScreen implements IScreenState {
     //   return entity.state !== ANIMATION.FINISHED;
     // });
   }
-
-  getArray(): Array<any> {
-    // return [...this.menu.getMenuItemsArray(), ...this.entities];
-    return [...this.entities];
-  }
 }

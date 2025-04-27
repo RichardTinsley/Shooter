@@ -29,10 +29,6 @@ export class Menu {
     });
   }
 
-  getMenuItemsArray(): Array<MenuButton> {
-    return this.menuItems;
-  }
-
   // initialiseHorizontallyMenu(index){
   //     return GAME.SIZES.GAME_WIDTH / 3 * (index + 1);
   // }

@@ -1,56 +1,37 @@
-import { Screen } from "../screens/Screen.js";
 import { Cursor, PLAIN_CURSOR } from "../constants/types.js";
+const size: number = 3;
 
 export class Mouse {
   // static enemySelected: Enemy; //IClickAble
-  //static towerSelected:Tower; //IClickAble
-  private mouseOverEntity: any = PLAIN_CURSOR;
+  // static towerSelected:Tower; //IClickAble
 
-  private cursor: Cursor = {
+  static cursor: Cursor = {
     x: 0,
     y: 0,
-    radius: 3,
-    width: 3,
-    height: 3,
+    radius: size,
+    width: size,
+    height: size,
     style: document.getElementById("canvas")!.style,
+    mouseOverEntity: PLAIN_CURSOR,
   };
 
   constructor() {
     window.addEventListener("mousemove", (e) => {
-      this.cursor.x = e.offsetX;
-      this.cursor.y = e.offsetY;
+      Mouse.cursor.x = e.offsetX;
+      Mouse.cursor.y = e.offsetY;
     });
 
-    window.addEventListener("click", () => this.mouseOverEntity.mouseClick());
+    window.addEventListener("click", () =>
+      Mouse.cursor.mouseOverEntity.mouseClick()
+    );
   }
 
-  update(screen: Screen) {
-    this.mouseOverEntity = PLAIN_CURSOR;
-    this.mouseOver(screen.getCurrentState().getArray());
-    this.setCursor(this.mouseOverEntity.getType());
-    this.removeMouseOver(screen.getCurrentState().getArray());
+  resetCursor() {
+    Mouse.cursor.mouseOverEntity = PLAIN_CURSOR;
   }
 
-  mouseOver(array: Array<any>) {
-    array.forEach((entity: any) => {
-      if (entity.hitDetection.checkCollision(this.cursor)) {
-        this.mouseOverEntity = entity;
-        this.mouseOverEntity.mouseOver();
-      }
-    });
-  }
-
-  removeMouseOver(array: Array<any>) {
-    array.forEach((entity: any) => {
-      if (entity !== this.mouseOverEntity) entity.mouseOff();
-    });
-  }
-
-  setCursor(style: string) {
-    this.cursor.style.cursor = `url(../../images/cursors/${style}.cur), auto`;
-  }
-
-  getCursor(): Cursor {
-    return this.cursor;
+  setCursor() {
+    const style = Mouse.cursor.mouseOverEntity.getType();
+    Mouse.cursor.style.cursor = `url(../../images/cursors/${style}.cur), auto`;
   }
 }

@@ -19,8 +19,5 @@ export class Menu {
             item.update();
         });
     }
-    getMenuItemsArray() {
-        return this.menuItems;
-    }
 }
 //# sourceMappingURL=Menu.js.map

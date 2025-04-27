@@ -23,7 +23,7 @@ export class Debug {
 
     if (currentState instanceof BattleScreen) this.drawLevelDebugInfoGrid(ctx);
 
-    this.drawEntitiesDebugInfo(ctx, currentState.getArray());
+    // this.drawEntitiesDebugInfo(ctx, currentState.getArray());  FIX THIS!!!
 
     this.drawMouseDebugInfo(ctx);
     this.drawPerformanceDebugInfo(ctx);
@@ -48,7 +48,7 @@ export class Debug {
   }
 
   drawMouseDebugInfo(ctx: CanvasRenderingContext2D) {
-    drawDot(ctx, this.mouse.getCursor(), COLOURS.RED);
+    drawDot(ctx, Mouse.cursor, COLOURS.RED);
   }
 
   drawEntitiesDebugInfo(ctx: CanvasRenderingContext2D, entities: Array<any>) {

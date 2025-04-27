@@ -19,8 +19,4 @@ export class BeginningScreen implements IScreenState {
   update(): void {
     this.menu.update();
   }
-
-  getArray(): Array<any> {
-    return this.menu.getMenuItemsArray();
-  }
 }
