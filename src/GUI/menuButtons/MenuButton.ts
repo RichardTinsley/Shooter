@@ -2,7 +2,7 @@ import { Position } from "../../constants/types.js";
 import { HitDetectionSquare } from "../../handlers/HitDetectionSquare.js";
 import { MouseOver } from "./states/MouseOver.js";
 import { MouseOff } from "./states/MouseOff.js";
-import { Mouse, STYLES } from "../../handlers/Mouse.js";
+import { Mouse, CURSOR_STYLES } from "../../handlers/Mouse.js";
 
 export interface IMenuButtonState {
   menuButton: MenuButton;
@@ -46,19 +46,6 @@ export class MenuButton {
   }
 
   mouseOver(): void {
-    if (this.hitDetection.checkCollision(Mouse.cursor)) {
-      Mouse.cursor.mouseOverEntity = this;
-      if (!this.isMouseOver) {
-        this.isMouseOver = true;
-        Mouse.setCursor(STYLES.MENUBUTTON);
-        this.state = new MouseOver(this);
-      }
-    } else {
-      if (this.isMouseOver) {
-        this.isMouseOver = false;
-        Mouse.setCursor(STYLES.PLAIN);
-        this.state = new MouseOff(this);
-      }
-    }
+    Mouse.mouseOverEntity(this, MouseOver, MouseOff, CURSOR_STYLES.MENUBUTTON);
   }
 }

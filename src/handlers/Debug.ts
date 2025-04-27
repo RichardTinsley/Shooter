@@ -48,7 +48,7 @@ export class Debug {
   }
 
   drawMouseDebugInfo(ctx: CanvasRenderingContext2D) {
-    drawDot(ctx, Mouse.cursor, COLOURS.RED);
+    // drawDot(ctx, Mouse.cursor, COLOURS.RED);
   }
 
   drawEntitiesDebugInfo(ctx: CanvasRenderingContext2D, entities: Array<any>) {

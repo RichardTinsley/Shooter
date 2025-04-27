@@ -1,7 +1,6 @@
 import { SIZES } from "../constants/sizes.js";
 import { COLOURS } from "../constants/colours.js";
 import { TextFactory } from "../GUI/texts/TextFactory.js";
-import { Mouse } from "./Mouse.js";
 import { BattleScreen } from "../screens/BattleScreen.js";
 import { drawDot, drawRectangle } from "../utilities/drawShapes.js";
 import { Time } from "./Time.js";
@@ -34,7 +33,6 @@ export class Debug {
         this.FPS.draw(ctx);
     }
     drawMouseDebugInfo(ctx) {
-        drawDot(ctx, Mouse.cursor, COLOURS.RED);
     }
     drawEntitiesDebugInfo(ctx, entities) {
         entities.forEach((entity) => {

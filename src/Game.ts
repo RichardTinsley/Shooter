@@ -1,6 +1,6 @@
 import { Debug } from "./handlers/Debug.js";
 import { Keyboard } from "./handlers/Keyboard.js";
-import { Mouse, STYLES } from "./handlers/Mouse.js";
+import { Mouse, CURSOR_STYLES } from "./handlers/Mouse.js";
 import { Time } from "./handlers/Time.js";
 import { Screen } from "./screens/Screen.js";
 
