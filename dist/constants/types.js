@@ -1,9 +1,2 @@
-export const PLAIN_CURSOR = {
-    getType: function () {
-        return "Plain";
-    },
-    mouseClick: function () {
-        return;
-    },
-};
+export {};
 //# sourceMappingURL=types.js.map

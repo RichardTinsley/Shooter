@@ -1,11 +1,12 @@
 import { HitDetectionSquare } from "../../handlers/HitDetectionSquare.js";
 import { MouseOver } from "./states/MouseOver.js";
 import { MouseOff } from "./states/MouseOff.js";
-import { Mouse } from "../../handlers/Mouse.js";
+import { Mouse, STYLES } from "../../handlers/Mouse.js";
 export class MenuButton {
     constructor(setScreen, label) {
         this.setScreen = setScreen;
         this.label = label;
+        this.isMouseOver = false;
         this.hitDetection = new HitDetectionSquare(this.label.getWidth(), this.label.getHeight());
     }
     draw(ctx) {
@@ -30,18 +31,19 @@ export class MenuButton {
     mouseOver() {
         if (this.hitDetection.checkCollision(Mouse.cursor)) {
             Mouse.cursor.mouseOverEntity = this;
-            if (!(this.state instanceof MouseOver)) {
+            if (!this.isMouseOver) {
+                this.isMouseOver = true;
+                Mouse.setCursor(STYLES.MENUBUTTON);
                 this.state = new MouseOver(this);
             }
         }
         else {
-            if (!(this.state instanceof MouseOff)) {
+            if (this.isMouseOver) {
+                this.isMouseOver = false;
+                Mouse.setCursor(STYLES.PLAIN);
                 this.state = new MouseOff(this);
             }
         }
-    }
-    getType() {
-        return "MenuButton";
     }
 }
 //# sourceMappingURL=MenuButton.js.map

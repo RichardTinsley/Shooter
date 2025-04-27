@@ -1,5 +1,12 @@
-import { Cursor, PLAIN_CURSOR } from "../constants/types.js";
+import { Cursor } from "../constants/types.js";
 const size: number = 3;
+
+export enum STYLES {
+  PLAIN = "Plain",
+  TOWER = "Tower",
+  ENEMY = "Enemy",
+  MENUBUTTON = "MenuButton",
+}
 
 export class Mouse {
   // static enemySelected: Enemy; //IClickAble
@@ -12,7 +19,7 @@ export class Mouse {
     width: size,
     height: size,
     style: document.getElementById("canvas")!.style,
-    mouseOverEntity: PLAIN_CURSOR,
+    mouseOverEntity: undefined,
   };
 
   constructor() {
@@ -22,16 +29,11 @@ export class Mouse {
     });
 
     window.addEventListener("click", () =>
-      Mouse.cursor.mouseOverEntity.mouseClick()
+      Mouse.cursor.mouseOverEntity!.mouseClick()
     );
   }
 
-  resetCursor() {
-    Mouse.cursor.mouseOverEntity = PLAIN_CURSOR;
-  }
-
-  setCursor() {
-    const style = Mouse.cursor.mouseOverEntity.getType();
+  static setCursor(style: string) {
     Mouse.cursor.style.cursor = `url(../../images/cursors/${style}.cur), auto`;
   }
 }

@@ -13,15 +13,6 @@ export type Cursor = {
   mouseOverEntity: any;
 };
 
-export const PLAIN_CURSOR = {
-  getType: function (): string {
-    return "Plain";
-  },
-  mouseClick: function (): void {
-    return;
-  },
-};
-
 export type HitBox = {
   x: number;
   y: number;

@@ -1,6 +1,6 @@
 import { Debug } from "./handlers/Debug.js";
 import { Keyboard } from "./handlers/Keyboard.js";
-import { Mouse } from "./handlers/Mouse.js";
+import { Mouse, STYLES } from "./handlers/Mouse.js";
 import { Time } from "./handlers/Time.js";
 import { Screen } from "./screens/Screen.js";
 
@@ -18,9 +18,7 @@ export class Game {
 
   update(): void {
     this.time.update();
-    this.mouse.resetCursor();
     this.screen.getCurrentState().update();
-    this.mouse.setCursor();
     this.debug.update();
   }
 }

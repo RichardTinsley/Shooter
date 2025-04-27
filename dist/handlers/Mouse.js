@@ -1,5 +1,11 @@
-import { PLAIN_CURSOR } from "../constants/types.js";
 const size = 3;
+export var STYLES;
+(function (STYLES) {
+    STYLES["PLAIN"] = "Plain";
+    STYLES["TOWER"] = "Tower";
+    STYLES["ENEMY"] = "Enemy";
+    STYLES["MENUBUTTON"] = "MenuButton";
+})(STYLES || (STYLES = {}));
 export class Mouse {
     constructor() {
         window.addEventListener("mousemove", (e) => {
@@ -8,11 +14,7 @@ export class Mouse {
         });
         window.addEventListener("click", () => Mouse.cursor.mouseOverEntity.mouseClick());
     }
-    resetCursor() {
-        Mouse.cursor.mouseOverEntity = PLAIN_CURSOR;
-    }
-    setCursor() {
-        const style = Mouse.cursor.mouseOverEntity.getType();
+    static setCursor(style) {
         Mouse.cursor.style.cursor = `url(../../images/cursors/${style}.cur), auto`;
     }
 }
@@ -23,6 +25,6 @@ Mouse.cursor = {
     width: size,
     height: size,
     style: document.getElementById("canvas").style,
-    mouseOverEntity: PLAIN_CURSOR,
+    mouseOverEntity: undefined,
 };
 //# sourceMappingURL=Mouse.js.map
