@@ -7,6 +7,7 @@ export class TextGlow extends Text {
         super();
         this.lineWidth = 3;
         this.glow = 0;
+        this.glowMaximum = 13;
         this.frequency = 0.7;
         this.amplitude = 0.2;
         this.startTime = Date.now();
@@ -30,7 +31,7 @@ export class TextGlow extends Text {
     }
     glowChanger() {
         if (this.state === STATE.MOUSEOVER) {
-            if (this.glow < 13)
+            if (this.glow < this.glowMaximum)
                 this.glow += 2;
         }
         else {

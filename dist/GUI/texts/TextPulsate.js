@@ -1,17 +1,25 @@
-import { Text } from "./Text.js";
 import { oscillate } from "../../utilities/math.js";
-export class TextPulsate extends Text {
+import { COLOURS } from "../../constants/colours.js";
+import { TextGlow } from "./TextGlow.js";
+export class TextPulsate extends TextGlow {
     constructor() {
         super();
-        this.frequency = 1;
         this.amplitude = 1;
-        this.startTime = Date.now();
+        this.frequency = 1;
+        this.glowMaximum = 3;
+        this.pulsateFrequency = 1;
+        this.pulsateAmplitude = 1;
+        this.pulsateStartTime = Date.now();
     }
     draw(ctx) {
+        ctx.shadowColor = COLOURS.GLOW;
+        ctx.shadowBlur = this.glow;
         super.draw(ctx);
+        ctx.shadowBlur = 0;
     }
     update() {
-        this.size += oscillate(1, this.startTime, this.frequency, this.amplitude);
+        this.size += oscillate(1, this.pulsateStartTime, this.pulsateFrequency, this.pulsateAmplitude);
+        super.update();
     }
 }
 //# sourceMappingURL=TextPulsate.js.map

@@ -5,10 +5,11 @@ import { COLOURS } from "../../constants/colours.js";
 
 export class TextGlow extends Text {
   lineWidth: number = 3;
-  private glow: number = 0;
-  private frequency: number = 0.7;
-  private amplitude: number = 0.2;
-  private startTime = Date.now();
+  protected glow: number = 0;
+  protected glowMaximum: number = 13;
+  protected frequency: number = 0.7;
+  protected amplitude: number = 0.2;
+  protected startTime = Date.now();
 
   constructor() {
     super();
@@ -40,7 +41,7 @@ export class TextGlow extends Text {
 
   glowChanger() {
     if (this.state === STATE.MOUSEOVER) {
-      if (this.glow < 13) this.glow += 2;
+      if (this.glow < this.glowMaximum) this.glow += 2;
     } else {
       if (this.glow > 0) this.glow--;
     }
