@@ -1,7 +1,7 @@
-export enum ANIMATION {
+export enum STATE {
   FINISHED,
   ANIMATING,
   MOUSEOVER,
-  NORMAL,
+  MOUSEOFF,
   SELECTED,
 }

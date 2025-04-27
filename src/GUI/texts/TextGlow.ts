@@ -1,5 +1,5 @@
 import { Text } from "./Text.js";
-import { ANIMATION } from "../../constants/animation.js";
+import { STATE } from "../../constants/states.js";
 import { oscillate, OSCILLATIONS } from "../../utilities/math.js";
 import { COLOURS } from "../../constants/colours.js";
 
@@ -23,7 +23,7 @@ export class TextGlow extends Text {
 
   update() {
     switch (this.state) {
-      case ANIMATION.MOUSEOVER:
+      case STATE.MOUSEOVER:
         this.glowChanger();
         this.glow += oscillate(
           OSCILLATIONS.COSINE,
@@ -32,14 +32,14 @@ export class TextGlow extends Text {
           this.amplitude
         );
         break;
-      case ANIMATION.NORMAL:
+      case STATE.MOUSEOFF:
         this.glowChanger();
         break;
     }
   }
 
   glowChanger() {
-    if (this.state === ANIMATION.MOUSEOVER) {
+    if (this.state === STATE.MOUSEOVER) {
       if (this.glow < 13) this.glow += 2;
     } else {
       if (this.glow > 0) this.glow--;

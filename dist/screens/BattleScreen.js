@@ -9,7 +9,6 @@ export class BattleScreen {
         this.enemyWaves = new EnemyWaves();
         this.entities = [];
         this.enemies = [];
-        this.entities.push(...this.level.createEmptyTowerSpots());
     }
     draw(ctx) {
         this.level.draw(ctx);

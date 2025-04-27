@@ -1,5 +1,5 @@
 import { Text } from "./Text.js";
-import { ANIMATION } from "../../constants/animation.js";
+import { STATE } from "../../constants/states.js";
 import { oscillate } from "../../utilities/math.js";
 import { COLOURS } from "../../constants/colours.js";
 export class TextGlow extends Text {
@@ -19,17 +19,17 @@ export class TextGlow extends Text {
     }
     update() {
         switch (this.state) {
-            case ANIMATION.MOUSEOVER:
+            case STATE.MOUSEOVER:
                 this.glowChanger();
                 this.glow += oscillate(1, this.startTime, this.frequency, this.amplitude);
                 break;
-            case ANIMATION.NORMAL:
+            case STATE.MOUSEOFF:
                 this.glowChanger();
                 break;
         }
     }
     glowChanger() {
-        if (this.state === ANIMATION.MOUSEOVER) {
+        if (this.state === STATE.MOUSEOVER) {
             if (this.glow < 13)
                 this.glow += 2;
         }

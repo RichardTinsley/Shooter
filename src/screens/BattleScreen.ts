@@ -13,7 +13,7 @@ export class BattleScreen implements IScreenState {
   enemies: Array<any> = [];
 
   constructor(public screen: Screen) {
-    this.entities.push(...this.level.createEmptyTowerSpots());
+    // this.entities.push(...this.level.createEmptyTowerSpots());
   }
 
   draw(ctx: CanvasRenderingContext2D): void {

@@ -1,5 +1,4 @@
 import { PLAIN_CURSOR } from "../constants/types.js";
-import { ANIMATION } from "../constants/animation.js";
 export class Mouse {
     constructor() {
         this.mouseOverEntity = PLAIN_CURSOR;
@@ -27,14 +26,14 @@ export class Mouse {
         array.forEach((entity) => {
             if (entity.hitDetection.checkCollision(this.cursor)) {
                 this.mouseOverEntity = entity;
-                this.mouseOverEntity.mouseOver(ANIMATION.MOUSEOVER);
+                this.mouseOverEntity.mouseOver();
             }
         });
     }
     removeMouseOver(array) {
         array.forEach((entity) => {
             if (entity !== this.mouseOverEntity)
-                entity.mouseOver(ANIMATION.NORMAL);
+                entity.mouseOff();
         });
     }
     setCursor(style) {

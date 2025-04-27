@@ -1,4 +1,6 @@
 import { HitDetectionSquare } from "../../handlers/HitDetectionSquare.js";
+import { MouseOver } from "./states/MouseOver.js";
+import { MouseOff } from "./states/MouseOff.js";
 export class MenuButton {
     constructor(setScreen, label) {
         this.setScreen = setScreen;
@@ -17,11 +19,19 @@ export class MenuButton {
         this.hitDetection.setHitBox(position);
         return this;
     }
+    getCurrentState() {
+        return this.state;
+    }
     mouseClick() {
         this.setScreen();
     }
-    mouseOver(state) {
-        this.label.setState(state);
+    mouseOver() {
+        if (!(this.state instanceof MouseOver))
+            this.state = new MouseOver(this);
+    }
+    mouseOff() {
+        if (!(this.state instanceof MouseOff))
+            this.state = new MouseOff(this);
     }
     getType() {
         return "MenuButton";

@@ -1,6 +1,5 @@
 import { Screen } from "../screens/Screen.js";
 import { Cursor, PLAIN_CURSOR } from "../constants/types.js";
-import { ANIMATION } from "../constants/animation.js";
 
 export class Mouse {
   // static enemySelected: Enemy; //IClickAble
@@ -36,14 +35,14 @@ export class Mouse {
     array.forEach((entity: any) => {
       if (entity.hitDetection.checkCollision(this.cursor)) {
         this.mouseOverEntity = entity;
-        this.mouseOverEntity.mouseOver(ANIMATION.MOUSEOVER);
+        this.mouseOverEntity.mouseOver();
       }
     });
   }
 
   removeMouseOver(array: Array<any>) {
     array.forEach((entity: any) => {
-      if (entity !== this.mouseOverEntity) entity.mouseOver(ANIMATION.NORMAL);
+      if (entity !== this.mouseOverEntity) entity.mouseOff();
     });
   }
 

@@ -1,9 +1,9 @@
-import { ANIMATION } from "../../constants/animation.js";
+import { STATE } from "../../constants/states.js";
 export class Text {
     constructor() {
         this.align = "center";
         this.alpha = 1;
-        this.state = ANIMATION.FINISHED;
+        this.state = STATE.FINISHED;
     }
     draw(ctx) {
         ctx.strokeStyle = `rgba(0, 0, 0, ${this.alpha})`;
