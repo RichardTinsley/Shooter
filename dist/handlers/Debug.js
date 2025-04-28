@@ -1,13 +1,13 @@
 import { SIZES } from "../constants/sizes.js";
 import { COLOURS } from "../constants/colours.js";
 import { TextFactory } from "../GUI/texts/TextFactory.js";
+import { Mouse } from "./Mouse.js";
 import { BattleScreen } from "../screens/BattleScreen.js";
-import { drawDot, drawRectangle } from "../utilities/drawShapes.js";
 import { Time } from "./Time.js";
+import * as SHAPES from "../utilities/drawShapes.js";
 export class Debug {
-    constructor(state, mouse) {
+    constructor(state) {
         this.state = state;
-        this.mouse = mouse;
         this.isDebugMode = true;
         this.FPS = TextFactory.createTextPlain();
         this.switchDebugMode = () => (this.isDebugMode = !this.isDebugMode);
@@ -17,8 +17,12 @@ export class Debug {
         if (!this.isDebugMode)
             return;
         const currentState = this.state.getCurrentState();
-        if (currentState instanceof BattleScreen)
+        if (currentState instanceof BattleScreen) {
             this.drawLevelDebugInfoGrid(ctx);
+            this.drawEntitiesDebugInfo(ctx, currentState.entities);
+        }
+        if (currentState.menu)
+            this.drawMenuDebugInfo(ctx, currentState.menu.getArray());
         this.drawMouseDebugInfo(ctx);
         this.drawPerformanceDebugInfo(ctx);
     }
@@ -29,17 +33,23 @@ export class Debug {
     }
     drawPerformanceDebugInfo(ctx) {
         ctx.lineWidth = 3;
-        drawRectangle(ctx, { x: SIZES.TILE_HALF, y: SIZES.TILE * 3 }, SIZES.TILE_HALF * 9, SIZES.TILE * 2, COLOURS.SHADOW, COLOURS.WHITE);
+        SHAPES.drawRectangle(ctx, { x: SIZES.TILE_HALF, y: SIZES.TILE * 3 }, SIZES.TILE_HALF * 9, SIZES.TILE * 2, COLOURS.SHADOW, COLOURS.WHITE);
         this.FPS.draw(ctx);
     }
     drawMouseDebugInfo(ctx) {
+        SHAPES.drawDot(ctx, Mouse.cursor, COLOURS.RED);
+    }
+    drawMenuDebugInfo(ctx, menuButtons) {
+        menuButtons.forEach((menuButton) => {
+            SHAPES.drawSquareHitBox(ctx, menuButton.hitDetection.getHitBox());
+        });
     }
     drawEntitiesDebugInfo(ctx, entities) {
         entities.forEach((entity) => {
             var _a;
-            drawDot(ctx, entity.position, COLOURS.BLUE);
-            entity.hitDetection.drawHitbox(ctx);
-            (_a = entity.waypoints) === null || _a === void 0 ? void 0 : _a.forEach((waypoint) => drawDot(ctx, waypoint, COLOURS.BRIGHT_GREEN));
+            SHAPES.drawDot(ctx, entity.position, COLOURS.BLUE);
+            SHAPES.drawCircleHitbox(ctx, entity.hitDetection.getPosition(), entity.hitDetection.radius);
+            (_a = entity.waypoints) === null || _a === void 0 ? void 0 : _a.forEach((waypoint) => SHAPES.drawDot(ctx, waypoint, COLOURS.BRIGHT_GREEN));
         });
     }
     drawLevelDebugInfoGrid(ctx) {

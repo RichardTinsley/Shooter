@@ -6,48 +6,48 @@ export var CURSOR_STYLES;
     CURSOR_STYLES["ENEMY"] = "Enemy";
     CURSOR_STYLES["MENUBUTTON"] = "MenuButton";
 })(CURSOR_STYLES || (CURSOR_STYLES = {}));
-const cursor = {
-    x: 0,
-    y: 0,
-    radius: size,
-    width: size,
-    height: size,
-    style: document.getElementById("canvas").style,
-    mouseOverEntity: null,
-};
 export class Mouse {
     constructor() {
-        Mouse.setCursor(CURSOR_STYLES.PLAIN);
+        Mouse.setCursor(null);
         window.addEventListener("mousemove", (e) => {
-            cursor.x = e.offsetX;
-            cursor.y = e.offsetY;
+            Mouse.cursor.x = e.offsetX;
+            Mouse.cursor.y = e.offsetY;
         });
         window.addEventListener("click", () => {
-            if (cursor.mouseOverEntity !== null) {
-                cursor.mouseOverEntity.mouseClick();
+            if (Mouse.cursor.mouseOverEntity !== null) {
+                Mouse.cursor.mouseOverEntity.mouseClick();
+                Mouse.setCursor(null);
             }
         });
     }
-    static setCursor(style) {
-        cursor.style.cursor = `url(../../images/cursors/${style}.cur), auto`;
+    static setCursor(entity, style = CURSOR_STYLES.PLAIN) {
+        Mouse.cursor.style.cursor = `url(../../images/cursors/${style}.cur), auto`;
+        Mouse.cursor.mouseOverEntity = entity;
     }
     static mouseOverEntity(entity, MouseOver, MouseOff, style) {
-        if (entity.hitDetection.checkCollision(cursor)) {
+        if (entity.hitDetection.checkCollision(Mouse.cursor)) {
             if (!entity.isMouseOver) {
                 entity.isMouseOver = !entity.isMouseOver;
-                Mouse.setCursor(style);
                 entity.state = new MouseOver(entity);
-                cursor.mouseOverEntity = entity;
+                Mouse.setCursor(entity, style);
             }
         }
         else {
             if (entity.isMouseOver) {
                 entity.isMouseOver = !entity.isMouseOver;
-                Mouse.setCursor(CURSOR_STYLES.PLAIN);
                 entity.state = new MouseOff(entity);
-                cursor.mouseOverEntity = null;
+                Mouse.setCursor(null);
             }
         }
     }
 }
+Mouse.cursor = {
+    x: 0,
+    y: 0,
+    radius: size / 2,
+    width: size,
+    height: size,
+    style: document.getElementById("canvas").style,
+    mouseOverEntity: null,
+};
 //# sourceMappingURL=Mouse.js.map

@@ -1,9 +1,11 @@
 import { HUD } from "../GUI/HUD/HUD.js";
+import { Menu } from "../GUI/menus/Menu.js";
 import { Level } from "../handlers/Level.js";
 import { EnemyWaves } from "../handlers/EnemyWaves.js";
 export class BattleScreen {
     constructor(screen) {
         this.screen = screen;
+        this.menu = new Menu();
         this.hud = new HUD();
         this.level = new Level();
         this.enemyWaves = new EnemyWaves();

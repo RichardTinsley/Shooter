@@ -5,7 +5,7 @@ import { IScreenState, Screen } from "./Screen.js";
 import { EnemyWaves } from "../handlers/EnemyWaves.js";
 
 export class BattleScreen implements IScreenState {
-  menu!: Menu;
+  menu = new Menu();
   hud = new HUD();
   level = new Level();
   enemyWaves = new EnemyWaves();

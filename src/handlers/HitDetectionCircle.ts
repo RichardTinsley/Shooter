@@ -1,12 +1,9 @@
 import { Cursor, Position } from "../constants/types";
 import { checkCircleCollision } from "../utilities/collisionDetection.js";
-import { drawCircleHitbox } from "../utilities/drawShapes.js";
 
 export class HitDetectionCircle {
   protected position!: Position;
   protected radius!: number;
-
-  protected drawOffsetX: number = 0;
   protected drawOffsetY: number = 0;
 
   setPosition(position: Position): this {
@@ -22,22 +19,21 @@ export class HitDetectionCircle {
   checkCollision(cursor: Cursor): boolean {
     return checkCircleCollision(
       cursor,
-      { x: this.position.x, y: this.position.y - this.drawOffsetY },
+      this.getPosition(),
       cursor.radius,
       this.radius
     );
   }
 
-  drawHitbox(ctx: CanvasRenderingContext2D) {
-    drawCircleHitbox(
-      ctx,
-      { x: this.position.x, y: this.position.y - this.drawOffsetY },
-      this.radius
-    );
+  getRadius(): number {
+    return this.radius;
   }
 
-  setDrawOffsets(offsetX: number, offsetY: number): this {
-    this.drawOffsetX = offsetX;
+  getPosition(): Position {
+    return { x: this.position.x, y: this.position.y - this.drawOffsetY };
+  }
+
+  setDrawOffsets(offsetY: number): this {
     this.drawOffsetY = offsetY;
     return this;
   }

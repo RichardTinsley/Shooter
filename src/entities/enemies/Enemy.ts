@@ -31,7 +31,7 @@ export class Enemy {
 
   initialiseEnemyComponents(width: number, height: number) {
     this.healthBar.setWidth(width).setDrawOffsets(height);
-    this.hitDetection.setWidth(width).setDrawOffsets(0, height / 2);
+    this.hitDetection.setWidth(width).setDrawOffsets(height / 2);
     this.shadowWidth = width;
     this.mouseOverWidth = width * 1.25;
   }
@@ -52,11 +52,7 @@ export class Enemy {
   }
 
   mouseOver() {
-    //this.state = state;
+    // Mouse.mouseOverEntity(this, MouseOver, MouseOff, CURSOR_STYLES.ENEMY);
     return;
-  }
-
-  getType(): string {
-    return "Enemy";
   }
 }

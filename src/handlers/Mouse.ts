@@ -8,38 +8,39 @@ export enum CURSOR_STYLES {
   MENUBUTTON = "MenuButton",
 }
 
-const cursor: Cursor = {
-  x: 0,
-  y: 0,
-  radius: size,
-  width: size,
-  height: size,
-  style: document.getElementById("canvas")!.style,
-  mouseOverEntity: null,
-};
-
 export class Mouse {
-  // static enemySelected: Enemy; //IClickAble
-  // static towerSelected:Tower; //IClickAble
+  // static enemySelected: IClickable;
+  // static towerSelected: IClickable;
+
+  static cursor: Cursor = {
+    x: 0,
+    y: 0,
+    radius: size / 2,
+    width: size,
+    height: size,
+    style: document.getElementById("canvas")!.style,
+    mouseOverEntity: null,
+  };
 
   constructor() {
-    Mouse.setCursor(CURSOR_STYLES.PLAIN);
+    Mouse.setCursor(null);
 
     window.addEventListener("mousemove", (e) => {
-      cursor.x = e.offsetX;
-      cursor.y = e.offsetY;
+      Mouse.cursor.x = e.offsetX;
+      Mouse.cursor.y = e.offsetY;
     });
 
     window.addEventListener("click", () => {
-      if (cursor.mouseOverEntity !== null) {
-        cursor.mouseOverEntity.mouseClick();
-        // Mouse.setCursor(STYLES.PLAIN);
+      if (Mouse.cursor.mouseOverEntity !== null) {
+        Mouse.cursor.mouseOverEntity.mouseClick();
+        Mouse.setCursor(null);
       }
     });
   }
 
-  static setCursor(style: string) {
-    cursor.style.cursor = `url(../../images/cursors/${style}.cur), auto`;
+  static setCursor(entity: any, style: string = CURSOR_STYLES.PLAIN): void {
+    Mouse.cursor.style.cursor = `url(../../images/cursors/${style}.cur), auto`;
+    Mouse.cursor.mouseOverEntity = entity;
   }
 
   static mouseOverEntity(
@@ -48,19 +49,17 @@ export class Mouse {
     MouseOff: any,
     style: string
   ): void {
-    if (entity.hitDetection.checkCollision(cursor)) {
+    if (entity.hitDetection.checkCollision(Mouse.cursor)) {
       if (!entity.isMouseOver) {
         entity.isMouseOver = !entity.isMouseOver;
-        Mouse.setCursor(style);
         entity.state = new MouseOver(entity);
-        cursor.mouseOverEntity = entity;
+        Mouse.setCursor(entity, style);
       }
     } else {
       if (entity.isMouseOver) {
         entity.isMouseOver = !entity.isMouseOver;
-        Mouse.setCursor(CURSOR_STYLES.PLAIN);
         entity.state = new MouseOff(entity);
-        cursor.mouseOverEntity = null;
+        Mouse.setCursor(null);
       }
     }
   }

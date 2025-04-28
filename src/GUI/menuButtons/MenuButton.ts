@@ -10,16 +10,11 @@ export interface IMenuButtonState {
 
 export class MenuButton {
   public state!: IMenuButtonState;
-  public hitDetection;
   public position!: Position;
+  public hitDetection!: HitDetectionSquare;
   public isMouseOver: boolean = false;
 
-  constructor(public setScreen: Function, public label: any) {
-    this.hitDetection = new HitDetectionSquare(
-      this.label.getWidth(),
-      this.label.getHeight()
-    );
-  }
+  constructor(public setScreen: Function, public label: any) {}
 
   draw(ctx: CanvasRenderingContext2D): void {
     this.label.draw(ctx);
@@ -33,7 +28,11 @@ export class MenuButton {
   setPosition(position: Position): this {
     this.position = { ...position };
     this.label.setPosition(position);
-    this.hitDetection.setHitBox(position);
+    this.hitDetection = new HitDetectionSquare().setHitBox(
+      position,
+      this.label.getWidth(),
+      this.label.getHeight()
+    );
     return this;
   }
 

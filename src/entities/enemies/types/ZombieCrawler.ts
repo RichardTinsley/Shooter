@@ -22,6 +22,6 @@ export class ZombieCrawler extends Enemy {
       this.sprite.getHeight()
     );
     this.sprite.setDrawOffsets(0.25, 0.1);
-    this.hitDetection.setDrawOffsets(0, 0);
+    this.hitDetection.setDrawOffsets(0);
   }
 }

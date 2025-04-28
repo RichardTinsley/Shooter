@@ -10,8 +10,8 @@ export class Movement {
   private waypointIndex: number = 1;
   private priorityDistance: number = 0;
 
-  public speed!: number;
-  public delta: number = 0.15;
+  private speed!: number;
+  private delta: number = 0.15;
   private angle!: number;
 
   update(enemy: any) {

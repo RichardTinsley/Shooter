@@ -4,14 +4,14 @@ import { TextFactory } from "../GUI/texts/TextFactory.js";
 import { Screen } from "../screens/Screen.js";
 import { Mouse } from "./Mouse.js";
 import { BattleScreen } from "../screens/BattleScreen.js";
-import { drawDot, drawRectangle } from "../utilities/drawShapes.js";
 import { Time } from "./Time.js";
+import * as SHAPES from "../utilities/drawShapes.js";
 
 export class Debug {
   private isDebugMode: Boolean = true;
   private FPS: any = TextFactory.createTextPlain();
 
-  constructor(public state: Screen, public mouse: Mouse) {
+  constructor(public state: Screen) {
     this.FPS.setPosition({ x: SIZES.TILE, y: SIZES.TILE * 4 });
   }
 
@@ -21,9 +21,12 @@ export class Debug {
     if (!this.isDebugMode) return;
     const currentState = this.state.getCurrentState();
 
-    if (currentState instanceof BattleScreen) this.drawLevelDebugInfoGrid(ctx);
-
-    // this.drawEntitiesDebugInfo(ctx, currentState.getArray());  FIX THIS!!!
+    if (currentState instanceof BattleScreen) {
+      this.drawLevelDebugInfoGrid(ctx);
+      this.drawEntitiesDebugInfo(ctx, currentState.entities);
+    }
+    if (currentState.menu)
+      this.drawMenuDebugInfo(ctx, currentState.menu.getArray());
 
     this.drawMouseDebugInfo(ctx);
     this.drawPerformanceDebugInfo(ctx);
@@ -36,7 +39,7 @@ export class Debug {
 
   drawPerformanceDebugInfo(ctx: CanvasRenderingContext2D) {
     ctx.lineWidth = 3;
-    drawRectangle(
+    SHAPES.drawRectangle(
       ctx,
       { x: SIZES.TILE_HALF, y: SIZES.TILE * 3 },
       SIZES.TILE_HALF * 9,
@@ -48,19 +51,29 @@ export class Debug {
   }
 
   drawMouseDebugInfo(ctx: CanvasRenderingContext2D) {
-    // drawDot(ctx, Mouse.cursor, COLOURS.RED);
+    SHAPES.drawDot(ctx, Mouse.cursor, COLOURS.RED);
+  }
+
+  drawMenuDebugInfo(ctx: CanvasRenderingContext2D, menuButtons: Array<any>) {
+    menuButtons.forEach((menuButton) => {
+      SHAPES.drawSquareHitBox(ctx, menuButton.hitDetection.getHitBox());
+    });
   }
 
   drawEntitiesDebugInfo(ctx: CanvasRenderingContext2D, entities: Array<any>) {
     entities.forEach((entity) => {
-      drawDot(ctx, entity.position, COLOURS.BLUE);
+      SHAPES.drawDot(ctx, entity.position, COLOURS.BLUE);
 
-      entity.hitDetection.drawHitbox(ctx);
+      SHAPES.drawCircleHitbox(
+        ctx,
+        entity.hitDetection.getPosition(),
+        entity.hitDetection.radius
+      );
 
       entity.waypoints?.forEach((waypoint: any) =>
-        drawDot(ctx, waypoint, COLOURS.BRIGHT_GREEN)
+        SHAPES.drawDot(ctx, waypoint, COLOURS.BRIGHT_GREEN)
       );
-      // drawDot(ctx, entity.muzzle, COLOURS.YELLOW);
+      // SHAPES.drawDot(ctx, entity.muzzle, COLOURS.YELLOW);
     });
   }
 
