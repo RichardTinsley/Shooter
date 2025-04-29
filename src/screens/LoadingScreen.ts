@@ -9,8 +9,9 @@ import { deathSorceryLogoLayout } from "../GUI/layouts/deathSorceryLogoLayout.js
 
 export class LoadingScreen implements IScreenState {
   private logo = new deathSorceryLogoLayout();
+  menu!: Menu;
 
-  private summoning: any = TextFactory.textFade()
+  private summoning = TextFactory.textFade()
     .setPosition({ x: SIZES.GAME_WIDTH_HALF, y: SIZES.GAME_HEIGHT - 140 })
     .setText("Summoning...")
     .setHeight(SIZES.TEXT_MENUITEM);
@@ -22,9 +23,7 @@ export class LoadingScreen implements IScreenState {
     })
     .setDrawOffsets(0);
 
-  menu!: Menu;
-
-  constructor(public screen: Screen) {
+  constructor(public switchToBeginningScreen: Function) {
     this.loadAssets();
   }
 
@@ -48,6 +47,6 @@ export class LoadingScreen implements IScreenState {
     this.loadingBar.setCurrentStatus(1);
     console.log(`${fileName.fileName} Loaded.`);
     if (this.loadingBar.getCurrentStatus() === assetListLength)
-      this.screen.switchToBeginningScreen();
+      this.switchToBeginningScreen();
   };
 }

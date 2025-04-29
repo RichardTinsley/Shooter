@@ -12,12 +12,12 @@ export class Game {
         this.keyboard = new Keyboard(this.screen, this.debug);
     }
     draw(ctx) {
-        this.screen.getCurrentState().draw(ctx);
+        this.screen.draw(ctx);
         this.debug.draw(ctx);
     }
     update() {
         this.time.update();
-        this.screen.getCurrentState().update();
+        this.screen.update();
         this.debug.update();
     }
 }

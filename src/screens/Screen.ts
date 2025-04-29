@@ -5,7 +5,6 @@ import { MainMenuScreen } from "./MainMenuScreen.js";
 import { BattleScreen } from "./BattleScreen.js";
 
 export interface IScreenState {
-  screen: Screen;
   menu: Menu;
 
   draw(ctx: CanvasRenderingContext2D): void;
@@ -13,10 +12,17 @@ export interface IScreenState {
 }
 
 export class Screen {
-  public currentScreen: IScreenState = new LoadingScreen(this);
+  public currentScreen: IScreenState;
 
-  public getCurrentState(): IScreenState {
-    return this.currentScreen;
+  constructor() {
+    this.currentScreen = new LoadingScreen(this.switchToBeginningScreen);
+  }
+
+  draw(ctx: CanvasRenderingContext2D): void {
+    this.currentScreen.draw(ctx);
+  }
+  update(): void {
+    this.currentScreen.update();
   }
 
   public switchToBeginningScreen = () =>
@@ -32,6 +38,7 @@ export class Screen {
     (this.currentScreen = new BeginningScreen(this));
 
   public switchToAboutScreen = () =>
+    //screen fades in here, DECORATOR PATTERN?
     (this.currentScreen = new BeginningScreen(this));
 }
 

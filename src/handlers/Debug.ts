@@ -19,7 +19,7 @@ export class Debug {
 
   draw(ctx: CanvasRenderingContext2D): void {
     if (!this.isDebugMode) return;
-    const currentState = this.state.getCurrentState();
+    const currentState = this.state.currentScreen;
 
     if (currentState instanceof BattleScreen) {
       this.drawLevelDebugInfoGrid(ctx);
