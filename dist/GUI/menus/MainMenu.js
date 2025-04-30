@@ -3,23 +3,23 @@ import { TextFactory } from "../texts/TextFactory.js";
 import { LABELS } from "./Menu.js";
 import { VerticalMenu } from "./VerticalMenu.js";
 export class MainMenu extends VerticalMenu {
-    constructor(screen, position) {
+    constructor(buttons, position) {
         super();
         const MAIN_MENU = [
             {
-                setScreen: screen.switchToBattleScreen,
+                setScreen: buttons.battle,
                 label: TextFactory.textGlow()
                     .setText(LABELS.NEWGAME)
                     .setHeight(SIZES.TEXT_MENUITEM),
             },
             {
-                setScreen: screen.switchToOptionsScreen,
+                setScreen: buttons.options,
                 label: TextFactory.textGlow()
                     .setText(LABELS.OPTIONS)
                     .setHeight(SIZES.TEXT_MENUITEM),
             },
             {
-                setScreen: screen.switchToAboutScreen,
+                setScreen: buttons.about,
                 label: TextFactory.textGlow()
                     .setText(LABELS.ABOUT)
                     .setHeight(SIZES.TEXT_MENUITEM),

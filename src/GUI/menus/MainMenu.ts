@@ -1,28 +1,27 @@
 import { SIZES } from "../../constants/sizes.js";
-import { Screen } from "../../screens/Screen.js";
 import { TextFactory } from "../texts/TextFactory.js";
 import { LABELS, MenuTemplate } from "./Menu.js";
 import { VerticalMenu } from "./VerticalMenu.js";
 
 export class MainMenu extends VerticalMenu {
-  constructor(screen: Screen, position: number) {
+  constructor(buttons: any, position: number) {
     super();
 
     const MAIN_MENU: Array<MenuTemplate> = [
       {
-        setScreen: screen.switchToBattleScreen,
+        setScreen: buttons.battle,
         label: TextFactory.textGlow()
           .setText(LABELS.NEWGAME)
           .setHeight(SIZES.TEXT_MENUITEM),
       },
       {
-        setScreen: screen.switchToOptionsScreen,
+        setScreen: buttons.options,
         label: TextFactory.textGlow()
           .setText(LABELS.OPTIONS)
           .setHeight(SIZES.TEXT_MENUITEM),
       },
       {
-        setScreen: screen.switchToAboutScreen,
+        setScreen: buttons.about,
         label: TextFactory.textGlow()
           .setText(LABELS.ABOUT)
           .setHeight(SIZES.TEXT_MENUITEM),

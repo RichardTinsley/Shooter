@@ -1,46 +1,47 @@
 import { Menu } from "../GUI/menus/Menu.js";
-import { BeginningScreen } from "./BeginScreen.js";
+import { BeginScreen } from "./BeginScreen.js";
 import { LoadingScreen } from "./LoadingScreen.js";
 import { MainMenuScreen } from "./MainMenuScreen.js";
 import { BattleScreen } from "./BattleScreen.js";
 
 export interface IScreenState {
   menu: Menu;
-
   draw(ctx: CanvasRenderingContext2D): void;
   update(): void;
 }
 
 export class Screen {
-  public currentScreen: IScreenState;
+  screen: IScreenState;
 
   constructor() {
-    this.currentScreen = new LoadingScreen(this.switchToBeginningScreen);
+    this.screen = new LoadingScreen(this.beginScreen);
   }
 
   draw(ctx: CanvasRenderingContext2D): void {
-    this.currentScreen.draw(ctx);
+    this.screen.draw(ctx);
   }
   update(): void {
-    this.currentScreen.update();
+    this.screen.update();
   }
 
-  public switchToBeginningScreen = () =>
-    (this.currentScreen = new BeginningScreen(this));
+  beginScreen = () => (this.screen = new BeginScreen(this.buttons));
 
-  public switchToMainMenuScreen = () =>
-    (this.currentScreen = new MainMenuScreen(this));
+  mainMenuScreen = () => (this.screen = new MainMenuScreen(this.buttons));
 
-  public switchToBattleScreen = () =>
-    (this.currentScreen = new BattleScreen(this));
+  battleScreen = () => (this.screen = new BattleScreen(this.buttons));
 
-  public switchToOptionsScreen = () =>
-    (this.currentScreen = new BeginningScreen(this));
+  optionsScreen = () => (this.screen = new BeginScreen(this.buttons));
 
-  public switchToAboutScreen = () =>
-    //screen fades in here, DECORATOR PATTERN?
-    (this.currentScreen = new BeginningScreen(this));
+  aboutScreen = () => (this.screen = new BeginScreen(this.buttons));
+
+  buttons = {
+    mainMenu: this.mainMenuScreen,
+    battle: this.battleScreen,
+    option: this.optionsScreen,
+    about: this.aboutScreen,
+  };
 }
 
+//screen fades in here, DECORATOR PATTERN?
 // if(this.globalAlpha < 1)
 //   ctx.globalAlpha = this.globalAlpha += this.delta;

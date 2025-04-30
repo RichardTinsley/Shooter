@@ -1,14 +1,13 @@
 import { ALL_ASSETS, FILE_NAMES } from "../constants/assets.js";
 import { SIZES } from "../constants/sizes.js";
 import { MainMenu } from "../GUI/menus/MainMenu.js";
-import { Screen, IScreenState } from "./Screen.js";
 
-export class MainMenuScreen implements IScreenState {
+export class MainMenuScreen {
   menu;
   music: HTMLAudioElement = ALL_ASSETS.get(FILE_NAMES.MUSIC_MAIN_MENU);
 
-  constructor(public screen: Screen) {
-    this.menu = new MainMenu(screen, 400);
+  constructor(buttons: any) {
+    this.menu = new MainMenu(buttons, 400);
     this.music.play();
   }
 

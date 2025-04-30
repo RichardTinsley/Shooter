@@ -3,11 +3,11 @@ import { TextFactory } from "../texts/TextFactory.js";
 import { LABELS } from "./Menu.js";
 import { VerticalMenu } from "./VerticalMenu.js";
 export class BeginMenu extends VerticalMenu {
-    constructor(screen, position) {
+    constructor(buttons, position) {
         super();
         const BEGIN_MENU = [
             {
-                setScreen: screen.switchToMainMenuScreen,
+                setScreen: buttons.mainMenu,
                 label: TextFactory.textPulsate()
                     .setText(LABELS.BEGIN)
                     .setHeight(SIZES.TEXT_BEGIN),

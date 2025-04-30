@@ -1,7 +1,7 @@
 import { HUD } from "../GUI/HUD/HUD.js";
 import { Menu } from "../GUI/menus/Menu.js";
 import { Level } from "../handlers/Level.js";
-import { IScreenState, Screen } from "./Screen.js";
+import { IScreenState } from "./Screen.js";
 import { EnemyWaves } from "../handlers/EnemyWaves.js";
 
 export class BattleScreen implements IScreenState {
@@ -11,7 +11,7 @@ export class BattleScreen implements IScreenState {
   enemyWaves = new EnemyWaves();
   entities: Array<any> = [];
 
-  constructor(public screen: Screen) {
+  constructor(buttons: any) {
     // this.entities.push(...this.level.createEmptyTowerSpots());
   }
 

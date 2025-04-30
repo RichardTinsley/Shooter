@@ -16,7 +16,7 @@ export class Debug {
     draw(ctx) {
         if (!this.isDebugMode)
             return;
-        const currentState = this.state.currentScreen;
+        const currentState = this.state.screen;
         if (currentState instanceof BattleScreen) {
             this.drawLevelDebugInfoGrid(ctx);
             this.drawEntitiesDebugInfo(ctx, currentState.entities);

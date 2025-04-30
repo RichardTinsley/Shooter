@@ -1,21 +1,27 @@
-import { BeginningScreen } from "./BeginScreen.js";
+import { BeginScreen } from "./BeginScreen.js";
 import { LoadingScreen } from "./LoadingScreen.js";
 import { MainMenuScreen } from "./MainMenuScreen.js";
 import { BattleScreen } from "./BattleScreen.js";
 export class Screen {
     constructor() {
-        this.switchToBeginningScreen = () => (this.currentScreen = new BeginningScreen(this));
-        this.switchToMainMenuScreen = () => (this.currentScreen = new MainMenuScreen(this));
-        this.switchToBattleScreen = () => (this.currentScreen = new BattleScreen(this));
-        this.switchToOptionsScreen = () => (this.currentScreen = new BeginningScreen(this));
-        this.switchToAboutScreen = () => (this.currentScreen = new BeginningScreen(this));
-        this.currentScreen = new LoadingScreen(this.switchToBeginningScreen);
+        this.beginScreen = () => (this.screen = new BeginScreen(this.buttons));
+        this.mainMenuScreen = () => (this.screen = new MainMenuScreen(this.buttons));
+        this.battleScreen = () => (this.screen = new BattleScreen(this.buttons));
+        this.optionsScreen = () => (this.screen = new BeginScreen(this.buttons));
+        this.aboutScreen = () => (this.screen = new BeginScreen(this.buttons));
+        this.buttons = {
+            mainMenu: this.mainMenuScreen,
+            battle: this.battleScreen,
+            option: this.optionsScreen,
+            about: this.aboutScreen,
+        };
+        this.screen = new LoadingScreen(this.beginScreen);
     }
     draw(ctx) {
-        this.currentScreen.draw(ctx);
+        this.screen.draw(ctx);
     }
     update() {
-        this.currentScreen.update();
+        this.screen.update();
     }
 }
 //# sourceMappingURL=Screen.js.map

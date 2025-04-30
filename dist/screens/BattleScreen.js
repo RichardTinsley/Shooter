@@ -3,8 +3,7 @@ import { Menu } from "../GUI/menus/Menu.js";
 import { Level } from "../handlers/Level.js";
 import { EnemyWaves } from "../handlers/EnemyWaves.js";
 export class BattleScreen {
-    constructor(screen) {
-        this.screen = screen;
+    constructor(buttons) {
         this.menu = new Menu();
         this.hud = new HUD();
         this.level = new Level();
