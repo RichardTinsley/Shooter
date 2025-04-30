@@ -10,12 +10,13 @@ export class Screen {
         this.optionsScreen = () => (this.screen = new BeginScreen(this.buttons));
         this.aboutScreen = () => (this.screen = new BeginScreen(this.buttons));
         this.buttons = {
+            begin: this.beginScreen,
             mainMenu: this.mainMenuScreen,
             battle: this.battleScreen,
             option: this.optionsScreen,
             about: this.aboutScreen,
         };
-        this.screen = new LoadingScreen(this.beginScreen);
+        this.screen = new LoadingScreen(this.buttons);
     }
     draw(ctx) {
         this.screen.draw(ctx);

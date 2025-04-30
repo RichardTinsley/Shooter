@@ -14,7 +14,7 @@ export class Screen {
   screen: IScreenState;
 
   constructor() {
-    this.screen = new LoadingScreen(this.beginScreen);
+    this.screen = new LoadingScreen(this.buttons);
   }
 
   draw(ctx: CanvasRenderingContext2D): void {
@@ -35,6 +35,7 @@ export class Screen {
   aboutScreen = () => (this.screen = new BeginScreen(this.buttons));
 
   buttons = {
+    begin: this.beginScreen,
     mainMenu: this.mainMenuScreen,
     battle: this.battleScreen,
     option: this.optionsScreen,

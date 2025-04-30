@@ -14,8 +14,8 @@ import { TextFactory } from "../GUI/texts/TextFactory.js";
 import { LoadingBar } from "../GUI/components/LoadingBar.js";
 import { deathSorceryLogoLayout } from "../GUI/layouts/deathSorceryLogoLayout.js";
 export class LoadingScreen {
-    constructor(switchToBeginningScreen) {
-        this.switchToBeginningScreen = switchToBeginningScreen;
+    constructor(buttons) {
+        this.buttons = buttons;
         this.logo = new deathSorceryLogoLayout();
         this.summoning = TextFactory.textFade()
             .setPosition({ x: SIZES.GAME_WIDTH_HALF, y: SIZES.GAME_HEIGHT - 140 })
@@ -31,7 +31,7 @@ export class LoadingScreen {
             this.loadingBar.setCurrentStatus(1);
             console.log(`${fileName.fileName} Loaded.`);
             if (this.loadingBar.getCurrentStatus() === assetListLength)
-                this.switchToBeginningScreen();
+                this.buttons.begin();
         };
         this.loadAssets();
     }

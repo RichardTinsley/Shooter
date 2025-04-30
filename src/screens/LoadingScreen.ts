@@ -1,6 +1,6 @@
 import { load, assetListLength } from "../utilities/assetLoaders.js";
 import { ALL_ASSETS } from "../constants/assets.js";
-import { Screen, IScreenState } from "./Screen.js";
+import { IScreenState } from "./Screen.js";
 import { SIZES } from "../constants/sizes.js";
 import { TextFactory } from "../GUI/texts/TextFactory.js";
 import { LoadingBar } from "../GUI/components/LoadingBar.js";
@@ -23,7 +23,7 @@ export class LoadingScreen implements IScreenState {
     })
     .setDrawOffsets(0);
 
-  constructor(public switchToBeginningScreen: Function) {
+  constructor(public buttons: any) {
     this.loadAssets();
   }
 
@@ -47,6 +47,6 @@ export class LoadingScreen implements IScreenState {
     this.loadingBar.setCurrentStatus(1);
     console.log(`${fileName.fileName} Loaded.`);
     if (this.loadingBar.getCurrentStatus() === assetListLength)
-      this.switchToBeginningScreen();
+      this.buttons.begin();
   };
 }
