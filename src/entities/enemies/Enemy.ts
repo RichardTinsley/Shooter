@@ -47,6 +47,7 @@ export class Enemy {
   mouseClick() {
     // if(Mouse.selectedEnemy !== this.mouseOverItem)
     //   Mouse.selectedEnemy.mouseClick("NOLONGERSELECTED")
+
     //   Mouse.selectedEnemy = this.mouseOverItem
     return;
   }
