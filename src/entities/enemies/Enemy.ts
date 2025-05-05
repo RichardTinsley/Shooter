@@ -1,4 +1,4 @@
-import { Mouse, CURSOR_STYLES } from "../../handlers/Mouse.js";
+import { Mouse, STYLES } from "../../handlers/Mouse.js";
 import { EnemyComponents } from "./components/EnemyComponents.js";
 import { Walking } from "./states/Walking.js";
 
@@ -30,7 +30,7 @@ export class Enemy {
   }
 
   mouseOver(): void {
-    Mouse.mouseOver(this, CURSOR_STYLES.ENEMY);
+    Mouse.mouseOver(this, STYLES.ENEMY);
   }
 
   setState(state: number) {

@@ -2,7 +2,7 @@ import { STATE } from "../constants/states.js";
 import { Cursor } from "../constants/types.js";
 const size: number = 3;
 
-export enum CURSOR_STYLES {
+export enum STYLES {
   PLAIN = "Plain",
   TOWER = "Tower",
   ENEMY = "Enemy",
@@ -24,7 +24,7 @@ export class Mouse {
   };
 
   constructor() {
-    Mouse.setCursor(null);
+    Mouse.setCursorStyle(STYLES.PLAIN);
 
     window.addEventListener("mousemove", (e) => {
       Mouse.cursor.x = e.offsetX;
@@ -34,35 +34,38 @@ export class Mouse {
     window.addEventListener("click", () => {
       if (Mouse.mouseOverEntity) {
         Mouse.mouseOverEntity.mouseClick();
-        Mouse.setCursor(null);
+        Mouse.setCursorStyle(STYLES.PLAIN);
       }
     });
   }
 
-  static setCursor(entity: any, style: string = CURSOR_STYLES.PLAIN): void {
-    Mouse.mouseOverEntity = entity;
-    if (Mouse.mouseOverEntity) Mouse.mouseOverEntity.setState(STATE.MOUSEOVER);
-
+  static setCursorStyle(style: string): void {
     Mouse.cursor.style.cursor = `url(../../images/cursors/${style}.cur), auto`;
   }
 
   static mouseOver(entity: any, style: string) {
-    if (Mouse.mouseOverEntity === entity) return;
+    // if (Mouse.mouseOverEntity === entity) return;
+    // else entity.setState(STATE.MOUSEOFF);
+    if (Mouse.mouseOverEntity) return;
 
-    if (entity.components.hitDetection.checkCollision(Mouse.cursor))
-      Mouse.setCursor(entity, style);
+    if (entity.components.hitDetection.checkCollision(Mouse.cursor)) {
+      Mouse.setCursorStyle(style);
+      Mouse.mouseOverEntity = entity;
+      Mouse.mouseOverEntity.setState(STATE.MOUSEOVER);
+    } else entity.setState(STATE.MOUSEOFF);
   }
 
   update() {
-    if (!Mouse.mouseOverEntity) return;
+    // if (!Mouse.mouseOverEntity) return;
 
     if (
-      Mouse.mouseOverEntity.components.hitDetection.checkCollision(Mouse.cursor)
-    )
-      return;
-    else {
-      Mouse.mouseOverEntity.setState(STATE.MOUSEOFF);
-      Mouse.setCursor(null);
+      !Mouse.mouseOverEntity?.components.hitDetection.checkCollision(
+        Mouse.cursor
+      )
+    ) {
+      Mouse.mouseOverEntity?.setState(STATE.MOUSEOFF);
+      Mouse.setCursorStyle(STYLES.PLAIN);
+      Mouse.mouseOverEntity = null;
     }
   }
 }

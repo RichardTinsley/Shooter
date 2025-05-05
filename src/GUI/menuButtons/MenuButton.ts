@@ -1,7 +1,6 @@
 import { Position } from "../../constants/types.js";
 import { HitDetectionSquare } from "../../handlers/HitDetectionSquare.js";
-import { Mouse, CURSOR_STYLES } from "../../handlers/Mouse.js";
-import { STATE } from "../../constants/states.js";
+import { Mouse, STYLES } from "../../handlers/Mouse.js";
 import { MenuButtonComponents } from "./components/MenuButtonComponents.js";
 
 export class MenuButton {
@@ -37,7 +36,7 @@ export class MenuButton {
   }
 
   mouseOver(): void {
-    Mouse.mouseOver(this, CURSOR_STYLES.MENUBUTTON);
+    Mouse.mouseOver(this, STYLES.MENUBUTTON);
   }
 
   setState(state: number) {
