@@ -25,21 +25,28 @@ export class Mouse {
         Mouse.cursor.style.cursor = `url(../../images/cursors/${style}.cur), auto`;
     }
     static mouseOver(entity, style) {
-        if (Mouse.mouseOverEntity)
-            return;
+        var _a;
         if (entity.components.hitDetection.checkCollision(Mouse.cursor)) {
-            Mouse.setCursorStyle(style);
-            Mouse.mouseOverEntity = entity;
-            Mouse.mouseOverEntity.setState(STATE.MOUSEOVER);
+            if (((_a = Mouse.mouseOverEntity) === null || _a === void 0 ? void 0 : _a.components.position.y) >
+                entity.components.position.y) {
+                entity.setState(STATE.MOUSEOFF);
+                return;
+            }
+            else {
+                Mouse.setCursorStyle(style);
+                Mouse.mouseOverEntity = entity;
+                Mouse.mouseOverEntity.setState(STATE.MOUSEOVER);
+            }
         }
-        else
+        else {
             entity.setState(STATE.MOUSEOFF);
+        }
     }
     update() {
         var _a, _b;
         if (!((_a = Mouse.mouseOverEntity) === null || _a === void 0 ? void 0 : _a.components.hitDetection.checkCollision(Mouse.cursor))) {
-            (_b = Mouse.mouseOverEntity) === null || _b === void 0 ? void 0 : _b.setState(STATE.MOUSEOFF);
             Mouse.setCursorStyle(STYLES.PLAIN);
+            (_b = Mouse.mouseOverEntity) === null || _b === void 0 ? void 0 : _b.setState(STATE.MOUSEOFF);
             Mouse.mouseOverEntity = null;
         }
     }

@@ -44,27 +44,31 @@ export class Mouse {
   }
 
   static mouseOver(entity: any, style: string) {
-    // if (Mouse.mouseOverEntity === entity) return;
-    // else entity.setState(STATE.MOUSEOFF);
-    if (Mouse.mouseOverEntity) return;
-
     if (entity.components.hitDetection.checkCollision(Mouse.cursor)) {
-      Mouse.setCursorStyle(style);
-      Mouse.mouseOverEntity = entity;
-      Mouse.mouseOverEntity.setState(STATE.MOUSEOVER);
-    } else entity.setState(STATE.MOUSEOFF);
+      if (
+        Mouse.mouseOverEntity?.components.position.y >
+        entity.components.position.y
+      ) {
+        entity.setState(STATE.MOUSEOFF);
+        return;
+      } else {
+        Mouse.setCursorStyle(style);
+        Mouse.mouseOverEntity = entity;
+        Mouse.mouseOverEntity.setState(STATE.MOUSEOVER);
+      }
+    } else {
+      entity.setState(STATE.MOUSEOFF);
+    }
   }
 
   update() {
-    // if (!Mouse.mouseOverEntity) return;
-
     if (
       !Mouse.mouseOverEntity?.components.hitDetection.checkCollision(
         Mouse.cursor
       )
     ) {
-      Mouse.mouseOverEntity?.setState(STATE.MOUSEOFF);
       Mouse.setCursorStyle(STYLES.PLAIN);
+      Mouse.mouseOverEntity?.setState(STATE.MOUSEOFF);
       Mouse.mouseOverEntity = null;
     }
   }
