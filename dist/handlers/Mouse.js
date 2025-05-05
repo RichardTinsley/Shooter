@@ -24,22 +24,6 @@ export class Mouse {
         Mouse.cursor.style.cursor = `url(../../images/cursors/${style}.cur), auto`;
         Mouse.cursor.mouseOverEntity = entity;
     }
-    static mouseOverEntity(entity, MouseOver, MouseOff, style) {
-        if (entity.hitDetection.checkCollision(Mouse.cursor)) {
-            if (!entity.isMouseOver) {
-                entity.isMouseOver = !entity.isMouseOver;
-                entity.state = new MouseOver(entity);
-                Mouse.setCursor(entity, style);
-            }
-        }
-        else {
-            if (entity.isMouseOver) {
-                entity.isMouseOver = !entity.isMouseOver;
-                entity.state = new MouseOff(entity);
-                Mouse.setCursor(null);
-            }
-        }
-    }
 }
 Mouse.cursor = {
     x: 0,

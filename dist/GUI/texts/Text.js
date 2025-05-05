@@ -16,9 +16,6 @@ export class Text {
         ctx.fillText(this.text, this.position.x, this.position.y);
     }
     update() { }
-    getText() {
-        return this.text;
-    }
     setText(text) {
         this.text = text;
         return this;
@@ -38,7 +35,7 @@ export class Text {
         return this;
     }
     getWidth() {
-        return this.getText().length * (this.getHeight() / 1.85);
+        return this.text.length * (this.getHeight() / 1.85);
     }
     setAlignment(alignment) {
         this.align = alignment;
@@ -47,6 +44,9 @@ export class Text {
     setState(state) {
         this.state = state;
         return this;
+    }
+    getState() {
+        return this.state;
     }
 }
 //# sourceMappingURL=Text.js.map

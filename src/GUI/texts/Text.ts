@@ -24,10 +24,6 @@ export class Text implements IText {
 
   update(): void {}
 
-  getText(): string {
-    return this.text;
-  }
-
   setText(text: string): this {
     this.text = text;
     return this;
@@ -52,7 +48,7 @@ export class Text implements IText {
   }
 
   getWidth(): number {
-    return this.getText().length * (this.getHeight() / 1.85);
+    return this.text.length * (this.getHeight() / 1.85);
   }
 
   setAlignment(alignment: CanvasTextAlign): this {
@@ -63,5 +59,9 @@ export class Text implements IText {
   setState(state: number): this {
     this.state = state;
     return this;
+  }
+
+  getState(): number {
+    return this.state;
   }
 }
