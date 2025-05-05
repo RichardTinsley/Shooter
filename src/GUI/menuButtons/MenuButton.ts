@@ -3,15 +3,9 @@ import { HitDetectionSquare } from "../../handlers/HitDetectionSquare.js";
 import { Mouse, CURSOR_STYLES } from "../../handlers/Mouse.js";
 import { STATE } from "../../constants/states.js";
 
-export interface IMenuButtonState {
-  menuButton: MenuButton;
-}
-
 export class MenuButton {
-  public state!: IMenuButtonState;
   public position!: Position;
   public hitDetection!: HitDetectionSquare;
-  public isMouseOver: boolean = false;
 
   constructor(public setScreen: Function, public label: any) {
     this.label.setState(STATE.MOUSEOFF);
@@ -35,10 +29,6 @@ export class MenuButton {
       this.label.getHeight()
     );
     return this;
-  }
-
-  public getCurrentState(): IMenuButtonState {
-    return this.state;
   }
 
   mouseClick(): void {

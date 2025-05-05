@@ -5,7 +5,6 @@ export class MenuButton {
     constructor(setScreen, label) {
         this.setScreen = setScreen;
         this.label = label;
-        this.isMouseOver = false;
         this.label.setState(STATE.MOUSEOFF);
     }
     draw(ctx) {
@@ -20,9 +19,6 @@ export class MenuButton {
         this.label.setPosition(position);
         this.hitDetection = new HitDetectionSquare().setHitBox(position, this.label.getWidth(), this.label.getHeight());
         return this;
-    }
-    getCurrentState() {
-        return this.state;
     }
     mouseClick() {
         this.setScreen();
