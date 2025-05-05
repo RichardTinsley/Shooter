@@ -5,6 +5,7 @@ export class Walking {
     }
     draw(ctx) {
         drawShadow(ctx, this.components.position, this.components.shadowWidth);
+        this.components.mouseOverEnemy.draw(ctx);
         this.components.sprite.draw(ctx);
         this.components.healthBar.draw(ctx);
     }

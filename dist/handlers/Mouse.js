@@ -1,3 +1,4 @@
+import { STATE } from "../constants/states.js";
 const size = 3;
 export var CURSOR_STYLES;
 (function (CURSOR_STYLES) {
@@ -14,15 +15,33 @@ export class Mouse {
             Mouse.cursor.y = e.offsetY;
         });
         window.addEventListener("click", () => {
-            if (Mouse.cursor.mouseOverEntity !== null) {
-                Mouse.cursor.mouseOverEntity.mouseClick();
+            if (Mouse.mouseOverEntity) {
+                Mouse.mouseOverEntity.mouseClick();
                 Mouse.setCursor(null);
             }
         });
     }
     static setCursor(entity, style = CURSOR_STYLES.PLAIN) {
+        Mouse.mouseOverEntity = entity;
+        if (Mouse.mouseOverEntity)
+            Mouse.mouseOverEntity.setState(STATE.MOUSEOVER);
         Mouse.cursor.style.cursor = `url(../../images/cursors/${style}.cur), auto`;
-        Mouse.cursor.mouseOverEntity = entity;
+    }
+    static mouseOver(entity, style) {
+        if (Mouse.mouseOverEntity === entity)
+            return;
+        if (entity.components.hitDetection.checkCollision(Mouse.cursor))
+            Mouse.setCursor(entity, style);
+    }
+    update() {
+        if (!Mouse.mouseOverEntity)
+            return;
+        if (Mouse.mouseOverEntity.components.hitDetection.checkCollision(Mouse.cursor))
+            return;
+        else {
+            Mouse.mouseOverEntity.setState(STATE.MOUSEOFF);
+            Mouse.setCursor(null);
+        }
     }
 }
 Mouse.cursor = {
@@ -32,6 +51,5 @@ Mouse.cursor = {
     width: size,
     height: size,
     style: document.getElementById("canvas").style,
-    mouseOverEntity: null,
 };
 //# sourceMappingURL=Mouse.js.map

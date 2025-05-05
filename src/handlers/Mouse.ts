@@ -1,3 +1,4 @@
+import { STATE } from "../constants/states.js";
 import { Cursor } from "../constants/types.js";
 const size: number = 3;
 
@@ -11,6 +12,7 @@ export enum CURSOR_STYLES {
 export class Mouse {
   // static enemySelected: IClickable;
   // static towerSelected: IClickable;
+  static mouseOverEntity: any;
 
   static cursor: Cursor = {
     x: 0,
@@ -19,7 +21,6 @@ export class Mouse {
     width: size,
     height: size,
     style: document.getElementById("canvas")!.style,
-    mouseOverEntity: null,
   };
 
   constructor() {
@@ -31,15 +32,37 @@ export class Mouse {
     });
 
     window.addEventListener("click", () => {
-      if (Mouse.cursor.mouseOverEntity !== null) {
-        Mouse.cursor.mouseOverEntity.mouseClick();
+      if (Mouse.mouseOverEntity) {
+        Mouse.mouseOverEntity.mouseClick();
         Mouse.setCursor(null);
       }
     });
   }
 
   static setCursor(entity: any, style: string = CURSOR_STYLES.PLAIN): void {
+    Mouse.mouseOverEntity = entity;
+    if (Mouse.mouseOverEntity) Mouse.mouseOverEntity.setState(STATE.MOUSEOVER);
+
     Mouse.cursor.style.cursor = `url(../../images/cursors/${style}.cur), auto`;
-    Mouse.cursor.mouseOverEntity = entity;
+  }
+
+  static mouseOver(entity: any, style: string) {
+    if (Mouse.mouseOverEntity === entity) return;
+
+    if (entity.components.hitDetection.checkCollision(Mouse.cursor))
+      Mouse.setCursor(entity, style);
+  }
+
+  update() {
+    if (!Mouse.mouseOverEntity) return;
+
+    if (
+      Mouse.mouseOverEntity.components.hitDetection.checkCollision(Mouse.cursor)
+    )
+      return;
+    else {
+      Mouse.mouseOverEntity.setState(STATE.MOUSEOFF);
+      Mouse.setCursor(null);
+    }
   }
 }

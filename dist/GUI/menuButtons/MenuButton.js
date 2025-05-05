@@ -1,41 +1,34 @@
 import { HitDetectionSquare } from "../../handlers/HitDetectionSquare.js";
 import { Mouse, CURSOR_STYLES } from "../../handlers/Mouse.js";
-import { STATE } from "../../constants/states.js";
+import { MenuButtonComponents } from "./components/MenuButtonComponents.js";
 export class MenuButton {
     constructor(setScreen, label) {
         this.setScreen = setScreen;
-        this.label = label;
-        this.label.setState(STATE.MOUSEOFF);
+        this.components = new MenuButtonComponents();
+        this.components.label = label;
+        this.components.hitDetection = new HitDetectionSquare();
     }
     draw(ctx) {
-        this.label.draw(ctx);
+        this.components.label.draw(ctx);
     }
     update() {
-        this.label.update();
+        this.components.label.update();
         this.mouseOver();
     }
     setPosition(position) {
-        this.position = Object.assign({}, position);
-        this.label.setPosition(position);
-        this.hitDetection = new HitDetectionSquare().setHitBox(position, this.label.getWidth(), this.label.getHeight());
+        this.components.position = Object.assign({}, position);
+        this.components.label.setPosition(position);
+        this.components.hitDetection.setHitBox(position, this.components.label.getWidth(), this.components.label.getHeight());
         return this;
     }
     mouseClick() {
         this.setScreen();
     }
     mouseOver() {
-        if (this.hitDetection.checkCollision(Mouse.cursor)) {
-            if (this.label.getState() === STATE.MOUSEOFF) {
-                Mouse.setCursor(this, CURSOR_STYLES.MENUBUTTON);
-                this.label.setState(STATE.MOUSEOVER);
-            }
-        }
-        else {
-            if (this.label.getState() === STATE.MOUSEOVER) {
-                Mouse.setCursor(null);
-                this.label.setState(STATE.MOUSEOFF);
-            }
-        }
+        Mouse.mouseOver(this, CURSOR_STYLES.MENUBUTTON);
+    }
+    setState(state) {
+        this.components.label.setState(state);
     }
 }
 //# sourceMappingURL=MenuButton.js.map

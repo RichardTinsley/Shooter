@@ -2,31 +2,32 @@ import { Position } from "../../constants/types.js";
 import { HitDetectionSquare } from "../../handlers/HitDetectionSquare.js";
 import { Mouse, CURSOR_STYLES } from "../../handlers/Mouse.js";
 import { STATE } from "../../constants/states.js";
+import { MenuButtonComponents } from "./components/MenuButtonComponents.js";
 
 export class MenuButton {
-  public position!: Position;
-  public hitDetection!: HitDetectionSquare;
+  public components = new MenuButtonComponents();
 
-  constructor(public setScreen: Function, public label: any) {
-    this.label.setState(STATE.MOUSEOFF);
+  constructor(public setScreen: Function, label: any) {
+    this.components.label = label;
+    this.components.hitDetection = new HitDetectionSquare();
   }
 
   draw(ctx: CanvasRenderingContext2D): void {
-    this.label.draw(ctx);
+    this.components.label.draw(ctx);
   }
 
   update(): void {
-    this.label.update();
+    this.components.label.update();
     this.mouseOver();
   }
 
   setPosition(position: Position): this {
-    this.position = { ...position };
-    this.label.setPosition(position);
-    this.hitDetection = new HitDetectionSquare().setHitBox(
+    this.components.position = { ...position };
+    this.components.label.setPosition(position);
+    this.components.hitDetection.setHitBox(
       position,
-      this.label.getWidth(),
-      this.label.getHeight()
+      this.components.label.getWidth(),
+      this.components.label.getHeight()
     );
     return this;
   }
@@ -36,16 +37,10 @@ export class MenuButton {
   }
 
   mouseOver(): void {
-    if (this.hitDetection.checkCollision(Mouse.cursor)) {
-      if (this.label.getState() === STATE.MOUSEOFF) {
-        Mouse.setCursor(this, CURSOR_STYLES.MENUBUTTON);
-        this.label.setState(STATE.MOUSEOVER);
-      }
-    } else {
-      if (this.label.getState() === STATE.MOUSEOVER) {
-        Mouse.setCursor(null);
-        this.label.setState(STATE.MOUSEOFF);
-      }
-    }
+    Mouse.mouseOver(this, CURSOR_STYLES.MENUBUTTON);
+  }
+
+  setState(state: number) {
+    this.components.label.setState(state);
   }
 }

@@ -3,6 +3,7 @@ import { HitDetectionCircle } from "../../../handlers/HitDetectionCircle.js";
 import { SpriteAnimation } from "../../sprites/SpriteAnimation.js";
 import { HealthBar } from "./HealthBar.js";
 import { Movement } from "./Movement.js";
+import { MouseOverEnemy } from "./MouseOverEnemy.js";
 
 export class EnemyComponents {
   public movement = new Movement();
@@ -11,8 +12,8 @@ export class EnemyComponents {
   public sprite = new SpriteAnimation().setPosition(this.position);
   public healthBar = new HealthBar().setPosition(this.position);
   public hitDetection = new HitDetectionCircle().setPosition(this.position);
+  public mouseOverEnemy = new MouseOverEnemy().setPosition(this.position);
   public shadowWidth!: number;
-  public mouseOverWidth!: number;
 
   initialiseSprite(
     walkingSprite: string,
@@ -35,8 +36,8 @@ export class EnemyComponents {
   initialiseComponents(width: number, height: number): this {
     this.healthBar.setWidth(width).setDrawOffsets(height);
     this.hitDetection.setWidth(width).setDrawOffsets(height / 2);
+    this.mouseOverEnemy.setWidth(width * 1.25);
     this.shadowWidth = width;
-    this.mouseOverWidth = width * 1.25;
     return this;
   }
 

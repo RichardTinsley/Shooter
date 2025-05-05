@@ -1,5 +1,5 @@
 import { MenuButton } from "../MenuButton.js";
-export class MenuButtonText extends MenuButton {
+export class MenuButtonTextPulsate extends MenuButton {
     constructor(setScreen, label) {
         super(setScreen, label);
         this.setScreen = setScreen;

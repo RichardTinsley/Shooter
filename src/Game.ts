@@ -20,5 +20,6 @@ export class Game {
     this.time.update();
     this.screen.update();
     this.debug.update();
+    this.mouse.update();
   }
 }

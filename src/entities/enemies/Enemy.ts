@@ -1,3 +1,4 @@
+import { Mouse, CURSOR_STYLES } from "../../handlers/Mouse.js";
 import { EnemyComponents } from "./components/EnemyComponents.js";
 import { Walking } from "./states/Walking.js";
 
@@ -17,20 +18,22 @@ export class Enemy {
 
   update(): void {
     this.state.update();
+    this.mouseOver();
   }
 
   public walkingState = () => (this.state = new Walking(this.components));
 
-  mouseClick() {
+  mouseClick(): void {
     // if(Mouse.selectedEnemy !== this.mouseOverItem)
     //   Mouse.selectedEnemy.mouseClick("NOLONGERSELECTED")
     //   Mouse.selectedEnemy = this.mouseOverItem
-    return;
   }
 
-  mouseOver() {
-    // Mouse.mouseOverEntity(this, CURSOR_STYLES.ENEMY);
-    // this.components.mouseOverWidth.setMouseOver();
-    return;
+  mouseOver(): void {
+    Mouse.mouseOver(this, CURSOR_STYLES.ENEMY);
+  }
+
+  setState(state: number) {
+    this.components.mouseOverEnemy.setState(state);
   }
 }

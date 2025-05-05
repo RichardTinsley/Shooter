@@ -56,7 +56,10 @@ export class Debug {
 
   drawMenuDebugInfo(ctx: CanvasRenderingContext2D, menuButtons: Array<any>) {
     menuButtons.forEach((menuButton) => {
-      SHAPES.drawSquareHitBox(ctx, menuButton.hitDetection.getHitBox());
+      SHAPES.drawSquareHitBox(
+        ctx,
+        menuButton.components.hitDetection.getHitBox()
+      );
     });
   }
 

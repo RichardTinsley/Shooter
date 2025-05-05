@@ -3,7 +3,7 @@ export class Text {
     constructor() {
         this.align = "center";
         this.alpha = 1;
-        this.state = STATE.FINISHED;
+        this.state = STATE.MOUSEOFF;
     }
     draw(ctx) {
         ctx.strokeStyle = `rgba(0, 0, 0, ${this.alpha})`;

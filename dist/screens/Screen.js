@@ -13,7 +13,7 @@ export class Screen {
             begin: this.beginScreen,
             mainMenu: this.mainMenuScreen,
             battle: this.battleScreen,
-            option: this.optionsScreen,
+            options: this.optionsScreen,
             about: this.aboutScreen,
         };
         this.screen = new LoadingScreen(this.buttons);

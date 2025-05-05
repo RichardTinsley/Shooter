@@ -6,6 +6,7 @@ export class Walking implements IEnemyState {
 
   draw(ctx: CanvasRenderingContext2D) {
     drawShadow(ctx, this.components.position, this.components.shadowWidth);
+    this.components.mouseOverEnemy.draw(ctx);
     this.components.sprite.draw(ctx);
     this.components.healthBar.draw(ctx);
   }

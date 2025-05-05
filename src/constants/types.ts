@@ -10,7 +10,6 @@ export type Cursor = {
   width: number;
   height: number;
   style: CSSStyleDeclaration;
-  mouseOverEntity: any;
 };
 
 export type HitBox = {

@@ -8,7 +8,7 @@ export class Text implements IText {
   protected align: CanvasTextAlign = "center";
   protected lineWidth!: number;
   protected alpha: number = 1;
-  protected state: number = STATE.FINISHED;
+  protected state: number = STATE.MOUSEOFF;
   position!: Position;
 
   draw(ctx: CanvasRenderingContext2D): void {
