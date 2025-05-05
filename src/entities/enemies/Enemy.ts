@@ -2,7 +2,7 @@ import { EnemyComponents } from "./components/EnemyComponents.js";
 import { Walking } from "./states/Walking.js";
 
 export interface IEnemyState {
-  enemy: Enemy;
+  components: Enemy;
   draw(ctx: CanvasRenderingContext2D): void;
   update(): void;
 }
@@ -29,7 +29,8 @@ export class Enemy {
   }
 
   mouseOver() {
-    // Mouse.mouseOverEntity(this, MouseOver, MouseOff, CURSOR_STYLES.ENEMY);
+    // Mouse.mouseOverEntity(this, CURSOR_STYLES.ENEMY);
+    // this.components.mouseOverWidth.setMouseOver();
     return;
   }
 }

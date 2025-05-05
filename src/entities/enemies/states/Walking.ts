@@ -2,16 +2,16 @@ import { drawShadow } from "../../../utilities/drawShapes.js";
 import { IEnemyState } from "../Enemy.js";
 
 export class Walking implements IEnemyState {
-  constructor(public enemy: any) {}
+  constructor(public components: any) {}
 
   draw(ctx: CanvasRenderingContext2D) {
-    drawShadow(ctx, this.enemy.position, this.enemy.shadowWidth);
-    this.enemy.sprite.draw(ctx);
-    this.enemy.healthBar.draw(ctx);
+    drawShadow(ctx, this.components.position, this.components.shadowWidth);
+    this.components.sprite.draw(ctx);
+    this.components.healthBar.draw(ctx);
   }
 
   update() {
-    this.enemy.sprite.update();
-    this.enemy.movement.update(this.enemy);
+    this.components.sprite.update();
+    this.components.movement.update(this.components);
   }
 }

@@ -1,16 +1,16 @@
 import { drawShadow } from "../../../utilities/drawShapes.js";
 export class Walking {
-    constructor(enemy) {
-        this.enemy = enemy;
+    constructor(components) {
+        this.components = components;
     }
     draw(ctx) {
-        drawShadow(ctx, this.enemy.position, this.enemy.shadowWidth);
-        this.enemy.sprite.draw(ctx);
-        this.enemy.healthBar.draw(ctx);
+        drawShadow(ctx, this.components.position, this.components.shadowWidth);
+        this.components.sprite.draw(ctx);
+        this.components.healthBar.draw(ctx);
     }
     update() {
-        this.enemy.sprite.update();
-        this.enemy.movement.update(this.enemy);
+        this.components.sprite.update();
+        this.components.movement.update(this.components);
     }
 }
 //# sourceMappingURL=Walking.js.map
