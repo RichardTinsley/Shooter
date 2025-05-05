@@ -11,10 +11,15 @@ export class Enemy {
         this.sprite = new SpriteAnimation().setPosition(this.position);
         this.healthBar = new HealthBar().setPosition(this.position);
         this.hitDetection = new HitDetectionCircle().setPosition(this.position);
-        this.getCurrentState = () => this.state;
-        this.switchToWalkingState = () => (this.state = new Walking(this));
+        this.walkingState = () => (this.state = new Walking(this));
     }
-    initialiseEnemyComponents(width, height) {
+    draw(ctx) {
+        this.state.draw(ctx);
+    }
+    update() {
+        this.state.update();
+    }
+    initialiseComponents(width, height) {
         this.healthBar.setWidth(width).setDrawOffsets(height);
         this.hitDetection.setWidth(width).setDrawOffsets(height / 2);
         this.shadowWidth = width;

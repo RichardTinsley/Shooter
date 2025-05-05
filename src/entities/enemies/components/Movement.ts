@@ -1,8 +1,6 @@
 import { Position } from "../../../constants/types.js";
-import { HUD } from "../../../GUI/HUD/HUD.js";
 import { Level } from "../../../handlers/Level.js";
-import { checkCircleCollision } from "../../../utilities/collisionDetection.js";
-import * as MOVEMENT from "../../../utilities/entityMovement.js";
+import { enemyMovement } from "../../../utilities/entityMovement.js";
 import { randomFloat } from "../../../utilities/math.js";
 
 export class Movement {
@@ -15,26 +13,7 @@ export class Movement {
   private angle!: number;
 
   update(enemy: any) {
-    if (checkCircleCollision(enemy.position, enemy.destination, 5, 10)) {
-      this.waypointIndex++;
-
-      if (this.waypointIndex === this.waypoints.length) {
-        HUD.hudLives.setLives();
-        this.waypointIndex = 0;
-        enemy.setPosition(this.waypoints[this.waypointIndex]);
-
-        enemy.sprite.setPosition(enemy.position);
-        enemy.hitDetection.setPosition(enemy.position);
-        enemy.healthBar.setPosition(enemy.position);
-      }
-
-      enemy.setDestination(this.waypoints[this.waypointIndex]);
-      this.angle = MOVEMENT.setAngle(enemy.position, enemy.destination);
-      enemy.sprite.setDirection(MOVEMENT.getDirection(this.angle));
-    }
-
-    MOVEMENT.updatePosition(enemy.position, this.angle, this.speed);
-    this.setPriorityDistance(enemy);
+    enemyMovement(enemy);
   }
 
   getWaypoints(): Position {

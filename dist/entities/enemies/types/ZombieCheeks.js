@@ -1,5 +1,4 @@
 import { Enemy } from "../Enemy.js";
-import { Walking } from "../states/Walking.js";
 import { FILE_NAMES } from "../../../constants/assets.js";
 export class ZombieCheeks extends Enemy {
     constructor() {
@@ -12,8 +11,7 @@ export class ZombieCheeks extends Enemy {
         this.screamingSprite = FILE_NAMES.ZOMBIE_CHEEKS_SCREAM;
         this.dyingSprite = FILE_NAMES.ZOMBIE_CHEEKS_DIE;
         this.idlingSprite = FILE_NAMES.ZOMBIE_CHEEKS_IDLE;
-        this.state = new Walking(this);
-        this.initialiseEnemyComponents(this.sprite.getWidth(), this.sprite.getHeight());
+        this.walkingState();
     }
 }
 //# sourceMappingURL=ZombieCheeks.js.map

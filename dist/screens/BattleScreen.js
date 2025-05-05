@@ -14,13 +14,13 @@ export class BattleScreen {
         this.level.draw(ctx);
         this.hud.draw(ctx);
         this.entities.sort((a, b) => a.position.y - b.position.y);
-        this.entities.forEach((entity) => entity.getCurrentState().draw(ctx));
+        this.entities.forEach((entity) => entity.draw(ctx));
     }
     update() {
         this.level.update();
         this.hud.update();
         this.enemyWaves.update(this.entities);
-        this.entities.forEach((entity) => entity.getCurrentState().update());
+        this.entities.forEach((entity) => entity.update());
     }
 }
 //# sourceMappingURL=BattleScreen.js.map

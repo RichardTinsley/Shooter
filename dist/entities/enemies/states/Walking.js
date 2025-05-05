@@ -7,6 +7,7 @@ export class Walking {
             .setScale(enemy.spriteScale)
             .initialise();
         enemy.movement.setSpeed(enemy.movementSpeed);
+        enemy.initialiseComponents(enemy.sprite.getWidth(), enemy.sprite.getHeight());
     }
     draw(ctx) {
         drawShadow(ctx, this.enemy.position, this.enemy.shadowWidth);

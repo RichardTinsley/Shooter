@@ -1,5 +1,4 @@
-import { Enemy, IEnemyState } from "../Enemy.js";
-import { Walking } from "../states/Walking.js";
+import { Enemy } from "../Enemy.js";
 import { FILE_NAMES } from "../../../constants/assets.js";
 
 export class ZombieCheeks extends Enemy {
@@ -13,13 +12,8 @@ export class ZombieCheeks extends Enemy {
   dyingSprite = FILE_NAMES.ZOMBIE_CHEEKS_DIE;
   idlingSprite = FILE_NAMES.ZOMBIE_CHEEKS_IDLE;
 
-  state: IEnemyState = new Walking(this);
-
   constructor() {
     super();
-    this.initialiseEnemyComponents(
-      this.sprite.getWidth(),
-      this.sprite.getHeight()
-    );
+    this.walkingState();
   }
 }

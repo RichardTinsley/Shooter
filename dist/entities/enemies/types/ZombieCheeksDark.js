@@ -1,4 +1,3 @@
-import { Walking } from "../states/Walking.js";
 import { FILE_NAMES } from "../../../constants/assets.js";
 import { ZombieCheeks } from "./ZombieCheeks.js";
 export class ZombieCheeksDark extends ZombieCheeks {
@@ -8,7 +7,6 @@ export class ZombieCheeksDark extends ZombieCheeks {
         this.screamingSprite = FILE_NAMES.ZOMBIE_DARK_CHEEKS_SCREAM;
         this.dyingSprite = FILE_NAMES.ZOMBIE_DARK_CHEEKS_DIE;
         this.idlingSprite = FILE_NAMES.ZOMBIE_DARK_CHEEKS_IDLE;
-        this.state = new Walking(this);
     }
 }
 //# sourceMappingURL=ZombieCheeksDark.js.map

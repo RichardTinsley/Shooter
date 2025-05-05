@@ -20,7 +20,7 @@ export class BattleScreen implements IScreenState {
     this.hud.draw(ctx);
     //this.menu.draw(ctx);
     this.entities.sort((a, b) => a.position.y - b.position.y);
-    this.entities.forEach((entity) => entity.getCurrentState().draw(ctx));
+    this.entities.forEach((entity) => entity.draw(ctx));
   }
   update(): void {
     this.level.update();
@@ -28,7 +28,7 @@ export class BattleScreen implements IScreenState {
     //this.menu.update();
 
     this.enemyWaves.update(this.entities);
-    this.entities.forEach((entity) => entity.getCurrentState().update());
+    this.entities.forEach((entity) => entity.update());
 
     // this.entities = this.entities.filter(entity => {
     //   entity.update();

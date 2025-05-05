@@ -8,6 +8,10 @@ export class Walking implements IEnemyState {
       .setScale(enemy.spriteScale)
       .initialise();
     enemy.movement.setSpeed(enemy.movementSpeed);
+    enemy.initialiseComponents(
+      enemy.sprite.getWidth(),
+      enemy.sprite.getHeight()
+    );
   }
 
   draw(ctx: CanvasRenderingContext2D) {

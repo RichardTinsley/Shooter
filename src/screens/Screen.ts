@@ -25,13 +25,9 @@ export class Screen {
   }
 
   beginScreen = () => (this.screen = new BeginScreen(this.buttons));
-
   mainMenuScreen = () => (this.screen = new MainMenuScreen(this.buttons));
-
   battleScreen = () => (this.screen = new BattleScreen(this.buttons));
-
   optionsScreen = () => (this.screen = new BeginScreen(this.buttons));
-
   aboutScreen = () => (this.screen = new BeginScreen(this.buttons));
 
   buttons = {

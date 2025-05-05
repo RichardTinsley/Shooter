@@ -13,9 +13,10 @@ export class ZombieCrawler extends Enemy {
         this.dyingSprite = FILE_NAMES.ZOMBIE_CRAWLER_DIE;
         this.idlingSprite = FILE_NAMES.ZOMBIE_CRAWLER_IDLE;
         this.state = new Walking(this);
-        this.initialiseEnemyComponents(this.sprite.getWidth() / 2, this.sprite.getHeight());
+        this.initialiseComponents(this.sprite.getWidth() / 2, this.sprite.getHeight());
         this.sprite.setDrawOffsets(0.25, 0.1);
         this.hitDetection.setDrawOffsets(0);
+        this.state = new Walking(this);
     }
 }
 //# sourceMappingURL=ZombieCrawler.js.map

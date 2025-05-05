@@ -17,19 +17,24 @@ export class Enemy {
   public movement = new Movement();
   public position = this.movement.getWaypoints();
   public destination = this.movement.getWaypoints();
-
   public sprite = new SpriteAnimation().setPosition(this.position);
   public healthBar = new HealthBar().setPosition(this.position);
   public hitDetection = new HitDetectionCircle().setPosition(this.position);
   public shadowWidth!: number;
   public mouseOverWidth!: number;
 
-  public getCurrentState = (): IEnemyState => this.state;
+  draw(ctx: CanvasRenderingContext2D): void {
+    this.state.draw(ctx);
+  }
+
+  update(): void {
+    this.state.update();
+  }
 
   // public switchToDyingState = () => (this.state = new EnemyDying(this));
-  public switchToWalkingState = () => (this.state = new Walking(this));
+  public walkingState = () => (this.state = new Walking(this));
 
-  initialiseEnemyComponents(width: number, height: number) {
+  initialiseComponents(width: number, height: number) {
     this.healthBar.setWidth(width).setDrawOffsets(height);
     this.hitDetection.setWidth(width).setDrawOffsets(height / 2);
     this.shadowWidth = width;
