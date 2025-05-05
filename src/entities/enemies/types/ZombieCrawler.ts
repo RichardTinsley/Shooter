@@ -1,5 +1,4 @@
-import { Enemy, IEnemyState } from "../Enemy.js";
-import { Walking } from "../states/Walking.js";
+import { Enemy } from "../Enemy.js";
 import { FILE_NAMES } from "../../../constants/assets.js";
 
 export class ZombieCrawler extends Enemy {
@@ -8,22 +7,29 @@ export class ZombieCrawler extends Enemy {
   spriteScale: number = 1.5;
   movementSpeed: number = 1;
 
-  walkingSprite = FILE_NAMES.ZOMBIE_CRAWLER_WALK;
-  attackingSprite = FILE_NAMES.ZOMBIE_CRAWLER_ATTACK;
-  dyingSprite = FILE_NAMES.ZOMBIE_CRAWLER_DIE;
-  idlingSprite = FILE_NAMES.ZOMBIE_CRAWLER_IDLE;
-
-  state: IEnemyState = new Walking(this);
+  walkSprite = FILE_NAMES.ZOMBIE_CRAWLER_WALK;
+  attackSprite = FILE_NAMES.ZOMBIE_CRAWLER_ATTACK;
+  deathSprite = FILE_NAMES.ZOMBIE_CRAWLER_DIE;
+  idleSprite = FILE_NAMES.ZOMBIE_CRAWLER_IDLE;
 
   constructor() {
     super();
-    this.initialiseComponents(
-      this.sprite.getWidth() / 2,
-      this.sprite.getHeight()
-    );
-    this.sprite.setDrawOffsets(0.25, 0.1);
-    this.hitDetection.setDrawOffsets(0);
+    this.components
+      .initialiseSprite(
+        this.walkSprite,
+        this.spriteWidth,
+        this.spriteHeight,
+        this.spriteScale
+      )
+      .initialiseMovement(this.movementSpeed)
+      .initialiseComponents(
+        this.components.sprite.getWidth() / 2,
+        this.components.sprite.getHeight()
+      );
 
-    this.state = new Walking(this);
+    this.components.sprite.setDrawOffsets(0.25, 0.1);
+    this.components.hitDetection.setDrawOffsets(0);
+
+    this.walkingState();
   }
 }

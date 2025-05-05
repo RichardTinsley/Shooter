@@ -7,13 +7,26 @@ export class ZombieCheeks extends Enemy {
   spriteScale: number = 1.5;
   movementSpeed: number = 6;
 
-  walkingSprite = FILE_NAMES.ZOMBIE_CHEEKS_WALK;
-  screamingSprite = FILE_NAMES.ZOMBIE_CHEEKS_SCREAM;
-  dyingSprite = FILE_NAMES.ZOMBIE_CHEEKS_DIE;
-  idlingSprite = FILE_NAMES.ZOMBIE_CHEEKS_IDLE;
+  walkSprite = FILE_NAMES.ZOMBIE_CHEEKS_WALK;
+  screamSprite = FILE_NAMES.ZOMBIE_CHEEKS_SCREAM;
+  deathSprite = FILE_NAMES.ZOMBIE_CHEEKS_DIE;
+  idleSprite = FILE_NAMES.ZOMBIE_CHEEKS_IDLE;
 
   constructor() {
     super();
+    this.components
+      .initialiseSprite(
+        this.walkSprite,
+        this.spriteWidth,
+        this.spriteHeight,
+        this.spriteScale
+      )
+      .initialiseMovement(this.movementSpeed)
+      .initialiseComponents(
+        this.components.sprite.getWidth(),
+        this.components.sprite.getHeight()
+      );
+
     this.walkingState();
   }
 }

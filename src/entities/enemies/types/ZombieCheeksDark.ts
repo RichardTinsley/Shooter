@@ -2,10 +2,10 @@ import { FILE_NAMES } from "../../../constants/assets.js";
 import { ZombieCheeks } from "./ZombieCheeks.js";
 
 export class ZombieCheeksDark extends ZombieCheeks {
-  walkingSprite = FILE_NAMES.ZOMBIE_DARK_CHEEKS_WALK;
-  screamingSprite = FILE_NAMES.ZOMBIE_DARK_CHEEKS_SCREAM;
-  dyingSprite = FILE_NAMES.ZOMBIE_DARK_CHEEKS_DIE;
-  idlingSprite = FILE_NAMES.ZOMBIE_DARK_CHEEKS_IDLE;
+  walkSprite = FILE_NAMES.ZOMBIE_DARK_CHEEKS_WALK;
+  screamSprite = FILE_NAMES.ZOMBIE_DARK_CHEEKS_SCREAM;
+  deathSprite = FILE_NAMES.ZOMBIE_DARK_CHEEKS_DIE;
+  idleSprite = FILE_NAMES.ZOMBIE_DARK_CHEEKS_IDLE;
 
   constructor() {
     super();

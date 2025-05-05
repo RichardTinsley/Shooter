@@ -1,8 +1,4 @@
-import { Position } from "../../constants/types.js";
-import { HitDetectionCircle } from "../../handlers/HitDetectionCircle.js";
-import { SpriteAnimation } from "../sprites/SpriteAnimation.js";
-import { HealthBar } from "./components/HealthBar.js";
-import { Movement } from "./components/Movement.js";
+import { EnemyComponents } from "./components/EnemyComponents.js";
 import { Walking } from "./states/Walking.js";
 
 export interface IEnemyState {
@@ -13,15 +9,7 @@ export interface IEnemyState {
 
 export class Enemy {
   public state!: IEnemyState;
-
-  public movement = new Movement();
-  public position = this.movement.getWaypoints();
-  public destination = this.movement.getWaypoints();
-  public sprite = new SpriteAnimation().setPosition(this.position);
-  public healthBar = new HealthBar().setPosition(this.position);
-  public hitDetection = new HitDetectionCircle().setPosition(this.position);
-  public shadowWidth!: number;
-  public mouseOverWidth!: number;
+  public components = new EnemyComponents();
 
   draw(ctx: CanvasRenderingContext2D): void {
     this.state.draw(ctx);
@@ -31,23 +19,7 @@ export class Enemy {
     this.state.update();
   }
 
-  // public switchToDyingState = () => (this.state = new EnemyDying(this));
-  public walkingState = () => (this.state = new Walking(this));
-
-  initialiseComponents(width: number, height: number) {
-    this.healthBar.setWidth(width).setDrawOffsets(height);
-    this.hitDetection.setWidth(width).setDrawOffsets(height / 2);
-    this.shadowWidth = width;
-    this.mouseOverWidth = width * 1.25;
-  }
-
-  setPosition(position: Position) {
-    this.position = { ...position };
-  }
-
-  setDestination(destination: Position) {
-    this.destination = { ...destination };
-  }
+  public walkingState = () => (this.state = new Walking(this.components));
 
   mouseClick() {
     // if(Mouse.selectedEnemy !== this.mouseOverItem)

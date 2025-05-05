@@ -19,7 +19,9 @@ export class BattleScreen implements IScreenState {
     this.level.draw(ctx);
     this.hud.draw(ctx);
     //this.menu.draw(ctx);
-    this.entities.sort((a, b) => a.position.y - b.position.y);
+    this.entities.sort(
+      (a, b) => a.components.position.y - b.components.position.y
+    );
     this.entities.forEach((entity) => entity.draw(ctx));
   }
   update(): void {

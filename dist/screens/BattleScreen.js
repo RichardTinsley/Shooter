@@ -13,7 +13,7 @@ export class BattleScreen {
     draw(ctx) {
         this.level.draw(ctx);
         this.hud.draw(ctx);
-        this.entities.sort((a, b) => a.position.y - b.position.y);
+        this.entities.sort((a, b) => a.components.position.y - b.components.position.y);
         this.entities.forEach((entity) => entity.draw(ctx));
     }
     update() {
