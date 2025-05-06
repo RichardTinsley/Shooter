@@ -13,7 +13,7 @@ export class MenuButton {
     }
     update() {
         this.components.label.update();
-        this.mouseOver();
+        Mouse.mouseOver(this, STYLES.MENUBUTTON);
     }
     setPosition(position) {
         this.components.position = Object.assign({}, position);
@@ -23,9 +23,6 @@ export class MenuButton {
     }
     mouseClick() {
         this.setScreen();
-    }
-    mouseOver() {
-        Mouse.mouseOver(this, STYLES.MENUBUTTON);
     }
     setState(state) {
         this.components.label.setState(state);

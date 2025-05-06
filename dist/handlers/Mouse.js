@@ -1,5 +1,4 @@
 import { STATE } from "../constants/states.js";
-const size = 3;
 export var STYLES;
 (function (STYLES) {
     STYLES["PLAIN"] = "Plain";
@@ -7,6 +6,7 @@ export var STYLES;
     STYLES["ENEMY"] = "Enemy";
     STYLES["MENUBUTTON"] = "MenuButton";
 })(STYLES || (STYLES = {}));
+let mouseOverEntity;
 export class Mouse {
     constructor() {
         Mouse.setCursorStyle(STYLES.PLAIN);
@@ -15,8 +15,8 @@ export class Mouse {
             Mouse.cursor.y = e.offsetY;
         });
         window.addEventListener("click", () => {
-            if (Mouse.mouseOverEntity) {
-                Mouse.mouseOverEntity.mouseClick();
+            if (mouseOverEntity) {
+                mouseOverEntity.mouseClick();
                 Mouse.setCursorStyle(STYLES.PLAIN);
             }
         });
@@ -25,17 +25,14 @@ export class Mouse {
         Mouse.cursor.style.cursor = `url(../../images/cursors/${style}.cur), auto`;
     }
     static mouseOver(entity, style) {
-        var _a;
         if (entity.components.hitDetection.checkCollision(Mouse.cursor)) {
-            if (((_a = Mouse.mouseOverEntity) === null || _a === void 0 ? void 0 : _a.components.position.y) >
-                entity.components.position.y) {
+            if ((mouseOverEntity === null || mouseOverEntity === void 0 ? void 0 : mouseOverEntity.components.position.y) > entity.components.position.y) {
                 entity.setState(STATE.MOUSEOFF);
-                return;
             }
             else {
                 Mouse.setCursorStyle(style);
-                Mouse.mouseOverEntity = entity;
-                Mouse.mouseOverEntity.setState(STATE.MOUSEOVER);
+                mouseOverEntity = entity;
+                mouseOverEntity.setState(STATE.MOUSEOVER);
             }
         }
         else {
@@ -43,20 +40,19 @@ export class Mouse {
         }
     }
     update() {
-        var _a, _b;
-        if (!((_a = Mouse.mouseOverEntity) === null || _a === void 0 ? void 0 : _a.components.hitDetection.checkCollision(Mouse.cursor))) {
+        if (!(mouseOverEntity === null || mouseOverEntity === void 0 ? void 0 : mouseOverEntity.components.hitDetection.checkCollision(Mouse.cursor))) {
             Mouse.setCursorStyle(STYLES.PLAIN);
-            (_b = Mouse.mouseOverEntity) === null || _b === void 0 ? void 0 : _b.setState(STATE.MOUSEOFF);
-            Mouse.mouseOverEntity = null;
+            mouseOverEntity === null || mouseOverEntity === void 0 ? void 0 : mouseOverEntity.setState(STATE.MOUSEOFF);
+            mouseOverEntity = null;
         }
     }
 }
 Mouse.cursor = {
     x: 0,
     y: 0,
-    radius: size / 2,
-    width: size,
-    height: size,
+    radius: 1.5,
+    width: 3,
+    height: 3,
     style: document.getElementById("canvas").style,
 };
 //# sourceMappingURL=Mouse.js.map

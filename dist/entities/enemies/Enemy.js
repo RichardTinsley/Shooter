@@ -11,12 +11,10 @@ export class Enemy {
     }
     update() {
         this.state.update();
-        this.mouseOver();
+        Mouse.mouseOver(this, STYLES.ENEMY);
     }
     mouseClick() {
-    }
-    mouseOver() {
-        Mouse.mouseOver(this, STYLES.ENEMY);
+        console.log(this);
     }
     setState(state) {
         this.components.mouseOverEnemy.setState(state);

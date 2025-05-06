@@ -18,7 +18,7 @@ export class Enemy {
 
   update(): void {
     this.state.update();
-    this.mouseOver();
+    Mouse.mouseOver(this, STYLES.ENEMY);
   }
 
   public walkingState = () => (this.state = new Walking(this.components));
@@ -27,10 +27,7 @@ export class Enemy {
     // if(Mouse.selectedEnemy !== this.mouseOverItem)
     //   Mouse.selectedEnemy.mouseClick("NOLONGERSELECTED")
     //   Mouse.selectedEnemy = this.mouseOverItem
-  }
-
-  mouseOver(): void {
-    Mouse.mouseOver(this, STYLES.ENEMY);
+    console.log(this);
   }
 
   setState(state: number) {
