@@ -24,10 +24,12 @@ export class Enemy {
   public walkingState = () => (this.state = new Walking(this.components));
 
   mouseClick(): void {
-    // if(Mouse.selectedEnemy !== this.mouseOverItem)
-    //   Mouse.selectedEnemy.mouseClick("NOLONGERSELECTED")
-    //   Mouse.selectedEnemy = this.mouseOverItem
-    console.log(this);
+    if (Mouse.selectedEnemy === this)
+      if (Mouse.selectedEnemy) {
+        // CHANGE STATE BACK Mouse.selectedEnemy
+      }
+
+    Mouse.selectedEnemy = this;
   }
 
   setState(state: number) {

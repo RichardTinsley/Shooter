@@ -14,7 +14,10 @@ export class Enemy {
         Mouse.mouseOver(this, STYLES.ENEMY);
     }
     mouseClick() {
-        console.log(this);
+        if (Mouse.selectedEnemy === this)
+            if (Mouse.selectedEnemy) {
+            }
+        Mouse.selectedEnemy = this;
     }
     setState(state) {
         this.components.mouseOverEnemy.setState(state);

@@ -10,7 +10,7 @@ export enum STYLES {
 let mouseOverEntity: any;
 
 export class Mouse {
-  // static enemySelected: IClickable;
+  static selectedEnemy: any; // IClickable;
   // static towerSelected: IClickable;
 
   static cursor: Cursor = {
