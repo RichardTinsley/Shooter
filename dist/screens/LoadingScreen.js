@@ -31,7 +31,7 @@ export class LoadingScreen {
             this.loadingBar.setCurrentStatus(1);
             console.log(`${fileName.fileName} Loaded.`);
             if (this.loadingBar.getCurrentStatus() === assetListLength)
-                this.buttons.begin();
+                this.buttons.beginScreen();
         };
         this.loadAssets();
     }

@@ -11,12 +11,11 @@ export class ZombieCrawler extends Enemy {
         this.attackSprite = FILE_NAMES.ZOMBIE_CRAWLER_ATTACK;
         this.deathSprite = FILE_NAMES.ZOMBIE_CRAWLER_DIE;
         this.idleSprite = FILE_NAMES.ZOMBIE_CRAWLER_IDLE;
-        this.components
-            .initialiseSprite(this.walkSprite, this.spriteWidth, this.spriteHeight, this.spriteScale)
+        this.initialiseSprite(this.walkSprite, this.spriteWidth, this.spriteHeight, this.spriteScale)
             .initialiseMovement(this.movementSpeed)
-            .initialiseComponents(this.components.sprite.getWidth() / 2, this.components.sprite.getHeight());
-        this.components.sprite.setDrawOffsets(0.25, 0.1);
-        this.components.hitDetection.setDrawOffsets(0);
+            .initialiseComponents(this.sprite.getWidth() / 2, this.sprite.getHeight());
+        this.sprite.setDrawOffsets(0.25, 0.1);
+        this.hitDetection.setDrawOffsets(0);
         this.walkingState();
     }
 }

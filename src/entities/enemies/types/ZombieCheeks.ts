@@ -14,8 +14,7 @@ export class ZombieCheeks extends Enemy {
 
   constructor() {
     super();
-    this.components
-      .initialiseSprite(
+    this.initialiseSprite(
         this.walkSprite,
         this.spriteWidth,
         this.spriteHeight,
@@ -23,8 +22,8 @@ export class ZombieCheeks extends Enemy {
       )
       .initialiseMovement(this.movementSpeed)
       .initialiseComponents(
-        this.components.sprite.getWidth(),
-        this.components.sprite.getHeight()
+        this.sprite.getWidth(),
+        this.sprite.getHeight()
       );
 
     this.walkingState();

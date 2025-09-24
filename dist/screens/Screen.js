@@ -4,19 +4,12 @@ import { MainMenuScreen } from "./MainMenuScreen.js";
 import { BattleScreen } from "./BattleScreen.js";
 export class Screen {
     constructor() {
-        this.beginScreen = () => (this.screen = new BeginScreen(this.buttons));
-        this.mainMenuScreen = () => (this.screen = new MainMenuScreen(this.buttons));
-        this.battleScreen = () => (this.screen = new BattleScreen(this.buttons));
-        this.optionsScreen = () => (this.screen = new BeginScreen(this.buttons));
-        this.aboutScreen = () => (this.screen = new BeginScreen(this.buttons));
-        this.buttons = {
-            begin: this.beginScreen,
-            mainMenu: this.mainMenuScreen,
-            battle: this.battleScreen,
-            options: this.optionsScreen,
-            about: this.aboutScreen,
-        };
-        this.screen = new LoadingScreen(this.buttons);
+        this.beginScreen = () => (this.screen = new BeginScreen(this));
+        this.mainMenuScreen = () => (this.screen = new MainMenuScreen(this));
+        this.battleScreen = () => (this.screen = new BattleScreen(this));
+        this.optionsScreen = () => (this.screen = new BeginScreen(this));
+        this.aboutScreen = () => (this.screen = new BeginScreen(this));
+        this.screen = new LoadingScreen(this);
     }
     draw(ctx) {
         this.screen.draw(ctx);

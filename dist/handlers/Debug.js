@@ -41,15 +41,15 @@ export class Debug {
     }
     drawMenuDebugInfo(ctx, menuButtons) {
         menuButtons.forEach((menuButton) => {
-            SHAPES.drawSquareHitBox(ctx, menuButton.components.hitDetection.getHitBox());
+            SHAPES.drawSquareHitBox(ctx, menuButton.hitDetection.getHitBox());
         });
     }
     drawEntitiesDebugInfo(ctx, entities) {
         entities.forEach((entity) => {
             var _a;
-            SHAPES.drawDot(ctx, entity.components.position, COLOURS.BLUE);
-            SHAPES.drawCircleHitbox(ctx, entity.components.hitDetection.getPosition(), entity.components.hitDetection.radius);
-            (_a = entity.components.movement.waypoints) === null || _a === void 0 ? void 0 : _a.forEach((waypoint) => SHAPES.drawDot(ctx, waypoint, COLOURS.BRIGHT_GREEN));
+            SHAPES.drawDot(ctx, entity.position, COLOURS.BLUE);
+            SHAPES.drawCircleHitbox(ctx, entity.hitDetection.getPosition(), entity.hitDetection.radius);
+            (_a = entity.movement.waypoints) === null || _a === void 0 ? void 0 : _a.forEach((waypoint) => SHAPES.drawDot(ctx, waypoint, COLOURS.BRIGHT_GREEN));
         });
     }
     drawLevelDebugInfoGrid(ctx) {

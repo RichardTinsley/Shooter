@@ -43,9 +43,9 @@ export class Mouse {
   }
 
   static mouseOver(entity: any, style: string) {
-    if (entity.components.hitDetection.checkCollision(Mouse.cursor)) {
+    if (entity.hitDetection.checkCollision(Mouse.cursor)) {
       if (
-        mouseOverEntity?.components.position.y > entity.components.position.y
+        mouseOverEntity?.position.y > entity.position.y
       ) {
         entity.setState(STATE.MOUSEOFF);
       } else {
@@ -60,7 +60,7 @@ export class Mouse {
 
   update() {
     if (
-      !mouseOverEntity?.components.hitDetection.checkCollision(Mouse.cursor)
+      !mouseOverEntity?.hitDetection.checkCollision(Mouse.cursor)
     ) {
       Mouse.setCursorStyle(STYLES.PLAIN);
       mouseOverEntity?.setState(STATE.MOUSEOFF);

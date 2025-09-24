@@ -25,8 +25,8 @@ export class Mouse {
         Mouse.cursor.style.cursor = `url(../../images/cursors/${style}.cur), auto`;
     }
     static mouseOver(entity, style) {
-        if (entity.components.hitDetection.checkCollision(Mouse.cursor)) {
-            if ((mouseOverEntity === null || mouseOverEntity === void 0 ? void 0 : mouseOverEntity.components.position.y) > entity.components.position.y) {
+        if (entity.hitDetection.checkCollision(Mouse.cursor)) {
+            if ((mouseOverEntity === null || mouseOverEntity === void 0 ? void 0 : mouseOverEntity.position.y) > entity.position.y) {
                 entity.setState(STATE.MOUSEOFF);
             }
             else {
@@ -40,7 +40,7 @@ export class Mouse {
         }
     }
     update() {
-        if (!(mouseOverEntity === null || mouseOverEntity === void 0 ? void 0 : mouseOverEntity.components.hitDetection.checkCollision(Mouse.cursor))) {
+        if (!(mouseOverEntity === null || mouseOverEntity === void 0 ? void 0 : mouseOverEntity.hitDetection.checkCollision(Mouse.cursor))) {
             Mouse.setCursorStyle(STYLES.PLAIN);
             mouseOverEntity === null || mouseOverEntity === void 0 ? void 0 : mouseOverEntity.setState(STATE.MOUSEOFF);
             mouseOverEntity = null;

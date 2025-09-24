@@ -58,22 +58,22 @@ export class Debug {
     menuButtons.forEach((menuButton) => {
       SHAPES.drawSquareHitBox(
         ctx,
-        menuButton.components.hitDetection.getHitBox()
+        menuButton.hitDetection.getHitBox()
       );
     });
   }
 
   drawEntitiesDebugInfo(ctx: CanvasRenderingContext2D, entities: Array<any>) {
     entities.forEach((entity) => {
-      SHAPES.drawDot(ctx, entity.components.position, COLOURS.BLUE);
+      SHAPES.drawDot(ctx, entity.position, COLOURS.BLUE);
 
       SHAPES.drawCircleHitbox(
         ctx,
-        entity.components.hitDetection.getPosition(),
-        entity.components.hitDetection.radius
+        entity.hitDetection.getPosition(),
+        entity.hitDetection.radius
       );
 
-      entity.components.movement.waypoints?.forEach((waypoint: any) =>
+      entity.movement.waypoints?.forEach((waypoint: any) =>
         SHAPES.drawDot(ctx, waypoint, COLOURS.BRIGHT_GREEN)
       );
       // SHAPES.drawDot(ctx, entity.muzzle, COLOURS.YELLOW);

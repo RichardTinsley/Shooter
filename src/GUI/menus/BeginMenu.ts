@@ -4,11 +4,11 @@ import { MenuTemplate, LABELS } from "./Menu.js";
 import { VerticalMenu } from "./VerticalMenu.js";
 
 export class BeginMenu extends VerticalMenu {
-  constructor(buttons: any, position: number) {
+  constructor(screen: any, position: number) {
     super();
     const BEGIN_MENU: Array<MenuTemplate> = [
       {
-        setScreen: buttons.mainMenu,
+        setScreen: screen.mainMenuScreen,
         label: TextFactory.textPulsate()
           .setText(LABELS.BEGIN)
           .setHeight(SIZES.TEXT_BEGIN),

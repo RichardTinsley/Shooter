@@ -1,32 +1,33 @@
 import { Position } from "../../constants/types.js";
 import { HitDetectionSquare } from "../../handlers/HitDetectionSquare.js";
 import { Mouse, STYLES } from "../../handlers/Mouse.js";
-import { MenuButtonComponents } from "./components/MenuButtonComponents.js";
 
 export class MenuButton {
-  public components = new MenuButtonComponents();
+  public position!: Position;
+  public hitDetection!: HitDetectionSquare;
+  public label: any;
 
   constructor(public setScreen: Function, label: any) {
-    this.components.label = label;
-    this.components.hitDetection = new HitDetectionSquare();
+    this.label = label;
+    this.hitDetection = new HitDetectionSquare();
   }
 
   draw(ctx: CanvasRenderingContext2D): void {
-    this.components.label.draw(ctx);
+    this.label.draw(ctx);
   }
 
   update(): void {
-    this.components.label.update();
+    this.label.update();
     Mouse.mouseOver(this, STYLES.MENUBUTTON);
   }
 
   setPosition(position: Position): this {
-    this.components.position = { ...position };
-    this.components.label.setPosition(position);
-    this.components.hitDetection.setHitBox(
+    this.position = { ...position };
+    this.label.setPosition(position);
+    this.hitDetection.setHitBox(
       position,
-      this.components.label.getWidth(),
-      this.components.label.getHeight()
+      this.label.getWidth(),
+      this.label.getHeight()
     );
     return this;
   }
@@ -36,6 +37,6 @@ export class MenuButton {
   }
 
   setState(state: number) {
-    this.components.label.setState(state);
+    this.label.setState(state);
   }
 }

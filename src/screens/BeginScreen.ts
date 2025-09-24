@@ -7,8 +7,8 @@ export class BeginScreen {
   menu: Menu;
   private logo = new deathSorceryLogoLayout();
 
-  constructor(buttons: object) {
-    this.menu = new BeginMenu(buttons, SIZES.GAME_HEIGHT - 110);
+  constructor(screen: any) {
+    this.menu = new BeginMenu(screen, SIZES.GAME_HEIGHT - 110);
   }
 
   draw(ctx: CanvasRenderingContext2D): void {

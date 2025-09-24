@@ -14,7 +14,7 @@ export class Screen {
   screen: IScreenState;
 
   constructor() {
-    this.screen = new LoadingScreen(this.buttons);
+    this.screen = new LoadingScreen(this);
   }
 
   draw(ctx: CanvasRenderingContext2D): void {
@@ -24,19 +24,11 @@ export class Screen {
     this.screen.update();
   }
 
-  beginScreen = () => (this.screen = new BeginScreen(this.buttons));
-  mainMenuScreen = () => (this.screen = new MainMenuScreen(this.buttons));
-  battleScreen = () => (this.screen = new BattleScreen(this.buttons));
-  optionsScreen = () => (this.screen = new BeginScreen(this.buttons));
-  aboutScreen = () => (this.screen = new BeginScreen(this.buttons));
-
-  buttons = {
-    begin: this.beginScreen,
-    mainMenu: this.mainMenuScreen,
-    battle: this.battleScreen,
-    options: this.optionsScreen,
-    about: this.aboutScreen,
-  };
+  beginScreen = () => (this.screen = new BeginScreen(this));
+  mainMenuScreen = () => (this.screen = new MainMenuScreen(this));
+  battleScreen = () => (this.screen = new BattleScreen(this));
+  optionsScreen = () => (this.screen = new BeginScreen(this));
+  aboutScreen = () => (this.screen = new BeginScreen(this));
 }
 
 //screen fades in here, DECORATOR PATTERN?

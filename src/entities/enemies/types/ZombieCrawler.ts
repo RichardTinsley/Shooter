@@ -14,8 +14,7 @@ export class ZombieCrawler extends Enemy {
 
   constructor() {
     super();
-    this.components
-      .initialiseSprite(
+    this.initialiseSprite(
         this.walkSprite,
         this.spriteWidth,
         this.spriteHeight,
@@ -23,12 +22,12 @@ export class ZombieCrawler extends Enemy {
       )
       .initialiseMovement(this.movementSpeed)
       .initialiseComponents(
-        this.components.sprite.getWidth() / 2,
-        this.components.sprite.getHeight()
+        this.sprite.getWidth() / 2,
+        this.sprite.getHeight()
       );
 
-    this.components.sprite.setDrawOffsets(0.25, 0.1);
-    this.components.hitDetection.setDrawOffsets(0);
+    this.sprite.setDrawOffsets(0.25, 0.1);
+    this.hitDetection.setDrawOffsets(0);
 
     this.walkingState();
   }
