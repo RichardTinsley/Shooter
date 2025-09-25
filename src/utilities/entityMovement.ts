@@ -6,22 +6,18 @@ export enum DIRECTION {
   RIGHT = 1,
 }
 
-export function setAngle(position: Position, destination: Position):number  {
+export function setAngle(position: Position, destination: Position): number {
   const dy = destination.y - position.y;
   const dx = destination.x - position.x;
   return Math.atan2(dy, dx);
 }
 
-export function getDirection(angle: number):number {
+export function getDirection(angle: number): number {
   if (angle < 1.57 && angle > -1.57) return DIRECTION.RIGHT;
   else return DIRECTION.LEFT;
 }
 
-export function updatePosition(
-  position: Position,
-  angle: number,
-  speed: number
-): void {
+export function updatePosition(position: Position, angle: number, speed: number): void {
   position.x += Math.cos(angle) * speed * Time.deltaTimeMultiplier;
   position.y += Math.sin(angle) * speed * Time.deltaTimeMultiplier;
 }
