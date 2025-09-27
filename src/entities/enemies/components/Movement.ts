@@ -27,10 +27,7 @@ export class Movement {
   }
 
   setSpeed(speed: number) {
-    this.speed = randomFloat(
-      speed - speed * this.delta,
-      speed + speed * this.delta
-    );
+    this.speed = randomFloat(speed - speed * this.delta, speed + speed * this.delta);
   }
 
   setPriorityDistance(enemy: any) {
@@ -53,9 +50,7 @@ export class Movement {
         enemy.healthBar.setPosition(enemy.position);
       }
 
-      enemy.setDestination(
-        enemy.movement.waypoints[enemy.movement.waypointIndex]
-      );
+      enemy.setDestination(enemy.movement.waypoints[enemy.movement.waypointIndex]);
       enemy.movement.angle = setAngle(enemy.position, enemy.destination);
       enemy.sprite.setDirection(getDirection(enemy.movement.angle));
     }
