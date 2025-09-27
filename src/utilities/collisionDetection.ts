@@ -6,7 +6,7 @@ export function checkCircleCollision(
   b: Position,
   aRadius: number,
   bRadius: number
-) {
+): Boolean {
   const dx = a.x - b.x;
   const dy = a.y - b.y;
   const distance = Math.hypot(dx, dy);
@@ -14,7 +14,7 @@ export function checkCircleCollision(
   return distance < sumOfRadii;
 }
 
-export function checkHitBoxCollision(a: Cursor, b: HitBox) {
+export function checkHitBoxCollision(a: Cursor, b: HitBox): Boolean {
   return !(
     a.x > b.x + b.width ||
     a.x + a.width < b.x ||
