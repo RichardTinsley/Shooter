@@ -1,7 +1,7 @@
 import { drawShadow } from "../../../utilities/drawShapes.js";
 import { IEnemyState } from "../Enemy.js";
 
-export class Walking implements IEnemyState {
+export class Moving implements IEnemyState {
   constructor(public enemy: any) {}
 
   draw(ctx: CanvasRenderingContext2D) {

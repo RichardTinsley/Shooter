@@ -18,7 +18,7 @@ export class Sprite {
   protected currentFrame: number = 0;
   protected currentRow: number = 0;
 
-  draw(ctx: CanvasRenderingContext2D) {
+  draw(ctx: CanvasRenderingContext2D): void {
     ctx.save();
     ctx.translate(this.position.x, this.position.y);
     ctx.scale(this.direction, 1);
@@ -54,7 +54,7 @@ export class Sprite {
     return this.position;
   }
 
-  setDirection(direction: number) {
+  setDirection(direction: number): void {
     this.direction = direction;
   }
 

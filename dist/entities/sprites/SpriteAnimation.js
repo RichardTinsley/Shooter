@@ -63,8 +63,7 @@ export class SpriteAnimation extends Sprite {
             this.currentRow++;
             this.currentFrame = 0;
         }
-        if (this.currentRow === this.maxRows &&
-            this.currentFrame <= this.maxFrames) {
+        if (this.currentRow === this.maxRows && this.currentFrame <= this.maxFrames) {
             this.currentRow = 0;
             this.currentFrame = 0;
         }

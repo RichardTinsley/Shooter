@@ -17,7 +17,7 @@ export class SpriteAnimation extends Sprite {
     super();
   }
 
-  update() {
+  update(): void {
     if (!Time.eventUpdate) return;
 
     switch (this.animationState) {
@@ -65,7 +65,7 @@ export class SpriteAnimation extends Sprite {
     }
   }
 
-  animateMultipleRowsRepeatedly() {
+  animateMultipleRowsRepeatedly(): void {
     if (this.currentFrame < this.maxFrames) {
       this.currentFrame++;
     } else {
@@ -73,10 +73,7 @@ export class SpriteAnimation extends Sprite {
       this.currentFrame = 0;
     }
 
-    if (
-      this.currentRow === this.maxRows &&
-      this.currentFrame <= this.maxFrames
-    ) {
+    if (this.currentRow === this.maxRows && this.currentFrame <= this.maxFrames) {
       this.currentRow = 0;
       this.currentFrame = 0;
     }

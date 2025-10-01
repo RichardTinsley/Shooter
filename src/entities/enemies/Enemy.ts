@@ -5,7 +5,7 @@ import { SpriteAnimation } from "../sprites/SpriteAnimation.js";
 import { HealthBar } from "./components/HealthBar.js";
 import { MouseOverEnemy } from "./components/MouseOverEnemy.js";
 import { Movement } from "./components/Movement.js";
-import { Walking } from "./states/Walking.js";
+import { Moving } from "./states/Moving.js";
 
 export interface IEnemyState {
   enemy: Enemy;
@@ -24,40 +24,28 @@ export class Enemy {
   public mouseOverEnemy = new MouseOverEnemy().setPosition(this.position);
   public shadowWidth!: number;
 
-  initialiseSprite(
-    walkingSprite: string,
-    spriteWidth: number,
-    spriteHeight: number,
-    spriteScale: number
-  ): this {
+  constructor(public enemy: any) {
     this.sprite
-      .setImage(walkingSprite, spriteWidth, spriteHeight)
-      .setScale(spriteScale)
+      .setImage(enemy.normal.move, enemy.width, enemy.height)
+      .setScale(enemy.scale)
+      .setDrawOffsets(enemy.drawOffsets.x, enemy.drawOffsets.y)
       .initialise();
-    return this;
-  }
 
-  initialiseMovement(movementSpeed: number): this {
-    this.movement.setSpeed(movementSpeed);
-    return this;
-  }
+    this.movement.setSpeed(enemy.speed);
 
-  initialiseComponents(width: number, height: number): this {
-    this.healthBar.setWidth(width).setDrawOffsets(height);
-    this.hitDetection.setWidth(width).setDrawOffsets(height / 2);
-    this.mouseOverEnemy.setWidth(width * 1.25);
-    this.shadowWidth = width;
-    return this;
-  }
+    this.healthBar
+      .setWidth(this.sprite.getWidth() / enemy.widthDivisor)
+      .setDrawOffsets(this.sprite.getHeight());
 
-  setPosition(position: Position) {
-    this.position = { ...position };
-  }
+    this.hitDetection
+      .setWidth(this.sprite.getWidth() / enemy.widthDivisor)
+      .setDrawOffsets(this.sprite.getHeight() / enemy.hitboxHeightDivisor);
 
-  setDestination(destination: Position) {
-    this.destination = { ...destination };
-  }
+    this.mouseOverEnemy.setWidth(this.sprite.getWidth() * 1.25);
+    this.shadowWidth = this.sprite.getWidth() / enemy.widthDivisor;
 
+    this.setMovingState();
+  }
 
   draw(ctx: CanvasRenderingContext2D): void {
     this.state.draw(ctx);
@@ -68,7 +56,15 @@ export class Enemy {
     Mouse.mouseOver(this, STYLES.ENEMY);
   }
 
-  public walkingState = () => (this.state = new Walking(this));
+  setPosition(position: Position) {
+    this.position = { ...position };
+  }
+
+  setDestination(destination: Position) {
+    this.destination = { ...destination };
+  }
+
+  public setMovingState = () => (this.state = new Moving(this));
 
   mouseClick(): void {
     if (Mouse.selectedEnemy === this)
