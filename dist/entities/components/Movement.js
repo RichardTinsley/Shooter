@@ -36,6 +36,7 @@ export class Movement {
     }
     setSpeed(speed) {
         this.speed = randomFloat(speed - speed * this.delta, speed + speed * this.delta);
+        return this;
     }
     setPriorityDistance(enemy) {
         const dx = enemy.destination.y - enemy.position.y;

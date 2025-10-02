@@ -41,8 +41,9 @@ export class Movement {
     return this.priorityDistance;
   }
 
-  setSpeed(speed: number): void {
+  setSpeed(speed: number): this {
     this.speed = randomFloat(speed - speed * this.delta, speed + speed * this.delta);
+    return this;
   }
 
   setPriorityDistance(enemy: any): void {

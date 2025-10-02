@@ -15,35 +15,34 @@ export interface IEnemyState {
 
 export class Enemy {
   public state!: IEnemyState;
-  public movement = new Movement();
+  public movement = new Movement().setSpeed(this.enemy.speed);
   public position = this.movement.getWaypoints();
   public destination = this.movement.getWaypoints();
-  public sprite = new SpriteAnimation().setPosition(this.position);
-  public healthBar = new HealthBar().setPosition(this.position);
-  public hitDetection = new HitDetectionCircle().setPosition(this.position);
-  public mouseOverEnemy = new MouseOverEnemy().setPosition(this.position);
-  public shadowWidth!: number;
+
+  public sprite = new SpriteAnimation()
+    .setPosition(this.position)
+    .setImage(this.enemy.normal.move, this.enemy.width, this.enemy.height)
+    .setScale(this.enemy.scale)
+    .setDrawOffsets(this.enemy.drawOffsets.x, this.enemy.drawOffsets.y)
+    .initialise();
+
+  public healthBar = new HealthBar()
+    .setPosition(this.position)
+    .setWidth(this.sprite.getWidth() / this.enemy.widthDivisor)
+    .setDrawOffsets(this.sprite.getHeight());
+
+  public hitDetection = new HitDetectionCircle()
+    .setPosition(this.position)
+    .setWidth(this.sprite.getWidth() / this.enemy.widthDivisor)
+    .setDrawOffsets(this.sprite.getHeight() / this.enemy.hitboxHeightDivisor);
+
+  public mouseOverEnemy = new MouseOverEnemy()
+    .setPosition(this.position)
+    .setWidth((this.sprite.getWidth() / this.enemy.widthDivisor) * 1.25);
+
+  public shadowWidth = this.sprite.getWidth() / this.enemy.widthDivisor;
 
   constructor(public enemy: any) {
-    this.sprite
-      .setImage(enemy.normal.move, enemy.width, enemy.height)
-      .setScale(enemy.scale)
-      .setDrawOffsets(enemy.drawOffsets.x, enemy.drawOffsets.y)
-      .initialise();
-
-    this.movement.setSpeed(enemy.speed);
-
-    this.healthBar
-      .setWidth(this.sprite.getWidth() / enemy.widthDivisor)
-      .setDrawOffsets(this.sprite.getHeight());
-
-    this.hitDetection
-      .setWidth(this.sprite.getWidth() / enemy.widthDivisor)
-      .setDrawOffsets(this.sprite.getHeight() / enemy.hitboxHeightDivisor);
-
-    this.mouseOverEnemy.setWidth(this.sprite.getWidth() * 1.25);
-    this.shadowWidth = this.sprite.getWidth() / enemy.widthDivisor;
-
     this.setMovingState();
   }
 

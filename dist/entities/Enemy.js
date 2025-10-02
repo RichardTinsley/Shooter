@@ -8,28 +8,28 @@ import { HealthBar } from "./components/HealthBar.js";
 export class Enemy {
     constructor(enemy) {
         this.enemy = enemy;
-        this.movement = new Movement();
+        this.movement = new Movement().setSpeed(this.enemy.speed);
         this.position = this.movement.getWaypoints();
         this.destination = this.movement.getWaypoints();
-        this.sprite = new SpriteAnimation().setPosition(this.position);
-        this.healthBar = new HealthBar().setPosition(this.position);
-        this.hitDetection = new HitDetectionCircle().setPosition(this.position);
-        this.mouseOverEnemy = new MouseOverEnemy().setPosition(this.position);
-        this.setMovingState = () => (this.state = new Moving(this));
-        this.sprite
-            .setImage(enemy.normal.move, enemy.width, enemy.height)
-            .setScale(enemy.scale)
-            .setDrawOffsets(enemy.drawOffsets.x, enemy.drawOffsets.y)
+        this.sprite = new SpriteAnimation()
+            .setPosition(this.position)
+            .setImage(this.enemy.normal.move, this.enemy.width, this.enemy.height)
+            .setScale(this.enemy.scale)
+            .setDrawOffsets(this.enemy.drawOffsets.x, this.enemy.drawOffsets.y)
             .initialise();
-        this.movement.setSpeed(enemy.speed);
-        this.healthBar
-            .setWidth(this.sprite.getWidth() / enemy.widthDivisor)
+        this.healthBar = new HealthBar()
+            .setPosition(this.position)
+            .setWidth(this.sprite.getWidth() / this.enemy.widthDivisor)
             .setDrawOffsets(this.sprite.getHeight());
-        this.hitDetection
-            .setWidth(this.sprite.getWidth() / enemy.widthDivisor)
-            .setDrawOffsets(this.sprite.getHeight() / enemy.hitboxHeightDivisor);
-        this.mouseOverEnemy.setWidth(this.sprite.getWidth() * 1.25);
-        this.shadowWidth = this.sprite.getWidth() / enemy.widthDivisor;
+        this.hitDetection = new HitDetectionCircle()
+            .setPosition(this.position)
+            .setWidth(this.sprite.getWidth() / this.enemy.widthDivisor)
+            .setDrawOffsets(this.sprite.getHeight() / this.enemy.hitboxHeightDivisor);
+        this.mouseOverEnemy = new MouseOverEnemy()
+            .setPosition(this.position)
+            .setWidth((this.sprite.getWidth() / this.enemy.widthDivisor) * 1.25);
+        this.shadowWidth = this.sprite.getWidth() / this.enemy.widthDivisor;
+        this.setMovingState = () => (this.state = new Moving(this));
         this.setMovingState();
     }
     draw(ctx) {
