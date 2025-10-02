@@ -1,6 +1,6 @@
-import { Level } from "../../../handlers/Level.js";
-import { Time } from "../../../handlers/Time.js";
-import { randomFloat } from "../../../utilities/math.js";
+import { Level } from "../../handlers/Level.js";
+import { Time } from "../../handlers/Time.js";
+import { randomFloat } from "../../utilities/math.js";
 export var DIRECTION;
 (function (DIRECTION) {
     DIRECTION[DIRECTION["LEFT"] = -1] = "LEFT";

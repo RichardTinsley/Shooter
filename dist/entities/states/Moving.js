@@ -1,6 +1,6 @@
-import { HUD } from "../../../GUI/HUD/HUD.js";
-import { checkCircleCollision } from "../../../utilities/collisionDetection.js";
-import { drawShadow } from "../../../utilities/drawShapes.js";
+import { HUD } from "../../GUI/HUD/HUD.js";
+import { checkCircleCollision } from "../../utilities/collisionDetection.js";
+import { drawShadow } from "../../utilities/drawShapes.js";
 export class Moving {
     constructor(enemy) {
         this.enemy = enemy;

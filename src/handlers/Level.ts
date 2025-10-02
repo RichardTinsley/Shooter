@@ -3,8 +3,8 @@ import { ALL_WAYPOINTS } from "../constants/waypoints.js";
 import { ALL_TILEMAPS } from "../constants/tilemaps.js";
 import { SIZES } from "../constants/sizes.js";
 import { Position } from "../constants/types.js";
-import { EmptyTowerSpot } from "../entities/towers/emptyTowerSpot.js";
 import { randomNumber } from "../utilities/math.js";
+import { Tower } from "../entities/Tower.js";
 
 export class Level {
   levelImage = ALL_ASSETS.get(FILE_NAMES.LEVEL_LAVONEY);
@@ -29,13 +29,13 @@ export class Level {
     });
   }
 
-  createEmptyTowerSpots(): Array<EmptyTowerSpot> {
-    const emptyTowerSpots: Array<EmptyTowerSpot> = [];
+  createEmptyTowerSpots(): Array<Tower> {
+    const emptyTowerSpots: Array<Tower> = [];
     this.tile2DMap.forEach((row, y) => {
       row.forEach((symbol, x) => {
         if (symbol !== 0)
           emptyTowerSpots.push(
-            new EmptyTowerSpot(
+            new Tower(
               {
                 x: x * SIZES.TILE + SIZES.TILE_HALF,
                 y: y * SIZES.TILE + SIZES.TILE_HALF,

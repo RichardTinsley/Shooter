@@ -1,5 +1,5 @@
 import { SIZES } from "../../constants/sizes.js";
-import { Sprite } from "../../entities/sprites/Sprite.js";
+import { Sprite } from "../../entities/components/Sprite.js";
 import { Text } from "../texts/Text.js";
 export class HUDItem extends Text {
     draw(ctx) {

@@ -1,4 +1,4 @@
-import { FILE_NAMES } from "../../constants/assets.js";
+import { FILE_NAMES } from "../constants/assets.js";
 
 type sprite = {
   move: string;

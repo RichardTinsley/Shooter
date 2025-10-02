@@ -1,4 +1,4 @@
-import { Sprite } from "../../entities/sprites/Sprite.js";
+import { Sprite } from "../../entities/components/Sprite.js";
 import { Text } from "../texts/Text.js";
 import { MenuButton } from "../menuButtons/MenuButton.js";
 

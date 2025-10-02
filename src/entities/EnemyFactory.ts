@@ -1,6 +1,6 @@
-import { randomNumber } from "../../utilities/math.js";
+import { randomNumber } from "../utilities/math.js";
 import { Enemy } from "./Enemy.js";
-import { ENEMY_TYPE, ENEMY_TYPES } from "./EnemyTypes.js";
+import { ENEMY_TYPE, ENEMY_TYPES } from "../types/EnemyTypes.js";
 
 export class EnemyFactory {
   static createZombie(waveCounter: number): any {

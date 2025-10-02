@@ -1,11 +1,11 @@
-import { Position } from "../../constants/types.js";
-import { HitDetectionCircle } from "../../handlers/HitDetectionCircle.js";
-import { Mouse, STYLES } from "../../handlers/Mouse.js";
-import { SpriteAnimation } from "../sprites/SpriteAnimation.js";
-import { HealthBar } from "./components/HealthBar.js";
+import { Position } from "../constants/types.js";
+import { HitDetectionCircle } from "../handlers/HitDetectionCircle.js";
+import { Mouse, STYLES } from "../handlers/Mouse.js";
+import { SpriteAnimation } from "./components/SpriteAnimation.js";
 import { MouseOverEnemy } from "./components/MouseOverEnemy.js";
 import { Movement } from "./components/Movement.js";
 import { Moving } from "./states/Moving.js";
+import { HealthBar } from "./components/HealthBar.js";
 
 export interface IEnemyState {
   enemy: Enemy;

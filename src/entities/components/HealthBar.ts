@@ -1,7 +1,7 @@
-import { COLOURS } from "../../../constants/colours.js";
-import { StatusBar } from "../../../GUI/components/StatusBar.js";
-import { EnemyWaves } from "../../../handlers/EnemyWaves.js";
-import { drawRectangle } from "../../../utilities/drawShapes.js";
+import { COLOURS } from "../../constants/colours.js";
+import { StatusBar } from "../../GUI/components/StatusBar.js";
+import { EnemyWaves } from "../../handlers/EnemyWaves.js";
+import { drawRectangle } from "../../utilities/drawShapes.js";
 
 export class HealthBar extends StatusBar {
   readonly statusBarHeight: number = 3;
@@ -51,8 +51,7 @@ export class HealthBar extends StatusBar {
   setDamage(damage: number): void {
     this.currentStatus -= damage;
 
-    if (this.currentStatus < this.maxStatus * 33)
-      this.healthBarColour = COLOURS.RED;
+    if (this.currentStatus < this.maxStatus * 33) this.healthBarColour = COLOURS.RED;
 
     if (this.currentStatus < 0) {
       this.currentStatus = 0;

@@ -1,6 +1,6 @@
-import { STATE } from "../../../constants/states.js";
-import { Position } from "../../../constants/types.js";
-import { drawMouseOverEnemy } from "../../../utilities/drawShapes.js";
+import { STATE } from "../../constants/states.js";
+import { Position } from "../../constants/types.js";
+import { drawMouseOverEnemy } from "../../utilities/drawShapes.js";
 
 export class MouseOverEnemy {
   state = STATE.MOUSEOFF;
