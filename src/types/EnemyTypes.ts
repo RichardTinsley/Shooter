@@ -16,8 +16,8 @@ export type ENEMY_TYPE = {
   speed: number;
   drawOffsets: { x: number; y: number };
   widthDivisor: number;
-  hitboxHeightDivisor: number;
-  healthBarHeightOffset: number;
+  hitboxHeight: number;
+  healthBarHeight: number;
   normal: sprite;
   dark?: sprite;
 };
@@ -30,10 +30,10 @@ export const ENEMY_TYPES = new Map<string, ENEMY_TYPE>([
       height: 32,
       scale: 1.5,
       speed: 6,
-      drawOffsets: { x: 0.0, y: 0.0 },
+      drawOffsets: { x: 0.0, y: 0.05 },
       widthDivisor: 1,
-      hitboxHeightDivisor: 2,
-      healthBarHeightOffset: 16,
+      hitboxHeight: 0.5,
+      healthBarHeight: 1,
       normal: {
         move: FILE_NAMES.ZOMBIE_CHEEKS_WALK,
         attack: FILE_NAMES.ZOMBIE_CHEEKS_ATTACK,
@@ -57,8 +57,8 @@ export const ENEMY_TYPES = new Map<string, ENEMY_TYPE>([
       speed: 1,
       drawOffsets: { x: 0.25, y: 0.1 },
       widthDivisor: 2,
-      hitboxHeightDivisor: 4,
-      healthBarHeightOffset: 0,
+      hitboxHeight: 0.25,
+      healthBarHeight: 0.65,
       normal: {
         move: FILE_NAMES.ZOMBIE_CRAWLER_WALK,
         attack: FILE_NAMES.ZOMBIE_CRAWLER_ATTACK,

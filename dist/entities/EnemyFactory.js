@@ -5,9 +5,9 @@ export class EnemyFactory {
     static createZombie(waveCounter) {
         const number = randomNumber(0, 1);
         if (number === 0)
-            return new Enemy(ENEMY_TYPES.get("zombieCrawler"));
+            return new Enemy(ENEMY_TYPES.get("zombieCrawler")).setMovingState();
         if (number === 1)
-            return new Enemy(ENEMY_TYPES.get("zombieCheeks"));
+            return new Enemy(ENEMY_TYPES.get("zombieCheeks")).setMovingState();
     }
 }
 //# sourceMappingURL=EnemyFactory.js.map

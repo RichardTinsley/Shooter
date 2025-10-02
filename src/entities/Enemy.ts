@@ -29,22 +29,20 @@ export class Enemy {
   public healthBar = new HealthBar()
     .setPosition(this.position)
     .setWidth(this.sprite.getWidth() / this.enemy.widthDivisor)
-    .setDrawOffsets(this.sprite.getHeight());
+    .setDrawOffsets(this.sprite.getHeight() * this.enemy.healthBarHeight);
 
   public hitDetection = new HitDetectionCircle()
     .setPosition(this.position)
     .setWidth(this.sprite.getWidth() / this.enemy.widthDivisor)
-    .setDrawOffsets(this.sprite.getHeight() / this.enemy.hitboxHeightDivisor);
+    .setDrawOffsets(this.sprite.getHeight() * this.enemy.hitboxHeight);
 
   public mouseOverEnemy = new MouseOverEnemy()
     .setPosition(this.position)
-    .setWidth((this.sprite.getWidth() / this.enemy.widthDivisor) * 1.25);
+    .setWidth(this.sprite.getWidth() / this.enemy.widthDivisor);
 
   public shadowWidth = this.sprite.getWidth() / this.enemy.widthDivisor;
 
-  constructor(public enemy: any) {
-    this.setMovingState();
-  }
+  constructor(public enemy: any) {}
 
   draw(ctx: CanvasRenderingContext2D): void {
     this.state.draw(ctx);
@@ -55,15 +53,13 @@ export class Enemy {
     Mouse.mouseOver(this, STYLES.ENEMY);
   }
 
-  setPosition(position: Position) {
-    this.position = { ...position };
-  }
+  setPosition = (position: Position) => (this.position = { ...position });
+  setDestination = (destination: Position) => (this.destination = { ...destination });
 
-  setDestination(destination: Position) {
-    this.destination = { ...destination };
-  }
-
-  public setMovingState = () => (this.state = new Moving(this));
+  setMovingState = (): this => {
+    this.state = new Moving(this);
+    return this;
+  };
 
   mouseClick(): void {
     if (Mouse.selectedEnemy === this)
