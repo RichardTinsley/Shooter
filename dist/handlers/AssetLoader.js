@@ -7,17 +7,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { ASSET_LIST, ALL_ASSETS } from "../constants/assets.js";
-export const assetListLength = ASSET_LIST.length;
-const ASSET_TYPE = {
-    IMAGE: "image",
-    SOUND: "sound",
-};
-const ASSET_TYPE_LOOKUP = {
-    png: ASSET_TYPE.IMAGE,
-    mp3: ASSET_TYPE.SOUND,
-    ogg: ASSET_TYPE.SOUND,
-};
+import { ASSET_LIST, ALL_ASSETS, ASSET_TYPE, ASSET_TYPE_LOOKUP, } from "../constants/assets.js";
 export class AssetLoader {
     constructor() { }
     load(assetLoaded) {
@@ -27,7 +17,8 @@ export class AssetLoader {
                 return new Promise((resolve, reject) => {
                     newAsset.addEventListener(eventListenerType, () => {
                         resolve({ key, asset: newAsset });
-                        assetLoaded({ fileName, newAsset });
+                        assetLoaded(ASSET_LIST.length);
+                        console.log(`${fileName} Loaded.`);
                     }, { once: true });
                     newAsset.addEventListener("error", (event) => reject({ fileName, event }));
                     newAsset.src = fileName;
@@ -41,9 +32,7 @@ export class AssetLoader {
         });
     }
     findAssetType(fileName) {
-        const extension = fileName
-            .substring(fileName.lastIndexOf(".") + 1)
-            .toLowerCase();
+        const extension = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
         const type = ASSET_TYPE_LOOKUP[extension];
         let newAsset;
         let eventListenerType;
@@ -61,4 +50,4 @@ export class AssetLoader {
         return { newAsset, eventListenerType };
     }
 }
-//# sourceMappingURL=AssetLoader.js.map
+//# sourceMappingURL=assetLoader.js.map

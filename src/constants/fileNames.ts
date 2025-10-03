@@ -1,0 +1,55 @@
+export const URLS: Record<string, string> = {
+  EFFECTS: "./images/effects/",
+  ENEMIES: "./images/enemies/",
+  ZOMBIES: "./images/enemies/zombies/",
+  PROJECTILES: "./images/projectiles/",
+  TOWERS: "./images/towers/",
+  UI: "./images/UI/",
+  LEVELS: "./images/levels/",
+  MUSIC: "./audio/",
+  ICONS: "./images/UI/icons/",
+};
+
+// prettier-ignore
+export const FILE_NAMES: Record<string, string> = {
+  DSLOGO: "DsShieldLogo.png",
+  LEVEL_LAVONEY: "lavoney.png",
+
+  ICONS_LIVES: "lives.png",
+  ICONS_COINS: "coins.png",
+  ICONS_EXP: "experience.png",
+  ICONS_MANA: "mana.png",
+  ICONS_WAVES: "waves.png",
+  ICONS_PAUSE: "pause.png",
+  ICONS_AUDIO: "audio.png",
+  ICONS_SETTINGS: "settings.png",
+  ICONS_TIMER: "timer.png",
+
+  MUSIC_MAIN_MENU: "mainMenu.mp3",
+
+  TOWER_EMPTY_SPOT: "emptyTowerSpot.png",
+  TOWER_AMETHYST_1: "amethystTower (1).png",
+  
+  PROJECTILE_SAPPHIRE_1: "Iceball_84x9.png", 
+
+  ZOMBIE_CRAWLER_ATTACK: "zombie_crawler_attack.png",
+  ZOMBIE_CRAWLER_DIE: "zombie_crawler_die.png",
+  ZOMBIE_CRAWLER_IDLE: "zombie_crawler_idle.png",
+  ZOMBIE_CRAWLER_WALK: "zombie_crawler_walk.png",
+
+  ZOMBIE_DARK_CRAWLER_ATTACK: "zombie_dark_crawler_attack.png",
+  ZOMBIE_DARK_CRAWLER_DIE: "zombie_dark_crawler_die.png",
+  ZOMBIE_DARK_CRAWLER_IDLE: "zombie_dark_crawler_idle.png",
+  ZOMBIE_DARK_CRAWLER_WALK: "zombie_dark_crawler_walk.png",
+
+  ZOMBIE_DARK_CHEEKS_DIE: "zombie_dark_cheeks_die.png",
+  ZOMBIE_DARK_CHEEKS_IDLE: "zombie_dark_cheeks_idle.png",
+  ZOMBIE_DARK_CHEEKS_ATTACK: "zombie_dark_cheeks_scream.png",
+  ZOMBIE_DARK_CHEEKS_WALK: "zombie_dark_cheeks_walk.png",
+
+  ZOMBIE_CHEEKS_DIE: "zombie_cheeks_die.png",
+  ZOMBIE_CHEEKS_IDLE: "zombie_cheeks_idle.png",
+  ZOMBIE_CHEEKS_ATTACK: "zombie_cheeks_scream.png",
+  ZOMBIE_CHEEKS_WALK: "zombie_cheeks_walk.png",
+  
+};

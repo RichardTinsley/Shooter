@@ -1,37 +1,55 @@
-import { COLOURS } from "../../constants/colours.js";
-import { Position } from "../../constants/types.js";
-import { IDrawable } from "../../interfaces/IEntity.js";
-import { drawRectangle } from "../../utilities/drawShapes.js";
+import { COLOURS, getColour } from "../../constants/colours.js";
+import { IDrawable } from "../../interfaces/interfaces.js";
+import { Position } from "../../types/types.js";
 
 export class StatusBar implements IDrawable {
-  protected readonly statusBarHeight: number = 0;
-  protected readonly statusBarLength: number = 0;
-  protected currentStatus: number = 0;
-  protected maxStatus: number = 0;
+  private width!: number;
+  private height!: number;
+  private currentStatus!: number;
+  private maxStatus!: number;
 
-  protected lineJoin: CanvasLineJoin = "bevel";
-  protected lineWidth: number = 4;
-  protected backgroundFillColour: string = COLOURS.BLACK;
-  protected backgroundStrokeColour: string = COLOURS.WHITE;
-  position!: Position;
+  private lineJoin: CanvasLineJoin = "bevel";
+  private lineWidth: number = 4;
+  private statusBarFillColour: string = getColour(COLOURS.GREEN, 1);
+  private boxFillColour: string = getColour(COLOURS.BLACK, 1);
+  private borderColour: string = getColour(COLOURS.WHITE, 1);
+  private position!: Position;
 
-  protected drawOffsetX!: number;
-  protected drawOffsetY!: number;
+  private drawOffsetX!: number;
+  private drawOffsetY!: number;
 
   draw(ctx: CanvasRenderingContext2D): void {
     ctx.lineJoin = this.lineJoin;
     ctx.lineWidth = this.lineWidth;
+    this.drawBorderBox(ctx);
+    this.drawStatusBar(ctx);
+  }
 
-    drawRectangle(
-      ctx,
-      {
-        x: this.position.x - this.drawOffsetX,
-        y: this.position.y - this.drawOffsetY,
-      },
-      this.statusBarLength,
-      this.statusBarHeight,
-      this.backgroundFillColour,
-      this.backgroundStrokeColour
+  drawBorderBox(ctx: CanvasRenderingContext2D): void {
+    ctx.strokeStyle = this.borderColour;
+    ctx.strokeRect(
+      this.position.x - this.drawOffsetX,
+      this.position.y - this.drawOffsetY,
+      this.width,
+      this.height
+    );
+  }
+
+  drawStatusBar(ctx: CanvasRenderingContext2D): void {
+    ctx.fillStyle = this.boxFillColour;
+    ctx.fillRect(
+      this.position.x - this.drawOffsetX,
+      this.position.y - this.drawOffsetY,
+      this.width,
+      this.height
+    );
+
+    ctx.fillStyle = this.statusBarFillColour;
+    ctx.fillRect(
+      this.position.x - this.drawOffsetX,
+      this.position.y - this.drawOffsetY,
+      this.width * (this.currentStatus / this.maxStatus),
+      this.height
     );
   }
 
@@ -40,24 +58,33 @@ export class StatusBar implements IDrawable {
     return this;
   }
 
-  getPosition(): Position {
-    return this.position;
+  setDimensions(width: number, height: number): this {
+    this.width = width;
+    this.height = height;
+    return this;
+  }
+
+  setStatus(currentStatus: number, maxStatus: number): this {
+    this.currentStatus = currentStatus;
+    this.maxStatus = maxStatus;
+    return this;
+  }
+
+  setDrawOffsets(offsetY: number, offsetX: number = this.width / 2): this {
+    this.drawOffsetX = offsetX;
+    this.drawOffsetY = offsetY + this.height * 2;
+    return this;
   }
 
   getCurrentStatus(): number {
     return this.currentStatus;
   }
 
-  setCurrentStatus(currentStatus: number): void {
-    this.currentStatus += currentStatus;
+  increaseStatusBar(increment: number): void {
+    this.currentStatus += increment;
   }
 
-  setDrawOffsets(
-    offsetY: number,
-    offsetX: number = this.statusBarLength / 2
-  ): this {
-    this.drawOffsetX = offsetX;
-    this.drawOffsetY = offsetY + this.statusBarHeight * 2;
-    return this;
+  decreaseStatusBar(decrement: number): void {
+    this.currentStatus -= decrement;
   }
 }
