@@ -1,4 +1,4 @@
-import { StatusBar } from "../../GUI/components/StatusBar.js";
+import { StatusBar, JOINS } from "../../GUI/components/StatusBar.js";
 import { AssetLoader } from "../../handlers/assetLoader.js";
 export class Loading {
     constructor(screen) {
@@ -6,8 +6,15 @@ export class Loading {
         this.assetLoader = new AssetLoader();
         this.loadingBar = new StatusBar()
             .setPosition({ x: 100, y: 100 })
-            .setDimensions(100, 10)
+            .setDimensions(40, 5)
             .setStatus(0, this.assetLoader.getAwaitingAssetsSize())
+            .setDrawOffsets(0);
+        this.loadingBar2 = new StatusBar()
+            .setPosition({ x: 400, y: 200 })
+            .setDimensions(400, 8)
+            .setStatus(50, 100)
+            .setBorderWidths(11, 5)
+            .setLineJoins(JOINS.bevel)
             .setDrawOffsets(0);
         this.assetLoaded = () => this.loadingBar.increaseStatusBar(1);
         this.assetLoader
@@ -17,6 +24,7 @@ export class Loading {
     }
     draw(ctx) {
         this.loadingBar.draw(ctx);
+        this.loadingBar2.draw(ctx);
     }
     update() { }
 }

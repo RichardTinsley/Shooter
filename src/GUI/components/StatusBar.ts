@@ -2,17 +2,24 @@ import { COLOURS, getColour } from "../../constants/colours.js";
 import { IDrawable } from "../../interfaces/interfaces.js";
 import { Position } from "../../types/types.js";
 
+export const JOINS: Record<string, CanvasLineJoin> = {
+  round: "round",
+  bevel: "bevel",
+  miter: "miter",
+};
+
 export class StatusBar implements IDrawable {
   private width!: number;
   private height!: number;
   private currentStatus!: number;
   private maxStatus!: number;
 
-  private lineJoin: CanvasLineJoin = "bevel";
-  private lineWidth: number = 4;
-  private statusBarFillColour: string = getColour(COLOURS.GREEN, 1);
-  private boxFillColour: string = getColour(COLOURS.BLACK, 1);
-  private borderColour: string = getColour(COLOURS.WHITE, 1);
+  private lineJoin = JOINS.bevel;
+  private outerBorderWidth: number = 5;
+  private innerBorderWidth: number = 3;
+  private statusBarFillColour: string = getColour(COLOURS.WHITE);
+  private boxFillColour: string = getColour(COLOURS.BLACK);
+  private borderColour: string = getColour(COLOURS.WHITE);
   private position!: Position;
 
   private drawOffsetX!: number;
@@ -20,35 +27,29 @@ export class StatusBar implements IDrawable {
 
   draw(ctx: CanvasRenderingContext2D): void {
     ctx.lineJoin = this.lineJoin;
-    ctx.lineWidth = this.lineWidth;
-    this.drawBorderBox(ctx);
-    this.drawStatusBar(ctx);
+    this.drawBorder(ctx, this.borderColour, this.outerBorderWidth);
+    this.drawBox(ctx, this.boxFillColour);
+    this.drawBorder(ctx, this.boxFillColour, this.innerBorderWidth);
+    this.drawBox(ctx, this.statusBarFillColour, this.width * (this.currentStatus / this.maxStatus));
   }
 
-  drawBorderBox(ctx: CanvasRenderingContext2D): void {
-    ctx.strokeStyle = this.borderColour;
+  drawBox(ctx: CanvasRenderingContext2D, colour: string, width: number = this.width): void {
+    ctx.fillStyle = colour;
+    ctx.fillRect(
+      this.position.x - this.drawOffsetX,
+      this.position.y - this.drawOffsetY,
+      width,
+      this.height
+    );
+  }
+
+  drawBorder(ctx: CanvasRenderingContext2D, lineColour: string, lineWidth: number): void {
+    ctx.strokeStyle = lineColour;
+    ctx.lineWidth = lineWidth;
     ctx.strokeRect(
       this.position.x - this.drawOffsetX,
       this.position.y - this.drawOffsetY,
       this.width,
-      this.height
-    );
-  }
-
-  drawStatusBar(ctx: CanvasRenderingContext2D): void {
-    ctx.fillStyle = this.boxFillColour;
-    ctx.fillRect(
-      this.position.x - this.drawOffsetX,
-      this.position.y - this.drawOffsetY,
-      this.width,
-      this.height
-    );
-
-    ctx.fillStyle = this.statusBarFillColour;
-    ctx.fillRect(
-      this.position.x - this.drawOffsetX,
-      this.position.y - this.drawOffsetY,
-      this.width * (this.currentStatus / this.maxStatus),
       this.height
     );
   }
@@ -86,5 +87,16 @@ export class StatusBar implements IDrawable {
 
   decreaseStatusBar(decrement: number): void {
     this.currentStatus -= decrement;
+  }
+
+  setLineJoins(lineJoin: CanvasLineJoin): this {
+    this.lineJoin = lineJoin;
+    return this;
+  }
+
+  setBorderWidths(outerBorderWidth: number, innerBorderWidth: number): this {
+    this.outerBorderWidth = outerBorderWidth;
+    this.innerBorderWidth = innerBorderWidth;
+    return this;
   }
 }
