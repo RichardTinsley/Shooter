@@ -22,3 +22,7 @@ export const COLOURS = {
   BLACKOUT: "0, 0, 0, ",
   REDOUT: "250, 0, 0, ",
 };
+
+export function red(alpha: number): string {
+  return `rgba(250, 0, 0, ${alpha})`;
+}

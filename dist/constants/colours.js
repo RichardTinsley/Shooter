@@ -22,4 +22,7 @@ export const COLOURS = {
     BLACKOUT: "0, 0, 0, ",
     REDOUT: "250, 0, 0, ",
 };
+export function red(alpha) {
+    return `rgba(250, 0, 0, ${alpha})`;
+}
 //# sourceMappingURL=colours.js.map

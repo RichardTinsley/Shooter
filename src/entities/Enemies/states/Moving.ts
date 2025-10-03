@@ -1,6 +1,6 @@
-import { HUD } from "../../GUI/HUD/HUD.js";
-import { checkCircleCollision } from "../../utilities/collisionDetection.js";
-import { drawShadow } from "../../utilities/drawShapes.js";
+import { HUD } from "../../../GUI/HUD/HUD.js";
+import { checkCircleCollision } from "../../../utilities/collisionDetection.js";
+import { drawShadow } from "../../../utilities/drawShapes.js";
 import { IEnemyState } from "../Enemy.js";
 
 export class Moving implements IEnemyState {

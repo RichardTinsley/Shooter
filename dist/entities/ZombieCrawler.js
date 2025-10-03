@@ -1,4 +1,4 @@
-import { Enemy } from "./Enemy.js";
+import { Enemy } from "./Enemies/Enemy.js";
 export class ZombieCrawler extends Enemy {
     constructor(sprites) {
         super(sprites);

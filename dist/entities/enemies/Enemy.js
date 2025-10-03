@@ -1,36 +1,44 @@
 import { HitDetectionCircle } from "../../handlers/HitDetectionCircle.js";
 import { Mouse, STYLES } from "../../handlers/Mouse.js";
-import { SpriteAnimation } from "../sprites/SpriteAnimation.js";
-import { HealthBar } from "./components/HealthBar.js";
-import { MouseOverEnemy } from "./components/MouseOverEnemy.js";
-import { Movement } from "./components/Movement.js";
+import { SpriteAnimation } from "../components/SpriteAnimation.js";
+import { MouseOverEnemy } from "../components/MouseOverEnemy.js";
+import { Movement } from "../components/Movement.js";
 import { Moving } from "./states/Moving.js";
+import { HealthBar } from "../components/HealthBar.js";
 export class Enemy {
-    constructor(enemy) {
-        this.enemy = enemy;
+    constructor(sprites) {
+        this.sprites = sprites;
         this.movement = new Movement();
         this.position = this.movement.getWaypoints();
         this.destination = this.movement.getWaypoints();
-        this.sprite = new SpriteAnimation().setPosition(this.position);
-        this.healthBar = new HealthBar().setPosition(this.position);
-        this.hitDetection = new HitDetectionCircle().setPosition(this.position);
-        this.mouseOverEnemy = new MouseOverEnemy().setPosition(this.position);
+        this.sprite = new SpriteAnimation();
+        this.healthBar = new HealthBar();
+        this.hitDetection = new HitDetectionCircle();
+        this.mouseOverEnemy = new MouseOverEnemy();
+        this.setPosition = (position) => (this.position = Object.assign({}, position));
+        this.setDestination = (destination) => (this.destination = Object.assign({}, destination));
         this.setMovingState = () => (this.state = new Moving(this));
+    }
+    initialiseComponents() {
+        this.movement.setSpeed(this.speed);
         this.sprite
-            .setImage(enemy.normal.move, enemy.width, enemy.height)
-            .setScale(enemy.scale)
-            .setDrawOffsets(enemy.drawOffsets.x, enemy.drawOffsets.y)
+            .setPosition(this.position)
+            .setImage(this.sprites.move, this.width, this.height)
+            .setScale(this.scale)
+            .setDrawOffsets(this.drawOffsets.x, this.drawOffsets.y)
             .initialise();
-        this.movement.setSpeed(enemy.speed);
         this.healthBar
-            .setWidth(this.sprite.getWidth() / enemy.widthDivisor)
-            .setDrawOffsets(this.sprite.getHeight());
+            .setPosition(this.position)
+            .setWidth(this.sprite.getWidth() / this.widthDivisor)
+            .setDrawOffsets(this.sprite.getHeight() * this.healthBarHeight);
         this.hitDetection
-            .setWidth(this.sprite.getWidth() / enemy.widthDivisor)
-            .setDrawOffsets(this.sprite.getHeight() / enemy.hitboxHeightDivisor);
-        this.mouseOverEnemy.setWidth(this.sprite.getWidth() * 1.25);
-        this.shadowWidth = this.sprite.getWidth() / enemy.widthDivisor;
-        this.setMovingState();
+            .setPosition(this.position)
+            .setWidth(this.sprite.getWidth() / this.widthDivisor)
+            .setDrawOffsets(this.sprite.getHeight() * this.hitboxHeight);
+        this.mouseOverEnemy
+            .setPosition(this.position)
+            .setWidth(this.sprite.getWidth() / this.widthDivisor);
+        this.shadowWidth = this.sprite.getWidth() / this.widthDivisor;
     }
     draw(ctx) {
         this.state.draw(ctx);
@@ -38,12 +46,6 @@ export class Enemy {
     update() {
         this.state.update();
         Mouse.mouseOver(this, STYLES.ENEMY);
-    }
-    setPosition(position) {
-        this.position = Object.assign({}, position);
-    }
-    setDestination(destination) {
-        this.destination = Object.assign({}, destination);
     }
     mouseClick() {
         if (Mouse.selectedEnemy === this)

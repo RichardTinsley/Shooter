@@ -1,4 +1,4 @@
-import { EnemyFactory } from "../entities/EnemyFactory.js";
+import { EnemyFactory } from "../entities/Enemies/EnemyFactory.js";
 import { HUD } from "../GUI/HUD/HUD.js";
 import { randomNumber } from "../utilities/math.js";
 import { Time } from "./Time.js";
