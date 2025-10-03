@@ -1,4 +1,3 @@
-import { ALL_ASSETS } from "../../constants/assets.js";
 import { StatusBar } from "../../GUI/components/StatusBar.js";
 import { AssetLoader } from "../../handlers/assetLoader.js";
 export class Loading {
@@ -7,15 +6,14 @@ export class Loading {
         this.assetLoader = new AssetLoader();
         this.loadingBar = new StatusBar()
             .setPosition({ x: 100, y: 100 })
-            .setDimensions(50, 10)
-            .setStatus(30, 40)
+            .setDimensions(100, 10)
+            .setStatus(0, this.assetLoader.getAwaitingAssetsSize())
             .setDrawOffsets(0);
-        this.assetLoaded = (numberOfAssets) => {
-        };
+        this.assetLoaded = () => this.loadingBar.increaseStatusBar(1);
         this.assetLoader
             .load(this.assetLoaded)
             .catch((error) => console.error(`Error: "${error.fileName}"`))
-            .then(() => console.log(`${ALL_ASSETS.size} assets have been loaded.`));
+            .then(() => console.log("this.screen.beginScreen()"));
     }
     draw(ctx) {
         this.loadingBar.draw(ctx);

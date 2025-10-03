@@ -28,6 +28,7 @@ export class AssetLoader {
                 for (const { key, asset } of loadedAssets) {
                     ALL_ASSETS.set(key, asset);
                 }
+                console.log(`${ALL_ASSETS.size} assets have been loaded.`);
             });
         });
     }
@@ -48,6 +49,9 @@ export class AssetLoader {
             throw new TypeError("Error unknown type");
         }
         return { newAsset, eventListenerType };
+    }
+    getAwaitingAssetsSize() {
+        return ASSET_LIST.length;
     }
 }
 //# sourceMappingURL=assetLoader.js.map

@@ -33,6 +33,7 @@ export class AssetLoader {
       for (const { key, asset } of loadedAssets) {
         ALL_ASSETS.set(key, asset);
       }
+      console.log(`${ALL_ASSETS.size} assets have been loaded.`);
     });
   }
 
@@ -55,5 +56,9 @@ export class AssetLoader {
     }
 
     return { newAsset, eventListenerType };
+  }
+
+  getAwaitingAssetsSize(): number {
+    return ASSET_LIST.length;
   }
 }
