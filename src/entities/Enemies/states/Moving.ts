@@ -8,7 +8,6 @@ export class Moving implements IEnemyState {
 
   draw(ctx: CanvasRenderingContext2D) {
     drawShadow(ctx, this.enemy.position, this.enemy.shadowWidth);
-    this.enemy.mouseOverEnemy.draw(ctx);
     this.enemy.sprite.draw(ctx);
     this.enemy.healthBar.draw(ctx);
   }

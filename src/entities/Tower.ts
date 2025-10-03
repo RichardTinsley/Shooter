@@ -1,5 +1,5 @@
 import { Position } from "../constants/types.js";
-import { HitDetectionCircle } from "../handlers/HitDetectionCircle.js";
+import { HitDetectionCircle } from "./components/HitDetectionCircle.js";
 import { SpriteAnimation } from "./components/SpriteAnimation.js";
 
 export class Tower {

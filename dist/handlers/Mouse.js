@@ -32,7 +32,6 @@ export class Mouse {
             else {
                 Mouse.setCursorStyle(style);
                 mouseOverEntity = entity;
-                mouseOverEntity.setState(STATE.MOUSEOVER);
             }
         }
         else {

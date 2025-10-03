@@ -1,4 +1,4 @@
-import { HitDetectionSquare } from "../../handlers/HitDetectionSquare.js";
+import { HitDetectionSquare } from "../../entities/components/HitDetectionSquare.js";
 import { Mouse, STYLES } from "../../handlers/Mouse.js";
 export class MenuButton {
     constructor(setScreen, label) {

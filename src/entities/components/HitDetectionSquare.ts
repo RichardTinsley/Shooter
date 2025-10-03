@@ -1,5 +1,5 @@
-import { HitBox, Position, Cursor } from "../constants/types.js";
-import { checkHitBoxCollision } from "../utilities/collisionDetection.js";
+import { HitBox, Position, Cursor } from "../../constants/types.js";
+import { checkHitBoxCollision } from "../../utilities/collisionDetection.js";
 
 export class HitDetectionSquare {
   protected hitBox!: HitBox;

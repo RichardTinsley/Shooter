@@ -44,14 +44,12 @@ export class Mouse {
 
   static mouseOver(entity: any, style: string) {
     if (entity.hitDetection.checkCollision(Mouse.cursor)) {
-      if (
-        mouseOverEntity?.position.y > entity.position.y
-      ) {
+      if (mouseOverEntity?.position.y > entity.position.y) {
         entity.setState(STATE.MOUSEOFF);
       } else {
         Mouse.setCursorStyle(style);
         mouseOverEntity = entity;
-        mouseOverEntity.setState(STATE.MOUSEOVER);
+        // mouseOverEntity.setState(STATE.MOUSEOVER);
       }
     } else {
       entity.setState(STATE.MOUSEOFF);
@@ -59,9 +57,7 @@ export class Mouse {
   }
 
   update() {
-    if (
-      !mouseOverEntity?.hitDetection.checkCollision(Mouse.cursor)
-    ) {
+    if (!mouseOverEntity?.hitDetection.checkCollision(Mouse.cursor)) {
       Mouse.setCursorStyle(STYLES.PLAIN);
       mouseOverEntity?.setState(STATE.MOUSEOFF);
       mouseOverEntity = null;

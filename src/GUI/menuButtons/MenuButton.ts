@@ -1,5 +1,5 @@
 import { Position } from "../../constants/types.js";
-import { HitDetectionSquare } from "../../handlers/HitDetectionSquare.js";
+import { HitDetectionSquare } from "../../entities/components/HitDetectionSquare.js";
 import { Mouse, STYLES } from "../../handlers/Mouse.js";
 
 export class MenuButton {
@@ -24,11 +24,7 @@ export class MenuButton {
   setPosition(position: Position): this {
     this.position = { ...position };
     this.label.setPosition(position);
-    this.hitDetection.setHitBox(
-      position,
-      this.label.getWidth(),
-      this.label.getHeight()
-    );
+    this.hitDetection.setHitBox(position, this.label.getWidth(), this.label.getHeight());
     return this;
   }
 

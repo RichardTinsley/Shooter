@@ -1,5 +1,5 @@
-import { Cursor, Position } from "../constants/types";
-import { checkCircleCollision } from "../utilities/collisionDetection.js";
+import { Cursor, Position } from "../../constants/types";
+import { checkCircleCollision } from "../../utilities/collisionDetection.js";
 
 export class HitDetectionCircle {
   protected position!: Position;
@@ -17,12 +17,7 @@ export class HitDetectionCircle {
   }
 
   checkCollision(cursor: Cursor): boolean {
-    return checkCircleCollision(
-      cursor,
-      this.getPosition(),
-      cursor.radius,
-      this.radius
-    );
+    return checkCircleCollision(cursor, this.getPosition(), cursor.radius, this.radius);
   }
 
   getRadius(): number {
