@@ -1,6 +1,6 @@
+import { DSLogo } from "../components/DSLogo.js";
+import { StatusBar } from "../components/StatusBar.js";
 import { SCREEN_SIZES } from "../constants/screenSizes.js";
-import { DSLogo } from "../GUI/components/DSLogo.js";
-import { StatusBar } from "../GUI/components/StatusBar.js";
 
 export class GUIComponentFactory {
   static DSLogo(): DSLogo {

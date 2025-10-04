@@ -5,7 +5,7 @@ export class Loading {
         this.screen = screen;
         this.assetLoader = new AssetLoader();
         this.DSLogo = GUIComponentFactory.DSLogo();
-        this.loadingBar = GUIComponentFactory.LoadingBar(0, this.assetLoader.getAwaitingAssetsSize());
+        this.loadingBar = GUIComponentFactory.LoadingBar(0, this.assetLoader.getAssetFileNameLength());
         this.assetLoaded = () => this.loadingBar.increaseCurrentStatus(1);
         this.assetLoader
             .load(this.assetLoaded)

@@ -1,5 +1,5 @@
-import { SCREEN_SIZES } from "../../constants/screenSizes.js";
-import { IDraw } from "../../interfaces/interfaces.js";
+import { SCREEN_SIZES } from "../constants/screenSizes.js";
+import { IDraw } from "../interfaces/interfaces.js";
 
 export class DSLogo implements IDraw {
   private dslogo = document.getElementById("dslogo") as HTMLImageElement;

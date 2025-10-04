@@ -1,6 +1,5 @@
-import { Component } from "../../classes/Component.js";
-import { COLOURS, getColour } from "../../constants/colours.js";
-import { Rectangle } from "./Rectangle.js";
+import { Component } from "../classes/Component.js";
+import { getColour, COLOURS } from "../constants/colours.js";
 
 export class StatusBar extends Component {
   private currentStatus!: number;

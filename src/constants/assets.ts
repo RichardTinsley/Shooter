@@ -1,6 +1,6 @@
 import { FILE_NAMES, URLS } from "./fileNames.js";
 
-export const ALL_ASSETS = new Map();
+export const ASSETS = new Map();
 
 export const ASSET_TYPE: Record<string, string> = {
   IMAGE: "image",
@@ -19,7 +19,7 @@ export type Asset = {
 };
 
 // prettier-ignore
-export const ASSET_LIST: string[][] = [
+export const ASSET_FILENAMES: string[][] = [
   //GUI
   [`${FILE_NAMES.DSLOGO}`, `${URLS.UI}${FILE_NAMES.DSLOGO}`],
   //LEVELS

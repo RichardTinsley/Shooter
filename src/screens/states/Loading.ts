@@ -5,7 +5,7 @@ import { IScreenState, Screen } from "../Screen.js";
 export class Loading implements IScreenState {
   private assetLoader = new AssetLoader();
   private DSLogo = GUIComponentFactory.DSLogo();
-  private loadingBar = GUIComponentFactory.LoadingBar(0, this.assetLoader.getAwaitingAssetsSize());
+  private loadingBar = GUIComponentFactory.LoadingBar(0, this.assetLoader.getAssetFileNameLength());
 
   constructor(public screen: Screen) {
     this.assetLoader

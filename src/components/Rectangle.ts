@@ -1,4 +1,4 @@
-import { Shape } from "../../classes/Shape.js";
+import { Shape } from "../classes/Shape.js";
 
 export class Rectangle extends Shape {
   draw(ctx: CanvasRenderingContext2D): void {

@@ -1,6 +1,6 @@
 import {
-  ASSET_LIST,
-  ALL_ASSETS,
+  ASSET_FILENAMES,
+  ASSETS,
   Asset,
   ASSET_TYPE,
   ASSET_TYPE_LOOKUP,
@@ -9,56 +9,55 @@ import {
 export class AssetLoader {
   constructor() {}
   async load(assetLoaded: Function) {
-    const promises: Promise<Asset>[] = ASSET_LIST.map(([key, fileName]) => {
-      const { newAsset, eventListenerType } = this.findAssetType(fileName);
+    const promises: Promise<Asset>[] = ASSET_FILENAMES.map(([key, fileName]) => {
+      const { asset, eventType } = this.findAssetType(fileName);
 
       return new Promise<Asset>((resolve, reject) => {
-        newAsset.addEventListener(
-          eventListenerType,
+        asset.addEventListener(
+          eventType,
           () => {
-            resolve({ key, asset: newAsset });
-            assetLoaded(ASSET_LIST.length);
+            resolve({ key, asset: asset });
+            assetLoaded();
             console.log(`${fileName} Loaded.`);
           },
           { once: true }
         );
 
-        newAsset.addEventListener("error", (event) => reject({ fileName, event }));
+        asset.addEventListener("error", (event) => reject({ fileName, event }));
 
-        newAsset.src = fileName;
+        asset.src = fileName;
       });
     });
 
     return Promise.all(promises).then((loadedAssets) => {
       for (const { key, asset } of loadedAssets) {
-        ALL_ASSETS.set(key, asset);
+        ASSETS.set(key, asset);
       }
-      console.log(`${ALL_ASSETS.size} assets have been loaded.`);
+      console.log(`${ASSETS.size} assets have been loaded.`);
     });
   }
 
   findAssetType(fileName: string) {
     const extension: string = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
-
     const type: string = ASSET_TYPE_LOOKUP[extension];
 
-    let newAsset: HTMLImageElement | HTMLAudioElement;
-    let eventListenerType: string;
+    let asset: HTMLImageElement | HTMLAudioElement;
+    let eventType: string;
 
     if (type === ASSET_TYPE.IMAGE) {
-      newAsset = new Image();
-      eventListenerType = "load";
+      asset = new Image();
+      eventType = "load";
     } else if (type === ASSET_TYPE.SOUND) {
-      newAsset = new Audio();
-      eventListenerType = "canplay";
+      asset = new Audio();
+      eventType = "canplay";
     } else {
       throw new TypeError("Error unknown type");
     }
 
-    return { newAsset, eventListenerType };
+    return { asset, eventType };
   }
 
-  getAwaitingAssetsSize(): number {
-    return ASSET_LIST.length;
+  getAssetFileNameLength(): number {
+    return ASSET_FILENAMES.length;
   }
 }
