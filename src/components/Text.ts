@@ -1,35 +1,22 @@
 import { Component } from "../classes/Component.js";
+import { IDraw, IUpdate } from "../interfaces/interfaces.js";
+import { NormalText } from "./TextStates/NormalText.js";
+
+export interface ITextState extends IDraw, IUpdate {}
 
 export class Text extends Component {
-  protected text!: string;
-  protected align: CanvasTextAlign = "center";
-  protected lineWidth!: number;
-  protected alpha: number = 1;
+  state!: ITextState;
+
+  constructor() {
+    super();
+  }
 
   draw(ctx: CanvasRenderingContext2D): void {
-    ctx.strokeStyle = `rgba(0, 0, 0, ${this.alpha})`;
-    ctx.fillStyle = `rgba(255, 255, 255, ${this.alpha})`;
-    ctx.font = this.size + "px canterbury";
-    ctx.textAlign = this.align;
-    ctx.textBaseline = "middle";
-    ctx.lineWidth = this.lineWidth;
-    ctx.strokeText(this.text, this.position.x, this.position.y);
-    ctx.fillText(this.text, this.position.x, this.position.y);
+    this.state.draw(ctx);
+  }
+  update(): void {
+    this.state.update();
   }
 
-  update(): void {}
-
-  setText(text: string): this {
-    this.text = text;
-    return this;
-  }
-
-  getWidth(): number {
-    return this.text.length * (this.size.height / 1.85);
-  }
-
-  setAlignment(alignment: CanvasTextAlign): this {
-    this.align = alignment;
-    return this;
-  }
+  setNormalText = () => (this.state = new NormalText(this));
 }
