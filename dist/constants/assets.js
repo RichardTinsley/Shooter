@@ -1,15 +1,15 @@
 import { FILE_NAMES, URLS } from "./fileNames.js";
-export const ASSETS = new Map();
-export const ASSET_TYPE = {
+export const ALL_ASSETS = new Map();
+export const TYPES = {
     IMAGE: "image",
     SOUND: "sound",
 };
-export const ASSET_TYPE_LOOKUP = {
-    png: ASSET_TYPE.IMAGE,
-    mp3: ASSET_TYPE.SOUND,
-    ogg: ASSET_TYPE.SOUND,
+export const CHECKER = {
+    png: TYPES.IMAGE,
+    mp3: TYPES.SOUND,
+    ogg: TYPES.SOUND,
 };
-export const ASSET_FILENAMES = [
+export const NAMES = [
     [`${FILE_NAMES.DSLOGO}`, `${URLS.UI}${FILE_NAMES.DSLOGO}`],
     [`${FILE_NAMES.LEVEL_LAVONEY}`, `${URLS.LEVELS}${FILE_NAMES.LEVEL_LAVONEY}`],
     [`${FILE_NAMES.ICONS_LIVES}`, `${URLS.ICONS}${FILE_NAMES.ICONS_LIVES}`],

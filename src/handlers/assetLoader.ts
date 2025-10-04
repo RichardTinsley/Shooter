@@ -1,15 +1,14 @@
-import {
-  ASSET_FILENAMES,
-  ASSETS,
-  Asset,
-  ASSET_TYPE,
-  ASSET_TYPE_LOOKUP,
-} from "../constants/assets.js";
+import * as ASSETS from "../constants/assets.js";
 
 export class AssetLoader {
   constructor() {}
   async load(assetLoaded: Function) {
-    const promises: Promise<Asset>[] = ASSET_FILENAMES.map(([key, fileName]) => {
+    type Asset = {
+      key: string;
+      asset: HTMLImageElement | HTMLAudioElement;
+    };
+
+    const promises: Promise<Asset>[] = ASSETS.NAMES.map(([key, fileName]) => {
       const { asset, eventType } = this.findAssetType(fileName);
 
       return new Promise<Asset>((resolve, reject) => {
@@ -18,7 +17,6 @@ export class AssetLoader {
           () => {
             resolve({ key, asset: asset });
             assetLoaded();
-            console.log(`${fileName} Loaded.`);
           },
           { once: true }
         );
@@ -31,23 +29,23 @@ export class AssetLoader {
 
     return Promise.all(promises).then((loadedAssets) => {
       for (const { key, asset } of loadedAssets) {
-        ASSETS.set(key, asset);
+        ASSETS.ALL_ASSETS.set(key, asset);
       }
-      console.log(`${ASSETS.size} assets have been loaded.`);
+      console.log(`${ASSETS.ALL_ASSETS.size} assets have been loaded.`);
     });
   }
 
   findAssetType(fileName: string) {
     const extension: string = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
-    const type: string = ASSET_TYPE_LOOKUP[extension];
+    const type: string = ASSETS.CHECKER[extension];
 
     let asset: HTMLImageElement | HTMLAudioElement;
     let eventType: string;
 
-    if (type === ASSET_TYPE.IMAGE) {
+    if (type === ASSETS.TYPES.IMAGE) {
       asset = new Image();
       eventType = "load";
-    } else if (type === ASSET_TYPE.SOUND) {
+    } else if (type === ASSETS.TYPES.SOUND) {
       asset = new Audio();
       eventType = "canplay";
     } else {
@@ -58,6 +56,6 @@ export class AssetLoader {
   }
 
   getAssetFileNameLength(): number {
-    return ASSET_FILENAMES.length;
+    return ASSETS.NAMES.length;
   }
 }

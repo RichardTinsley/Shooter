@@ -7,7 +7,7 @@ export class Loading implements IScreenState {
   private assetLoader = new AssetLoader();
   private DSLogo = GUIComponentFactory.DSLogo();
   private loadingBar = GUIComponentFactory.LoadingBar(0, this.assetLoader.getAssetFileNameLength());
-  private deathSorceryTitle = TextFactory.DeathSorceryTitle();
+  private DSTitle = TextFactory.DSTitle();
 
   constructor(public state: Screen) {
     this.assetLoader
@@ -18,8 +18,8 @@ export class Loading implements IScreenState {
 
   draw(ctx: CanvasRenderingContext2D): void {
     this.DSLogo.draw(ctx);
+    this.DSTitle.draw(ctx);
     this.loadingBar.draw(ctx);
-    this.deathSorceryTitle.draw(ctx);
   }
 
   update(): void {}

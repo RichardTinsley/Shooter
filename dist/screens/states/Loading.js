@@ -7,7 +7,7 @@ export class Loading {
         this.assetLoader = new AssetLoader();
         this.DSLogo = GUIComponentFactory.DSLogo();
         this.loadingBar = GUIComponentFactory.LoadingBar(0, this.assetLoader.getAssetFileNameLength());
-        this.deathSorceryTitle = TextFactory.DeathSorceryTitle();
+        this.DSTitle = TextFactory.DSTitle();
         this.assetLoaded = () => this.loadingBar.increaseCurrentStatus(1);
         this.assetLoader
             .load(this.assetLoaded)
@@ -16,8 +16,8 @@ export class Loading {
     }
     draw(ctx) {
         this.DSLogo.draw(ctx);
+        this.DSTitle.draw(ctx);
         this.loadingBar.draw(ctx);
-        this.deathSorceryTitle.draw(ctx);
     }
     update() { }
 }

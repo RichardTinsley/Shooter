@@ -1,25 +1,20 @@
 import { FILE_NAMES, URLS } from "./fileNames.js";
 
-export const ASSETS = new Map();
+export const ALL_ASSETS = new Map();
 
-export const ASSET_TYPE: Record<string, string> = {
+export const TYPES: Record<string, string> = {
   IMAGE: "image",
   SOUND: "sound",
 };
 
-export const ASSET_TYPE_LOOKUP: Record<string, string> = {
-  png: ASSET_TYPE.IMAGE,
-  mp3: ASSET_TYPE.SOUND,
-  ogg: ASSET_TYPE.SOUND,
-};
-
-export type Asset = {
-  key: string;
-  asset: HTMLImageElement | HTMLAudioElement;
+export const CHECKER: Record<string, string> = {
+  png: TYPES.IMAGE,
+  mp3: TYPES.SOUND,
+  ogg: TYPES.SOUND,
 };
 
 // prettier-ignore
-export const ASSET_FILENAMES: string[][] = [
+export const NAMES: string[][] = [
   //GUI
   [`${FILE_NAMES.DSLOGO}`, `${URLS.UI}${FILE_NAMES.DSLOGO}`],
   //LEVELS

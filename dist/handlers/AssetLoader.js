@@ -7,18 +7,17 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { ASSET_FILENAMES, ASSETS, ASSET_TYPE, ASSET_TYPE_LOOKUP, } from "../constants/assets.js";
+import * as ASSETS from "../constants/assets.js";
 export class AssetLoader {
     constructor() { }
     load(assetLoaded) {
         return __awaiter(this, void 0, void 0, function* () {
-            const promises = ASSET_FILENAMES.map(([key, fileName]) => {
+            const promises = ASSETS.NAMES.map(([key, fileName]) => {
                 const { asset, eventType } = this.findAssetType(fileName);
                 return new Promise((resolve, reject) => {
                     asset.addEventListener(eventType, () => {
                         resolve({ key, asset: asset });
                         assetLoaded();
-                        console.log(`${fileName} Loaded.`);
                     }, { once: true });
                     asset.addEventListener("error", (event) => reject({ fileName, event }));
                     asset.src = fileName;
@@ -26,22 +25,22 @@ export class AssetLoader {
             });
             return Promise.all(promises).then((loadedAssets) => {
                 for (const { key, asset } of loadedAssets) {
-                    ASSETS.set(key, asset);
+                    ASSETS.ALL_ASSETS.set(key, asset);
                 }
-                console.log(`${ASSETS.size} assets have been loaded.`);
+                console.log(`${ASSETS.ALL_ASSETS.size} assets have been loaded.`);
             });
         });
     }
     findAssetType(fileName) {
         const extension = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
-        const type = ASSET_TYPE_LOOKUP[extension];
+        const type = ASSETS.CHECKER[extension];
         let asset;
         let eventType;
-        if (type === ASSET_TYPE.IMAGE) {
+        if (type === ASSETS.TYPES.IMAGE) {
             asset = new Image();
             eventType = "load";
         }
-        else if (type === ASSET_TYPE.SOUND) {
+        else if (type === ASSETS.TYPES.SOUND) {
             asset = new Audio();
             eventType = "canplay";
         }
@@ -51,7 +50,7 @@ export class AssetLoader {
         return { asset, eventType };
     }
     getAssetFileNameLength() {
-        return ASSET_FILENAMES.length;
+        return ASSETS.NAMES.length;
     }
 }
 //# sourceMappingURL=assetLoader.js.map
