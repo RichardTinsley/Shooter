@@ -1,65 +1,82 @@
-import { Component } from "../../classes/Component.js";
 import { COLOURS, getColour } from "../../constants/colours.js";
-import { Rectangle } from "./Rectangle.js";
+import { Position } from "../../types/types.js";
 
-export class StatusBar extends Component {
+export const JOINS: Record<string, CanvasLineJoin> = {
+  round: "round",
+  bevel: "bevel",
+  miter: "miter",
+};
+
+export class StatusBar {
+  private width!: number;
+  private height!: number;
   private currentStatus!: number;
-  private maximumStatus!: number;
+  private maxStatus!: number;
 
-  public statusBox = new Rectangle();
-  public statusBar = new Rectangle();
+  private lineJoin = JOINS.bevel;
+  private outerBorderWidth: number = 5;
+  private innerBorderWidth: number = this.outerBorderWidth / 2;
+  private statusBarFillColour: string = getColour(COLOURS.GREEN);
+  private boxFillColour: string = getColour(COLOURS.BLACK);
+  private borderColour: string = getColour(COLOURS.WHITE);
+  private position!: Position;
 
-  constructor() {
-    super();
-  }
+  private drawOffsetX!: number;
+  private drawOffsetY!: number;
 
   draw(ctx: CanvasRenderingContext2D): void {
-    this.statusBox.draw(ctx);
+    ctx.lineJoin = this.lineJoin;
+    this.drawBorder(ctx, this.borderColour, this.outerBorderWidth);
+    this.drawBox(ctx, this.boxFillColour);
+    this.drawBorder(ctx, this.boxFillColour, this.innerBorderWidth);
+    this.drawBox(ctx, this.statusBarFillColour, this.width * (this.currentStatus / this.maxStatus));
+  }
 
+  drawBox(ctx: CanvasRenderingContext2D, colour: string, width: number = this.width): void {
+    ctx.fillStyle = colour;
     ctx.fillRect(
       this.position.x - this.drawOffsetX,
       this.position.y - this.drawOffsetY,
-      this.size.width,
-      this.size.height
+      width,
+      this.height
     );
-
-    this.statusBar.draw(ctx);
   }
 
-  update(): void {
-    this.statusBar.setSizePointer({
-      width: this.size.width * (this.currentStatus / this.maximumStatus),
-      height: this.size.height,
-    });
+  drawBorder(ctx: CanvasRenderingContext2D, lineColour: string, lineWidth: number): void {
+    ctx.strokeStyle = lineColour;
+    ctx.lineWidth = lineWidth;
+    ctx.strokeRect(
+      this.position.x - this.drawOffsetX,
+      this.position.y - this.drawOffsetY,
+      this.width,
+      this.height
+    );
   }
 
-  initialise(): this {
-    this.statusBox
-      .setPositionPointer(this.position)
-      .setSizePointer(this.size)
-      .setStrokeWidth(this.size.height * 0.8)
-      .setFillColour(getColour(COLOURS.BLACK));
-
-    this.statusBar
-      .setPositionPointer(this.position)
-      .setSizePointer({
-        width: this.size.width * (this.currentStatus / this.maximumStatus),
-        height: this.size.height,
-      })
-      .setStrokeWidth(this.size.height / 4)
-      .setStrokeColour(getColour(COLOURS.BLACK))
-      .setFillColour(getColour(COLOURS.GREEN));
-    console.log(this.size.width, this.currentStatus / this.maximumStatus);
+  setPosition(position: Position): this {
+    this.position = position;
     return this;
   }
 
-  setStatus(currentStatus: number, maximumStatus: number): this {
+  setDimensions(width: number, height: number): this {
+    this.width = width;
+    this.height = height;
+    return this;
+  }
+
+  setStatus(currentStatus: number, maxStatus: number): this {
     this.currentStatus = currentStatus;
-    this.maximumStatus = maximumStatus;
+    this.maxStatus = maxStatus;
     return this;
   }
 
-  getStatus(): number {
+  setDrawOffsets(offsetY: number, offsetX: number = this.width / 2): this {
+    this.drawOffsetX = offsetX;
+    this.drawOffsetY = offsetY + this.height * 2;
+    return this;
+  }
+
+  getCurrentStatus(): number {
     return this.currentStatus;
   }
 
@@ -69,5 +86,16 @@ export class StatusBar extends Component {
 
   decreaseStatusBar(decrement: number): void {
     this.currentStatus -= decrement;
+  }
+
+  setLineJoins(lineJoin: CanvasLineJoin): this {
+    this.lineJoin = lineJoin;
+    return this;
+  }
+
+  setBorderWidths(outerBorderWidth: number): this {
+    this.outerBorderWidth = outerBorderWidth;
+    this.innerBorderWidth = outerBorderWidth / 2;
+    return this;
   }
 }

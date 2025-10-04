@@ -5,15 +5,15 @@ export class Loading {
         this.screen = screen;
         this.assetLoader = new AssetLoader();
         this.loadingBar = new StatusBar()
-            .setPositionPointer({ x: 100, y: 100 })
-            .setSizePointer({ width: 40, height: 5 })
+            .setPosition({ x: 100, y: 100 })
+            .setDimensions(40, 5)
             .setStatus(0, this.assetLoader.getAwaitingAssetsSize())
-            .initialise();
+            .setDrawOffsets(0);
         this.loadingBar2 = new StatusBar()
-            .setPositionPointer({ x: 400, y: 200 })
-            .setSizePointer({ width: 400, height: 10 })
+            .setPosition({ x: 400, y: 200 })
+            .setDimensions(400, 10)
             .setStatus(50, 100)
-            .initialise();
+            .setDrawOffsets(0);
         this.assetLoaded = () => this.loadingBar.increaseStatusBar(1);
         this.assetLoader
             .load(this.assetLoaded)
@@ -24,8 +24,6 @@ export class Loading {
         this.loadingBar.draw(ctx);
         this.loadingBar2.draw(ctx);
     }
-    update() {
-        this.loadingBar.update();
-    }
+    update() { }
 }
 //# sourceMappingURL=Loading.js.map
