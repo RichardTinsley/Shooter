@@ -12,17 +12,25 @@ export abstract class Component implements IDraw, IUpdate, IComponent {
 
   constructor() {}
 
-  setPositionPointer(position: Position): this {
+  getSharedPosition(): Position {
+    return this.position;
+  }
+
+  setSharedPosition(position: Position): this {
     this.position = position;
     return this;
   }
 
-  setSizePointer(size: Size): this {
+  getSharedSize(): Size {
+    return this.size;
+  }
+
+  setSharedSize(size: Size): this {
     this.size = size;
     return this;
   }
 
-  setDrawOffsets(offsetX: number, offsetY: number): this {
+  setDrawOffsets(offsetY: number, offsetX: number = this.size.width / 2): this {
     this.drawOffsetX = offsetX;
     this.drawOffsetY = offsetY;
     return this;

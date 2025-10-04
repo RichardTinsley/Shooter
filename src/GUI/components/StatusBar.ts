@@ -1,44 +1,32 @@
+import { Component } from "../../classes/Component.js";
 import { COLOURS, getColour } from "../../constants/colours.js";
-import { Position } from "../../types/types.js";
+import { Rectangle } from "./Rectangle.js";
 
-export const JOINS: Record<string, CanvasLineJoin> = {
-  round: "round",
-  bevel: "bevel",
-  miter: "miter",
-};
-
-export class StatusBar {
-  private width!: number;
-  private height!: number;
+export class StatusBar extends Component {
   private currentStatus!: number;
   private maxStatus!: number;
 
-  private lineJoin = JOINS.bevel;
-  private outerBorderWidth: number = 5;
-  private innerBorderWidth: number = this.outerBorderWidth / 2;
-  private statusBarFillColour: string = getColour(COLOURS.GREEN);
-  private boxFillColour: string = getColour(COLOURS.BLACK);
-  private borderColour: string = getColour(COLOURS.WHITE);
-  private position!: Position;
-
-  private drawOffsetX!: number;
-  private drawOffsetY!: number;
+  private statusBarColour: string = getColour(COLOURS.GREEN);
 
   draw(ctx: CanvasRenderingContext2D): void {
-    ctx.lineJoin = this.lineJoin;
-    this.drawBorder(ctx, this.borderColour, this.outerBorderWidth);
-    this.drawBox(ctx, this.boxFillColour);
-    this.drawBorder(ctx, this.boxFillColour, this.innerBorderWidth);
-    this.drawBox(ctx, this.statusBarFillColour, this.width * (this.currentStatus / this.maxStatus));
+    ctx.lineJoin = "round";
+    this.drawBorder(ctx, getColour(COLOURS.WHITE), this.size.height);
+    this.drawBox(ctx, getColour(COLOURS.BLACK));
+    this.drawBorder(ctx, getColour(COLOURS.BLACK), this.size.height / 2);
+    this.drawBox(
+      ctx,
+      this.statusBarColour,
+      this.size.width * (this.currentStatus / this.maxStatus)
+    );
   }
 
-  drawBox(ctx: CanvasRenderingContext2D, colour: string, width: number = this.width): void {
+  drawBox(ctx: CanvasRenderingContext2D, colour: string, width: number = this.size.width): void {
     ctx.fillStyle = colour;
     ctx.fillRect(
       this.position.x - this.drawOffsetX,
       this.position.y - this.drawOffsetY,
       width,
-      this.height
+      this.size.height
     );
   }
 
@@ -48,21 +36,12 @@ export class StatusBar {
     ctx.strokeRect(
       this.position.x - this.drawOffsetX,
       this.position.y - this.drawOffsetY,
-      this.width,
-      this.height
+      this.size.width,
+      this.size.height
     );
   }
 
-  setPosition(position: Position): this {
-    this.position = position;
-    return this;
-  }
-
-  setDimensions(width: number, height: number): this {
-    this.width = width;
-    this.height = height;
-    return this;
-  }
+  update(): void {}
 
   setStatus(currentStatus: number, maxStatus: number): this {
     this.currentStatus = currentStatus;
@@ -70,32 +49,15 @@ export class StatusBar {
     return this;
   }
 
-  setDrawOffsets(offsetY: number, offsetX: number = this.width / 2): this {
-    this.drawOffsetX = offsetX;
-    this.drawOffsetY = offsetY + this.height * 2;
-    return this;
-  }
-
   getCurrentStatus(): number {
     return this.currentStatus;
   }
 
-  increaseStatusBar(increment: number): void {
+  increaseCurrentStatus(increment: number): void {
     this.currentStatus += increment;
   }
 
-  decreaseStatusBar(decrement: number): void {
+  decreaseCurrentStatus(decrement: number): void {
     this.currentStatus -= decrement;
-  }
-
-  setLineJoins(lineJoin: CanvasLineJoin): this {
-    this.lineJoin = lineJoin;
-    return this;
-  }
-
-  setBorderWidths(outerBorderWidth: number): this {
-    this.outerBorderWidth = outerBorderWidth;
-    this.innerBorderWidth = outerBorderWidth / 2;
-    return this;
   }
 }

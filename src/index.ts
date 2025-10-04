@@ -1,6 +1,5 @@
 import { context } from "./utilities/context.js";
 import { Game } from "./Game.js";
-
 const ctx: CanvasRenderingContext2D = context();
 
 class Main {

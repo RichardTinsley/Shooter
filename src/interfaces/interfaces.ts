@@ -14,6 +14,6 @@ export interface IEntity {
 }
 
 export interface IComponent {
-  setPositionPointer(position: Position): this;
-  setSizePointer(size: Size): this;
+  setSharedPosition(position: Position): this;
+  setSharedSize(size: Size): this;
 }

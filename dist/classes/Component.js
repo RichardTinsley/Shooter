@@ -3,15 +3,21 @@ export class Component {
         this.drawOffsetX = 0;
         this.drawOffsetY = 0;
     }
-    setPositionPointer(position) {
+    getSharedPosition() {
+        return this.position;
+    }
+    setSharedPosition(position) {
         this.position = position;
         return this;
     }
-    setSizePointer(size) {
+    getSharedSize() {
+        return this.size;
+    }
+    setSharedSize(size) {
         this.size = size;
         return this;
     }
-    setDrawOffsets(offsetX, offsetY) {
+    setDrawOffsets(offsetY, offsetX = this.size.width / 2) {
         this.drawOffsetX = offsetX;
         this.drawOffsetY = offsetY;
         return this;
