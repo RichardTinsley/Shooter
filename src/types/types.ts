@@ -3,6 +3,12 @@ export type Position = {
   y: number;
 };
 
+export type Size = {
+  width: number;
+  height: number;
+};
+
+//MERGE TYPES WITH & and shit
 export type Cursor = {
   x: number;
   y: number;

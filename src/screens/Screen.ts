@@ -1,11 +1,11 @@
 // import { Menu } from "../GUI/menus/Menu.js";
-import { IRenderable } from "../interfaces/interfaces.js";
+import { IDraw, IUpdate } from "../interfaces/interfaces.js";
 import { Loading } from "./states/Loading.js";
 // import { BeginScreen } from "./BeginScreen.js";
 // import { MainMenuScreen } from "./MainMenuScreen.js";
 // import { BattleScreen } from "./BattleScreen.js";
 
-export interface IScreenState extends IRenderable {
+export interface IScreenState extends IDraw, IUpdate {
   //   menu: Menu;
 }
 

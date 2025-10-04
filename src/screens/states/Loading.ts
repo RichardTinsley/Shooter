@@ -1,22 +1,20 @@
-import { StatusBar, JOINS } from "../../GUI/components/StatusBar.js";
+import { StatusBar } from "../../GUI/components/StatusBar.js";
 import { AssetLoader } from "../../handlers/assetLoader.js";
 import { IScreenState, Screen } from "../Screen.js";
 
 export class Loading implements IScreenState {
   private assetLoader = new AssetLoader();
   private loadingBar = new StatusBar()
-    .setPosition({ x: 100, y: 100 })
-    .setDimensions(40, 5)
+    .setPositionPointer({ x: 100, y: 100 })
+    .setSizePointer({ width: 40, height: 5 })
     .setStatus(0, this.assetLoader.getAwaitingAssetsSize())
-    .setDrawOffsets(0);
+    .initialise();
 
   private loadingBar2 = new StatusBar()
-    .setPosition({ x: 400, y: 200 })
-    .setDimensions(400, 8)
+    .setPositionPointer({ x: 400, y: 200 })
+    .setSizePointer({ width: 400, height: 10 })
     .setStatus(50, 100)
-    .setBorderWidths(11, 5)
-    .setLineJoins(JOINS.bevel)
-    .setDrawOffsets(0);
+    .initialise();
 
   constructor(public screen: Screen) {
     this.assetLoader
@@ -30,7 +28,9 @@ export class Loading implements IScreenState {
     this.loadingBar2.draw(ctx);
   }
 
-  update(): void {}
+  update(): void {
+    this.loadingBar.update();
+  }
 
   assetLoaded = (): void => this.loadingBar.increaseStatusBar(1);
 }

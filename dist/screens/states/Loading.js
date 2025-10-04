@@ -1,21 +1,19 @@
-import { StatusBar, JOINS } from "../../GUI/components/StatusBar.js";
+import { StatusBar } from "../../GUI/components/StatusBar.js";
 import { AssetLoader } from "../../handlers/assetLoader.js";
 export class Loading {
     constructor(screen) {
         this.screen = screen;
         this.assetLoader = new AssetLoader();
         this.loadingBar = new StatusBar()
-            .setPosition({ x: 100, y: 100 })
-            .setDimensions(40, 5)
+            .setPositionPointer({ x: 100, y: 100 })
+            .setSizePointer({ width: 40, height: 5 })
             .setStatus(0, this.assetLoader.getAwaitingAssetsSize())
-            .setDrawOffsets(0);
+            .initialise();
         this.loadingBar2 = new StatusBar()
-            .setPosition({ x: 400, y: 200 })
-            .setDimensions(400, 8)
+            .setPositionPointer({ x: 400, y: 200 })
+            .setSizePointer({ width: 400, height: 10 })
             .setStatus(50, 100)
-            .setBorderWidths(11, 5)
-            .setLineJoins(JOINS.bevel)
-            .setDrawOffsets(0);
+            .initialise();
         this.assetLoaded = () => this.loadingBar.increaseStatusBar(1);
         this.assetLoader
             .load(this.assetLoaded)
@@ -26,6 +24,8 @@ export class Loading {
         this.loadingBar.draw(ctx);
         this.loadingBar2.draw(ctx);
     }
-    update() { }
+    update() {
+        this.loadingBar.update();
+    }
 }
 //# sourceMappingURL=Loading.js.map

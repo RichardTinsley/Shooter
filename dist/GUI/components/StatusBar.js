@@ -1,54 +1,47 @@
+import { Component } from "../../classes/Component.js";
 import { COLOURS, getColour } from "../../constants/colours.js";
-export const JOINS = {
-    round: "round",
-    bevel: "bevel",
-    miter: "miter",
-};
-export class StatusBar {
+import { Rectangle } from "./Rectangle.js";
+export class StatusBar extends Component {
     constructor() {
-        this.lineJoin = JOINS.bevel;
-        this.outerBorderWidth = 5;
-        this.innerBorderWidth = 3;
-        this.statusBarFillColour = getColour(COLOURS.WHITE);
-        this.boxFillColour = getColour(COLOURS.BLACK);
-        this.borderColour = getColour(COLOURS.WHITE);
+        super();
+        this.statusBox = new Rectangle();
+        this.statusBar = new Rectangle();
     }
     draw(ctx) {
-        ctx.lineJoin = this.lineJoin;
-        this.drawBorder(ctx, this.borderColour, this.outerBorderWidth);
-        this.drawBox(ctx, this.boxFillColour);
-        this.drawBorder(ctx, this.boxFillColour, this.innerBorderWidth);
-        this.drawBox(ctx, this.statusBarFillColour, this.width * (this.currentStatus / this.maxStatus));
+        this.statusBox.draw(ctx);
+        ctx.fillRect(this.position.x - this.drawOffsetX, this.position.y - this.drawOffsetY, this.size.width, this.size.height);
+        this.statusBar.draw(ctx);
     }
-    drawBox(ctx, colour, width = this.width) {
-        ctx.fillStyle = colour;
-        ctx.fillRect(this.position.x - this.drawOffsetX, this.position.y - this.drawOffsetY, width, this.height);
+    update() {
+        this.statusBar.setSizePointer({
+            width: this.size.width * (this.currentStatus / this.maximumStatus),
+            height: this.size.height,
+        });
     }
-    drawBorder(ctx, lineColour, lineWidth) {
-        ctx.strokeStyle = lineColour;
-        ctx.lineWidth = lineWidth;
-        ctx.strokeRect(this.position.x - this.drawOffsetX, this.position.y - this.drawOffsetY, this.width, this.height);
-    }
-    setPosition(position) {
-        this.position = position;
+    initialise() {
+        this.statusBox
+            .setPositionPointer(this.position)
+            .setSizePointer(this.size)
+            .setStrokeWidth(this.size.height * 0.8)
+            .setFillColour(getColour(COLOURS.BLACK));
+        this.statusBar
+            .setPositionPointer(this.position)
+            .setSizePointer({
+            width: this.size.width * (this.currentStatus / this.maximumStatus),
+            height: this.size.height,
+        })
+            .setStrokeWidth(this.size.height / 4)
+            .setStrokeColour(getColour(COLOURS.BLACK))
+            .setFillColour(getColour(COLOURS.GREEN));
+        console.log(this.size.width, this.currentStatus / this.maximumStatus);
         return this;
     }
-    setDimensions(width, height) {
-        this.width = width;
-        this.height = height;
-        return this;
-    }
-    setStatus(currentStatus, maxStatus) {
+    setStatus(currentStatus, maximumStatus) {
         this.currentStatus = currentStatus;
-        this.maxStatus = maxStatus;
+        this.maximumStatus = maximumStatus;
         return this;
     }
-    setDrawOffsets(offsetY, offsetX = this.width / 2) {
-        this.drawOffsetX = offsetX;
-        this.drawOffsetY = offsetY + this.height * 2;
-        return this;
-    }
-    getCurrentStatus() {
+    getStatus() {
         return this.currentStatus;
     }
     increaseStatusBar(increment) {
@@ -56,15 +49,6 @@ export class StatusBar {
     }
     decreaseStatusBar(decrement) {
         this.currentStatus -= decrement;
-    }
-    setLineJoins(lineJoin) {
-        this.lineJoin = lineJoin;
-        return this;
-    }
-    setBorderWidths(outerBorderWidth, innerBorderWidth) {
-        this.outerBorderWidth = outerBorderWidth;
-        this.innerBorderWidth = innerBorderWidth;
-        return this;
     }
 }
 //# sourceMappingURL=StatusBar.js.map

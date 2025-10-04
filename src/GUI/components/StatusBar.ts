@@ -1,83 +1,65 @@
+import { Component } from "../../classes/Component.js";
 import { COLOURS, getColour } from "../../constants/colours.js";
-import { IDrawable } from "../../interfaces/interfaces.js";
-import { Position } from "../../types/types.js";
+import { Rectangle } from "./Rectangle.js";
 
-export const JOINS: Record<string, CanvasLineJoin> = {
-  round: "round",
-  bevel: "bevel",
-  miter: "miter",
-};
-
-export class StatusBar implements IDrawable {
-  private width!: number;
-  private height!: number;
+export class StatusBar extends Component {
   private currentStatus!: number;
-  private maxStatus!: number;
+  private maximumStatus!: number;
 
-  private lineJoin = JOINS.bevel;
-  private outerBorderWidth: number = 5;
-  private innerBorderWidth: number = 3;
-  private statusBarFillColour: string = getColour(COLOURS.WHITE);
-  private boxFillColour: string = getColour(COLOURS.BLACK);
-  private borderColour: string = getColour(COLOURS.WHITE);
-  private position!: Position;
+  public statusBox = new Rectangle();
+  public statusBar = new Rectangle();
 
-  private drawOffsetX!: number;
-  private drawOffsetY!: number;
-
-  draw(ctx: CanvasRenderingContext2D): void {
-    ctx.lineJoin = this.lineJoin;
-    this.drawBorder(ctx, this.borderColour, this.outerBorderWidth);
-    this.drawBox(ctx, this.boxFillColour);
-    this.drawBorder(ctx, this.boxFillColour, this.innerBorderWidth);
-    this.drawBox(ctx, this.statusBarFillColour, this.width * (this.currentStatus / this.maxStatus));
+  constructor() {
+    super();
   }
 
-  drawBox(ctx: CanvasRenderingContext2D, colour: string, width: number = this.width): void {
-    ctx.fillStyle = colour;
+  draw(ctx: CanvasRenderingContext2D): void {
+    this.statusBox.draw(ctx);
+
     ctx.fillRect(
       this.position.x - this.drawOffsetX,
       this.position.y - this.drawOffsetY,
-      width,
-      this.height
+      this.size.width,
+      this.size.height
     );
+
+    this.statusBar.draw(ctx);
   }
 
-  drawBorder(ctx: CanvasRenderingContext2D, lineColour: string, lineWidth: number): void {
-    ctx.strokeStyle = lineColour;
-    ctx.lineWidth = lineWidth;
-    ctx.strokeRect(
-      this.position.x - this.drawOffsetX,
-      this.position.y - this.drawOffsetY,
-      this.width,
-      this.height
-    );
+  update(): void {
+    this.statusBar.setSizePointer({
+      width: this.size.width * (this.currentStatus / this.maximumStatus),
+      height: this.size.height,
+    });
   }
 
-  setPosition(position: Position): this {
-    this.position = position;
+  initialise(): this {
+    this.statusBox
+      .setPositionPointer(this.position)
+      .setSizePointer(this.size)
+      .setStrokeWidth(this.size.height * 0.8)
+      .setFillColour(getColour(COLOURS.BLACK));
+
+    this.statusBar
+      .setPositionPointer(this.position)
+      .setSizePointer({
+        width: this.size.width * (this.currentStatus / this.maximumStatus),
+        height: this.size.height,
+      })
+      .setStrokeWidth(this.size.height / 4)
+      .setStrokeColour(getColour(COLOURS.BLACK))
+      .setFillColour(getColour(COLOURS.GREEN));
+    console.log(this.size.width, this.currentStatus / this.maximumStatus);
     return this;
   }
 
-  setDimensions(width: number, height: number): this {
-    this.width = width;
-    this.height = height;
-    return this;
-  }
-
-  setStatus(currentStatus: number, maxStatus: number): this {
+  setStatus(currentStatus: number, maximumStatus: number): this {
     this.currentStatus = currentStatus;
-    this.maxStatus = maxStatus;
+    this.maximumStatus = maximumStatus;
     return this;
   }
 
-  setDrawOffsets(offsetY: number, offsetX: number = this.width / 2): this {
-    this.drawOffsetX = offsetX;
-    this.drawOffsetY = offsetY + this.height * 2;
-    return this;
-  }
-
-  getCurrentStatus(): number {
+  getStatus(): number {
     return this.currentStatus;
   }
 
@@ -87,16 +69,5 @@ export class StatusBar implements IDrawable {
 
   decreaseStatusBar(decrement: number): void {
     this.currentStatus -= decrement;
-  }
-
-  setLineJoins(lineJoin: CanvasLineJoin): this {
-    this.lineJoin = lineJoin;
-    return this;
-  }
-
-  setBorderWidths(outerBorderWidth: number, innerBorderWidth: number): this {
-    this.outerBorderWidth = outerBorderWidth;
-    this.innerBorderWidth = innerBorderWidth;
-    return this;
   }
 }

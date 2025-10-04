@@ -5,7 +5,7 @@ export const COLOURS = {
     GREEN: { red: 50, green: 250, blue: 50 },
     BLUE: { red: 0, green: 0, blue: 250 },
     YELLOW: { red: 250, green: 250, blue: 0 },
-    GOLD: { red: 255, green: 217, blue: 0 },
+    GOLD: { red: 250, green: 200, blue: 0 },
     TEXT_GLOW: { red: 213, green: 48, blue: 0 },
     TOWER_MODAL: { red: 213, green: 94, blue: 0 },
 };
