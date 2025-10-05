@@ -13,7 +13,7 @@ export class LoadingScreen {
         this.assetLoader
             .load(this.assetLoaded)
             .catch((error) => console.error(`Error: "${error.fileName}"`))
-            .then(() => console.log("this.state.beginScreen()"));
+            .then(() => this.state.setBeginScreen());
     }
     draw(ctx) {
         this.DSLogo.draw(ctx);
@@ -25,4 +25,4 @@ export class LoadingScreen {
         this.summoning.update();
     }
 }
-//# sourceMappingURL=Loading.js.map
+//# sourceMappingURL=LoadingScreen.js.map

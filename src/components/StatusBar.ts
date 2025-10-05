@@ -4,8 +4,7 @@ import { getColour, COLOURS } from "../constants/colours.js";
 export class StatusBar extends Component {
   private currentStatus!: number;
   private maxStatus!: number;
-
-  private statusBarColour: string = getColour(COLOURS.GREEN);
+  private statusBarColour: string = getColour(COLOURS.WHITE);
 
   draw(ctx: CanvasRenderingContext2D): void {
     ctx.lineJoin = "round";
@@ -46,6 +45,10 @@ export class StatusBar extends Component {
     this.currentStatus = currentStatus;
     this.maxStatus = maxStatus;
     return this;
+  }
+
+  setStatusBarColour(colour: string): void {
+    this.statusBarColour = colour;
   }
 
   getCurrentStatus(): number {

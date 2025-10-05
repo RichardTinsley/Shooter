@@ -1,5 +1,6 @@
 import { IDraw, IUpdate } from "../interfaces/interfaces.js";
-import { Loading } from "./states/Loading.js";
+import { BeginScreen } from "./states/BeginScreen.js";
+import { LoadingScreen } from "./states/LoadingScreen.js";
 
 export interface IScreenState extends IDraw, IUpdate {
   //   menu: Menu;
@@ -9,7 +10,7 @@ export class Screen {
   state: IScreenState;
 
   constructor() {
-    this.state = new Loading(this);
+    this.state = new LoadingScreen(this);
   }
 
   draw(ctx: CanvasRenderingContext2D): void {
@@ -19,5 +20,5 @@ export class Screen {
     this.state.update();
   }
 
-  // setBeginScreen = () => (this.state = new BeginScreen(this));
+  setBeginScreen = () => (this.state = new BeginScreen(this));
 }

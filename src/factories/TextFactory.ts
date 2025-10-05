@@ -25,7 +25,7 @@ export class TextFactory {
       .setFadeText()
       .setSharedPosition({
         x: SCREEN_SIZES.SCREEN_WIDTH_HALF,
-        y: SCREEN_SIZES.SCREEN_HEIGHT * 0.8,
+        y: SCREEN_SIZES.SCREEN_HEIGHT * 0.82,
       })
       .setSharedSize({ width: 0, height: TEXT_SIZES.MENU_BUTTON })
       .setText("Summoning...");

@@ -1,7 +1,9 @@
-import { Loading } from "./states/Loading.js";
+import { BeginScreen } from "./states/BeginScreen.js";
+import { LoadingScreen } from "./states/LoadingScreen.js";
 export class Screen {
     constructor() {
-        this.state = new Loading(this);
+        this.setBeginScreen = () => (this.state = new BeginScreen(this));
+        this.state = new LoadingScreen(this);
     }
     draw(ctx) {
         this.state.draw(ctx);

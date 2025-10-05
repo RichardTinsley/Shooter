@@ -3,7 +3,7 @@ import { getColour, COLOURS } from "../constants/colours.js";
 export class StatusBar extends Component {
     constructor() {
         super(...arguments);
-        this.statusBarColour = getColour(COLOURS.GREEN);
+        this.statusBarColour = getColour(COLOURS.WHITE);
     }
     draw(ctx) {
         ctx.lineJoin = "round";
@@ -26,6 +26,9 @@ export class StatusBar extends Component {
         this.currentStatus = currentStatus;
         this.maxStatus = maxStatus;
         return this;
+    }
+    setStatusBarColour(colour) {
+        this.statusBarColour = colour;
     }
     getCurrentStatus() {
         return this.currentStatus;

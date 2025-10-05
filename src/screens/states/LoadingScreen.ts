@@ -3,7 +3,7 @@ import { TextFactory } from "../../factories/TextFactory.js";
 import { AssetLoader } from "../../handlers/assetLoader.js";
 import { IScreenState, Screen } from "../Screen.js";
 
-export class Loading implements IScreenState {
+export class LoadingScreen implements IScreenState {
   private assetLoader = new AssetLoader();
   private DSLogo = GUIComponentFactory.DSLogo();
   private loadingBar = GUIComponentFactory.LoadingBar(0, this.assetLoader.getAssetFileNameLength());
@@ -14,7 +14,7 @@ export class Loading implements IScreenState {
     this.assetLoader
       .load(this.assetLoaded)
       .catch((error) => console.error(`Error: "${error.fileName}"`))
-      .then(() => console.log("this.state.beginScreen()"));
+      .then(() => this.state.setBeginScreen());
   }
 
   draw(ctx: CanvasRenderingContext2D): void {
