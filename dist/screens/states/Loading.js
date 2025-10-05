@@ -8,6 +8,7 @@ export class Loading {
         this.DSLogo = GUIComponentFactory.DSLogo();
         this.loadingBar = GUIComponentFactory.LoadingBar(0, this.assetLoader.getAssetFileNameLength());
         this.DSTitle = TextFactory.DSTitle();
+        this.summoning = TextFactory.Summoning();
         this.assetLoaded = () => this.loadingBar.increaseCurrentStatus(1);
         this.assetLoader
             .load(this.assetLoaded)
@@ -18,7 +19,10 @@ export class Loading {
         this.DSLogo.draw(ctx);
         this.DSTitle.draw(ctx);
         this.loadingBar.draw(ctx);
+        this.summoning.draw(ctx);
     }
-    update() { }
+    update() {
+        this.summoning.update();
+    }
 }
 //# sourceMappingURL=Loading.js.map

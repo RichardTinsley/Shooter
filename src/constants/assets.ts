@@ -16,7 +16,7 @@ export const CHECKER: Record<string, string> = {
 // prettier-ignore
 export const NAMES: string[][] = [
   //GUI
-  [`${FILE_NAMES.DSLOGO}`, `${URLS.UI}${FILE_NAMES.DSLOGO}`],
+  // [`${FILE_NAMES.DSLOGO}`, `${URLS.UI}${FILE_NAMES.DSLOGO}`],
   //LEVELS
   [`${FILE_NAMES.LEVEL_LAVONEY}`, `${URLS.LEVELS}${FILE_NAMES.LEVEL_LAVONEY}`],
 

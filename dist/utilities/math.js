@@ -12,9 +12,7 @@ export function oscillate(waveType, startTime, frequency, amplitude) {
         case 3:
             return ((x % frequency) / frequency) * amplitude * 2 + adj;
         case 4:
-            return ((Math.abs(((x % frequency) / frequency) * amplitude * 2 + adj) -
-                amplitude / 2) *
-                2);
+            return (Math.abs(((x % frequency) / frequency) * amplitude * 2 + adj) - amplitude / 2) * 2;
         default:
             return 0;
     }

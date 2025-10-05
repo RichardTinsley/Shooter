@@ -8,6 +8,7 @@ export class Loading implements IScreenState {
   private DSLogo = GUIComponentFactory.DSLogo();
   private loadingBar = GUIComponentFactory.LoadingBar(0, this.assetLoader.getAssetFileNameLength());
   private DSTitle = TextFactory.DSTitle();
+  private summoning = TextFactory.Summoning();
 
   constructor(public state: Screen) {
     this.assetLoader
@@ -20,9 +21,12 @@ export class Loading implements IScreenState {
     this.DSLogo.draw(ctx);
     this.DSTitle.draw(ctx);
     this.loadingBar.draw(ctx);
+    this.summoning.draw(ctx);
   }
 
-  update(): void {}
+  update(): void {
+    this.summoning.update();
+  }
 
   assetLoaded = (): void => this.loadingBar.increaseCurrentStatus(1);
 }

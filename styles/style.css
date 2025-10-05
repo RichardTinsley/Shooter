@@ -16,7 +16,7 @@ body {
   left: 0;
   image-rendering: crisp-edges;
   image-rendering: pixelated;
-  /* border: medium solid green; */
+  border: medium solid green;
   /* cursor: url(../images/cursors/Plain.cur), auto; */
 }
 
@@ -135,8 +135,7 @@ body {
   height: 50%;
   border-radius: 100%;
   animation: arrow-spin 0.85s cubic-bezier(0.2, 0.8, 0.9, 0.1) infinite reverse;
-  -webkit-animation: arrow-spin 0.85s cubic-bezier(0.2, 0.8, 0.9, 0.1) infinite
-    reverse;
+  -webkit-animation: arrow-spin 0.85s cubic-bezier(0.2, 0.8, 0.9, 0.1) infinite reverse;
 }
 
 .psoload .inner:before,
