@@ -21,12 +21,13 @@ export class NormalText extends Component {
         ctx.fillText(this.text, this.position.x, this.position.y);
     }
     update() { }
-    setText(text) {
+    setText(text, height) {
         this.text = text;
+        this.setSharedSize({
+            width: Math.ceil(text.length * (height / 1.85)),
+            height: height,
+        });
         return this;
-    }
-    getWidth() {
-        return this.text.length * (this.size.height / 1.85);
     }
     setAlignment(alignment) {
         this.align = alignment;

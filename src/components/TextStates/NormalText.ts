@@ -29,13 +29,13 @@ export class NormalText extends Component implements ITextState {
 
   update(): void {}
 
-  setText(text: string): this {
+  setText(text: string, height: number): this {
     this.text = text;
+    this.setSharedSize({
+      width: Math.ceil(text.length * (height / 1.85)),
+      height: height,
+    });
     return this;
-  }
-
-  getWidth(): number {
-    return this.text.length * (this.size.height / 1.85);
   }
 
   setAlignment(alignment: CanvasTextAlign): this {
