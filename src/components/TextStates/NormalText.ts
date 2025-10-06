@@ -8,6 +8,10 @@ export class NormalText extends Component implements ITextState {
   protected lineWidth!: number;
   protected alpha: number = 1;
 
+  protected frequency: number = 1;
+  protected amplitude: number = 1;
+  protected startTime: number = Date.now();
+
   constructor(protected state: Text) {
     super();
   }

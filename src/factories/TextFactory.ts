@@ -3,6 +3,7 @@ import { TEXT_SIZES } from "../constants/textSizes.js";
 import { Text } from "../components/Text.js";
 import { NormalText } from "../components/TextStates/NormalText.js";
 import { FadeText } from "../components/TextStates/FadeText.js";
+import { PulsateText } from "../components/TextStates/PulsateText.js";
 
 export class TextFactory {
   //   static text(): Text {
@@ -29,6 +30,17 @@ export class TextFactory {
       })
       .setSharedSize({ width: 0, height: TEXT_SIZES.MENU_BUTTON })
       .setText("Summoning...");
+  }
+
+  static Begin(): PulsateText {
+    return new Text()
+      .setPulsateText()
+      .setSharedPosition({
+        x: SCREEN_SIZES.SCREEN_WIDTH_HALF,
+        y: SCREEN_SIZES.SCREEN_HEIGHT * 0.85,
+      })
+      .setSharedSize({ width: 0, height: TEXT_SIZES.BEGIN_BUTTON })
+      .setText("Begin!");
   }
 
   //   static textGlow(): TextGlow {

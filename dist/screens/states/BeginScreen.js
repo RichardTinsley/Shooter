@@ -5,11 +5,15 @@ export class BeginScreen {
         this.state = state;
         this.DSLogo = GUIComponentFactory.DSLogo();
         this.DSTitle = TextFactory.DSTitle();
+        this.begin = TextFactory.Begin();
     }
     draw(ctx) {
         this.DSLogo.draw(ctx);
         this.DSTitle.draw(ctx);
+        this.begin.draw(ctx);
     }
-    update() { }
+    update() {
+        this.begin.update();
+    }
 }
 //# sourceMappingURL=BeginScreen.js.map

@@ -5,9 +5,7 @@ export class FadeText extends NormalText {
         super(state);
         this.state = state;
         this.frequency = 0.1;
-        this.amplitude = 1;
         this.alpha = -0.5;
-        this.startTime = Date.now();
     }
     draw(ctx) {
         super.draw(ctx);

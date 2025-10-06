@@ -22,5 +22,15 @@ export class TextFactory {
             .setSharedSize({ width: 0, height: TEXT_SIZES.MENU_BUTTON })
             .setText("Summoning...");
     }
+    static Begin() {
+        return new Text()
+            .setPulsateText()
+            .setSharedPosition({
+            x: SCREEN_SIZES.SCREEN_WIDTH_HALF,
+            y: SCREEN_SIZES.SCREEN_HEIGHT * 0.85,
+        })
+            .setSharedSize({ width: 0, height: TEXT_SIZES.BEGIN_BUTTON })
+            .setText("Begin!");
+    }
 }
 //# sourceMappingURL=TextFactory.js.map

@@ -6,6 +6,9 @@ export class NormalText extends Component {
         this.state = state;
         this.align = "center";
         this.alpha = 1;
+        this.frequency = 1;
+        this.amplitude = 1;
+        this.startTime = Date.now();
     }
     draw(ctx) {
         ctx.strokeStyle = getColour(COLOURS.BLACK, this.alpha);

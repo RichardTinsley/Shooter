@@ -4,9 +4,7 @@ import { NormalText } from "./NormalText.js";
 
 export class FadeText extends NormalText implements ITextState {
   protected frequency: number = 0.1;
-  protected amplitude: number = 1;
   protected alpha: number = -0.5;
-  protected startTime = Date.now();
 
   constructor(protected state: Text) {
     super(state);

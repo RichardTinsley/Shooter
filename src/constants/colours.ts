@@ -24,13 +24,13 @@
 //   REDOUT: "250, 0, 0, ",
 // };
 
-type colour = {
+type Colour = {
   red: number;
   green: number;
   blue: number;
 };
 
-export const COLOURS: Record<string, colour> = {
+export const COLOURS: Record<string, Colour> = {
   WHITE: { red: 250, green: 250, blue: 250 },
   BLACK: { red: 0, green: 0, blue: 0 },
   RED: { red: 250, green: 0, blue: 0 },
@@ -42,6 +42,6 @@ export const COLOURS: Record<string, colour> = {
   TOWER_MODAL: { red: 213, green: 94, blue: 0 },
 };
 
-export function getColour(colour: colour, alpha: number = 1): string {
+export function getColour(colour: Colour, alpha: number = 1): string {
   return `rgba(${colour.red}, ${colour.green}, ${colour.blue}, ${alpha})`;
 }

@@ -1,25 +1,17 @@
 import { oscillate } from "../../utilities/math.js";
 import { NormalText } from "./NormalText.js";
-import { COLOURS, getColour } from "../../constants/colours.js";
 export class PulsateText extends NormalText {
     constructor(state) {
         super(state);
         this.state = state;
-        this.amplitude = 1;
-        this.frequency = 1;
-        this.glowMaximum = 3;
-        this.pulsateFrequency = 1;
-        this.pulsateAmplitude = 1;
-        this.pulsateStartTime = Date.now();
+        this.amplitude = 0.25;
+        this.frequency = 0.5;
     }
     draw(ctx) {
-        ctx.shadowColor = getColour(COLOURS.TEXT_GLOW);
         super.draw(ctx);
-        ctx.shadowBlur = 0;
     }
     update() {
-        this.size.height += oscillate(1, this.pulsateStartTime, this.pulsateFrequency, this.pulsateAmplitude);
-        super.update();
+        this.size.height += oscillate(1, this.startTime, this.frequency, this.amplitude);
     }
 }
 //# sourceMappingURL=PulsateText.js.map
