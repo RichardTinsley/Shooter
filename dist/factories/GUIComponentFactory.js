@@ -1,22 +1,3 @@
-import { DSLogo } from "../components/DSLogo.js";
-import { StatusBar } from "../components/StatusBar.js";
-import { SCREEN } from "../constants/screenSizes.js";
 export class GUIComponentFactory {
-    static DSLogo() {
-        return new DSLogo().setSharedPosition({
-            x: SCREEN.HALF_WIDTH,
-            y: SCREEN.HEIGHT * 0.52,
-        });
-    }
-    static LoadingBar(currentStatus, maximumStatus) {
-        return new StatusBar()
-            .setSharedPosition({
-            x: SCREEN.HALF_WIDTH,
-            y: SCREEN.HEIGHT * 0.9,
-        })
-            .setSharedSize({ width: SCREEN.WIDTH / 3, height: 10 })
-            .setStatus(currentStatus, maximumStatus)
-            .setDrawOffsets(0);
-    }
 }
 //# sourceMappingURL=GUIComponentFactory.js.map

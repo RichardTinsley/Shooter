@@ -8,12 +8,20 @@ export interface IUpdate {
   update(): void;
 }
 
-export interface IEntity {
-  setPosition(position: Position): this;
-  setSize(size: Size): this;
+export interface IEntityDetails {
+  position: Position;
+  scale: number;
+  size: Size;
+  scaleSize: Size;
 }
 
-export interface IComponent {
-  setSharedPosition(position: Position): this;
-  setSharedSize(size: Size): this;
+export interface IEntityComponent {
+  draw(ctx: CanvasRenderingContext2D, EntityDetails: IEntityDetails): void;
+  update(EntityDetails: IEntityDetails): void;
+}
+
+export interface IStateRender extends IDraw, IUpdate {}
+
+export interface IScreenState extends IDraw, IUpdate {
+  //   menu: Menu;
 }

@@ -1,5 +1,4 @@
 import { COLOURS, getColour } from "../constants/colours.js";
-import { Component } from "./Component.js";
 
 export const JOINS: Record<string, CanvasLineJoin> = {
   round: "round",
@@ -7,7 +6,7 @@ export const JOINS: Record<string, CanvasLineJoin> = {
   miter: "miter",
 };
 
-export class Shape extends Component {
+export class Shape {
   protected lineJoin = JOINS.bevel;
   protected strokeWidth: number = 1;
   protected strokeColour: string = getColour(COLOURS.WHITE);

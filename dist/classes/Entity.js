@@ -1,11 +1,13 @@
+import { EntityDrawState } from "./states/EntityDrawState.js";
 export class Entity {
-    setPosition(position) {
-        this.position = Object.assign({}, position);
-        return this;
+    constructor() {
+        this.setDrawState = () => (this.state = new EntityDrawState(this));
     }
-    setSize(size) {
-        this.size = Object.assign({}, size);
-        return this;
+    draw(ctx) {
+        this.state.draw(ctx);
+    }
+    update() {
+        this.state.update();
     }
 }
 //# sourceMappingURL=Entity.js.map
