@@ -1,14 +1,16 @@
+import { EntityComponent } from "../classes/EntityComponent.js";
 import { DSLogo } from "../components/DSLogo.js";
 import { SCREEN } from "../constants/screenSizes.js";
-import { IEntityComponent } from "../interfaces/interfaces.js";
 
 export class GUIComponentFactory {
-  // static DSLogo(): IEntityComponent {
-  //   return new DSLogo().setPosition({
-  //     x: SCREEN.HALF_WIDTH,
-  //     y: SCREEN.HEIGHT * 0.52,
-  //   });
-  // }
+  static DSLogo(): EntityComponent {
+    const DSLogoImage = document.getElementById("dslogo") as HTMLImageElement;
+
+    return new DSLogo().setVisual(DSLogoImage).setDrawOffsets({
+      width: SCREEN.HALF_WIDTH - DSLogoImage.width / 2,
+      height: SCREEN.HEIGHT * 0.52 - DSLogoImage.height / 2,
+    });
+  }
   //   static LoadingBar(currentStatus: number, maximumStatus: number): StatusBar {
   //     return new StatusBar()
   //       .setSharedPosition({

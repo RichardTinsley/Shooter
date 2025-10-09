@@ -1,9 +1,9 @@
-import { IEntityComponent } from "../interfaces/interfaces.js";
-import { Coordinates } from "./Coordinates.js";
+import { EntityComponent } from "./EntityComponent.js";
+import { EntityCoordinates } from "./EntityCoordinates.js";
 
 export abstract class EntityState {
-  coordinates!: Coordinates;
-  components: IEntityComponent[] = [];
+  coordinates = new EntityCoordinates();
+  components: EntityComponent[] = [];
 
   draw(ctx: CanvasRenderingContext2D): void {
     this.components.forEach((component) => component.draw(ctx, this.coordinates));
@@ -12,7 +12,7 @@ export abstract class EntityState {
     this.components.forEach((component) => component.update(this.coordinates));
   }
 
-  addComponent(component: IEntityComponent): this {
+  addComponent(component: EntityComponent): this {
     this.components.push(component);
     return this;
   }

@@ -1,10 +1,16 @@
 export class EntityCoordinates {
+    constructor() {
+        this.position = { x: 0, y: 0 };
+    }
     getPosition() {
         return this.position;
     }
     setPosition(position) {
         this.position = Object.assign({}, position);
         return this;
+    }
+    getSize() {
+        return this.size;
     }
     setSize(size, scale = 1.5) {
         this.size = Object.assign({}, size);
@@ -14,9 +20,6 @@ export class EntityCoordinates {
             height: size.height * scale,
         };
         return this;
-    }
-    getSize() {
-        return this.size;
     }
 }
 //# sourceMappingURL=EntityCoordinates.js.map

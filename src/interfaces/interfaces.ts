@@ -1,4 +1,3 @@
-import { Coordinates } from "../classes/Coordinates.js";
 import { EntityState } from "../classes/EntityState.js";
 
 export interface IDraw {
@@ -11,9 +10,4 @@ export interface IUpdate {
 
 export interface IEntity {
   state: EntityState;
-}
-
-export interface IEntityComponent {
-  draw(ctx: CanvasRenderingContext2D, coordinates: Coordinates): void;
-  update(coordinates: Coordinates): void;
 }

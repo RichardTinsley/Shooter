@@ -1,7 +1,7 @@
 import { Position, Size } from "../types/types.js";
 
-export class Coordinates {
-  position!: Position;
+export class EntityCoordinates {
+  position: Position = { x: 0, y: 0 };
   destination?: Position;
   scale!: number;
   size!: Size;

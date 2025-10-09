@@ -1,5 +1,7 @@
+import { EntityCoordinates } from "./EntityCoordinates.js";
 export class EntityState {
     constructor() {
+        this.coordinates = new EntityCoordinates();
         this.components = [];
     }
     draw(ctx) {
