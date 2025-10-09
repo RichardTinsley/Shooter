@@ -1,10 +1,10 @@
 import { DSLogo } from "../components/DSLogo.js";
-// import { StatusBar } from "../components/StatusBar.js";
 import { SCREEN } from "../constants/screenSizes.js";
+import { IEntityComponent } from "../interfaces/interfaces.js";
 
 export class GUIComponentFactory {
-  // static DSLogo(): ImageEntity {
-  //   return new ImageEntity().setImage(new DSLogo()).setPosition({
+  // static DSLogo(): IEntityComponent {
+  //   return new DSLogo().setPosition({
   //     x: SCREEN.HALF_WIDTH,
   //     y: SCREEN.HEIGHT * 0.52,
   //   });

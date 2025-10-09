@@ -4,10 +4,10 @@ export class Game {
         this.screen = new Screen();
     }
     draw(ctx) {
-        this.screen.draw(ctx);
+        this.screen.state.draw(ctx);
     }
     update() {
-        this.screen.update();
+        this.screen.state.update();
     }
 }
 //# sourceMappingURL=Game.js.map

@@ -1,4 +1,4 @@
-import { COLOURS, getColour } from "../constants/colours.js";
+import { COLOURS, getColour } from "../../src/constants/colours.js";
 export const JOINS = {
     round: "round",
     bevel: "bevel",

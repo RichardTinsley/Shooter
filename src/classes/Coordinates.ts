@@ -2,6 +2,7 @@ import { Position, Size } from "../types/types.js";
 
 export class Coordinates {
   position!: Position;
+  destination?: Position;
   scale!: number;
   size!: Size;
   scaleSize!: Size;
@@ -15,6 +16,10 @@ export class Coordinates {
     return this;
   }
 
+  getSize(): Size {
+    return this.size;
+  }
+
   setSize(size: Size, scale: number = 1.5): this {
     this.size = { ...size };
     this.scale = scale;
@@ -23,9 +28,5 @@ export class Coordinates {
       height: size.height * scale,
     };
     return this;
-  }
-
-  getSize(): Size {
-    return this.size;
   }
 }

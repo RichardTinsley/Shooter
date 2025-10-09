@@ -6,6 +6,9 @@ export class Coordinates {
         this.position = Object.assign({}, position);
         return this;
     }
+    getSize() {
+        return this.size;
+    }
     setSize(size, scale = 1.5) {
         this.size = Object.assign({}, size);
         this.scale = scale;
@@ -14,9 +17,6 @@ export class Coordinates {
             height: size.height * scale,
         };
         return this;
-    }
-    getSize() {
-        return this.size;
     }
 }
 //# sourceMappingURL=Coordinates.js.map

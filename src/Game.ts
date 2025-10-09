@@ -12,13 +12,13 @@ export class Game {
   // private keyboard = new Keyboard(this.screen, this.debug);
 
   draw(ctx: CanvasRenderingContext2D): void {
-    this.screen.draw(ctx);
+    this.screen.state.draw(ctx);
     // this.debug.draw(ctx);
   }
 
   update(): void {
     // this.time.update();
-    this.screen.update();
+    this.screen.state.update();
     // this.debug.update();
     // this.mouse.update();
   }

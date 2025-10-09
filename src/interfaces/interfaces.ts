@@ -1,4 +1,5 @@
-import { Position, Size } from "../types/types.js";
+import { Coordinates } from "../classes/Coordinates.js";
+import { EntityState } from "../classes/EntityState.js";
 
 export interface IDraw {
   draw(ctx: CanvasRenderingContext2D): void;
@@ -8,20 +9,11 @@ export interface IUpdate {
   update(): void;
 }
 
-export interface IEntityDetails {
-  position: Position;
-  scale: number;
-  size: Size;
-  scaleSize: Size;
+export interface IEntity {
+  state: EntityState;
 }
 
 export interface IEntityComponent {
-  draw(ctx: CanvasRenderingContext2D, EntityDetails: IEntityDetails): void;
-  update(EntityDetails: IEntityDetails): void;
-}
-
-export interface IStateRender extends IDraw, IUpdate {}
-
-export interface IScreenState extends IDraw, IUpdate {
-  //   menu: Menu;
+  draw(ctx: CanvasRenderingContext2D, coordinates: Coordinates): void;
+  update(coordinates: Coordinates): void;
 }
