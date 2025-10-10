@@ -1,12 +1,12 @@
 import { EntityComponent } from "../classes/EntityComponent.js";
-import { DSLogo } from "../components/DSLogo.js";
+import { ImageComponent } from "../components/ImageComponent.js";
 import { SCREEN } from "../constants/screenSizes.js";
 
 export class GUIComponentFactory {
   static DSLogo(): EntityComponent {
     const DSLogoImage = document.getElementById("dslogo") as HTMLImageElement;
 
-    return new DSLogo().setVisual(DSLogoImage).setDrawOffsets({
+    return new ImageComponent().setVisual(DSLogoImage).setDrawOffsets({
       width: SCREEN.HALF_WIDTH - DSLogoImage.width / 2,
       height: SCREEN.HEIGHT * 0.52 - DSLogoImage.height / 2,
     });

@@ -1,12 +1,10 @@
-import { EntityState } from "../classes/EntityState.js";
 import { AssetLoader } from "../handlers/assetLoader.js";
 import { Screen } from "./Screen.js";
 
-export class LoadingScreen extends EntityState {
-  private assetLoader = new AssetLoader();
+export class LoadingScreen {
+  public assetLoader = new AssetLoader();
 
   constructor(public state: Screen) {
-    super();
     this.assetLoader
       .load(this.assetLoaded)
       .catch((error) => console.error(`Error: "${error.fileName}"`))

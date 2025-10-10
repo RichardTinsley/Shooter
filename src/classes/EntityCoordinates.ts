@@ -3,9 +3,10 @@ import { Position, Size } from "../types/types.js";
 export class EntityCoordinates {
   position: Position = { x: 0, y: 0 };
   destination?: Position;
-  scale!: number;
   size!: Size;
   scaleSize!: Size;
+  scale: number = 1.5;
+  halfWidth!: number;
 
   getPosition(): Position {
     return this.position;
@@ -20,13 +21,14 @@ export class EntityCoordinates {
     return this.size;
   }
 
-  setSize(size: Size, scale: number = 1.5): this {
+  setSize(size: Size, scale: number): this {
     this.size = { ...size };
     this.scale = scale;
     this.scaleSize = {
       width: size.width * scale,
       height: size.height * scale,
     };
+    this.halfWidth = this.scaleSize.width / 2;
     return this;
   }
 }

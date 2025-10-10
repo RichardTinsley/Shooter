@@ -1,4 +1,4 @@
-import { EntityState } from "../classes/EntityState.js";
+import { EntityState } from "../classes/Entity.js";
 import { AssetLoader } from "../handlers/assetLoader.js";
 export class LoadingScreen extends EntityState {
     constructor(state) {

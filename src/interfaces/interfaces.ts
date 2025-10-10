@@ -1,4 +1,4 @@
-import { EntityState } from "../classes/EntityState.js";
+import { EntityState } from "../classes/Entity.js";
 
 export interface IDraw {
   draw(ctx: CanvasRenderingContext2D): void;
