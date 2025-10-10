@@ -1,8 +1,18 @@
 import { EntityCoordinates } from "./EntityCoordinates.js";
-export class EntityState {
+const COMPONENTS = {
+    VISUAL: "visual",
+    HITBOX: "hitbox",
+    MOUSE: "mouse",
+    ENEMY_MOVEMENT: "enemyMovement",
+    PROJECTILE_MOVMENT: "projectileMovement",
+    STATUS_BAR: "statusBar",
+    SHADOW: "shadow",
+    SOUNDS: "sounds",
+};
+export class Entity {
     constructor() {
         this.coordinates = new EntityCoordinates();
-        this.components = [];
+        this.components = new Map();
     }
     draw(ctx) {
         this.components.forEach((component) => component.draw(ctx, this.coordinates));
@@ -10,8 +20,15 @@ export class EntityState {
     update() {
         this.components.forEach((component) => component.update(this.coordinates));
     }
-    addComponent(component) {
-        this.components.push(component);
+    getComponent(key) {
+        return this.components.get(key);
+    }
+    setComponent(key, component) {
+        this.components.set(key, component);
+        return this;
+    }
+    deleteComponent(key) {
+        this.components.delete(key);
         return this;
     }
 }
