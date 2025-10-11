@@ -1,8 +1,12 @@
 import { EntityCoordinates } from "../classes/EntityCoordinates.js";
+import { Size } from "../types/types.js";
 import { ComponentBaseClass } from "./ComponentBaseClass.js";
 
 export class ImageComponent extends ComponentBaseClass {
   private image!: HTMLImageElement;
+  private drawOffsetX: number = 0;
+  private drawOffsetY: number = 0;
+
   private currentFrame: number = 0;
   private currentRow: number = 0;
   private direction: number = 1;
@@ -33,6 +37,12 @@ export class ImageComponent extends ComponentBaseClass {
 
   setImage(image: HTMLImageElement): this {
     this.image = image;
+    return this;
+  }
+
+  setDrawOffsets(drawOffsets: Size): this {
+    this.drawOffsetX = drawOffsets.width;
+    this.drawOffsetY = drawOffsets.height;
     return this;
   }
 }

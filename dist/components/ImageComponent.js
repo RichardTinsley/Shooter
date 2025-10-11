@@ -2,6 +2,8 @@ import { ComponentBaseClass } from "./ComponentBaseClass.js";
 export class ImageComponent extends ComponentBaseClass {
     constructor() {
         super(...arguments);
+        this.drawOffsetX = 0;
+        this.drawOffsetY = 0;
         this.currentFrame = 0;
         this.currentRow = 0;
         this.direction = 1;
@@ -18,6 +20,11 @@ export class ImageComponent extends ComponentBaseClass {
     }
     setImage(image) {
         this.image = image;
+        return this;
+    }
+    setDrawOffsets(drawOffsets) {
+        this.drawOffsetX = drawOffsets.width;
+        this.drawOffsetY = drawOffsets.height;
         return this;
     }
 }

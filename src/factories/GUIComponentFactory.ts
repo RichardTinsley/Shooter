@@ -7,15 +7,19 @@ export class GUIComponentFactory {
   static DSLogo(): Entity {
     const DSLogoImage = document.getElementById("dslogo") as HTMLImageElement;
 
-    return new Entity()
-      .setComponent(
-        COMPONENTS.VISUAL,
-        new ImageComponent().setImage(DSLogoImage).setDrawOffsets({
-          width: SCREEN.HALF_WIDTH,
-          height: SCREEN.HEIGHT * 0.75,
-        })
-      )
-      .setSize({ width: DSLogoImage.width, height: DSLogoImage.height }, 1);
+    const DSLogo = new Entity().setComponent(
+      COMPONENTS.IMAGE,
+      new ImageComponent().setImage(DSLogoImage)
+    );
+
+    DSLogo.coordinates
+      .setSize({ width: DSLogoImage.width, height: DSLogoImage.height }, 1)
+      .setPosition({
+        x: SCREEN.HALF_WIDTH,
+        y: SCREEN.HEIGHT * 0.75,
+      });
+
+    return DSLogo;
   }
   //   static LoadingBar(currentStatus: number, maximumStatus: number): StatusBar {
   //     return new StatusBar()

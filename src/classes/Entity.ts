@@ -3,7 +3,8 @@ import { ComponentBaseClass } from "../components/ComponentBaseClass.js";
 import { EntityCoordinates } from "./EntityCoordinates.js";
 
 export const COMPONENTS = {
-  VISUAL: "visual",
+  IMAGE: "image",
+  TEXT: "text",
   HITBOX: "hitbox",
   MOUSE: "mouse",
   ENEMY_MOVEMENT: "enemyMovement",
@@ -35,30 +36,6 @@ export class Entity {
 
   deleteComponent(key: string): this {
     this.components.delete(key);
-    return this;
-  }
-
-  getPosition(): Position {
-    return this.coordinates.position;
-  }
-
-  setPosition(position: Position): this {
-    this.coordinates.position = { ...position };
-    return this;
-  }
-
-  getSize(): Size {
-    return this.coordinates.size;
-  }
-
-  setSize(size: Size, scale: number): this {
-    this.coordinates.size = { ...size };
-    this.coordinates.scale = scale;
-    this.coordinates.scaleSize = {
-      width: size.width * scale,
-      height: size.height * scale,
-    };
-    this.coordinates.halfWidth = this.coordinates.scaleSize.width / 2;
     return this;
   }
 }
