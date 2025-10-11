@@ -1,5 +1,5 @@
 import { EntityCoordinates } from "./EntityCoordinates.js";
-const COMPONENTS = {
+export const COMPONENTS = {
     VISUAL: "visual",
     HITBOX: "hitbox",
     MOUSE: "mouse",
@@ -29,6 +29,26 @@ export class Entity {
     }
     deleteComponent(key) {
         this.components.delete(key);
+        return this;
+    }
+    getPosition() {
+        return this.coordinates.position;
+    }
+    setPosition(position) {
+        this.coordinates.position = Object.assign({}, position);
+        return this;
+    }
+    getSize() {
+        return this.coordinates.size;
+    }
+    setSize(size, scale) {
+        this.coordinates.size = Object.assign({}, size);
+        this.coordinates.scale = scale;
+        this.coordinates.scaleSize = {
+            width: size.width * scale,
+            height: size.height * scale,
+        };
+        this.coordinates.halfWidth = this.coordinates.scaleSize.width / 2;
         return this;
     }
 }

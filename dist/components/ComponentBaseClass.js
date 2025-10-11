@@ -1,4 +1,4 @@
-export class EntityComponent {
+export class ComponentBaseClass {
     constructor() {
         this.drawOffsetX = 0;
         this.drawOffsetY = 0;
@@ -9,4 +9,4 @@ export class EntityComponent {
         return this;
     }
 }
-//# sourceMappingURL=EntityComponent.js.map
+//# sourceMappingURL=ComponentBaseClass.js.map

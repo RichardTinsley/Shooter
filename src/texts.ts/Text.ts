@@ -1,4 +1,4 @@
-import { EntityComponent } from "../classes/EntityComponent.js";
+import { ComponentBaseClass } from "../components/ComponentBaseClass.js";
 import { Size } from "../types/types.js";
 // import { FadeText } from "./TextStates/FadeText.js";
 // import { NormalText } from "./TextStates/NormalText.js";

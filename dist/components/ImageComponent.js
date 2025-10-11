@@ -1,6 +1,5 @@
-import { EntityComponent } from "../classes/EntityComponent.js";
-import { SCREEN } from "../constants/screenSizes.js";
-export class ImageComponent extends EntityComponent {
+import { ComponentBaseClass } from "./ComponentBaseClass.js";
+export class ImageComponent extends ComponentBaseClass {
     constructor() {
         super(...arguments);
         this.currentFrame = 0;
@@ -8,7 +7,6 @@ export class ImageComponent extends EntityComponent {
         this.direction = 1;
     }
     draw(ctx, coordinates) {
-        ctx.clearRect(0, 0, SCREEN.WIDTH, SCREEN.HEIGHT);
         ctx.save();
         ctx.translate(coordinates.position.x, coordinates.position.y);
         ctx.scale(this.direction, 1);
@@ -17,6 +15,10 @@ export class ImageComponent extends EntityComponent {
     }
     update(coordinates) {
         return;
+    }
+    setImage(image) {
+        this.image = image;
+        return this;
     }
 }
 //# sourceMappingURL=ImageComponent.js.map

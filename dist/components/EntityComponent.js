@@ -1,11 +1,7 @@
-export class EntityComponent {
+export class ComponentBaseClass {
     constructor() {
         this.drawOffsetX = 0;
         this.drawOffsetY = 0;
-    }
-    setVisual(visual) {
-        this.visual = visual;
-        return this;
     }
     setDrawOffsets(drawOffsets) {
         this.drawOffsetX = drawOffsets.width;

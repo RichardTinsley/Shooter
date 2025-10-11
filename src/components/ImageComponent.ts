@@ -1,21 +1,13 @@
 import { EntityCoordinates } from "../classes/EntityCoordinates.js";
-import { EntityComponent } from "../classes/EntityComponent.js";
-import { SCREEN } from "../constants/screenSizes.js";
+import { ComponentBaseClass } from "./ComponentBaseClass.js";
 
-export class ImageComponent extends EntityComponent {
+export class ImageComponent extends ComponentBaseClass {
   private image!: HTMLImageElement;
   private currentFrame: number = 0;
   private currentRow: number = 0;
   private direction: number = 1;
 
   draw(ctx: CanvasRenderingContext2D, coordinates: EntityCoordinates): void {
-    ctx.clearRect(0, 0, SCREEN.WIDTH, SCREEN.HEIGHT);
-    // ctx.drawImage(
-    //   this.visual,
-    //   coordinates.position.x + this.drawOffsetX,
-    //   coordinates.position.y + this.drawOffsetY
-    // );
-
     ctx.save();
     ctx.translate(coordinates.position.x, coordinates.position.y);
     ctx.scale(this.direction, 1);
@@ -37,5 +29,10 @@ export class ImageComponent extends EntityComponent {
 
   update(coordinates: EntityCoordinates): void {
     return;
+  }
+
+  setImage(image: HTMLImageElement): this {
+    this.image = image;
+    return this;
   }
 }

@@ -1,15 +1,21 @@
-import { EntityComponent } from "../classes/EntityComponent.js";
+import { Entity, COMPONENTS } from "../classes/Entity.js";
+import { ComponentBaseClass } from "../components/ComponentBaseClass.js";
 import { ImageComponent } from "../components/ImageComponent.js";
 import { SCREEN } from "../constants/screenSizes.js";
 
 export class GUIComponentFactory {
-  static DSLogo(): EntityComponent {
+  static DSLogo(): Entity {
     const DSLogoImage = document.getElementById("dslogo") as HTMLImageElement;
 
-    return new ImageComponent().setVisual(DSLogoImage).setDrawOffsets({
-      width: SCREEN.HALF_WIDTH - DSLogoImage.width / 2,
-      height: SCREEN.HEIGHT * 0.52 - DSLogoImage.height / 2,
-    });
+    return new Entity()
+      .setComponent(
+        COMPONENTS.VISUAL,
+        new ImageComponent().setImage(DSLogoImage).setDrawOffsets({
+          width: SCREEN.HALF_WIDTH,
+          height: SCREEN.HEIGHT * 0.75,
+        })
+      )
+      .setSize({ width: DSLogoImage.width, height: DSLogoImage.height }, 1);
   }
   //   static LoadingBar(currentStatus: number, maximumStatus: number): StatusBar {
   //     return new StatusBar()
