@@ -4,7 +4,7 @@ import { ImageComponent } from "../components/ImageComponent.js";
 import { SCREEN } from "../constants/screenSizes.js";
 
 export class GUIComponentFactory {
-  static DSLogo(): Entity {
+  DSLogo(): Entity {
     const DSLogoImage = document.getElementById("dslogo") as HTMLImageElement;
 
     const DSLogo = new Entity().setComponent(

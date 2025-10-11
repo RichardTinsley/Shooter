@@ -1,0 +1,1 @@
+{"version":3,"file":"TextComponent.js","sourceRoot":"","sources":["../../src/components/TextComponent.ts"],"names":[],"mappings":"AACA,OAAO,EAAE,kBAAkB,EAAE,MAAM,yBAAyB,CAAC;AAM7D,MAAM,OAAO,aAAc,SAAQ,kBAAkB;IACnD,IAAI,CAAC,GAA6B,EAAE,WAA8B;QAChE,MAAM,IAAI,KAAK,CAAC,yBAAyB,CAAC,CAAC;IAC7C,CAAC;IACD,MAAM,CAAC,WAA8B;QACnC,MAAM,IAAI,KAAK,CAAC,yBAAyB,CAAC,CAAC;IAC7C,CAAC;CAMF"}

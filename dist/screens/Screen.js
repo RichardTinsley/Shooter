@@ -2,8 +2,9 @@ import { GUIComponentFactory } from "../factories/GUIComponentFactory.js";
 export class Screen {
     constructor() {
         this.entities = [];
+        this.GUIComponentFactory = new GUIComponentFactory();
         this.setLoadingScreen = () => {
-            this.entities.push(GUIComponentFactory.DSLogo());
+            this.entities.push(this.GUIComponentFactory.DSLogo());
         };
         this.setBeginScreen = () => console.log("OMG22222222");
         this.setLoadingScreen();

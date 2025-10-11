@@ -2,7 +2,7 @@ import { Entity, COMPONENTS } from "../classes/Entity.js";
 import { ImageComponent } from "../components/ImageComponent.js";
 import { SCREEN } from "../constants/screenSizes.js";
 export class GUIComponentFactory {
-    static DSLogo() {
+    DSLogo() {
         const DSLogoImage = document.getElementById("dslogo");
         const DSLogo = new Entity().setComponent(COMPONENTS.IMAGE, new ImageComponent().setImage(DSLogoImage));
         DSLogo.coordinates

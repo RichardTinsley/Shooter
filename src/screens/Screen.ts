@@ -5,6 +5,7 @@ import { LoadingScreen } from "./LoadingScreen.js";
 
 export class Screen implements IDraw, IUpdate {
   private entities: Entity[] = [];
+  private GUIComponentFactory = new GUIComponentFactory();
 
   constructor() {
     this.setLoadingScreen();
@@ -25,7 +26,7 @@ export class Screen implements IDraw, IUpdate {
   // setBeginScreen = () => (this.state = new BeginScreen(this));
   setLoadingScreen = () => {
     //ctx.clearRect(0, 0, SCREEN.WIDTH, SCREEN.HEIGHT);
-    this.entities.push(GUIComponentFactory.DSLogo());
+    this.entities.push(this.GUIComponentFactory.DSLogo());
   };
   setBeginScreen = () => console.log("OMG22222222");
 }
