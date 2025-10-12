@@ -1,6 +1,8 @@
 import { AssetLoader } from "../handlers/assetLoader.js";
-export class LoadingScreen {
+import { Screen } from "./Screen.js";
+export class LoadingScreen extends Screen {
     constructor(state) {
+        super();
         this.state = state;
         this.assetLoader = new AssetLoader();
         this.assetLoaded = () => console.log("OMG");

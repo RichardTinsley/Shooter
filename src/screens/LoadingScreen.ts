@@ -1,10 +1,11 @@
 import { AssetLoader } from "../handlers/assetLoader.js";
 import { Screen } from "./Screen.js";
 
-export class LoadingScreen {
+export class LoadingScreen extends Screen {
   public assetLoader = new AssetLoader();
 
   constructor(public state: Screen) {
+    super();
     this.assetLoader
       .load(this.assetLoaded)
       .catch((error) => console.error(`Error: "${error.fileName}"`))
