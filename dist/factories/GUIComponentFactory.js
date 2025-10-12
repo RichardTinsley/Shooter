@@ -1,10 +1,10 @@
-import { Entity, COMPONENTS } from "../classes/Entity.js";
+import { Entity, Components } from "../classes/Entity.js";
 import { ImageComponent } from "../components/ImageComponent.js";
 import { SCREEN } from "../constants/screenSizes.js";
 export class GUIComponentFactory {
     DSLogo() {
         const DSLogoImage = document.getElementById("dslogo");
-        const DSLogo = new Entity().setComponent(COMPONENTS.IMAGE, new ImageComponent().setImage(DSLogoImage));
+        const DSLogo = new Entity().setComponent(Components.IMAGE, new ImageComponent().setImage(DSLogoImage));
         DSLogo.coordinates
             .setSize({ width: DSLogoImage.width, height: DSLogoImage.height }, 1)
             .setPosition({

@@ -1,4 +1,4 @@
-import { Entity, COMPONENTS } from "../classes/Entity.js";
+import { Entity, Components } from "../classes/Entity.js";
 import { ComponentBaseClass } from "../components/ComponentBaseClass.js";
 import { ImageComponent } from "../components/ImageComponent.js";
 import { SCREEN } from "../constants/screenSizes.js";
@@ -8,7 +8,7 @@ export class GUIComponentFactory {
     const DSLogoImage = document.getElementById("dslogo") as HTMLImageElement;
 
     const DSLogo = new Entity().setComponent(
-      COMPONENTS.IMAGE,
+      Components.IMAGE,
       new ImageComponent().setImage(DSLogoImage)
     );
 
