@@ -1,5 +1,4 @@
 import { Entity, Components } from "../classes/Entity.js";
-import { ComponentBaseClass } from "../components/ComponentBaseClass.js";
 import { ImageComponent } from "../components/ImageComponent.js";
 import { SCREEN } from "../constants/screenSizes.js";
 
