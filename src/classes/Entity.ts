@@ -33,9 +33,4 @@ export class Entity {
     this.components.set(key, component);
     return this;
   }
-
-  deleteComponent(key: number): this {
-    this.components.delete(key);
-    return this;
-  }
 }
