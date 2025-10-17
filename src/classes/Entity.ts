@@ -14,6 +14,7 @@ export enum Components {
 }
 
 export class Entity {
+  //THIS IS A STATE AND COORDINATES AND GO UP INTO ENTITY
   coordinates = new EntityCoordinates();
   components = new Map<number, ComponentBaseClass>();
 
