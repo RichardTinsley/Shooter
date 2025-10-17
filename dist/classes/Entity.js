@@ -29,9 +29,5 @@ export class Entity {
         this.components.set(key, component);
         return this;
     }
-    deleteComponent(key) {
-        this.components.delete(key);
-        return this;
-    }
 }
 //# sourceMappingURL=Entity.js.map
