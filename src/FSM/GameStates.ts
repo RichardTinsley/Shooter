@@ -7,5 +7,4 @@ export enum GameStates {
 //Map constaining states
 
 // State: [StateFactory(State), StateFactory(State), StateFactory(State)]
-
 //State:  components[] draw(), update()
