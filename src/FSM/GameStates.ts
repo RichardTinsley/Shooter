@@ -1,7 +1,10 @@
+import { Entity } from "../classes/Entity.js";
+import { GUIComponentFactory } from "../factories/GUIComponentFactory.js";
+import { IDraw, IUpdate } from "../interfaces/interfaces.js";
 import { createFsm } from "./FSM.js";
 import { Fsm } from "./FSMTypes.js";
 
-export enum GameStates {
+export enum GameStatesKeys {
   LoadingScreen = "LoadingScreen",
   BeginScreen = "BeginScreen",
   MainMenu = "MainMenu",
@@ -12,18 +15,41 @@ export enum GameEvents {
   Begin = "Begin",
 }
 
-export function createGameFSM(): Fsm<GameStates, GameEvents> {
-  return createFsm<GameStates, GameEvents>({
-    initial: GameStates.LoadingScreen,
+export class GameState implements IDraw, IUpdate {
+  protected entities: Entity[] = [];
+
+  draw(ctx: CanvasRenderingContext2D): void {
+    this.entities.forEach((entity) => entity.draw(ctx));
+  }
+  update(): void {
+    this.entities.forEach((entity) => entity.update());
+  }
+}
+
+class LoadingGameState extends GameState {
+  constructor() {
+    super();
+    const factory = new GUIComponentFactory();
+    this.entities.push(factory.DSLogo());
+  }
+}
+
+export const GameStates: Record<string, any> = {
+  [GameStatesKeys.LoadingScreen]: new LoadingGameState(),
+};
+
+export function createGameFSM(): Fsm<GameStatesKeys, GameEvents> {
+  return createFsm<GameStatesKeys, GameEvents>({
+    initial: GameStatesKeys.LoadingScreen,
     states: {
-      [GameStates.LoadingScreen]: {
-        [GameEvents.Loaded]: GameStates.BeginScreen,
+      [GameStatesKeys.LoadingScreen]: {
+        [GameEvents.Loaded]: GameStatesKeys.BeginScreen,
       },
-      [GameStates.BeginScreen]: {
-        [GameEvents.Begin]: GameStates.MainMenu,
+      [GameStatesKeys.BeginScreen]: {
+        [GameEvents.Begin]: GameStatesKeys.MainMenu,
       },
-      [GameStates.MainMenu]: {
-        [GameEvents.Begin]: GameStates.MainMenu,
+      [GameStatesKeys.MainMenu]: {
+        [GameEvents.Begin]: GameStatesKeys.MainMenu,
       },
     },
   });

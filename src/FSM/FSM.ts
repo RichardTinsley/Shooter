@@ -1,10 +1,13 @@
+import { IDraw, IUpdate } from "../interfaces/interfaces.js";
 import { Fsm, FsmStateMap, FsmConfig } from "./FSMTypes.js";
+import { GameStates } from "./GameStates.js";
 
-export class CoreFsm<S extends string, E extends string> implements Fsm<S, E> {
+export class CoreFsm<S extends string, E extends string> implements Fsm<S, E>, IDraw, IUpdate {
   private _stateMap: FsmStateMap<S, E>;
   private _initialState: S;
   private _previousState: S;
   private _currentState: S;
+  private State: any;
 
   public constructor(config: FsmConfig<S, E>) {
     this._stateMap = config.states;
@@ -12,6 +15,14 @@ export class CoreFsm<S extends string, E extends string> implements Fsm<S, E> {
     this._initialState = config.initial;
     this._currentState = this._initialState;
     this._previousState = this._initialState;
+
+    this.State = GameStates[this._currentState];
+  }
+  draw(ctx: CanvasRenderingContext2D): void {
+    this.State.draw(ctx);
+  }
+  update(): void {
+    this.State.update();
   }
 
   public get state(): S {

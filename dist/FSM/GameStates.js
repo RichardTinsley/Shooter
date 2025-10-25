@@ -1,27 +1,49 @@
+import { GUIComponentFactory } from "../factories/GUIComponentFactory.js";
 import { createFsm } from "./FSM.js";
-export var GameStates;
-(function (GameStates) {
-    GameStates["LoadingScreen"] = "LoadingScreen";
-    GameStates["BeginScreen"] = "BeginScreen";
-    GameStates["MainMenu"] = "MainMenu";
-})(GameStates || (GameStates = {}));
+export var GameStatesKeys;
+(function (GameStatesKeys) {
+    GameStatesKeys["LoadingScreen"] = "LoadingScreen";
+    GameStatesKeys["BeginScreen"] = "BeginScreen";
+    GameStatesKeys["MainMenu"] = "MainMenu";
+})(GameStatesKeys || (GameStatesKeys = {}));
 export var GameEvents;
 (function (GameEvents) {
     GameEvents["Loaded"] = "Loaded";
     GameEvents["Begin"] = "Begin";
 })(GameEvents || (GameEvents = {}));
+export class GameState {
+    constructor() {
+        this.entities = [];
+    }
+    draw(ctx) {
+        this.entities.forEach((entity) => entity.draw(ctx));
+    }
+    update() {
+        this.entities.forEach((entity) => entity.update());
+    }
+}
+class LoadingGameState extends GameState {
+    constructor() {
+        super();
+        const factory = new GUIComponentFactory();
+        this.entities.push(factory.DSLogo());
+    }
+}
+export const GameStates = {
+    [GameStatesKeys.LoadingScreen]: new LoadingGameState(),
+};
 export function createGameFSM() {
     return createFsm({
-        initial: GameStates.LoadingScreen,
+        initial: GameStatesKeys.LoadingScreen,
         states: {
-            [GameStates.LoadingScreen]: {
-                [GameEvents.Loaded]: GameStates.BeginScreen,
+            [GameStatesKeys.LoadingScreen]: {
+                [GameEvents.Loaded]: GameStatesKeys.BeginScreen,
             },
-            [GameStates.BeginScreen]: {
-                [GameEvents.Begin]: GameStates.MainMenu,
+            [GameStatesKeys.BeginScreen]: {
+                [GameEvents.Begin]: GameStatesKeys.MainMenu,
             },
-            [GameStates.MainMenu]: {
-                [GameEvents.Begin]: GameStates.MainMenu,
+            [GameStatesKeys.MainMenu]: {
+                [GameEvents.Begin]: GameStatesKeys.MainMenu,
             },
         },
     });
