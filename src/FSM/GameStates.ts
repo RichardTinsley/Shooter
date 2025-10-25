@@ -4,9 +4,9 @@ import { IDraw, IUpdate } from "../interfaces/interfaces.js";
 import { createFsm } from "./FSM.js";
 import { Fsm } from "./FSMTypes.js";
 
-export enum GameStatesKeys {
-  LoadingScreen = "LoadingScreen",
-  BeginScreen = "BeginScreen",
+export enum Screens {
+  Loading = "Loading",
+  Begin = "Beginning",
   MainMenu = "MainMenu",
 }
 
@@ -31,26 +31,30 @@ class LoadingGameState extends GameState {
     super();
     const factory = new GUIComponentFactory();
     this.entities.push(factory.DSLogo());
+    this.entities.push(factory.DSTitle());
   }
 }
 
-export const GameStates: Record<string, any> = {
-  [GameStatesKeys.LoadingScreen]: new LoadingGameState(),
+export const ScreenStates = {
+  [Screens.Loading]: new LoadingGameState(),
 };
 
-export function createGameFSM(): Fsm<GameStatesKeys, GameEvents> {
-  return createFsm<GameStatesKeys, GameEvents>({
-    initial: GameStatesKeys.LoadingScreen,
-    states: {
-      [GameStatesKeys.LoadingScreen]: {
-        [GameEvents.Loaded]: GameStatesKeys.BeginScreen,
-      },
-      [GameStatesKeys.BeginScreen]: {
-        [GameEvents.Begin]: GameStatesKeys.MainMenu,
-      },
-      [GameStatesKeys.MainMenu]: {
-        [GameEvents.Begin]: GameStatesKeys.MainMenu,
+export function createGameFSM(): Fsm<Screens, GameEvents> {
+  return createFsm<Screens, GameEvents>(
+    {
+      initial: Screens.Loading,
+      states: {
+        [Screens.Loading]: {
+          [GameEvents.Loaded]: Screens.Begin,
+        },
+        [Screens.Begin]: {
+          [GameEvents.Begin]: Screens.MainMenu,
+        },
+        [Screens.MainMenu]: {
+          [GameEvents.Begin]: Screens.MainMenu,
+        },
       },
     },
-  });
+    ScreenStates
+  );
 }

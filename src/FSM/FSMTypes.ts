@@ -2,7 +2,7 @@ import { IDraw, IUpdate } from "../interfaces/interfaces.js";
 
 export type FsmStateMap<S extends string, E extends string> = {
   [state in S]: {
-    [event in E]?: any;
+    [event in E]?: S;
   };
 };
 
@@ -11,8 +11,7 @@ export interface FsmConfig<S extends string, E extends string> {
   states: FsmStateMap<S, E>;
 }
 
-export interface Fsm<S, E extends string> extends IDraw, IUpdate {
+export interface Fsm<S extends string, E extends string> extends IDraw, IUpdate {
   state: S;
-  previousState: S;
   transition(event: E): void;
 }

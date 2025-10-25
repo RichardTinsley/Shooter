@@ -1,11 +1,11 @@
 import { GUIComponentFactory } from "../factories/GUIComponentFactory.js";
 import { createFsm } from "./FSM.js";
-export var GameStatesKeys;
-(function (GameStatesKeys) {
-    GameStatesKeys["LoadingScreen"] = "LoadingScreen";
-    GameStatesKeys["BeginScreen"] = "BeginScreen";
-    GameStatesKeys["MainMenu"] = "MainMenu";
-})(GameStatesKeys || (GameStatesKeys = {}));
+export var Screens;
+(function (Screens) {
+    Screens["Loading"] = "Loading";
+    Screens["Begin"] = "Beginning";
+    Screens["MainMenu"] = "MainMenu";
+})(Screens || (Screens = {}));
 export var GameEvents;
 (function (GameEvents) {
     GameEvents["Loaded"] = "Loaded";
@@ -27,25 +27,26 @@ class LoadingGameState extends GameState {
         super();
         const factory = new GUIComponentFactory();
         this.entities.push(factory.DSLogo());
+        this.entities.push(factory.DSTitle());
     }
 }
-export const GameStates = {
-    [GameStatesKeys.LoadingScreen]: new LoadingGameState(),
+export const ScreenStates = {
+    [Screens.Loading]: new LoadingGameState(),
 };
 export function createGameFSM() {
     return createFsm({
-        initial: GameStatesKeys.LoadingScreen,
+        initial: Screens.Loading,
         states: {
-            [GameStatesKeys.LoadingScreen]: {
-                [GameEvents.Loaded]: GameStatesKeys.BeginScreen,
+            [Screens.Loading]: {
+                [GameEvents.Loaded]: Screens.Begin,
             },
-            [GameStatesKeys.BeginScreen]: {
-                [GameEvents.Begin]: GameStatesKeys.MainMenu,
+            [Screens.Begin]: {
+                [GameEvents.Begin]: Screens.MainMenu,
             },
-            [GameStatesKeys.MainMenu]: {
-                [GameEvents.Begin]: GameStatesKeys.MainMenu,
+            [Screens.MainMenu]: {
+                [GameEvents.Begin]: Screens.MainMenu,
             },
         },
-    });
+    }, ScreenStates);
 }
 //# sourceMappingURL=GameStates.js.map

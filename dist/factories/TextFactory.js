@@ -1,3 +1,2 @@
-export class TextFactory {
-}
+"use strict";
 //# sourceMappingURL=TextFactory.js.map

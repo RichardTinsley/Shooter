@@ -1,33 +1,25 @@
-import { GameStates } from "./GameStates.js";
 export class CoreFsm {
-    constructor(config) {
+    constructor(config, states) {
         this._stateMap = config.states;
-        this._initialState = config.initial;
-        this._currentState = this._initialState;
-        this._previousState = this._initialState;
-        this.State = GameStates[this._currentState];
+        this._currentState = config.initial;
+        this._state = states[this._currentState];
     }
     draw(ctx) {
-        this.State.draw(ctx);
+        this._state.draw(ctx);
     }
     update() {
-        this.State.update();
+        this._state.update();
     }
     get state() {
         return this._currentState;
     }
-    get previousState() {
-        return this._previousState;
-    }
     transition(event) {
         const nextState = this._stateMap[this._currentState][event];
-        if (nextState) {
-            this._previousState = this._currentState;
+        if (nextState)
             this._currentState = nextState;
-        }
     }
 }
-export function createFsm(config) {
-    return new CoreFsm(config);
+export function createFsm(config, state) {
+    return new CoreFsm(config, state);
 }
 //# sourceMappingURL=FSM.js.map

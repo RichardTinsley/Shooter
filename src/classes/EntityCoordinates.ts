@@ -31,4 +31,12 @@ export class EntityCoordinates {
     this.halfWidth = this.scaleSize.width / 2;
     return this;
   }
+
+  setTextSize(text: string, height: number): this {
+    this.size = {
+      width: Math.ceil(text.length * (height / 1.85)),
+      height: height,
+    };
+    return this;
+  }
 }

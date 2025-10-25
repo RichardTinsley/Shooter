@@ -1,6 +1,8 @@
 import { Entity, Components } from "../classes/Entity.js";
 import { ImageComponent } from "../components/ImageComponent.js";
+import { TextComponent } from "../components/TextComponent.js";
 import { SCREEN } from "../constants/screenSizes.js";
+import { TEXT_SIZES } from "../constants/textSizes.js";
 export class GUIComponentFactory {
     DSLogo() {
         const DSLogoImage = document.getElementById("dslogo");
@@ -12,6 +14,15 @@ export class GUIComponentFactory {
             y: SCREEN.HEIGHT * 0.75,
         });
         return DSLogo;
+    }
+    DSTitle() {
+        const DSTitleText = "Death Sorcery";
+        const DSTitle = new Entity().setComponent(Components.TEXT, new TextComponent().setText(DSTitleText));
+        DSTitle.coordinates.setTextSize(DSTitleText, TEXT_SIZES.TITLE_SCREEN_TEXT).setPosition({
+            x: SCREEN.HALF_WIDTH,
+            y: SCREEN.HEIGHT * 0.15,
+        });
+        return DSTitle;
     }
 }
 //# sourceMappingURL=GUIComponentFactory.js.map
