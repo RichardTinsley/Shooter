@@ -1,7 +1,9 @@
 export class EntityCoordinates {
     constructor() {
         this.position = { x: 0, y: 0 };
-        this.scale = 1.5;
+        this.scale = 1;
+        this.drawOffsetX = 0;
+        this.drawOffsetY = 0;
     }
     getPosition() {
         return this.position;
@@ -28,6 +30,7 @@ export class EntityCoordinates {
             width: Math.ceil(text.length * (height / 1.85)),
             height: height,
         };
+        this.halfWidth = this.size.width / 2;
         return this;
     }
 }

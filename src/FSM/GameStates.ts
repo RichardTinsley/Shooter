@@ -32,6 +32,7 @@ class LoadingGameState extends GameState {
     const factory = new GUIComponentFactory();
     this.entities.push(factory.DSLogo());
     this.entities.push(factory.DSTitle());
+    this.entities.push(factory.LoadingBar());
   }
 }
 

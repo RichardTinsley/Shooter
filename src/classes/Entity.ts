@@ -2,8 +2,7 @@ import { ComponentBaseClass } from "../components/ComponentBaseClass.js";
 import { EntityCoordinates } from "./EntityCoordinates.js";
 
 export enum Components {
-  IMAGE,
-  TEXT,
+  VISUAL,
   HITBOX,
   MOUSE,
   ENEMY_MOVEMENT,
@@ -26,7 +25,7 @@ export class Entity {
     this.components.forEach((component) => component.update(this.coordinates));
   }
 
-  public getComponent(key: number): ComponentBaseClass {
+  getComponent(key: number): ComponentBaseClass {
     return this.components.get(key) as ComponentBaseClass;
   }
 

@@ -1,10 +1,6 @@
 import { EntityCoordinates } from "../classes/EntityCoordinates.js";
 import { ComponentBaseClass } from "./ComponentBaseClass.js";
-import { Size } from "../types/types.js";
 import { COLOURS, getColour } from "../constants/colours.js";
-// import { FadeText } from "./TextStates/FadeText.js";
-// import { NormalText } from "./TextStates/NormalText.js";
-// import { PulsateText } from "./TextStates/PulsateText.js";
 
 export class TextComponent extends ComponentBaseClass {
   protected text!: string;
@@ -33,11 +29,6 @@ export class TextComponent extends ComponentBaseClass {
     this.text = text;
     return this;
   }
-
-  // setAlignment(alignment: CanvasTextAlign): this {
-  //   this.align = alignment;
-  //   return this;
-  // }
 
   // state!: EntityState;
   //   setNormalText = () => (this.state = new NormalText(this));

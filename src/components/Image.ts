@@ -3,13 +3,10 @@ import { Size } from "../types/types.js";
 import { ComponentBaseClass } from "./ComponentBaseClass.js";
 
 export class ImageComponent extends ComponentBaseClass {
-  private image!: HTMLImageElement;
-  private drawOffsetX: number = 0;
-  private drawOffsetY: number = 0;
-
-  private currentFrame: number = 0;
-  private currentRow: number = 0;
-  private direction: number = 1;
+  protected image!: HTMLImageElement;
+  protected currentFrame: number = 0;
+  protected currentRow: number = 0;
+  protected direction: number = 1;
 
   draw(ctx: CanvasRenderingContext2D, coordinates: EntityCoordinates): void {
     ctx.save();
@@ -22,8 +19,8 @@ export class ImageComponent extends ComponentBaseClass {
       coordinates.size.height * this.currentRow,
       coordinates.size.width,
       coordinates.size.height,
-      0 - coordinates.halfWidth + this.drawOffsetX,
-      0 - coordinates.scaleSize.height + this.drawOffsetY,
+      0 - coordinates.halfWidth + coordinates.drawOffsetX,
+      0 - coordinates.scaleSize.height + coordinates.drawOffsetY,
       coordinates.scaleSize.width,
       coordinates.scaleSize.height
     );
@@ -37,12 +34,6 @@ export class ImageComponent extends ComponentBaseClass {
 
   setImage(image: HTMLImageElement): this {
     this.image = image;
-    return this;
-  }
-
-  setDrawOffsets(drawOffsets: Size): this {
-    this.drawOffsetX = drawOffsets.width;
-    this.drawOffsetY = drawOffsets.height;
     return this;
   }
 }

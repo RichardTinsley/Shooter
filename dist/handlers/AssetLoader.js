@@ -49,7 +49,7 @@ export class AssetLoader {
         }
         return { asset, eventType };
     }
-    getAssetFileNameLength() {
+    getAssetCount() {
         return ASSETS.NAMES.length;
     }
 }

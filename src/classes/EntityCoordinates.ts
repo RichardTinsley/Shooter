@@ -5,8 +5,10 @@ export class EntityCoordinates {
   destination?: Position;
   size!: Size;
   scaleSize!: Size;
-  scale: number = 1.5;
+  scale: number = 1;
   halfWidth!: number;
+  drawOffsetX: number = 0;
+  drawOffsetY: number = 0;
 
   getPosition(): Position {
     return this.position;
@@ -37,6 +39,7 @@ export class EntityCoordinates {
       width: Math.ceil(text.length * (height / 1.85)),
       height: height,
     };
+    this.halfWidth = this.size.width / 2;
     return this;
   }
 }

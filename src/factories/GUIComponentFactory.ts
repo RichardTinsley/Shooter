@@ -1,6 +1,8 @@
 import { Entity, Components } from "../classes/Entity.js";
-import { ImageComponent } from "../components/ImageComponent.js";
-import { TextComponent } from "../components/TextComponent.js";
+import { ImageComponent } from "../components/Image.js";
+import { LoadingBarComponent } from "../components/LoadingBar.js";
+import { TextComponent } from "../components/Text.js";
+import { ALL_ASSETS } from "../constants/assets.js";
 import { SCREEN } from "../constants/screenSizes.js";
 import { TEXT_SIZES } from "../constants/textSizes.js";
 
@@ -9,7 +11,7 @@ export class GUIComponentFactory {
     const DSLogoImage = document.getElementById("dslogo") as HTMLImageElement;
 
     const DSLogo = new Entity().setComponent(
-      Components.IMAGE,
+      Components.VISUAL,
       new ImageComponent().setImage(DSLogoImage)
     );
 
@@ -27,7 +29,7 @@ export class GUIComponentFactory {
     const DSTitleText = "Death Sorcery";
 
     const DSTitle = new Entity().setComponent(
-      Components.TEXT,
+      Components.VISUAL,
       new TextComponent().setText(DSTitleText)
     );
 
@@ -37,6 +39,19 @@ export class GUIComponentFactory {
     });
 
     return DSTitle;
+  }
+
+  LoadingBar(): Entity {
+    const LoadingBar = new Entity().setComponent(Components.VISUAL, new LoadingBarComponent());
+
+    LoadingBar.coordinates
+      .setPosition({
+        x: SCREEN.HALF_WIDTH,
+        y: SCREEN.HEIGHT * 0.9,
+      })
+      .setSize({ width: SCREEN.WIDTH / 3, height: 10 }, 1);
+
+    return LoadingBar;
   }
 
   //   static LoadingBar(currentStatus: number, maximumStatus: number): StatusBar {
