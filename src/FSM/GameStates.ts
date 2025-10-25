@@ -1,8 +1,30 @@
+import { createFsm } from "./FSM.js";
+import { Fsm } from "./FSMTypes.js";
+
 export enum GameStates {
-  LoadingScreen,
-  BeginScreen,
-  MainMenu,
+  LoadingScreen = "LoadingScreen",
+  BeginScreen = "BeginScreen",
+  MainMenu = "MainMenu",
 }
-//Map constaining states
-// State: [StateFactory(State), StateFactory(State), StateFactory(State)]
-//State:  components[] draw(), update()
+
+export enum GameEvents {
+  Loaded = "Loaded",
+  Begin = "Begin",
+}
+
+export function createGameFSM(): Fsm<GameStates, GameEvents> {
+  return createFsm<GameStates, GameEvents>({
+    initial: GameStates.LoadingScreen,
+    states: {
+      [GameStates.LoadingScreen]: {
+        [GameEvents.Loaded]: GameStates.BeginScreen,
+      },
+      [GameStates.BeginScreen]: {
+        [GameEvents.Begin]: GameStates.MainMenu,
+      },
+      [GameStates.MainMenu]: {
+        [GameEvents.Begin]: GameStates.MainMenu,
+      },
+    },
+  });
+}

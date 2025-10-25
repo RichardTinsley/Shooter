@@ -26,7 +26,7 @@ export class Entity {
     this.components.forEach((component) => component.update(this.coordinates));
   }
 
-  getComponent(key: number): ComponentBaseClass {
+  public getComponent(key: number): ComponentBaseClass {
     return this.components.get(key) as ComponentBaseClass;
   }
 
