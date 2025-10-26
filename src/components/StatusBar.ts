@@ -44,24 +44,4 @@ export class StatusBarComponent extends ComponentBaseClass {
   setStatusBarColour(colour: string): void {
     this.statusBarColour = colour;
   }
-
-  setStatus(currentStatus: number, maxStatus: number): this {
-    this.currentStatus = currentStatus;
-    this.maxStatus = maxStatus;
-    return this;
-  }
-
-  getCurrentStatus(): number {
-    return this.currentStatus;
-  }
-
-  increaseCurrentStatus(increment: number): void {
-    this.currentStatus += increment;
-    if (this.currentStatus > this.maxStatus) this.currentStatus = this.maxStatus;
-  }
-
-  decreaseCurrentStatus(decrement: number): void {
-    this.currentStatus -= decrement;
-    if (this.currentStatus < 0) this.currentStatus = 0;
-  }
 }

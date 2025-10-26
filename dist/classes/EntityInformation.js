@@ -42,5 +42,23 @@ export class EntityInformation {
         };
         return this;
     }
+    setStatus(currentStatus, maxStatus) {
+        this.information.currentStatus = currentStatus;
+        this.information.maxStatus = maxStatus;
+        return this;
+    }
+    getCurrentStatus() {
+        return this.information.currentStatus;
+    }
+    increaseCurrentStatus(increment) {
+        this.information.currentStatus += increment;
+        if (this.information.currentStatus > this.information.maxStatus)
+            this.information.currentStatus = this.information.maxStatus;
+    }
+    decreaseCurrentStatus(decrement) {
+        this.information.currentStatus -= decrement;
+        if (this.information.currentStatus < 0)
+            this.information.currentStatus = 0;
+    }
 }
 //# sourceMappingURL=EntityInformation.js.map

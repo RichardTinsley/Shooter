@@ -27,23 +27,5 @@ export class StatusBarComponent extends ComponentBaseClass {
     setStatusBarColour(colour) {
         this.statusBarColour = colour;
     }
-    setStatus(currentStatus, maxStatus) {
-        this.currentStatus = currentStatus;
-        this.maxStatus = maxStatus;
-        return this;
-    }
-    getCurrentStatus() {
-        return this.currentStatus;
-    }
-    increaseCurrentStatus(increment) {
-        this.currentStatus += increment;
-        if (this.currentStatus > this.maxStatus)
-            this.currentStatus = this.maxStatus;
-    }
-    decreaseCurrentStatus(decrement) {
-        this.currentStatus -= decrement;
-        if (this.currentStatus < 0)
-            this.currentStatus = 0;
-    }
 }
 //# sourceMappingURL=StatusBar.js.map

@@ -13,13 +13,13 @@ export var Components;
     Components[Components["SHADOW"] = 7] = "SHADOW";
     Components[Components["SOUNDS"] = 8] = "SOUNDS";
 })(Components || (Components = {}));
-const components = new Map([
-    [Components.IMAGE, new ImageComponent()],
-    [Components.TEXT, new TextComponent()],
-    [Components.STATUS_BAR, new StatusBarComponent()],
-]);
 export class ComponentFactory {
     createComponent(key) {
+        const components = new Map([
+            [Components.IMAGE, new ImageComponent()],
+            [Components.TEXT, new TextComponent()],
+            [Components.STATUS_BAR, new StatusBarComponent()],
+        ]);
         return components.get(key);
     }
 }

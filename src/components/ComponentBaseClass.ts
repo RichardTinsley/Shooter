@@ -18,8 +18,4 @@ export abstract class ComponentBaseClass {
     this.information = information;
     return this;
   }
-
-  getComponentInformation(): Information {
-    return this.information;
-  }
 }

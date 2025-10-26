@@ -12,8 +12,5 @@ export class ComponentBaseClass {
         this.information = information;
         return this;
     }
-    getComponentInformation() {
-        return this.information;
-    }
 }
 //# sourceMappingURL=ComponentBaseClass.js.map
