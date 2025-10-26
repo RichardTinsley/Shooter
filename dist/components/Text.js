@@ -15,8 +15,8 @@ export class TextComponent extends ComponentBaseClass {
         ctx.textAlign = this.align;
         ctx.textBaseline = "middle";
         ctx.lineWidth = this.lineWidth;
-        ctx.strokeText(this.information.text, this.information.position.x, this.information.position.y);
-        ctx.fillText(this.information.text, this.information.position.x, this.information.position.y);
+        ctx.strokeText(this.information.visual, this.information.position.x, this.information.position.y);
+        ctx.fillText(this.information.visual, this.information.position.x, this.information.position.y);
     }
     update() {
         return;

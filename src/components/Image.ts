@@ -10,7 +10,7 @@ export class ImageComponent extends ComponentBaseClass {
     ctx.translate(this.information.position.x, this.information.position.y);
     ctx.scale(this.direction, 1);
     ctx.drawImage(
-      this.information.image,
+      this.information.visual as CanvasImageSource,
       this.information.size.width * this.currentFrame,
       this.information.size.height * this.currentRow,
       this.information.size.width,

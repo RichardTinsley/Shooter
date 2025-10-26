@@ -12,10 +12,9 @@ export class EntityFactory {
         return DSLogo;
     }
     DSTitle() {
-        const DSTitleText = "Death Sorcery";
         const DSTitle = new Entity();
         DSTitle.information
-            .setText(DSTitleText, TEXT_SIZES.TITLE_SCREEN_TEXT)
+            .setText("Death Sorcery", TEXT_SIZES.TITLE_SCREEN_TEXT)
             .setInformation({ x: SCREEN.HALF_WIDTH, y: SCREEN.HEIGHT * 0.15 }, { width: 0, height: TEXT_SIZES.TITLE_SCREEN_TEXT }, 1);
         DSTitle.setTextComponents();
         return DSTitle;

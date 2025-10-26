@@ -9,8 +9,7 @@ export type Size = {
 };
 
 export type Information = {
-  image: CanvasImageSource;
-  text: string;
+  visual: CanvasImageSource | string;
   position: Position;
   destination: Position;
   size: Size;
