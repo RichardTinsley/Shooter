@@ -6,19 +6,15 @@ export class ImageComponent extends ComponentBaseClass {
         this.currentRow = 0;
         this.direction = 1;
     }
-    draw(ctx, coordinates) {
+    draw(ctx) {
         ctx.save();
-        ctx.translate(coordinates.position.x, coordinates.position.y);
+        ctx.translate(this.information.position.x, this.information.position.y);
         ctx.scale(this.direction, 1);
-        ctx.drawImage(this.image, coordinates.size.width * this.currentFrame, coordinates.size.height * this.currentRow, coordinates.size.width, coordinates.size.height, 0 - coordinates.halfWidth + coordinates.drawOffsetX, 0 - coordinates.scaledSize.height + coordinates.drawOffsetY, coordinates.scaledSize.width, coordinates.scaledSize.height);
+        ctx.drawImage(this.information.image, this.information.size.width * this.currentFrame, this.information.size.height * this.currentRow, this.information.size.width, this.information.size.height, 0 - this.information.halfWidth + this.drawOffsetX, 0 - this.information.scaledSize.height + this.drawOffsetY, this.information.scaledSize.width, this.information.scaledSize.height);
         ctx.restore();
     }
-    update(coordinates) {
+    update() {
         return;
-    }
-    setImage(image) {
-        this.image = image;
-        return this;
     }
 }
 //# sourceMappingURL=Image.js.map

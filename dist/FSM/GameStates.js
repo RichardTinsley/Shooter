@@ -1,4 +1,4 @@
-import { GUIComponentFactory } from "../factories/GUIComponentFactory.js";
+import { EntityFactory } from "../factories/EntityFactory.js";
 import { AssetLoader } from "../handlers/assetLoader.js";
 import { createFsm } from "./FSM.js";
 export var Screens;
@@ -17,10 +17,10 @@ export class GameState {
         this.entities = [];
     }
     draw(ctx) {
-        this.entities.forEach((entity) => entity.draw(ctx));
+        this.entities.forEach((entity) => entity.getComponents().draw(ctx));
     }
     update() {
-        this.entities.forEach((entity) => entity.update());
+        this.entities.forEach((entity) => entity.getComponents().update());
     }
 }
 class LoadingGameState extends GameState {
@@ -28,10 +28,8 @@ class LoadingGameState extends GameState {
         super();
         this.assetLoader = new AssetLoader();
         this.assetLoader;
-        const factory = new GUIComponentFactory();
+        const factory = new EntityFactory();
         this.entities.push(factory.DSLogo());
-        this.entities.push(factory.StatusBar());
-        this.entities.push(factory.DSTitle());
     }
 }
 export const ScreenStates = {

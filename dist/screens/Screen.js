@@ -1,19 +1,20 @@
-import { GUIComponentFactory } from "../factories/GUIComponentFactory.js";
+import { EntityFactory } from "../factories/EntityFactory.js";
 export class Screen {
     constructor() {
         this.entities = [];
-        this.GUIComponentFactory = new GUIComponentFactory();
         this.setLoadingScreen = () => {
-            this.entities.push(this.GUIComponentFactory.DSLogo());
+            const entityFactory = new EntityFactory();
+            this.entities.push(entityFactory.DSLogo());
+            console.log(this.entities);
         };
         this.setBeginScreen = () => console.log("OMG22222222");
         this.setLoadingScreen();
     }
     draw(ctx) {
-        this.entities.forEach((entity) => entity.draw(ctx));
+        this.entities.forEach((entity) => entity.getComponents().draw(ctx));
     }
     update() {
-        this.entities.forEach((entity) => entity.update());
+        this.entities.forEach((entity) => entity.getComponents().update());
     }
     addEntity(entity) {
         this.entities.push(entity);

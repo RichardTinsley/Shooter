@@ -3,32 +3,34 @@ import { ComponentBaseClass } from "./ComponentBaseClass.js";
 export class StatusBarComponent extends ComponentBaseClass {
     constructor() {
         super(...arguments);
+        this.currentStatus = 0;
+        this.maxStatus = 0;
         this.statusBarColour = getColour(COLOURS.WHITE);
     }
-    draw(ctx, coordinates) {
+    draw(ctx) {
         ctx.lineJoin = "round";
-        this.drawBorder(ctx, getColour(COLOURS.WHITE), coordinates, coordinates.size.height);
-        this.drawBox(ctx, getColour(COLOURS.BLACK), coordinates, coordinates.size.width);
-        this.drawBorder(ctx, getColour(COLOURS.BLACK), coordinates, coordinates.size.height / 2);
-        this.drawBox(ctx, this.statusBarColour, coordinates, coordinates.size.width * (this.currentStatus / this.maxStatus));
+        this.drawBorder(ctx, getColour(COLOURS.WHITE), this.information.size.height);
+        this.drawBox(ctx, getColour(COLOURS.BLACK), this.information.size.width);
+        this.drawBorder(ctx, getColour(COLOURS.BLACK), this.information.size.height / 2);
+        this.drawBox(ctx, this.statusBarColour, this.information.size.width * (this.currentStatus / this.maxStatus));
     }
-    drawBox(ctx, colour, coordinates, width) {
+    drawBox(ctx, colour, width) {
         ctx.fillStyle = colour;
-        ctx.fillRect(coordinates.position.x - coordinates.halfWidth, coordinates.position.y - coordinates.size.height, width, coordinates.size.height);
+        ctx.fillRect(this.information.position.x - this.information.halfWidth, this.information.position.y - this.information.size.height, width, this.information.size.height);
     }
-    drawBorder(ctx, lineColour, coordinates, lineWidth) {
+    drawBorder(ctx, lineColour, lineWidth) {
         ctx.strokeStyle = lineColour;
         ctx.lineWidth = lineWidth;
-        ctx.strokeRect(coordinates.position.x - coordinates.halfWidth, coordinates.position.y - coordinates.size.height, coordinates.size.width, coordinates.size.height);
+        ctx.strokeRect(this.information.position.x - this.information.halfWidth, this.information.position.y - this.information.size.height, this.information.size.width, this.information.size.height);
     }
     update() { }
+    setStatusBarColour(colour) {
+        this.statusBarColour = colour;
+    }
     setStatus(currentStatus, maxStatus) {
         this.currentStatus = currentStatus;
         this.maxStatus = maxStatus;
         return this;
-    }
-    setStatusBarColour(colour) {
-        this.statusBarColour = colour;
     }
     getCurrentStatus() {
         return this.currentStatus;

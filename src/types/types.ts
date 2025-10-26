@@ -9,6 +9,7 @@ export type Size = {
 };
 
 export type EntityInformation = {
+  image: CanvasImageSource;
   position: Position;
   destination: Position;
   size: Size;
@@ -16,10 +17,6 @@ export type EntityInformation = {
   speed: number;
   scale: number;
   halfWidth: number;
-  drawOffsetX: number;
-  drawOffsetY: number;
-  currentStatus: number;
-  maxStatus: number;
 };
 
 //MERGE TYPES WITH & and shit

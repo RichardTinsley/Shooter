@@ -1,21 +1,20 @@
 import { Entity } from "../classes/Entity.js";
-import { GUIComponentFactory } from "../factories/GUIComponentFactory.js";
+import { EntityFactory } from "../factories/EntityFactory.js";
 import { IDraw, IUpdate } from "../interfaces/interfaces.js";
 import { LoadingScreen } from "./LoadingScreen.js";
 
 export class Screen implements IDraw, IUpdate {
   private entities: Entity[] = [];
-  private GUIComponentFactory = new GUIComponentFactory();
 
   constructor() {
     this.setLoadingScreen();
   }
 
   draw(ctx: CanvasRenderingContext2D): void {
-    this.entities.forEach((entity) => entity.draw(ctx));
+    this.entities.forEach((entity) => entity.getComponents().draw(ctx));
   }
   update(): void {
-    this.entities.forEach((entity) => entity.update());
+    this.entities.forEach((entity) => entity.getComponents().update());
   }
   // state = new LoadingScreen(this).addComponent(GUIComponentFactory.DSLogo());
   addEntity(entity: Entity): this {
@@ -26,7 +25,9 @@ export class Screen implements IDraw, IUpdate {
   // setBeginScreen = () => (this.state = new BeginScreen(this));
   setLoadingScreen = () => {
     //ctx.clearRect(0, 0, SCREEN.WIDTH, SCREEN.HEIGHT);
-    this.entities.push(this.GUIComponentFactory.DSLogo());
+    const entityFactory = new EntityFactory();
+    this.entities.push(entityFactory.DSLogo());
+    console.log(this.entities);
   };
   setBeginScreen = () => console.log("OMG22222222");
 }
