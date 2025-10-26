@@ -1,13 +1,11 @@
-import { EntityCoordinates } from "../classes/EntityCoordinates.js";
 import { getColour, COLOURS } from "../constants/colours.js";
+import { EntityInformation } from "../types/types.js";
 import { ComponentBaseClass } from "./ComponentBaseClass.js";
 
 export class StatusBarComponent extends ComponentBaseClass {
-  private currentStatus!: number;
-  private maxStatus!: number;
   private statusBarColour: string = getColour(COLOURS.WHITE);
 
-  draw(ctx: CanvasRenderingContext2D, coordinates: EntityCoordinates): void {
+  draw(ctx: CanvasRenderingContext2D, coordinates: EntityInformation): void {
     ctx.lineJoin = "round";
     this.drawBorder(ctx, getColour(COLOURS.WHITE), coordinates, coordinates.size.height);
     this.drawBox(ctx, getColour(COLOURS.BLACK), coordinates, coordinates.size.width);
@@ -16,14 +14,14 @@ export class StatusBarComponent extends ComponentBaseClass {
       ctx,
       this.statusBarColour,
       coordinates,
-      coordinates.size.width * (this.currentStatus / this.maxStatus)
+      coordinates.size.width * (coordinates.currentStatus / coordinates.maxStatus)
     );
   }
 
   drawBox(
     ctx: CanvasRenderingContext2D,
     colour: string,
-    coordinates: EntityCoordinates,
+    coordinates: EntityInformation,
     width: number
   ): void {
     ctx.fillStyle = colour;
@@ -38,7 +36,7 @@ export class StatusBarComponent extends ComponentBaseClass {
   drawBorder(
     ctx: CanvasRenderingContext2D,
     lineColour: string,
-    coordinates: EntityCoordinates,
+    coordinates: EntityInformation,
     lineWidth: number
   ): void {
     ctx.strokeStyle = lineColour;
@@ -53,25 +51,7 @@ export class StatusBarComponent extends ComponentBaseClass {
 
   update(): void {}
 
-  setStatus(currentStatus: number, maxStatus: number): this {
-    this.currentStatus = currentStatus;
-    this.maxStatus = maxStatus;
-    return this;
-  }
-
   setStatusBarColour(colour: string): void {
     this.statusBarColour = colour;
-  }
-
-  getCurrentStatus(): number {
-    return this.currentStatus;
-  }
-
-  increaseCurrentStatus(increment: number): void {
-    this.currentStatus += increment;
-  }
-
-  decreaseCurrentStatus(decrement: number): void {
-    this.currentStatus -= decrement;
   }
 }

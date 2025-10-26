@@ -1,5 +1,4 @@
-import { EntityCoordinates } from "../classes/EntityCoordinates.js";
-import { Size } from "../types/types.js";
+import { EntityInformation } from "../types/types.js";
 import { ComponentBaseClass } from "./ComponentBaseClass.js";
 
 export class ImageComponent extends ComponentBaseClass {
@@ -8,7 +7,7 @@ export class ImageComponent extends ComponentBaseClass {
   protected currentRow: number = 0;
   protected direction: number = 1;
 
-  draw(ctx: CanvasRenderingContext2D, coordinates: EntityCoordinates): void {
+  draw(ctx: CanvasRenderingContext2D, coordinates: EntityInformation): void {
     ctx.save();
     ctx.translate(coordinates.position.x, coordinates.position.y);
     ctx.scale(this.direction, 1);
@@ -20,15 +19,15 @@ export class ImageComponent extends ComponentBaseClass {
       coordinates.size.width,
       coordinates.size.height,
       0 - coordinates.halfWidth + coordinates.drawOffsetX,
-      0 - coordinates.scaleSize.height + coordinates.drawOffsetY,
-      coordinates.scaleSize.width,
-      coordinates.scaleSize.height
+      0 - coordinates.scaledSize.height + coordinates.drawOffsetY,
+      coordinates.scaledSize.width,
+      coordinates.scaledSize.height
     );
 
     ctx.restore();
   }
 
-  update(coordinates: EntityCoordinates): void {
+  update(coordinates: EntityInformation): void {
     return;
   }
 

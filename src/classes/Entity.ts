@@ -1,36 +1,66 @@
-import { ComponentBaseClass } from "../components/ComponentBaseClass.js";
-import { EntityCoordinates } from "./EntityCoordinates.js";
+import { IDraw, IUpdate } from "../interfaces/interfaces.js";
+import { EntityInformation, Position, Size } from "../types/types.js";
 
-export enum Components {
-  VISUAL,
-  HITBOX,
-  MOUSE,
-  ENEMY_MOVEMENT,
-  PROJECTILE_MOVMENT,
-  STATUS_BAR,
-  SHADOW,
-  SOUNDS,
+export interface IEntityState extends IDraw, IUpdate {
+  entity: Entity;
 }
 
 export class Entity {
-  //THIS IS A STATE AND COORDINATES AND GO UP INTO ENTITY
-  coordinates = new EntityCoordinates();
-  components = new Map<number, ComponentBaseClass>();
+  information: EntityInformation = {
+    position: { x: 0, y: 0 },
+    destination: { x: 0, y: 0 },
+    size: { width: 0, height: 0 },
+    scaledSize: { width: 0, height: 0 },
+    speed: 0,
+    scale: 0,
+    halfWidth: 0,
+    currentStatus: 0,
+    maxStatus: 0,
+  };
 
-  draw(ctx: CanvasRenderingContext2D): void {
-    this.components.forEach((component) => component.draw(ctx, this.coordinates));
-  }
-
-  update(): void {
-    this.components.forEach((component) => component.update(this.coordinates));
-  }
-
-  getComponent(key: number): ComponentBaseClass {
-    return this.components.get(key) as ComponentBaseClass;
-  }
-
-  setComponent(key: number, component: ComponentBaseClass): this {
-    this.components.set(key, component);
+  setPosition(position: Position): this {
+    this.information.position = { ...position };
     return this;
+  }
+
+  setSize(size: Size, scale: number): this {
+    this.information.size = { ...size };
+    this.information.scale = scale;
+    this.information.scaledSize = {
+      width: size.width * scale,
+      height: size.height * scale,
+    };
+    this.information.halfWidth = this.information.scaledSize.width / 2;
+    return this;
+  }
+
+  setTextSize(text: string, height: number): this {
+    this.information.size = {
+      width: Math.ceil(text.length * (height / 1.85)),
+      height: height,
+    };
+    this.information.halfWidth = this.information.size.width / 2;
+    return this;
+  }
+
+  setStatus(currentStatus: number, maxStatus: number): this {
+    this.information.currentStatus = currentStatus;
+    this.information.maxStatus = maxStatus;
+    return this;
+  }
+
+  getCurrentStatus(): number {
+    return this.information.currentStatus;
+  }
+
+  increaseCurrentStatus(increment: number): void {
+    this.information.currentStatus += increment;
+    if (this.information.currentStatus > this.information.maxStatus)
+      this.information.currentStatus = this.information.maxStatus;
+  }
+
+  decreaseCurrentStatus(decrement: number): void {
+    this.information.currentStatus -= decrement;
+    if (this.information.currentStatus < 0) this.information.currentStatus = 0;
   }
 }

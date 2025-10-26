@@ -1,5 +1,5 @@
 import { AssetLoader } from "../handlers/assetLoader.js";
-import { StatusBarComponent } from "./StatusBar.js";
+import { StatusBarComponent } from "../components/StatusBar.js";
 
 export class LoadingBarComponent extends StatusBarComponent {
   public assetLoader = new AssetLoader();

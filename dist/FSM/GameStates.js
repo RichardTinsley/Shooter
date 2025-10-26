@@ -1,4 +1,5 @@
 import { GUIComponentFactory } from "../factories/GUIComponentFactory.js";
+import { AssetLoader } from "../handlers/assetLoader.js";
 import { createFsm } from "./FSM.js";
 export var Screens;
 (function (Screens) {
@@ -25,10 +26,12 @@ export class GameState {
 class LoadingGameState extends GameState {
     constructor() {
         super();
+        this.assetLoader = new AssetLoader();
+        this.assetLoader;
         const factory = new GUIComponentFactory();
         this.entities.push(factory.DSLogo());
+        this.entities.push(factory.StatusBar());
         this.entities.push(factory.DSTitle());
-        this.entities.push(factory.LoadingBar());
     }
 }
 export const ScreenStates = {

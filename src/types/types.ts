@@ -8,6 +8,20 @@ export type Size = {
   height: number;
 };
 
+export type EntityInformation = {
+  position: Position;
+  destination: Position;
+  size: Size;
+  scaledSize: Size;
+  speed: number;
+  scale: number;
+  halfWidth: number;
+  drawOffsetX: number;
+  drawOffsetY: number;
+  currentStatus: number;
+  maxStatus: number;
+};
+
 //MERGE TYPES WITH & and shit
 export type Cursor = {
   x: number;

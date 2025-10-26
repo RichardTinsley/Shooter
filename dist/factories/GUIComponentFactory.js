@@ -1,14 +1,14 @@
 import { Entity, Components } from "../classes/Entity.js";
 import { ImageComponent } from "../components/Image.js";
-import { LoadingBarComponent } from "../components/LoadingBar.js";
+import { StatusBarComponent } from "../components/StatusBar.js";
 import { TextComponent } from "../components/Text.js";
 import { SCREEN } from "../constants/screenSizes.js";
 import { TEXT_SIZES } from "../constants/textSizes.js";
 export class GUIComponentFactory {
     DSLogo() {
         const DSLogoImage = document.getElementById("dslogo");
-        const DSLogo = new Entity().setComponent(Components.VISUAL, new ImageComponent().setImage(DSLogoImage));
-        DSLogo.coordinates
+        const DSLogo = new Entity()
+            .setComponent(Components.VISUAL, new ImageComponent().setImage(DSLogoImage))
             .setSize({ width: DSLogoImage.width, height: DSLogoImage.height }, 1)
             .setPosition({
             x: SCREEN.HALF_WIDTH,
@@ -18,22 +18,24 @@ export class GUIComponentFactory {
     }
     DSTitle() {
         const DSTitleText = "Death Sorcery";
-        const DSTitle = new Entity().setComponent(Components.VISUAL, new TextComponent().setText(DSTitleText));
-        DSTitle.coordinates.setTextSize(DSTitleText, TEXT_SIZES.TITLE_SCREEN_TEXT).setPosition({
+        const DSTitle = new Entity()
+            .setComponent(Components.VISUAL, new TextComponent().setText(DSTitleText))
+            .setTextSize(DSTitleText, TEXT_SIZES.TITLE_SCREEN_TEXT)
+            .setPosition({
             x: SCREEN.HALF_WIDTH,
             y: SCREEN.HEIGHT * 0.15,
         });
         return DSTitle;
     }
-    LoadingBar() {
-        const LoadingBar = new Entity().setComponent(Components.VISUAL, new LoadingBarComponent());
-        LoadingBar.coordinates
+    StatusBar() {
+        const StatusBar = new Entity()
+            .setComponent(Components.VISUAL, new StatusBarComponent())
             .setPosition({
             x: SCREEN.HALF_WIDTH,
             y: SCREEN.HEIGHT * 0.9,
         })
             .setSize({ width: SCREEN.WIDTH / 3, height: 10 }, 1);
-        return LoadingBar;
+        return StatusBar;
     }
 }
 //# sourceMappingURL=GUIComponentFactory.js.map

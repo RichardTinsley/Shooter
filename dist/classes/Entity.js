@@ -1,4 +1,3 @@
-import { EntityCoordinates } from "./EntityCoordinates.js";
 export var Components;
 (function (Components) {
     Components[Components["VISUAL"] = 0] = "VISUAL";
@@ -12,7 +11,19 @@ export var Components;
 })(Components || (Components = {}));
 export class Entity {
     constructor() {
-        this.coordinates = new EntityCoordinates();
+        this.coordinates = {
+            position: { x: 0, y: 0 },
+            destination: { x: 0, y: 0 },
+            size: { width: 0, height: 0 },
+            scaledSize: { width: 0, height: 0 },
+            speed: 0,
+            scale: 0,
+            halfWidth: 0,
+            drawOffsetX: 0,
+            drawOffsetY: 0,
+            currentStatus: 0,
+            maxStatus: 0,
+        };
         this.components = new Map();
     }
     draw(ctx) {
@@ -26,6 +37,29 @@ export class Entity {
     }
     setComponent(key, component) {
         this.components.set(key, component);
+        return this;
+    }
+    setPosition(position) {
+        this.coordinates.position = Object.assign({}, position);
+        return this;
+    }
+    setSize(size, scale) {
+        console.log(this.coordinates);
+        this.coordinates.size = Object.assign({}, size);
+        this.coordinates.scale = scale;
+        this.coordinates.scaledSize = {
+            width: size.width * scale,
+            height: size.height * scale,
+        };
+        this.coordinates.halfWidth = this.coordinates.scaledSize.width / 2;
+        return this;
+    }
+    setTextSize(text, height) {
+        this.coordinates.size = {
+            width: Math.ceil(text.length * (height / 1.85)),
+            height: height,
+        };
+        this.coordinates.halfWidth = this.coordinates.size.width / 2;
         return this;
     }
 }
