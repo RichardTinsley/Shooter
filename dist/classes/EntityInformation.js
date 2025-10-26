@@ -2,6 +2,7 @@ export class EntityInformation {
     constructor() {
         this.information = {
             image: document.getElementById("dslogo"),
+            text: "",
             position: { x: 0, y: 0 },
             destination: { x: 0, y: 0 },
             size: { width: 0, height: 0 },
@@ -28,6 +29,14 @@ export class EntityInformation {
     }
     setImage(image) {
         this.information.image = image;
+        return this;
+    }
+    setText(text, height) {
+        this.information.text = text;
+        this.information.size = {
+            width: Math.ceil(text.length * (height / 1.85)),
+            height: height,
+        };
         return this;
     }
 }

@@ -1,5 +1,6 @@
 import { ComponentBaseClass } from "../components/ComponentBaseClass.js";
 import { ImageComponent } from "../components/Image.js";
+import { TextComponent } from "../components/Text.js";
 
 export enum Components {
   IMAGE,
@@ -13,14 +14,13 @@ export enum Components {
   SOUNDS,
 }
 
+const components = new Map<number, ComponentBaseClass>([
+  [Components.IMAGE, new ImageComponent()],
+  [Components.TEXT, new TextComponent()],
+]);
+
 export class ComponentFactory {
   createComponent(key: number): ComponentBaseClass {
-    switch (key) {
-      case Components.IMAGE:
-        return new ImageComponent();
-
-      default:
-        throw new Error("Component Type Not Recognised!");
-    }
+    return components.get(key) as ComponentBaseClass;
   }
 }

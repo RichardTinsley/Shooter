@@ -2,7 +2,6 @@ import { ComponentBaseClass } from "./ComponentBaseClass.js";
 import { COLOURS, getColour } from "../constants/colours.js";
 
 export class TextComponent extends ComponentBaseClass {
-  protected text!: string;
   protected align: CanvasTextAlign = "center";
   protected lineWidth!: number;
   protected alpha: number = 1;
@@ -16,17 +15,12 @@ export class TextComponent extends ComponentBaseClass {
     ctx.textAlign = this.align;
     ctx.textBaseline = "middle";
     ctx.lineWidth = this.lineWidth;
-    ctx.strokeText(this.text, this.information.position.x, this.information.position.y);
-    ctx.fillText(this.text, this.information.position.x, this.information.position.y);
+    ctx.strokeText(this.information.text, this.information.position.x, this.information.position.y);
+    ctx.fillText(this.information.text, this.information.position.x, this.information.position.y);
   }
 
   update(): void {
     return;
-  }
-
-  setText(text: string): this {
-    this.text = text;
-    return this;
   }
 
   // state!: EntityState;

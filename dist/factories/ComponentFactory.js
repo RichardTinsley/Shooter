@@ -1,4 +1,5 @@
 import { ImageComponent } from "../components/Image.js";
+import { TextComponent } from "../components/Text.js";
 export var Components;
 (function (Components) {
     Components[Components["IMAGE"] = 0] = "IMAGE";
@@ -11,14 +12,13 @@ export var Components;
     Components[Components["SHADOW"] = 7] = "SHADOW";
     Components[Components["SOUNDS"] = 8] = "SOUNDS";
 })(Components || (Components = {}));
+const components = new Map([
+    [Components.IMAGE, new ImageComponent()],
+    [Components.TEXT, new TextComponent()],
+]);
 export class ComponentFactory {
     createComponent(key) {
-        switch (key) {
-            case Components.IMAGE:
-                return new ImageComponent();
-            default:
-                throw new Error("Component Type Not Recognised!");
-        }
+        return components.get(key);
     }
 }
 //# sourceMappingURL=ComponentFactory.js.map

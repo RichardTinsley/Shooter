@@ -10,6 +10,7 @@ export type Size = {
 
 export type Information = {
   image: CanvasImageSource;
+  text: string;
   position: Position;
   destination: Position;
   size: Size;

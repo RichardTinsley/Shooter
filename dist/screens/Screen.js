@@ -5,7 +5,7 @@ export class Screen {
         this.setLoadingScreen = () => {
             const entityFactory = new EntityFactory();
             this.entities.push(entityFactory.DSLogo());
-            console.log(this.entities);
+            this.entities.push(entityFactory.DSTitle());
         };
         this.setBeginScreen = () => console.log("OMG22222222");
         this.setLoadingScreen();

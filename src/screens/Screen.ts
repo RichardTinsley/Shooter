@@ -27,7 +27,7 @@ export class Screen implements IDraw, IUpdate {
     //ctx.clearRect(0, 0, SCREEN.WIDTH, SCREEN.HEIGHT);
     const entityFactory = new EntityFactory();
     this.entities.push(entityFactory.DSLogo());
-    console.log(this.entities);
+    this.entities.push(entityFactory.DSTitle());
   };
   setBeginScreen = () => console.log("OMG22222222");
 }

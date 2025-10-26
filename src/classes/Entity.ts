@@ -1,6 +1,7 @@
 import { EntityComponents } from "./EntityComponents.js";
 import { EntityInformation } from "./EntityInformation.js";
 import { DrawEntityComponents } from "./states/DrawEntityComponents.js";
+import { TextEntityComponents } from "./states/TextEntityComponents.js";
 
 export class Entity {
   public information = new EntityInformation();
@@ -16,12 +17,9 @@ export class Entity {
     return this;
   };
 
-  // setTextSize(text: string, height: number): this {
-  //   this.information.size = {
-  //     width: Math.ceil(text.length * (height / 1.85)),
-  //     height: height,
-  //   };
-  //   this.information.halfWidth = this.information.size.width / 2;
-  //   return this;
-  // }
+  setTextComponents = (): this => {
+    this.components = new TextEntityComponents();
+    this.components.setAllComponents(this.information.getInformation());
+    return this;
+  };
 }

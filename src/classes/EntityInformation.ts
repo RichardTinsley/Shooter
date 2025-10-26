@@ -3,6 +3,7 @@ import { Information, Position, Size } from "../types/types.js";
 export class EntityInformation {
   protected information: Information = {
     image: document.getElementById("dslogo") as HTMLImageElement,
+    text: "",
     position: { x: 0, y: 0 },
     destination: { x: 0, y: 0 },
     size: { width: 0, height: 0 },
@@ -35,6 +36,17 @@ export class EntityInformation {
 
   setImage(image: HTMLImageElement): this {
     this.information.image = image;
+    return this;
+  }
+
+  setText(text: string, height: number): this {
+    this.information.text = text;
+    this.information.size = {
+      width: Math.ceil(text.length * (height / 1.85)),
+      height: height,
+    };
+
+    //this.information.halfWidth = this.information.size.width / 2;
     return this;
   }
 }

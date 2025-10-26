@@ -15,15 +15,11 @@ export class TextComponent extends ComponentBaseClass {
         ctx.textAlign = this.align;
         ctx.textBaseline = "middle";
         ctx.lineWidth = this.lineWidth;
-        ctx.strokeText(this.text, this.information.position.x, this.information.position.y);
-        ctx.fillText(this.text, this.information.position.x, this.information.position.y);
+        ctx.strokeText(this.information.text, this.information.position.x, this.information.position.y);
+        ctx.fillText(this.information.text, this.information.position.x, this.information.position.y);
     }
     update() {
         return;
-    }
-    setText(text) {
-        this.text = text;
-        return this;
     }
 }
 //# sourceMappingURL=Text.js.map

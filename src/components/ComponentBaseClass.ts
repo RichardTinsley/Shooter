@@ -22,13 +22,4 @@ export abstract class ComponentBaseClass {
   getComponentInformation(): Information {
     return this.information;
   }
-
-  // setPosition(position: Position): this {
-  //   this.position = position;
-  //   return this;
-  // }
-
-  // getPosition(): Position {
-  //   return this.position;
-  // }
 }
