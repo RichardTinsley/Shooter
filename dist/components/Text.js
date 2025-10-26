@@ -11,7 +11,7 @@ export class TextComponent extends ComponentBaseClass {
     draw(ctx) {
         ctx.strokeStyle = getColour(this.strokeColour, this.alpha);
         ctx.fillStyle = getColour(this.fillColour, this.alpha);
-        ctx.font = this.information.size.height + "px canterbury";
+        ctx.font = this.information.scaledSize.height + "px canterbury";
         ctx.textAlign = this.align;
         ctx.textBaseline = "middle";
         ctx.lineWidth = this.lineWidth;

@@ -10,9 +10,12 @@ export class EntityInformation {
     speed: 0,
     scale: 0,
     halfWidth: 0,
+    halfHeight: 0,
+    currentStatus: 0,
+    maxStatus: 0,
   };
 
-  setInformation(position: Position, size: Size, scale: number): this {
+  setInformation(position: Position, size: Size, scale: number = 1): this {
     this.information.position = { ...position };
     this.information.destination = { ...position };
 
@@ -25,6 +28,7 @@ export class EntityInformation {
     };
 
     this.information.halfWidth = this.information.scaledSize.width / 2;
+    this.information.halfHeight = this.information.scaledSize.height / 2;
 
     return this;
   }

@@ -1,5 +1,6 @@
 import { ComponentBaseClass } from "../components/ComponentBaseClass.js";
 import { ImageComponent } from "../components/Image.js";
+import { StatusBarComponent } from "../components/StatusBar.js";
 import { TextComponent } from "../components/Text.js";
 
 export enum Components {
@@ -17,6 +18,7 @@ export enum Components {
 const components = new Map<number, ComponentBaseClass>([
   [Components.IMAGE, new ImageComponent()],
   [Components.TEXT, new TextComponent()],
+  [Components.STATUS_BAR, new StatusBarComponent()],
 ]);
 
 export class ComponentFactory {

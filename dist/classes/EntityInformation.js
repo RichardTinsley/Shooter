@@ -9,9 +9,12 @@ export class EntityInformation {
             speed: 0,
             scale: 0,
             halfWidth: 0,
+            halfHeight: 0,
+            currentStatus: 0,
+            maxStatus: 0,
         };
     }
-    setInformation(position, size, scale) {
+    setInformation(position, size, scale = 1) {
         this.information.position = Object.assign({}, position);
         this.information.destination = Object.assign({}, position);
         this.information.size = Object.assign({}, size);
@@ -21,6 +24,7 @@ export class EntityInformation {
             height: size.height * scale,
         };
         this.information.halfWidth = this.information.scaledSize.width / 2;
+        this.information.halfHeight = this.information.scaledSize.height / 2;
         return this;
     }
     getInformation() {

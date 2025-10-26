@@ -9,19 +9,19 @@ export class StatusBarComponent extends ComponentBaseClass {
     }
     draw(ctx) {
         ctx.lineJoin = "round";
-        this.drawBorder(ctx, getColour(COLOURS.WHITE), this.information.size.height);
-        this.drawBox(ctx, getColour(COLOURS.BLACK), this.information.size.width);
-        this.drawBorder(ctx, getColour(COLOURS.BLACK), this.information.size.height / 2);
-        this.drawBox(ctx, this.statusBarColour, this.information.size.width * (this.currentStatus / this.maxStatus));
+        this.drawBorder(ctx, getColour(COLOURS.WHITE), this.information.scaledSize.height);
+        this.drawBox(ctx, getColour(COLOURS.BLACK), this.information.scaledSize.width);
+        this.drawBorder(ctx, getColour(COLOURS.BLACK), this.information.halfHeight);
+        this.drawBox(ctx, this.statusBarColour, this.information.scaledSize.width * (this.currentStatus / this.maxStatus));
     }
     drawBox(ctx, colour, width) {
         ctx.fillStyle = colour;
-        ctx.fillRect(this.information.position.x - this.information.halfWidth, this.information.position.y - this.information.size.height, width, this.information.size.height);
+        ctx.fillRect(this.information.position.x - this.information.halfWidth, this.information.position.y - this.information.scaledSize.height, width, this.information.scaledSize.height);
     }
     drawBorder(ctx, lineColour, lineWidth) {
         ctx.strokeStyle = lineColour;
         ctx.lineWidth = lineWidth;
-        ctx.strokeRect(this.information.position.x - this.information.halfWidth, this.information.position.y - this.information.size.height, this.information.size.width, this.information.size.height);
+        ctx.strokeRect(this.information.position.x - this.information.halfWidth, this.information.position.y - this.information.scaledSize.height, this.information.scaledSize.width, this.information.scaledSize.height);
     }
     update() { }
     setStatusBarColour(colour) {

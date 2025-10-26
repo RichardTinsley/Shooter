@@ -1,4 +1,5 @@
 import { ImageComponent } from "../components/Image.js";
+import { StatusBarComponent } from "../components/StatusBar.js";
 import { TextComponent } from "../components/Text.js";
 export var Components;
 (function (Components) {
@@ -15,6 +16,7 @@ export var Components;
 const components = new Map([
     [Components.IMAGE, new ImageComponent()],
     [Components.TEXT, new TextComponent()],
+    [Components.STATUS_BAR, new StatusBarComponent()],
 ]);
 export class ComponentFactory {
     createComponent(key) {

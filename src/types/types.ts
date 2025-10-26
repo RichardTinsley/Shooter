@@ -17,6 +17,9 @@ export type Information = {
   speed: number;
   scale: number;
   halfWidth: number;
+  halfHeight: number;
+  currentStatus: number;
+  maxStatus: number;
 };
 
 //MERGE TYPES WITH & and shit

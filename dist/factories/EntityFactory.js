@@ -6,8 +6,8 @@ export class EntityFactory {
         const DSLogoImage = document.getElementById("dslogo");
         const DSLogo = new Entity();
         DSLogo.information
-            .setInformation({ x: SCREEN.HALF_WIDTH, y: SCREEN.HEIGHT * 0.75 }, { width: DSLogoImage.width, height: DSLogoImage.height }, 1)
-            .setImage(DSLogoImage);
+            .setImage(DSLogoImage)
+            .setInformation({ x: SCREEN.HALF_WIDTH, y: SCREEN.HEIGHT * 0.75 }, { width: DSLogoImage.width, height: DSLogoImage.height });
         DSLogo.setDrawComponents();
         return DSLogo;
     }
@@ -15,9 +15,15 @@ export class EntityFactory {
         const DSTitle = new Entity();
         DSTitle.information
             .setText("Death Sorcery", TEXT_SIZES.TITLE_SCREEN_TEXT)
-            .setInformation({ x: SCREEN.HALF_WIDTH, y: SCREEN.HEIGHT * 0.15 }, { width: 0, height: TEXT_SIZES.TITLE_SCREEN_TEXT }, 1);
+            .setInformation({ x: SCREEN.HALF_WIDTH, y: SCREEN.HEIGHT * 0.15 }, { width: 0, height: TEXT_SIZES.TITLE_SCREEN_TEXT });
         DSTitle.setTextComponents();
         return DSTitle;
+    }
+    StatusBar() {
+        const StatusBar = new Entity();
+        StatusBar.information.setInformation({ x: SCREEN.HALF_WIDTH, y: SCREEN.HEIGHT * 0.9 }, { width: SCREEN.WIDTH / 3, height: 10 });
+        StatusBar.setStatusBarComponents();
+        return StatusBar;
     }
 }
 //# sourceMappingURL=EntityFactory.js.map
