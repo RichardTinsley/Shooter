@@ -8,7 +8,7 @@ export type Size = {
   height: number;
 };
 
-export type EntityInformation = {
+export type Information = {
   image: CanvasImageSource;
   position: Position;
   destination: Position;

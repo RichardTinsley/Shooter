@@ -1,7 +1,7 @@
-import { EntityInformation } from "../types/types.js";
+import { Information } from "../types/types.js";
 
 export abstract class ComponentBaseClass {
-  protected information!: EntityInformation;
+  protected information!: Information;
   protected drawOffsetX: number = 0;
   protected drawOffsetY: number = 0;
 
@@ -14,12 +14,12 @@ export abstract class ComponentBaseClass {
     return this;
   }
 
-  setComponentInformation(information: EntityInformation): this {
+  setComponentInformation(information: Information): this {
     this.information = information;
     return this;
   }
 
-  getComponentInformation(): EntityInformation {
+  getComponentInformation(): Information {
     return this.information;
   }
 

@@ -17,7 +17,7 @@ export class EntityComponents {
         this.components.set(key, factory.createComponent(key));
         return this;
     }
-    setAllComponentInformation(information) {
+    setAllComponents(information) {
         this.components.forEach((component) => component.setComponentInformation(information));
     }
 }

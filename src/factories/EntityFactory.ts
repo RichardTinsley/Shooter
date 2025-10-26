@@ -5,14 +5,16 @@ export class EntityFactory {
   DSLogo(): Entity {
     const DSLogoImage = document.getElementById("dslogo") as HTMLImageElement;
 
-    const DSLogo = new Entity()
+    const DSLogo = new Entity();
+    DSLogo.information
       .setImage(DSLogoImage)
-      .setEntityInformation(
+      .setInformation(
         { x: SCREEN.HALF_WIDTH, y: SCREEN.HEIGHT * 0.75 },
         { width: DSLogoImage.width, height: DSLogoImage.height },
         1
-      )
-      .setDrawComponents();
+      );
+
+    DSLogo.setDrawComponents();
 
     return DSLogo;
   }

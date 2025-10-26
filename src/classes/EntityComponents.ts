@@ -1,6 +1,6 @@
 import { ComponentBaseClass } from "../components/ComponentBaseClass.js";
 import { ComponentFactory } from "../factories/ComponentFactory.js";
-import { EntityInformation } from "../types/types.js";
+import { Information } from "../types/types.js";
 
 export class EntityComponents {
   components = new Map<number, ComponentBaseClass>();
@@ -23,7 +23,7 @@ export class EntityComponents {
     return this;
   }
 
-  setAllComponentInformation(information: EntityInformation) {
+  setAllComponents(information: Information) {
     this.components.forEach((component) => component.setComponentInformation(information));
   }
 }
