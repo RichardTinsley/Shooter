@@ -5,12 +5,12 @@ import { Information } from "../types/types.js";
 export class EntityComponents {
   components = new Map<number, ComponentBaseClass>();
 
-  draw(ctx: CanvasRenderingContext2D): void {
-    this.components.forEach((component) => component.draw(ctx));
+  draw(ctx: CanvasRenderingContext2D, information: Information): void {
+    this.components.forEach((component) => component.draw(ctx, information));
   }
 
-  update(): void {
-    this.components.forEach((component) => component.update());
+  update(information: Information): void {
+    this.components.forEach((component) => component.update(information));
   }
 
   getComponent(key: number): ComponentBaseClass {
@@ -21,9 +21,5 @@ export class EntityComponents {
     const factory = new ComponentFactory();
     this.components.set(key, factory.createComponent(key));
     return this;
-  }
-
-  setAllComponents(information: Information) {
-    this.components.forEach((component) => component.setComponentInformation(information));
   }
 }

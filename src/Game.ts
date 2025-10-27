@@ -2,7 +2,7 @@
 // import { Keyboard } from "./handlers/Keyboard.js";
 // import { Mouse } from "./handlers/Mouse.js";
 // import { Time } from "./handlers/Time.js";
-import { createGameFSM } from "./FSM/GameStates.js";
+// import { createGameFSM } from "./FSM/GameStates.js";
 import { Screen } from "./screens/Screen.js";
 
 export class Game {

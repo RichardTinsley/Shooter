@@ -3,11 +3,11 @@ export class EntityComponents {
     constructor() {
         this.components = new Map();
     }
-    draw(ctx) {
-        this.components.forEach((component) => component.draw(ctx));
+    draw(ctx, information) {
+        this.components.forEach((component) => component.draw(ctx, information));
     }
-    update() {
-        this.components.forEach((component) => component.update());
+    update(information) {
+        this.components.forEach((component) => component.update(information));
     }
     getComponent(key) {
         return this.components.get(key);
@@ -16,9 +16,6 @@ export class EntityComponents {
         const factory = new ComponentFactory();
         this.components.set(key, factory.createComponent(key));
         return this;
-    }
-    setAllComponents(information) {
-        this.components.forEach((component) => component.setComponentInformation(information));
     }
 }
 //# sourceMappingURL=EntityComponents.js.map

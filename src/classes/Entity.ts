@@ -1,10 +1,18 @@
+import { IDraw, IUpdate } from "../interfaces/interfaces.js";
 import { Position, Size } from "../types/types.js";
 import { EntityComponents } from "./EntityComponents.js";
 import { EntityInformation } from "./EntityInformation.js";
 
-export class Entity {
+export class Entity implements IDraw, IUpdate {
   public information = new EntityInformation();
-  public components!: EntityComponents;
+  public components = new EntityComponents();
+
+  draw(ctx: CanvasRenderingContext2D): void {
+    this.components.draw(ctx, this.information.getInformation());
+  }
+  update(): void {
+    this.components.update(this.information.getInformation());
+  }
 
   getComponents(): EntityComponents {
     return this.components;
@@ -22,10 +30,9 @@ export class Entity {
     return this;
   }
 
-  //MAKE THIS TAKE AN ARRAY AND LOOP THROUGH TO ADD MULTIPLE COMPONENTS
   setComponent = (component: number): this => {
-    this.components = new EntityComponents().setComponent(component);
-    this.components.setAllComponents(this.information.getInformation());
+    //MAKE THIS TAKE AN ARRAY AND LOOP THROUGH TO ADD MULTIPLE COMPONENTS
+    this.components.setComponent(component);
     return this;
   };
 }

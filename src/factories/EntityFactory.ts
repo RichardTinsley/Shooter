@@ -9,46 +9,34 @@ export class EntityFactory {
     const DSLogoImage = document.getElementById("dslogo") as HTMLImageElement;
 
     return new Entity()
+      .setComponent(Components.IMAGE)
       .setInformation(
         DSLogoImage,
         { x: SCREEN.HALF_WIDTH, y: SCREEN.HEIGHT * 0.75 },
         { width: DSLogoImage.width, height: DSLogoImage.height }
-      )
-      .setComponent(Components.IMAGE);
+      );
   }
 
   DSTitle(): Entity {
     return new Entity()
+      .setComponent(Components.TEXT)
       .setInformation(
         "Death Sorcery",
         { x: SCREEN.HALF_WIDTH, y: SCREEN.HEIGHT * 0.15 },
         { width: 0, height: TEXT_SIZES.TITLE_SCREEN_TEXT }
-      )
-      .setComponent(Components.TEXT);
+      );
   }
 
   StatusBar(): Entity {
-    const StatusBar = new Entity().setInformation(
-      "",
-      { x: SCREEN.HALF_WIDTH, y: SCREEN.HEIGHT * 0.9 },
-      { width: SCREEN.WIDTH / 3, height: 10 }
-    );
+    const StatusBar = new Entity()
+      .setComponent(Components.STATUS_BAR)
+      .setInformation(
+        "",
+        { x: SCREEN.HALF_WIDTH, y: SCREEN.HEIGHT * 0.9 },
+        { width: SCREEN.WIDTH / 3, height: 10 }
+      );
 
     StatusBar.information.setStatusBarColour(getColour(COLOURS.WHITE));
-
-    StatusBar.setComponent(Components.STATUS_BAR);
-
     return StatusBar;
   }
-
-  //   static LoadingBar(currentStatus: number, maximumStatus: number): StatusBar {
-  //     return new StatusBar()
-  //       .setSharedPosition({
-  //         x: SCREEN.HALF_WIDTH,
-  //         y: SCREEN.HEIGHT * 0.9,
-  //       })
-  //       .setSharedSize({ width: SCREEN.WIDTH / 3, height: 10 })
-  //       .setStatus(currentStatus, maximumStatus)
-  //       .setDrawOffsets(0);
-  //   }
 }

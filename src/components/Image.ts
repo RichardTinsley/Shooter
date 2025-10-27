@@ -1,3 +1,4 @@
+import { Information } from "../types/types.js";
 import { ComponentBaseClass } from "./ComponentBaseClass.js";
 
 export class ImageComponent extends ComponentBaseClass {
@@ -5,26 +6,26 @@ export class ImageComponent extends ComponentBaseClass {
   protected currentRow: number = 0;
   protected direction: number = 1;
 
-  draw(ctx: CanvasRenderingContext2D): void {
+  draw(ctx: CanvasRenderingContext2D, information: Information): void {
     ctx.save();
-    ctx.translate(this.information.position.x, this.information.position.y);
+    ctx.translate(information.position.x, information.position.y);
     ctx.scale(this.direction, 1);
     ctx.drawImage(
-      this.information.visual as CanvasImageSource,
-      this.information.size.width * this.currentFrame,
-      this.information.size.height * this.currentRow,
-      this.information.size.width,
-      this.information.size.height,
-      0 - this.information.halfWidth + this.drawOffsetX,
-      0 - this.information.scaledSize.height + this.drawOffsetY,
-      this.information.scaledSize.width,
-      this.information.scaledSize.height
+      information.visual as CanvasImageSource,
+      information.size.width * this.currentFrame,
+      information.size.height * this.currentRow,
+      information.size.width,
+      information.size.height,
+      0 - information.halfWidth + this.drawOffsetX,
+      0 - information.scaledSize.height + this.drawOffsetY,
+      information.scaledSize.width,
+      information.scaledSize.height
     );
 
     ctx.restore();
   }
 
-  update(): void {
+  update(information: Information): void {
     return;
   }
 }

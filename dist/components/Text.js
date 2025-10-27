@@ -8,17 +8,17 @@ export class TextComponent extends ComponentBaseClass {
         this.strokeColour = COLOURS.BLACK;
         this.fillColour = COLOURS.WHITE;
     }
-    draw(ctx) {
+    draw(ctx, information) {
         ctx.strokeStyle = getColour(this.strokeColour, this.alpha);
         ctx.fillStyle = getColour(this.fillColour, this.alpha);
-        ctx.font = this.information.scaledSize.height + "px canterbury";
+        ctx.font = information.scaledSize.height + "px canterbury";
         ctx.textAlign = this.align;
         ctx.textBaseline = "middle";
         ctx.lineWidth = this.lineWidth;
-        ctx.strokeText(this.information.visual, this.information.position.x, this.information.position.y);
-        ctx.fillText(this.information.visual, this.information.position.x, this.information.position.y);
+        ctx.strokeText(information.visual, information.position.x, information.position.y);
+        ctx.fillText(information.visual, information.position.x, information.position.y);
     }
-    update() {
+    update(information) {
         return;
     }
 }

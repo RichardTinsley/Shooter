@@ -11,10 +11,10 @@ export class Screen implements IDraw, IUpdate {
   }
 
   draw(ctx: CanvasRenderingContext2D): void {
-    this.entities.forEach((entity) => entity.getComponents().draw(ctx));
+    this.entities.forEach((entity) => entity.draw(ctx));
   }
   update(): void {
-    this.entities.forEach((entity) => entity.getComponents().update());
+    this.entities.forEach((entity) => entity.update());
   }
 
   addEntity(entity: Entity): this {

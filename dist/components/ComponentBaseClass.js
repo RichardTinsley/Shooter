@@ -8,9 +8,5 @@ export class ComponentBaseClass {
         this.drawOffsetY = offsetY;
         return this;
     }
-    setComponentInformation(information) {
-        this.information = information;
-        return this;
-    }
 }
 //# sourceMappingURL=ComponentBaseClass.js.map

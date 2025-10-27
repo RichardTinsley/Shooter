@@ -6,14 +6,14 @@ export class ImageComponent extends ComponentBaseClass {
         this.currentRow = 0;
         this.direction = 1;
     }
-    draw(ctx) {
+    draw(ctx, information) {
         ctx.save();
-        ctx.translate(this.information.position.x, this.information.position.y);
+        ctx.translate(information.position.x, information.position.y);
         ctx.scale(this.direction, 1);
-        ctx.drawImage(this.information.visual, this.information.size.width * this.currentFrame, this.information.size.height * this.currentRow, this.information.size.width, this.information.size.height, 0 - this.information.halfWidth + this.drawOffsetX, 0 - this.information.scaledSize.height + this.drawOffsetY, this.information.scaledSize.width, this.information.scaledSize.height);
+        ctx.drawImage(information.visual, information.size.width * this.currentFrame, information.size.height * this.currentRow, information.size.width, information.size.height, 0 - information.halfWidth + this.drawOffsetX, 0 - information.scaledSize.height + this.drawOffsetY, information.scaledSize.width, information.scaledSize.height);
         ctx.restore();
     }
-    update() {
+    update(information) {
         return;
     }
 }

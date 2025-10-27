@@ -12,10 +12,10 @@ export class Screen {
         this.setLoadingScreen();
     }
     draw(ctx) {
-        this.entities.forEach((entity) => entity.getComponents().draw(ctx));
+        this.entities.forEach((entity) => entity.draw(ctx));
     }
     update() {
-        this.entities.forEach((entity) => entity.getComponents().update());
+        this.entities.forEach((entity) => entity.update());
     }
     addEntity(entity) {
         this.entities.push(entity);
