@@ -9,7 +9,7 @@ export class EntityFactory {
     const DSLogoImage = document.getElementById("dslogo") as HTMLImageElement;
 
     return new Entity()
-      .setComponent([Components.IMAGE])
+      .setComponents([Components.IMAGE])
       .setInformation(
         DSLogoImage,
         { x: SCREEN.HALF_WIDTH, y: SCREEN.HEIGHT * 0.75 },
@@ -19,7 +19,7 @@ export class EntityFactory {
 
   DSTitle(): Entity {
     return new Entity()
-      .setComponent([Components.TEXT])
+      .setComponents([Components.TEXT])
       .setInformation(
         "Death Sorcery",
         { x: SCREEN.HALF_WIDTH, y: SCREEN.HEIGHT * 0.15 },
@@ -29,7 +29,7 @@ export class EntityFactory {
 
   StatusBar(): Entity {
     const StatusBar = new Entity()
-      .setComponent([Components.STATUS_BAR])
+      .setComponents([Components.STATUS_BAR])
       .setInformation(
         "",
         { x: SCREEN.HALF_WIDTH, y: SCREEN.HEIGHT * 0.9 },

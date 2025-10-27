@@ -1,22 +1,23 @@
-import { EntityComponents } from "./EntityComponents.js";
+import { ComponentFactory } from "../factories/ComponentFactory.js";
 import { EntityInformation } from "./EntityInformation.js";
 export class Entity {
     constructor() {
         this.information = new EntityInformation();
-        this.components = new EntityComponents();
-        this.setComponent = (components) => {
-            components.forEach((component) => this.components.setComponent(component));
-            return this;
-        };
+        this.components = new Map();
     }
     draw(ctx) {
-        this.components.draw(ctx, this.information.getInformation());
+        this.components.forEach((component) => component.draw(ctx, this.information.getInformation()));
     }
     update() {
-        this.components.update(this.information.getInformation());
+        this.components.forEach((component) => component.update(this.information.getInformation()));
     }
-    getComponents() {
-        return this.components;
+    getComponent(key) {
+        return this.components.get(key);
+    }
+    setComponents(components) {
+        const factory = new ComponentFactory();
+        components.forEach((component) => this.components.set(component, factory.createComponent(component)));
+        return this;
     }
     setInformation(visual, position, size, scale = 1) {
         this.information.setVisual(visual);

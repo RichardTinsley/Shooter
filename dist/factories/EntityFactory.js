@@ -7,17 +7,17 @@ export class EntityFactory {
     DSLogo() {
         const DSLogoImage = document.getElementById("dslogo");
         return new Entity()
-            .setComponent([Components.IMAGE])
+            .setComponents([Components.IMAGE])
             .setInformation(DSLogoImage, { x: SCREEN.HALF_WIDTH, y: SCREEN.HEIGHT * 0.75 }, { width: DSLogoImage.width, height: DSLogoImage.height });
     }
     DSTitle() {
         return new Entity()
-            .setComponent([Components.TEXT])
+            .setComponents([Components.TEXT])
             .setInformation("Death Sorcery", { x: SCREEN.HALF_WIDTH, y: SCREEN.HEIGHT * 0.15 }, { width: 0, height: TEXT_SIZES.TITLE_SCREEN_TEXT });
     }
     StatusBar() {
         const StatusBar = new Entity()
-            .setComponent([Components.STATUS_BAR])
+            .setComponents([Components.STATUS_BAR])
             .setInformation("", { x: SCREEN.HALF_WIDTH, y: SCREEN.HEIGHT * 0.9 }, { width: SCREEN.WIDTH / 3, height: 10 });
         StatusBar.information.setStatusBarColour(getColour(COLOURS.WHITE));
         return StatusBar;

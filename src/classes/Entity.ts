@@ -1,21 +1,31 @@
+import { ComponentBaseClass } from "../components/ComponentBaseClass.js";
+import { ComponentFactory } from "../factories/ComponentFactory.js";
 import { IDraw, IUpdate } from "../interfaces/interfaces.js";
 import { Position, Size } from "../types/types.js";
-import { EntityComponents } from "./EntityComponents.js";
 import { EntityInformation } from "./EntityInformation.js";
 
 export class Entity implements IDraw, IUpdate {
   public information = new EntityInformation();
-  public components = new EntityComponents();
+  private components = new Map<number, ComponentBaseClass>();
 
   draw(ctx: CanvasRenderingContext2D): void {
-    this.components.draw(ctx, this.information.getInformation());
-  }
-  update(): void {
-    this.components.update(this.information.getInformation());
+    this.components.forEach((component) => component.draw(ctx, this.information.getInformation()));
   }
 
-  getComponents(): EntityComponents {
-    return this.components;
+  update(): void {
+    this.components.forEach((component) => component.update(this.information.getInformation()));
+  }
+
+  getComponent(key: number): ComponentBaseClass {
+    return this.components.get(key) as ComponentBaseClass;
+  }
+
+  setComponents(components: number[]): this {
+    const factory = new ComponentFactory();
+    components.forEach((component) =>
+      this.components.set(component, factory.createComponent(component))
+    );
+    return this;
   }
 
   setInformation(
@@ -29,9 +39,4 @@ export class Entity implements IDraw, IUpdate {
     this.information.setSize(size, scale);
     return this;
   }
-
-  setComponent = (components: number[]): this => {
-    components.forEach((component) => this.components.setComponent(component));
-    return this;
-  };
 }
