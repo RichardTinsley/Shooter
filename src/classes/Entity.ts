@@ -30,9 +30,8 @@ export class Entity implements IDraw, IUpdate {
     return this;
   }
 
-  setComponent = (component: number): this => {
-    //MAKE THIS TAKE AN ARRAY AND LOOP THROUGH TO ADD MULTIPLE COMPONENTS
-    this.components.setComponent(component);
+  setComponent = (components: number[]): this => {
+    components.forEach((component) => this.components.setComponent(component));
     return this;
   };
 }

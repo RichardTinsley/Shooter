@@ -4,8 +4,8 @@ export class Entity {
     constructor() {
         this.information = new EntityInformation();
         this.components = new EntityComponents();
-        this.setComponent = (component) => {
-            this.components.setComponent(component);
+        this.setComponent = (components) => {
+            components.forEach((component) => this.components.setComponent(component));
             return this;
         };
     }
