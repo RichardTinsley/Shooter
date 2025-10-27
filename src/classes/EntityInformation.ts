@@ -13,12 +13,16 @@ export class EntityInformation {
     halfHeight: 0,
     currentStatus: 0,
     maxStatus: 0,
+    statusBarColour: "",
   };
 
-  setInformation(position: Position, size: Size, scale: number = 1): this {
+  setPosition(position: Position): this {
     this.information.position = { ...position };
     this.information.destination = { ...position };
+    return this;
+  }
 
+  setSize(size: Size, scale: number = 1): this {
     this.information.size = { ...size };
     this.information.scale = scale;
 
@@ -29,7 +33,6 @@ export class EntityInformation {
 
     this.information.halfWidth = this.information.scaledSize.width / 2;
     this.information.halfHeight = this.information.scaledSize.height / 2;
-
     return this;
   }
 
@@ -37,8 +40,8 @@ export class EntityInformation {
     return this.information;
   }
 
-  setImage(image: HTMLImageElement): this {
-    this.information.visual = image;
+  setVisual(visual: CanvasImageSource | string): this {
+    this.information.visual = visual;
     return this;
   }
 
@@ -49,6 +52,10 @@ export class EntityInformation {
       height: height,
     };
     return this;
+  }
+
+  setStatusBarColour(colour: string): void {
+    this.information.statusBarColour = colour;
   }
 
   setStatus(currentStatus: number, maxStatus: number): this {

@@ -1,4 +1,5 @@
 import { Components } from "../factories/ComponentFactory.js";
+import { Position, Size } from "../types/types.js";
 import { EntityComponents } from "./EntityComponents.js";
 import { EntityInformation } from "./EntityInformation.js";
 
@@ -8,6 +9,18 @@ export class Entity {
 
   getComponents(): EntityComponents {
     return this.components;
+  }
+
+  setInformation(
+    visual: CanvasImageSource | string,
+    position: Position,
+    size: Size,
+    scale: number = 1
+  ): this {
+    this.information.setVisual(visual);
+    this.information.setPosition(position);
+    this.information.setSize(size, scale);
+    return this;
   }
 
   setStatusBarComponents = (): this => {

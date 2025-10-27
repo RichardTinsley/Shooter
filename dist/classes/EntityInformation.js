@@ -12,11 +12,15 @@ export class EntityInformation {
             halfHeight: 0,
             currentStatus: 0,
             maxStatus: 0,
+            statusBarColour: "",
         };
     }
-    setInformation(position, size, scale = 1) {
+    setPosition(position) {
         this.information.position = Object.assign({}, position);
         this.information.destination = Object.assign({}, position);
+        return this;
+    }
+    setSize(size, scale = 1) {
         this.information.size = Object.assign({}, size);
         this.information.scale = scale;
         this.information.scaledSize = {
@@ -30,8 +34,8 @@ export class EntityInformation {
     getInformation() {
         return this.information;
     }
-    setImage(image) {
-        this.information.visual = image;
+    setVisual(visual) {
+        this.information.visual = visual;
         return this;
     }
     setText(text, height) {
@@ -41,6 +45,9 @@ export class EntityInformation {
             height: height,
         };
         return this;
+    }
+    setStatusBarColour(colour) {
+        this.information.statusBarColour = colour;
     }
     setStatus(currentStatus, maxStatus) {
         this.information.currentStatus = currentStatus;

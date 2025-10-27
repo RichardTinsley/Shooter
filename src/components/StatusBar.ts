@@ -2,10 +2,6 @@ import { getColour, COLOURS } from "../constants/colours.js";
 import { ComponentBaseClass } from "./ComponentBaseClass.js";
 
 export class StatusBarComponent extends ComponentBaseClass {
-  private currentStatus = 0;
-  private maxStatus = 0;
-  private statusBarColour: string = getColour(COLOURS.WHITE);
-
   draw(ctx: CanvasRenderingContext2D): void {
     ctx.lineJoin = "round";
     this.drawBorder(ctx, getColour(COLOURS.WHITE), this.information.scaledSize.height);
@@ -13,8 +9,9 @@ export class StatusBarComponent extends ComponentBaseClass {
     this.drawBorder(ctx, getColour(COLOURS.BLACK), this.information.halfHeight);
     this.drawBox(
       ctx,
-      this.statusBarColour,
-      this.information.scaledSize.width * (this.currentStatus / this.maxStatus)
+      this.information.statusBarColour,
+      this.information.scaledSize.width *
+        (this.information.currentStatus / this.information.maxStatus)
     );
   }
 
@@ -40,8 +37,4 @@ export class StatusBarComponent extends ComponentBaseClass {
   }
 
   update(): void {}
-
-  setStatusBarColour(colour: string): void {
-    this.statusBarColour = colour;
-  }
 }

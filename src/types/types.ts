@@ -20,6 +20,7 @@ export type Information = {
   halfHeight: number;
   currentStatus: number;
   maxStatus: number;
+  statusBarColour: string;
 };
 
 //MERGE TYPES WITH & and shit
