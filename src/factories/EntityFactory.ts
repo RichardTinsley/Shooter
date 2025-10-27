@@ -2,6 +2,7 @@ import { Entity } from "../classes/Entity.js";
 import { getColour, COLOURS } from "../constants/colours.js";
 import { SCREEN } from "../constants/screenSizes.js";
 import { TEXT_SIZES } from "../constants/textSizes.js";
+import { Components } from "./ComponentFactory.js";
 
 export class EntityFactory {
   DSLogo(): Entity {
@@ -13,7 +14,7 @@ export class EntityFactory {
         { x: SCREEN.HALF_WIDTH, y: SCREEN.HEIGHT * 0.75 },
         { width: DSLogoImage.width, height: DSLogoImage.height }
       )
-      .setDrawComponents();
+      .setComponent(Components.IMAGE);
   }
 
   DSTitle(): Entity {
@@ -23,7 +24,7 @@ export class EntityFactory {
         { x: SCREEN.HALF_WIDTH, y: SCREEN.HEIGHT * 0.15 },
         { width: 0, height: TEXT_SIZES.TITLE_SCREEN_TEXT }
       )
-      .setTextComponents();
+      .setComponent(Components.TEXT);
   }
 
   StatusBar(): Entity {
@@ -35,7 +36,7 @@ export class EntityFactory {
 
     StatusBar.information.setStatusBarColour(getColour(COLOURS.WHITE));
 
-    StatusBar.setStatusBarComponents();
+    StatusBar.setComponent(Components.STATUS_BAR);
 
     return StatusBar;
   }
