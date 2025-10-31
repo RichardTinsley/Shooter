@@ -3,9 +3,10 @@
 // import { Mouse } from "./handlers/Mouse.js";
 // import { Time } from "./handlers/Time.js";
 // import { createGameFSM } from "./FSM/GameStates.js";
-import { GameState } from "./screens/GameState.js";
+import { IRender } from "./interfaces/interfaces.js";
+import { GameState } from "./handlers/GameState.js";
 
-export class Game {
+export class Game implements IRender {
   // private time = new Time();
   private screen = new GameState();
   // private gameFSM = createGameFSM();

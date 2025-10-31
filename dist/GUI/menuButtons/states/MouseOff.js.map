@@ -1,1 +1,0 @@
-{"version":3,"file":"MouseOff.js","sourceRoot":"","sources":["../../../../src/GUI/menuButtons/states/MouseOff.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,KAAK,EAAE,MAAM,8BAA8B,CAAC;AAGrD,MAAM,OAAO,QAAQ;IACnB,YAAmB,UAAsB;QAAtB,eAAU,GAAV,UAAU,CAAY;QACvC,IAAI,CAAC,UAAU,CAAC,KAAK,CAAC,QAAQ,CAAC,KAAK,CAAC,QAAQ,CAAC,CAAC;IACjD,CAAC;CACF"}

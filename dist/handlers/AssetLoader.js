@@ -53,4 +53,4 @@ export class AssetLoader {
         return ASSETS.NAMES.length;
     }
 }
-//# sourceMappingURL=assetLoader.js.map
+//# sourceMappingURL=AssetLoader.js.map

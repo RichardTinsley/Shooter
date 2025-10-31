@@ -1,1 +1,0 @@
-{"version":3,"file":"EntityComponent.js","sourceRoot":"","sources":["../../src/classes/EntityComponent.ts"],"names":[],"mappings":"AAGA,MAAM,OAAgB,eAAe;IAArC;QACE,gBAAW,GAAW,CAAC,CAAC;QACxB,gBAAW,GAAW,CAAC,CAAC;IAU1B,CAAC;IALC,cAAc,CAAC,WAAiB;QAC9B,IAAI,CAAC,WAAW,GAAG,WAAW,CAAC,KAAK,CAAC;QACrC,IAAI,CAAC,WAAW,GAAG,WAAW,CAAC,MAAM,CAAC;QACtC,OAAO,IAAI,CAAC;IACd,CAAC;CACF"}

@@ -1,1 +1,0 @@
-{"version":3,"file":"MenuButtonText.js","sourceRoot":"","sources":["../../../../src/GUI/menuButtons/types/MenuButtonText.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,UAAU,EAAE,MAAM,kBAAkB,CAAC;AAE9C,MAAM,OAAO,qBAAsB,SAAQ,UAAU;IACnD,YAAmB,SAAmB,EAAS,KAAU;QACvD,KAAK,CAAC,SAAS,EAAE,KAAK,CAAC,CAAC;QADP,cAAS,GAAT,SAAS,CAAU;QAAS,UAAK,GAAL,KAAK,CAAK;IAEzD,CAAC;CACF"}

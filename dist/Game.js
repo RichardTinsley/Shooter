@@ -1,4 +1,4 @@
-import { GameState } from "./screens/GameState.js";
+import { GameState } from "./handlers/GameState.js";
 export class Game {
     constructor() {
         this.screen = new GameState();

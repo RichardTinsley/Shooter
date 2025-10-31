@@ -1,17 +1,17 @@
-import { SIZES } from "../constants/sizes.js";
-import { deathSorceryLogoLayout } from "../GUI/layouts/deathSorceryLogoLayout.js";
-import { BeginMenu } from "../GUI/menus/BeginMenu.js";
-export class BeginScreen {
-    constructor(screen) {
-        this.logo = new deathSorceryLogoLayout();
-        this.menu = new BeginMenu(screen, SIZES.GAME_HEIGHT - 110);
+import { SCREEN } from "../constants/screenSizes.js";
+import { EntityFactory } from "../factories/EntityFactory.js";
+import { Screen } from "./Screen.js";
+export class BeginScreen extends Screen {
+    constructor(state) {
+        super();
+        this.state = state;
+        const entityFactory = new EntityFactory();
+        this.entities.push(entityFactory.DSLogo());
+        this.entities.push(entityFactory.DSTitle());
     }
     draw(ctx) {
-        this.logo.draw(ctx);
-        this.menu.draw(ctx);
-    }
-    update() {
-        this.menu.update();
+        ctx.clearRect(0, 0, SCREEN.WIDTH, SCREEN.HEIGHT);
+        super.draw(ctx);
     }
 }
 //# sourceMappingURL=BeginScreen.js.map

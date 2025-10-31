@@ -1,6 +1,6 @@
 import { EntityFactory } from "../factories/EntityFactory.js";
-import { AssetLoader } from "../handlers/assetLoader.js";
-import { GameState } from "./GameState.js";
+import { AssetLoader } from "../handlers/AssetLoader.js";
+import { GameState } from "../handlers/GameState.js";
 import { Screen } from "./Screen.js";
 
 export class LoadingScreen extends Screen {
