@@ -5,7 +5,7 @@ export function checkCircleCollision(a, b, aRadius, bRadius) {
     const sumOfRadii = aRadius + bRadius;
     return distance < sumOfRadii;
 }
-export function checkHitBoxCollision(a, b) {
+export function checkSquareCollision(a, b) {
     return !(a.x > b.x + b.width ||
         a.x + a.width < b.x ||
         a.y > b.y + b.height ||

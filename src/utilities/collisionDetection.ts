@@ -14,7 +14,7 @@ export function checkCircleCollision(
   return distance < sumOfRadii;
 }
 
-export function checkHitBoxCollision(a: Cursor, b: HitBox): boolean {
+export function checkSquareCollision(a: Cursor, b: HitBox): boolean {
   return !(
     a.x > b.x + b.width ||
     a.x + a.width < b.x ||
