@@ -5,26 +5,24 @@ import { TextFadeComponent } from "../components/TextFade.js";
 import { TextPulsateComponent } from "../components/TextPulsate.js";
 export var Components;
 (function (Components) {
-    Components[Components["IMAGE"] = 0] = "IMAGE";
-    Components[Components["TEXT"] = 1] = "TEXT";
-    Components[Components["HITBOX"] = 2] = "HITBOX";
-    Components[Components["MOUSE"] = 3] = "MOUSE";
-    Components[Components["ENEMY_MOVEMENT"] = 4] = "ENEMY_MOVEMENT";
-    Components[Components["PROJECTILE_MOVMENT"] = 5] = "PROJECTILE_MOVMENT";
-    Components[Components["STATUS_BAR"] = 6] = "STATUS_BAR";
-    Components[Components["SHADOW"] = 7] = "SHADOW";
-    Components[Components["SOUNDS"] = 8] = "SOUNDS";
-    Components[Components["TEXT_FADE"] = 9] = "TEXT_FADE";
-    Components[Components["TEXT_PULSATING"] = 10] = "TEXT_PULSATING";
+    Components[Components["Image"] = 0] = "Image";
+    Components[Components["Text"] = 1] = "Text";
+    Components[Components["Hitbox"] = 2] = "Hitbox";
+    Components[Components["EnemyMovement"] = 3] = "EnemyMovement";
+    Components[Components["ProjectileMovement"] = 4] = "ProjectileMovement";
+    Components[Components["StatusBar"] = 5] = "StatusBar";
+    Components[Components["Shadow"] = 6] = "Shadow";
+    Components[Components["TextFade"] = 7] = "TextFade";
+    Components[Components["TextPulsate"] = 8] = "TextPulsate";
 })(Components || (Components = {}));
 export class ComponentFactory {
     createComponent(key) {
         const components = new Map([
-            [Components.IMAGE, new ImageComponent()],
-            [Components.TEXT, new TextComponent()],
-            [Components.STATUS_BAR, new StatusBarComponent()],
-            [Components.TEXT_PULSATING, new TextPulsateComponent()],
-            [Components.TEXT_FADE, new TextFadeComponent()],
+            [Components.Image, new ImageComponent()],
+            [Components.Text, new TextComponent()],
+            [Components.StatusBar, new StatusBarComponent()],
+            [Components.TextPulsate, new TextPulsateComponent()],
+            [Components.TextFade, new TextFadeComponent()],
         ]);
         return components.get(key);
     }

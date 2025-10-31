@@ -8,7 +8,7 @@ export class GUIEntityFactory {
     const DSLogoImage = document.getElementById("dslogo") as HTMLImageElement;
 
     return new Entity()
-      .setComponents([Components.IMAGE])
+      .setComponents([Components.Image])
       .setInformation(
         DSLogoImage,
         { x: SCREEN.HALF_WIDTH, y: SCREEN.HEIGHT * 0.75 },
@@ -18,7 +18,7 @@ export class GUIEntityFactory {
 
   DSTitle(): Entity {
     return new Entity()
-      .setComponents([Components.TEXT])
+      .setComponents([Components.Text])
       .setInformation(
         "Death Sorcery",
         { x: SCREEN.HALF_WIDTH, y: SCREEN.HEIGHT * 0.15 },
@@ -28,7 +28,7 @@ export class GUIEntityFactory {
 
   Summoning(): Entity {
     return new Entity()
-      .setComponents([Components.TEXT_FADE])
+      .setComponents([Components.TextFade])
       .setInformation(
         "Summoning...",
         { x: SCREEN.HALF_WIDTH, y: SCREEN.HEIGHT * 0.8 },
@@ -36,9 +36,9 @@ export class GUIEntityFactory {
       );
   }
 
-  StatusBar(): Entity {
+  LoadingBar(): Entity {
     return new Entity()
-      .setComponents([Components.STATUS_BAR])
+      .setComponents([Components.StatusBar])
       .setInformation(
         "",
         { x: SCREEN.HALF_WIDTH, y: SCREEN.HEIGHT * 0.9 },

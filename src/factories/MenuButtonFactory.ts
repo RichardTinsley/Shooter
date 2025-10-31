@@ -6,7 +6,7 @@ import { Components } from "./ComponentFactory.js";
 export class MenuButtonFactory {
   BeginButton(): Entity {
     return new Entity()
-      .setComponents([Components.TEXT_PULSATING])
+      .setComponents([Components.TextPulsate])
       .setInformation(
         "Begin!",
         { x: SCREEN.HALF_WIDTH, y: SCREEN.HEIGHT * 0.85 },

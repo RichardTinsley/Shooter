@@ -10,7 +10,7 @@ export class LoadingScreen extends Screen {
     super();
 
     const entityFactory = new GUIEntityFactory();
-    this.entities.push(entityFactory.StatusBar());
+    this.entities.push(entityFactory.LoadingBar());
     this.entities.push(entityFactory.DSLogo());
     this.entities.push(entityFactory.DSTitle());
     this.entities.push(entityFactory.Summoning());
@@ -18,8 +18,8 @@ export class LoadingScreen extends Screen {
 
     this.assetLoader
       .load(this.assetLoaded)
-      .catch((error) => console.error(`Error: "${error.fileName}"`))
-      .then(() => this.state.setBeginScreen());
+      .catch((error) => console.error(`Error: "${error.fileName}"`));
+    // .then(() => this.state.setBeginScreen());
   }
 
   draw(ctx: CanvasRenderingContext2D) {

@@ -1,4 +1,4 @@
-import { oscillate } from "../utilities/math.js";
+import { oscillate } from "../utilities/oscillation.js";
 import { TextComponent } from "./Text.js";
 export class TextPulsateComponent extends TextComponent {
     update(information) {
