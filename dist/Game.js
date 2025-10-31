@@ -1,7 +1,7 @@
-import { Screen } from "./screens/Screen.js";
+import { GameState } from "./screens/GameState.js";
 export class Game {
     constructor() {
-        this.screen = new Screen();
+        this.screen = new GameState();
     }
     draw(ctx) {
         this.screen.draw(ctx);

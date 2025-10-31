@@ -1,10 +1,10 @@
 import { ComponentBaseClass } from "../components/ComponentBaseClass.js";
 import { ComponentFactory } from "../factories/ComponentFactory.js";
-import { IDraw, IUpdate } from "../interfaces/interfaces.js";
+import { IRender } from "../interfaces/interfaces.js";
 import { Position, Size } from "../types/types.js";
 import { EntityInformation } from "./EntityInformation.js";
 
-export class Entity implements IDraw, IUpdate {
+export class Entity implements IRender {
   public information = new EntityInformation();
   private components = new Map<number, ComponentBaseClass>();
 

@@ -3,11 +3,11 @@
 // import { Mouse } from "./handlers/Mouse.js";
 // import { Time } from "./handlers/Time.js";
 // import { createGameFSM } from "./FSM/GameStates.js";
-import { Screen } from "./screens/Screen.js";
+import { GameState } from "./screens/GameState.js";
 
 export class Game {
   // private time = new Time();
-  private screen = new Screen();
+  private screen = new GameState();
   // private gameFSM = createGameFSM();
   // private debug = new Debug(this.screen);
   // private mouse = new Mouse();
