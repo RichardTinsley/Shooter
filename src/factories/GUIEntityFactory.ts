@@ -1,10 +1,9 @@
 import { Entity } from "../classes/Entity.js";
-import { getColour, COLOURS } from "../constants/colours.js";
 import { SCREEN } from "../constants/screenSizes.js";
 import { TEXT_SIZES } from "../constants/textSizes.js";
 import { Components } from "./ComponentFactory.js";
 
-export class EntityFactory {
+export class GUIEntityFactory {
   DSLogo(): Entity {
     const DSLogoImage = document.getElementById("dslogo") as HTMLImageElement;
 
@@ -28,15 +27,12 @@ export class EntityFactory {
   }
 
   StatusBar(): Entity {
-    const StatusBar = new Entity()
+    return new Entity()
       .setComponents([Components.STATUS_BAR])
       .setInformation(
         "",
         { x: SCREEN.HALF_WIDTH, y: SCREEN.HEIGHT * 0.9 },
         { width: SCREEN.WIDTH / 3, height: 10 }
       );
-
-    StatusBar.information.setStatusBarColour(getColour(COLOURS.WHITE));
-    return StatusBar;
   }
 }

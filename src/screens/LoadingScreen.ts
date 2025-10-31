@@ -1,4 +1,4 @@
-import { EntityFactory } from "../factories/EntityFactory.js";
+import { GUIEntityFactory } from "../factories/GUIEntityFactory.js";
 import { AssetLoader } from "../handlers/AssetLoader.js";
 import { GameState } from "../handlers/GameState.js";
 import { Screen } from "./Screen.js";
@@ -9,7 +9,7 @@ export class LoadingScreen extends Screen {
   constructor(public state: GameState) {
     super();
 
-    const entityFactory = new EntityFactory();
+    const entityFactory = new GUIEntityFactory();
     this.entities.push(entityFactory.StatusBar());
     this.entities.push(entityFactory.DSLogo());
     this.entities.push(entityFactory.DSTitle());

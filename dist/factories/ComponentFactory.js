@@ -1,6 +1,7 @@
 import { ImageComponent } from "../components/Image.js";
 import { StatusBarComponent } from "../components/StatusBar.js";
 import { TextComponent } from "../components/Text.js";
+import { TextPulsateComponent } from "../components/TextPulsate.js";
 export var Components;
 (function (Components) {
     Components[Components["IMAGE"] = 0] = "IMAGE";
@@ -12,6 +13,7 @@ export var Components;
     Components[Components["STATUS_BAR"] = 6] = "STATUS_BAR";
     Components[Components["SHADOW"] = 7] = "SHADOW";
     Components[Components["SOUNDS"] = 8] = "SOUNDS";
+    Components[Components["TEXT_PULSATING"] = 9] = "TEXT_PULSATING";
 })(Components || (Components = {}));
 export class ComponentFactory {
     createComponent(key) {
@@ -19,6 +21,7 @@ export class ComponentFactory {
             [Components.IMAGE, new ImageComponent()],
             [Components.TEXT, new TextComponent()],
             [Components.STATUS_BAR, new StatusBarComponent()],
+            [Components.TEXT_PULSATING, new TextPulsateComponent()],
         ]);
         return components.get(key);
     }

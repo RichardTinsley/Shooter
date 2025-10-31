@@ -1,4 +1,4 @@
-import { EntityFactory } from "../factories/EntityFactory.js";
+import { GUIEntityFactory } from "../factories/GUIEntityFactory.js";
 import { AssetLoader } from "../handlers/AssetLoader.js";
 import { Screen } from "./Screen.js";
 export class LoadingScreen extends Screen {
@@ -7,7 +7,7 @@ export class LoadingScreen extends Screen {
         this.state = state;
         this.assetLoader = new AssetLoader();
         this.assetLoaded = () => this.entities[0].information.increaseCurrentStatus(1);
-        const entityFactory = new EntityFactory();
+        const entityFactory = new GUIEntityFactory();
         this.entities.push(entityFactory.StatusBar());
         this.entities.push(entityFactory.DSLogo());
         this.entities.push(entityFactory.DSTitle());

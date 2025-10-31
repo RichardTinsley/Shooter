@@ -2,6 +2,7 @@ import { ComponentBaseClass } from "../components/ComponentBaseClass.js";
 import { ImageComponent } from "../components/Image.js";
 import { StatusBarComponent } from "../components/StatusBar.js";
 import { TextComponent } from "../components/Text.js";
+import { TextPulsateComponent } from "../components/TextPulsate.js";
 
 export enum Components {
   IMAGE,
@@ -13,6 +14,7 @@ export enum Components {
   STATUS_BAR,
   SHADOW,
   SOUNDS,
+  TEXT_PULSATING,
 }
 
 export class ComponentFactory {
@@ -21,6 +23,7 @@ export class ComponentFactory {
       [Components.IMAGE, new ImageComponent()],
       [Components.TEXT, new TextComponent()],
       [Components.STATUS_BAR, new StatusBarComponent()],
+      [Components.TEXT_PULSATING, new TextPulsateComponent()],
     ]);
 
     return components.get(key) as ComponentBaseClass;

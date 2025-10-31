@@ -1,3 +1,4 @@
+import { COLOURS, getColour } from "../constants/colours.js";
 import { Information, Position, Size } from "../types/types.js";
 
 export class EntityInformation {
@@ -13,7 +14,10 @@ export class EntityInformation {
     halfHeight: 0,
     currentStatus: 0,
     maxStatus: 0,
-    statusBarColour: "",
+    statusBarColour: getColour(COLOURS.WHITE),
+    frequency: 0,
+    amplitude: 0,
+    startTime: Date.now(),
   };
 
   setPosition(position: Position): this {

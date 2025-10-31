@@ -21,6 +21,9 @@ export type Information = {
   currentStatus: number;
   maxStatus: number;
   statusBarColour: string;
+  frequency: number;
+  amplitude: number;
+  startTime: number;
 };
 
 //MERGE TYPES WITH & and shit
