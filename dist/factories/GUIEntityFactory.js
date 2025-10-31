@@ -14,6 +14,11 @@ export class GUIEntityFactory {
             .setComponents([Components.TEXT])
             .setInformation("Death Sorcery", { x: SCREEN.HALF_WIDTH, y: SCREEN.HEIGHT * 0.15 }, { width: 0, height: TEXT_SIZES.TITLE_SCREEN_TEXT });
     }
+    Summoning() {
+        return new Entity()
+            .setComponents([Components.TEXT_FADE])
+            .setInformation("Summoning...", { x: SCREEN.HALF_WIDTH, y: SCREEN.HEIGHT * 0.8 }, { width: 0, height: TEXT_SIZES.MENU_BUTTON });
+    }
     StatusBar() {
         return new Entity()
             .setComponents([Components.STATUS_BAR])

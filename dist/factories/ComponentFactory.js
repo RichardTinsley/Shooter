@@ -1,6 +1,7 @@
 import { ImageComponent } from "../components/Image.js";
 import { StatusBarComponent } from "../components/StatusBar.js";
 import { TextComponent } from "../components/Text.js";
+import { TextFadeComponent } from "../components/TextFade.js";
 import { TextPulsateComponent } from "../components/TextPulsate.js";
 export var Components;
 (function (Components) {
@@ -13,7 +14,8 @@ export var Components;
     Components[Components["STATUS_BAR"] = 6] = "STATUS_BAR";
     Components[Components["SHADOW"] = 7] = "SHADOW";
     Components[Components["SOUNDS"] = 8] = "SOUNDS";
-    Components[Components["TEXT_PULSATING"] = 9] = "TEXT_PULSATING";
+    Components[Components["TEXT_FADE"] = 9] = "TEXT_FADE";
+    Components[Components["TEXT_PULSATING"] = 10] = "TEXT_PULSATING";
 })(Components || (Components = {}));
 export class ComponentFactory {
     createComponent(key) {
@@ -22,6 +24,7 @@ export class ComponentFactory {
             [Components.TEXT, new TextComponent()],
             [Components.STATUS_BAR, new StatusBarComponent()],
             [Components.TEXT_PULSATING, new TextPulsateComponent()],
+            [Components.TEXT_FADE, new TextFadeComponent()],
         ]);
         return components.get(key);
     }

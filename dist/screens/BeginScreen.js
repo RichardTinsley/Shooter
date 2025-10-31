@@ -1,4 +1,3 @@
-import { SCREEN } from "../constants/screenSizes.js";
 import { GUIEntityFactory } from "../factories/GUIEntityFactory.js";
 import { MenuButtonFactory } from "../factories/MenuButtonFactory.js";
 import { Screen } from "./Screen.js";
@@ -13,7 +12,7 @@ export class BeginScreen extends Screen {
         this.entities.push(menuButtonFactory.BeginButton());
     }
     draw(ctx) {
-        ctx.clearRect(0, 0, SCREEN.WIDTH, SCREEN.HEIGHT);
+        this.clearScreen(ctx);
         super.draw(ctx);
     }
 }

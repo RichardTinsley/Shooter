@@ -5,13 +5,12 @@ import { Information } from "../types/types.js";
 export class TextComponent extends ComponentBaseClass {
   protected align: CanvasTextAlign = "center";
   protected lineWidth!: number;
-  protected alpha: number = 1;
   protected strokeColour = COLOURS.BLACK;
   protected fillColour = COLOURS.WHITE;
 
   draw(ctx: CanvasRenderingContext2D, information: Information): void {
-    ctx.strokeStyle = getColour(this.strokeColour, this.alpha);
-    ctx.fillStyle = getColour(this.fillColour, this.alpha);
+    ctx.strokeStyle = getColour(this.strokeColour, information.alpha);
+    ctx.fillStyle = getColour(this.fillColour, information.alpha);
     ctx.font = information.scaledSize.height + "px canterbury";
     ctx.textAlign = this.align;
     ctx.textBaseline = "middle";

@@ -21,6 +21,7 @@ export type Information = {
   currentStatus: number;
   maxStatus: number;
   statusBarColour: string;
+  alpha: number;
   frequency: number;
   amplitude: number;
   startTime: number;

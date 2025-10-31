@@ -26,6 +26,16 @@ export class GUIEntityFactory {
       );
   }
 
+  Summoning(): Entity {
+    return new Entity()
+      .setComponents([Components.TEXT_FADE])
+      .setInformation(
+        "Summoning...",
+        { x: SCREEN.HALF_WIDTH, y: SCREEN.HEIGHT * 0.8 },
+        { width: 0, height: TEXT_SIZES.MENU_BUTTON }
+      );
+  }
+
   StatusBar(): Entity {
     return new Entity()
       .setComponents([Components.STATUS_BAR])

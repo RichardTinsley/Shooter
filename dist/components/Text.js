@@ -4,13 +4,12 @@ export class TextComponent extends ComponentBaseClass {
     constructor() {
         super(...arguments);
         this.align = "center";
-        this.alpha = 1;
         this.strokeColour = COLOURS.BLACK;
         this.fillColour = COLOURS.WHITE;
     }
     draw(ctx, information) {
-        ctx.strokeStyle = getColour(this.strokeColour, this.alpha);
-        ctx.fillStyle = getColour(this.fillColour, this.alpha);
+        ctx.strokeStyle = getColour(this.strokeColour, information.alpha);
+        ctx.fillStyle = getColour(this.fillColour, information.alpha);
         ctx.font = information.scaledSize.height + "px canterbury";
         ctx.textAlign = this.align;
         ctx.textBaseline = "middle";

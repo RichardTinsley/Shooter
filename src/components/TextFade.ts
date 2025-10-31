@@ -2,13 +2,9 @@ import { Information } from "../types/types.js";
 import { oscillate, OSCILLATIONS } from "../utilities/math.js";
 import { TextComponent } from "./Text.js";
 
-export class TextPulsateComponent extends TextComponent {
+export class TextFadeComponent extends TextComponent {
   update(information: Information) {
-    information.scaledSize.height += oscillate(
-      OSCILLATIONS.COSINE,
-      information.startTime,
-      0.7,
-      0.25
-    );
+    information.alpha += oscillate(OSCILLATIONS.COSINE, information.startTime, 0.1, 1);
+    console.log(information.alpha);
   }
 }

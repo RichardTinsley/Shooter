@@ -14,6 +14,7 @@ export class EntityInformation {
             currentStatus: 0,
             maxStatus: 0,
             statusBarColour: getColour(COLOURS.WHITE),
+            alpha: 1,
             frequency: 0,
             amplitude: 0,
             startTime: Date.now(),
