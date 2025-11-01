@@ -13,10 +13,6 @@ export class AnimationComponent extends ImageComponent {
   protected maxRows!: number;
   protected animationState!: number;
 
-  constructor() {
-    super();
-  }
-
   update(): void {
     // if (!Time.eventUpdate) return;
 
