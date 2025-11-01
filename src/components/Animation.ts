@@ -46,32 +46,21 @@ export class AnimationComponent extends ImageComponent {
   }
 
   animateSingleRowOnce(): void {
-    if (this.currentFrame < this.maxFrames) {
-      this.currentFrame++;
-    } else {
-      this.animationState = Animate.Finished;
-    }
+    this.currentFrame < this.maxFrames
+      ? this.currentFrame++
+      : (this.animationState = Animate.Finished);
   }
 
   animateSingleRowRepeatedly(): void {
-    if (this.currentFrame < this.maxFrames) {
-      this.currentFrame++;
-    } else {
-      this.currentFrame = 0;
-    }
+    this.currentFrame < this.maxFrames ? this.currentFrame++ : (this.currentFrame = 0);
   }
 
   animateMultipleRowsRepeatedly(): void {
-    if (this.currentFrame < this.maxFrames) {
-      this.currentFrame++;
-    } else {
-      this.currentRow++;
-      this.currentFrame = 0;
-    }
+    this.currentFrame < this.maxFrames ? this.currentFrame++ : this.currentRow++,
+      (this.currentFrame = 0);
 
-    if (this.currentRow === this.maxRows && this.currentFrame <= this.maxFrames) {
-      this.currentRow = 0;
-      this.currentFrame = 0;
-    }
+    this.currentRow === this.maxRows && this.currentFrame <= this.maxFrames
+      ? (this.currentRow = 0)
+      : (this.currentFrame = 0);
   }
 }
