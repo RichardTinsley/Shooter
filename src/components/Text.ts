@@ -22,10 +22,4 @@ export class TextComponent extends ComponentBaseClass {
   update(information: Information): void {
     return;
   }
-
-  // state!: EntityState;
-  //   setNormalText = () => (this.state = new NormalText(this));
-  //   setFadeText = () => (this.state = new FadeText(this));
-  //   setPulsateText = () => (this.state = new PulsateText(this));
-  //   setTextButton = () => (this.state = new TextButton( INJECT TYPE OF TEXT ).addComponents(mouse, hitbox etc) );
 }
