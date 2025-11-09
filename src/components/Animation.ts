@@ -18,13 +18,13 @@ export class AnimationComponent extends ImageComponent {
 
     switch (this.animationState) {
       case Animate.RowOnce:
-        this.animateSingleRowOnce();
+        this.animateRowOnce();
         break;
       case Animate.RowRepeat:
-        this.animateSingleRowRepeatedly();
+        this.animateRowRepeatedly();
         break;
       case Animate.RowsRepeat:
-        this.animateMultipleRowsRepeatedly();
+        this.animateRowsRepeatedly();
         break;
     }
   }
@@ -39,23 +39,23 @@ export class AnimationComponent extends ImageComponent {
     return this;
   }
 
-  setSpriteSheetRowAndAnimateOnce(row: number = 0, state: number): this {
+  setAnimationState(state: number, row: number = 0): this {
     this.currentRow = row;
     this.animationState = state;
     return this;
   }
 
-  animateSingleRowOnce(): void {
+  animateRowOnce(): void {
     this.currentFrame < this.maxFrames
       ? this.currentFrame++
       : (this.animationState = Animate.Finished);
   }
 
-  animateSingleRowRepeatedly(): void {
+  animateRowRepeatedly(): void {
     this.currentFrame < this.maxFrames ? this.currentFrame++ : (this.currentFrame = 0);
   }
 
-  animateMultipleRowsRepeatedly(): void {
+  animateRowsRepeatedly(): void {
     this.currentFrame < this.maxFrames ? this.currentFrame++ : this.currentRow++,
       (this.currentFrame = 0);
 
