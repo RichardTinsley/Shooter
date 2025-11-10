@@ -8,25 +8,6 @@ export type Size = {
   height: number;
 };
 
-export type Information = {
-  visual: CanvasImageSource | string;
-  position: Position;
-  destination: Position;
-  size: Size;
-  scaledSize: Size;
-  speed: number;
-  scale: number;
-  halfWidth: number;
-  halfHeight: number;
-  currentStatus: number;
-  maxStatus: number;
-  statusBarColour: string;
-  alpha: number;
-  frequency: number;
-  amplitude: number;
-  startTime: number;
-};
-
 //MERGE TYPES WITH & and shit
 export type Cursor = {
   x: number;

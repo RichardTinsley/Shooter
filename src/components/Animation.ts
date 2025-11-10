@@ -9,10 +9,6 @@ export enum Animate {
 }
 
 export class AnimationComponent extends ImageComponent {
-  protected maxFrames!: number;
-  protected maxRows!: number;
-  protected animationState!: number;
-
   update(): void {
     // if (!Time.eventUpdate) return;
 
@@ -30,8 +26,8 @@ export class AnimationComponent extends ImageComponent {
   }
 
   initialise(): this {
-    // this.maxFrames = Math.floor(this.image.width / this.spriteWidth) - 1;
-    // this.maxRows = Math.floor(this.image.height / this.spriteHeight) - 1;
+    this.maxFrames = Math.floor(this.image.width / this.spriteWidth) - 1;
+    this.maxRows = Math.floor(this.image.height / this.spriteHeight) - 1;
 
     this.maxRows === 0
       ? (this.animationState = Animate.RowRepeat)

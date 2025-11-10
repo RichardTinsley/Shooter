@@ -1,19 +1,28 @@
 import { ComponentBaseClass } from "../components/ComponentBaseClass.js";
 import { ComponentFactory } from "../factories/ComponentFactory.js";
 import { IRender } from "../interfaces/interfaces.js";
+import { VisualInformation } from "../types/entities.js";
 import { Position, Size } from "../types/types.js";
-import { EntityInformation } from "./EntityInformation.js";
 
 export class Entity implements IRender {
-  public information = new EntityInformation();
-  private components = new Map<number, ComponentBaseClass>();
+  protected information: VisualInformation = {
+    visual: "",
+    position: { x: 0, y: 0 },
+    size: { width: 0, height: 0 },
+    scaledSize: { width: 0, height: 0 },
+    scale: 0,
+    halfWidth: 0,
+    halfHeight: 0,
+  };
+
+  protected components = new Map<number, ComponentBaseClass>();
 
   draw(ctx: CanvasRenderingContext2D): void {
-    this.components.forEach((component) => component.draw(ctx, this.information.getInformation()));
+    this.components.forEach((component) => component.draw(ctx, this.information));
   }
 
   update(): void {
-    this.components.forEach((component) => component.update(this.information.getInformation()));
+    this.components.forEach((component) => component.update(this.information));
   }
 
   getComponent(key: number): ComponentBaseClass {
@@ -28,15 +37,22 @@ export class Entity implements IRender {
     return this;
   }
 
-  setInformation(
-    visual: CanvasImageSource | string,
-    position: Position,
-    size: Size,
-    scale: number = 1
-  ): this {
-    this.information.setVisual(visual);
-    this.information.setPosition(position);
-    this.information.setSize(size, scale);
+  setPosition(position: Position): this {
+    this.information.position = { ...position };
+    return this;
+  }
+
+  setSize(size: Size, scale: number = 1): this {
+    this.information.size = { ...size };
+    this.information.scale = scale;
+
+    this.information.scaledSize = {
+      width: size.width * scale,
+      height: size.height * scale,
+    };
+
+    this.information.halfWidth = this.information.scaledSize.width / 2;
+    this.information.halfHeight = this.information.scaledSize.height / 2;
     return this;
   }
 }

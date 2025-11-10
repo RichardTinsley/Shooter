@@ -15,31 +15,12 @@ export class EntityInformation {
     currentStatus: 0,
     maxStatus: 0,
     statusBarColour: getColour(COLOURS.WHITE),
+    animationState: 0,
     alpha: 1,
     frequency: 0,
     amplitude: 0,
     startTime: Date.now(),
   };
-
-  setPosition(position: Position): this {
-    this.information.position = { ...position };
-    this.information.destination = { ...position };
-    return this;
-  }
-
-  setSize(size: Size, scale: number = 1): this {
-    this.information.size = { ...size };
-    this.information.scale = scale;
-
-    this.information.scaledSize = {
-      width: size.width * scale,
-      height: size.height * scale,
-    };
-
-    this.information.halfWidth = this.information.scaledSize.width / 2;
-    this.information.halfHeight = this.information.scaledSize.height / 2;
-    return this;
-  }
 
   getInformation(): Information {
     return this.information;
@@ -47,15 +28,6 @@ export class EntityInformation {
 
   setVisual(visual: CanvasImageSource | string): this {
     this.information.visual = visual;
-    return this;
-  }
-
-  setText(text: string, height: number): this {
-    this.information.visual = text;
-    this.information.size = {
-      width: Math.ceil(text.length * (height / 1.85)),
-      height: height,
-    };
     return this;
   }
 
