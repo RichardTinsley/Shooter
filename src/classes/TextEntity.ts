@@ -1,8 +1,8 @@
-import { TextInformation } from "../types/entities.js";
+import { TextInformation, VisualInformation } from "../types/entities.js";
 import { Entity } from "./Entity.js";
 
 export default class TextEntity extends Entity {
-  protected information: TextInformation = {};
+  protected information!: VisualInformation & TextInformation;
 
   setText(text: string, height: number): this {
     this.information.visual = text;

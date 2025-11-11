@@ -5,16 +5,7 @@ import { VisualInformation } from "../types/entities.js";
 import { Position, Size } from "../types/types.js";
 
 export class Entity implements IRender {
-  protected information: VisualInformation = {
-    visual: "",
-    position: { x: 0, y: 0 },
-    size: { width: 0, height: 0 },
-    scaledSize: { width: 0, height: 0 },
-    scale: 0,
-    halfWidth: 0,
-    halfHeight: 0,
-  };
-
+  protected information!: VisualInformation;
   protected components = new Map<number, ComponentBaseClass>();
 
   draw(ctx: CanvasRenderingContext2D): void {
