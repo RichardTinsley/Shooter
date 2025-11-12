@@ -22,10 +22,10 @@ export function getDirection(angle: number): number {
   else return DIRECTION.LEFT;
 }
 
-// export function updatePosition(position: Position, angle: number, speed: number): void {
-//   position.x += Math.cos(angle) * speed * Time.deltaTimeMultiplier;
-//   position.y += Math.sin(angle) * speed * Time.deltaTimeMultiplier;
-// }
+export function updatePosition(position: Position, angle: number, speed: number): void {
+  // position.x += Math.cos(angle) * speed * Time.deltaTimeMultiplier;
+  // position.y += Math.sin(angle) * speed * Time.deltaTimeMultiplier;
+}
 
 // export function getWaypoints(): Position {
 //   return { ...this.waypoints[this.waypointIndex] };

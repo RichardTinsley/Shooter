@@ -43,6 +43,4 @@ export class StatusBarComponent extends ComponentBaseClass {
       information.scaledSize.height
     );
   }
-
-  update(information: Information): void {}
 }

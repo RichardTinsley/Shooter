@@ -16,7 +16,10 @@ export type MovementType = {
 };
 
 export type AnimationType = {
-  animationState: number;
+  state: number;
+  frame: number;
+  row: number;
+  direction: number;
   maxFrames: number;
   maxRows: number;
 };
@@ -42,38 +45,39 @@ export type TextType = {
 };
 
 export type EntityType = {
-  visual: {
-    visual: CanvasImageSource | string;
-    position: Position;
-    size: Size;
-    scaledSize: Size;
-    scale: number;
-    halfWidth: number;
-    halfHeight: number;
-  };
-  movement: {
+  visual: CanvasImageSource | string;
+  position: Position;
+  size: Size;
+  scaledSize: Size;
+  scale: number;
+  halfWidth: number;
+  halfHeight: number;
+  movement?: {
     destination: Position;
     speed: number;
   };
-  oscillation: {
-    startTime: number;
+  oscillation?: {
+    start: number;
     frequency: number;
     amplitude: number;
     alpha: number;
   };
-  animation: {
-    animationState: number;
+  animation?: {
+    state: number;
+    frame: number;
+    row: number;
+    direction: number;
     maxFrames: number;
     maxRows: number;
   };
-  status: {
-    currentStatus: number;
-    maxStatus: number;
-    statusBarColour: string;
+  status?: {
+    current: number;
+    maximum: number;
+    colour: string;
   };
-  text: {
+  text?: {
     align: CanvasTextAlign;
-    lineWidth: number;
+    stroke: number;
     strokeColour: string;
     fillColour: string;
   };
