@@ -1,11 +1,11 @@
 import { ComponentBaseClass } from "../components/ComponentBaseClass.js";
 import { ComponentFactory } from "../factories/ComponentFactory.js";
 import { IRender } from "../interfaces/interfaces.js";
-import { VisualInformation } from "../types/entities.js";
+import { VisualType } from "../types/entities.js";
 import { Position, Size } from "../types/types.js";
 
 export class Entity implements IRender {
-  protected information!: VisualInformation;
+  protected information!: VisualType;
   protected components = new Map<number, ComponentBaseClass>();
 
   draw(ctx: CanvasRenderingContext2D): void {
