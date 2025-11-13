@@ -60,4 +60,28 @@ export default class StatusBar extends Entity {
       information.scaledSize.height
     );
   }
+  setStatusBarColour(colour: string): void {
+    this.information.statusBarColour = colour;
+  }
+
+  setStatus(currentStatus: number, maxStatus: number): this {
+    this.information.currentStatus = currentStatus;
+    this.information.maxStatus = maxStatus;
+    return this;
+  }
+
+  getCurrentStatus(): number {
+    return this.information.currentStatus;
+  }
+
+  increaseCurrentStatus(increment: number): void {
+    this.information.currentStatus += increment;
+    if (this.information.currentStatus > this.information.maxStatus)
+      this.information.currentStatus = this.information.maxStatus;
+  }
+
+  decreaseCurrentStatus(decrement: number): void {
+    this.information.currentStatus -= decrement;
+    if (this.information.currentStatus < 0) this.information.currentStatus = 0;
+  }
 }

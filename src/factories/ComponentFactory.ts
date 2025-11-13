@@ -1,32 +1,24 @@
 import { ComponentBaseClass } from "../components/ComponentBaseClass.js";
-import { ImageComponent } from "../components/Image.js";
-import { StatusBarComponent } from "../components/StatusBar.js";
-import { TextComponent } from "../components/Text.js";
+import { AnimateOnceComponent } from "../components/AnimateOnce.js";
+import { EnemyMovementComponent } from "../components/EnemyMovement.js";
 import { FadeComponent } from "../components/Fade.js";
 import { PulsateComponent } from "../components/Pulsate.js";
 
 export enum Components {
-  Image,
-  Text,
-  Hitbox,
+  Animation,
   EnemyMovement,
-  ProjectileMovement,
-  StatusBar,
-  Shadow,
-  TextFade,
-  TextPulsate,
+  Fade,
+  Pulsate,
 }
+export const components = new Map<number, ComponentBaseClass>([
+  [Components.Animation, new AnimateOnceComponent()],
+  [Components.EnemyMovement, new EnemyMovementComponent()],
+  [Components.Fade, new FadeComponent()],
+  [Components.Pulsate, new PulsateComponent()],
+]);
 
 export class ComponentFactory {
   createComponent(key: number): ComponentBaseClass {
-    const components = new Map<number, ComponentBaseClass>([
-      [Components.Image, new ImageComponent()],
-      [Components.Text, new TextComponent()],
-      [Components.StatusBar, new StatusBarComponent()],
-      [Components.TextPulsate, new PulsateComponent()],
-      [Components.TextFade, new FadeComponent()],
-    ]);
-
     return components.get(key) as ComponentBaseClass;
   }
 }

@@ -44,12 +44,19 @@ export type TextType = {
 };
 
 export type EntityData = {
-  position: Position;
-  display: CanvasImageSource | string;
-  scale: number;
-  size: Size;
-  scaledSize: Size;
-  halfSize: Size;
+  display: {
+    position: Position;
+    source: CanvasImageSource | string;
+    direction: number;
+    alpha: number;
+  };
+
+  dimesions: {
+    scale: number;
+    size: Size;
+    scaledSize: Size;
+    halfSize: Size;
+  };
 
   text?: {
     align: CanvasTextAlign;
@@ -67,14 +74,11 @@ export type EntityData = {
     start: number;
     frequency: number;
     amplitude: number;
-    alpha: number;
   };
 
   animate?: {
-    state: number;
     frame: number;
     row: number;
-    direction: number;
     maxFrames: number;
     maxRows: number;
   };

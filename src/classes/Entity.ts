@@ -1,31 +1,25 @@
-import { ComponentBaseClass } from "../components/ComponentBaseClass.js";
 import { ComponentFactory } from "../factories/ComponentFactory.js";
-import { IRender } from "../interfaces/interfaces.js";
-import { EntityType, VisualType } from "../types/entities.js";
+import { EntityData, VisualType } from "../types/entities.js";
 import { Position, Size } from "../types/types.js";
+import { components, Components } from "../factories/ComponentFactory.js";
 
 export class Entity {
-  // protected information!: VisualType;
-  protected components = new Map<number, ComponentBaseClass>();
+  protected information!: EntityData;
+  protected components: number[] = [];
 
   update(): void {
-    this.components.forEach((component) => component.update(this.information));
+    this.components.forEach((component) => components.get(component)?.update(this.information));
   }
 
-  getComponent(key: number): ComponentBaseClass {
-    return this.components.get(key) as ComponentBaseClass;
-  }
+  setImage(display: CanvasImageSource): this {
+    this.information.display = display;
 
-  setComponents(components: number[]): this {
-    const factory = new ComponentFactory();
-    components.forEach((component) =>
-      this.components.set(component, factory.createComponent(component))
-    );
-    return this;
-  }
+    this.maxFrames = Math.floor(this.image.width / this.spriteWidth) - 1;
+    this.maxRows = Math.floor(this.image.height / this.spriteHeight) - 1;
 
-  setPosition(position: Position): this {
-    this.information.position = { ...position };
+    // this.maxRows === 0
+    //   ? (this.animationState = Animate.RowRepeat)
+    //   : (this.animationState = Animate.RowsRepeat);
     return this;
   }
 
@@ -38,8 +32,13 @@ export class Entity {
       height: size.height * scale,
     };
 
-    this.information.halfWidth = this.information.scaledSize.width / 2;
-    this.information.halfHeight = this.information.scaledSize.height / 2;
+    this.information.halfSize.width = this.information.scaledSize.width / 2;
+    this.information.halfSize.height = this.information.scaledSize.height / 2;
+    return this;
+  }
+
+  setPosition(position: Position): this {
+    this.information.position = { ...position };
     return this;
   }
 }
