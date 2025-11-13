@@ -4,10 +4,6 @@ export abstract class ComponentBaseClass {
   protected drawOffsetX: number = 0;
   protected drawOffsetY: number = 0;
 
-  draw(ctx: CanvasRenderingContext2D, information: Information): void {
-    return;
-  }
-
   update(information: Information): void {
     return;
   }

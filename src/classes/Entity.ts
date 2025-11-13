@@ -4,14 +4,9 @@ import { IRender } from "../interfaces/interfaces.js";
 import { EntityType, VisualType } from "../types/entities.js";
 import { Position, Size } from "../types/types.js";
 
-export class Entity implements IRender {
+export class Entity {
   // protected information!: VisualType;
-
   protected components = new Map<number, ComponentBaseClass>();
-
-  draw(ctx: CanvasRenderingContext2D): void {
-    this.components.forEach((component) => component.draw(ctx, this.information));
-  }
 
   update(): void {
     this.components.forEach((component) => component.update(this.information));

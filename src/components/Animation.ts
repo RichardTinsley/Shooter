@@ -8,7 +8,7 @@ export enum Animate {
   RowsRepeat,
 }
 
-export class AnimationComponent extends ImageComponent {
+export class AnimationComponent {
   update(): void {
     // if (!Time.eventUpdate) return;
 

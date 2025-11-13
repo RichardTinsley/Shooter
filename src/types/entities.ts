@@ -1,13 +1,12 @@
 import { Position, Size } from "./types.js";
 
 export type VisualType = {
-  visual: CanvasImageSource | string;
+  source: CanvasImageSource | string;
   position: Position;
   size: Size;
   scaledSize: Size;
   scale: number;
-  halfWidth: number;
-  halfHeight: number;
+  halfSize: Size;
 };
 
 export type MovementType = {
@@ -25,16 +24,16 @@ export type AnimationType = {
 };
 
 export type OscillationType = {
-  startTime: number;
+  start: number;
   frequency: number;
   amplitude: number;
   alpha: number;
 };
 
 export type StatusType = {
-  currentStatus: number;
-  maxStatus: number;
-  statusBarColour: string;
+  current: number;
+  maximum: number;
+  colour: string;
 };
 
 export type TextType = {
@@ -44,25 +43,34 @@ export type TextType = {
   fillColour: string;
 };
 
-export type EntityType = {
-  visual: CanvasImageSource | string;
+export type EntityData = {
   position: Position;
+  display: CanvasImageSource | string;
+  scale: number;
   size: Size;
   scaledSize: Size;
-  scale: number;
-  halfWidth: number;
-  halfHeight: number;
-  movement?: {
+  halfSize: Size;
+
+  text?: {
+    align: CanvasTextAlign;
+    stroke: number;
+    strokeColour: string;
+    fillColour: string;
+  };
+
+  move?: {
     destination: Position;
     speed: number;
   };
-  oscillation?: {
+
+  oscillate?: {
     start: number;
     frequency: number;
     amplitude: number;
     alpha: number;
   };
-  animation?: {
+
+  animate?: {
     state: number;
     frame: number;
     row: number;
@@ -70,15 +78,10 @@ export type EntityType = {
     maxFrames: number;
     maxRows: number;
   };
+
   status?: {
     current: number;
     maximum: number;
     colour: string;
-  };
-  text?: {
-    align: CanvasTextAlign;
-    stroke: number;
-    strokeColour: string;
-    fillColour: string;
   };
 };

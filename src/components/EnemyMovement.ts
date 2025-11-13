@@ -1,5 +1,5 @@
 import { checkCircleCollision } from "../utilities/collisionDetection.js";
-import { getDirection } from "../utilities/math.js";
+import { getDirection, setPriorityDistance, updatePosition } from "../utilities/math.js";
 import { ComponentBaseClass } from "./ComponentBaseClass.js";
 
 export class EnemyMovement extends ComponentBaseClass {
