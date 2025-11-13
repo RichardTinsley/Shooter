@@ -1,68 +1,27 @@
 import { Position, Size } from "./types.js";
 
-export type VisualType = {
-  source: CanvasImageSource | string;
+export type EntityData = {
+  alpha: number;
   position: Position;
+  scale: number;
   size: Size;
   scaledSize: Size;
-  scale: number;
   halfSize: Size;
-};
 
-export type MovementType = {
-  destination: Position;
-  speed: number;
-};
-
-export type AnimationType = {
-  state: number;
-  frame: number;
-  row: number;
-  direction: number;
-  maxFrames: number;
-  maxRows: number;
-};
-
-export type OscillationType = {
-  start: number;
-  frequency: number;
-  amplitude: number;
-  alpha: number;
-};
-
-export type StatusType = {
-  current: number;
-  maximum: number;
-  colour: string;
-};
-
-export type TextType = {
-  align: CanvasTextAlign;
-  lineWidth: number;
-  strokeColour: string;
-  fillColour: string;
-};
-
-export type EntityData = {
-  display: {
-    position: Position;
-    source: CanvasImageSource | string;
+  image: {
+    source: CanvasImageSource;
     direction: number;
-    alpha: number;
-  };
-
-  dimesions: {
-    scale: number;
-    size: Size;
-    scaledSize: Size;
-    halfSize: Size;
+    offset: Position;
   };
 
   text?: {
+    source: string;
     align: CanvasTextAlign;
-    stroke: number;
-    strokeColour: string;
-    fillColour: string;
+    colour: string;
+    stroke: {
+      size: number;
+      colour: string;
+    };
   };
 
   move?: {
@@ -77,15 +36,24 @@ export type EntityData = {
   };
 
   animate?: {
-    frame: number;
-    row: number;
-    maxFrames: number;
-    maxRows: number;
+    frame: {
+      current: number;
+      maximum: number;
+    };
+    row: {
+      current: number;
+      maximum: number;
+    };
   };
 
   status?: {
     current: number;
     maximum: number;
     colour: string;
+    offset: Position;
+  };
+
+  collision?: {
+    offset: Position;
   };
 };

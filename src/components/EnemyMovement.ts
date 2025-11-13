@@ -1,8 +1,7 @@
 import { checkCircleCollision } from "../utilities/collisionDetection.js";
 import { getDirection, setPriorityDistance, updatePosition } from "../utilities/math.js";
-import { ComponentBaseClass } from "./ComponentBaseClass.js";
 
-export class EnemyMovementComponent extends ComponentBaseClass {
+export class EnemyMovement {
   update(information: Information): void {
     if (checkCircleCollision(information.position, information.destination, 5, 10)) {
       information.waypointIndex++;

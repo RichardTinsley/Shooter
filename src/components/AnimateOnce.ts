@@ -1,6 +1,4 @@
-import { ComponentBaseClass } from "./ComponentBaseClass";
-
-export class AnimateOnceComponent extends ComponentBaseClass {
+export class AnimateOnce {
   update(): void {
     // if (!Time.eventUpdate) return;
     this.currentFrame < this.maxFrames
