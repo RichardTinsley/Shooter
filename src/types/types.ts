@@ -8,6 +8,11 @@ export type Size = {
   height: number;
 };
 
+export type Range = {
+  current: number;
+  maximum: number;
+};
+
 //MERGE TYPES WITH & and shit
 export type Cursor = {
   x: number;

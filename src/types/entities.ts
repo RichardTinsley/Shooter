@@ -1,14 +1,14 @@
-import { Position, Size } from "./types.js";
+import { Position, Range, Size } from "./types.js";
 
 export type EntityData = {
-  alpha: number;
   position: Position;
   scale: number;
   size: Size;
   scaledSize: Size;
   halfSize: Size;
+  alpha: number;
 
-  image: {
+  image?: {
     source: CanvasImageSource;
     direction: number;
     offset: Position;
@@ -36,19 +36,12 @@ export type EntityData = {
   };
 
   animate?: {
-    frame: {
-      current: number;
-      maximum: number;
-    };
-    row: {
-      current: number;
-      maximum: number;
-    };
+    frame: Range;
+    row: Range;
   };
 
   status?: {
-    current: number;
-    maximum: number;
+    value: Range;
     colour: string;
     offset: Position;
   };
